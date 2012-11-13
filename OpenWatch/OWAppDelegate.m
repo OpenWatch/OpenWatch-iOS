@@ -7,14 +7,22 @@
 //
 
 #import "OWAppDelegate.h"
+#import "OWSettingsViewController.h"
+#import "OWRegistrationViewController.h"
 
 @implementation OWAppDelegate
+@synthesize tabBarController;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
+    self.tabBarController = [[UITabBarController alloc] init];
+    OWRegistrationViewController *registrationViewController = [[OWRegistrationViewController alloc] init];
+    OWSettingsViewController *settingsViewController = [[OWSettingsViewController alloc] init];
+    self.tabBarController.viewControllers = @[registrationViewController, settingsViewController];
+    self.window.rootViewController = self.tabBarController;
     [self.window makeKeyAndVisible];
     return YES;
 }
