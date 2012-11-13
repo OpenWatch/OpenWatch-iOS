@@ -62,6 +62,7 @@
     //self.usernameTextField.borderStyle = UITextBorderStyleRoundedRect;
     self.emailTextField.autocorrectionType = UITextAutocorrectionTypeNo;
     self.emailTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
+    self.emailTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
     self.emailTextField.returnKeyType = UIReturnKeyDone;
     self.emailTextField.textColor = self.textFieldTextColor;
     self.emailTextField.placeholder = REQUIRED_STRING;
@@ -74,6 +75,7 @@
     //self.passwordTextField.borderStyle = UITextBorderStyleRoundedRect;
     self.passwordTextField.secureTextEntry = YES;
     self.passwordTextField.returnKeyType = UIReturnKeyDone;
+    self.passwordTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
     self.passwordTextField.textColor = self.textFieldTextColor;
     self.passwordTextField.placeholder = REQUIRED_STRING;
     
