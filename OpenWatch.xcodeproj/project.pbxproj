@@ -19,6 +19,9 @@
 		D997419D1651D8520034ABB0 /* OWLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D997419C1651D8520034ABB0 /* OWLoginViewController.m */; };
 		D99741A11651DB0B0034ABB0 /* OWSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D99741A01651DB0B0034ABB0 /* OWSettingsViewController.m */; };
 		D9D2E14F1652D7B80000E7C5 /* OWInLineTextEditTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D2E14E1652D7B80000E7C5 /* OWInLineTextEditTableViewCell.m */; };
+		D9D2E16A1652EA8B0000E7C5 /* SSKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D2E1581652EA8A0000E7C5 /* SSKeychain.m */; };
+		D9D2E1781652EC140000E7C5 /* OWSettingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D2E1771652EC140000E7C5 /* OWSettingsController.m */; };
+		D9D2E17B1652EC850000E7C5 /* OWAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D2E17A1652EC850000E7C5 /* OWAccount.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +45,12 @@
 		D99741A21651DBC50034ABB0 /* OWStrings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OWStrings.h; sourceTree = "<group>"; };
 		D9D2E14D1652D7B80000E7C5 /* OWInLineTextEditTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWInLineTextEditTableViewCell.h; sourceTree = "<group>"; };
 		D9D2E14E1652D7B80000E7C5 /* OWInLineTextEditTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWInLineTextEditTableViewCell.m; sourceTree = "<group>"; };
+		D9D2E1571652EA8A0000E7C5 /* SSKeychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSKeychain.h; sourceTree = "<group>"; };
+		D9D2E1581652EA8A0000E7C5 /* SSKeychain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSKeychain.m; sourceTree = "<group>"; };
+		D9D2E1761652EC130000E7C5 /* OWSettingsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWSettingsController.h; sourceTree = "<group>"; };
+		D9D2E1771652EC140000E7C5 /* OWSettingsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWSettingsController.m; sourceTree = "<group>"; };
+		D9D2E1791652EC850000E7C5 /* OWAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWAccount.h; sourceTree = "<group>"; };
+		D9D2E17A1652EC850000E7C5 /* OWAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWAccount.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +70,7 @@
 		D99741661651D42E0034ABB0 = {
 			isa = PBXGroup;
 			children = (
+				D9D2E1501652EA8A0000E7C5 /* Submodules */,
 				D997417B1651D42F0034ABB0 /* OpenWatch */,
 				D99741741651D42F0034ABB0 /* Frameworks */,
 				D99741721651D42F0034ABB0 /* Products */,
@@ -88,6 +98,10 @@
 		D997417B1651D42F0034ABB0 /* OpenWatch */ = {
 			isa = PBXGroup;
 			children = (
+				D9D2E1791652EC850000E7C5 /* OWAccount.h */,
+				D9D2E17A1652EC850000E7C5 /* OWAccount.m */,
+				D9D2E1761652EC130000E7C5 /* OWSettingsController.h */,
+				D9D2E1771652EC140000E7C5 /* OWSettingsController.m */,
 				D997419B1651D8520034ABB0 /* OWLoginViewController.h */,
 				D997419C1651D8520034ABB0 /* OWLoginViewController.m */,
 				D997419F1651DB0B0034ABB0 /* OWSettingsViewController.h */,
@@ -114,6 +128,23 @@
 				D997418B1651D42F0034ABB0 /* Default-568h@2x.png */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		D9D2E1501652EA8A0000E7C5 /* Submodules */ = {
+			isa = PBXGroup;
+			children = (
+				D9D2E1511652EA8A0000E7C5 /* SSKeychain */,
+			);
+			path = Submodules;
+			sourceTree = "<group>";
+		};
+		D9D2E1511652EA8A0000E7C5 /* SSKeychain */ = {
+			isa = PBXGroup;
+			children = (
+				D9D2E1571652EA8A0000E7C5 /* SSKeychain.h */,
+				D9D2E1581652EA8A0000E7C5 /* SSKeychain.m */,
+			);
+			path = SSKeychain;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -187,6 +218,9 @@
 				D997419D1651D8520034ABB0 /* OWLoginViewController.m in Sources */,
 				D99741A11651DB0B0034ABB0 /* OWSettingsViewController.m in Sources */,
 				D9D2E14F1652D7B80000E7C5 /* OWInLineTextEditTableViewCell.m in Sources */,
+				D9D2E16A1652EA8B0000E7C5 /* SSKeychain.m in Sources */,
+				D9D2E1781652EC140000E7C5 /* OWSettingsController.m in Sources */,
+				D9D2E17B1652EC850000E7C5 /* OWAccount.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
