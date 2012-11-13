@@ -1,5 +1,5 @@
 //
-//  OWRegistrationViewController.h
+//  OWLoginViewController.h
 //  OpenWatch
 //
 //  Created by Christopher Ballinger on 11/12/12.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface OWRegistrationViewController : UIViewController <UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface OWLoginViewController : UIViewController <UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) UITextField *emailTextField;
 @property (nonatomic, strong) UITextField *passwordTextField;

@@ -8,7 +8,7 @@
 
 #import "OWAppDelegate.h"
 #import "OWSettingsViewController.h"
-#import "OWRegistrationViewController.h"
+#import "OWLoginViewController.h"
 
 @implementation OWAppDelegate
 @synthesize tabBarController;
@@ -19,9 +19,11 @@
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
     self.tabBarController = [[UITabBarController alloc] init];
-    OWRegistrationViewController *registrationViewController = [[OWRegistrationViewController alloc] init];
+    OWLoginViewController *loginViewController = [[OWLoginViewController alloc] init];
+    UINavigationController *loginNavController = [[UINavigationController alloc] initWithRootViewController:loginViewController];
     OWSettingsViewController *settingsViewController = [[OWSettingsViewController alloc] init];
-    self.tabBarController.viewControllers = @[registrationViewController, settingsViewController];
+    UINavigationController *settingsNavController = [[UINavigationController alloc] initWithRootViewController:settingsViewController];
+    self.tabBarController.viewControllers = @[loginNavController, settingsNavController];
     self.window.rootViewController = self.tabBarController;
     [self.window makeKeyAndVisible];
     return YES;

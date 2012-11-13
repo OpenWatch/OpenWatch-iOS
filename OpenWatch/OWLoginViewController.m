@@ -1,12 +1,12 @@
 //
-//  OWRegistrationViewController.m
+//  OWLoginViewController.m
 //  OpenWatch
 //
 //  Created by Christopher Ballinger on 11/12/12.
 //  Copyright (c) 2012 OpenWatch FPC. All rights reserved.
 //
 
-#import "OWRegistrationViewController.h"
+#import "OWLoginViewController.h"
 #import "OWStrings.h"
 #import "OWInLineTextEditTableViewCell.h"
 
@@ -17,11 +17,11 @@
 #define kCellTypeSwitch @"cellTypeSwitch"
 #define KCellTypeHelp @"cellTypeHelp"
 
-@interface OWRegistrationViewController ()
+@interface OWLoginViewController ()
 
 @end
 
-@implementation OWRegistrationViewController
+@implementation OWLoginViewController
 @synthesize emailTextField, passwordTextField, loginButton, cancelButton, tableViewArray, loginViewTableView;
 
 - (id)init

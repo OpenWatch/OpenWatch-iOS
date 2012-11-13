@@ -16,7 +16,7 @@
 		D99741881651D42F0034ABB0 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = D99741871651D42F0034ABB0 /* Default.png */; };
 		D997418A1651D42F0034ABB0 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D99741891651D42F0034ABB0 /* Default@2x.png */; };
 		D997418C1651D42F0034ABB0 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D997418B1651D42F0034ABB0 /* Default-568h@2x.png */; };
-		D997419D1651D8520034ABB0 /* OWRegistrationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D997419C1651D8520034ABB0 /* OWRegistrationViewController.m */; };
+		D997419D1651D8520034ABB0 /* OWLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D997419C1651D8520034ABB0 /* OWLoginViewController.m */; };
 		D99741A11651DB0B0034ABB0 /* OWSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D99741A01651DB0B0034ABB0 /* OWSettingsViewController.m */; };
 		D9D2E14F1652D7B80000E7C5 /* OWInLineTextEditTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D2E14E1652D7B80000E7C5 /* OWInLineTextEditTableViewCell.m */; };
 /* End PBXBuildFile section */
@@ -35,8 +35,8 @@
 		D99741871651D42F0034ABB0 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		D99741891651D42F0034ABB0 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		D997418B1651D42F0034ABB0 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		D997419B1651D8520034ABB0 /* OWRegistrationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWRegistrationViewController.h; sourceTree = "<group>"; };
-		D997419C1651D8520034ABB0 /* OWRegistrationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWRegistrationViewController.m; sourceTree = "<group>"; };
+		D997419B1651D8520034ABB0 /* OWLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWLoginViewController.h; sourceTree = "<group>"; };
+		D997419C1651D8520034ABB0 /* OWLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWLoginViewController.m; sourceTree = "<group>"; };
 		D997419F1651DB0B0034ABB0 /* OWSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWSettingsViewController.h; sourceTree = "<group>"; };
 		D99741A01651DB0B0034ABB0 /* OWSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWSettingsViewController.m; sourceTree = "<group>"; };
 		D99741A21651DBC50034ABB0 /* OWStrings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OWStrings.h; sourceTree = "<group>"; };
@@ -88,8 +88,8 @@
 		D997417B1651D42F0034ABB0 /* OpenWatch */ = {
 			isa = PBXGroup;
 			children = (
-				D997419B1651D8520034ABB0 /* OWRegistrationViewController.h */,
-				D997419C1651D8520034ABB0 /* OWRegistrationViewController.m */,
+				D997419B1651D8520034ABB0 /* OWLoginViewController.h */,
+				D997419C1651D8520034ABB0 /* OWLoginViewController.m */,
 				D997419F1651DB0B0034ABB0 /* OWSettingsViewController.h */,
 				D99741A01651DB0B0034ABB0 /* OWSettingsViewController.m */,
 				D99741841651D42F0034ABB0 /* OWAppDelegate.h */,
@@ -184,7 +184,7 @@
 			files = (
 				D99741821651D42F0034ABB0 /* main.m in Sources */,
 				D99741861651D42F0034ABB0 /* OWAppDelegate.m in Sources */,
-				D997419D1651D8520034ABB0 /* OWRegistrationViewController.m in Sources */,
+				D997419D1651D8520034ABB0 /* OWLoginViewController.m in Sources */,
 				D99741A11651DB0B0034ABB0 /* OWSettingsViewController.m in Sources */,
 				D9D2E14F1652D7B80000E7C5 /* OWInLineTextEditTableViewCell.m in Sources */,
 			);
