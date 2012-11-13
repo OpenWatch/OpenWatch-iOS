@@ -7,6 +7,7 @@
 //
 
 #define REGISTER_STRING NSLocalizedString(@"Register", @"For registering with our service")
+#define SIGNUP_STRING NSLocalizedString(@"Sign Up", @"Shown on button for registering with service")
 #define SETTINGS_STRING NSLocalizedString(@"Settings", @"Title for the screen to change preferences")
 #define PASSWORD_STRING NSLocalizedString(@"Password", @"Label text for password field on login screen")
 #define REQUIRED_STRING NSLocalizedString(@"Required",@"String to let user know a certain field like a password is required to create an account")

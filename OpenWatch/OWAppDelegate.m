@@ -9,6 +9,7 @@
 #import "OWAppDelegate.h"
 #import "OWSettingsViewController.h"
 #import "OWLoginViewController.h"
+#import "OWSettingsController.h"
 
 @implementation OWAppDelegate
 @synthesize tabBarController;
@@ -19,14 +20,25 @@
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
     self.tabBarController = [[UITabBarController alloc] init];
-    OWLoginViewController *loginViewController = [[OWLoginViewController alloc] init];
-    UINavigationController *loginNavController = [[UINavigationController alloc] initWithRootViewController:loginViewController];
     OWSettingsViewController *settingsViewController = [[OWSettingsViewController alloc] init];
     UINavigationController *settingsNavController = [[UINavigationController alloc] initWithRootViewController:settingsViewController];
-    self.tabBarController.viewControllers = @[loginNavController, settingsNavController];
+    self.tabBarController.viewControllers = @[ settingsNavController];
     self.window.rootViewController = self.tabBarController;
+    
     [self.window makeKeyAndVisible];
+    [self performSelector:@selector(checkAccount) withObject:nil afterDelay:0.1f];
     return YES;
+}
+
+- (void) checkAccount {
+    OWLoginViewController *loginViewController = [[OWLoginViewController alloc] init];
+    UINavigationController *loginNavController = [[UINavigationController alloc] initWithRootViewController:loginViewController];
+    OWSettingsController *settingsController = [OWSettingsController sharedInstance];
+    if (!settingsController.account.email) {
+        [self.tabBarController presentViewController:loginNavController animated:YES completion:^{
+            
+        }];
+    }
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application

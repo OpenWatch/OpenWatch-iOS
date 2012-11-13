@@ -65,6 +65,7 @@
     self.emailTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
     self.emailTextField.returnKeyType = UIReturnKeyDone;
     self.emailTextField.textColor = self.textFieldTextColor;
+    self.emailTextField.keyboardType = UIKeyboardTypeEmailAddress;
     self.emailTextField.placeholder = REQUIRED_STRING;
     
     [self addCellinfoWithSection:0 row:0 labelText:EMAIL_STRING cellType:kCellTypeTextField userInputView:self.emailTextField];
