@@ -8,6 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
-@interface OWRegistrationViewController : UIViewController
+@interface OWRegistrationViewController : UIViewController <UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate>
+
+@property (nonatomic, strong) UITextField *emailTextField;
+@property (nonatomic, strong) UITextField *passwordTextField;
+
+@property (nonatomic, strong) UIBarButtonItem *loginButton;
+@property (nonatomic, strong) UIBarButtonItem *cancelButton;
+
+@property (nonatomic, strong) NSMutableArray * tableViewArray;
+
+@property (nonatomic, strong) UITableView *loginViewTableView;
 
 @end

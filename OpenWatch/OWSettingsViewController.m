@@ -7,7 +7,7 @@
 //
 
 #import "OWSettingsViewController.h"
-#import "Strings.h"
+#import "OWStrings.h"
 
 @interface OWSettingsViewController ()
 
