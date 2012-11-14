@@ -10,6 +10,7 @@
 #import "OWSettingsViewController.h"
 #import "OWLoginViewController.h"
 #import "OWSettingsController.h"
+#import "OWCaptureViewController.h"
 
 @implementation OWAppDelegate
 @synthesize tabBarController;
@@ -22,7 +23,8 @@
     self.tabBarController = [[UITabBarController alloc] init];
     OWSettingsViewController *settingsViewController = [[OWSettingsViewController alloc] init];
     UINavigationController *settingsNavController = [[UINavigationController alloc] initWithRootViewController:settingsViewController];
-    self.tabBarController.viewControllers = @[ settingsNavController];
+    OWCaptureViewController *captureViewController = [[OWCaptureViewController alloc] init];
+    self.tabBarController.viewControllers = @[captureViewController, settingsNavController];
     self.window.rootViewController = self.tabBarController;
     
     [self.window makeKeyAndVisible];

@@ -20,3 +20,4 @@
 #define OK_STRING NSLocalizedString(@"OK", @"Accept the dialog")
 #define SUBMIT_STRING NSLocalizedString(@"Submit", @"Title for button for submission of data")
 #define SIGNUP_HELP_STRING NSLocalizedString(@"Use this form to login with an existing account or create a new one.", @"Lets user know our form does both login and signup")
+#define CAPTURE_STRING NSLocalizedString(@"Capture", @"Title for view to record video and audio")

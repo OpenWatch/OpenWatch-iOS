@@ -356,10 +356,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(captureSessionStoppedRunningNotification:) name:AVCaptureSessionDidStopRunningNotification object:captureSession];
 	
 	if ( !captureSession.isRunning ) {
-        // Start the session. This is done asychronously since -startRunning doesn't return until the session is running.
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            [captureSession startRunning];
-        });
+        [captureSession startRunning];
     }
 }
 
@@ -372,10 +369,7 @@
 - (void) resumeCaptureSession
 {
 	if ( !captureSession.isRunning ) {
-        // Start the session. This is done asychronously since -startRunning doesn't return until the session is running.
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            [captureSession startRunning];
-        });
+        [captureSession startRunning];
     }
 }
 
