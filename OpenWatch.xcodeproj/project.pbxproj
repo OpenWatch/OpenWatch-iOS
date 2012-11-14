@@ -189,9 +189,9 @@
 				D9D2E21A16532ADF0000E7C5 /* Networking */,
 				D9D2E21C16532B180000E7C5 /* Controllers */,
 				D9D2E21D16532B220000E7C5 /* View Controllers */,
+				D9D2E21B16532B090000E7C5 /* Custom Views */,
 				D99741841651D42F0034ABB0 /* OWAppDelegate.h */,
 				D99741851651D42F0034ABB0 /* OWAppDelegate.m */,
-				D9D2E21B16532B090000E7C5 /* Custom Views */,
 				D997417C1651D42F0034ABB0 /* Supporting Files */,
 			);
 			path = OpenWatch;

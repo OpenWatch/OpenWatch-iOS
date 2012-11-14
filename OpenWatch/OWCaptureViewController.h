@@ -11,10 +11,14 @@
 
 @class AVCaptureVideoPreviewLayer;
 
-@interface OWCaptureViewController : UIViewController
+@interface OWCaptureViewController : UIViewController <OWVideoProcessorDelegate> {
+    UIBackgroundTaskIdentifier backgroundRecordingID;
+}
 
-@property (nonatomic,retain) OWVideoProcessor *videoProcessor;
-@property (nonatomic,retain) UIView *videoPreviewView;
-@property (nonatomic,retain) AVCaptureVideoPreviewLayer *captureVideoPreviewLayer;
+
+@property (nonatomic, strong) UIBarButtonItem *recordButton;
+@property (nonatomic, strong) OWVideoProcessor *videoProcessor;
+@property (nonatomic, strong) UIView *videoPreviewView;
+@property (nonatomic, strong) AVCaptureVideoPreviewLayer *captureVideoPreviewLayer;
 
 @end

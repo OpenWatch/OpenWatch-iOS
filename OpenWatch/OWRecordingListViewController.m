@@ -8,6 +8,7 @@
 
 #import "OWRecordingListViewController.h"
 #import "OWRecording.h"
+#import "OWStrings.h"
 
 @interface OWRecordingListViewController ()
 
@@ -24,17 +25,10 @@
         self.recordingsTableView.dataSource = self;
         self.recordingsTableView.delegate = self;
         self.recordingController = [OWRecordingController sharedInstance];
-        self.title = @"Recordings";
-        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(doneButtonPressed:)];
+        self.title = RECORDINGS_STRING;
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(editButtonPressed:)];
     }
     return self;
-}
-
-- (void) doneButtonPressed:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:^{
-        
-    }];
 }
 
 - (void) editButtonPressed:(id)sender {
@@ -86,7 +80,7 @@
     }
     OWRecording *recording = [recordingsArray objectAtIndex:indexPath.row];
     if (recording.isRecording) {
-        cell.detailTextLabel.text = @"Recording...";
+        cell.detailTextLabel.text = RECORDING_STRING;
     } else {
         cell.detailTextLabel.text = nil;
     }
