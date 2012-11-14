@@ -18,3 +18,5 @@
 #define ERROR_STRING NSLocalizedString(@"Error!", "Title of error message popup box")
 #define USER_PASS_BLANK_STRING NSLocalizedString(@"You must enter an E-mail and a password to login/register.", @"error message shown when user doesnt fill in a username or password")
 #define OK_STRING NSLocalizedString(@"OK", @"Accept the dialog")
+#define SUBMIT_STRING NSLocalizedString(@"Submit", @"Title for button for submission of data")
+#define SIGNUP_HELP_STRING NSLocalizedString(@"Use this form to login with an existing account or create a new one.", @"Lets user know our form does both login and signup")

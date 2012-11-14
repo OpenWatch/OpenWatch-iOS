@@ -9,6 +9,7 @@
 #import "OWLoginViewController.h"
 #import "OWStrings.h"
 #import "OWInLineTextEditTableViewCell.h"
+#import "OWSettingsController.h"
 
 #define kTextLabelTextKey @"textLabelTextKey"
 #define kCellTypeKey @"cellTypeKey"
@@ -22,13 +23,13 @@
 @end
 
 @implementation OWLoginViewController
-@synthesize emailTextField, passwordTextField, loginButton, cancelButton, tableViewArray, loginViewTableView;
+@synthesize emailTextField, passwordTextField, loginButton, cancelButton, tableViewArray, loginViewTableView, helpLabel;
 
 - (id)init
 {
     self = [super init];
     if (self) {
-        self.title = REGISTER_STRING;
+        self.title = LOGIN_STRING;
     }
     return self;
 }
@@ -39,14 +40,32 @@
     self.view.backgroundColor = [UIColor whiteColor];
     
     [self setUpFields];
-    
+
+    self.helpLabel = [[UILabel alloc] init];
+    self.helpLabel.textAlignment = UITextAlignmentCenter;
+    self.helpLabel.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin;
+    self.helpLabel.numberOfLines = 0;
+    self.helpLabel.text = SIGNUP_HELP_STRING;
+    self.helpLabel.shadowColor = [UIColor whiteColor];
+    self.helpLabel.shadowOffset = CGSizeMake(0, 1);
+    self.helpLabel.textColor = [UIColor darkGrayColor];
+    self.helpLabel.backgroundColor = [UIColor clearColor];
+    self.helpLabel.font = [UIFont systemFontOfSize:16.0f];
     
     loginViewTableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
     loginViewTableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin;
     [loginViewTableView setDelegate:self];
     [loginViewTableView setDataSource:self];
     [self.view addSubview:loginViewTableView];
+    
+    self.loginButton = [[UIBarButtonItem alloc] initWithTitle:SUBMIT_STRING style:UIBarButtonItemStyleDone target:self action:@selector(loginButtonPressed:)];
+    self.navigationItem.rightBarButtonItem = loginButton;
+    
+    
+    self.cancelButton = [[UIBarButtonItem alloc] initWithTitle:CANCEL_STRING style:UIBarButtonItemStyleBordered target:self action:@selector(cancelPressed:)];
+    //self.navigationItem.leftBarButtonItem = cancelButton;
 }
+
 
 - (UIColor*) textFieldTextColor {
     return [UIColor colorWithRed:0.22 green:0.33 blue:0.53 alpha:1.0];
@@ -54,12 +73,8 @@
 
 -(void)setUpFields
 {
-    //tableViewArray = [[NSMutableArray alloc] init];
-    
-    
     self.emailTextField = [[UITextField alloc] init];
     self.emailTextField.delegate = self;
-    //self.usernameTextField.borderStyle = UITextBorderStyleRoundedRect;
     self.emailTextField.autocorrectionType = UITextAutocorrectionTypeNo;
     self.emailTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     self.emailTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
@@ -73,7 +88,6 @@
     
     self.passwordTextField = [[UITextField alloc] init];
     self.passwordTextField.delegate = self;
-    //self.passwordTextField.borderStyle = UITextBorderStyleRoundedRect;
     self.passwordTextField.secureTextEntry = YES;
     self.passwordTextField.returnKeyType = UIReturnKeyDone;
     self.passwordTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
@@ -81,22 +95,12 @@
     self.passwordTextField.placeholder = REQUIRED_STRING;
     
     [self addCellinfoWithSection:0 row:1 labelText:PASSWORD_STRING cellType:kCellTypeTextField userInputView:self.passwordTextField];
-    
-    
-    self.loginButton = [[UIBarButtonItem alloc] initWithTitle:LOGIN_STRING style:UIBarButtonItemStyleDone target:self action:@selector(loginButtonPressed:)];
-    self.navigationItem.rightBarButtonItem = loginButton;
-    
-    self.cancelButton = [[UIBarButtonItem alloc] initWithTitle:CANCEL_STRING style:UIBarButtonItemStyleBordered target:self action:@selector(cancelPressed:)];
-    self.navigationItem.leftBarButtonItem = cancelButton;
-    
 }
 
 -(void)addCellinfoWithSection:(NSInteger)section row:(NSInteger)row labelText:(id)text cellType:(NSString *)type userInputView:(UIView *)inputView;
 {
     if (!tableViewArray) {
         self.tableViewArray = [[NSMutableArray alloc] init];
-        //[self.tableViewArray setObject:[[NSMutableArray alloc] init] atIndexedSubscript:section];
-        
     }
     if ([self.tableViewArray count]<(section+1)) {
         [self.tableViewArray setObject:[[NSMutableArray alloc] init] atIndexedSubscript:section];
@@ -111,7 +115,6 @@
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -159,12 +162,19 @@
     BOOL fields = [self checkFields];
     if(fields)
     {
-
+        OWSettingsController *settingsController = [OWSettingsController sharedInstance];
+        settingsController.account.email = self.emailTextField.text;
+        settingsController.account.password = self.passwordTextField.text;
+        [self dismissViewControllerAnimated:YES completion:^{
+            
+        }];
     }
 }
 
 - (void)cancelPressed:(id)sender {
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:^{
+        
+    }];
 }
 
 
@@ -180,6 +190,22 @@
     
     return fields;
 }
+
+- (UIView*) tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    if (section == 0) {
+        return helpLabel;
+    }
+    return nil;
+}
+
+-(CGFloat) tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    if (section == 0) {
+        return 50.0f;
+    }
+    return 0.0f;
+}
+
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
 {

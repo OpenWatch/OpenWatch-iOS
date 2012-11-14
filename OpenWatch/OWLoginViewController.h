@@ -16,6 +16,8 @@
 @property (nonatomic, strong) UIBarButtonItem *loginButton;
 @property (nonatomic, strong) UIBarButtonItem *cancelButton;
 
+@property (nonatomic, strong) UILabel *helpLabel;
+
 @property (nonatomic, strong) NSMutableArray * tableViewArray;
 
 @property (nonatomic, strong) UITableView *loginViewTableView;

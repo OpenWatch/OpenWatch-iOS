@@ -13,7 +13,7 @@
 #define kAccountNameKey @"kAccountNameKey"
 #define kEmailKey @"kEmailKey"
 #define kPublicUploadTokenKey @"kPublicUploadTokenKey"
-#define kPrivateUploadTokenKey @"kPublicUploadTokenKey"
+#define kPrivateUploadTokenKey @"kPrivateUploadTokenKey"
 #define kPasswordKey @"kPasswordKey"
 
 @implementation OWAccount
