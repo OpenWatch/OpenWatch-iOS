@@ -23,6 +23,7 @@
 		D9D2E1781652EC140000E7C5 /* OWSettingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D2E1771652EC140000E7C5 /* OWSettingsController.m */; };
 		D9D2E17B1652EC850000E7C5 /* OWAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D2E17A1652EC850000E7C5 /* OWAccount.m */; };
 		D9D2E1811652F8DA0000E7C5 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9D2E1801652F8DA0000E7C5 /* Security.framework */; };
+		D9D2E1881653236E0000E7C5 /* OWVideoPreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D2E1871653236E0000E7C5 /* OWVideoPreviewViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,6 +54,8 @@
 		D9D2E1791652EC850000E7C5 /* OWAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWAccount.h; sourceTree = "<group>"; };
 		D9D2E17A1652EC850000E7C5 /* OWAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWAccount.m; sourceTree = "<group>"; };
 		D9D2E1801652F8DA0000E7C5 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		D9D2E1861653236D0000E7C5 /* OWVideoPreviewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWVideoPreviewViewController.h; sourceTree = "<group>"; };
+		D9D2E1871653236E0000E7C5 /* OWVideoPreviewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWVideoPreviewViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,6 +111,8 @@
 				D9D2E1771652EC140000E7C5 /* OWSettingsController.m */,
 				D997419B1651D8520034ABB0 /* OWLoginViewController.h */,
 				D997419C1651D8520034ABB0 /* OWLoginViewController.m */,
+				D9D2E1861653236D0000E7C5 /* OWVideoPreviewViewController.h */,
+				D9D2E1871653236E0000E7C5 /* OWVideoPreviewViewController.m */,
 				D997419F1651DB0B0034ABB0 /* OWSettingsViewController.h */,
 				D99741A01651DB0B0034ABB0 /* OWSettingsViewController.m */,
 				D99741841651D42F0034ABB0 /* OWAppDelegate.h */,
@@ -225,6 +230,7 @@
 				D9D2E16A1652EA8B0000E7C5 /* SSKeychain.m in Sources */,
 				D9D2E1781652EC140000E7C5 /* OWSettingsController.m in Sources */,
 				D9D2E17B1652EC850000E7C5 /* OWAccount.m in Sources */,
+				D9D2E1881653236E0000E7C5 /* OWVideoPreviewViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
