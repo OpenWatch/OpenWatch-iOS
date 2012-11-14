@@ -73,7 +73,6 @@
 		D99741661651D42E0034ABB0 = {
 			isa = PBXGroup;
 			children = (
-				D9D2E1801652F8DA0000E7C5 /* Security.framework */,
 				D9D2E1501652EA8A0000E7C5 /* Submodules */,
 				D997417B1651D42F0034ABB0 /* OpenWatch */,
 				D99741741651D42F0034ABB0 /* Frameworks */,
@@ -92,6 +91,7 @@
 		D99741741651D42F0034ABB0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D9D2E1801652F8DA0000E7C5 /* Security.framework */,
 				D99741751651D42F0034ABB0 /* UIKit.framework */,
 				D99741771651D42F0034ABB0 /* Foundation.framework */,
 				D99741791651D42F0034ABB0 /* CoreGraphics.framework */,
