@@ -29,10 +29,8 @@
 	CMVideoDimensions videoDimensions;
 	CMVideoCodecType videoType;
 
-	AVCaptureSession *captureSession;
 	AVCaptureConnection *audioConnection;
 	AVCaptureConnection *videoConnection;
-	CMBufferQueueRef previewBufferQueue;
 	
 	dispatch_queue_t movieWritingQueue;
     
@@ -54,6 +52,7 @@
 @property (nonatomic, strong) OWAppleEncoder *appleEncoder1;
 @property (nonatomic, strong) OWSegmentingAppleEncoder *appleEncoder2;
 @property (nonatomic, strong) OWRecording *currentRecording;
+@property (nonatomic, strong) AVCaptureSession *captureSession;
 
 @property (nonatomic) AVCaptureVideoOrientation referenceOrientation;
 @property (nonatomic) AVCaptureVideoOrientation videoOrientation;

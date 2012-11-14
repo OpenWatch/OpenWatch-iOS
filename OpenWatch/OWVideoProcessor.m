@@ -27,6 +27,7 @@
 @synthesize recording;
 @synthesize appleEncoder1, appleEncoder2;
 @synthesize currentRecording;
+@synthesize captureSession;
 
 - (id) init
 {
@@ -346,11 +347,6 @@
 
 - (void) setupAndStartCaptureSession
 {
-	// Create a shallow queue for buffers going to the display for preview.
-	OSStatus err = CMBufferQueueCreate(kCFAllocatorDefault, 1, CMBufferQueueGetCallbacksForUnsortedSampleBuffers(), &previewBufferQueue);
-	if (err)
-		[self showError:[NSError errorWithDomain:NSOSStatusErrorDomain code:err userInfo:nil]];
-    
 	// Create serial queue for movie writing
 	movieWritingQueue = dispatch_queue_create("Movie Writing Queue", DISPATCH_QUEUE_SERIAL);
     
@@ -359,8 +355,12 @@
 	
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(captureSessionStoppedRunningNotification:) name:AVCaptureSessionDidStopRunningNotification object:captureSession];
 	
-	if ( !captureSession.isRunning )
-		[captureSession startRunning];
+	if ( !captureSession.isRunning ) {
+        // Start the session. This is done asychronously since -startRunning doesn't return until the session is running.
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            [captureSession startRunning];
+        });
+    }
 }
 
 - (void) pauseCaptureSession
@@ -371,8 +371,12 @@
 
 - (void) resumeCaptureSession
 {
-	if ( !captureSession.isRunning )
-		[captureSession startRunning];
+	if ( !captureSession.isRunning ) {
+        // Start the session. This is done asychronously since -startRunning doesn't return until the session is running.
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            [captureSession startRunning];
+        });
+    }
 }
 
 - (void)captureSessionStoppedRunningNotification:(NSNotification *)notification
@@ -390,10 +394,6 @@
 	if (captureSession)
 		[[NSNotificationCenter defaultCenter] removeObserver:self name:AVCaptureSessionDidStopRunningNotification object:captureSession];
 	captureSession = nil;
-	if (previewBufferQueue) {
-		CFRelease(previewBufferQueue);
-		previewBufferQueue = NULL;	
-	}
 	if (movieWritingQueue) {
 		dispatch_release(movieWritingQueue);
 		movieWritingQueue = NULL;

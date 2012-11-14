@@ -23,7 +23,7 @@
 		D9D2E1781652EC140000E7C5 /* OWSettingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D2E1771652EC140000E7C5 /* OWSettingsController.m */; };
 		D9D2E17B1652EC850000E7C5 /* OWAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D2E17A1652EC850000E7C5 /* OWAccount.m */; };
 		D9D2E1811652F8DA0000E7C5 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9D2E1801652F8DA0000E7C5 /* Security.framework */; };
-		D9D2E1881653236E0000E7C5 /* OWVideoPreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D2E1871653236E0000E7C5 /* OWVideoPreviewViewController.m */; };
+		D9D2E1881653236E0000E7C5 /* OWCaptureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D2E1871653236E0000E7C5 /* OWCaptureViewController.m */; };
 		D9D2E18F165325280000E7C5 /* OWVideoProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D2E18E165325280000E7C5 /* OWVideoProcessor.m */; };
 		D9D2E194165326A20000E7C5 /* OWAppleEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D2E191165326A10000E7C5 /* OWAppleEncoder.m */; };
 		D9D2E195165326A20000E7C5 /* OWCaptureAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D2E193165326A20000E7C5 /* OWCaptureAPIClient.m */; };
@@ -78,8 +78,8 @@
 		D9D2E1791652EC850000E7C5 /* OWAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWAccount.h; sourceTree = "<group>"; };
 		D9D2E17A1652EC850000E7C5 /* OWAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWAccount.m; sourceTree = "<group>"; };
 		D9D2E1801652F8DA0000E7C5 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
-		D9D2E1861653236D0000E7C5 /* OWVideoPreviewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWVideoPreviewViewController.h; sourceTree = "<group>"; };
-		D9D2E1871653236E0000E7C5 /* OWVideoPreviewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWVideoPreviewViewController.m; sourceTree = "<group>"; };
+		D9D2E1861653236D0000E7C5 /* OWCaptureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWCaptureViewController.h; sourceTree = "<group>"; };
+		D9D2E1871653236E0000E7C5 /* OWCaptureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWCaptureViewController.m; sourceTree = "<group>"; };
 		D9D2E18D165325280000E7C5 /* OWVideoProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWVideoProcessor.h; sourceTree = "<group>"; };
 		D9D2E18E165325280000E7C5 /* OWVideoProcessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWVideoProcessor.m; sourceTree = "<group>"; };
 		D9D2E190165326A10000E7C5 /* OWAppleEncoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWAppleEncoder.h; sourceTree = "<group>"; };
@@ -149,9 +149,8 @@
 		D99741661651D42E0034ABB0 = {
 			isa = PBXGroup;
 			children = (
-				D9D2E21616532A6A0000E7C5 /* AVFoundation.framework */,
-				D9D2E1501652EA8A0000E7C5 /* Submodules */,
 				D997417B1651D42F0034ABB0 /* OpenWatch */,
+				D9D2E1501652EA8A0000E7C5 /* Submodules */,
 				D99741741651D42F0034ABB0 /* Frameworks */,
 				D99741721651D42F0034ABB0 /* Products */,
 			);
@@ -168,6 +167,7 @@
 		D99741741651D42F0034ABB0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D9D2E21616532A6A0000E7C5 /* AVFoundation.framework */,
 				D9D2E214165329410000E7C5 /* CoreLocation.framework */,
 				D9D2E2121653293B0000E7C5 /* CoreVideo.framework */,
 				D9D2E210165329370000E7C5 /* CoreMedia.framework */,
@@ -337,8 +337,8 @@
 				D9D2E19B165326BB0000E7C5 /* OWRecordingListViewController.m */,
 				D997419B1651D8520034ABB0 /* OWLoginViewController.h */,
 				D997419C1651D8520034ABB0 /* OWLoginViewController.m */,
-				D9D2E1861653236D0000E7C5 /* OWVideoPreviewViewController.h */,
-				D9D2E1871653236E0000E7C5 /* OWVideoPreviewViewController.m */,
+				D9D2E1861653236D0000E7C5 /* OWCaptureViewController.h */,
+				D9D2E1871653236E0000E7C5 /* OWCaptureViewController.m */,
 				D997419F1651DB0B0034ABB0 /* OWSettingsViewController.h */,
 				D99741A01651DB0B0034ABB0 /* OWSettingsViewController.m */,
 			);
@@ -419,7 +419,7 @@
 				D9D2E16A1652EA8B0000E7C5 /* SSKeychain.m in Sources */,
 				D9D2E1781652EC140000E7C5 /* OWSettingsController.m in Sources */,
 				D9D2E17B1652EC850000E7C5 /* OWAccount.m in Sources */,
-				D9D2E1881653236E0000E7C5 /* OWVideoPreviewViewController.m in Sources */,
+				D9D2E1881653236E0000E7C5 /* OWCaptureViewController.m in Sources */,
 				D9D2E18F165325280000E7C5 /* OWVideoProcessor.m in Sources */,
 				D9D2E194165326A20000E7C5 /* OWAppleEncoder.m in Sources */,
 				D9D2E195165326A20000E7C5 /* OWCaptureAPIClient.m in Sources */,
