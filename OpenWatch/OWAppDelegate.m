@@ -24,11 +24,15 @@
     self.tabBarController = [[UITabBarController alloc] init];
     OWSettingsViewController *settingsViewController = [[OWSettingsViewController alloc] init];
     UINavigationController *settingsNavController = [[UINavigationController alloc] initWithRootViewController:settingsViewController];
+    
+    OWLoginViewController *loginViewController = [[OWLoginViewController alloc] init];
+    UINavigationController *loginNavController = [[UINavigationController alloc] initWithRootViewController:loginViewController];
+    
     OWCaptureViewController *captureViewController = [[OWCaptureViewController alloc] init];
     UINavigationController *captureNavController = [[UINavigationController alloc] initWithRootViewController:captureViewController];
     OWRecordingListViewController *recordingListViewController = [[OWRecordingListViewController alloc] init];
     UINavigationController *recordingListNavController = [[UINavigationController alloc] initWithRootViewController:recordingListViewController];
-    self.tabBarController.viewControllers = @[captureNavController, recordingListNavController, settingsNavController];
+    self.tabBarController.viewControllers = @[captureNavController, recordingListNavController, loginNavController, settingsNavController];
     self.window.rootViewController = self.tabBarController;
     
     [self.window makeKeyAndVisible];

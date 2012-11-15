@@ -24,6 +24,7 @@
 
 @implementation OWLoginViewController
 @synthesize emailTextField, passwordTextField, loginButton, cancelButton, tableViewArray, loginViewTableView, helpLabel;
+@synthesize headerImageView;
 
 - (id)init
 {
@@ -64,6 +65,9 @@
     
     self.cancelButton = [[UIBarButtonItem alloc] initWithTitle:CANCEL_STRING style:UIBarButtonItemStyleBordered target:self action:@selector(cancelPressed:)];
     //self.navigationItem.leftBarButtonItem = cancelButton;
+    
+    self.headerImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"openwatch.png"]];
+    self.headerImageView.contentMode = UIViewContentModeCenter;
 }
 
 
@@ -202,6 +206,21 @@
 {
     if (section == 0) {
         return 50.0f;
+    }
+    return 0.0f;
+}
+
+
+- (UIView*) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    if (section == 0) {
+        return headerImageView;
+    }
+    return nil;
+}
+
+- (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    if (section == 0) {
+        return headerImageView.frame.size.height + 20;
     }
     return 0.0f;
 }

@@ -10,6 +10,8 @@
 
 @interface OWLoginViewController : UIViewController <UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate>
 
+@property (nonatomic, strong) UIImageView *headerImageView;
+
 @property (nonatomic, strong) UITextField *emailTextField;
 @property (nonatomic, strong) UITextField *passwordTextField;
 
