@@ -31,7 +31,7 @@
         if (error) {
             [self showError:error];
         }
-        assetWriter.movieFragmentInterval = fragmentInterval;
+        assetWriter.movieFragmentInterval = kCMTimeInvalid;
         referenceOrientation = UIDeviceOrientationPortrait;
         fileOffset = 0;
         fileNumber = 0;

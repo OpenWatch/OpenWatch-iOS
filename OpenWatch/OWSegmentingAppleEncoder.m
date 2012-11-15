@@ -29,7 +29,7 @@
     }
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [super finishEncoding];
-    [[OWCaptureAPIClient sharedClient] finishedRecording:self.recording];
+    //[[OWCaptureAPIClient sharedClient] finishedRecording:self.recording];
 }
 
 - (id) initWithURL:(NSURL *)url segmentationInterval:(NSTimeInterval)timeInterval {

@@ -126,7 +126,7 @@
     [self.currentRecording startRecording];
     [[OWRecordingController sharedInstance] addRecording:currentRecording];
     
-	dispatch_async(movieWritingQueue, ^{
+	dispatch_async(movieWritingQueue1, ^{
 	
 		if ( recordingWillBeStarted || self.recording )
 			return;
@@ -146,23 +146,20 @@
 
 - (void) initializeAssetWriters {
     // Create an asset writer
-
-    self.appleEncoder1 = [[OWAppleEncoder alloc] initWithURL:[currentRecording highQualityURL] movieFragmentInterval:CMTimeMakeWithSeconds(5, 30)];
-    self.appleEncoder1.recording = currentRecording;
-    self.appleEncoder2 = [[OWSegmentingAppleEncoder alloc] initWithURL:[currentRecording urlForNextSegment] segmentationInterval:5.0f];
-    self.appleEncoder2.recording = currentRecording;
+	dispatch_async(movieWritingQueue1, ^{
+        self.appleEncoder1 = [[OWAppleEncoder alloc] initWithURL:[currentRecording highQualityURL] movieFragmentInterval:CMTimeMakeWithSeconds(5, 30)];
+        self.appleEncoder1.recording = currentRecording;
+    });
+    dispatch_async(movieWritingQueue2, ^{
+        self.appleEncoder2 = [[OWSegmentingAppleEncoder alloc] initWithURL:[currentRecording urlForNextSegment] segmentationInterval:5.0f];
+        self.appleEncoder2.recording = currentRecording;
+    });
 }
 
 - (void) stopRecording
 {
-    /*
-    dispatch_async(ffmpegWritingQueue, ^{
-        [self.ffEncoder.videoEncoder finishEncoding];
-        [self.ffEncoder.audioEncoder finishEncoding];
-    });
-     */
     [self.currentRecording stopRecording];
-	dispatch_async(movieWritingQueue, ^{
+	dispatch_async(movieWritingQueue1, ^{
 		if ( recordingWillBeStopped || self.recording == NO)
 			return;
 		
@@ -171,11 +168,13 @@
 		// recordingDidStop is called from saveMovieToCameraRoll
 		[self.delegate recordingWillStop];
         [appleEncoder1 finishEncoding];
-        [appleEncoder2 finishEncoding];
         recordingWillBeStopped = NO;
         self.recording = NO;
         [self.delegate recordingDidStop];
         [self initializeAssetWriters];
+	});
+    dispatch_async(movieWritingQueue2, ^{
+        [appleEncoder2 finishEncoding];
 	});
 }
 
@@ -201,9 +200,11 @@
 	}
     //
     CFRetain(sampleBuffer);
+    CFRetain(sampleBuffer);
 	CFRetain(formatDescription);
+    CFRetain(formatDescription);
     
-	dispatch_async(movieWritingQueue, ^{
+	dispatch_async(movieWritingQueue1, ^{
 		if ( appleEncoder1 && (self.recording || recordingWillBeStarted)) {
 		
 			BOOL wasReadyToRecord = (appleEncoder1.readyToRecordAudio && appleEncoder1.readyToRecordVideo);
@@ -239,45 +240,50 @@
 				[self.delegate recordingDidStart];
 			}
 		}
-        if ( appleEncoder2 && (self.recording || recordingWillBeStarted)) {
-            
-			BOOL wasReadyToRecord = (appleEncoder2.readyToRecordAudio && appleEncoder2.readyToRecordVideo);
-			
-			if (connection == videoConnection) {
-				
-				// Initialize the video input if this is not done yet
-				if (!appleEncoder2.readyToRecordVideo) {
-					[appleEncoder2 setupVideoEncoderWithFormatDescription:formatDescription bitsPerSecond:400000];
-                }
-				
-				// Write video data to file
-				if (appleEncoder2.readyToRecordVideo && appleEncoder2.readyToRecordAudio) {
-					[appleEncoder2 writeSampleBuffer:sampleBuffer ofType:AVMediaTypeVideo];
-                }
-			}
-			else if (connection == audioConnection) {
-				
-				// Initialize the audio input if this is not done yet
-				if (!appleEncoder2.readyToRecordAudio) {
-                    [appleEncoder2 setupAudioEncoderWithFormatDescription:formatDescription];
-                }
-				
-				// Write audio data to file
-				if (appleEncoder2.readyToRecordAudio && appleEncoder2.readyToRecordVideo)
-					[appleEncoder2 writeSampleBuffer:sampleBuffer ofType:AVMediaTypeAudio];
-			}
-			
-			BOOL isReadyToRecord = (appleEncoder2.readyToRecordAudio && appleEncoder2.readyToRecordVideo);
-			if ( !wasReadyToRecord && isReadyToRecord ) {
-				recordingWillBeStarted = NO;
-				self.recording = YES;
-				[self.delegate recordingDidStart];
-			}
-		}
 		CFRelease(sampleBuffer);
 		CFRelease(formatDescription);
 	});
     
+    dispatch_async(movieWritingQueue2, ^{
+        
+        if ( appleEncoder2 && (self.recording || recordingWillBeStarted)) {
+            
+            BOOL wasReadyToRecord = (appleEncoder2.readyToRecordAudio && appleEncoder2.readyToRecordVideo);
+            
+            if (connection == videoConnection) {
+                
+                // Initialize the video input if this is not done yet
+                if (!appleEncoder2.readyToRecordVideo) {
+                    [appleEncoder2 setupVideoEncoderWithFormatDescription:formatDescription bitsPerSecond:400000];
+                }
+                
+                // Write video data to file
+                if (appleEncoder2.readyToRecordVideo && appleEncoder2.readyToRecordAudio) {
+                    [appleEncoder2 writeSampleBuffer:sampleBuffer ofType:AVMediaTypeVideo];
+                }
+            }
+            else if (connection == audioConnection) {
+                
+                // Initialize the audio input if this is not done yet
+                if (!appleEncoder2.readyToRecordAudio) {
+                    [appleEncoder2 setupAudioEncoderWithFormatDescription:formatDescription];
+                }
+                
+                // Write audio data to file
+                if (appleEncoder2.readyToRecordAudio && appleEncoder2.readyToRecordVideo)
+                    [appleEncoder2 writeSampleBuffer:sampleBuffer ofType:AVMediaTypeAudio];
+            }
+            
+            BOOL isReadyToRecord = (appleEncoder2.readyToRecordAudio && appleEncoder2.readyToRecordVideo);
+            if ( !wasReadyToRecord && isReadyToRecord ) {
+                recordingWillBeStarted = NO;
+                self.recording = YES;
+                [self.delegate recordingDidStart];
+            }
+        }
+        CFRelease(sampleBuffer);
+		CFRelease(formatDescription);
+    });
 }
 
 - (AVCaptureDevice *)videoDeviceWithPosition:(AVCaptureDevicePosition)position 
@@ -331,7 +337,7 @@
     
 	AVCaptureVideoDataOutput *videoOut = [[AVCaptureVideoDataOutput alloc] init];
 
-	[videoOut setAlwaysDiscardsLateVideoFrames:NO];
+	[videoOut setAlwaysDiscardsLateVideoFrames:YES];
 
 	[videoOut setVideoSettings:[NSDictionary dictionaryWithObject:[NSNumber numberWithInt:kCVPixelFormatType_420YpCbCr8BiPlanarFullRange] forKey:(id)kCVPixelBufferPixelFormatTypeKey]];
 	dispatch_queue_t videoCaptureQueue = dispatch_queue_create("Video Capture Queue", DISPATCH_QUEUE_SERIAL);
@@ -348,7 +354,8 @@
 - (void) setupAndStartCaptureSession
 {
 	// Create serial queue for movie writing
-	movieWritingQueue = dispatch_queue_create("Movie Writing Queue", DISPATCH_QUEUE_SERIAL);
+	movieWritingQueue1 = dispatch_queue_create("Movie Writing Queue 1", DISPATCH_QUEUE_SERIAL);
+    movieWritingQueue2 = dispatch_queue_create("Movie Writing Queue 2", DISPATCH_QUEUE_SERIAL);
     
     if ( !captureSession )
 		[self setupCaptureSession];
@@ -375,7 +382,7 @@
 
 - (void)captureSessionStoppedRunningNotification:(NSNotification *)notification
 {
-	dispatch_async(movieWritingQueue, ^{
+	dispatch_async(movieWritingQueue1, ^{
 		if ( [self isRecording] ) {
 			[self stopRecording];
 		}
@@ -388,9 +395,13 @@
 	if (captureSession)
 		[[NSNotificationCenter defaultCenter] removeObserver:self name:AVCaptureSessionDidStopRunningNotification object:captureSession];
 	captureSession = nil;
-	if (movieWritingQueue) {
-		dispatch_release(movieWritingQueue);
-		movieWritingQueue = NULL;
+	if (movieWritingQueue1) {
+		dispatch_release(movieWritingQueue1);
+		movieWritingQueue1 = NULL;
+	}
+    if (movieWritingQueue2) {
+		dispatch_release(movieWritingQueue2);
+		movieWritingQueue2 = NULL;
 	}
 }
 
