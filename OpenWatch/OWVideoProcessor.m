@@ -159,6 +159,7 @@
 - (void) stopRecording
 {
     [self.currentRecording stopRecording];
+
 	dispatch_async(movieWritingQueue1, ^{
 		if ( recordingWillBeStopped || self.recording == NO)
 			return;

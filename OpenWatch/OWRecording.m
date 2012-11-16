@@ -8,6 +8,7 @@
 
 #import "OWRecording.h"
 #import "JSONKit.h"
+#import "OWCaptureAPIClient.h"
 
 #define kUploadingKey @"uploading"
 #define kFailedKey @"failed"
@@ -29,6 +30,7 @@
 #define kDescriptionKey @"description"
 #define kUUIDKey @"uuid"
 #define kMetadataFileName @"metadata.json"
+#define kAllFilesKey @"all_files"
 
 @interface OWRecording()
 @property (nonatomic, strong) NSString *uuid;
@@ -111,7 +113,14 @@
 
 - (NSDictionary*) dictionaryRepresentation {
     [self updateMetadataDictionary];
-    return [NSDictionary dictionaryWithDictionary:metadataDictionary];
+    NSMutableDictionary *dictionary = [NSMutableDictionary dictionaryWithDictionary:metadataDictionary];
+    NSMutableArray *allFiles = [NSMutableArray array];
+    [allFiles addObjectsFromArray:[completedDictionary allKeys]];
+    [allFiles addObjectsFromArray:[failedDictionary allKeys]];
+    [allFiles addObjectsFromArray:[uploadingDictionary allKeys]];
+    [allFiles addObjectsFromArray:[recordingDictionary allKeys]];
+    [dictionary setObject:allFiles forKey:kAllFilesKey];
+    return dictionary;
 }
 
 - (void) updateMetadataDictionary {
@@ -282,12 +291,14 @@
     }
     isRecording = YES;
     [self saveMetadata];
+    [[OWCaptureAPIClient sharedClient] startedRecording:self];
 }
 
 - (void) stopRecording {
     self.endDate = [NSDate date];
     isRecording = NO;
     [self saveMetadata];
+    [[OWCaptureAPIClient sharedClient] finishedRecording:self];
 }
 
 - (NSURL*) highQualityURL {
