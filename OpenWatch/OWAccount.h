@@ -15,6 +15,7 @@
 @property (nonatomic, strong) NSString *publicUploadToken;
 @property (nonatomic, strong) NSString *privateUploadToken;
 @property (nonatomic, strong) NSString *password;
+@property (nonatomic, strong) NSString *username;
 
 - (void) clearAccountData;
 

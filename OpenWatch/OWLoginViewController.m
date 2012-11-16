@@ -10,6 +10,7 @@
 #import "OWStrings.h"
 #import "OWInLineTextEditTableViewCell.h"
 #import "OWSettingsController.h"
+#import "OWAccountAPIClient.h"
 
 #define kTextLabelTextKey @"textLabelTextKey"
 #define kCellTypeKey @"cellTypeKey"
@@ -24,13 +25,15 @@
 
 @implementation OWLoginViewController
 @synthesize emailTextField, passwordTextField, loginButton, cancelButton, tableViewArray, loginViewTableView, helpLabel;
-@synthesize headerImageView;
+@synthesize headerImageView, account;
 
 - (id)init
 {
     self = [super init];
     if (self) {
         self.title = LOGIN_STRING;
+        OWSettingsController *settingsController = [OWSettingsController sharedInstance];
+        self.account = settingsController.account;
     }
     return self;
 }
@@ -86,6 +89,10 @@
     self.emailTextField.textColor = self.textFieldTextColor;
     self.emailTextField.keyboardType = UIKeyboardTypeEmailAddress;
     self.emailTextField.placeholder = REQUIRED_STRING;
+    NSString *email = account.email;
+    if (email) {
+        self.emailTextField.text = email;
+    }
     
     [self addCellinfoWithSection:0 row:0 labelText:EMAIL_STRING cellType:kCellTypeTextField userInputView:self.emailTextField];
     
@@ -97,6 +104,11 @@
     self.passwordTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
     self.passwordTextField.textColor = self.textFieldTextColor;
     self.passwordTextField.placeholder = REQUIRED_STRING;
+    
+    NSString *password = account.password;
+    if (password) {
+        self.passwordTextField.text = password;
+    }
     
     [self addCellinfoWithSection:0 row:1 labelText:PASSWORD_STRING cellType:kCellTypeTextField userInputView:self.passwordTextField];
 }
@@ -166,12 +178,17 @@
     BOOL fields = [self checkFields];
     if(fields)
     {
-        OWSettingsController *settingsController = [OWSettingsController sharedInstance];
-        settingsController.account.email = self.emailTextField.text;
-        settingsController.account.password = self.passwordTextField.text;
-        [self dismissViewControllerAnimated:YES completion:^{
-            
+        account.email = self.emailTextField.text;
+        account.password = self.passwordTextField.text;
+        
+        [[OWAccountAPIClient sharedClient] loginWithAccount:account success:^{
+            NSLog(@"Success");
+            [self dismissViewControllerAnimated:YES completion:^{}];
+        } failure:^(NSString *reason) {
+            NSLog(@"Failure: %@", reason);
         }];
+        
+
     }
 }
 

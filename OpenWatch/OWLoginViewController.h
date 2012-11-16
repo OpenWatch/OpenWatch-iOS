@@ -7,8 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "OWAccount.h"
 
 @interface OWLoginViewController : UIViewController <UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate>
+
+@property (nonatomic, strong) OWAccount *account;
 
 @property (nonatomic, strong) UIImageView *headerImageView;
 

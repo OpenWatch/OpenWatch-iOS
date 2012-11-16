@@ -15,6 +15,7 @@
 #define kPublicUploadTokenKey @"kPublicUploadTokenKey"
 #define kPrivateUploadTokenKey @"kPrivateUploadTokenKey"
 #define kPasswordKey @"kPasswordKey"
+#define kUsernameKey @"kUsernameKey"
 
 @implementation OWAccount
 
@@ -34,6 +35,15 @@
 
 - (void) setEmail:(NSString *)email {
     [self setPreferencesValue:email forKey:kEmailKey];
+}
+
+- (NSString*) username {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    return [defaults objectForKey:kUsernameKey];
+}
+
+- (void) setUsername:(NSString *)username {
+    [self setPreferencesValue:username forKey:kUsernameKey];
 }
 
 - (NSString*) retreiveValueFromKeychainForKey:(NSString*)key {
