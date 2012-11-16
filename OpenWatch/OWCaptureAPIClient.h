@@ -11,13 +11,17 @@
 
 #define kOWCaptureAPIClientBandwidthNotification @"kOWCaptureAPIClientBandwidthNotification"
 
-@interface OWCaptureAPIClient : AFHTTPClient
+@interface OWCaptureAPIClient : AFHTTPClient {
+    dispatch_queue_t responseQueue;
+    dispatch_queue_t requestQueue;
+}
 
 + (OWCaptureAPIClient *)sharedClient;
 
 @property (nonatomic, strong) NSMutableDictionary *uploadDictionary;
 
 - (void) testUpload;
+- (void) startedRecording:(OWRecording*)recording;
 - (void) uploadFileURL:(NSURL*)url recording:(OWRecording*)recording priority:(NSOperationQueuePriority)priority;
 - (void) finishedRecording:(OWRecording*)recording;
 

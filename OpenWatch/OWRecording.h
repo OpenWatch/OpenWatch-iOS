@@ -39,6 +39,8 @@ typedef enum {
 - (void) startRecording;
 - (void) stopRecording;
 
+- (NSDictionary*) dictionaryRepresentation;
+
 - (NSURL*) urlForNextSegment;
 - (NSURL*) highQualityURL;
 

@@ -14,8 +14,8 @@
 @property (nonatomic, retain) AVAssetWriterInput *queuedAudioEncoder;
 @property (nonatomic, retain) AVAssetWriterInput *queuedVideoEncoder;
 
-@property (atomic) int videoBPS; // bits/sec
-@property (atomic) int audioBPS; // bits/sec
+@property (nonatomic) int videoBPS; // bits/sec
+@property (nonatomic) int audioBPS; // bits/sec
 
 @property (nonatomic, retain) NSTimer *segmentationTimer;
 

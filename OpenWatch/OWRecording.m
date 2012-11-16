@@ -109,7 +109,12 @@
     return OWFileUploadStateUnknown;
 }
 
-- (void) saveMetadata {
+- (NSDictionary*) dictionaryRepresentation {
+    [self updateMetadataDictionary];
+    return [NSDictionary dictionaryWithDictionary:metadataDictionary];
+}
+
+- (void) updateMetadataDictionary {
     if (uuid) {
         [metadataDictionary setObject:uuid forKey:kUUIDKey];
     }
@@ -141,7 +146,10 @@
     [metadataDictionary setObject:uploadingDictionary forKey:kUploadingKey];
     [metadataDictionary setObject:failedDictionary forKey:kFailedKey];
     [metadataDictionary setObject:recordingDictionary forKey:kRecordingKey];
-    
+}
+
+- (void) saveMetadata {
+    [self updateMetadataDictionary];
     NSError *error = nil;
     NSData *jsonData = [metadataDictionary JSONDataWithOptions:JKSerializeOptionPretty error:&error];
     if (error) {
