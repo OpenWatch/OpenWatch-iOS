@@ -8,7 +8,9 @@
 
 #import "OWAppleEncoder.h"
 
-@interface OWSegmentingAppleEncoder : OWAppleEncoder
+@interface OWSegmentingAppleEncoder : OWAppleEncoder {
+    dispatch_queue_t segmentingQueue;
+}
 
 @property (nonatomic, retain) AVAssetWriter *queuedAssetWriter;
 @property (nonatomic, retain) AVAssetWriterInput *queuedAudioEncoder;

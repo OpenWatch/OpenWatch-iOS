@@ -20,6 +20,7 @@
         [self.segmentationTimer invalidate];
         self.segmentationTimer = nil;
     }
+    dispatch_release(segmentingQueue);
 }
 
 - (void) finishEncoding {
@@ -37,6 +38,7 @@
         self.segmentationTimer = [NSTimer timerWithTimeInterval:timeInterval target:self selector:@selector(segmentRecording:) userInfo:nil repeats:YES];
         [[NSRunLoop mainRunLoop] addTimer:segmentationTimer forMode:NSDefaultRunLoopMode];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedBandwidthUpdateNotification:) name:kOWCaptureAPIClientBandwidthNotification object:nil];
+        segmentingQueue = dispatch_queue_create("Segmenting Queue", DISPATCH_QUEUE_SERIAL);
     }
     return self;
 }
@@ -59,7 +61,7 @@
     self.videoEncoder = queuedVideoEncoder;
     //NSLog(@"Switching encoders");
     
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+    dispatch_async(segmentingQueue, ^{
         if (tempAssetWriter.status == AVAssetWriterStatusWriting) {
             [tempAudioEncoder markAsFinished];
             [tempVideoEncoder markAsFinished];
