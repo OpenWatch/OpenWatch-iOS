@@ -41,10 +41,6 @@ static NSString * const kOWCaptureAPIClientAPIBaseURLString = @"http://192.168.1
 	[self setDefaultHeader:@"Accept" value:@"application/json"];
     self.parameterEncoding = AFJSONParameterEncoding;
     
-    responseQueue = dispatch_queue_create("Response Queue", DISPATCH_QUEUE_SERIAL);
-    requestQueue = dispatch_queue_create("Request Queue", DISPATCH_QUEUE_SERIAL);
-    
-    
     [self setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
         if (status == AFNetworkReachabilityStatusReachableViaWiFi || status == AFNetworkReachabilityStatusReachableViaWWAN) {
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
@@ -66,78 +62,74 @@ static NSString * const kOWCaptureAPIClientAPIBaseURLString = @"http://192.168.1
 }
 
 - (void) uploadFileURL:(NSURL*)url recording:(OWRecording*)recording priority:(NSOperationQueuePriority)priority {
-    dispatch_async(requestQueue, ^{
-        NSTimeInterval before = [[NSDate date] timeIntervalSince1970];
+    NSTimeInterval before = [[NSDate date] timeIntervalSince1970];
 
-        if (self.networkReachabilityStatus == AFNetworkReachabilityStatusNotReachable || self.networkReachabilityStatus == AFNetworkReachabilityStatusUnknown) {
-            [recording setUploadState:OWFileUploadStateFailed forFileAtURL:url];
-            return;
+    if (self.networkReachabilityStatus == AFNetworkReachabilityStatusNotReachable || self.networkReachabilityStatus == AFNetworkReachabilityStatusUnknown) {
+        [recording setUploadState:OWFileUploadStateFailed forFileAtURL:url];
+        return;
+    }
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithCapacity:2];
+    [parameters setObject:@"test" forKey:@"title"];
+    [parameters setObject:recording.uuid forKey:@"uid"];
+    [recording setUploadState:OWFileUploadStateUploading forFileAtURL:url];
+    NSString *postPath = [self postPathForRecording:recording uploadState:kUploadStateUpload];
+
+
+    NSURLRequest *request = [self multipartFormRequestWithMethod:@"POST" path:postPath parameters:parameters constructingBodyWithBlock: ^(id <AFMultipartFormData> formData) {
+        //NSURL *fileURL = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"openwatch" ofType:@"png"]];
+        
+        NSError *error = nil;
+        [formData appendPartWithFileURL:url name:@"upload" error:&error];
+
+        if (error) {
+            NSLog(@"Error appending part file URL: %@%@", [error localizedDescription], [error userInfo]);
         }
-        NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithCapacity:2];
-        [parameters setObject:@"test" forKey:@"title"];
-        [parameters setObject:recording.uuid forKey:@"uid"];
-        [recording setUploadState:OWFileUploadStateUploading forFileAtURL:url];
-        NSString *postPath = [self postPathForRecording:recording uploadState:kUploadStateUpload];
+         
+    }];
+    
 
-
-        NSURLRequest *request = [self multipartFormRequestWithMethod:@"POST" path:postPath parameters:parameters constructingBodyWithBlock: ^(id <AFMultipartFormData> formData) {
-            //NSURL *fileURL = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"openwatch" ofType:@"png"]];
-            
-            NSError *error = nil;
-            [formData appendPartWithFileURL:url name:@"upload" error:&error];
-
-            if (error) {
-                NSLog(@"Error appending part file URL: %@%@", [error localizedDescription], [error userInfo]);
+    
+    NSTimeInterval startTime = [[NSDate date] timeIntervalSince1970];
+    
+    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+    //operation.queuePriority = priority;
+    /*
+    [operation setUploadProgressBlock:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
+        
+        dispatch_async(responseQueue, ^{
+            //NSLog(@"%d: %lld/%lld", bytesWritten, totalBytesWritten, totalBytesExpectedToWrite);
+            if (totalBytesWritten >= totalBytesExpectedToWrite) {
+                NSDate *endDate = [NSDate date];
+                NSTimeInterval endTime = [endDate timeIntervalSince1970];
+                NSTimeInterval diff = endTime - startTime;
+                double bps = totalBytesWritten * 8 / diff;
+                NSLog(@"%f bits/sec", bps);
+                NSMutableDictionary *userInfo = [NSMutableDictionary dictionaryWithCapacity:2];
+                [userInfo setObject:[NSNumber numberWithDouble:bps] forKey:@"bps"];
+                [userInfo setObject:endDate forKey:@"endDate"];
+                [userInfo setObject:url forKey:@"fileURL"];
+                [[NSNotificationCenter defaultCenter] postNotificationName:kOWCaptureAPIClientBandwidthNotification object:nil userInfo:userInfo];
             }
-             
-        }];
+        });
         
+    }];
+     */
+    
+    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        //NSLog(@"success: %@", operation.responseString);
+        [recording setUploadState:OWFileUploadStateCompleted forFileAtURL:url];
 
-        
-        NSTimeInterval startTime = [[NSDate date] timeIntervalSince1970];
-        
-        AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
-        operation.successCallbackQueue = responseQueue;
-        operation.failureCallbackQueue = responseQueue;
-        //operation.queuePriority = priority;
-        /*
-        [operation setUploadProgressBlock:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
-            
-            dispatch_async(responseQueue, ^{
-                //NSLog(@"%d: %lld/%lld", bytesWritten, totalBytesWritten, totalBytesExpectedToWrite);
-                if (totalBytesWritten >= totalBytesExpectedToWrite) {
-                    NSDate *endDate = [NSDate date];
-                    NSTimeInterval endTime = [endDate timeIntervalSince1970];
-                    NSTimeInterval diff = endTime - startTime;
-                    double bps = totalBytesWritten * 8 / diff;
-                    NSLog(@"%f bits/sec", bps);
-                    NSMutableDictionary *userInfo = [NSMutableDictionary dictionaryWithCapacity:2];
-                    [userInfo setObject:[NSNumber numberWithDouble:bps] forKey:@"bps"];
-                    [userInfo setObject:endDate forKey:@"endDate"];
-                    [userInfo setObject:url forKey:@"fileURL"];
-                    [[NSNotificationCenter defaultCenter] postNotificationName:kOWCaptureAPIClientBandwidthNotification object:nil userInfo:userInfo];
-                }
-            });
-            
-        }];
-         */
-        
-        [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-            //NSLog(@"success: %@", operation.responseString);
-            [recording setUploadState:OWFileUploadStateCompleted forFileAtURL:url];
-
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            [recording setUploadState:OWFileUploadStateFailed forFileAtURL:url];
-        }];
-        //NSLog(@"Queued operations: %d", self.operationQueue.operationCount);
-        
-        [self enqueueHTTPRequestOperation:operation];
-        NSTimeInterval after = [[NSDate date] timeIntervalSince1970];
-        NSTimeInterval diff = after-before;
-        NSData *data = [NSData dataWithContentsOfURL:url];
-        
-        NSLog(@"timeSpent: %f fileLength: %d", diff, [data length]);
-    });
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [recording setUploadState:OWFileUploadStateFailed forFileAtURL:url];
+    }];
+    //NSLog(@"Queued operations: %d", self.operationQueue.operationCount);
+    
+    [self enqueueHTTPRequestOperation:operation];
+    NSTimeInterval after = [[NSDate date] timeIntervalSince1970];
+    NSTimeInterval diff = after-before;
+    NSData *data = [NSData dataWithContentsOfURL:url];
+    
+    NSLog(@"timeSpent: %f fileLength: %d", diff, [data length]);
 }
 
 - (void) finishedRecording:(OWRecording*)recording {
@@ -152,14 +144,12 @@ static NSString * const kOWCaptureAPIClientAPIBaseURLString = @"http://192.168.1
 
 
 - (void) uploadMetadataForRecording:(OWRecording*)recording postPath:(NSString*)postPath  {
-    dispatch_async(requestQueue, ^{
-        NSDictionary *params = recording.dictionaryRepresentation;
-        [self postPath:postPath parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            NSLog(@"metadata response: %@", [responseObject description]);
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            NSLog(@"error pushing metadata: %@%@", [error localizedDescription], [error userInfo]);
-        }];
-    });
+    NSDictionary *params = recording.dictionaryRepresentation;
+    [self postPath:postPath parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"metadata response: %@", [responseObject description]);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"error pushing metadata: %@%@", [error localizedDescription], [error userInfo]);
+    }];
 }
 
 - (NSString*) postPathForRecording:(OWRecording*)recording uploadState:(NSString*)state {

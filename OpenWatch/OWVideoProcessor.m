@@ -126,7 +126,7 @@
     [self.currentRecording startRecording];
     [[OWRecordingController sharedInstance] addRecording:currentRecording];
     
-	dispatch_async(movieWritingQueue1, ^{
+	dispatch_async(movieWritingQueue, ^{
 	
 		if ( recordingWillBeStarted || self.recording )
 			return;
@@ -146,21 +146,17 @@
 
 - (void) initializeAssetWriters {
     // Create an asset writer
-	dispatch_async(movieWritingQueue1, ^{
-        self.appleEncoder1 = [[OWAppleEncoder alloc] initWithURL:[currentRecording highQualityURL] movieFragmentInterval:CMTimeMakeWithSeconds(5, 30)];
-        self.appleEncoder1.recording = currentRecording;
-    });
-    dispatch_async(movieWritingQueue2, ^{
-        self.appleEncoder2 = [[OWSegmentingAppleEncoder alloc] initWithURL:[currentRecording urlForNextSegment] segmentationInterval:5.0f];
-        self.appleEncoder2.recording = currentRecording;
-    });
+    self.appleEncoder1 = [[OWAppleEncoder alloc] initWithURL:[currentRecording highQualityURL] movieFragmentInterval:CMTimeMakeWithSeconds(5, 30)];
+    self.appleEncoder1.recording = currentRecording;
+    self.appleEncoder2 = [[OWSegmentingAppleEncoder alloc] initWithURL:[currentRecording urlForNextSegment] segmentationInterval:5.0f];
+    self.appleEncoder2.recording = currentRecording;
 }
 
 - (void) stopRecording
 {
     [self.currentRecording stopRecording];
 
-	dispatch_async(movieWritingQueue1, ^{
+	dispatch_async(movieWritingQueue, ^{
 		if ( recordingWillBeStopped || self.recording == NO)
 			return;
 		
@@ -173,8 +169,6 @@
         self.recording = NO;
         [self.delegate recordingDidStop];
         [self initializeAssetWriters];
-	});
-    dispatch_async(movieWritingQueue2, ^{
         [appleEncoder2 finishEncoding];
 	});
 }
@@ -201,11 +195,9 @@
 	}
     //
     CFRetain(sampleBuffer);
-    CFRetain(sampleBuffer);
 	CFRetain(formatDescription);
-    CFRetain(formatDescription);
     
-	dispatch_async(movieWritingQueue1, ^{
+	dispatch_async(movieWritingQueue, ^{
 		if ( appleEncoder1 && (self.recording || recordingWillBeStarted)) {
 		
 			BOOL wasReadyToRecord = (appleEncoder1.readyToRecordAudio && appleEncoder1.readyToRecordVideo);
@@ -241,12 +233,6 @@
 				[self.delegate recordingDidStart];
 			}
 		}
-		CFRelease(sampleBuffer);
-		CFRelease(formatDescription);
-	});
-    
-    dispatch_async(movieWritingQueue2, ^{
-        
         if ( appleEncoder2 && (self.recording || recordingWillBeStarted)) {
             
             BOOL wasReadyToRecord = (appleEncoder2.readyToRecordAudio && appleEncoder2.readyToRecordVideo);
@@ -282,9 +268,10 @@
                 [self.delegate recordingDidStart];
             }
         }
-        CFRelease(sampleBuffer);
+
+		CFRelease(sampleBuffer);
 		CFRelease(formatDescription);
-    });
+	});
 }
 
 - (AVCaptureDevice *)videoDeviceWithPosition:(AVCaptureDevicePosition)position 
@@ -355,9 +342,8 @@
 - (void) setupAndStartCaptureSession
 {
 	// Create serial queue for movie writing
-	movieWritingQueue1 = dispatch_queue_create("Movie Writing Queue 1", DISPATCH_QUEUE_SERIAL);
-    movieWritingQueue2 = dispatch_queue_create("Movie Writing Queue 2", DISPATCH_QUEUE_SERIAL);
-    
+	movieWritingQueue = dispatch_queue_create("Movie Writing Queue", DISPATCH_QUEUE_SERIAL);
+
     if ( !captureSession )
 		[self setupCaptureSession];
 	
@@ -383,7 +369,7 @@
 
 - (void)captureSessionStoppedRunningNotification:(NSNotification *)notification
 {
-	dispatch_async(movieWritingQueue1, ^{
+	dispatch_async(movieWritingQueue, ^{
 		if ( [self isRecording] ) {
 			[self stopRecording];
 		}
@@ -396,13 +382,9 @@
 	if (captureSession)
 		[[NSNotificationCenter defaultCenter] removeObserver:self name:AVCaptureSessionDidStopRunningNotification object:captureSession];
 	captureSession = nil;
-	if (movieWritingQueue1) {
-		dispatch_release(movieWritingQueue1);
-		movieWritingQueue1 = NULL;
-	}
-    if (movieWritingQueue2) {
-		dispatch_release(movieWritingQueue2);
-		movieWritingQueue2 = NULL;
+	if (movieWritingQueue) {
+		dispatch_release(movieWritingQueue);
+		movieWritingQueue = NULL;
 	}
 }
 

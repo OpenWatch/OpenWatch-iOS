@@ -32,8 +32,7 @@
 	AVCaptureConnection *audioConnection;
 	AVCaptureConnection *videoConnection;
 	
-	dispatch_queue_t movieWritingQueue1;
-    dispatch_queue_t movieWritingQueue2;
+	dispatch_queue_t movieWritingQueue;
     
     CMFormatDescriptionRef videoFormatDescription;
     CMFormatDescriptionRef audioFormatDescription;

@@ -11,10 +11,7 @@
 
 #define kOWCaptureAPIClientBandwidthNotification @"kOWCaptureAPIClientBandwidthNotification"
 
-@interface OWCaptureAPIClient : AFHTTPClient {
-    dispatch_queue_t responseQueue;
-    dispatch_queue_t requestQueue;
-}
+@interface OWCaptureAPIClient : AFHTTPClient
 
 + (OWCaptureAPIClient *)sharedClient;
 

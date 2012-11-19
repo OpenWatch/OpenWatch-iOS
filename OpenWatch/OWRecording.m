@@ -45,8 +45,6 @@
 @property (nonatomic, strong) NSMutableDictionary *uploadingDictionary;
 @property (nonatomic, strong) NSMutableDictionary *failedDictionary;
 @property (nonatomic, strong) NSMutableDictionary *recordingDictionary;
-
-- (void) saveMetadataWithCompletionBlock:(void (^)())block;
 @end
 
 @implementation OWRecording
@@ -62,7 +60,6 @@
         self.metadataDictionary = [NSMutableDictionary dictionary];
         self.recordingDictionary = [NSMutableDictionary dictionary];
         isRecording = NO;
-        savingQueue = dispatch_queue_create("Saving Queue", DISPATCH_QUEUE_SERIAL);
         [self loadMetadata];
         [self checkIntegrity];
     }
@@ -160,37 +157,24 @@
     [self.metadataDictionary setObject:recordingDictionary forKey:kRecordingKey];
 }
 
-- (void) saveMetadataWithCompletionBlock:(void (^)())block {
-    @synchronized(self) {
-        dispatch_async(savingQueue, ^{
-            [self updateMetadataDictionary];
-            NSError *error = nil;
-            NSDictionary *dictionary = [NSDictionary dictionaryWithDictionary:self.metadataDictionary];
-            NSData *jsonData = [dictionary JSONDataWithOptions:JKSerializeOptionPretty error:&error];
-            if (error) {
-                NSLog(@"Error serializing JSON: %@%@", [error localizedDescription], [error userInfo]);
-                error = nil;
-            }
-            if (!jsonData) {
-                NSLog(@"JSON data is nil!");
-                return;
-            }
-            [jsonData writeToFile:[self metadataFilePath] options:NSDataWritingAtomic error:&error];
-            if (error) {
-                NSLog(@"Error writing metadata to file: %@%@", [error localizedDescription], [error userInfo]);
-                error = nil;
-            }
-            if (block) {
-                block();
-            }
-        });
-
-    }
-}
-
 - (void) saveMetadata {
-    [self saveMetadataWithCompletionBlock:nil];
-}
+    [self updateMetadataDictionary];
+    NSError *error = nil;
+    NSDictionary *dictionary = [NSDictionary dictionaryWithDictionary:self.metadataDictionary];
+    NSData *jsonData = [dictionary JSONDataWithOptions:JKSerializeOptionPretty error:&error];
+    if (error) {
+        NSLog(@"Error serializing JSON: %@%@", [error localizedDescription], [error userInfo]);
+        error = nil;
+    }
+    if (!jsonData) {
+        NSLog(@"JSON data is nil!");
+        return;
+    }
+    [jsonData writeToFile:[self metadataFilePath] options:NSDataWritingAtomic error:&error];
+    if (error) {
+        NSLog(@"Error writing metadata to file: %@%@", [error localizedDescription], [error userInfo]);
+        error = nil;
+    }}
 
 - (void) checkIntegrity {
     NSFileManager *fileManager = [NSFileManager defaultManager];
@@ -306,17 +290,15 @@
         }
     }
     isRecording = YES;
-    [self saveMetadataWithCompletionBlock:^{
-        [[OWCaptureAPIClient sharedClient] startedRecording:self];
-    }];
+    [self saveMetadata];
+    [[OWCaptureAPIClient sharedClient] startedRecording:self];
 }
 
 - (void) stopRecording {
     self.endDate = [NSDate date];
     isRecording = NO;
-    [self saveMetadataWithCompletionBlock:^{
-        [[OWCaptureAPIClient sharedClient] finishedRecording:self];
-    }];
+    [self saveMetadata];
+    [[OWCaptureAPIClient sharedClient] finishedRecording:self];
 }
 
 - (NSURL*) highQualityURL {
