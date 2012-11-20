@@ -16,6 +16,7 @@ static NSString * const kOWCaptureAPIClientAPIBaseURLString = @"http://192.168.1
 #define kUploadStateStart @"start"
 #define kUploadStateUpload @"upload"
 #define kUploadStateEnd @"end"
+#define kUploadStateUploadHQ @"upload_hq"
 
 @implementation OWCaptureAPIClient
 
@@ -72,7 +73,13 @@ static NSString * const kOWCaptureAPIClientAPIBaseURLString = @"http://192.168.1
     [parameters setObject:@"test" forKey:@"title"];
     [parameters setObject:recording.uuid forKey:@"uid"];
     [recording setUploadState:OWFileUploadStateUploading forFileAtURL:url];
-    NSString *postPath = [self postPathForRecording:recording uploadState:kUploadStateUpload];
+    NSString *postPath = nil;
+    if ([[url lastPathComponent] isEqualToString:@"hq.mp4"]) {
+        postPath = [self postPathForRecording:recording uploadState:kUploadStateUploadHQ];
+    } else {
+        postPath = [self postPathForRecording:recording uploadState:kUploadStateUpload];
+    }
+
 
 
     NSURLRequest *request = [self multipartFormRequestWithMethod:@"POST" path:postPath parameters:parameters constructingBodyWithBlock: ^(id <AFMultipartFormData> formData) {
@@ -155,9 +162,6 @@ static NSString * const kOWCaptureAPIClientAPIBaseURLString = @"http://192.168.1
 - (NSString*) postPathForRecording:(OWRecording*)recording uploadState:(NSString*)state {
     OWSettingsController *settingsController = [OWSettingsController sharedInstance];
     NSString *publicUploadToken = settingsController.account.publicUploadToken;
-    if (!publicUploadToken) {
-        publicUploadToken = @"asdf";
-    }
     NSString *uploadPath = [NSString stringWithFormat:@"/%@/%@/%@", state, publicUploadToken, recording.uuid];
     return uploadPath;
 }

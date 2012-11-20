@@ -115,10 +115,13 @@
     [self updateMetadataDictionary];
     NSMutableDictionary *dictionary = [NSMutableDictionary dictionaryWithDictionary:self.metadataDictionary];
     NSMutableArray *allFiles = [NSMutableArray array];
-    [allFiles addObjectsFromArray:[completedDictionary allKeys]];
-    [allFiles addObjectsFromArray:[failedDictionary allKeys]];
-    [allFiles addObjectsFromArray:[uploadingDictionary allKeys]];
-    [allFiles addObjectsFromArray:[recordingDictionary allKeys]];
+    NSMutableDictionary *allFilesDictionary = [NSMutableDictionary dictionary];
+    [allFilesDictionary addEntriesFromDictionary:completedDictionary];
+    [allFilesDictionary addEntriesFromDictionary:failedDictionary];
+    [allFilesDictionary addEntriesFromDictionary:uploadingDictionary];
+    [allFilesDictionary addEntriesFromDictionary:recordingDictionary];
+    [allFilesDictionary removeObjectForKey:@"hq.mp4"];
+    [allFiles addObjectsFromArray:[allFilesDictionary allKeys]];
     [dictionary setObject:allFiles forKey:kAllFilesKey];
     return dictionary;
 }
