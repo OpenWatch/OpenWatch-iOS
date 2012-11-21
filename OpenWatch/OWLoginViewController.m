@@ -19,13 +19,19 @@
 #define kCellTypeSwitch @"cellTypeSwitch"
 #define KCellTypeHelp @"cellTypeHelp"
 
+#define PADDING 10.0f
+
 @interface OWLoginViewController ()
 
 @end
 
 @implementation OWLoginViewController
 @synthesize emailTextField, passwordTextField, loginButton, tableViewArray, loginViewTableView, helpLabel;
-@synthesize headerImageView, account, loginOrSignupSegmentedControl, logoutButton;
+@synthesize headerImageView, account, loginOrSignupSegmentedControl, logoutButton, scrollView;
+
+- (void) dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 
 - (id)init
 {
@@ -43,12 +49,15 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor colorWithPatternImage: [UIImage imageNamed:@"fabric.jpeg"]];
     
+    self.scrollView = [[UIScrollView alloc] init];
+    self.scrollView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin;
+    [self.view addSubview:self.scrollView];
+    
     self.loginOrSignupSegmentedControl = [[UISegmentedControl alloc] initWithItems:@[LOGIN_STRING, SIGNUP_STRING]];
     [self.loginOrSignupSegmentedControl addTarget:self action:@selector(segmentedControlValueChanged:) forControlEvents:UIControlEventValueChanged];
-    [self.loginOrSignupSegmentedControl setWidth:150 forSegmentAtIndex:0];
-    [self.loginOrSignupSegmentedControl setWidth:150 forSegmentAtIndex:1];
     self.loginOrSignupSegmentedControl.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
-    [self.view addSubview:loginOrSignupSegmentedControl];
+    self.loginOrSignupSegmentedControl.selectedSegmentIndex = 0;
+    [self.scrollView addSubview:loginOrSignupSegmentedControl];
     
     [self setUpFields];
 
@@ -70,7 +79,7 @@
     loginViewTableView.backgroundColor = [UIColor clearColor];
     loginViewTableView.backgroundView = nil;
     loginViewTableView.scrollEnabled = NO;
-    [self.view addSubview:loginViewTableView];
+    [self.scrollView addSubview:loginViewTableView];
     
     self.loginButton = [[UIBarButtonItem alloc] initWithTitle:SUBMIT_STRING style:UIBarButtonItemStyleDone target:self action:@selector(loginButtonPressed:)];
     self.navigationItem.rightBarButtonItem = loginButton;
@@ -81,14 +90,27 @@
     
     self.headerImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"openwatch.png"]];
     self.headerImageView.contentMode = UIViewContentModeCenter;
-    [self.view addSubview:headerImageView];
+    [self.scrollView addSubview:headerImageView];
 
+    // Listen for keyboard appearances and disappearances
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillShow:)
+                                                 name:UIKeyboardWillShowNotification
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillHide:)
+                                                 name:UIKeyboardWillHideNotification
+                                               object:nil];
 }
 
 
 - (void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    CGFloat padding = 10.0f;
+    self.scrollView.frame = self.view.bounds;
+    self.scrollView.contentSize = self.view.bounds.size;
+    
+    CGFloat padding = PADDING;
     self.headerImageView.frame = CGRectMake(padding, 0, self.view.frame.size.width-(padding*2), headerImageView.image.size.height+(padding*2));
 
     self.loginOrSignupSegmentedControl.frame = CGRectMake(padding, self.headerImageView.frame.size.height, self.view.frame.size.width-(padding*2), 35.0f);
@@ -261,6 +283,14 @@
 {
     [textField resignFirstResponder];
     return YES;
+}
+
+- (void)keyboardWillShow: (NSNotification *) notif{
+    [self.scrollView setContentOffset:CGPointMake(0, self.headerImageView.frame.size.height-PADDING) animated:YES];
+}
+
+- (void)keyboardWillHide: (NSNotification *) notif{
+    [self.scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
 }
 
 @end

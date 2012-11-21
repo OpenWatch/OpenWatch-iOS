@@ -11,6 +11,8 @@
 
 @interface OWLoginViewController : UIViewController <UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate>
 
+@property (nonatomic, strong) UIScrollView *scrollView;
+
 @property (nonatomic, strong) OWAccount *account;
 
 @property (nonatomic, strong) UIImageView *headerImageView;
