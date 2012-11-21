@@ -26,7 +26,8 @@ typedef enum {
 @property (nonatomic, readonly) BOOL isRecording;
 @property (nonatomic, strong) NSString *title;
 @property (nonatomic, strong) NSString *description;
-@property (nonatomic, strong) CLLocation *location;
+@property (nonatomic, strong) CLLocation *startLocation;
+@property (nonatomic, strong) CLLocation *endLocation;
 
 - (id) initWithRecordingPath:(NSString*)path;
 - (void) setUploadState:(OWFileUploadState)uploadState forFileAtURL:(NSURL*)url;

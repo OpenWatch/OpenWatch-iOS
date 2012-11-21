@@ -52,7 +52,7 @@ static NSString * const kOWCaptureAPIClientAPIBaseURLString = @"http://192.168.1
     
     
     //NSLog(@"maxConcurrentOperations: %d", self.operationQueue.maxConcurrentOperationCount);
-    //self.operationQueue.maxConcurrentOperationCount = 1;
+    self.operationQueue.maxConcurrentOperationCount = 1;
         
     return self;
 }
@@ -63,8 +63,6 @@ static NSString * const kOWCaptureAPIClientAPIBaseURLString = @"http://192.168.1
 }
 
 - (void) uploadFileURL:(NSURL*)url recording:(OWRecording*)recording priority:(NSOperationQueuePriority)priority {
-    NSTimeInterval before = [[NSDate date] timeIntervalSince1970];
-
     if (self.networkReachabilityStatus == AFNetworkReachabilityStatusNotReachable || self.networkReachabilityStatus == AFNetworkReachabilityStatusUnknown) {
         [recording setUploadState:OWFileUploadStateFailed forFileAtURL:url];
         return;
@@ -96,7 +94,7 @@ static NSString * const kOWCaptureAPIClientAPIBaseURLString = @"http://192.168.1
     
 
     
-    NSTimeInterval startTime = [[NSDate date] timeIntervalSince1970];
+    __block NSTimeInterval startTime = [[NSDate date] timeIntervalSince1970];
     
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
     //operation.queuePriority = priority;
@@ -106,16 +104,7 @@ static NSString * const kOWCaptureAPIClientAPIBaseURLString = @"http://192.168.1
         dispatch_async(responseQueue, ^{
             //NSLog(@"%d: %lld/%lld", bytesWritten, totalBytesWritten, totalBytesExpectedToWrite);
             if (totalBytesWritten >= totalBytesExpectedToWrite) {
-                NSDate *endDate = [NSDate date];
-                NSTimeInterval endTime = [endDate timeIntervalSince1970];
-                NSTimeInterval diff = endTime - startTime;
-                double bps = totalBytesWritten * 8 / diff;
-                NSLog(@"%f bits/sec", bps);
-                NSMutableDictionary *userInfo = [NSMutableDictionary dictionaryWithCapacity:2];
-                [userInfo setObject:[NSNumber numberWithDouble:bps] forKey:@"bps"];
-                [userInfo setObject:endDate forKey:@"endDate"];
-                [userInfo setObject:url forKey:@"fileURL"];
-                [[NSNotificationCenter defaultCenter] postNotificationName:kOWCaptureAPIClientBandwidthNotification object:nil userInfo:userInfo];
+
             }
         });
         
@@ -123,20 +112,29 @@ static NSString * const kOWCaptureAPIClientAPIBaseURLString = @"http://192.168.1
      */
     
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        //NSLog(@"success: %@", operation.responseString);
+        NSDate *endDate = [NSDate date];
+        NSTimeInterval endTime = [endDate timeIntervalSince1970];
+        NSTimeInterval diff = endTime - startTime;
+        NSError *error = nil;
+        unsigned long long length = [[[NSFileManager defaultManager] attributesOfItemAtPath:[url path] error:&error] fileSize];
+        if (error) {
+            NSLog(@"Error getting size of URL: %@%@", [error localizedDescription], [error userInfo]);
+            error = nil;
+        }
+        double bps = (length * 8.0) / diff;
+        NSMutableDictionary *userInfo = [NSMutableDictionary dictionaryWithCapacity:2];
+        [userInfo setObject:[NSNumber numberWithDouble:bps] forKey:@"bps"];
+        [userInfo setObject:endDate forKey:@"endDate"];
+        [userInfo setObject:url forKey:@"fileURL"];
+        [[NSNotificationCenter defaultCenter] postNotificationName:kOWCaptureAPIClientBandwidthNotification object:nil userInfo:userInfo];
         [recording setUploadState:OWFileUploadStateCompleted forFileAtURL:url];
+        NSLog(@"timeSpent: %f fileLength: %lld, %f bits/sec", diff, length, bps);
 
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [recording setUploadState:OWFileUploadStateFailed forFileAtURL:url];
     }];
-    //NSLog(@"Queued operations: %d", self.operationQueue.operationCount);
     
-    [self enqueueHTTPRequestOperation:operation];
-    NSTimeInterval after = [[NSDate date] timeIntervalSince1970];
-    NSTimeInterval diff = after-before;
-    NSData *data = [NSData dataWithContentsOfURL:url];
-    
-    NSLog(@"timeSpent: %f fileLength: %d", diff, [data length]);
+    [self enqueueHTTPRequestOperation:operation]; 
 }
 
 - (void) finishedRecording:(OWRecording*)recording {

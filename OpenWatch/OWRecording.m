@@ -16,7 +16,8 @@
 #define kUploadStateKey @"upload_state"
 #define kRecordingStartDateKey @"recording_start"
 #define kRecordingEndDateKey @"recording_end"
-#define kLocationKey @"location"
+#define kLocationStartKey @"start_location"
+#define kLocationEndKey @"end_location"
 #define kLatitudeKey @"latitude"
 #define kLongitudeKey @"longitude"
 #define kAltitudeKey @"altitude"
@@ -40,7 +41,7 @@
 @property (nonatomic, strong) NSDate *endDate;
 @property (nonatomic) BOOL isRecording;
 
-@property (atomic, strong) NSMutableDictionary *metadataDictionary;
+@property (nonatomic, strong) NSMutableDictionary *metadataDictionary;
 @property (nonatomic, strong) NSMutableDictionary *completedDictionary;
 @property (nonatomic, strong) NSMutableDictionary *uploadingDictionary;
 @property (nonatomic, strong) NSMutableDictionary *failedDictionary;
@@ -48,7 +49,8 @@
 @end
 
 @implementation OWRecording
-@synthesize uuid, metadataDictionary, recordingPath, segmentCount, startDate, endDate, title, description, location, completedDictionary, uploadingDictionary, failedDictionary, recordingDictionary, isRecording;
+@synthesize uuid, metadataDictionary, recordingPath, segmentCount, startDate, endDate, title, description, startLocation, endLocation, completedDictionary, uploadingDictionary, failedDictionary, recordingDictionary, isRecording;
+
 
 - (id) initWithRecordingPath:(NSString*)path {
     if (self = [super init]) {
@@ -94,7 +96,6 @@
     } else if (uploadState == OWFileUploadStateRecording) {
         [recordingDictionary setObject:kRecordingKey forKey:key];
     }
-    [self saveMetadata];
 }
 
 - (OWFileUploadState)uploadStateForFileAtURL:(NSURL*)url {
@@ -127,37 +128,50 @@
 }
 
 - (void) updateMetadataDictionary {
-    if (uuid) {
-        [self.metadataDictionary setObject:uuid forKey:kUUIDKey];
+    @synchronized(self) {
+        NSLog(@"updateMetadataDictionary called from: %s",dispatch_queue_get_label(dispatch_get_current_queue()));
+        if (uuid) {
+            [self.metadataDictionary setObject:uuid forKey:kUUIDKey];
+        }
+        if (startDate) {
+            [self.metadataDictionary setObject:@([startDate timeIntervalSince1970]) forKey:kRecordingStartDateKey];
+        }
+        if (endDate) {
+            [self.metadataDictionary setObject:@([endDate timeIntervalSince1970]) forKey:kRecordingEndDateKey];
+        }
+        if (title) {
+            [self.metadataDictionary setObject:title forKey:kTitleKey];
+        }
+        if (description) {
+            [self.metadataDictionary setObject:description forKey:kDescriptionKey];
+        }
+        if (startLocation) {
+            NSDictionary *startLocationDictionary = [self locationDictionaryForLocation:startLocation];
+            [self.metadataDictionary setObject:startLocationDictionary forKey:kLocationStartKey];
+        }
+        if (endLocation) {
+            NSDictionary *endLocationDictionary = [self locationDictionaryForLocation:endLocation];
+            [self.metadataDictionary setObject:endLocationDictionary forKey:kLocationEndKey];
+        }
+        [self.metadataDictionary setObject:completedDictionary forKey:kCompletedKey];
+        [self.metadataDictionary setObject:uploadingDictionary forKey:kUploadingKey];
+        [self.metadataDictionary setObject:failedDictionary forKey:kFailedKey];
+        [self.metadataDictionary setObject:recordingDictionary forKey:kRecordingKey];
+
     }
-    if (startDate) {
-        [self.metadataDictionary setObject:@([startDate timeIntervalSince1970]) forKey:kRecordingStartDateKey];
-    }
-    if (endDate) {
-        [self.metadataDictionary setObject:@([endDate timeIntervalSince1970]) forKey:kRecordingEndDateKey];
-    }
-    if (title) {
-        [self.metadataDictionary setObject:title forKey:kTitleKey];
-    }
-    if (description) {
-        [self.metadataDictionary setObject:description forKey:kDescriptionKey];
-    }
-    if (location) {
-        NSMutableDictionary *locationDictionary = [NSMutableDictionary dictionaryWithCapacity:8];
-        [locationDictionary setObject:@(location.coordinate.latitude) forKey:kLatitudeKey];
-        [locationDictionary setObject:@(location.coordinate.longitude) forKey:kLongitudeKey];
-        [locationDictionary setObject:@(location.altitude) forKey:kAltitudeKey];
-        [locationDictionary setObject:@(location.horizontalAccuracy) forKey:kHorizontalAccuracyKey];
-        [locationDictionary setObject:@(location.verticalAccuracy) forKey:kVerticalAccuracyKey];
-        [locationDictionary setObject:@(location.speed) forKey:kSpeedKey];
-        [locationDictionary setObject:@(location.course) forKey:kCourseKey];
-        [locationDictionary setObject:@([location.timestamp timeIntervalSince1970]) forKey:kTimestampKey];
-        [self.metadataDictionary setObject:locationDictionary forKey:kLocationKey];
-    }
-    [self.metadataDictionary setObject:completedDictionary forKey:kCompletedKey];
-    [self.metadataDictionary setObject:uploadingDictionary forKey:kUploadingKey];
-    [self.metadataDictionary setObject:failedDictionary forKey:kFailedKey];
-    [self.metadataDictionary setObject:recordingDictionary forKey:kRecordingKey];
+}
+
+- (NSDictionary*) locationDictionaryForLocation:(CLLocation*)location {
+    NSMutableDictionary *locationDictionary = [NSMutableDictionary dictionaryWithCapacity:8];
+    [locationDictionary setObject:@(location.coordinate.latitude) forKey:kLatitudeKey];
+    [locationDictionary setObject:@(location.coordinate.longitude) forKey:kLongitudeKey];
+    [locationDictionary setObject:@(location.altitude) forKey:kAltitudeKey];
+    [locationDictionary setObject:@(location.horizontalAccuracy) forKey:kHorizontalAccuracyKey];
+    [locationDictionary setObject:@(location.verticalAccuracy) forKey:kVerticalAccuracyKey];
+    [locationDictionary setObject:@(location.speed) forKey:kSpeedKey];
+    [locationDictionary setObject:@(location.course) forKey:kCourseKey];
+    [locationDictionary setObject:@([location.timestamp timeIntervalSince1970]) forKey:kTimestampKey];
+    return locationDictionary;
 }
 
 - (void) saveMetadata {
@@ -177,7 +191,8 @@
     if (error) {
         NSLog(@"Error writing metadata to file: %@%@", [error localizedDescription], [error userInfo]);
         error = nil;
-    }}
+    }
+}
 
 - (void) checkIntegrity {
     NSFileManager *fileManager = [NSFileManager defaultManager];
@@ -262,22 +277,30 @@
     if (endDateTimestampNumber) {
         self.endDate = [NSDate dateWithTimeIntervalSince1970:[endDateTimestampNumber doubleValue]];
     }
-    NSDictionary *locationDictionary = [self.metadataDictionary objectForKey:kLocationKey];
-    if (locationDictionary) {
-        CLLocationDegrees latitude = [[locationDictionary objectForKey:kLatitudeKey] doubleValue];
-        CLLocationDegrees longitude = [[locationDictionary objectForKey:kLongitudeKey] doubleValue];
-        CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(latitude, longitude);
-        CLLocationDistance altitude = [[locationDictionary objectForKey:kAltitudeKey] doubleValue];
-        CLLocationDistance horizontalAccuracy = [[locationDictionary objectForKey:kHorizontalAccuracyKey] doubleValue];
-        CLLocationDistance verticalAccuracy = [[locationDictionary objectForKey:kVerticalAccuracyKey] doubleValue];
-        CLLocationSpeed speed = [[locationDictionary objectForKey:kSpeedKey] doubleValue];
-        CLLocationDirection course = [[locationDictionary objectForKey:kCourseKey] doubleValue];
-        NSDate *timestamp = [NSDate dateWithTimeIntervalSince1970:[[locationDictionary objectForKey:kTimestampKey] doubleValue]];
-        self.location = [[CLLocation alloc] initWithCoordinate:coordinate altitude:altitude horizontalAccuracy:horizontalAccuracy verticalAccuracy:verticalAccuracy course:course speed:speed timestamp:timestamp];
+    NSDictionary *startLocationDictionary = [self.metadataDictionary objectForKey:kLocationStartKey];
+    if (startLocationDictionary) {
+        self.startLocation = [self locationFromLocationDictionary:startLocationDictionary];
+    }
+    NSDictionary *endLocationDictionary = [self.metadataDictionary objectForKey:kLocationEndKey];
+    if (endLocationDictionary) {
+        self.endLocation = [self locationFromLocationDictionary:endLocationDictionary];
     }
     if (!metadataDictionary) {
         self.metadataDictionary = [NSMutableDictionary dictionary];
     }
+}
+
+- (CLLocation*)locationFromLocationDictionary:(NSDictionary*)locationDictionary {
+    CLLocationDegrees latitude = [[locationDictionary objectForKey:kLatitudeKey] doubleValue];
+    CLLocationDegrees longitude = [[locationDictionary objectForKey:kLongitudeKey] doubleValue];
+    CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(latitude, longitude);
+    CLLocationDistance altitude = [[locationDictionary objectForKey:kAltitudeKey] doubleValue];
+    CLLocationDistance horizontalAccuracy = [[locationDictionary objectForKey:kHorizontalAccuracyKey] doubleValue];
+    CLLocationDistance verticalAccuracy = [[locationDictionary objectForKey:kVerticalAccuracyKey] doubleValue];
+    CLLocationSpeed speed = [[locationDictionary objectForKey:kSpeedKey] doubleValue];
+    CLLocationDirection course = [[locationDictionary objectForKey:kCourseKey] doubleValue];
+    NSDate *timestamp = [NSDate dateWithTimeIntervalSince1970:[[locationDictionary objectForKey:kTimestampKey] doubleValue]];
+    return [[CLLocation alloc] initWithCoordinate:coordinate altitude:altitude horizontalAccuracy:horizontalAccuracy verticalAccuracy:verticalAccuracy course:course speed:speed timestamp:timestamp];
 }
 
 - (void) startRecording {

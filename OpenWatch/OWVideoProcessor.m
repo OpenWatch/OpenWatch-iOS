@@ -123,7 +123,6 @@
     NSString *recordingPath = [basePath stringByAppendingPathComponent:directoryName];
     
     self.currentRecording = [[OWRecording alloc] initWithRecordingPath:recordingPath];
-    [self.currentRecording startRecording];
     [[OWRecordingController sharedInstance] addRecording:currentRecording];
     
 	dispatch_async(movieWritingQueue, ^{
@@ -137,6 +136,7 @@
 		[self.delegate recordingWillStart];
 			
         [self initializeAssetWriters];
+        [self.currentRecording startRecording];
 	});
 
 
@@ -154,11 +154,11 @@
 
 - (void) stopRecording
 {
-    [self.currentRecording stopRecording];
 
 	dispatch_async(movieWritingQueue, ^{
 		if ( recordingWillBeStopped || self.recording == NO)
 			return;
+        
 		
 		recordingWillBeStopped = YES;
 		
@@ -170,6 +170,7 @@
         [self.delegate recordingDidStop];
         [self initializeAssetWriters];
         [appleEncoder2 finishEncoding];
+        [self.currentRecording stopRecording];
 	});
 }
 
