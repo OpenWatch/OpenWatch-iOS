@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		D9397BBC165D6FC70093B3C8 /* fabric.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = D9397BBA165D6FC70093B3C8 /* fabric.jpeg */; };
 		D9397BBD165D6FC70093B3C8 /* fabric@2x.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = D9397BBB165D6FC70093B3C8 /* fabric@2x.jpeg */; };
+		D9397BC1165D95940093B3C8 /* OWLocationControler.m in Sources */ = {isa = PBXBuildFile; fileRef = D9397BC0165D95940093B3C8 /* OWLocationControler.m */; };
 		D96FA7AB1656F15B00309F08 /* OWAccountAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = D96FA7AA1656F15B00309F08 /* OWAccountAPIClient.m */; };
 		D99741761651D42F0034ABB0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D99741751651D42F0034ABB0 /* UIKit.framework */; };
 		D99741781651D42F0034ABB0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D99741771651D42F0034ABB0 /* Foundation.framework */; };
@@ -58,6 +59,8 @@
 /* Begin PBXFileReference section */
 		D9397BBA165D6FC70093B3C8 /* fabric.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = fabric.jpeg; sourceTree = "<group>"; };
 		D9397BBB165D6FC70093B3C8 /* fabric@2x.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "fabric@2x.jpeg"; sourceTree = "<group>"; };
+		D9397BBF165D95940093B3C8 /* OWLocationControler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWLocationControler.h; sourceTree = "<group>"; };
+		D9397BC0165D95940093B3C8 /* OWLocationControler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWLocationControler.m; sourceTree = "<group>"; };
 		D96FA7A91656F15B00309F08 /* OWAccountAPIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWAccountAPIClient.h; sourceTree = "<group>"; };
 		D96FA7AA1656F15B00309F08 /* OWAccountAPIClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWAccountAPIClient.m; sourceTree = "<group>"; };
 		D99741711651D42F0034ABB0 /* OpenWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OpenWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -340,6 +343,8 @@
 				D9D2E199165326BB0000E7C5 /* OWRecordingController.m */,
 				D9D2E1761652EC130000E7C5 /* OWSettingsController.h */,
 				D9D2E1771652EC140000E7C5 /* OWSettingsController.m */,
+				D9397BBF165D95940093B3C8 /* OWLocationControler.h */,
+				D9397BC0165D95940093B3C8 /* OWLocationControler.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -468,6 +473,7 @@
 				D9D2E1C5165328CC0000E7C5 /* JSONKit.m in Sources */,
 				D9D2E1FF165328DE0000E7C5 /* MBProgressHUD.m in Sources */,
 				D96FA7AB1656F15B00309F08 /* OWAccountAPIClient.m in Sources */,
+				D9397BC1165D95940093B3C8 /* OWLocationControler.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

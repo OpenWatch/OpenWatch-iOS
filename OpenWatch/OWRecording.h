@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
+#import "OWLocationControler.h"
 
 typedef enum {
     OWFileUploadStateUnknown = 0,
@@ -17,7 +18,7 @@ typedef enum {
     OWFileUploadStateRecording
 } OWFileUploadState;
 
-@interface OWRecording : NSObject {
+@interface OWRecording : NSObject <OWLocationControlerDelegate> {
     
 }
 

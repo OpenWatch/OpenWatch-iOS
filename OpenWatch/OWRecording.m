@@ -173,21 +173,24 @@
 }
 
 - (void) saveMetadata {
-    NSError *error = nil;
-    NSDictionary *dictionary = [self newMetadataDictionary];
-    NSData *jsonData = [dictionary JSONDataWithOptions:JKSerializeOptionPretty error:&error];
-    if (error) {
-        NSLog(@"Error serializing JSON: %@%@", [error localizedDescription], [error userInfo]);
-        error = nil;
-    }
-    if (!jsonData) {
-        NSLog(@"JSON data is nil!");
-        return;
-    }
-    [jsonData writeToFile:[self metadataFilePath] options:NSDataWritingAtomic error:&error];
-    if (error) {
-        NSLog(@"Error writing metadata to file: %@%@", [error localizedDescription], [error userInfo]);
-        error = nil;
+    @synchronized(self) {
+        NSError *error = nil;
+        NSDictionary *dictionary = [self newMetadataDictionary];
+        NSData *jsonData = [dictionary JSONDataWithOptions:JKSerializeOptionPretty error:&error];
+        if (error) {
+            NSLog(@"Error serializing JSON: %@%@", [error localizedDescription], [error userInfo]);
+            error = nil;
+        }
+        if (!jsonData) {
+            NSLog(@"JSON data is nil!");
+            return;
+        }
+        [jsonData writeToFile:[self metadataFilePath] options:NSDataWritingAtomic error:&error];
+        if (error) {
+            NSLog(@"Error writing metadata to file: %@%@", [error localizedDescription], [error userInfo]);
+            error = nil;
+        }
+
     }
 }
 
@@ -300,9 +303,15 @@
     return [[CLLocation alloc] initWithCoordinate:coordinate altitude:altitude horizontalAccuracy:horizontalAccuracy verticalAccuracy:verticalAccuracy course:course speed:speed timestamp:timestamp];
 }
 
+- (void) startLocationUpdated:(CLLocation *)location {
+    self.startLocation = location;
+    [self saveMetadata];
+}
+
 - (void) startRecording {
     self.startDate = [NSDate date];
     self.uuid = [self newUUID];
+    [[OWLocationControler sharedInstance] startWithDelegate:self];
     NSFileManager *fileManager = [NSFileManager defaultManager];
     BOOL isDirectory;
     if (![fileManager fileExistsAtPath:recordingPath isDirectory:&isDirectory]) {
@@ -320,6 +329,8 @@
 - (void) stopRecording {
     self.endDate = [NSDate date];
     isRecording = NO;
+    self.endLocation = [OWLocationControler sharedInstance].currentLocation;
+    [[OWLocationControler sharedInstance] stop];
     [self saveMetadata];
     [[OWCaptureAPIClient sharedClient] finishedRecording:self];
 }

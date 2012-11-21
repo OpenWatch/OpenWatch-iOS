@@ -19,6 +19,15 @@
 
 @implementation OWAccount
 
+- (id) init {
+    if (self = [super init]) {
+        if ([self email] == nil && [self publicUploadToken] != nil) {
+            [self clearAccountData];
+        }
+    }
+    return self;
+}
+
 - (NSString*) accountName {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     return [defaults objectForKey:kAccountNameKey];
@@ -92,7 +101,7 @@
 }
 
 - (BOOL) isLoggedIn {
-    return [self publicUploadToken] != nil;
+    return [self publicUploadToken] != nil && [self email] != nil;
 }
 
 - (void) setPublicUploadToken:(NSString *)publicUploadToken {
