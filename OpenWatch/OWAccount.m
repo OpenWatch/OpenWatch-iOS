@@ -91,6 +91,10 @@
     return [self retreiveValueFromKeychainForKey:kPublicUploadTokenKey];
 }
 
+- (BOOL) isLoggedIn {
+    return [self publicUploadToken] != nil;
+}
+
 - (void) setPublicUploadToken:(NSString *)publicUploadToken {
     [self setKeychainValue:publicUploadToken forKey:kPublicUploadTokenKey];
 }

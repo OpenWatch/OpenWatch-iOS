@@ -44,7 +44,7 @@
     OWLoginViewController *loginViewController = [[OWLoginViewController alloc] init];
     UINavigationController *loginNavController = [[UINavigationController alloc] initWithRootViewController:loginViewController];
     OWSettingsController *settingsController = [OWSettingsController sharedInstance];
-    if (!settingsController.account.email) {
+    if (![settingsController.account isLoggedIn]) {
         [self.tabBarController presentViewController:loginNavController animated:YES completion:^{
             
         }];

@@ -19,6 +19,9 @@ static NSString * const kOWAccountAPIClientBaseURLString = @"http://192.168.1.44
 #define kPubTokenKey @"public_upload_token"
 #define kPrivTokenKey @"private_upload_token"
 
+#define kCreateAccountPath @"create_account"
+#define kLoginAccountPath @"login_account"
+
 @implementation OWAccountAPIClient
 
 + (OWAccountAPIClient *)sharedClient {
@@ -46,7 +49,14 @@ static NSString * const kOWAccountAPIClientBaseURLString = @"http://192.168.1.44
 }
 
 - (void) loginWithAccount:(OWAccount*)account success:(void (^)(void)) success failure:(void (^)(NSString *reason))failure {
-    NSString *path = @"create_account";
+    [self registerWithAccount:account path:kLoginAccountPath success:success failure:failure];
+}
+
+- (void) signupWithAccount:(OWAccount*)account success:(void (^)(void)) success failure:(void (^)(NSString *reason))failure {
+    [self registerWithAccount:account path:kCreateAccountPath success:success failure:failure];
+}
+
+- (void) registerWithAccount:(OWAccount*)account path:(NSString*)path success:(void (^)(void)) success failure:(void (^)(NSString *reason))failure {
     NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithCapacity:2];
     [parameters setObject:account.email forKey:kEmailKey];
     [parameters setObject:account.password forKey:kPasswordKey];
@@ -65,6 +75,8 @@ static NSString * const kOWAccountAPIClientBaseURLString = @"http://192.168.1.44
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         failure([error localizedDescription]);
     }];
+
 }
+
 
 @end

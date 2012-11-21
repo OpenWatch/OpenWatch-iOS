@@ -84,9 +84,7 @@
     self.loginButton = [[UIBarButtonItem alloc] initWithTitle:SUBMIT_STRING style:UIBarButtonItemStyleDone target:self action:@selector(loginButtonPressed:)];
     self.navigationItem.rightBarButtonItem = loginButton;
     
-    
     self.logoutButton = [[UIBarButtonItem alloc] initWithTitle:LOGOUT_STRING style:UIBarButtonItemStyleBordered target:self action:@selector(logoutButtonPressed:)];
-    self.navigationItem.leftBarButtonItem = logoutButton;
     
     self.headerImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"openwatch.png"]];
     self.headerImageView.contentMode = UIViewContentModeCenter;
@@ -116,6 +114,28 @@
     self.loginOrSignupSegmentedControl.frame = CGRectMake(padding, self.headerImageView.frame.size.height, self.view.frame.size.width-(padding*2), 35.0f);
     CGFloat loginTableViewYOrigin = loginOrSignupSegmentedControl.frame.size.height + loginOrSignupSegmentedControl.frame.origin.y;
     self.loginViewTableView.frame = CGRectMake(0, loginTableViewYOrigin, self.view.frame.size.width, self.view.frame.size.height-loginTableViewYOrigin);
+    
+    [self refreshLoginButtons];
+}
+
+- (void) refreshLoginButtons {
+    if ([account isLoggedIn]) {
+        self.navigationItem.leftBarButtonItem = logoutButton;
+        self.navigationItem.rightBarButtonItem = nil;
+        self.emailTextField.enabled = NO;
+        self.emailTextField.textColor = [UIColor lightGrayColor];
+        self.passwordTextField.enabled = NO;
+        self.passwordTextField.textColor = [UIColor lightGrayColor];
+        self.loginOrSignupSegmentedControl.hidden = YES;
+    } else {
+        self.navigationItem.leftBarButtonItem = nil;
+        self.navigationItem.rightBarButtonItem = loginButton;
+        self.emailTextField.enabled = YES;
+        self.emailTextField.textColor = self.textFieldTextColor;
+        self.passwordTextField.enabled = YES;
+        self.passwordTextField.textColor = self.textFieldTextColor;
+        self.loginOrSignupSegmentedControl.hidden = NO;
+    }
 }
 
 
@@ -227,21 +247,39 @@
         account.email = self.emailTextField.text;
         account.password = self.passwordTextField.text;
         
-        [[OWAccountAPIClient sharedClient] loginWithAccount:account success:^{
-            NSLog(@"Success");
-            [self dismissViewControllerAnimated:YES completion:^{}];
-        } failure:^(NSString *reason) {
-            NSLog(@"Failure: %@", reason);
-        }];
-        
-
+        if (loginOrSignupSegmentedControl.selectedSegmentIndex == 0) {
+            [[OWAccountAPIClient sharedClient] loginWithAccount:account success:^{
+                [self loginSuccess];
+            } failure:^(NSString *reason) {
+                [self loginFailure:reason];
+            }];
+        } else {
+            [[OWAccountAPIClient sharedClient] signupWithAccount:account success:^{
+                [self loginSuccess];
+            } failure:^(NSString *reason) {
+                [self loginFailure:reason];
+            }];
+        }
     }
+}
+
+- (void) loginFailure:(NSString*)reason {
+    NSLog(@"Login failure: %@", reason);
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:ERROR_STRING message:USER_PASS_WRONG_STRING delegate:nil cancelButtonTitle:OK_STRING otherButtonTitles:nil];
+    [alert show];
+}
+
+- (void) loginSuccess {
+    NSLog(@"Login Success");
+    [self refreshLoginButtons];
+    [self dismissViewControllerAnimated:YES completion:^{}];
 }
 
 
 
 - (void)logoutButtonPressed:(id)sender {
     [self.account clearAccountData];
+    [self refreshLoginButtons];
     self.emailTextField.text = @"";
     self.passwordTextField.text = @"";
 }

@@ -18,5 +18,6 @@
 @property (nonatomic, strong) NSString *username;
 
 - (void) clearAccountData;
+- (BOOL) isLoggedIn;
 
 @end
