@@ -24,8 +24,8 @@
 @end
 
 @implementation OWLoginViewController
-@synthesize emailTextField, passwordTextField, loginButton, cancelButton, tableViewArray, loginViewTableView, helpLabel;
-@synthesize headerImageView, account;
+@synthesize emailTextField, passwordTextField, loginButton, tableViewArray, loginViewTableView, helpLabel;
+@synthesize headerImageView, account, loginOrSignupSegmentedControl, logoutButton;
 
 - (id)init
 {
@@ -41,7 +41,14 @@
 - (void) viewDidLoad
 {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = [UIColor colorWithPatternImage: [UIImage imageNamed:@"fabric.jpeg"]];
+    
+    self.loginOrSignupSegmentedControl = [[UISegmentedControl alloc] initWithItems:@[LOGIN_STRING, SIGNUP_STRING]];
+    [self.loginOrSignupSegmentedControl addTarget:self action:@selector(segmentedControlValueChanged:) forControlEvents:UIControlEventValueChanged];
+    [self.loginOrSignupSegmentedControl setWidth:150 forSegmentAtIndex:0];
+    [self.loginOrSignupSegmentedControl setWidth:150 forSegmentAtIndex:1];
+    self.loginOrSignupSegmentedControl.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
+    [self.view addSubview:loginOrSignupSegmentedControl];
     
     [self setUpFields];
 
@@ -56,21 +63,37 @@
     self.helpLabel.backgroundColor = [UIColor clearColor];
     self.helpLabel.font = [UIFont systemFontOfSize:16.0f];
     
-    loginViewTableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
+    loginViewTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
     loginViewTableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin;
     [loginViewTableView setDelegate:self];
     [loginViewTableView setDataSource:self];
+    loginViewTableView.backgroundColor = [UIColor clearColor];
+    loginViewTableView.backgroundView = nil;
+    loginViewTableView.scrollEnabled = NO;
     [self.view addSubview:loginViewTableView];
     
     self.loginButton = [[UIBarButtonItem alloc] initWithTitle:SUBMIT_STRING style:UIBarButtonItemStyleDone target:self action:@selector(loginButtonPressed:)];
     self.navigationItem.rightBarButtonItem = loginButton;
     
     
-    self.cancelButton = [[UIBarButtonItem alloc] initWithTitle:CANCEL_STRING style:UIBarButtonItemStyleBordered target:self action:@selector(cancelPressed:)];
-    //self.navigationItem.leftBarButtonItem = cancelButton;
+    self.logoutButton = [[UIBarButtonItem alloc] initWithTitle:LOGOUT_STRING style:UIBarButtonItemStyleBordered target:self action:@selector(logoutButtonPressed:)];
+    self.navigationItem.leftBarButtonItem = logoutButton;
     
     self.headerImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"openwatch.png"]];
     self.headerImageView.contentMode = UIViewContentModeCenter;
+    [self.view addSubview:headerImageView];
+
+}
+
+
+- (void) viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    CGFloat padding = 10.0f;
+    self.headerImageView.frame = CGRectMake(padding, 0, self.view.frame.size.width-(padding*2), headerImageView.image.size.height+(padding*2));
+
+    self.loginOrSignupSegmentedControl.frame = CGRectMake(padding, self.headerImageView.frame.size.height, self.view.frame.size.width-(padding*2), 35.0f);
+    CGFloat loginTableViewYOrigin = loginOrSignupSegmentedControl.frame.size.height + loginOrSignupSegmentedControl.frame.origin.y;
+    self.loginViewTableView.frame = CGRectMake(0, loginTableViewYOrigin, self.view.frame.size.width, self.view.frame.size.height-loginTableViewYOrigin);
 }
 
 
@@ -117,6 +140,9 @@
 {
     if (!tableViewArray) {
         self.tableViewArray = [[NSMutableArray alloc] init];
+        for (int i = 0; i < section; i++) {
+            [self.tableViewArray setObject:[[NSMutableArray alloc] init] atIndexedSubscript:i];
+        }
     }
     if ([self.tableViewArray count]<(section+1)) {
         [self.tableViewArray setObject:[[NSMutableArray alloc] init] atIndexedSubscript:section];
@@ -136,13 +162,11 @@
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return [tableViewArray count];
-    
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return [[tableViewArray objectAtIndex:section] count];
-    
 }
 
 
@@ -192,10 +216,12 @@
     }
 }
 
-- (void)cancelPressed:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:^{
-        
-    }];
+
+
+- (void)logoutButtonPressed:(id)sender {
+    [self.account clearAccountData];
+    self.emailTextField.text = @"";
+    self.passwordTextField.text = @"";
 }
 
 
@@ -227,21 +253,9 @@
     return 0.0f;
 }
 
-
-- (UIView*) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    if (section == 0) {
-        return headerImageView;
-    }
-    return nil;
+- (void) segmentedControlValueChanged:(id)sender {
+    
 }
-
-- (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    if (section == 0) {
-        return headerImageView.frame.size.height + 20;
-    }
-    return 0.0f;
-}
-
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
 {

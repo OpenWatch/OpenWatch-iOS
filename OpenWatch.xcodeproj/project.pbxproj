@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D9397BBC165D6FC70093B3C8 /* fabric.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = D9397BBA165D6FC70093B3C8 /* fabric.jpeg */; };
+		D9397BBD165D6FC70093B3C8 /* fabric@2x.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = D9397BBB165D6FC70093B3C8 /* fabric@2x.jpeg */; };
 		D96FA7AB1656F15B00309F08 /* OWAccountAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = D96FA7AA1656F15B00309F08 /* OWAccountAPIClient.m */; };
 		D99741761651D42F0034ABB0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D99741751651D42F0034ABB0 /* UIKit.framework */; };
 		D99741781651D42F0034ABB0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D99741771651D42F0034ABB0 /* Foundation.framework */; };
@@ -54,6 +56,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D9397BBA165D6FC70093B3C8 /* fabric.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = fabric.jpeg; sourceTree = "<group>"; };
+		D9397BBB165D6FC70093B3C8 /* fabric@2x.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "fabric@2x.jpeg"; sourceTree = "<group>"; };
 		D96FA7A91656F15B00309F08 /* OWAccountAPIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWAccountAPIClient.h; sourceTree = "<group>"; };
 		D96FA7AA1656F15B00309F08 /* OWAccountAPIClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWAccountAPIClient.m; sourceTree = "<group>"; };
 		D99741711651D42F0034ABB0 /* OpenWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OpenWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -360,6 +364,8 @@
 			children = (
 				D9DFADF816547DE7003C515C /* openwatch.png */,
 				D9DFADF916547DE7003C515C /* openwatch@2x.png */,
+				D9397BBA165D6FC70093B3C8 /* fabric.jpeg */,
+				D9397BBB165D6FC70093B3C8 /* fabric@2x.jpeg */,
 			);
 			path = Media;
 			sourceTree = "<group>";
@@ -422,6 +428,8 @@
 				D997418C1651D42F0034ABB0 /* Default-568h@2x.png in Resources */,
 				D9DFADFA16547DE7003C515C /* openwatch.png in Resources */,
 				D9DFADFB16547DE7003C515C /* openwatch@2x.png in Resources */,
+				D9397BBC165D6FC70093B3C8 /* fabric.jpeg in Resources */,
+				D9397BBD165D6FC70093B3C8 /* fabric@2x.jpeg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

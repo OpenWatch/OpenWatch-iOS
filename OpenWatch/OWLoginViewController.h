@@ -19,12 +19,14 @@
 @property (nonatomic, strong) UITextField *passwordTextField;
 
 @property (nonatomic, strong) UIBarButtonItem *loginButton;
-@property (nonatomic, strong) UIBarButtonItem *cancelButton;
+@property (nonatomic, strong) UIBarButtonItem *logoutButton;
 
 @property (nonatomic, strong) UILabel *helpLabel;
 
 @property (nonatomic, strong) NSMutableArray * tableViewArray;
 
 @property (nonatomic, strong) UITableView *loginViewTableView;
+
+@property (nonatomic, strong) UISegmentedControl *loginOrSignupSegmentedControl;
 
 @end
