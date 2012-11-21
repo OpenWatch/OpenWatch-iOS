@@ -52,7 +52,7 @@ static NSString * const kOWCaptureAPIClientAPIBaseURLString = @"http://192.168.1
     
     
     //NSLog(@"maxConcurrentOperations: %d", self.operationQueue.maxConcurrentOperationCount);
-    self.operationQueue.maxConcurrentOperationCount = 1;
+    //self.operationQueue.maxConcurrentOperationCount = 1;
         
     return self;
 }

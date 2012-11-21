@@ -17,7 +17,9 @@ typedef enum {
     OWFileUploadStateRecording
 } OWFileUploadState;
 
-@interface OWRecording : NSObject
+@interface OWRecording : NSObject {
+    
+}
 
 @property (nonatomic, strong, readonly) NSString *uuid;
 @property (nonatomic, strong, readonly) NSString *recordingPath;

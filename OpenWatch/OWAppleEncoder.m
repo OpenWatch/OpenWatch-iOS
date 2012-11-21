@@ -31,7 +31,7 @@
         if (error) {
             [self showError:error];
         }
-        assetWriter.movieFragmentInterval = kCMTimeInvalid;
+        assetWriter.movieFragmentInterval = fragmentInterval;
         referenceOrientation = UIDeviceOrientationPortrait;
         fileOffset = 0;
         fileNumber = 0;
@@ -295,6 +295,7 @@
 - (void) uploadFileURL:(NSURL*)url {
     OWCaptureAPIClient *captureClient = [OWCaptureAPIClient sharedClient];
     [captureClient uploadFileURL:url recording:self.recording priority:NSOperationQueuePriorityNormal];
+    [self.recording saveMetadata];
 }
 
 - (void) showError:(NSError*)error {

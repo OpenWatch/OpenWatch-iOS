@@ -10,6 +10,9 @@
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "OWCaptureAPIClient.h"
 
+#define kMinVideoBitrate 100000
+#define kMaxVideoBitrate 400000
+
 @implementation OWSegmentingAppleEncoder
 @synthesize segmentationTimer, queuedAssetWriter;
 @synthesize queuedAudioEncoder, queuedVideoEncoder;
@@ -45,7 +48,14 @@
 
 - (void) receivedBandwidthUpdateNotification:(NSNotification*)notification {
     double bps = [[[notification userInfo] objectForKey:@"bps"] doubleValue];
-    self.videoBPS = (bps*0.5) - audioBPS;
+    double vbps = (bps*0.5) - audioBPS;
+    if (vbps < kMinVideoBitrate) {
+        vbps = kMinVideoBitrate;
+    }
+    if (vbps > kMaxVideoBitrate) {
+        vbps = kMaxVideoBitrate;
+    }
+    self.videoBPS = vbps;
     //self.videoBPS = videoBPS * 0.75;
     NSLog(@"bps: %f\tvideoBPS: %d\taudioBPS: %d", bps, videoBPS, audioBPS);
 }
@@ -136,6 +146,7 @@
 - (void) uploadFileURL:(NSURL*)url {
     OWCaptureAPIClient *captureClient = [OWCaptureAPIClient sharedClient];
     [captureClient uploadFileURL:url recording:self.recording priority:NSOperationQueuePriorityVeryHigh];
+    [self.recording saveMetadata];
 }
 
 

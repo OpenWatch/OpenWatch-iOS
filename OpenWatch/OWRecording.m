@@ -96,6 +96,7 @@
     } else if (uploadState == OWFileUploadStateRecording) {
         [recordingDictionary setObject:kRecordingKey forKey:key];
     }
+    [self saveMetadata];
 }
 
 - (OWFileUploadState)uploadStateForFileAtURL:(NSURL*)url {
@@ -113,8 +114,7 @@
 }
 
 - (NSDictionary*) dictionaryRepresentation {
-    [self updateMetadataDictionary];
-    NSMutableDictionary *dictionary = [NSMutableDictionary dictionaryWithDictionary:self.metadataDictionary];
+    NSMutableDictionary *dictionary = [NSMutableDictionary dictionaryWithDictionary:[self newMetadataDictionary]];
     NSMutableArray *allFiles = [NSMutableArray array];
     NSMutableDictionary *allFilesDictionary = [NSMutableDictionary dictionary];
     [allFilesDictionary addEntriesFromDictionary:completedDictionary];
@@ -127,38 +127,36 @@
     return dictionary;
 }
 
-- (void) updateMetadataDictionary {
-    @synchronized(self) {
-        NSLog(@"updateMetadataDictionary called from: %s",dispatch_queue_get_label(dispatch_get_current_queue()));
-        if (uuid) {
-            [self.metadataDictionary setObject:uuid forKey:kUUIDKey];
-        }
-        if (startDate) {
-            [self.metadataDictionary setObject:@([startDate timeIntervalSince1970]) forKey:kRecordingStartDateKey];
-        }
-        if (endDate) {
-            [self.metadataDictionary setObject:@([endDate timeIntervalSince1970]) forKey:kRecordingEndDateKey];
-        }
-        if (title) {
-            [self.metadataDictionary setObject:title forKey:kTitleKey];
-        }
-        if (description) {
-            [self.metadataDictionary setObject:description forKey:kDescriptionKey];
-        }
-        if (startLocation) {
-            NSDictionary *startLocationDictionary = [self locationDictionaryForLocation:startLocation];
-            [self.metadataDictionary setObject:startLocationDictionary forKey:kLocationStartKey];
-        }
-        if (endLocation) {
-            NSDictionary *endLocationDictionary = [self locationDictionaryForLocation:endLocation];
-            [self.metadataDictionary setObject:endLocationDictionary forKey:kLocationEndKey];
-        }
-        [self.metadataDictionary setObject:completedDictionary forKey:kCompletedKey];
-        [self.metadataDictionary setObject:uploadingDictionary forKey:kUploadingKey];
-        [self.metadataDictionary setObject:failedDictionary forKey:kFailedKey];
-        [self.metadataDictionary setObject:recordingDictionary forKey:kRecordingKey];
-
+- (NSDictionary*) newMetadataDictionary {
+    NSMutableDictionary *newMetadataDictionary = [NSMutableDictionary dictionary];
+    if (uuid) {
+        [newMetadataDictionary setObject:[uuid copy] forKey:kUUIDKey];
     }
+    if (startDate) {
+        [newMetadataDictionary setObject:@([startDate timeIntervalSince1970]) forKey:kRecordingStartDateKey];
+    }
+    if (endDate) {
+        [newMetadataDictionary setObject:@([endDate timeIntervalSince1970]) forKey:kRecordingEndDateKey];
+    }
+    if (title) {
+        [newMetadataDictionary setObject:[title copy] forKey:kTitleKey];
+    }
+    if (description) {
+        [newMetadataDictionary setObject:[description copy] forKey:kDescriptionKey];
+    }
+    if (startLocation) {
+        NSDictionary *startLocationDictionary = [self locationDictionaryForLocation:startLocation];
+        [newMetadataDictionary setObject:startLocationDictionary forKey:kLocationStartKey];
+    }
+    if (endLocation) {
+        NSDictionary *endLocationDictionary = [self locationDictionaryForLocation:endLocation];
+        [newMetadataDictionary setObject:endLocationDictionary forKey:kLocationEndKey];
+    }
+    [newMetadataDictionary setObject:[completedDictionary copy] forKey:kCompletedKey];
+    [newMetadataDictionary setObject:[uploadingDictionary copy] forKey:kUploadingKey];
+    [newMetadataDictionary setObject:[failedDictionary copy] forKey:kFailedKey];
+    [newMetadataDictionary setObject:[recordingDictionary copy] forKey:kRecordingKey];
+    return newMetadataDictionary;
 }
 
 - (NSDictionary*) locationDictionaryForLocation:(CLLocation*)location {
@@ -175,9 +173,8 @@
 }
 
 - (void) saveMetadata {
-    [self updateMetadataDictionary];
     NSError *error = nil;
-    NSDictionary *dictionary = [NSDictionary dictionaryWithDictionary:self.metadataDictionary];
+    NSDictionary *dictionary = [self newMetadataDictionary];
     NSData *jsonData = [dictionary JSONDataWithOptions:JKSerializeOptionPretty error:&error];
     if (error) {
         NSLog(@"Error serializing JSON: %@%@", [error localizedDescription], [error userInfo]);
