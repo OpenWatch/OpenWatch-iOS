@@ -16,6 +16,7 @@ static NSString * const kOWCaptureAPIClientAPIBaseURLString = @"http://192.168.1
 #define kUploadStateStart @"start"
 #define kUploadStateUpload @"upload"
 #define kUploadStateEnd @"end"
+#define kUploadStateMetadata @"update_metadata"
 #define kUploadStateUploadHQ @"upload_hq"
 
 @implementation OWCaptureAPIClient
@@ -57,9 +58,9 @@ static NSString * const kOWCaptureAPIClientAPIBaseURLString = @"http://192.168.1
     return self;
 }
 
-- (void) testUpload {
-    NSURL *url = [[NSBundle mainBundle] URLForResource:@"testdata" withExtension:@"png"];
-    //[self uploadFileURL:url recording:nil];
+- (void) updateMetadataForRecording:(OWRecording*)recording {
+    NSString *postPath = [self postPathForRecording:recording uploadState:kUploadStateMetadata];
+    [self uploadMetadataForRecording:recording postPath:postPath];
 }
 
 - (void) uploadFileURL:(NSURL*)url recording:(OWRecording*)recording priority:(NSOperationQueuePriority)priority {

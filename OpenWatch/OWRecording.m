@@ -306,6 +306,7 @@
 - (void) startLocationUpdated:(CLLocation *)location {
     self.startLocation = location;
     [self saveMetadata];
+    [[OWCaptureAPIClient sharedClient] updateMetadataForRecording:self];
 }
 
 - (void) startRecording {
@@ -333,6 +334,7 @@
     [[OWLocationControler sharedInstance] stop];
     [self saveMetadata];
     [[OWCaptureAPIClient sharedClient] finishedRecording:self];
+    [[OWCaptureAPIClient sharedClient] updateMetadataForRecording:self];
 }
 
 - (NSURL*) highQualityURL {
