@@ -8,24 +8,74 @@
 
 #import "OWRecordingInfoViewController.h"
 #import "OWStrings.h"
+#import "OWMapAnnotation.h"
 
 @interface OWRecordingInfoViewController ()
 
 @end
 
 @implementation OWRecordingInfoViewController
-@synthesize recording, titleTextField, descriptionTextField;
+@synthesize recording, titleTextField, descriptionTextField, mapView, moviePlayer;
 
 - (id) initWithRecording:(OWRecording *)newRecording {
     if (self = [super init]) {
         self.recording = newRecording;
+
+
     }
     return self;
 }
 
+- (void) setupMapView {
+    self.mapView = [[MKMapView alloc] init];
+    CLLocation *loc = recording.startLocation;
+    if (!loc) {
+        loc = recording.endLocation;
+    }
+    [self.mapView setCenterCoordinate:loc.coordinate];
+    mapView.scrollEnabled = NO;
+    mapView.zoomEnabled = NO;
+    [self.scrollView addSubview:mapView];
+    
+    if (recording.startLocation) {
+        OWMapAnnotation *startAnnotation = [[OWMapAnnotation alloc] initWithCoordinate:recording.startLocation.coordinate title:START_STRING subtitle:nil];
+        [mapView addAnnotation:startAnnotation];
+    }
+    if (recording.endLocation) {
+        OWMapAnnotation *endAnnotation = [[OWMapAnnotation alloc] initWithCoordinate:recording.endLocation.coordinate title:END_STRING subtitle:nil];
+        [mapView addAnnotation:endAnnotation];
+    }
+
+}
+
+- (void) viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    if (recording.startLocation || recording.endLocation) {
+        [self setupMapView];
+    }
+    self.moviePlayer = [[MPMoviePlayerController alloc] initWithContentURL:[recording highQualityURL]];
+    [moviePlayer prepareToPlay];
+    [self refreshFrames];
+}
+
+- (void) refreshFrames {
+    CGFloat padding = 10.0f;
+    [UIView animateWithDuration:0.2 animations:^{
+        self.mapView.frame = CGRectMake(0, 0, self.view.frame.size.width, 100.0f);
+        self.groupedTableView.frame = CGRectMake(0, self.mapView.frame.origin.y + self.mapView.frame.size.height + padding, self.view.frame.size.width, 200.0f);
+    } completion:^(BOOL finished) {
+        [mapView setRegion:MKCoordinateRegionMakeWithDistance(mapView.centerCoordinate, 500, 500) animated:YES];
+    }];
+}
+
 - (void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+	[self setupFields];
 }
 
 -(void)setupFields {
@@ -54,12 +104,6 @@
     textField.returnKeyType = UIReturnKeyDone;
     textField.textColor = self.textFieldTextColor;
     return textField;
-}
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-	[self setupFields];
 }
 
 - (void)didReceiveMemoryWarning

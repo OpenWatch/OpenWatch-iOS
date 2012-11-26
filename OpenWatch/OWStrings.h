@@ -29,3 +29,5 @@
 #define STOP_STRING NSLocalizedString(@"Stop", @"Title for button that stops a recording")
 #define TITLE_STRING NSLocalizedString(@"Title", @"Label for Title section of recording description metadata")
 #define DESCRIPTION_STRING NSLocalizedString(@"Description", @"Label for Description section of recording description metadata")
+#define START_STRING NSLocalizedString(@"Start", @"Describes where a recording starts")
+#define END_STRING NSLocalizedString(@"End", "Describes where recording ends")

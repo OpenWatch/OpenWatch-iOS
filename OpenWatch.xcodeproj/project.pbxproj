@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		D9308514166406E5008C5D4C /* OWRecordingInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9308513166406E5008C5D4C /* OWRecordingInfoViewController.m */; };
 		D930851816640C6E008C5D4C /* OWGroupedTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D930851716640C6E008C5D4C /* OWGroupedTableViewController.m */; };
+		D930851B166424C1008C5D4C /* OWMapAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = D930851A166424C1008C5D4C /* OWMapAnnotation.m */; };
+		D930851D166426A4008C5D4C /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D930851C166426A4008C5D4C /* MediaPlayer.framework */; };
+		D930851F166426A9008C5D4C /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D930851E166426A9008C5D4C /* MapKit.framework */; };
 		D9397BBC165D6FC70093B3C8 /* fabric.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = D9397BBA165D6FC70093B3C8 /* fabric.jpeg */; };
 		D9397BBD165D6FC70093B3C8 /* fabric@2x.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = D9397BBB165D6FC70093B3C8 /* fabric@2x.jpeg */; };
 		D9397BC1165D95940093B3C8 /* OWLocationControler.m in Sources */ = {isa = PBXBuildFile; fileRef = D9397BC0165D95940093B3C8 /* OWLocationControler.m */; };
@@ -63,6 +66,10 @@
 		D9308513166406E5008C5D4C /* OWRecordingInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWRecordingInfoViewController.m; sourceTree = "<group>"; };
 		D930851616640C6E008C5D4C /* OWGroupedTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWGroupedTableViewController.h; sourceTree = "<group>"; };
 		D930851716640C6E008C5D4C /* OWGroupedTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWGroupedTableViewController.m; sourceTree = "<group>"; };
+		D9308519166424C1008C5D4C /* OWMapAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWMapAnnotation.h; sourceTree = "<group>"; };
+		D930851A166424C1008C5D4C /* OWMapAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWMapAnnotation.m; sourceTree = "<group>"; };
+		D930851C166426A4008C5D4C /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		D930851E166426A9008C5D4C /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		D9397BBA165D6FC70093B3C8 /* fabric.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = fabric.jpeg; sourceTree = "<group>"; };
 		D9397BBB165D6FC70093B3C8 /* fabric@2x.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "fabric@2x.jpeg"; sourceTree = "<group>"; };
 		D9397BBF165D95940093B3C8 /* OWLocationControler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWLocationControler.h; sourceTree = "<group>"; };
@@ -150,6 +157,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D930851F166426A9008C5D4C /* MapKit.framework in Frameworks */,
+				D930851D166426A4008C5D4C /* MediaPlayer.framework in Frameworks */,
 				D9D2E21716532A6B0000E7C5 /* AVFoundation.framework in Frameworks */,
 				D9D2E215165329410000E7C5 /* CoreLocation.framework in Frameworks */,
 				D9D2E2131653293B0000E7C5 /* CoreVideo.framework in Frameworks */,
@@ -169,6 +178,8 @@
 		D99741661651D42E0034ABB0 = {
 			isa = PBXGroup;
 			children = (
+				D930851E166426A9008C5D4C /* MapKit.framework */,
+				D930851C166426A4008C5D4C /* MediaPlayer.framework */,
 				D9DFADF716547DE7003C515C /* Media */,
 				D997417B1651D42F0034ABB0 /* OpenWatch */,
 				D9D2E1501652EA8A0000E7C5 /* Submodules */,
@@ -305,6 +316,8 @@
 				D9D2E197165326BA0000E7C5 /* OWRecording.m */,
 				D9D2E1791652EC850000E7C5 /* OWAccount.h */,
 				D9D2E17A1652EC850000E7C5 /* OWAccount.m */,
+				D9308519166424C1008C5D4C /* OWMapAnnotation.h */,
+				D930851A166424C1008C5D4C /* OWMapAnnotation.m */,
 			);
 			name = "Data Model";
 			sourceTree = "<group>";
@@ -486,6 +499,7 @@
 				D9397BC1165D95940093B3C8 /* OWLocationControler.m in Sources */,
 				D9308514166406E5008C5D4C /* OWRecordingInfoViewController.m in Sources */,
 				D930851816640C6E008C5D4C /* OWGroupedTableViewController.m in Sources */,
+				D930851B166424C1008C5D4C /* OWMapAnnotation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
