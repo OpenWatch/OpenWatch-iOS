@@ -28,7 +28,7 @@ typedef enum {
 @property (nonatomic, strong, readonly) NSDate *endDate;
 @property (nonatomic, readonly) BOOL isRecording;
 @property (nonatomic, strong) NSString *title;
-@property (nonatomic, strong) NSString *description;
+@property (nonatomic, strong) NSString *recordingDescription;
 @property (nonatomic, strong) CLLocation *startLocation;
 @property (nonatomic, strong) CLLocation *endLocation;
 

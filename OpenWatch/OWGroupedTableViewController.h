@@ -21,6 +21,8 @@
 @property (nonatomic, strong) NSMutableArray * tableViewArray;
 @property (nonatomic, strong) UITableView *groupedTableView;
 
+
+- (UIColor*) textFieldTextColor;
 -(void)addCellInfoWithSection:(NSInteger)section row:(NSInteger)row labelText:(id)text cellType:(NSString *)type userInputView:(UIView *)inputView;
 
 @end

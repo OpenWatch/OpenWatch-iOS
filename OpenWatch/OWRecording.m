@@ -49,7 +49,7 @@
 @end
 
 @implementation OWRecording
-@synthesize uuid, metadataDictionary, recordingPath, segmentCount, startDate, endDate, title, description, startLocation, endLocation, completedDictionary, uploadingDictionary, failedDictionary, recordingDictionary, isRecording;
+@synthesize uuid, metadataDictionary, recordingPath, segmentCount, startDate, endDate, title, recordingDescription, startLocation, endLocation, completedDictionary, uploadingDictionary, failedDictionary, recordingDictionary, isRecording;
 
 
 - (id) initWithRecordingPath:(NSString*)path {
@@ -141,8 +141,8 @@
     if (title) {
         [newMetadataDictionary setObject:[title copy] forKey:kTitleKey];
     }
-    if (description) {
-        [newMetadataDictionary setObject:[description copy] forKey:kDescriptionKey];
+    if (recordingDescription) {
+        [newMetadataDictionary setObject:[recordingDescription copy] forKey:kDescriptionKey];
     }
     if (startLocation) {
         NSDictionary *startLocationDictionary = [self locationDictionaryForLocation:startLocation];
@@ -267,7 +267,7 @@
     }
     NSString *newDescription = [self.metadataDictionary objectForKey:kDescriptionKey];
     if (newDescription) {
-        self.description = newDescription;
+        self.recordingDescription = newDescription;
     }
     NSNumber *startDateTimestampNumber = [self.metadataDictionary objectForKey:kRecordingStartDateKey];
     if (startDateTimestampNumber) {

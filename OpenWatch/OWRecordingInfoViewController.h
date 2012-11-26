@@ -12,6 +12,9 @@
 
 @interface OWRecordingInfoViewController : OWGroupedTableViewController <UITableViewDataSource, UITableViewDelegate>
 
+@property (nonatomic, strong) UITextField *titleTextField;
+@property (nonatomic, strong) UITextField *descriptionTextField;
+
 @property (nonatomic, strong) OWRecording *recording;
 
 - (id) initWithRecording:(OWRecording*)newRecording;

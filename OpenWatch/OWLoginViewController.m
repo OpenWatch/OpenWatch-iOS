@@ -45,7 +45,7 @@
     self.loginOrSignupSegmentedControl.selectedSegmentIndex = 0;
     [self.scrollView addSubview:loginOrSignupSegmentedControl];
     
-    [self setUpFields];
+    [self setupFields];
 
     self.helpLabel = [[UILabel alloc] init];
     self.helpLabel.textAlignment = UITextAlignmentCenter;
@@ -109,11 +109,8 @@
 }
 
 
-- (UIColor*) textFieldTextColor {
-    return [UIColor colorWithRed:0.22 green:0.33 blue:0.53 alpha:1.0];
-}
 
--(void)setUpFields
+-(void)setupFields
 {
     self.emailTextField = [[UITextField alloc] init];
     self.emailTextField.delegate = self;
@@ -148,29 +145,10 @@
     [self addCellInfoWithSection:0 row:1 labelText:PASSWORD_STRING cellType:kCellTypeTextField userInputView:self.passwordTextField];
 }
 
-
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
 }
-
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return [self.tableViewArray count];
-}
-
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    return [[self.tableViewArray objectAtIndex:section] count];
-}
-
-
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return 44.0f;
-}
-
 
 
 - (void)loginButtonPressed:(id)sender {
@@ -250,18 +228,8 @@
     
 }
 
--(BOOL)textFieldShouldReturn:(UITextField *)textField
-{
-    [textField resignFirstResponder];
-    return YES;
-}
-
 - (void)keyboardWillShow: (NSNotification *) notif{
     [self.scrollView setContentOffset:CGPointMake(0, self.headerImageView.frame.size.height-PADDING) animated:YES];
-}
-
-- (void)keyboardWillHide: (NSNotification *) notif{
-    [self.scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
 }
 
 @end

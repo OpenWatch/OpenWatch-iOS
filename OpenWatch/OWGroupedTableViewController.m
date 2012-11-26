@@ -25,7 +25,6 @@
 {
     self = [super init];
     if (self) {
-        groupedTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
 
     }
     return self;
@@ -40,13 +39,14 @@
     self.scrollView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin;
     [self.view addSubview:self.scrollView];
     
-    [self.scrollView addSubview:self.groupedTableView];
+    groupedTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
     groupedTableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin;
     groupedTableView.delegate = self;
     groupedTableView.dataSource = self;
     groupedTableView.backgroundColor = [UIColor clearColor];
     groupedTableView.backgroundView = nil;
     groupedTableView.scrollEnabled = NO;
+    [self.scrollView addSubview:self.groupedTableView];
     
     // Listen for keyboard appearances and disappearances
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -84,6 +84,11 @@
     // Dispose of any resources that can be recreated.
 }
 
+
+- (UIColor*) textFieldTextColor {
+    return [UIColor colorWithRed:0.22 green:0.33 blue:0.53 alpha:1.0];
+}
+
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
@@ -106,5 +111,32 @@
     return cell;
 }
 
+
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return [self.tableViewArray count];
+}
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return [[self.tableViewArray objectAtIndex:section] count];
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 44.0f;
+}
+
+-(BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    return YES;
+}
+
+- (void)keyboardWillShow: (NSNotification *) notif{}
+
+- (void)keyboardWillHide: (NSNotification *) notif {
+    [self.scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
+}
 
 @end

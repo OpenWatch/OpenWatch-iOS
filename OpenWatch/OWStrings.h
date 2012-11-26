@@ -27,3 +27,5 @@
 #define RECORDING_STRING NSLocalizedString(@"Recording", @"Subtitle for a video in the list that is currently being recorded")
 #define RECORD_STRING NSLocalizedString(@"Record", @"Title for button that starts a recording")
 #define STOP_STRING NSLocalizedString(@"Stop", @"Title for button that stops a recording")
+#define TITLE_STRING NSLocalizedString(@"Title", @"Label for Title section of recording description metadata")
+#define DESCRIPTION_STRING NSLocalizedString(@"Description", @"Label for Description section of recording description metadata")

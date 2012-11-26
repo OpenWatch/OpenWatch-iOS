@@ -9,6 +9,7 @@
 #import "OWRecordingListViewController.h"
 #import "OWRecording.h"
 #import "OWStrings.h"
+#import "OWRecordingInfoViewController.h"
 
 @interface OWRecordingListViewController ()
 
@@ -115,6 +116,13 @@
         [recordingController removeRecording:recording];
         [recordingsTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
     }
+}
+
+- (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    OWRecording *recording = [recordingsArray objectAtIndex:indexPath.row];
+    OWRecordingInfoViewController *recordingInfoView = [[OWRecordingInfoViewController alloc] initWithRecording:recording];
+    [self.navigationController pushViewController:recordingInfoView animated:YES];
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 @end
