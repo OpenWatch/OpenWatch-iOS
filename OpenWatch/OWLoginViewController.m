@@ -8,16 +8,10 @@
 
 #import "OWLoginViewController.h"
 #import "OWStrings.h"
-#import "OWInLineTextEditTableViewCell.h"
 #import "OWSettingsController.h"
 #import "OWAccountAPIClient.h"
 
-#define kTextLabelTextKey @"textLabelTextKey"
-#define kCellTypeKey @"cellTypeKey"
-#define kUserInputViewKey @"userInputViewKey"
-#define kCellTypeTextField @"cellTypeTextField"
-#define kCellTypeSwitch @"cellTypeSwitch"
-#define KCellTypeHelp @"cellTypeHelp"
+
 
 #define PADDING 10.0f
 
@@ -26,12 +20,8 @@
 @end
 
 @implementation OWLoginViewController
-@synthesize emailTextField, passwordTextField, loginButton, tableViewArray, loginViewTableView, helpLabel;
-@synthesize headerImageView, account, loginOrSignupSegmentedControl, logoutButton, scrollView;
-
-- (void) dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
+@synthesize emailTextField, passwordTextField, loginButton, helpLabel;
+@synthesize headerImageView, account, loginOrSignupSegmentedControl, logoutButton;
 
 - (id)init
 {
@@ -47,11 +37,7 @@
 - (void) viewDidLoad
 {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor colorWithPatternImage: [UIImage imageNamed:@"fabric.jpeg"]];
-    
-    self.scrollView = [[UIScrollView alloc] init];
-    self.scrollView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin;
-    [self.view addSubview:self.scrollView];
+
     
     self.loginOrSignupSegmentedControl = [[UISegmentedControl alloc] initWithItems:@[LOGIN_STRING, SIGNUP_STRING]];
     [self.loginOrSignupSegmentedControl addTarget:self action:@selector(segmentedControlValueChanged:) forControlEvents:UIControlEventValueChanged];
@@ -72,14 +58,7 @@
     self.helpLabel.backgroundColor = [UIColor clearColor];
     self.helpLabel.font = [UIFont systemFontOfSize:16.0f];
     
-    loginViewTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
-    loginViewTableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin;
-    [loginViewTableView setDelegate:self];
-    [loginViewTableView setDataSource:self];
-    loginViewTableView.backgroundColor = [UIColor clearColor];
-    loginViewTableView.backgroundView = nil;
-    loginViewTableView.scrollEnabled = NO;
-    [self.scrollView addSubview:loginViewTableView];
+
     
     self.loginButton = [[UIBarButtonItem alloc] initWithTitle:SUBMIT_STRING style:UIBarButtonItemStyleDone target:self action:@selector(loginButtonPressed:)];
     self.navigationItem.rightBarButtonItem = loginButton;
@@ -90,16 +69,7 @@
     self.headerImageView.contentMode = UIViewContentModeCenter;
     [self.scrollView addSubview:headerImageView];
 
-    // Listen for keyboard appearances and disappearances
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWillShow:)
-                                                 name:UIKeyboardWillShowNotification
-                                               object:nil];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWillHide:)
-                                                 name:UIKeyboardWillHideNotification
-                                               object:nil];
 }
 
 
@@ -113,7 +83,7 @@
 
     self.loginOrSignupSegmentedControl.frame = CGRectMake(padding, self.headerImageView.frame.size.height, self.view.frame.size.width-(padding*2), 35.0f);
     CGFloat loginTableViewYOrigin = loginOrSignupSegmentedControl.frame.size.height + loginOrSignupSegmentedControl.frame.origin.y;
-    self.loginViewTableView.frame = CGRectMake(0, loginTableViewYOrigin, self.view.frame.size.width, self.view.frame.size.height-loginTableViewYOrigin);
+    self.groupedTableView.frame = CGRectMake(0, loginTableViewYOrigin, self.view.frame.size.width, self.view.frame.size.height-loginTableViewYOrigin);
     
     [self refreshLoginButtons];
 }
@@ -159,7 +129,7 @@
         self.emailTextField.text = email;
     }
     
-    [self addCellinfoWithSection:0 row:0 labelText:EMAIL_STRING cellType:kCellTypeTextField userInputView:self.emailTextField];
+    [self addCellInfoWithSection:0 row:0 labelText:EMAIL_STRING cellType:kCellTypeTextField userInputView:self.emailTextField];
     
     
     self.passwordTextField = [[UITextField alloc] init];
@@ -175,26 +145,10 @@
         self.passwordTextField.text = password;
     }
     
-    [self addCellinfoWithSection:0 row:1 labelText:PASSWORD_STRING cellType:kCellTypeTextField userInputView:self.passwordTextField];
+    [self addCellInfoWithSection:0 row:1 labelText:PASSWORD_STRING cellType:kCellTypeTextField userInputView:self.passwordTextField];
 }
 
--(void)addCellinfoWithSection:(NSInteger)section row:(NSInteger)row labelText:(id)text cellType:(NSString *)type userInputView:(UIView *)inputView;
-{
-    if (!tableViewArray) {
-        self.tableViewArray = [[NSMutableArray alloc] init];
-        for (int i = 0; i < section; i++) {
-            [self.tableViewArray setObject:[[NSMutableArray alloc] init] atIndexedSubscript:i];
-        }
-    }
-    if ([self.tableViewArray count]<(section+1)) {
-        [self.tableViewArray setObject:[[NSMutableArray alloc] init] atIndexedSubscript:section];
-    }
-    
-    NSDictionary * cellDictionary = [NSDictionary dictionaryWithObjectsAndKeys:text,kTextLabelTextKey,type,kCellTypeKey,inputView,kUserInputViewKey, nil];
-    
-    [[tableViewArray objectAtIndex:section] insertObject:cellDictionary atIndex:row];
-    
-}
+
 
 - (void)didReceiveMemoryWarning
 {
@@ -203,12 +157,12 @@
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return [tableViewArray count];
+    return [self.tableViewArray count];
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [[tableViewArray objectAtIndex:section] count];
+    return [[self.tableViewArray objectAtIndex:section] count];
 }
 
 
@@ -218,27 +172,6 @@
 }
 
 
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    
-    NSDictionary * cellDictionary = [[tableViewArray objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-    NSString * cellType = [cellDictionary objectForKey:kCellTypeKey];
-    
-    UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellType];
-    
-    if([cellType isEqualToString:kCellTypeTextField])
-    {
-        if(cell == nil)
-        {
-            cell = [[OWInLineTextEditTableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellType];
-        }
-        cell.textLabel.text = [cellDictionary objectForKey:kTextLabelTextKey];
-        [cell layoutIfNeeded];
-        ((OWInLineTextEditTableViewCell *)cell).textField = [cellDictionary objectForKey:kUserInputViewKey];
-    }
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    return cell;
-}
 
 - (void)loginButtonPressed:(id)sender {
     BOOL fields = [self checkFields];

@@ -8,10 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "OWAccount.h"
+#import "OWGroupedTableViewController.h"
 
-@interface OWLoginViewController : UIViewController <UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface OWLoginViewController : OWGroupedTableViewController <UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate>
 
-@property (nonatomic, strong) UIScrollView *scrollView;
 
 @property (nonatomic, strong) OWAccount *account;
 
@@ -24,10 +24,6 @@
 @property (nonatomic, strong) UIBarButtonItem *logoutButton;
 
 @property (nonatomic, strong) UILabel *helpLabel;
-
-@property (nonatomic, strong) NSMutableArray * tableViewArray;
-
-@property (nonatomic, strong) UITableView *loginViewTableView;
 
 @property (nonatomic, strong) UISegmentedControl *loginOrSignupSegmentedControl;
 

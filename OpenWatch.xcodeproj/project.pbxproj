@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D9308514166406E5008C5D4C /* OWRecordingInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9308513166406E5008C5D4C /* OWRecordingInfoViewController.m */; };
+		D930851816640C6E008C5D4C /* OWGroupedTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D930851716640C6E008C5D4C /* OWGroupedTableViewController.m */; };
 		D9397BBC165D6FC70093B3C8 /* fabric.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = D9397BBA165D6FC70093B3C8 /* fabric.jpeg */; };
 		D9397BBD165D6FC70093B3C8 /* fabric@2x.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = D9397BBB165D6FC70093B3C8 /* fabric@2x.jpeg */; };
 		D9397BC1165D95940093B3C8 /* OWLocationControler.m in Sources */ = {isa = PBXBuildFile; fileRef = D9397BC0165D95940093B3C8 /* OWLocationControler.m */; };
@@ -57,6 +59,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D9308512166406E5008C5D4C /* OWRecordingInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWRecordingInfoViewController.h; sourceTree = "<group>"; };
+		D9308513166406E5008C5D4C /* OWRecordingInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWRecordingInfoViewController.m; sourceTree = "<group>"; };
+		D930851616640C6E008C5D4C /* OWGroupedTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWGroupedTableViewController.h; sourceTree = "<group>"; };
+		D930851716640C6E008C5D4C /* OWGroupedTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWGroupedTableViewController.m; sourceTree = "<group>"; };
 		D9397BBA165D6FC70093B3C8 /* fabric.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = fabric.jpeg; sourceTree = "<group>"; };
 		D9397BBB165D6FC70093B3C8 /* fabric@2x.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "fabric@2x.jpeg"; sourceTree = "<group>"; };
 		D9397BBF165D95940093B3C8 /* OWLocationControler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWLocationControler.h; sourceTree = "<group>"; };
@@ -352,8 +358,12 @@
 		D9D2E21D16532B220000E7C5 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				D9308512166406E5008C5D4C /* OWRecordingInfoViewController.h */,
+				D9308513166406E5008C5D4C /* OWRecordingInfoViewController.m */,
 				D9D2E19A165326BB0000E7C5 /* OWRecordingListViewController.h */,
 				D9D2E19B165326BB0000E7C5 /* OWRecordingListViewController.m */,
+				D930851616640C6E008C5D4C /* OWGroupedTableViewController.h */,
+				D930851716640C6E008C5D4C /* OWGroupedTableViewController.m */,
 				D997419B1651D8520034ABB0 /* OWLoginViewController.h */,
 				D997419C1651D8520034ABB0 /* OWLoginViewController.m */,
 				D9D2E1861653236D0000E7C5 /* OWCaptureViewController.h */,
@@ -474,6 +484,8 @@
 				D9D2E1FF165328DE0000E7C5 /* MBProgressHUD.m in Sources */,
 				D96FA7AB1656F15B00309F08 /* OWAccountAPIClient.m in Sources */,
 				D9397BC1165D95940093B3C8 /* OWLocationControler.m in Sources */,
+				D9308514166406E5008C5D4C /* OWRecordingInfoViewController.m in Sources */,
+				D930851816640C6E008C5D4C /* OWGroupedTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
