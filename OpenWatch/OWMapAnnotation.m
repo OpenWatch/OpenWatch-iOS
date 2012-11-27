@@ -9,13 +9,14 @@
 #import "OWMapAnnotation.h"
 
 @implementation OWMapAnnotation
-@synthesize coordinate, title, subtitle;
+@synthesize coordinate, title, subtitle, isStartLocation;
 
 - (id) initWithCoordinate:(CLLocationCoordinate2D)coord title:(NSString *)newTitle subtitle:(NSString *)newSubtitle {
     if (self = [super init]) {
         self.coordinate = coord;
         self.title = newTitle;
         self.subtitle = newSubtitle;
+        self.isStartLocation = NO;
     }
     return self;
 }

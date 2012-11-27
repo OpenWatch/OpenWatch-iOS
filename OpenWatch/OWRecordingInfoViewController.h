@@ -12,16 +12,8 @@
 #import <MapKit/MapKit.h>
 #import <MediaPlayer/MediaPlayer.h>
 
-@interface OWRecordingInfoViewController : OWGroupedTableViewController <UITableViewDataSource, UITableViewDelegate>
-
-@property (nonatomic, strong) MKMapView *mapView;
-@property (nonatomic, strong) MPMoviePlayerController *moviePlayer;
-
-@property (nonatomic, strong) UITextField *titleTextField;
-@property (nonatomic, strong) UITextField *descriptionTextField;
+@interface OWRecordingInfoViewController : OWGroupedTableViewController <UITableViewDataSource, UITableViewDelegate, MKMapViewDelegate>
 
 @property (nonatomic, strong) OWRecording *recording;
-
-- (id) initWithRecording:(OWRecording*)newRecording;
 
 @end

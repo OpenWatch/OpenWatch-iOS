@@ -25,6 +25,8 @@
 {
     self = [super init];
     if (self) {
+        self.scrollView = [[UIScrollView alloc] init];
+        self.groupedTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
 
     }
     return self;
@@ -35,11 +37,9 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor colorWithPatternImage: [UIImage imageNamed:@"fabric.jpeg"]];
     
-    self.scrollView = [[UIScrollView alloc] init];
     self.scrollView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin;
     [self.view addSubview:self.scrollView];
     
-    groupedTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
     groupedTableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin;
     groupedTableView.delegate = self;
     groupedTableView.dataSource = self;

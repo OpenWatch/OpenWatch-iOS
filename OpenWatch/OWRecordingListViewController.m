@@ -9,14 +9,13 @@
 #import "OWRecordingListViewController.h"
 #import "OWRecording.h"
 #import "OWStrings.h"
-#import "OWRecordingInfoViewController.h"
 
 @interface OWRecordingListViewController ()
 
 @end
 
 @implementation OWRecordingListViewController
-@synthesize recordingsTableView, recordingController, recordingsArray;
+@synthesize recordingsTableView, recordingController, recordingsArray, recordingInfoViewController;
 
 - (id)init
 {
@@ -28,6 +27,7 @@
         self.recordingController = [OWRecordingController sharedInstance];
         self.title = RECORDINGS_STRING;
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(editButtonPressed:)];
+        self.recordingInfoViewController = [[OWRecordingInfoViewController alloc] init];
     }
     return self;
 }
@@ -120,8 +120,8 @@
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     OWRecording *recording = [recordingsArray objectAtIndex:indexPath.row];
-    OWRecordingInfoViewController *recordingInfoView = [[OWRecordingInfoViewController alloc] initWithRecording:recording];
-    [self.navigationController pushViewController:recordingInfoView animated:YES];
+    recordingInfoViewController.recording = recording;
+    [self.navigationController pushViewController:recordingInfoViewController animated:YES];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 

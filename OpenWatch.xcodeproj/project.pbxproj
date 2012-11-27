@@ -178,8 +178,6 @@
 		D99741661651D42E0034ABB0 = {
 			isa = PBXGroup;
 			children = (
-				D930851E166426A9008C5D4C /* MapKit.framework */,
-				D930851C166426A4008C5D4C /* MediaPlayer.framework */,
 				D9DFADF716547DE7003C515C /* Media */,
 				D997417B1651D42F0034ABB0 /* OpenWatch */,
 				D9D2E1501652EA8A0000E7C5 /* Submodules */,
@@ -199,6 +197,8 @@
 		D99741741651D42F0034ABB0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D930851E166426A9008C5D4C /* MapKit.framework */,
+				D930851C166426A4008C5D4C /* MediaPlayer.framework */,
 				D9D2E21616532A6A0000E7C5 /* AVFoundation.framework */,
 				D9D2E214165329410000E7C5 /* CoreLocation.framework */,
 				D9D2E2121653293B0000E7C5 /* CoreVideo.framework */,
