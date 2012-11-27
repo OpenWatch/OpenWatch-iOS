@@ -16,7 +16,6 @@
 @property (nonatomic, strong) MPMoviePlayerController *moviePlayer;
 @property (nonatomic, strong) UITextField *titleTextField;
 @property (nonatomic, strong) UITextField *descriptionTextField;
-@property (nonatomic, strong) UIImageView *thumbnailImageView;
 @end
 
 @implementation OWRecordingInfoViewController
@@ -26,7 +25,6 @@
     if (self = [super init]) {
         [self setupMapView];
         self.moviePlayer = [[MPMoviePlayerController alloc] init];
-        self.thumbnailImageView = [[UIImageView alloc] init];
     }
     return self;
 }
@@ -35,6 +33,7 @@
     self.mapView = [[MKMapView alloc] init];
     mapView.scrollEnabled = NO;
     mapView.zoomEnabled = NO;
+    mapView.delegate = self;
     [self.scrollView addSubview:mapView];
 }
 
@@ -60,7 +59,9 @@
         mapViewHeight = 0.0f;
     }
     self.mapView.frame = CGRectMake(0, 0, self.view.frame.size.width, mapViewHeight);
-    self.groupedTableView.frame = CGRectMake(0, self.mapView.frame.origin.y + self.mapView.frame.size.height + padding, self.view.frame.size.width, 200.0f);
+    self.groupedTableView.frame = CGRectMake(0, self.mapView.frame.origin.y + self.mapView.frame.size.height + padding, self.view.frame.size.width, 100.0f);
+    CGFloat thumbnailYOrigin = self.groupedTableView.frame.origin.y + self.groupedTableView.frame.size.height + padding;
+    moviePlayer.view.frame = CGRectMake(0, thumbnailYOrigin, self.view.frame.size.width, self.view.frame.size.height - thumbnailYOrigin - padding);
 }
 
 - (void) viewWillAppear:(BOOL)animated {
@@ -73,6 +74,7 @@
     if (CLLocationCoordinate2DIsValid(centerCoordinate)) {
         [self.mapView setRegion:MKCoordinateRegionMakeWithDistance(centerCoordinate, 1000, 1000) animated:YES];
     }
+    [moviePlayer play];
 }
 
 - (void) setRecording:(OWRecording *)newRecording {
@@ -123,6 +125,7 @@
 {
     [super viewDidLoad];
 	[self setupFields];
+    [self.scrollView addSubview:moviePlayer.view];
 }
 
 - (void) refreshFields {
@@ -160,6 +163,11 @@
     textField.returnKeyType = UIReturnKeyDone;
     textField.textColor = self.textFieldTextColor;
     return textField;
+}
+
+- (void) playMovie:(id)sender {
+    [moviePlayer setFullscreen:YES animated:YES];
+    [moviePlayer play];
 }
 
 - (void)didReceiveMemoryWarning
