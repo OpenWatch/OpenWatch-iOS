@@ -16,6 +16,7 @@
 @property (nonatomic, strong) MPMoviePlayerController *moviePlayer;
 @property (nonatomic, strong) UITextField *titleTextField;
 @property (nonatomic, strong) UITextField *descriptionTextField;
+@property (nonatomic, strong) UIBarButtonItem *saveButton;
 @end
 
 @implementation OWRecordingInfoViewController
@@ -25,6 +26,8 @@
     if (self = [super init]) {
         [self setupMapView];
         self.moviePlayer = [[MPMoviePlayerController alloc] init];
+        self.title = INFO_STRING;
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:SAVE_STRING style:UIBarButtonItemStyleDone target:self action:@selector(saveButtonPressed:)];
     }
     return self;
 }
@@ -67,6 +70,11 @@
 - (void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self refreshFrames];
+}
+
+- (void) viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    [self resignFirstResponder];
 }
 
 - (void) viewDidAppear:(BOOL)animated {
@@ -165,15 +173,18 @@
     return textField;
 }
 
-- (void) playMovie:(id)sender {
-    [moviePlayer setFullscreen:YES animated:YES];
-    [moviePlayer play];
-}
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void) saveButtonPressed:(id)sender {
+    self.recording.title = self.titleTextField.text;
+    self.recording.recordingDescription = self.descriptionTextField.text;
+    [self.recording saveMetadata];
+    [self.view endEditing:YES];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 @end

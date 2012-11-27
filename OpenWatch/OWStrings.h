@@ -31,3 +31,5 @@
 #define DESCRIPTION_STRING NSLocalizedString(@"Description", @"Label for Description section of recording description metadata")
 #define START_STRING NSLocalizedString(@"Start", @"Describes where a recording starts")
 #define END_STRING NSLocalizedString(@"End", "Describes where recording ends")
+#define INFO_STRING NSLocalizedString(@"Info", "Title for recording information screen")
+#define SAVE_STRING NSLocalizedString(@"Save", @"Title for button to save recording metadata")
