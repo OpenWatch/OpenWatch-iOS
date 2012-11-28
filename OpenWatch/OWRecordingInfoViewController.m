@@ -28,6 +28,7 @@
         self.moviePlayer = [[MPMoviePlayerController alloc] init];
         self.title = INFO_STRING;
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:SAVE_STRING style:UIBarButtonItemStyleDone target:self action:@selector(saveButtonPressed:)];
+        [self setupFields];
     }
     return self;
 }
@@ -132,7 +133,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	[self setupFields];
     [self.scrollView addSubview:moviePlayer.view];
 }
 
