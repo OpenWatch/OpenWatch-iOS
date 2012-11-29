@@ -32,6 +32,7 @@
 #define kUUIDKey @"uuid"
 #define kMetadataFileName @"metadata.json"
 #define kAllFilesKey @"all_files"
+#define kHQFileName @"hq.mp4"
 
 @interface OWRecording()
 @property (nonatomic, strong) NSString *uuid;
@@ -121,7 +122,7 @@
     [allFilesDictionary addEntriesFromDictionary:failedDictionary];
     [allFilesDictionary addEntriesFromDictionary:uploadingDictionary];
     [allFilesDictionary addEntriesFromDictionary:recordingDictionary];
-    [allFilesDictionary removeObjectForKey:@"hq.mp4"];
+    [allFilesDictionary removeObjectForKey:kHQFileName];
     [allFiles addObjectsFromArray:[allFilesDictionary allKeys]];
     [dictionary setObject:allFiles forKey:kAllFilesKey];
     return dictionary;
@@ -352,8 +353,28 @@
     return newMovieURL;
 }
 
-- (NSUInteger) failedFileUploadCount {
+- (NSUInteger) failedFileCount {
     return [failedDictionary count];
+}
+
+- (NSUInteger) completedFileCount {
+    return [completedDictionary count];
+}
+
+- (NSUInteger) totalFileCount {
+    return [self failedFileCount] + [self completedFileCount] + [self recordingFileCount] + [self uploadingFileCount];
+}
+
+- (NSUInteger) recordingFileCount {
+    return [recordingDictionary count];
+}
+
+- (NSUInteger) uploadingFileCount {
+    return [uploadingDictionary count];
+}
+
+- (BOOL) isHighQualityFileUploaded {
+    return [completedDictionary objectForKey:kHQFileName] != nil;
 }
 
 - (NSArray*) failedFileUploadURLs {

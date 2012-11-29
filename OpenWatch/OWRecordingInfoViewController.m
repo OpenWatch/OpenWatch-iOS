@@ -8,6 +8,7 @@
 
 #import "OWRecordingInfoViewController.h"
 #import "OWStrings.h"
+#import "OWCaptureAPIClient.h"
 #import "OWMapAnnotation.h"
 
 @interface OWRecordingInfoViewController ()
@@ -17,10 +18,11 @@
 @property (nonatomic, strong) UITextField *titleTextField;
 @property (nonatomic, strong) UITextField *descriptionTextField;
 @property (nonatomic, strong) UIBarButtonItem *saveButton;
+@property (nonatomic, strong) UIProgressView *uploadProgressView;
 @end
 
 @implementation OWRecordingInfoViewController
-@synthesize recording, titleTextField, descriptionTextField, mapView, moviePlayer, centerCoordinate;
+@synthesize recording, titleTextField, descriptionTextField, mapView, moviePlayer, centerCoordinate, uploadProgressView;
 
 - (id) init {
     if (self = [super init]) {
@@ -29,6 +31,7 @@
         self.title = INFO_STRING;
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:SAVE_STRING style:UIBarButtonItemStyleDone target:self action:@selector(saveButtonPressed:)];
         [self setupFields];
+        [self setupProgressView];
     }
     return self;
 }
@@ -39,6 +42,18 @@
     mapView.zoomEnabled = NO;
     mapView.delegate = self;
     [self.scrollView addSubview:mapView];
+}
+
+- (void) setupProgressView {
+    self.uploadProgressView = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleDefault];
+    [self addCellInfoWithSection:0 row:2 labelText:PROGRESS_STRING cellType:kCellTypeProgress userInputView:self.uploadProgressView];
+}
+
+- (void) refreshProgressView {
+    if (recording) {
+        float progress = ((float)[recording completedFileCount]) / [recording totalFileCount];
+        [self.uploadProgressView setProgress:progress animated:YES];
+    }
 }
 
 - (MKAnnotationView*) mapView:(MKMapView *)theMapView viewForAnnotation:(id<MKAnnotation>)annotation {
@@ -58,24 +73,41 @@
 
 - (void) refreshFrames {
     CGFloat padding = 10.0f;
+    CGFloat contentHeight = 0.0f;
     CGFloat mapViewHeight = 100.0f;
     if (!CLLocationCoordinate2DIsValid(centerCoordinate)) {
         mapViewHeight = 0.0f;
     }
     self.mapView.frame = CGRectMake(0, 0, self.view.frame.size.width, mapViewHeight);
-    self.groupedTableView.frame = CGRectMake(0, self.mapView.frame.origin.y + self.mapView.frame.size.height + padding, self.view.frame.size.width, 100.0f);
-    CGFloat thumbnailYOrigin = self.groupedTableView.frame.origin.y + self.groupedTableView.frame.size.height + padding;
-    moviePlayer.view.frame = CGRectMake(0, thumbnailYOrigin, self.view.frame.size.width, self.view.frame.size.height - thumbnailYOrigin - padding);
+    contentHeight += mapViewHeight;
+    CGFloat groupedTableHeight = 150.0f;
+    CGFloat groupedTableViewYOrigin = self.mapView.frame.origin.y + self.mapView.frame.size.height + padding;
+    self.groupedTableView.frame = CGRectMake(0, groupedTableViewYOrigin, self.view.frame.size.width, groupedTableHeight);
+    contentHeight += groupedTableHeight + padding;
+    CGFloat moviePlayerYOrigin = self.groupedTableView.frame.origin.y + self.groupedTableView.frame.size.height + padding;
+    CGFloat moviePlayerHeight = 250.0f;
+    moviePlayer.view.frame = CGRectMake(0, moviePlayerYOrigin, self.view.frame.size.width, moviePlayerHeight);
+    contentHeight += moviePlayerHeight + padding;
+    self.scrollView.contentSize = CGSizeMake(self.view.frame.size.width, contentHeight);
 }
 
 - (void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self refreshFrames];
+    [self registerForUploadProgressNotifications];
 }
 
 - (void) viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
     [self resignFirstResponder];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void) registerForUploadProgressNotifications {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    if (recording) {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedUploadProgressNotification:) name:kOWCaptureAPIClientBandwidthNotification object:recording];
+    }
 }
 
 - (void) viewDidAppear:(BOOL)animated {
@@ -93,6 +125,12 @@
     [self refreshMapParameters];
     [self refreshFields];
     [self refreshFrames];
+    [self refreshProgressView];
+    [self registerForUploadProgressNotifications];
+}
+
+- (void) receivedUploadProgressNotification:(NSNotification*)notification {
+    [self refreshProgressView];
 }
 
 - (void) refreshMapParameters {
@@ -134,6 +172,7 @@
 {
     [super viewDidLoad];
     [self.scrollView addSubview:moviePlayer.view];
+    self.scrollView.scrollEnabled = YES;
 }
 
 - (void) refreshFields {

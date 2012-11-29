@@ -33,3 +33,4 @@
 #define END_STRING NSLocalizedString(@"End", "Describes where recording ends")
 #define INFO_STRING NSLocalizedString(@"Info", "Title for recording information screen")
 #define SAVE_STRING NSLocalizedString(@"Save", @"Title for button to save recording metadata")
+#define PROGRESS_STRING NSLocalizedString(@"Progress", @"Upload completion progress")

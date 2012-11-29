@@ -38,7 +38,13 @@ typedef enum {
 - (void) saveMetadata;
 
 - (NSArray*) failedFileUploadURLs;
-- (NSUInteger) failedFileUploadCount;
+- (NSUInteger) failedFileCount;
+- (NSUInteger) completedFileCount;
+- (NSUInteger) recordingFileCount;
+- (NSUInteger) uploadingFileCount;
+- (NSUInteger) totalFileCount;
+- (BOOL) isHighQualityFileUploaded;
+
 
 - (void) startRecording;
 - (void) stopRecording;

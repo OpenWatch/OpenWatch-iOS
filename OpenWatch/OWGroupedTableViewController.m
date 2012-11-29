@@ -106,6 +106,12 @@
         cell.textLabel.text = [cellDictionary objectForKey:kTextLabelTextKey];
         [cell layoutIfNeeded];
         ((OWInLineTextEditTableViewCell *)cell).textField = [cellDictionary objectForKey:kUserInputViewKey];
+    } else if ([cellType isEqualToString:kCellTypeProgress]) {
+        if (cell == nil) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellType];
+        }
+        cell.textLabel.text = [cellDictionary objectForKey:kTextLabelTextKey];
+        cell.accessoryView = [cellDictionary objectForKey:kUserInputViewKey];
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;

@@ -39,7 +39,7 @@
 
 - (void) scanRecordingsForUnsubmittedData {
     for (OWRecording *recording in [self allRecordings]) {
-        if (recording.failedFileUploadCount > 0) {
+        if (recording.failedFileCount > 0) {
             NSLog(@"Unsubmitted data found for recording: %@", recording.recordingPath);
             [self uploadFailedFileURLs:recording.failedFileUploadURLs forRecording:recording];
         }

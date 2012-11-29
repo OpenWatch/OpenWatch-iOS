@@ -13,6 +13,7 @@
 #define kUserInputViewKey @"userInputViewKey"
 #define kCellTypeTextField @"cellTypeTextField"
 #define kCellTypeSwitch @"cellTypeSwitch"
+#define kCellTypeProgress @"cellTypeProgress"
 #define KCellTypeHelp @"cellTypeHelp"
 
 @interface OWGroupedTableViewController : UIViewController <UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate>

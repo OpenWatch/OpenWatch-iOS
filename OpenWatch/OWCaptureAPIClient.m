@@ -127,7 +127,7 @@ static NSString * const kOWCaptureAPIClientAPIBaseURLString = @"http://192.168.1
         [userInfo setObject:[NSNumber numberWithDouble:bps] forKey:@"bps"];
         [userInfo setObject:endDate forKey:@"endDate"];
         [userInfo setObject:url forKey:@"fileURL"];
-        [[NSNotificationCenter defaultCenter] postNotificationName:kOWCaptureAPIClientBandwidthNotification object:nil userInfo:userInfo];
+        [[NSNotificationCenter defaultCenter] postNotificationName:kOWCaptureAPIClientBandwidthNotification object:recording userInfo:userInfo];
         [recording setUploadState:OWFileUploadStateCompleted forFileAtURL:url];
         NSLog(@"timeSpent: %f fileLength: %lld, %f bits/sec", diff, length, bps);
 
