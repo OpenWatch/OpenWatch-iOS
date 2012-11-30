@@ -11,6 +11,7 @@
 		D907023516682B4400611607 /* OWUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = D907023416682B4400611607 /* OWUtilities.m */; };
 		D907023816682C8E00611607 /* gear-white.png in Resources */ = {isa = PBXBuildFile; fileRef = D907023616682C8E00611607 /* gear-white.png */; };
 		D907023916682C8E00611607 /* gear-white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D907023716682C8E00611607 /* gear-white@2x.png */; };
+		D907023C1668353800611607 /* OWCaptureController.m in Sources */ = {isa = PBXBuildFile; fileRef = D907023B1668353800611607 /* OWCaptureController.m */; };
 		D9308514166406E5008C5D4C /* OWRecordingInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9308513166406E5008C5D4C /* OWRecordingInfoViewController.m */; };
 		D930851816640C6E008C5D4C /* OWGroupedTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D930851716640C6E008C5D4C /* OWGroupedTableViewController.m */; };
 		D930851B166424C1008C5D4C /* OWMapAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = D930851A166424C1008C5D4C /* OWMapAnnotation.m */; };
@@ -72,6 +73,8 @@
 		D907023416682B4400611607 /* OWUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWUtilities.m; sourceTree = "<group>"; };
 		D907023616682C8E00611607 /* gear-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gear-white.png"; sourceTree = "<group>"; };
 		D907023716682C8E00611607 /* gear-white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gear-white@2x.png"; sourceTree = "<group>"; };
+		D907023A1668353800611607 /* OWCaptureController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWCaptureController.h; sourceTree = "<group>"; };
+		D907023B1668353800611607 /* OWCaptureController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWCaptureController.m; sourceTree = "<group>"; };
 		D9308512166406E5008C5D4C /* OWRecordingInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWRecordingInfoViewController.h; sourceTree = "<group>"; };
 		D9308513166406E5008C5D4C /* OWRecordingInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWRecordingInfoViewController.m; sourceTree = "<group>"; };
 		D930851616640C6E008C5D4C /* OWGroupedTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWGroupedTableViewController.h; sourceTree = "<group>"; };
@@ -376,6 +379,8 @@
 				D9D2E1771652EC140000E7C5 /* OWSettingsController.m */,
 				D9397BBF165D95940093B3C8 /* OWLocationControler.h */,
 				D9397BC0165D95940093B3C8 /* OWLocationControler.m */,
+				D907023A1668353800611607 /* OWCaptureController.h */,
+				D907023B1668353800611607 /* OWCaptureController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -520,6 +525,7 @@
 				D930851B166424C1008C5D4C /* OWMapAnnotation.m in Sources */,
 				D90702311668270F00611607 /* OWHomeScreenViewController.m in Sources */,
 				D907023516682B4400611607 /* OWUtilities.m in Sources */,
+				D907023C1668353800611607 /* OWCaptureController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

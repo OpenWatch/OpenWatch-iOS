@@ -8,6 +8,7 @@
 
 #import "OWCaptureViewController.h"
 #import "OWStrings.h"
+#import "OWCaptureController.h"
 
 @interface OWCaptureViewController ()
 
@@ -18,9 +19,8 @@
 
 - (id) init {
     if (self = [super init]) {
-        self.videoProcessor = [[OWVideoProcessor alloc] init];
+        self.videoProcessor = [OWCaptureController sharedInstance].videoProcessor;
         self.videoProcessor.delegate = self;
-        [self.videoProcessor setupAndStartCaptureSession];
         self.videoPreviewView = [[UIView alloc] init];
         self.title = CAPTURE_STRING;
         self.recordButton = [[UIBarButtonItem alloc] initWithTitle:RECORD_STRING style:UIBarButtonItemStyleDone target:self action:@selector(recordButtonPressed:)];
@@ -64,12 +64,23 @@
     [captureVideoPreviewLayer setFrame:bounds];
     
     if ([captureVideoPreviewLayer isOrientationSupported]) {
-        [captureVideoPreviewLayer setOrientation:AVCaptureVideoOrientationPortrait];
+        [captureVideoPreviewLayer setOrientation:AVCaptureVideoOrientationLandscapeRight];
     }
     
     [captureVideoPreviewLayer setVideoGravity:AVLayerVideoGravityResizeAspectFill];
     
     [videoPreviewView.layer addSublayer:captureVideoPreviewLayer];
+}
+
+- (void) viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.videoPreviewView.frame = self.view.bounds;
+    [captureVideoPreviewLayer setFrame:self.view.bounds];
+}
+
+- (void) viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -128,7 +139,18 @@
 			[[UIApplication sharedApplication] endBackgroundTask:backgroundRecordingID];
 			backgroundRecordingID = UIBackgroundTaskInvalid;
 		}
+        
+        [self dismissViewControllerAnimated:YES completion:nil];
 	});
+}
+
+- (BOOL) shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+    return UIInterfaceOrientationLandscapeRight == interfaceOrientation;
+}
+
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation
+{
+    return UIInterfaceOrientationLandscapeRight;
 }
 
 

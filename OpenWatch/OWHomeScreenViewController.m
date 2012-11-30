@@ -11,6 +11,7 @@
 #import "OWUtilities.h"
 #import "OWLoginViewController.h"
 #import "OWSettingsController.h"
+#import "OWCaptureViewController.h"
 
 @interface OWHomeScreenViewController ()
 @property (nonatomic, strong) UIButton *recordButton;
@@ -84,7 +85,10 @@
 }
 
 - (void) recordButtonPressed:(id)sender {
-    
+    OWCaptureViewController *captureView = [[OWCaptureViewController alloc] init];
+    UINavigationController *captureNav = [[UINavigationController alloc] initWithRootViewController:captureView];
+    [self presentViewController:captureNav animated:YES completion:^{
+    }];
 }
 
 - (void) newsButtonPressed:(id)sender {
