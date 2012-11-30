@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D90702311668270F00611607 /* OWHomeScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D90702301668270F00611607 /* OWHomeScreenViewController.m */; };
+		D907023516682B4400611607 /* OWUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = D907023416682B4400611607 /* OWUtilities.m */; };
+		D907023816682C8E00611607 /* gear-white.png in Resources */ = {isa = PBXBuildFile; fileRef = D907023616682C8E00611607 /* gear-white.png */; };
+		D907023916682C8E00611607 /* gear-white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D907023716682C8E00611607 /* gear-white@2x.png */; };
 		D9308514166406E5008C5D4C /* OWRecordingInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9308513166406E5008C5D4C /* OWRecordingInfoViewController.m */; };
 		D930851816640C6E008C5D4C /* OWGroupedTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D930851716640C6E008C5D4C /* OWGroupedTableViewController.m */; };
 		D930851B166424C1008C5D4C /* OWMapAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = D930851A166424C1008C5D4C /* OWMapAnnotation.m */; };
@@ -62,6 +66,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D907022F1668270F00611607 /* OWHomeScreenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWHomeScreenViewController.h; sourceTree = "<group>"; };
+		D90702301668270F00611607 /* OWHomeScreenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWHomeScreenViewController.m; sourceTree = "<group>"; };
+		D907023316682B4400611607 /* OWUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWUtilities.h; sourceTree = "<group>"; };
+		D907023416682B4400611607 /* OWUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWUtilities.m; sourceTree = "<group>"; };
+		D907023616682C8E00611607 /* gear-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gear-white.png"; sourceTree = "<group>"; };
+		D907023716682C8E00611607 /* gear-white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gear-white@2x.png"; sourceTree = "<group>"; };
 		D9308512166406E5008C5D4C /* OWRecordingInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWRecordingInfoViewController.h; sourceTree = "<group>"; };
 		D9308513166406E5008C5D4C /* OWRecordingInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWRecordingInfoViewController.m; sourceTree = "<group>"; };
 		D930851616640C6E008C5D4C /* OWGroupedTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWGroupedTableViewController.h; sourceTree = "<group>"; };
@@ -224,6 +234,8 @@
 				D9D2E21B16532B090000E7C5 /* Custom Views */,
 				D99741841651D42F0034ABB0 /* OWAppDelegate.h */,
 				D99741851651D42F0034ABB0 /* OWAppDelegate.m */,
+				D907023316682B4400611607 /* OWUtilities.h */,
+				D907023416682B4400611607 /* OWUtilities.m */,
 				D997417C1651D42F0034ABB0 /* Supporting Files */,
 			);
 			path = OpenWatch;
@@ -371,6 +383,8 @@
 		D9D2E21D16532B220000E7C5 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				D907022F1668270F00611607 /* OWHomeScreenViewController.h */,
+				D90702301668270F00611607 /* OWHomeScreenViewController.m */,
 				D9308512166406E5008C5D4C /* OWRecordingInfoViewController.h */,
 				D9308513166406E5008C5D4C /* OWRecordingInfoViewController.m */,
 				D9D2E19A165326BB0000E7C5 /* OWRecordingListViewController.h */,
@@ -390,6 +404,8 @@
 		D9DFADF716547DE7003C515C /* Media */ = {
 			isa = PBXGroup;
 			children = (
+				D907023616682C8E00611607 /* gear-white.png */,
+				D907023716682C8E00611607 /* gear-white@2x.png */,
 				D9DFADF816547DE7003C515C /* openwatch.png */,
 				D9DFADF916547DE7003C515C /* openwatch@2x.png */,
 				D9397BBA165D6FC70093B3C8 /* fabric.jpeg */,
@@ -458,6 +474,8 @@
 				D9DFADFB16547DE7003C515C /* openwatch@2x.png in Resources */,
 				D9397BBC165D6FC70093B3C8 /* fabric.jpeg in Resources */,
 				D9397BBD165D6FC70093B3C8 /* fabric@2x.jpeg in Resources */,
+				D907023816682C8E00611607 /* gear-white.png in Resources */,
+				D907023916682C8E00611607 /* gear-white@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -500,6 +518,8 @@
 				D9308514166406E5008C5D4C /* OWRecordingInfoViewController.m in Sources */,
 				D930851816640C6E008C5D4C /* OWGroupedTableViewController.m in Sources */,
 				D930851B166424C1008C5D4C /* OWMapAnnotation.m in Sources */,
+				D90702311668270F00611607 /* OWHomeScreenViewController.m in Sources */,
+				D907023516682B4400611607 /* OWUtilities.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

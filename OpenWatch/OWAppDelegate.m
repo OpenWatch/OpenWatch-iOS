@@ -7,11 +7,8 @@
 //
 
 #import "OWAppDelegate.h"
-#import "OWSettingsViewController.h"
-#import "OWLoginViewController.h"
-#import "OWSettingsController.h"
-#import "OWCaptureViewController.h"
-#import "OWRecordingListViewController.h"
+#import "OWHomeScreenViewController.h"
+#import "OWUtilities.h"
 
 @implementation OWAppDelegate
 @synthesize tabBarController;
@@ -20,35 +17,13 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
-    self.window.backgroundColor = [UIColor whiteColor];
-    self.tabBarController = [[UITabBarController alloc] init];
-    OWSettingsViewController *settingsViewController = [[OWSettingsViewController alloc] init];
-    UINavigationController *settingsNavController = [[UINavigationController alloc] initWithRootViewController:settingsViewController];
+    self.window.backgroundColor = [OWUtilities fabricBackgroundPattern];
     
-    OWLoginViewController *loginViewController = [[OWLoginViewController alloc] init];
-    UINavigationController *loginNavController = [[UINavigationController alloc] initWithRootViewController:loginViewController];
-    
-    OWCaptureViewController *captureViewController = [[OWCaptureViewController alloc] init];
-    UINavigationController *captureNavController = [[UINavigationController alloc] initWithRootViewController:captureViewController];
-    OWRecordingListViewController *recordingListViewController = [[OWRecordingListViewController alloc] init];
-    UINavigationController *recordingListNavController = [[UINavigationController alloc] initWithRootViewController:recordingListViewController];
-    self.tabBarController.viewControllers = @[captureNavController, recordingListNavController, loginNavController, settingsNavController];
-    self.window.rootViewController = self.tabBarController;
-    
+    OWHomeScreenViewController *homeScreen = [[OWHomeScreenViewController alloc] init];
+    UINavigationController *homeNavController = [[UINavigationController alloc] initWithRootViewController:homeScreen];
+    self.window.rootViewController = homeNavController;
     [self.window makeKeyAndVisible];
-    [self performSelector:@selector(checkAccount) withObject:nil afterDelay:0.1f];
     return YES;
-}
-
-- (void) checkAccount {
-    OWLoginViewController *loginViewController = [[OWLoginViewController alloc] init];
-    UINavigationController *loginNavController = [[UINavigationController alloc] initWithRootViewController:loginViewController];
-    OWSettingsController *settingsController = [OWSettingsController sharedInstance];
-    if (![settingsController.account isLoggedIn]) {
-        [self.tabBarController presentViewController:loginNavController animated:YES completion:^{
-            
-        }];
-    }
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application

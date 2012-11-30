@@ -8,6 +8,7 @@
 
 #import "OWGroupedTableViewController.h"
 #import "OWInLineTextEditTableViewCell.h"
+#import "OWUtilities.h"
 
 
 @interface OWGroupedTableViewController ()
@@ -35,7 +36,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor colorWithPatternImage: [UIImage imageNamed:@"fabric.jpeg"]];
+    self.view.backgroundColor = [OWUtilities fabricBackgroundPattern];
     
     self.scrollView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin;
     [self.view addSubview:self.scrollView];
