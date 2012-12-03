@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1811" systemVersion="12C60" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
-    <entity name="OWManagedRecording" syncable="YES">
+    <entity name="OWLocalRecording" representedClassName="OWLocalRecording" parentEntity="OWManagedRecording" syncable="YES">
+        <attribute name="isHQFileSynced" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="localRecordingPath" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="segments" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="OWRecordingSegment" inverseName="recording" inverseEntity="OWRecordingSegment" syncable="YES"/>
+    </entity>
+    <entity name="OWManagedRecording" representedClassName="OWManagedRecording" syncable="YES">
         <attribute name="endDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="endLatitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="endLongitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
-        <attribute name="isRecording" optional="YES" attributeType="Boolean" syncable="YES"/>
-        <attribute name="isRemote" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="recordingDescription" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="recordingPath" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="remoteVideoURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="serverID" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="startDate" optional="YES" attributeType="Date" syncable="YES"/>
@@ -15,8 +17,28 @@
         <attribute name="startLongitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="uuid" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="tags" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="OWRecordingTag" inverseName="recording" inverseEntity="OWRecordingTag" syncable="YES"/>
+        <relationship name="user" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="OWUser" inverseName="recordings" inverseEntity="OWUser" syncable="YES"/>
+    </entity>
+    <entity name="OWRecordingSegment" representedClassName="OWRecordingSegment" syncable="YES">
+        <attribute name="fileName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="uploadState" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <relationship name="recording" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="OWLocalRecording" inverseName="segments" inverseEntity="OWLocalRecording" syncable="YES"/>
+    </entity>
+    <entity name="OWRecordingTag" representedClassName="OWRecordingTag" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="recording" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="OWManagedRecording" inverseName="tags" inverseEntity="OWManagedRecording" syncable="YES"/>
+    </entity>
+    <entity name="OWUser" syncable="YES">
+        <attribute name="serverID" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="username" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="recordings" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="OWManagedRecording" inverseName="user" inverseEntity="OWManagedRecording" syncable="YES"/>
     </entity>
     <elements>
-        <element name="OWManagedRecording" positionX="160" positionY="192" width="128" height="255"/>
+        <element name="OWManagedRecording" positionX="430" positionY="251" width="128" height="238"/>
+        <element name="OWRecordingSegment" positionX="135" positionY="173" width="128" height="88"/>
+        <element name="OWLocalRecording" positionX="394" positionY="126" width="128" height="88"/>
+        <element name="OWRecordingTag" positionX="252" positionY="288" width="128" height="73"/>
+        <element name="OWUser" positionX="90" positionY="315" width="128" height="90"/>
     </elements>
 </model>
