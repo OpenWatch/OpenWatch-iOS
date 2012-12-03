@@ -10,3 +10,6 @@
 [submodule "Submodules/MBProgressHUD"]
 	path = Submodules/MBProgressHUD
 	url = git://github.com/jdg/MBProgressHUD.git
+[submodule "Submodules/MagicalRecord"]
+	path = Submodules/MagicalRecord
+	url = git://github.com/magicalpanda/MagicalRecord.git
