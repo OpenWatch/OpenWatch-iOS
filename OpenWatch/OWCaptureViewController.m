@@ -11,20 +11,20 @@
 #import "OWCaptureController.h"
 
 @interface OWCaptureViewController ()
-
+@property (nonatomic, strong) UIBarButtonItem *cancelButton;
 @end
 
 @implementation OWCaptureViewController
-@synthesize videoPreviewView, captureVideoPreviewLayer, videoProcessor, recordButton;
+@synthesize videoPreviewView, captureVideoPreviewLayer, videoProcessor, recordButton, cancelButton;
 
 - (id) init {
     if (self = [super init]) {
         self.videoProcessor = [OWCaptureController sharedInstance].videoProcessor;
         self.videoProcessor.delegate = self;
-        [self.videoProcessor setupAndStartCaptureSession];
         self.videoPreviewView = [[UIView alloc] init];
         self.title = CAPTURE_STRING;
         self.recordButton = [[UIBarButtonItem alloc] initWithTitle:RECORD_STRING style:UIBarButtonItemStyleDone target:self action:@selector(recordButtonPressed:)];
+        self.cancelButton = [[UIBarButtonItem alloc] initWithTitle:CANCEL_STRING style:UIBarButtonItemStyleBordered target:self action:@selector(cancelButtonPressed:)];
     }
     return self;
 }
@@ -36,11 +36,13 @@
     [self.view addSubview:videoPreviewView];
     
     self.navigationItem.rightBarButtonItem = recordButton;
+    self.navigationItem.leftBarButtonItem = cancelButton;
 }
 
 - (void) recordButtonPressed:(id)sender {
     // Wait for the recording to start/stop before re-enabling the record button.
     [[self recordButton] setEnabled:NO];
+    self.cancelButton.enabled = NO;
     
     if ( [videoProcessor isRecording] ) {
         // The recordingWill/DidStop delegate methods will fire asynchronously in response to this call
@@ -127,6 +129,7 @@
 {
 	dispatch_async(dispatch_get_main_queue(), ^{
 		[[self recordButton] setEnabled:YES];
+        self.cancelButton.enabled = YES;
 		
 		[UIApplication sharedApplication].idleTimerDisabled = NO;
                 
@@ -139,6 +142,10 @@
             //[videoProcessor stopAndTearDownCaptureSession];
         }];
 	});
+}
+
+- (void) cancelButtonPressed:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (BOOL) shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {

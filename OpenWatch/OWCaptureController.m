@@ -23,6 +23,7 @@
 - (id) init {
     if (self = [super init]) {
         self.videoProcessor = [[OWVideoProcessor alloc] init];
+        [self.videoProcessor setupAndStartCaptureSession];
     }
     return self;
 }
