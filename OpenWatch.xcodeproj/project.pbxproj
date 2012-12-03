@@ -96,6 +96,7 @@
 		D9EB4C75166D5F500019F8B6 /* OWManagedRecording.m in Sources */ = {isa = PBXBuildFile; fileRef = D9EB4C74166D5F500019F8B6 /* OWManagedRecording.m */; };
 		D9EB4C78166D5F600019F8B6 /* OWRecordingSegment.m in Sources */ = {isa = PBXBuildFile; fileRef = D9EB4C77166D5F600019F8B6 /* OWRecordingSegment.m */; };
 		D9EB4C7B166D5F700019F8B6 /* OWRecordingTag.m in Sources */ = {isa = PBXBuildFile; fileRef = D9EB4C7A166D5F700019F8B6 /* OWRecordingTag.m */; };
+		D9EB4C7F166D67920019F8B6 /* OWUser.m in Sources */ = {isa = PBXBuildFile; fileRef = D9EB4C7E166D67920019F8B6 /* OWUser.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -259,6 +260,8 @@
 		D9EB4C77166D5F600019F8B6 /* OWRecordingSegment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWRecordingSegment.m; sourceTree = "<group>"; };
 		D9EB4C79166D5F700019F8B6 /* OWRecordingTag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWRecordingTag.h; sourceTree = "<group>"; };
 		D9EB4C7A166D5F700019F8B6 /* OWRecordingTag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWRecordingTag.m; sourceTree = "<group>"; };
+		D9EB4C7D166D67910019F8B6 /* OWUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWUser.h; sourceTree = "<group>"; };
+		D9EB4C7E166D67920019F8B6 /* OWUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWUser.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -629,6 +632,8 @@
 				D9EB4C76166D5F600019F8B6 /* OWRecordingSegment.h */,
 				D9EB4C77166D5F600019F8B6 /* OWRecordingSegment.m */,
 				D9EB4C59166D338B0019F8B6 /* Model.xcdatamodeld */,
+				D9EB4C7D166D67910019F8B6 /* OWUser.h */,
+				D9EB4C7E166D67920019F8B6 /* OWUser.m */,
 				D9EB4C73166D5F500019F8B6 /* OWManagedRecording.h */,
 				D9EB4C74166D5F500019F8B6 /* OWManagedRecording.m */,
 				D9EB4C70166D5F080019F8B6 /* OWLocalRecording.h */,
@@ -775,6 +780,7 @@
 				D9EB4C75166D5F500019F8B6 /* OWManagedRecording.m in Sources */,
 				D9EB4C78166D5F600019F8B6 /* OWRecordingSegment.m in Sources */,
 				D9EB4C7B166D5F700019F8B6 /* OWRecordingTag.m in Sources */,
+				D9EB4C7F166D67920019F8B6 /* OWUser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

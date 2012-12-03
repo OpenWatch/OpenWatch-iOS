@@ -23,5 +23,6 @@
 @dynamic serverID;
 @dynamic remoteVideoURL;
 @dynamic tags;
+@dynamic user;
 
 @end

@@ -7,15 +7,18 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "OWUser.h"
 
 @interface OWAccount : NSObject
 
-@property (nonatomic, strong) NSString *accountName;
+@property (nonatomic, strong) NSNumber *accountID;
 @property (nonatomic, strong) NSString *email;
 @property (nonatomic, strong) NSString *publicUploadToken;
 @property (nonatomic, strong) NSString *privateUploadToken;
 @property (nonatomic, strong) NSString *password;
 @property (nonatomic, strong) NSString *username;
+
+- (OWUser*) user;
 
 - (void) clearAccountData;
 - (BOOL) isLoggedIn;

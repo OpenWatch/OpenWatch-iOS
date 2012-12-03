@@ -29,7 +29,7 @@
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="recording" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="OWManagedRecording" inverseName="tags" inverseEntity="OWManagedRecording" syncable="YES"/>
     </entity>
-    <entity name="OWUser" syncable="YES">
+    <entity name="OWUser" representedClassName="OWUser" syncable="YES">
         <attribute name="serverID" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="username" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="recordings" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="OWManagedRecording" inverseName="user" inverseEntity="OWManagedRecording" syncable="YES"/>
@@ -39,6 +39,6 @@
         <element name="OWRecordingSegment" positionX="135" positionY="173" width="128" height="88"/>
         <element name="OWLocalRecording" positionX="394" positionY="126" width="128" height="88"/>
         <element name="OWRecordingTag" positionX="252" positionY="288" width="128" height="73"/>
-        <element name="OWUser" positionX="90" positionY="315" width="128" height="90"/>
+        <element name="OWUser" positionX="90" positionY="315" width="128" height="88"/>
     </elements>
 </model>

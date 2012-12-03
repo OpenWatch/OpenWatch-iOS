@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
+@class OWUser;
 
 @interface OWManagedRecording : NSManagedObject
 
@@ -24,6 +25,7 @@
 @property (nonatomic, retain) NSNumber * serverID;
 @property (nonatomic, retain) NSString * remoteVideoURL;
 @property (nonatomic, retain) NSSet *tags;
+@property (nonatomic, strong) OWUser *user;
 @end
 
 @interface OWManagedRecording (CoreDataGeneratedAccessors)

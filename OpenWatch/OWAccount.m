@@ -10,7 +10,7 @@
 #import "SSKeychain.h"
 
 #define kServiceName @"net.OpenWatch.OpenWatch"
-#define kAccountNameKey @"kAccountNameKey"
+#define kAccountIDKey @"kAccountIDKey"
 #define kEmailKey @"kEmailKey"
 #define kPublicUploadTokenKey @"kPublicUploadTokenKey"
 #define kPrivateUploadTokenKey @"kPrivateUploadTokenKey"
@@ -28,13 +28,13 @@
     return self;
 }
 
-- (NSString*) accountName {
+- (NSNumber*) accountID {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    return [defaults objectForKey:kAccountNameKey];
+    return [defaults objectForKey:kAccountIDKey];
 }
 
-- (void) setAccountName:(NSString *)accountName {
-    [self setPreferencesValue:accountName forKey:kAccountNameKey];
+- (void) setAccountID:(NSNumber *)accountID {
+    [self setPreferencesValue:accountID forKey:kAccountIDKey];
 }
 
 - (NSString*) email {
@@ -108,7 +108,7 @@
     [self setKeychainValue:publicUploadToken forKey:kPublicUploadTokenKey];
 }
 
-- (void) setPreferencesValue:(NSString*)value forKey:(NSString*)key {
+- (void) setPreferencesValue:(NSObject*)value forKey:(NSString*)key {
     if (!value) {
         NSLog(@"Preference value is nil!");
         return;
@@ -121,10 +121,24 @@
     }
 }
 
+- (OWUser*) user {
+    if (![self accountID]) {
+        return nil;
+    }
+    OWUser *user = [OWUser MR_findFirstByAttribute:@"serverID" withValue:[self accountID]];
+    if (!user) {
+        user = [OWUser MR_createEntity];
+        user.serverID = [self accountID];
+    }
+    user.username = [self username];
+    return user;
+}
+
 
 - (void) clearAccountData {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults removeObjectForKey:kAccountNameKey];
+    [defaults removeObjectForKey:kAccountIDKey];
+    [defaults removeObjectForKey:kUsernameKey];
     [defaults removeObjectForKey:kEmailKey];
     BOOL success = [defaults synchronize];
     if (!success) {
