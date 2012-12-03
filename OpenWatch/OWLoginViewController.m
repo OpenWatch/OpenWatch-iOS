@@ -16,12 +16,12 @@
 #define PADDING 10.0f
 
 @interface OWLoginViewController ()
-
+@property (nonatomic, strong) UIBarButtonItem *cancelButton;
 @end
 
 @implementation OWLoginViewController
 @synthesize emailTextField, passwordTextField, loginButton, helpLabel;
-@synthesize headerImageView, account, loginOrSignupSegmentedControl, logoutButton;
+@synthesize headerImageView, account, loginOrSignupSegmentedControl, logoutButton, cancelButton;
 
 - (id)init
 {
@@ -30,6 +30,8 @@
         self.title = LOGIN_STRING;
         OWSettingsController *settingsController = [OWSettingsController sharedInstance];
         self.account = settingsController.account;
+        
+        self.cancelButton = [[UIBarButtonItem alloc] initWithTitle:CANCEL_STRING style:UIBarButtonItemStyleBordered target:self action:@selector(cancelButtonPressed:)];
     }
     return self;
 }
@@ -61,9 +63,8 @@
 
     
     self.loginButton = [[UIBarButtonItem alloc] initWithTitle:SUBMIT_STRING style:UIBarButtonItemStyleDone target:self action:@selector(loginButtonPressed:)];
-    self.navigationItem.rightBarButtonItem = loginButton;
     
-    self.logoutButton = [[UIBarButtonItem alloc] initWithTitle:LOGOUT_STRING style:UIBarButtonItemStyleBordered target:self action:@selector(logoutButtonPressed:)];
+    self.logoutButton = [[UIBarButtonItem alloc] initWithTitle:LOGOUT_STRING style:UIBarButtonItemStyleDone target:self action:@selector(logoutButtonPressed:)];
     
     self.headerImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"openwatch.png"]];
     self.headerImageView.contentMode = UIViewContentModeCenter;
@@ -90,8 +91,8 @@
 
 - (void) refreshLoginButtons {
     if ([account isLoggedIn]) {
-        self.navigationItem.leftBarButtonItem = logoutButton;
-        self.navigationItem.rightBarButtonItem = nil;
+        self.navigationItem.leftBarButtonItem = cancelButton;
+        self.navigationItem.rightBarButtonItem = logoutButton;
         self.emailTextField.enabled = NO;
         self.emailTextField.textColor = [UIColor lightGrayColor];
         self.passwordTextField.enabled = NO;
@@ -148,6 +149,10 @@
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
+}
+
+- (void) cancelButtonPressed:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 

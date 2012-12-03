@@ -15,6 +15,7 @@
 #define kCellTypeSwitch @"cellTypeSwitch"
 #define kCellTypeProgress @"cellTypeProgress"
 #define KCellTypeHelp @"cellTypeHelp"
+#define kCellTypeNone @"cellTypeNone"
 
 @interface OWGroupedTableViewController : UIViewController <UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate>
 

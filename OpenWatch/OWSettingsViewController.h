@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "OWGroupedTableViewController.h"
 
-@interface OWSettingsViewController : UIViewController
+@interface OWSettingsViewController : OWGroupedTableViewController
 
 @end

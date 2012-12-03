@@ -35,3 +35,4 @@
 #define SAVE_STRING NSLocalizedString(@"Save", @"Title for button to save recording metadata")
 #define PROGRESS_STRING NSLocalizedString(@"Progress", @"Upload completion progress")
 #define WATCH_STRING NSLocalizedString(@"Watch", "Title for news button")
+#define ACCOUNT_STRING NSLocalizedString(@"Account", @"Title for account button")

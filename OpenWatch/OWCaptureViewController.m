@@ -21,6 +21,7 @@
     if (self = [super init]) {
         self.videoProcessor = [OWCaptureController sharedInstance].videoProcessor;
         self.videoProcessor.delegate = self;
+        [self.videoProcessor setupAndStartCaptureSession];
         self.videoPreviewView = [[UIView alloc] init];
         self.title = CAPTURE_STRING;
         self.recordButton = [[UIBarButtonItem alloc] initWithTitle:RECORD_STRING style:UIBarButtonItemStyleDone target:self action:@selector(recordButtonPressed:)];
@@ -119,10 +120,6 @@
 		// Disable until saving to the camera roll is complete
 		[[self recordButton] setTitle:RECORD_STRING];
 		[[self recordButton] setEnabled:NO];
-		
-		// Pause the capture session so that saving will be as fast as possible.
-		// We resume the sesssion in recordingDidStop:
-		//[videoProcessor pauseCaptureSession];
 	});
 }
 
@@ -132,15 +129,15 @@
 		[[self recordButton] setEnabled:YES];
 		
 		[UIApplication sharedApplication].idleTimerDisabled = NO;
-        
-		[videoProcessor resumeCaptureSession];
-        
+                
 		if ([[UIDevice currentDevice] isMultitaskingSupported]) {
 			[[UIApplication sharedApplication] endBackgroundTask:backgroundRecordingID];
 			backgroundRecordingID = UIBackgroundTaskInvalid;
 		}
         
-        [self dismissViewControllerAnimated:YES completion:nil];
+        [self dismissViewControllerAnimated:YES completion:^{
+            //[videoProcessor stopAndTearDownCaptureSession];
+        }];
 	});
 }
 

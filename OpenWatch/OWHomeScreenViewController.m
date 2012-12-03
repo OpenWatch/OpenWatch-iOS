@@ -12,6 +12,7 @@
 #import "OWLoginViewController.h"
 #import "OWSettingsController.h"
 #import "OWCaptureViewController.h"
+#import "OWSettingsViewController.h"
 
 @interface OWHomeScreenViewController ()
 @property (nonatomic, strong) UIButton *recordButton;
@@ -81,7 +82,8 @@
 }
 
 - (void) settingsButtonPressed:(id)sender {
-    
+    OWSettingsViewController *settingsView = [[OWSettingsViewController alloc] init];
+    [self.navigationController pushViewController:settingsView animated:YES];
 }
 
 - (void) recordButtonPressed:(id)sender {
