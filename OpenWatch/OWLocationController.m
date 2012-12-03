@@ -1,12 +1,12 @@
 //
-//  OWLocationControler.m
+//  OWLocationController.m
 //  OpenWatch
 //
 //  Created by Christopher Ballinger on 11/21/12.
 //  Copyright (c) 2012 OpenWatch FPC. All rights reserved.
 //
 
-#import "OWLocationControler.h"
+#import "OWLocationController.h"
 
 @interface OWLocationControler()
 @property (nonatomic, strong) CLLocationManager *locationManager;

@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
-#import "OWLocationControler.h"
+#import "OWLocationController.h"
 
 typedef enum {
     OWFileUploadStateUnknown = 0,

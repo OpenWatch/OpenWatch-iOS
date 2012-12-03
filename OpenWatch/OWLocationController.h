@@ -1,5 +1,5 @@
 //
-//  OWLocationControler.h
+//  OWLocationController.h
 //  OpenWatch
 //
 //  Created by Christopher Ballinger on 11/21/12.

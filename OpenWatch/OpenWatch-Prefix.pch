@@ -13,4 +13,5 @@
 #import <UIKit/UIKit.h>
 #import <MobileCoreServices/MobileCoreServices.h>
 #import <SystemConfiguration/SystemConfiguration.h>
+#import "CoreData+MagicalRecord.h"
 #endif
