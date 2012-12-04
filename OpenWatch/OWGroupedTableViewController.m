@@ -98,8 +98,6 @@
     
     UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellType];
     
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    cell.accessoryType = UITableViewCellAccessoryNone;
     
     if([cellType isEqualToString:kCellTypeTextField])
     {
@@ -110,12 +108,16 @@
         cell.textLabel.text = [cellDictionary objectForKey:kTextLabelTextKey];
         [cell layoutIfNeeded];
         ((OWInLineTextEditTableViewCell *)cell).textField = [cellDictionary objectForKey:kUserInputViewKey];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.accessoryType = UITableViewCellAccessoryNone;
     } else if ([cellType isEqualToString:kCellTypeProgress]) {
         if (cell == nil) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellType];
         }
         cell.textLabel.text = [cellDictionary objectForKey:kTextLabelTextKey];
         cell.accessoryView = [cellDictionary objectForKey:kUserInputViewKey];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.accessoryType = UITableViewCellAccessoryNone;
     } else if ([cellType isEqualToString:kCellTypeNone]) {
         if (cell == nil) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellType];

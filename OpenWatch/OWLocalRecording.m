@@ -87,11 +87,11 @@
         segment = [OWRecordingSegment MR_createEntity];
         [MagicalRecord saveInBackgroundWithBlock:^(NSManagedObjectContext *localContext) {
             OWRecordingSegment *localSegment = [segment MR_inContext:localContext];
+            OWLocalRecording *localRecording = [self MR_inContext:localContext];
             localSegment.filePath = path;
             localSegment.fileUploadState = uploadState;
-            
+            localSegment.recording = localRecording;
         }];
-        [self addSegmentsObject:segment];
     }
 }
 
