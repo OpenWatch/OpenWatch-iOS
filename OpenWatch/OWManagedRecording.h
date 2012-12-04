@@ -28,6 +28,9 @@
 @property (nonatomic, strong) CLLocation *startLocation;
 @property (nonatomic, strong) CLLocation *endLocation;
 
+- (void) saveMetadata;
+
+
 @end
 
 @interface OWManagedRecording (CoreDataGeneratedAccessors)

@@ -67,11 +67,6 @@
     return recording;
 }
 
-- (void) saveMetadata {
-    NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
-    [context MR_saveNestedContexts];
-}
-
 - (void) setUploadState:(OWFileUploadState)uploadState forFileAtURL :(NSURL *)url {
     NSString *path = [url path];
     NSString *fileName = [path lastPathComponent];

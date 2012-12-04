@@ -31,34 +31,42 @@
 @dynamic tags;
 @dynamic user;
 
-@synthesize startLocation, endLocation;
-
 - (CLLocation*) startLocation {
-    if (startLocation) {
-        return startLocation;
-    }
-    startLocation = [[CLLocation alloc] initWithLatitude:[self.startLatitude doubleValue] longitude:[self.startLongitude doubleValue]];
-    return startLocation;
+    return [self locationWithLatitude:[self.startLatitude doubleValue] longitude:[self.startLongitude doubleValue]];
 }
 
-- (void) setStartLocation:(CLLocation *)newStartLocation {
-    startLocation = newStartLocation;
+- (CLLocation*) locationWithLatitude:(double)latitude longitude:(double)longitude {
+    if (latitude == 0.0f && longitude == 0.0f) {
+        return nil;
+    }
+    return [[CLLocation alloc] initWithLatitude:latitude longitude:longitude];
+}
+
+- (void) setStartLocation:(CLLocation *)startLocation {
+    if (!startLocation) {
+        return;
+    }
     self.startLatitude = @(startLocation.coordinate.latitude);
     self.startLongitude = @(startLocation.coordinate.longitude);
+    [self saveMetadata];
+}
+
+- (void) saveMetadata {
+    NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
+    [context MR_saveNestedContexts];
 }
 
 - (CLLocation*) endLocation {
-    if (endLocation) {
-        return endLocation;
-    }
-    endLocation = [[CLLocation alloc] initWithLatitude:[self.endLatitude doubleValue] longitude:[self.endLongitude doubleValue]];
-    return endLocation;
+    return [self locationWithLatitude:[self.endLatitude doubleValue] longitude:[self.endLongitude doubleValue]];
 }
 
-- (void) setEndLocation:(CLLocation *)newEndLocation {
-    endLocation = newEndLocation;
+- (void) setEndLocation:(CLLocation *)endLocation {
+    if (!endLocation) {
+        return;
+    }
     self.endLatitude = @(endLocation.coordinate.latitude);
     self.endLongitude = @(endLocation.coordinate.longitude);
+    [self saveMetadata];
 }
 
 

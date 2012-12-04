@@ -29,7 +29,6 @@
 - (NSUInteger) totalFileCount;
 - (BOOL) isHighQualityFileUploaded;
 
-- (void) saveMetadata;
 
 - (void) startRecording;
 - (void) stopRecording;
