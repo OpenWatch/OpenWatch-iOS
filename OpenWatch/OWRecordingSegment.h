@@ -22,6 +22,7 @@ typedef enum {
 @interface OWRecordingSegment : NSManagedObject
 
 @property (nonatomic, retain) NSString * filePath;
+@property (nonatomic, strong) NSString * fileName;
 @property (nonatomic) OWFileUploadState fileUploadState;
 @property (nonatomic, retain) OWLocalRecording *recording;
 

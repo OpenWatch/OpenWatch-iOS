@@ -14,7 +14,7 @@
 @interface OWLocalRecording : OWManagedRecording
 
 @property (nonatomic, retain) NSString * localRecordingPath;
-@property (nonatomic, retain) NSNumber * isHQFileSynced;
+@property (nonatomic, retain) NSNumber * hqFileUploadState;
 @property (nonatomic, retain) NSSet *segments;
 
 

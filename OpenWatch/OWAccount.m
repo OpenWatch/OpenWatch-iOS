@@ -129,8 +129,20 @@
     if (!user) {
         user = [OWUser MR_createEntity];
         user.serverID = [self accountID];
+        user.username = [self username];
+        [MagicalRecord saveInBackgroundWithBlock:^(NSManagedObjectContext *localContext) {
+            OWUser *localUser = [user MR_inContext:localContext];
+            localUser.serverID = [self accountID];
+            localUser.username = [self username];
+        }];
+        return user;
     }
     user.username = [self username];
+    [MagicalRecord saveInBackgroundWithBlock:^(NSManagedObjectContext *localContext) {
+        OWUser *localUser = [user MR_inContext:localContext];
+        localUser.username = [self username];
+    }];
+    
     return user;
 }
 

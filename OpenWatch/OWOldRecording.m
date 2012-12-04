@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 OpenWatch FPC. All rights reserved.
 //
 
-#import "OWRecording.h"
+#import "OWOldRecording.h"
 #import "JSONKit.h"
 #import "OWCaptureAPIClient.h"
 
@@ -32,7 +32,6 @@
 #define kUUIDKey @"uuid"
 #define kMetadataFileName @"metadata.json"
 #define kAllFilesKey @"all_files"
-#define kHQFileName @"hq.mp4"
 
 @interface OWRecording()
 @property (nonatomic, strong) NSString *uuid;

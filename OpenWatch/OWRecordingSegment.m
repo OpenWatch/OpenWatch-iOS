@@ -18,6 +18,7 @@
 @dynamic filePath;
 @dynamic uploadState;
 @dynamic recording;
+@dynamic fileName;
 
 - (OWFileUploadState) fileUploadState {
     return [self.uploadState unsignedIntegerValue];
