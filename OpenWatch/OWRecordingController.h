@@ -20,5 +20,6 @@
 
 - (void) scanDirectoryForChanges;
 - (void) scanRecordingsForUnsubmittedData;
++ (OWLocalRecording*) recordingForObjectID:(NSManagedObjectID*)objectID;
 
 @end

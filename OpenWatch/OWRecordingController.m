@@ -43,6 +43,18 @@
     }
 }
 
+
++ (OWLocalRecording*) recordingForObjectID:(NSManagedObjectID*)objectID {
+    NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
+    NSError *error = nil;
+    OWLocalRecording *recording = (OWLocalRecording*)[context existingObjectWithID:objectID error:&error];
+    if (error) {
+        NSLog(@"Error: %@", [error userInfo]);
+        error = nil;
+    }
+    return recording;
+}
+
 - (void) uploadFailedFileURLs:(NSArray*)failedFileURLs forRecording:(NSManagedObjectID*)recordingObjectID {
     for (NSURL *url in failedFileURLs) {
         [[OWCaptureAPIClient sharedClient] uploadFileURL:url recording:recordingObjectID priority:NSOperationQueuePriorityVeryLow];
@@ -50,17 +62,11 @@
 }
 
 - (void) removeRecording:(NSManagedObjectID*)recordingObjectID {
-    NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
-    NSError *error = nil;
-    OWLocalRecording *recording = (OWLocalRecording*)[context existingObjectWithID:recordingObjectID error:&error];
-    if (error) {
-        NSLog(@"Error: %@", [error userInfo]);
-        error = nil;
-    }
+    OWLocalRecording *recording = [OWRecordingController recordingForObjectID:recordingObjectID];
     if (!recording) {
         return;
     }
-        
+    NSError *error = nil;
     NSFileManager *fileManager = [NSFileManager defaultManager];
     [fileManager removeItemAtPath:recording.localRecordingPath error:&error];
     if (error) {

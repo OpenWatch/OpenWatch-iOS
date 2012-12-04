@@ -9,6 +9,7 @@
 #import "OWSegmentingAppleEncoder.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "OWCaptureAPIClient.h"
+#import "OWRecordingController.h"
 
 #define kMinVideoBitrate 100000
 #define kMaxVideoBitrate 400000
@@ -72,6 +73,7 @@
     //NSLog(@"Switching encoders");
     
     dispatch_async(segmentingQueue, ^{
+        OWLocalRecording *recording = [OWRecordingController recordingForObjectID:self.recordingID];
         if (tempAssetWriter.status == AVAssetWriterStatusWriting) {
             [tempAudioEncoder markAsFinished];
             [tempVideoEncoder markAsFinished];
@@ -83,7 +85,7 @@
         }
         if (self.readyToRecordAudio && self.readyToRecordVideo) {
             NSError *error = nil;
-            self.queuedAssetWriter = [[AVAssetWriter alloc] initWithURL:[self.recording urlForNextSegment] fileType:(NSString *)kUTTypeMPEG4 error:&error];
+            self.queuedAssetWriter = [[AVAssetWriter alloc] initWithURL:[recording urlForNextSegment] fileType:(NSString *)kUTTypeMPEG4 error:&error];
             if (error) {
                 [self showError:error];
             }
@@ -98,11 +100,12 @@
 
 
 - (void) setupVideoEncoderWithFormatDescription:(CMFormatDescriptionRef)formatDescription bitsPerSecond:(int)bps {
+    OWLocalRecording *recording = [OWRecordingController recordingForObjectID:self.recordingID];
     videoFormatDescription = formatDescription;
     videoBPS = bps;
     if (!self.assetWriter) {
         NSError *error = nil;
-        self.assetWriter = [[AVAssetWriter alloc] initWithURL:[self.recording urlForNextSegment] fileType:(NSString *)kUTTypeMPEG4 error:&error];
+        self.assetWriter = [[AVAssetWriter alloc] initWithURL:[recording urlForNextSegment] fileType:(NSString *)kUTTypeMPEG4 error:&error];
         if (error) {
             [self showError:error];
         }
@@ -111,7 +114,7 @@
     
     if (!queuedAssetWriter) {
         NSError *error = nil;
-        self.queuedAssetWriter = [[AVAssetWriter alloc] initWithURL:[self.recording urlForNextSegment] fileType:(NSString *)kUTTypeMPEG4 error:&error];
+        self.queuedAssetWriter = [[AVAssetWriter alloc] initWithURL:[recording urlForNextSegment] fileType:(NSString *)kUTTypeMPEG4 error:&error];
         if (error) {
             [self showError:error];
         }
@@ -121,11 +124,12 @@
 }
 
 - (void) setupAudioEncoderWithFormatDescription:(CMFormatDescriptionRef)formatDescription bitsPerSecond:(int)bps {
+    OWLocalRecording *recording = [OWRecordingController recordingForObjectID:self.recordingID];
     audioFormatDescription = formatDescription;
     audioBPS = bps;
     if (!self.assetWriter) {
         NSError *error = nil;
-        self.assetWriter = [[AVAssetWriter alloc] initWithURL:[self.recording urlForNextSegment] fileType:(NSString *)kUTTypeMPEG4 error:&error];
+        self.assetWriter = [[AVAssetWriter alloc] initWithURL:[recording urlForNextSegment] fileType:(NSString *)kUTTypeMPEG4 error:&error];
         if (error) {
             [self showError:error];
         }
@@ -134,7 +138,7 @@
     
     if (!queuedAssetWriter) {
         NSError *error = nil;
-        self.queuedAssetWriter = [[AVAssetWriter alloc] initWithURL:[self.recording urlForNextSegment] fileType:(NSString *)kUTTypeMPEG4 error:&error];
+        self.queuedAssetWriter = [[AVAssetWriter alloc] initWithURL:[recording urlForNextSegment] fileType:(NSString *)kUTTypeMPEG4 error:&error];
         if (error) {
             [self showError:error];
         }
@@ -144,9 +148,10 @@
 }
 
 - (void) uploadFileURL:(NSURL*)url {
+    OWLocalRecording *recording = [OWRecordingController recordingForObjectID:self.recordingID];
     OWCaptureAPIClient *captureClient = [OWCaptureAPIClient sharedClient];
-    [captureClient uploadFileURL:url recording:self.recording.objectID priority:NSOperationQueuePriorityVeryHigh];
-    [self.recording saveMetadata];
+    [captureClient uploadFileURL:url recording:recording.objectID priority:NSOperationQueuePriorityVeryHigh];
+    [recording saveMetadata];
 }
 
 

@@ -10,6 +10,7 @@
 #import "OWStrings.h"
 #import "OWCaptureAPIClient.h"
 #import "OWMapAnnotation.h"
+#import "OWRecordingController.h"
 
 @interface OWRecordingInfoViewController ()
 @property (nonatomic) CLLocationCoordinate2D centerCoordinate;
@@ -22,7 +23,7 @@
 @end
 
 @implementation OWRecordingInfoViewController
-@synthesize recording, titleTextField, descriptionTextField, mapView, moviePlayer, centerCoordinate, uploadProgressView;
+@synthesize recordingID, titleTextField, descriptionTextField, mapView, moviePlayer, centerCoordinate, uploadProgressView;
 
 - (id) init {
     if (self = [super init]) {
@@ -50,6 +51,7 @@
 }
 
 - (void) refreshProgressView {
+    OWLocalRecording *recording = [OWRecordingController recordingForObjectID:self.recordingID];
     if (recording) {
         float progress = ((float)[recording completedFileCount]) / [recording totalFileCount];
         [self.uploadProgressView setProgress:progress animated:YES];
@@ -105,8 +107,9 @@
 
 - (void) registerForUploadProgressNotifications {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    OWLocalRecording *recording = [OWRecordingController recordingForObjectID:self.recordingID];
     if (recording) {
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedUploadProgressNotification:) name:kOWCaptureAPIClientBandwidthNotification object:recording];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedUploadProgressNotification:) name:kOWCaptureAPIClientBandwidthNotification object:nil];
     }
 }
 
@@ -118,8 +121,9 @@
     [moviePlayer play];
 }
 
-- (void) setRecording:(OWLocalRecording *)newRecording {
-    recording = newRecording;
+- (void) setRecordingID:(NSManagedObjectID *)newRecordingID {
+    recordingID = newRecordingID;
+    OWLocalRecording *recording = [OWRecordingController recordingForObjectID:recordingID];
     self.moviePlayer.contentURL = [recording highQualityURL];
     [moviePlayer prepareToPlay];
     [self refreshMapParameters];
@@ -134,6 +138,7 @@
 }
 
 - (void) refreshMapParameters {
+    OWLocalRecording *recording = [OWRecordingController recordingForObjectID:self.recordingID];
     double lat = 0.0f;
     double lon = 0.0f;
     CLLocation *start = recording.startLocation;
@@ -176,6 +181,7 @@
 }
 
 - (void) refreshFields {
+    OWLocalRecording *recording = [OWRecordingController recordingForObjectID:self.recordingID];
     NSString *title = recording.title;
     if (title) {
         self.titleTextField.text = title;
@@ -219,9 +225,10 @@
 }
 
 - (void) saveButtonPressed:(id)sender {
-    self.recording.title = self.titleTextField.text;
-    self.recording.recordingDescription = self.descriptionTextField.text;
-    [self.recording saveMetadata];
+    OWLocalRecording *recording = [OWRecordingController recordingForObjectID:self.recordingID];
+    recording.title = self.titleTextField.text;
+    recording.recordingDescription = self.descriptionTextField.text;
+    [recording saveMetadata];
     [self.view endEditing:YES];
     [self.navigationController popViewControllerAnimated:YES];
 }

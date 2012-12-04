@@ -64,7 +64,7 @@ static NSString * const kOWCaptureAPIClientAPIBaseURLString = @"http://192.168.1
 }
 
 - (void) uploadFileURL:(NSURL*)url recording:(NSManagedObjectID*)recordingObjectID priority:(NSOperationQueuePriority)priority {
-    OWLocalRecording *recording = [self recordingForObjectID:recordingObjectID];
+    OWLocalRecording *recording = [OWRecordingController recordingForObjectID:recordingObjectID];
     if (!recording) {
         return;
     }
@@ -117,7 +117,7 @@ static NSString * const kOWCaptureAPIClientAPIBaseURLString = @"http://192.168.1
      */
     
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        OWLocalRecording *localRecording = [self recordingForObjectID:recordingObjectID];
+        OWLocalRecording *localRecording = [OWRecordingController recordingForObjectID:recordingObjectID];
         NSDate *endDate = [NSDate date];
         NSTimeInterval endTime = [endDate timeIntervalSince1970];
         NSTimeInterval diff = endTime - startTime;
@@ -153,20 +153,10 @@ static NSString * const kOWCaptureAPIClientAPIBaseURLString = @"http://192.168.1
     [self uploadMetadataForRecording:recordingObjectID postPath:postPath];
 }
 
-- (OWLocalRecording*) recordingForObjectID:(NSManagedObjectID*)objectID {
-    NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
-    NSError *error = nil;
-    OWLocalRecording *recording = (OWLocalRecording*)[context existingObjectWithID:objectID error:&error];
-    if (error) {
-        NSLog(@"Error: %@", [error userInfo]);
-        error = nil;
-    }
-    return recording;
-}
 
 
 - (void) uploadMetadataForRecording:(NSManagedObjectID*)recordingObjectID postPath:(NSString*)postPath  {
-    OWLocalRecording *recording = [self recordingForObjectID:recordingObjectID];
+    OWLocalRecording *recording = [OWRecordingController recordingForObjectID:recordingObjectID];
     NSDictionary *params = recording.dictionaryRepresentation;
     [self postPath:postPath parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"metadata response: %@", [responseObject description]);
@@ -176,7 +166,7 @@ static NSString * const kOWCaptureAPIClientAPIBaseURLString = @"http://192.168.1
 }
 
 - (NSString*) postPathForRecording:(NSManagedObjectID*)recordingObjectID uploadState:(NSString*)state {
-    OWLocalRecording *recording = [self recordingForObjectID:recordingObjectID];
+    OWLocalRecording *recording = [OWRecordingController recordingForObjectID:recordingObjectID];
     OWSettingsController *settingsController = [OWSettingsController sharedInstance];
     NSString *publicUploadToken = settingsController.account.publicUploadToken;
     NSString *uploadPath = [NSString stringWithFormat:@"/%@/%@/%@", state, publicUploadToken, recording.uuid];

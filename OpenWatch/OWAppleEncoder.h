@@ -28,7 +28,7 @@
 @property (nonatomic) BOOL readyToRecordVideo;
 @property (nonatomic) AVCaptureVideoOrientation referenceOrientation;
 @property (nonatomic) AVCaptureVideoOrientation videoOrientation;
-@property (nonatomic, strong) OWLocalRecording *recording;
+@property (nonatomic, strong) NSManagedObjectID *recordingID;
 
 - (id) initWithURL:(NSURL*)url;
 - (id) initWithURL:(NSURL *)url movieFragmentInterval:(CMTime)fragmentInterval;

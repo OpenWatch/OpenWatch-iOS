@@ -171,7 +171,7 @@
 }
 
 - (void) saveMetadata {
-    [MagicalRecord saveInBackgroundWithBlock:^(NSManagedObjectContext *localContext) {
+    [MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
         OWLocalRecording *localRecording = [self MR_inContext:localContext];
         localRecording.title = self.title;
         localRecording.uuid = self.uuid;

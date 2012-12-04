@@ -26,7 +26,7 @@
 @synthesize videoOrientation;
 @synthesize recording;
 @synthesize appleEncoder1, appleEncoder2;
-@synthesize currentRecording;
+@synthesize recordingID;
 @synthesize captureSession;
 
 - (id) init
@@ -122,10 +122,12 @@
     NSString *directoryName = [NSString stringWithFormat:@"%f.recording", [date timeIntervalSince1970]];
     NSString *recordingPath = [basePath stringByAppendingPathComponent:directoryName];
     
-    self.currentRecording = [OWLocalRecording recordingWithPath:recordingPath];
+    OWLocalRecording *currentRecording = [OWLocalRecording recordingWithPath:recordingPath];
+    self.recordingID = currentRecording.objectID;
     
 	dispatch_async(movieWritingQueue, ^{
-	
+        OWLocalRecording *localRecording = [OWRecordingController recordingForObjectID:self.recordingID];
+
 		if ( recordingWillBeStarted || self.recording )
 			return;
 
@@ -135,7 +137,7 @@
 		[self.delegate recordingWillStart];
 			
         [self initializeAssetWriters];
-        [self.currentRecording startRecording];
+        [localRecording startRecording];
 	});
 
 
@@ -144,11 +146,13 @@
 
 
 - (void) initializeAssetWriters {
+    OWLocalRecording *localRecording = [OWRecordingController recordingForObjectID:self.recordingID];
+
     // Create an asset writer
-    self.appleEncoder1 = [[OWAppleEncoder alloc] initWithURL:[currentRecording highQualityURL] movieFragmentInterval:CMTimeMakeWithSeconds(5, 30)];
-    self.appleEncoder1.recording = currentRecording;
-    self.appleEncoder2 = [[OWSegmentingAppleEncoder alloc] initWithURL:[currentRecording urlForNextSegment] segmentationInterval:5.0f];
-    self.appleEncoder2.recording = currentRecording;
+    self.appleEncoder1 = [[OWAppleEncoder alloc] initWithURL:[localRecording highQualityURL] movieFragmentInterval:CMTimeMakeWithSeconds(5, 30)];
+    self.appleEncoder1.recordingID = recordingID;
+    self.appleEncoder2 = [[OWSegmentingAppleEncoder alloc] initWithURL:[localRecording urlForNextSegment] segmentationInterval:5.0f];
+    self.appleEncoder2.recordingID = recordingID;
 }
 
 - (void) stopRecording
@@ -157,7 +161,8 @@
 	dispatch_async(movieWritingQueue, ^{
 		if ( recordingWillBeStopped || self.recording == NO)
 			return;
-        
+        OWLocalRecording *localRecording = [OWRecordingController recordingForObjectID:self.recordingID];
+
 		
 		recordingWillBeStopped = YES;
 		
@@ -169,7 +174,7 @@
         [self.delegate recordingDidStop];
         [self initializeAssetWriters];
         [appleEncoder2 finishEncoding];
-        [self.currentRecording stopRecording];
+        [localRecording stopRecording];
 	});
 }
 

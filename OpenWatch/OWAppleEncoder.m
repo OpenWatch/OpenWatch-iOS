@@ -12,10 +12,11 @@
 #import <CoreMedia/CMBufferQueue.h>
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "OWCaptureAPIClient.h"
+#import "OWRecordingController.h"
 
 @implementation OWAppleEncoder
 @synthesize assetWriter, audioEncoder, videoEncoder, movieURL, readyToRecordAudio, readyToRecordVideo, referenceOrientation, videoOrientation;
-@synthesize watchOutputFile;
+@synthesize watchOutputFile, recordingID;
 
 - (id) init {
     if (self = [super init]) {
@@ -242,7 +243,8 @@
 		
         if ([assetWriter startWriting]) {
 			[assetWriter startSessionAtSourceTime:CMSampleBufferGetPresentationTimeStamp(sampleBuffer)];
-            [self.recording setUploadState:OWFileUploadStateRecording forFileAtURL:assetWriter.outputURL];
+            OWLocalRecording *recording = [OWRecordingController recordingForObjectID:recordingID];
+            [recording setUploadState:OWFileUploadStateRecording forFileAtURL:assetWriter.outputURL];
 		}
 		else {
 			[self showError:[assetWriter error]];
@@ -294,8 +296,9 @@
 
 - (void) uploadFileURL:(NSURL*)url {
     OWCaptureAPIClient *captureClient = [OWCaptureAPIClient sharedClient];
-    [captureClient uploadFileURL:url recording:self.recording.objectID priority:NSOperationQueuePriorityNormal];
-    [self.recording saveMetadata];
+    OWLocalRecording *recording = [OWRecordingController recordingForObjectID:recordingID];
+    [captureClient uploadFileURL:url recording:recording.objectID priority:NSOperationQueuePriorityNormal];
+    [recording saveMetadata];
 }
 
 - (void) showError:(NSError*)error {
