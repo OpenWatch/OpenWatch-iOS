@@ -7,7 +7,7 @@
 //
 
 #import "AFHTTPClient.h"
-#import "OWRecording.h"
+#import "OWLocalRecording.h"
 
 #define kOWCaptureAPIClientBandwidthNotification @"kOWCaptureAPIClientBandwidthNotification"
 
@@ -17,9 +17,9 @@
 
 @property (nonatomic, strong) NSMutableDictionary *uploadDictionary;
 
-- (void) startedRecording:(OWRecording*)recording;
-- (void) uploadFileURL:(NSURL*)url recording:(OWRecording*)recording priority:(NSOperationQueuePriority)priority;
-- (void) finishedRecording:(OWRecording*)recording;
-- (void) updateMetadataForRecording:(OWRecording*)recording;
+- (void) startedRecording:(OWLocalRecording*)recording;
+- (void) uploadFileURL:(NSURL*)url recording:(OWLocalRecording*)recording priority:(NSOperationQueuePriority)priority;
+- (void) finishedRecording:(OWLocalRecording*)recording;
+- (void) updateMetadataForRecording:(OWLocalRecording*)recording;
 
 @end

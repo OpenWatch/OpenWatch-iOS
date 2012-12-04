@@ -8,19 +8,19 @@
 
 #import "OWLocationController.h"
 
-@interface OWLocationControler()
+@interface OWLocationController()
 @property (nonatomic, strong) CLLocationManager *locationManager;
 @end
 
-@implementation OWLocationControler
+@implementation OWLocationController
 @synthesize currentLocation, locationManager, delegate;
 
-+ (OWLocationControler *)sharedInstance {
-    static OWLocationControler *_sharedClient = nil;
++ (OWLocationController *)sharedInstance {
+    static OWLocationController *_sharedClient = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         dispatch_sync(dispatch_get_main_queue(), ^{
-        _sharedClient = [[OWLocationControler alloc] init];
+            _sharedClient = [[OWLocationController alloc] init];
         });
     });
     return _sharedClient;

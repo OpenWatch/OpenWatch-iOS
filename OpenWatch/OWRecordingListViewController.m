@@ -7,7 +7,7 @@
 //
 
 #import "OWRecordingListViewController.h"
-#import "OWRecording.h"
+#import "OWLocalRecording.h"
 #import "OWStrings.h"
 
 @interface OWRecordingListViewController ()
@@ -79,21 +79,16 @@
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier];
     }
-    OWRecording *recording = [recordingsArray objectAtIndex:indexPath.row];
-    if (recording.isRecording) {
-        cell.detailTextLabel.text = RECORDING_STRING;
-    } else {
-        cell.detailTextLabel.text = nil;
-    }
+    OWLocalRecording *recording = [recordingsArray objectAtIndex:indexPath.row];
     cell.textLabel.text = [recording.startDate description];
     return cell;
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    OWRecording *recording = [recordingsArray objectAtIndex:indexPath.row];
+    //OWLocalRecording *recording = [recordingsArray objectAtIndex:indexPath.row];
     // Return NO if you do not want the specified item to be editable.
-    return !recording.isRecording;
+    return YES;
 }
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -110,7 +105,7 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        OWRecording *recording = [recordingsArray objectAtIndex:indexPath.row];
+        OWLocalRecording *recording = [recordingsArray objectAtIndex:indexPath.row];
         // Delete the row from the data source
         [recordingsArray removeObjectAtIndex:indexPath.row];
         [recordingController removeRecording:recording];
@@ -119,7 +114,7 @@
 }
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    OWRecording *recording = [recordingsArray objectAtIndex:indexPath.row];
+    OWLocalRecording *recording = [recordingsArray objectAtIndex:indexPath.row];
     recordingInfoViewController.recording = recording;
     [self.navigationController pushViewController:recordingInfoViewController animated:YES];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];

@@ -118,7 +118,7 @@
     [moviePlayer play];
 }
 
-- (void) setRecording:(OWRecording *)newRecording {
+- (void) setRecording:(OWLocalRecording *)newRecording {
     recording = newRecording;
     self.moviePlayer.contentURL = [recording highQualityURL];
     [moviePlayer prepareToPlay];

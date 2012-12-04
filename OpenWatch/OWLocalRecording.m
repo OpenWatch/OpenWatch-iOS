@@ -9,6 +9,7 @@
 #import "OWLocalRecording.h"
 #import "OWSettingsController.h"
 #import "OWCaptureAPIClient.h"
+#import "OWLocationController.h"
 
 #define kHQFileName @"hq.mp4"
 #define kAllFilesKey @"all_files"
@@ -255,26 +256,24 @@
 - (void) startRecording {
     self.startDate = [NSDate date];
     self.uuid = [self newUUID];
-    [[OWLocationControler sharedInstance] startWithDelegate:self];
+    [[OWLocationController sharedInstance] startWithDelegate:self];
     NSFileManager *fileManager = [NSFileManager defaultManager];
     BOOL isDirectory;
-    if (![fileManager fileExistsAtPath:recordingPath isDirectory:&isDirectory]) {
+    if (![fileManager fileExistsAtPath:self.localRecordingPath isDirectory:&isDirectory]) {
         NSError *error = nil;
-        [fileManager createDirectoryAtPath:recordingPath withIntermediateDirectories:YES attributes:nil error:&error];
+        [fileManager createDirectoryAtPath:self.localRecordingPath withIntermediateDirectories:YES attributes:nil error:&error];
         if (error) {
             NSLog(@"Error creating directory: %@%@", [error localizedDescription], [error userInfo]);
         }
     }
-    isRecording = YES;
     [self saveMetadata];
     [[OWCaptureAPIClient sharedClient] startedRecording:self];
 }
 
 - (void) stopRecording {
     self.endDate = [NSDate date];
-    isRecording = NO;
-    self.endLocation = [OWLocationControler sharedInstance].currentLocation;
-    [[OWLocationControler sharedInstance] stop];
+    self.endLocation = [OWLocationController sharedInstance].currentLocation;
+    [[OWLocationController sharedInstance] stop];
     [self saveMetadata];
     [[OWCaptureAPIClient sharedClient] finishedRecording:self];
     [[OWCaptureAPIClient sharedClient] updateMetadataForRecording:self];
@@ -282,47 +281,49 @@
 
 - (NSURL*) highQualityURL {
     NSString *movieName = kHQFileName;
-    NSString *path = [recordingPath stringByAppendingPathComponent:movieName];
+    NSString *path = [self.localRecordingPath stringByAppendingPathComponent:movieName];
     NSURL *newMovieURL = [NSURL fileURLWithPath:path];
     return newMovieURL;
 }
 
 - (NSURL*) urlForNextSegment {
-    NSString *movieName = [NSString stringWithFormat:@"%d.mp4", segmentCount];
-    NSString *path = [recordingPath stringByAppendingPathComponent:movieName];
+    NSString *movieName = [NSString stringWithFormat:@"%d.mp4", [self.segments count]];
+    NSString *path = [self.localRecordingPath stringByAppendingPathComponent:movieName];
     NSURL *newMovieURL = [NSURL fileURLWithPath:path];
-    segmentCount++;
     return newMovieURL;
 }
 
 - (NSUInteger) failedFileCount {
-    return [failedDictionary count];
+    return [[self failedFileSegments] count];
+}
+
+- (NSSet*) failedFileSegments {
+    NSPredicate *predicate =
+    [NSPredicate predicateWithFormat:@"fileUploadState == %d", OWFileUploadStateFailed];
+    NSSet *filteredSet = [self.segments filteredSetUsingPredicate:predicate];
+    return filteredSet;
 }
 
 - (NSUInteger) completedFileCount {
-    return [completedDictionary count];
+    NSPredicate *predicate =
+    [NSPredicate predicateWithFormat:@"fileUploadState == %d", OWFileUploadStateCompleted];
+    NSSet *filteredSet = [self.segments filteredSetUsingPredicate:predicate];
+    return [filteredSet count];
 }
 
 - (NSUInteger) totalFileCount {
-    return [self failedFileCount] + [self completedFileCount] + [self recordingFileCount] + [self uploadingFileCount];
-}
-
-- (NSUInteger) recordingFileCount {
-    return [recordingDictionary count];
-}
-
-- (NSUInteger) uploadingFileCount {
-    return [uploadingDictionary count];
+    return [self.segments count];
 }
 
 - (BOOL) isHighQualityFileUploaded {
-    return [completedDictionary objectForKey:kHQFileName] != nil;
+    return ([self.hqFileUploadState unsignedIntegerValue] == OWFileUploadStateCompleted);
 }
 
 - (NSArray*) failedFileUploadURLs {
-    NSMutableArray *urls = [NSMutableArray arrayWithCapacity:[failedDictionary count]];
-    for (NSString *fileName in [failedDictionary allKeys]) {
-        NSString *path = [recordingPath stringByAppendingPathComponent:fileName];
+    NSSet *failedFileSegments = [self failedFileSegments];
+    NSMutableArray *urls = [NSMutableArray arrayWithCapacity:[failedFileSegments count]];
+    for (OWRecordingSegment *segment in failedFileSegments) {
+        NSString *path = segment.filePath;
         [urls addObject:[NSURL fileURLWithPath:path]];
     }
     return urls;

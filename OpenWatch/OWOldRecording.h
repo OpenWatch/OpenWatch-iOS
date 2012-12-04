@@ -16,7 +16,7 @@ typedef enum {
     OWFileUploadStateFailed,
     OWFileUploadStateCompleted,
     OWFileUploadStateRecording
-} OWFileUploadState;
+} OWOldFileUploadState;
 
 @interface OWRecording : NSObject <OWLocationControlerDelegate> {
     

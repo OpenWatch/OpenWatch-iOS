@@ -7,7 +7,6 @@
 //
 
 #import "OWRecordingController.h"
-#import "OWRecording.h"
 #import "OWCaptureAPIClient.h"
 
 @interface OWRecordingController()
@@ -38,33 +37,33 @@
 }
 
 - (void) scanRecordingsForUnsubmittedData {
-    for (OWRecording *recording in [self allRecordings]) {
+    for (OWLocalRecording *recording in [self allRecordings]) {
         if (recording.failedFileCount > 0) {
-            NSLog(@"Unsubmitted data found for recording: %@", recording.recordingPath);
+            NSLog(@"Unsubmitted data found for recording: %@", recording.localRecordingPath);
             [self uploadFailedFileURLs:recording.failedFileUploadURLs forRecording:recording];
         }
     }
 }
 
-- (void) uploadFailedFileURLs:(NSArray*)failedFileURLs forRecording:(OWRecording*)recording {
+- (void) uploadFailedFileURLs:(NSArray*)failedFileURLs forRecording:(OWLocalRecording*)recording {
     for (NSURL *url in failedFileURLs) {
         [[OWCaptureAPIClient sharedClient] uploadFileURL:url recording:recording priority:NSOperationQueuePriorityVeryLow];
     }
 }
 
-- (void) addRecording:(OWRecording *)recording {
+- (void) addRecording:(OWLocalRecording *)recording {
     if (!recording) {
         NSLog(@"Recording is nil!");
         return;
     }
-    [recordings setObject:recording forKey:recording.recordingPath];
+    [recordings setObject:recording forKey:recording.localRecordingPath];
 }
 
-- (void) removeRecording:(OWRecording *)recording {
-    [recordings removeObjectForKey:recording.recordingPath];
+- (void) removeRecording:(OWLocalRecording *)recording {
+    [recordings removeObjectForKey:recording.localRecordingPath];
     NSError *error = nil;
     NSFileManager *fileManager = [NSFileManager defaultManager];
-    [fileManager removeItemAtPath:recording.recordingPath error:&error];
+    [fileManager removeItemAtPath:recording.localRecordingPath error:&error];
     if (error) {
         NSLog(@"Error removing recording: %@%@", [error localizedDescription], [error userInfo]);
         error = nil;
@@ -88,10 +87,10 @@
     
     NSArray *currentRecordings = [self allRecordings];
     
-    for (OWRecording *recording in currentRecordings) {
-        if (![fileManager fileExistsAtPath:recording.recordingPath]) {
-            NSLog(@"Recording no longer exists, removing: %@", recording.recordingPath);
-            [recordings removeObjectForKey:recording.recordingPath];
+    for (OWLocalRecording *recording in currentRecordings) {
+        if (![fileManager fileExistsAtPath:recording.localRecordingPath]) {
+            NSLog(@"Recording no longer exists, removing: %@", recording.localRecordingPath);
+            [recordings removeObjectForKey:recording.localRecordingPath];
         }
     }
     
@@ -99,7 +98,7 @@
         if ([recordingFileName rangeOfString:@"recording"].location != NSNotFound) {
             NSString *recordingPath = [basePath stringByAppendingPathComponent:recordingFileName];
             if (![recordings objectForKey:recordingPath]) {
-                OWRecording *recording = [[OWRecording alloc] initWithRecordingPath:recordingPath];
+                OWLocalRecording *recording = [OWLocalRecording recordingWithPath:recordingPath];
                 [self addRecording:recording];
             }
         }

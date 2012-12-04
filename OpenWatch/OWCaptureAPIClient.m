@@ -58,12 +58,12 @@ static NSString * const kOWCaptureAPIClientAPIBaseURLString = @"http://192.168.1
     return self;
 }
 
-- (void) updateMetadataForRecording:(OWRecording*)recording {
+- (void) updateMetadataForRecording:(OWLocalRecording*)recording {
     NSString *postPath = [self postPathForRecording:recording uploadState:kUploadStateMetadata];
     [self uploadMetadataForRecording:recording postPath:postPath];
 }
 
-- (void) uploadFileURL:(NSURL*)url recording:(OWRecording*)recording priority:(NSOperationQueuePriority)priority {
+- (void) uploadFileURL:(NSURL*)url recording:(OWLocalRecording*)recording priority:(NSOperationQueuePriority)priority {
     if (self.networkReachabilityStatus == AFNetworkReachabilityStatusNotReachable || self.networkReachabilityStatus == AFNetworkReachabilityStatusUnknown) {
         [recording setUploadState:OWFileUploadStateFailed forFileAtURL:url];
         return;
@@ -138,18 +138,18 @@ static NSString * const kOWCaptureAPIClientAPIBaseURLString = @"http://192.168.1
     [self enqueueHTTPRequestOperation:operation]; 
 }
 
-- (void) finishedRecording:(OWRecording*)recording {
+- (void) finishedRecording:(OWLocalRecording*)recording {
     NSString *postPath = [self postPathForRecording:recording uploadState:kUploadStateEnd];
     [self uploadMetadataForRecording:recording postPath:postPath];
 }
 
-- (void) startedRecording:(OWRecording*)recording {
+- (void) startedRecording:(OWLocalRecording*)recording {
     NSString *postPath = [self postPathForRecording:recording uploadState:kUploadStateStart];
     [self uploadMetadataForRecording:recording postPath:postPath];
 }
 
 
-- (void) uploadMetadataForRecording:(OWRecording*)recording postPath:(NSString*)postPath  {
+- (void) uploadMetadataForRecording:(OWLocalRecording*)recording postPath:(NSString*)postPath  {
     NSDictionary *params = recording.dictionaryRepresentation;
     [self postPath:postPath parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"metadata response: %@", [responseObject description]);
@@ -158,7 +158,7 @@ static NSString * const kOWCaptureAPIClientAPIBaseURLString = @"http://192.168.1
     }];
 }
 
-- (NSString*) postPathForRecording:(OWRecording*)recording uploadState:(NSString*)state {
+- (NSString*) postPathForRecording:(OWLocalRecording*)recording uploadState:(NSString*)state {
     OWSettingsController *settingsController = [OWSettingsController sharedInstance];
     NSString *publicUploadToken = settingsController.account.publicUploadToken;
     NSString *uploadPath = [NSString stringWithFormat:@"/%@/%@/%@", state, publicUploadToken, recording.uuid];

@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "OWRecording.h"
+#import "OWLocalRecording.h"
 
 @interface OWRecordingController : NSObject
 
@@ -16,8 +16,8 @@
 
 - (NSArray*) allRecordings;
 
-- (void) addRecording:(OWRecording*)recording;
-- (void) removeRecording:(OWRecording*)recording;
+- (void) addRecording:(OWLocalRecording*)recording;
+- (void) removeRecording:(OWLocalRecording*)recording;
 
 - (void) scanDirectoryForChanges;
 - (void) scanRecordingsForUnsubmittedData;

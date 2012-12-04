@@ -41,7 +41,6 @@
 		D9D2E18F165325280000E7C5 /* OWVideoProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D2E18E165325280000E7C5 /* OWVideoProcessor.m */; };
 		D9D2E194165326A20000E7C5 /* OWAppleEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D2E191165326A10000E7C5 /* OWAppleEncoder.m */; };
 		D9D2E195165326A20000E7C5 /* OWCaptureAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D2E193165326A20000E7C5 /* OWCaptureAPIClient.m */; };
-		D9D2E19E165326BC0000E7C5 /* OWOldRecording.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D2E197165326BA0000E7C5 /* OWOldRecording.m */; };
 		D9D2E19F165326BC0000E7C5 /* OWRecordingController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D2E199165326BB0000E7C5 /* OWRecordingController.m */; };
 		D9D2E1A0165326BC0000E7C5 /* OWRecordingListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D2E19B165326BB0000E7C5 /* OWRecordingListViewController.m */; };
 		D9D2E1A1165326BC0000E7C5 /* OWSegmentingAppleEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D2E19D165326BC0000E7C5 /* OWSegmentingAppleEncoder.m */; };
@@ -726,7 +725,6 @@
 				D9D2E18F165325280000E7C5 /* OWVideoProcessor.m in Sources */,
 				D9D2E194165326A20000E7C5 /* OWAppleEncoder.m in Sources */,
 				D9D2E195165326A20000E7C5 /* OWCaptureAPIClient.m in Sources */,
-				D9D2E19E165326BC0000E7C5 /* OWOldRecording.m in Sources */,
 				D9D2E19F165326BC0000E7C5 /* OWRecordingController.m in Sources */,
 				D9D2E1A0165326BC0000E7C5 /* OWRecordingListViewController.m in Sources */,
 				D9D2E1A1165326BC0000E7C5 /* OWSegmentingAppleEncoder.m in Sources */,

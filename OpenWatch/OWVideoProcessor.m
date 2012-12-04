@@ -122,7 +122,7 @@
     NSString *directoryName = [NSString stringWithFormat:@"%f.recording", [date timeIntervalSince1970]];
     NSString *recordingPath = [basePath stringByAppendingPathComponent:directoryName];
     
-    self.currentRecording = [[OWRecording alloc] initWithRecordingPath:recordingPath];
+    self.currentRecording = [OWLocalRecording recordingWithPath:recordingPath];
     [[OWRecordingController sharedInstance] addRecording:currentRecording];
     
 	dispatch_async(movieWritingQueue, ^{

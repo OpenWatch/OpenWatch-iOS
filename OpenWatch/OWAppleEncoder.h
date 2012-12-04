@@ -7,7 +7,7 @@
 //
 
 #import <AVFoundation/AVFoundation.h>
-#import "OWRecording.h"
+#import "OWLocalRecording.h"
 
 @interface OWAppleEncoder : NSObject {
     unsigned long long fileOffset;
@@ -28,7 +28,7 @@
 @property (nonatomic) BOOL readyToRecordVideo;
 @property (nonatomic) AVCaptureVideoOrientation referenceOrientation;
 @property (nonatomic) AVCaptureVideoOrientation videoOrientation;
-@property (nonatomic, strong) OWRecording *recording;
+@property (nonatomic, strong) OWLocalRecording *recording;
 
 - (id) initWithURL:(NSURL*)url;
 - (id) initWithURL:(NSURL *)url movieFragmentInterval:(CMTime)fragmentInterval;

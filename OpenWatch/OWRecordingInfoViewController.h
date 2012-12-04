@@ -7,13 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "OWRecording.h"
+#import "OWLocalRecording.h"
 #import "OWGroupedTableViewController.h"
 #import <MapKit/MapKit.h>
 #import <MediaPlayer/MediaPlayer.h>
 
 @interface OWRecordingInfoViewController : OWGroupedTableViewController <UITableViewDataSource, UITableViewDelegate, MKMapViewDelegate>
 
-@property (nonatomic, strong) OWRecording *recording;
+@property (nonatomic, strong) OWLocalRecording *recording;
 
 @end

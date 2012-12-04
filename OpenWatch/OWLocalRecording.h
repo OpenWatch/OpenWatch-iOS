@@ -10,8 +10,9 @@
 #import <CoreData/CoreData.h>
 #import "OWManagedRecording.h"
 #import "OWRecordingSegment.h"
+#import "OWLocationController.h"
 
-@interface OWLocalRecording : OWManagedRecording
+@interface OWLocalRecording : OWManagedRecording <OWLocationControlerDelegate>
 
 @property (nonatomic, retain) NSString * localRecordingPath;
 @property (nonatomic, retain) NSNumber * hqFileUploadState;
@@ -26,8 +27,6 @@
 - (NSArray*) failedFileUploadURLs;
 - (NSUInteger) failedFileCount;
 - (NSUInteger) completedFileCount;
-- (NSUInteger) recordingFileCount;
-- (NSUInteger) uploadingFileCount;
 - (NSUInteger) totalFileCount;
 - (BOOL) isHighQualityFileUploaded;
 

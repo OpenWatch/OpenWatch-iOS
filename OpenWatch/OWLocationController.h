@@ -13,7 +13,7 @@
 - (void) startLocationUpdated:(CLLocation*)location;
 @end
 
-@interface OWLocationControler : NSObject <CLLocationManagerDelegate>
+@interface OWLocationController : NSObject <CLLocationManagerDelegate>
 
 @property (nonatomic, weak) id<OWLocationControlerDelegate> delegate;
 @property (nonatomic, strong) CLLocation *currentLocation;
@@ -21,6 +21,6 @@
 - (void) startWithDelegate:(id<OWLocationControlerDelegate>)newDelegate;
 - (void) stop;
 
-+ (OWLocationControler *)sharedInstance;
++ (OWLocationController *)sharedInstance;
 
 @end
