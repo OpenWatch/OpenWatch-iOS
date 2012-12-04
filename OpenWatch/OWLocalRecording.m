@@ -56,7 +56,7 @@
         recording.localRecordingPath = path;
         OWUser *user = [[[OWSettingsController sharedInstance] account] user];
         recording.user = user;
-        [MagicalRecord saveInBackgroundWithBlock:^(NSManagedObjectContext *localContext) {
+        [MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
             OWLocalRecording *localRecording = [recording MR_inContext:localContext];
             localRecording.localRecordingPath = path;
             localRecording.user = user;
@@ -250,7 +250,7 @@
 - (void) startLocationUpdated:(CLLocation *)location {
     self.startLocation = location;
     [self saveMetadata];
-    [[OWCaptureAPIClient sharedClient] updateMetadataForRecording:self];
+    [[OWCaptureAPIClient sharedClient] updateMetadataForRecording:self.objectID];
 }
 
 - (void) startRecording {
@@ -267,7 +267,7 @@
         }
     }
     [self saveMetadata];
-    [[OWCaptureAPIClient sharedClient] startedRecording:self];
+    [[OWCaptureAPIClient sharedClient] startedRecording:self.objectID];
 }
 
 - (void) stopRecording {
@@ -275,8 +275,8 @@
     self.endLocation = [OWLocationController sharedInstance].currentLocation;
     [[OWLocationController sharedInstance] stop];
     [self saveMetadata];
-    [[OWCaptureAPIClient sharedClient] finishedRecording:self];
-    [[OWCaptureAPIClient sharedClient] updateMetadataForRecording:self];
+    [[OWCaptureAPIClient sharedClient] finishedRecording:self.objectID];
+    [[OWCaptureAPIClient sharedClient] updateMetadataForRecording:self.objectID];
 }
 
 - (NSURL*) highQualityURL {

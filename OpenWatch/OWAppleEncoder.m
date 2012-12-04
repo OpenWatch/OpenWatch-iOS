@@ -294,7 +294,7 @@
 
 - (void) uploadFileURL:(NSURL*)url {
     OWCaptureAPIClient *captureClient = [OWCaptureAPIClient sharedClient];
-    [captureClient uploadFileURL:url recording:self.recording priority:NSOperationQueuePriorityNormal];
+    [captureClient uploadFileURL:url recording:self.recording.objectID priority:NSOperationQueuePriorityNormal];
     [self.recording saveMetadata];
 }
 

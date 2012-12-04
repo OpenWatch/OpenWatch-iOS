@@ -8,13 +8,12 @@
 
 #import "OWRecordingController.h"
 #import "OWCaptureAPIClient.h"
+#import "OWSettingsController.h"
 
 @interface OWRecordingController()
-@property (nonatomic, strong) NSMutableDictionary *recordings;
 @end
 
 @implementation OWRecordingController
-@synthesize recordings;
 
 + (OWRecordingController *)sharedInstance {
     static OWRecordingController *_sharedClient = nil;
@@ -27,7 +26,6 @@
 
 - (id) init {
     if (self = [super init]) {
-        self.recordings = [NSMutableDictionary dictionary];
         [self scanDirectoryForChanges];
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             [self scanRecordingsForUnsubmittedData];
@@ -40,28 +38,29 @@
     for (OWLocalRecording *recording in [self allRecordings]) {
         if (recording.failedFileCount > 0) {
             NSLog(@"Unsubmitted data found for recording: %@", recording.localRecordingPath);
-            [self uploadFailedFileURLs:recording.failedFileUploadURLs forRecording:recording];
+            [self uploadFailedFileURLs:recording.failedFileUploadURLs forRecording:recording.objectID];
         }
     }
 }
 
-- (void) uploadFailedFileURLs:(NSArray*)failedFileURLs forRecording:(OWLocalRecording*)recording {
+- (void) uploadFailedFileURLs:(NSArray*)failedFileURLs forRecording:(NSManagedObjectID*)recordingObjectID {
     for (NSURL *url in failedFileURLs) {
-        [[OWCaptureAPIClient sharedClient] uploadFileURL:url recording:recording priority:NSOperationQueuePriorityVeryLow];
+        [[OWCaptureAPIClient sharedClient] uploadFileURL:url recording:recordingObjectID priority:NSOperationQueuePriorityVeryLow];
     }
 }
 
-- (void) addRecording:(OWLocalRecording *)recording {
+- (void) removeRecording:(NSManagedObjectID*)recordingObjectID {
+    NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
+    NSError *error = nil;
+    OWLocalRecording *recording = (OWLocalRecording*)[context existingObjectWithID:recordingObjectID error:&error];
+    if (error) {
+        NSLog(@"Error: %@", [error userInfo]);
+        error = nil;
+    }
     if (!recording) {
-        NSLog(@"Recording is nil!");
         return;
     }
-    [recordings setObject:recording forKey:recording.localRecordingPath];
-}
-
-- (void) removeRecording:(OWLocalRecording *)recording {
-    [recordings removeObjectForKey:recording.localRecordingPath];
-    NSError *error = nil;
+        
     NSFileManager *fileManager = [NSFileManager defaultManager];
     [fileManager removeItemAtPath:recording.localRecordingPath error:&error];
     if (error) {
@@ -71,10 +70,14 @@
 }
 
 - (NSArray*) allRecordings {
-    return [recordings allValues];
+    OWSettingsController *settingsController = [OWSettingsController sharedInstance];
+    OWUser *user = [settingsController.account user];
+    return [user.recordings allObjects];
 }
 
 - (void) scanDirectoryForChanges {
+    NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
+
     NSFileManager *fileManager = [NSFileManager defaultManager];
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *basePath = ([paths count] > 0) ? [paths objectAtIndex:0] : nil;
@@ -90,17 +93,15 @@
     for (OWLocalRecording *recording in currentRecordings) {
         if (![fileManager fileExistsAtPath:recording.localRecordingPath]) {
             NSLog(@"Recording no longer exists, removing: %@", recording.localRecordingPath);
-            [recordings removeObjectForKey:recording.localRecordingPath];
+            [context deleteObject:recording];
         }
     }
     
     for (NSString *recordingFileName in recordingFileNames) {
         if ([recordingFileName rangeOfString:@"recording"].location != NSNotFound) {
             NSString *recordingPath = [basePath stringByAppendingPathComponent:recordingFileName];
-            if (![recordings objectForKey:recordingPath]) {
-                OWLocalRecording *recording = [OWLocalRecording recordingWithPath:recordingPath];
-                [self addRecording:recording];
-            }
+            OWLocalRecording *recording = [OWLocalRecording recordingWithPath:recordingPath];
+            NSLog(@"Recording created: %@", recording.localRecordingPath);
         }
     }
 }

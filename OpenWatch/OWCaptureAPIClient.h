@@ -17,9 +17,9 @@
 
 @property (nonatomic, strong) NSMutableDictionary *uploadDictionary;
 
-- (void) startedRecording:(OWLocalRecording*)recording;
-- (void) uploadFileURL:(NSURL*)url recording:(OWLocalRecording*)recording priority:(NSOperationQueuePriority)priority;
-- (void) finishedRecording:(OWLocalRecording*)recording;
-- (void) updateMetadataForRecording:(OWLocalRecording*)recording;
+- (void) startedRecording:(NSManagedObjectID*)recordingObjectID;
+- (void) uploadFileURL:(NSURL*)url recording:(NSManagedObjectID*)recordingObjectID priority:(NSOperationQueuePriority)priority;
+- (void) finishedRecording:(NSManagedObjectID*)recordingObjectID;
+- (void) updateMetadataForRecording:(NSManagedObjectID*)recordingObjectID;
 
 @end

@@ -16,8 +16,7 @@
 
 - (NSArray*) allRecordings;
 
-- (void) addRecording:(OWLocalRecording*)recording;
-- (void) removeRecording:(OWLocalRecording*)recording;
+- (void) removeRecording:(NSManagedObjectID*)recordingID;
 
 - (void) scanDirectoryForChanges;
 - (void) scanRecordingsForUnsubmittedData;

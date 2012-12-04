@@ -18,6 +18,7 @@ static NSString * const kOWAccountAPIClientBaseURLString = @"http://192.168.1.44
 #define kUsernameKey @"username"
 #define kPubTokenKey @"public_upload_token"
 #define kPrivTokenKey @"private_upload_token"
+#define kServerIDKey @"server_id"
 
 #define kCreateAccountPath @"create_account"
 #define kLoginAccountPath @"login_account"
@@ -67,6 +68,7 @@ static NSString * const kOWAccountAPIClientBaseURLString = @"http://192.168.1.44
             account.username = [responseObject objectForKey:kUsernameKey];
             account.publicUploadToken = [responseObject objectForKey:kPubTokenKey];
             account.privateUploadToken = [responseObject objectForKey:kPrivTokenKey];
+            account.accountID = [responseObject objectForKey:kServerIDKey];
             
             success();
         } else {

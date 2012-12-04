@@ -130,7 +130,7 @@
         user = [OWUser MR_createEntity];
         user.serverID = [self accountID];
         user.username = [self username];
-        [MagicalRecord saveInBackgroundWithBlock:^(NSManagedObjectContext *localContext) {
+        [MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
             OWUser *localUser = [user MR_inContext:localContext];
             localUser.serverID = [self accountID];
             localUser.username = [self username];

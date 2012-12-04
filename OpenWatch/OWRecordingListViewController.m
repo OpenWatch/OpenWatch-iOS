@@ -108,7 +108,7 @@
         OWLocalRecording *recording = [recordingsArray objectAtIndex:indexPath.row];
         // Delete the row from the data source
         [recordingsArray removeObjectAtIndex:indexPath.row];
-        [recordingController removeRecording:recording];
+        [recordingController removeRecording:recording.objectID];
         [recordingsTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
     }
 }
