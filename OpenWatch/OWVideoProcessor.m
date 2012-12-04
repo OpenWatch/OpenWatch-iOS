@@ -123,6 +123,7 @@
     NSString *recordingPath = [basePath stringByAppendingPathComponent:directoryName];
     
     OWLocalRecording *currentRecording = [OWLocalRecording recordingWithPath:recordingPath];
+
     self.recordingID = currentRecording.objectID;
     
 	dispatch_async(movieWritingQueue, ^{

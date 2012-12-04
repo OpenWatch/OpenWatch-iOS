@@ -56,43 +56,43 @@
         recording.localRecordingPath = path;
         OWUser *user = [[[OWSettingsController sharedInstance] account] user];
         recording.user = user;
-        [MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
-            OWLocalRecording *localRecording = [recording MR_inContext:localContext];
-            localRecording.localRecordingPath = path;
-            localRecording.user = user;
-        }];
+        NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
+        NSError *error = nil;
+        BOOL success = [context obtainPermanentIDsForObjects:@[recording] error:&error];
+        if (error || !success) {
+            NSLog(@"Error convert to permanent ID: %@", [error userInfo]);
+        }
+        [context MR_saveNestedContexts];
     }
     return recording;
 }
 
+- (void) saveMetadata {
+    NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
+    [context MR_saveNestedContexts];
+}
+
 - (void) setUploadState:(OWFileUploadState)uploadState forFileAtURL :(NSURL *)url {
     NSString *path = [url path];
-    
+    NSString *fileName = [path lastPathComponent];
+    NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
     if ([[path lastPathComponent] isEqualToString:kHQFileName]) {
         self.hqFileUploadState = @(uploadState);
-        [MagicalRecord saveInBackgroundWithBlock:^(NSManagedObjectContext *localContext) {
-            OWLocalRecording *localRecording = [self MR_inContext:localContext];
-            localRecording.hqFileUploadState = @(uploadState);
-        }];
+        [context MR_saveNestedContexts];
         return;
     }
     
     OWRecordingSegment *segment = [OWRecordingSegment MR_findFirstByAttribute:@"filePath" withValue:path];
     if (segment) {
-        [MagicalRecord saveInBackgroundWithBlock:^(NSManagedObjectContext *localContext) {
-            OWRecordingSegment *localSegment = [segment MR_inContext:localContext];
-            localSegment.fileUploadState = uploadState;            
-        }];
+        segment.fileUploadState = uploadState;
     } else {
         segment = [OWRecordingSegment MR_createEntity];
-        [MagicalRecord saveInBackgroundWithBlock:^(NSManagedObjectContext *localContext) {
-            OWRecordingSegment *localSegment = [segment MR_inContext:localContext];
-            OWLocalRecording *localRecording = [self MR_inContext:localContext];
-            localSegment.filePath = path;
-            localSegment.fileUploadState = uploadState;
-            localSegment.recording = localRecording;
-        }];
+        segment.filePath = path;
+        segment.fileUploadState = uploadState;
+        segment.recording = self;
+        segment.fileName = fileName;
     }
+    [context MR_saveNestedContexts];
 }
 
 - (OWFileUploadState)uploadStateForFileAtURL:(NSURL*)url {
@@ -168,18 +168,6 @@
     [locationDictionary setObject:@(location.course) forKey:kCourseKey];
     [locationDictionary setObject:@([location.timestamp timeIntervalSince1970]) forKey:kTimestampKey];
     return locationDictionary;
-}
-
-- (void) saveMetadata {
-    [MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
-        OWLocalRecording *localRecording = [self MR_inContext:localContext];
-        localRecording.title = self.title;
-        localRecording.uuid = self.uuid;
-        localRecording.startLocation = self.startLocation;
-        localRecording.endLocation = self.endLocation;
-        localRecording.localRecordingPath = self.localRecordingPath;
-        
-    }];
 }
 
 - (void) checkIntegrity {

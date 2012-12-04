@@ -126,23 +126,24 @@
         return nil;
     }
     OWUser *user = [OWUser MR_findFirstByAttribute:@"serverID" withValue:[self accountID]];
+    NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
+
     if (!user) {
         user = [OWUser MR_createEntity];
         user.serverID = [self accountID];
         user.username = [self username];
-        [MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
-            OWUser *localUser = [user MR_inContext:localContext];
-            localUser.serverID = [self accountID];
-            localUser.username = [self username];
-        }];
+        NSError *error = nil;
+        BOOL success = [context obtainPermanentIDsForObjects:@[user] error:&error];
+        if (error || !success) {
+            NSLog(@"Error convert to permanent ID: %@", [error userInfo]);
+        }
+        [context MR_saveNestedContexts];
         return user;
     }
-    user.username = [self username];
-    [MagicalRecord saveInBackgroundWithBlock:^(NSManagedObjectContext *localContext) {
-        OWUser *localUser = [user MR_inContext:localContext];
-        localUser.username = [self username];
-    }];
-    
+    if (![user.username isEqualToString:[self username]]) {
+        user.username = [self username];
+        [context MR_saveNestedContexts];
+    }
     return user;
 }
 

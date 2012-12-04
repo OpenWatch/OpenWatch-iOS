@@ -22,7 +22,6 @@
 + (OWLocalRecording*) recordingWithPath:(NSString*)path;
 - (void) setUploadState:(OWFileUploadState)uploadState forFileAtURL:(NSURL*)url;
 - (OWFileUploadState)uploadStateForFileAtURL:(NSURL*)url;
-- (void) saveMetadata;
 
 - (NSArray*) failedFileUploadURLs;
 - (NSUInteger) failedFileCount;
@@ -30,6 +29,7 @@
 - (NSUInteger) totalFileCount;
 - (BOOL) isHighQualityFileUploaded;
 
+- (void) saveMetadata;
 
 - (void) startRecording;
 - (void) stopRecording;
