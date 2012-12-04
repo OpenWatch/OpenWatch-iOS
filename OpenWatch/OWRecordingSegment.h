@@ -11,10 +11,18 @@
 
 @class OWLocalRecording;
 
+typedef enum {
+    OWFileUploadStateUnknown = 0,
+    OWFileUploadStateUploading,
+    OWFileUploadStateFailed,
+    OWFileUploadStateCompleted,
+    OWFileUploadStateRecording
+} OWFileUploadState;
+
 @interface OWRecordingSegment : NSManagedObject
 
-@property (nonatomic, retain) NSString * fileName;
-@property (nonatomic, retain) NSNumber * uploadState;
+@property (nonatomic, retain) NSString * filePath;
+@property (nonatomic) OWFileUploadState fileUploadState;
 @property (nonatomic, retain) OWLocalRecording *recording;
 
 @end

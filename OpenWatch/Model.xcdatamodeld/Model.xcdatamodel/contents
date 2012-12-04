@@ -21,7 +21,7 @@
         <relationship name="user" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="OWUser" inverseName="recordings" inverseEntity="OWUser" syncable="YES"/>
     </entity>
     <entity name="OWRecordingSegment" representedClassName="OWRecordingSegment" syncable="YES">
-        <attribute name="fileName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="filePath" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="uploadState" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <relationship name="recording" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="OWLocalRecording" inverseName="segments" inverseEntity="OWLocalRecording" syncable="YES"/>
     </entity>
@@ -35,9 +35,9 @@
         <relationship name="recordings" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="OWManagedRecording" inverseName="user" inverseEntity="OWManagedRecording" syncable="YES"/>
     </entity>
     <elements>
+        <element name="OWLocalRecording" positionX="394" positionY="126" width="128" height="88"/>
         <element name="OWManagedRecording" positionX="430" positionY="251" width="128" height="238"/>
         <element name="OWRecordingSegment" positionX="135" positionY="173" width="128" height="88"/>
-        <element name="OWLocalRecording" positionX="394" positionY="126" width="128" height="88"/>
         <element name="OWRecordingTag" positionX="252" positionY="288" width="128" height="73"/>
         <element name="OWUser" positionX="90" positionY="315" width="128" height="88"/>
     </elements>

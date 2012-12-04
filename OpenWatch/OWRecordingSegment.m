@@ -9,11 +9,23 @@
 #import "OWRecordingSegment.h"
 #import "OWLocalRecording.h"
 
+@interface OWRecordingSegment()
+@property (nonatomic, retain) NSNumber * uploadState;
+@end
 
 @implementation OWRecordingSegment
 
-@dynamic fileName;
+@dynamic filePath;
 @dynamic uploadState;
 @dynamic recording;
+
+- (OWFileUploadState) fileUploadState {
+    return [self.uploadState unsignedIntegerValue];
+}
+
+- (void) setFileUploadState:(OWFileUploadState)fileUploadState {
+    self.uploadState = @(fileUploadState);
+}
+
 
 @end
