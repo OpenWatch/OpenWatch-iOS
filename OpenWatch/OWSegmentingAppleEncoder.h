@@ -10,6 +10,7 @@
 
 @interface OWSegmentingAppleEncoder : OWAppleEncoder {
     dispatch_queue_t segmentingQueue;
+    NSTimeInterval segmentationInterval;
 }
 
 @property (nonatomic, retain) AVAssetWriter *queuedAssetWriter;

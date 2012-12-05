@@ -21,26 +21,34 @@
 
 - (void) dealloc {
     if (self.segmentationTimer) {
-        [self.segmentationTimer invalidate];
-        self.segmentationTimer = nil;
+        [self performSelectorOnMainThread:@selector(invalidateTimer) withObject:nil waitUntilDone:NO];
     }
     dispatch_release(segmentingQueue);
 }
 
 - (void) finishEncoding {
     if (self.segmentationTimer) {
-        [self.segmentationTimer invalidate];
-        self.segmentationTimer = nil;
+        [self performSelectorOnMainThread:@selector(invalidateTimer) withObject:nil waitUntilDone:NO];
     }
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [super finishEncoding];
     //[[OWCaptureAPIClient sharedClient] finishedRecording:self.recording];
 }
 
+- (void) invalidateTimer {
+    [self.segmentationTimer invalidate];
+    self.segmentationTimer = nil;
+}
+
+- (void) createAndScheduleTimer {
+    self.segmentationTimer = [NSTimer timerWithTimeInterval:segmentationInterval target:self selector:@selector(segmentRecording:) userInfo:nil repeats:YES];
+    [[NSRunLoop mainRunLoop] addTimer:segmentationTimer forMode:NSDefaultRunLoopMode];
+}
+
 - (id) initWithURL:(NSURL *)url segmentationInterval:(NSTimeInterval)timeInterval {
     if (self = [super init]) {
-        self.segmentationTimer = [NSTimer timerWithTimeInterval:timeInterval target:self selector:@selector(segmentRecording:) userInfo:nil repeats:YES];
-        [[NSRunLoop mainRunLoop] addTimer:segmentationTimer forMode:NSDefaultRunLoopMode];
+        segmentationInterval = timeInterval;
+        [self performSelectorOnMainThread:@selector(createAndScheduleTimer) withObject:nil waitUntilDone:NO];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedBandwidthUpdateNotification:) name:kOWCaptureAPIClientBandwidthNotification object:nil];
         segmentingQueue = dispatch_queue_create("Segmenting Queue", DISPATCH_QUEUE_SERIAL);
     }

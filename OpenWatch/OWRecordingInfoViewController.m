@@ -102,6 +102,7 @@
 - (void) viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
     [self resignFirstResponder];
+    [moviePlayer stop];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 

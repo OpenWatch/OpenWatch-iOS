@@ -52,6 +52,11 @@
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [self.recordingController scanDirectoryForChanges];
         self.recordingsArray = [NSMutableArray arrayWithArray:[recordingController allRecordings]];
+        [self.recordingsArray sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+            OWLocalRecording *rec1 = (OWLocalRecording*)obj1;
+            OWLocalRecording *rec2 = (OWLocalRecording*)obj2;
+            return [rec1.startDate compare:rec2.startDate];
+        }];
        dispatch_async(dispatch_get_main_queue(), ^{
            [self.recordingsTableView reloadData];
        });
