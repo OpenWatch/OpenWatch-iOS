@@ -16,6 +16,7 @@
 @property (nonatomic, retain) AVAssetWriter *queuedAssetWriter;
 @property (nonatomic, retain) AVAssetWriterInput *queuedAudioEncoder;
 @property (nonatomic, retain) AVAssetWriterInput *queuedVideoEncoder;
+@property (nonatomic) BOOL shouldBeRecording;
 
 @property (nonatomic) int videoBPS; // bits/sec
 @property (nonatomic) int audioBPS; // bits/sec

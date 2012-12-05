@@ -151,9 +151,9 @@
 
     // Create an asset writer
     self.appleEncoder1 = [[OWAppleEncoder alloc] initWithURL:[localRecording highQualityURL] movieFragmentInterval:CMTimeMakeWithSeconds(5, 30)];
-    self.appleEncoder1.recordingID = recordingID;
+    self.appleEncoder1.recordingID = localRecording.objectID;
     self.appleEncoder2 = [[OWSegmentingAppleEncoder alloc] initWithURL:[localRecording urlForNextSegment] segmentationInterval:5.0f];
-    self.appleEncoder2.recordingID = recordingID;
+    self.appleEncoder2.recordingID = localRecording.objectID;
 }
 
 - (void) stopRecording
@@ -173,9 +173,10 @@
         recordingWillBeStopped = NO;
         self.recording = NO;
         [self.delegate recordingDidStop];
-        [self initializeAssetWriters];
         [appleEncoder2 finishEncoding];
         [localRecording stopRecording];
+        self.appleEncoder1 = nil;
+        self.appleEncoder2 = nil;
 	});
 }
 

@@ -17,7 +17,7 @@
 @implementation OWSegmentingAppleEncoder
 @synthesize segmentationTimer, queuedAssetWriter;
 @synthesize queuedAudioEncoder, queuedVideoEncoder;
-@synthesize audioBPS, videoBPS;
+@synthesize audioBPS, videoBPS, shouldBeRecording;
 
 - (void) dealloc {
     if (self.segmentationTimer) {
@@ -27,6 +27,9 @@
 }
 
 - (void) finishEncoding {
+    self.readyToRecordAudio = NO;
+    self.readyToRecordVideo = NO;
+    self.shouldBeRecording = NO;
     if (self.segmentationTimer) {
         [self performSelectorOnMainThread:@selector(invalidateTimer) withObject:nil waitUntilDone:NO];
     }
@@ -41,12 +44,13 @@
 }
 
 - (void) createAndScheduleTimer {
-    self.segmentationTimer = [NSTimer timerWithTimeInterval:segmentationInterval target:self selector:@selector(segmentRecording:) userInfo:nil repeats:YES];
-    [[NSRunLoop mainRunLoop] addTimer:segmentationTimer forMode:NSDefaultRunLoopMode];
+    self.segmentationTimer = [NSTimer scheduledTimerWithTimeInterval:segmentationInterval target:self selector:@selector(segmentRecording:) userInfo:nil repeats:YES];
+    //[[NSRunLoop mainRunLoop] addTimer:segmentationTimer forMode:NSDefaultRunLoopMode];
 }
 
 - (id) initWithURL:(NSURL *)url segmentationInterval:(NSTimeInterval)timeInterval {
     if (self = [super init]) {
+        self.shouldBeRecording = YES;
         segmentationInterval = timeInterval;
         [self performSelectorOnMainThread:@selector(createAndScheduleTimer) withObject:nil waitUntilDone:NO];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedBandwidthUpdateNotification:) name:kOWCaptureAPIClientBandwidthNotification object:nil];
@@ -72,16 +76,18 @@
 
 
 - (void) segmentRecording:(NSTimer*)timer {
+    if (!shouldBeRecording) {
+        [timer invalidate];
+    }
     AVAssetWriter *tempAssetWriter = self.assetWriter;
     AVAssetWriterInput *tempAudioEncoder = self.audioEncoder;
     AVAssetWriterInput *tempVideoEncoder = self.videoEncoder;
     self.assetWriter = queuedAssetWriter;
     self.audioEncoder = queuedAudioEncoder;
     self.videoEncoder = queuedVideoEncoder;
-    //NSLog(@"Switching encoders");
+    NSLog(@"Switching encoders");
     
     dispatch_async(segmentingQueue, ^{
-        OWLocalRecording *recording = [OWRecordingController recordingForObjectID:self.recordingID];
         if (tempAssetWriter.status == AVAssetWriterStatusWriting) {
             [tempAudioEncoder markAsFinished];
             [tempVideoEncoder markAsFinished];
@@ -90,6 +96,10 @@
             } else {
                 [self uploadFileURL:tempAssetWriter.outputURL];
             }
+        }
+        OWLocalRecording *recording = [OWRecordingController recordingForObjectID:self.recordingID];
+        if (!recording) {
+            return;
         }
         if (self.readyToRecordAudio && self.readyToRecordVideo) {
             NSError *error = nil;

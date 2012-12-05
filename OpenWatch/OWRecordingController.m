@@ -45,6 +45,9 @@
 
 
 + (OWLocalRecording*) recordingForObjectID:(NSManagedObjectID*)objectID {
+    if (!objectID) {
+        return nil;
+    }
     NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
     NSError *error = nil;
     OWLocalRecording *recording = (OWLocalRecording*)[context existingObjectWithID:objectID error:&error];
