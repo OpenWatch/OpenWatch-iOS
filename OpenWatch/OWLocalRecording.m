@@ -153,15 +153,9 @@
 }
 
 - (NSDictionary*) locationDictionaryForLocation:(CLLocation*)location {
-    NSMutableDictionary *locationDictionary = [NSMutableDictionary dictionaryWithCapacity:8];
+    NSMutableDictionary *locationDictionary = [NSMutableDictionary dictionaryWithCapacity:2];
     [locationDictionary setObject:@(location.coordinate.latitude) forKey:kLatitudeKey];
     [locationDictionary setObject:@(location.coordinate.longitude) forKey:kLongitudeKey];
-    [locationDictionary setObject:@(location.altitude) forKey:kAltitudeKey];
-    [locationDictionary setObject:@(location.horizontalAccuracy) forKey:kHorizontalAccuracyKey];
-    [locationDictionary setObject:@(location.verticalAccuracy) forKey:kVerticalAccuracyKey];
-    [locationDictionary setObject:@(location.speed) forKey:kSpeedKey];
-    [locationDictionary setObject:@(location.course) forKey:kCourseKey];
-    [locationDictionary setObject:@([location.timestamp timeIntervalSince1970]) forKey:kTimestampKey];
     return locationDictionary;
 }
 
@@ -270,7 +264,7 @@
 }
 
 - (NSURL*) urlForNextSegment {
-    NSString *movieName = [NSString stringWithFormat:@"%d.mp4", [self.segments count]];
+    NSString *movieName = [NSString stringWithFormat:@"%d.mp4", [self.segments count]+1];
     NSString *path = [self.localRecordingPath stringByAppendingPathComponent:movieName];
     NSURL *newMovieURL = [NSURL fileURLWithPath:path];
     return newMovieURL;

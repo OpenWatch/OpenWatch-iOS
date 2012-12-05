@@ -6,6 +6,7 @@
         <relationship name="segments" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="OWRecordingSegment" inverseName="recording" inverseEntity="OWRecordingSegment" syncable="YES"/>
     </entity>
     <entity name="OWManagedRecording" representedClassName="OWManagedRecording" syncable="YES">
+        <attribute name="dateModified" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="endDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="endLatitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="endLongitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
@@ -37,7 +38,7 @@
     </entity>
     <elements>
         <element name="OWLocalRecording" positionX="394" positionY="126" width="128" height="88"/>
-        <element name="OWManagedRecording" positionX="430" positionY="251" width="128" height="238"/>
+        <element name="OWManagedRecording" positionX="430" positionY="251" width="128" height="255"/>
         <element name="OWRecordingSegment" positionX="135" positionY="173" width="128" height="103"/>
         <element name="OWRecordingTag" positionX="252" positionY="288" width="128" height="73"/>
         <element name="OWUser" positionX="90" positionY="315" width="128" height="88"/>

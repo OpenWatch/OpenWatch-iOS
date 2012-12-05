@@ -15,7 +15,7 @@
 @interface OWManagedRecording : NSManagedObject
 
 @property (nonatomic, retain) NSDate * endDate;
-
+@property (nonatomic, retain) NSDate * dateModified;
 @property (nonatomic, retain) NSString * recordingDescription;
 @property (nonatomic, retain) NSDate * startDate;
 @property (nonatomic, retain) NSString * title;

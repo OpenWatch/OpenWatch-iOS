@@ -75,6 +75,7 @@ static NSString * const kOWAccountAPIClientBaseURLString = @"http://192.168.1.44
             failure([responseObject objectForKey:kReasonKey]);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Failure Response: %@", operation.responseString);
         failure([error localizedDescription]);
     }];
 

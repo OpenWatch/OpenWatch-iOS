@@ -30,6 +30,7 @@
 @dynamic remoteVideoURL;
 @dynamic tags;
 @dynamic user;
+@dynamic dateModified;
 
 - (CLLocation*) startLocation {
     return [self locationWithLatitude:[self.startLatitude doubleValue] longitude:[self.startLongitude doubleValue]];
@@ -53,6 +54,7 @@
 
 - (void) saveMetadata {
     NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
+    self.dateModified = [NSDate date];
     [context MR_saveNestedContexts];
 }
 
