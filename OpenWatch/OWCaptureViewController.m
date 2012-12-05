@@ -21,6 +21,7 @@
     if (self = [super init]) {
         self.videoProcessor = [OWCaptureController sharedInstance].videoProcessor;
         self.videoProcessor.delegate = self;
+        [self.videoProcessor setupAndStartCaptureSession];
         self.videoPreviewView = [[UIView alloc] init];
         self.title = CAPTURE_STRING;
         self.recordButton = [[UIBarButtonItem alloc] initWithTitle:RECORD_STRING style:UIBarButtonItemStyleDone target:self action:@selector(recordButtonPressed:)];
