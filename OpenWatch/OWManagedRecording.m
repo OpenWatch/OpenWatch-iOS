@@ -114,6 +114,22 @@
 }
 
 - (void) loadMetadataFromDictionary:(NSDictionary*)metadataDictionary {
+    
+    NSNumber *serverID = [metadataDictionary objectForKey:@"id"];
+    if (serverID) {
+        self.serverID = serverID;
+    }
+    
+    NSNumber *lastEdited = [metadataDictionary objectForKey:@"last_edited"];
+    if (lastEdited) {
+        self.dateModified = [NSDate dateWithTimeIntervalSince1970:[lastEdited doubleValue]];
+    }
+    
+    NSString *videoURL = [metadataDictionary objectForKey:@"video_url"];
+    if (videoURL) {
+        self.remoteVideoURL = videoURL;
+    }
+    
     NSString *newUUID = [metadataDictionary objectForKey:kUUIDKey];
     if (newUUID) {
         self.uuid = newUUID;
@@ -142,6 +158,8 @@
     if (endLocationDictionary) {
         self.endLocation = [self locationFromLocationDictionary:endLocationDictionary];
     }
+    NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
+    [context MR_saveNestedContexts];
 }
 
 - (CLLocation*)locationFromLocationDictionary:(NSDictionary*)locationDictionary {

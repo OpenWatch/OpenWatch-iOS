@@ -9,6 +9,7 @@
 #import "OWAccountAPIClient.h"
 #import "AFJSONRequestOperation.h"
 #import "OWManagedRecording.h"
+#import "OWLocalRecording.h"
 
 static NSString * const kOWAccountAPIClientBaseURLString = @"http://192.168.1.44:8000/api/";
 
@@ -94,9 +95,10 @@ static NSString * const kOWAccountAPIClientBaseURLString = @"http://192.168.1.44
         NSLog(@"success: %@", [responseObject description]);
         NSArray *recordings = [responseObject objectForKey:@"recordings"];
         for (NSDictionary *recordingDict in recordings) {
+            NSString *uuid = [recordingDict objectForKey:@"uuid"];
             int serverID = [[recordingDict objectForKey:@"id"] intValue];
             int remoteLastEdited = [[recordingDict objectForKey:@"last_edited"] intValue];
-            OWManagedRecording *managedRecording = [OWManagedRecording MR_findFirstByAttribute:@"serverID" withValue:@(serverID)];
+            OWManagedRecording *managedRecording = [OWManagedRecording MR_findFirstByAttribute:@"uuid" withValue:uuid];
             if (managedRecording) {
                 int localLastEdited = (int)[managedRecording.dateModified timeIntervalSince1970];
                 if (remoteLastEdited > localLastEdited) {
@@ -135,7 +137,19 @@ static NSString * const kOWAccountAPIClientBaseURLString = @"http://192.168.1.44
 - (void) getRecordingWithServerID:(NSInteger)serverID success:(void (^)(void))success failure:(void (^)(NSString *reason))failure {
     [self getPath:[self pathForRecordingWithServerID:serverID] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"Response: %@", [responseObject description] );
-        success();
+        NSDictionary *recordingDict = [responseObject objectForKey:kRecordingKey];
+        if (recordingDict) {
+            NSString *uuid = [recordingDict objectForKey:@"uuid"];
+            OWManagedRecording *managedRecording = [OWManagedRecording MR_findFirstByAttribute:@"uuid" withValue:uuid];
+            if (managedRecording) {
+                [managedRecording loadMetadataFromDictionary:recordingDict];
+                success();
+            } else {
+                failure(@"No recording found");
+            }
+        } else {
+            failure([NSString stringWithFormat:@"Bad response from server: %@", [responseObject description]]);
+        }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         failure([error description]);
     }];
