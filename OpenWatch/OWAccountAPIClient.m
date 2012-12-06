@@ -11,6 +11,9 @@
 
 static NSString * const kOWAccountAPIClientBaseURLString = @"http://192.168.1.44:8000/api/";
 
+
+#define kRecordingsKey @"recordings/"
+
 #define kEmailKey @"email_address"
 #define kPasswordKey @"password"
 #define kReasonKey @"reason"
@@ -61,7 +64,9 @@ static NSString * const kOWAccountAPIClientBaseURLString = @"http://192.168.1.44
     NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithCapacity:2];
     [parameters setObject:account.email forKey:kEmailKey];
     [parameters setObject:account.password forKey:kPasswordKey];
-    [self postPath:path parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    NSMutableURLRequest *request = [self requestWithMethod:@"POST" path:path parameters:parameters];
+    request.HTTPShouldHandleCookies = YES;
+	AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"Response: %@", [responseObject description]);
         if ([[responseObject objectForKey:kSuccessKey] boolValue]) {
             
@@ -78,7 +83,18 @@ static NSString * const kOWAccountAPIClientBaseURLString = @"http://192.168.1.44
         NSLog(@"Failure Response: %@", operation.responseString);
         failure([error localizedDescription]);
     }];
+    
+    [self enqueueHTTPRequestOperation:operation];
+}
 
+- (void) fetchRecordingsWithSuccessBlock:(void (^)(void))success failure:(void (^)(NSString *))failure {
+    [self getPath:kRecordingsKey parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"success: %@", [responseObject description]);
+        success();
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"failure: %@", [error userInfo]);
+        failure(@"fart");
+    }];
 }
 
 

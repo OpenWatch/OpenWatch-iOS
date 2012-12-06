@@ -9,6 +9,7 @@
 #import "OWRecordingListViewController.h"
 #import "OWLocalRecording.h"
 #import "OWStrings.h"
+#import "OWAccountAPIClient.h"
 
 @interface OWRecordingListViewController ()
 
@@ -46,22 +47,23 @@
     [super viewWillAppear:animated];
     self.recordingsTableView.frame = self.view.frame;
     [self refreshRecordings];
+    
+    [[OWAccountAPIClient sharedClient] fetchRecordingsWithSuccessBlock:^{
+        
+    } failure:^(NSString *reason) {
+        
+    }];
 }
 
 - (void) refreshRecordings {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        [self.recordingController scanDirectoryForChanges];
-        self.recordingsArray = [NSMutableArray arrayWithArray:[recordingController allRecordings]];
-        [self.recordingsArray sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-            OWLocalRecording *rec1 = (OWLocalRecording*)obj1;
-            OWLocalRecording *rec2 = (OWLocalRecording*)obj2;
-            return [rec1.startDate compare:rec2.startDate];
-        }];
-       dispatch_async(dispatch_get_main_queue(), ^{
-           [self.recordingsTableView reloadData];
-       });
-    });
-
+    [self.recordingController scanDirectoryForChanges];
+    self.recordingsArray = [NSMutableArray arrayWithArray:[recordingController allRecordings]];
+    [self.recordingsArray sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        OWLocalRecording *rec1 = (OWLocalRecording*)obj1;
+        OWLocalRecording *rec2 = (OWLocalRecording*)obj2;
+        return [rec1.startDate compare:rec2.startDate];
+    }];
+    [self.recordingsTableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning
