@@ -109,8 +109,16 @@
     NSMutableDictionary *dictionary = [NSMutableDictionary dictionaryWithDictionary:[self newMetadataDictionary]];
     NSMutableArray *allFiles = [NSMutableArray array];
     
-    for (OWRecordingSegment *segment in self.segments) {
-        [allFiles addObject:segment.fileName];
+    NSError *error = nil;
+    NSArray *contents = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:self.localRecordingPath error:&error];
+    
+    for (NSString *path in contents) {
+        NSString *fileName = [path lastPathComponent];
+        if ([fileName rangeOfString:@"mp4"].location != NSNotFound) {
+            if (![fileName isEqualToString:kHQFileName]) {
+                [allFiles addObject:fileName];
+            }
+        }
     }
     
     [dictionary setObject:allFiles forKey:kAllFilesKey];
