@@ -8,6 +8,8 @@
 
 #import "OWManagedRecording.h"
 
+#define kLastEditedKey @"last_edited"
+
 @interface OWManagedRecording()
 @property (nonatomic, retain) NSNumber * endLatitude;
 @property (nonatomic, retain) NSNumber * endLongitude;
@@ -82,6 +84,9 @@
     if (self.endDate) {
         [newMetadataDictionary setObject:@([self.endDate timeIntervalSince1970]) forKey:kRecordingEndDateKey];
     }
+    if (self.dateModified) {
+        [newMetadataDictionary setObject:@([self.dateModified timeIntervalSince1970]) forKey:kLastEditedKey];
+    }
     if (self.title) {
         [newMetadataDictionary setObject:[self.title copy] forKey:kTitleKey];
     }
@@ -96,6 +101,9 @@
         NSDictionary *endLocationDictionary = [self locationDictionaryForLocation:self.endLocation];
         [newMetadataDictionary setObject:endLocationDictionary forKey:kLocationEndKey];
     }
+    
+    
+    
     return newMetadataDictionary;
 }
 
@@ -120,7 +128,7 @@
         self.serverID = serverID;
     }
     
-    NSNumber *lastEdited = [metadataDictionary objectForKey:@"last_edited"];
+    NSNumber *lastEdited = [metadataDictionary objectForKey:kLastEditedKey];
     if (lastEdited) {
         self.dateModified = [NSDate dateWithTimeIntervalSince1970:[lastEdited doubleValue]];
     }

@@ -160,6 +160,7 @@ static NSString * const kOWAccountAPIClientBaseURLString = @"http://192.168.1.44
     [self postPath:[self pathForRecordingWithServerID:serverID] parameters:managedRecording.metadataDictionary success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"post response: %@", [responseObject description]);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"fail: %@", operation.responseString);
         failure([error description]);
     }];
 }
