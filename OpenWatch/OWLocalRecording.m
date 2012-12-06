@@ -34,6 +34,7 @@
 #define kDescriptionKey @"description"
 #define kUUIDKey @"uuid"
 #define kMetadataFileName @"metadata.json"
+#define kSegmentsDirectory @"/segments/"
 
 @implementation OWLocalRecording
 
@@ -107,23 +108,12 @@
 
 - (NSDictionary*) dictionaryRepresentation {
     NSMutableDictionary *dictionary = [NSMutableDictionary dictionaryWithDictionary:[self newMetadataDictionary]];
-    NSMutableArray *allFiles = [NSMutableArray array];
     
-    NSError *error = nil;
-    NSArray *contents = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:self.localRecordingPath error:&error];
-    
-    for (NSString *path in contents) {
-        NSString *fileName = [path lastPathComponent];
-        if ([fileName rangeOfString:@"mp4"].location != NSNotFound) {
-            if (![fileName isEqualToString:kHQFileName]) {
-                [allFiles addObject:fileName];
-            }
-        }
-    }
-    
-    [dictionary setObject:allFiles forKey:kAllFilesKey];
+    [dictionary setObject:[self pathsForSegments] forKey:kAllFilesKey];
     return dictionary;
 }
+
+
 
 - (NSDictionary*) newMetadataDictionary {
     NSMutableDictionary *newMetadataDictionary = [NSMutableDictionary dictionary];
@@ -246,13 +236,17 @@
     BOOL isDirectory;
     if (![fileManager fileExistsAtPath:self.localRecordingPath isDirectory:&isDirectory]) {
         NSError *error = nil;
-        [fileManager createDirectoryAtPath:self.localRecordingPath withIntermediateDirectories:YES attributes:nil error:&error];
+        [fileManager createDirectoryAtPath:[self pathForSegmentsDirectory] withIntermediateDirectories:YES attributes:nil error:&error];
         if (error) {
             NSLog(@"Error creating directory: %@%@", [error localizedDescription], [error userInfo]);
         }
     }
     [self saveMetadata];
     [[OWCaptureAPIClient sharedClient] startedRecording:self.objectID];
+}
+
+- (NSString*) pathForSegmentsDirectory {
+    return [self.localRecordingPath stringByAppendingPathComponent:kSegmentsDirectory];
 }
 
 - (void) stopRecording {
@@ -271,9 +265,19 @@
     return newMovieURL;
 }
 
+- (NSArray*) pathsForSegments {
+    NSError *error = nil;
+    NSArray *contents = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:[self pathForSegmentsDirectory] error:&error];
+    if (error) {
+        NSLog(@"Error with segments paths: %@", [error userInfo]);
+    }
+    return contents;
+}
+
 - (NSURL*) urlForNextSegment {
-    NSString *movieName = [NSString stringWithFormat:@"%d.mp4", [self.segments count]+1];
-    NSString *path = [self.localRecordingPath stringByAppendingPathComponent:movieName];
+    NSArray *segments = [self pathsForSegments];
+    NSString *movieName = [NSString stringWithFormat:@"%d.mp4", [segments count]+1];
+    NSString *path = [[self pathForSegmentsDirectory] stringByAppendingPathComponent:movieName];
     NSURL *newMovieURL = [NSURL fileURLWithPath:path];
     return newMovieURL;
 }
@@ -297,7 +301,7 @@
 }
 
 - (NSUInteger) totalFileCount {
-    return [self.segments count];
+    return [[self pathsForSegments] count];
 }
 
 - (BOOL) isHighQualityFileUploaded {
