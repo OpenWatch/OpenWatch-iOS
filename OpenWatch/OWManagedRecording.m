@@ -71,5 +71,84 @@
     [self saveMetadata];
 }
 
+- (NSDictionary*) metadataDictionary {
+    NSMutableDictionary *newMetadataDictionary = [NSMutableDictionary dictionary];
+    if (self.uuid) {
+        [newMetadataDictionary setObject:[self.uuid copy] forKey:kUUIDKey];
+    }
+    if (self.startDate) {
+        [newMetadataDictionary setObject:@([self.startDate timeIntervalSince1970]) forKey:kRecordingStartDateKey];
+    }
+    if (self.endDate) {
+        [newMetadataDictionary setObject:@([self.endDate timeIntervalSince1970]) forKey:kRecordingEndDateKey];
+    }
+    if (self.title) {
+        [newMetadataDictionary setObject:[self.title copy] forKey:kTitleKey];
+    }
+    if (self.recordingDescription) {
+        [newMetadataDictionary setObject:[self.recordingDescription copy] forKey:kDescriptionKey];
+    }
+    if ([self locationIsValid:self.startLocation]) {
+        NSDictionary *startLocationDictionary = [self locationDictionaryForLocation:self.startLocation];
+        [newMetadataDictionary setObject:startLocationDictionary forKey:kLocationStartKey];
+    }
+    if ([self locationIsValid:self.endLocation]) {
+        NSDictionary *endLocationDictionary = [self locationDictionaryForLocation:self.endLocation];
+        [newMetadataDictionary setObject:endLocationDictionary forKey:kLocationEndKey];
+    }
+    return newMetadataDictionary;
+}
+
+- (BOOL) locationIsValid:(CLLocation*)location {
+    if (location.coordinate.latitude == 0.0f && location.coordinate.longitude == 0.0f) {
+        return NO;
+    }
+    return YES;
+}
+
+- (NSDictionary*) locationDictionaryForLocation:(CLLocation*)location {
+    NSMutableDictionary *locationDictionary = [NSMutableDictionary dictionaryWithCapacity:2];
+    [locationDictionary setObject:@(location.coordinate.latitude) forKey:kLatitudeKey];
+    [locationDictionary setObject:@(location.coordinate.longitude) forKey:kLongitudeKey];
+    return locationDictionary;
+}
+
+- (void) loadMetadataFromDictionary:(NSDictionary*)metadataDictionary {
+    NSString *newUUID = [metadataDictionary objectForKey:kUUIDKey];
+    if (newUUID) {
+        self.uuid = newUUID;
+    }
+    NSString *newTitle = [metadataDictionary objectForKey:kTitleKey];
+    if (newTitle) {
+        self.title = newTitle;
+    }
+    NSString *newDescription = [metadataDictionary objectForKey:kDescriptionKey];
+    if (newDescription) {
+        self.recordingDescription = newDescription;
+    }
+    NSNumber *startDateTimestampNumber = [metadataDictionary objectForKey:kRecordingStartDateKey];
+    if (startDateTimestampNumber) {
+        self.startDate = [NSDate dateWithTimeIntervalSince1970:[startDateTimestampNumber doubleValue]];
+    }
+    NSNumber *endDateTimestampNumber = [metadataDictionary objectForKey:kRecordingEndDateKey];
+    if (endDateTimestampNumber) {
+        self.endDate = [NSDate dateWithTimeIntervalSince1970:[endDateTimestampNumber doubleValue]];
+    }
+    NSDictionary *startLocationDictionary = [metadataDictionary objectForKey:kLocationStartKey];
+    if (startLocationDictionary) {
+        self.startLocation = [self locationFromLocationDictionary:startLocationDictionary];
+    }
+    NSDictionary *endLocationDictionary = [metadataDictionary objectForKey:kLocationEndKey];
+    if (endLocationDictionary) {
+        self.endLocation = [self locationFromLocationDictionary:endLocationDictionary];
+    }
+}
+
+- (CLLocation*)locationFromLocationDictionary:(NSDictionary*)locationDictionary {
+    CLLocationDegrees latitude = [[locationDictionary objectForKey:kLatitudeKey] doubleValue];
+    CLLocationDegrees longitude = [[locationDictionary objectForKey:kLongitudeKey] doubleValue];
+    return [[CLLocation alloc] initWithLatitude:latitude longitude:longitude];
+}
+
 
 @end

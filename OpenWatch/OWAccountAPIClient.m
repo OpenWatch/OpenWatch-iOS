@@ -8,11 +8,13 @@
 
 #import "OWAccountAPIClient.h"
 #import "AFJSONRequestOperation.h"
+#import "OWManagedRecording.h"
 
 static NSString * const kOWAccountAPIClientBaseURLString = @"http://192.168.1.44:8000/api/";
 
 
 #define kRecordingsKey @"recordings/"
+//#define kRecordingKey @"recording/"
 
 #define kEmailKey @"email_address"
 #define kPasswordKey @"password"
@@ -90,12 +92,65 @@ static NSString * const kOWAccountAPIClientBaseURLString = @"http://192.168.1.44
 - (void) fetchRecordingsWithSuccessBlock:(void (^)(void))success failure:(void (^)(NSString *))failure {
     [self getPath:kRecordingsKey parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"success: %@", [responseObject description]);
+        NSArray *recordings = [responseObject objectForKey:@"recordings"];
+        for (NSDictionary *recordingDict in recordings) {
+            int serverID = [[recordingDict objectForKey:@"id"] intValue];
+            int remoteLastEdited = [[recordingDict objectForKey:@"last_edited"] intValue];
+            OWManagedRecording *managedRecording = [OWManagedRecording MR_findFirstByAttribute:@"serverID" withValue:@(serverID)];
+            if (managedRecording) {
+                int localLastEdited = (int)[managedRecording.dateModified timeIntervalSince1970];
+                if (remoteLastEdited > localLastEdited) {
+                    [self getRecordingWithServerID:serverID success:^{
+                        
+                    } failure:^(NSString *reason) {
+                        
+                    }];
+                } else {
+                    [self postRecordingWithServerID:serverID success:^{
+                        
+                    } failure:^(NSString *reason) {
+                        
+                    }];
+                }
+            } else {
+                NSLog(@"Recording found on server that's not on client!");
+                [self getRecordingWithServerID:serverID success:^{
+                    
+                } failure:^(NSString *reason) {
+                    
+                }];
+            }
+        }
         success();
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"failure: %@", [error userInfo]);
         failure(@"fart");
     }];
 }
+
+- (NSString*)pathForRecordingWithServerID:(NSInteger)serverID {
+    return [kRecordingKey stringByAppendingFormat:@"/%d/",serverID];
+}
+
+- (void) getRecordingWithServerID:(NSInteger)serverID success:(void (^)(void))success failure:(void (^)(NSString *reason))failure {
+    [self getPath:[self pathForRecordingWithServerID:serverID] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"Response: %@", [responseObject description] );
+        success();
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        failure([error description]);
+    }];
+}
+
+- (void) postRecordingWithServerID:(NSInteger)serverID success:(void (^)(void))success failure:(void (^)(NSString *reason))failure {
+    OWManagedRecording *managedRecording = [OWManagedRecording MR_findFirstByAttribute:@"serverID" withValue:@(serverID)];
+    [self postPath:[self pathForRecordingWithServerID:serverID] parameters:managedRecording.metadataDictionary success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"post response: %@", [responseObject description]);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        failure([error description]);
+    }];
+}
+
+                
 
 
 @end

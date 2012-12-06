@@ -10,6 +10,31 @@
 #import <CoreData/CoreData.h>
 #import <CoreLocation/CoreLocation.h>
 
+#define kHQFileName @"hq.mp4"
+#define kAllFilesKey @"all_files"
+#define kUploadingKey @"uploading"
+#define kFailedKey @"failed"
+#define kCompletedKey @"completed"
+#define kUploadStateKey @"upload_state"
+#define kRecordingStartDateKey @"recording_start"
+#define kRecordingEndDateKey @"recording_end"
+#define kLocationStartKey @"start_location"
+#define kLocationEndKey @"end_location"
+#define kLatitudeKey @"latitude"
+#define kLongitudeKey @"longitude"
+#define kAltitudeKey @"altitude"
+#define kRecordingKey @"recording"
+#define kHorizontalAccuracyKey @"horizontal_accuracy"
+#define kVerticalAccuracyKey @"vertical_accuracy"
+#define kSpeedKey @"speed"
+#define kCourseKey @"course"
+#define kTimestampKey @"timestamp"
+#define kTitleKey @"title"
+#define kDescriptionKey @"description"
+#define kUUIDKey @"uuid"
+#define kMetadataFileName @"metadata.json"
+#define kSegmentsDirectory @"/segments/"
+
 @class OWUser;
 
 @interface OWManagedRecording : NSManagedObject
@@ -29,7 +54,12 @@
 @property (nonatomic, strong) CLLocation *endLocation;
 
 - (void) saveMetadata;
+- (NSDictionary*) metadataDictionary;
+- (void) loadMetadataFromDictionary:(NSDictionary*)metadataDictionary;
 
+
+- (CLLocation*)locationFromLocationDictionary:(NSDictionary*)locationDictionary;
+- (NSDictionary*) locationDictionaryForLocation:(CLLocation*)location;
 
 @end
 

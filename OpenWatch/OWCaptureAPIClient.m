@@ -157,7 +157,7 @@ static NSString * const kOWCaptureAPIClientAPIBaseURLString = @"http://192.168.1
 
 - (void) uploadMetadataForRecording:(NSManagedObjectID*)recordingObjectID postPath:(NSString*)postPath  {
     OWLocalRecording *recording = [OWRecordingController recordingForObjectID:recordingObjectID];
-    NSDictionary *params = recording.dictionaryRepresentation;
+    NSDictionary *params = recording.metadataDictionary;
     NSLog(@"WTF: %@", [params description]);
     [self postPath:postPath parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"metadata response: %@", [responseObject description]);
