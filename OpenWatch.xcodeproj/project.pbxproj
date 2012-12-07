@@ -20,6 +20,7 @@
 		D9397BBC165D6FC70093B3C8 /* fabric.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = D9397BBA165D6FC70093B3C8 /* fabric.jpeg */; };
 		D9397BBD165D6FC70093B3C8 /* fabric@2x.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = D9397BBB165D6FC70093B3C8 /* fabric@2x.jpeg */; };
 		D9397BC1165D95940093B3C8 /* OWLocationController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9397BC0165D95940093B3C8 /* OWLocationController.m */; };
+		D948CFFE1672960800FFF1D2 /* OWRecordingTag.m in Sources */ = {isa = PBXBuildFile; fileRef = D948CFFD1672960800FFF1D2 /* OWRecordingTag.m */; };
 		D96FA7AB1656F15B00309F08 /* OWAccountAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = D96FA7AA1656F15B00309F08 /* OWAccountAPIClient.m */; };
 		D99741761651D42F0034ABB0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D99741751651D42F0034ABB0 /* UIKit.framework */; };
 		D99741781651D42F0034ABB0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D99741771651D42F0034ABB0 /* Foundation.framework */; };
@@ -94,7 +95,6 @@
 		D9EB4C72166D5F080019F8B6 /* OWLocalRecording.m in Sources */ = {isa = PBXBuildFile; fileRef = D9EB4C71166D5F080019F8B6 /* OWLocalRecording.m */; };
 		D9EB4C75166D5F500019F8B6 /* OWManagedRecording.m in Sources */ = {isa = PBXBuildFile; fileRef = D9EB4C74166D5F500019F8B6 /* OWManagedRecording.m */; };
 		D9EB4C78166D5F600019F8B6 /* OWRecordingSegment.m in Sources */ = {isa = PBXBuildFile; fileRef = D9EB4C77166D5F600019F8B6 /* OWRecordingSegment.m */; };
-		D9EB4C7B166D5F700019F8B6 /* OWRecordingTag.m in Sources */ = {isa = PBXBuildFile; fileRef = D9EB4C7A166D5F700019F8B6 /* OWRecordingTag.m */; };
 		D9EB4C7F166D67920019F8B6 /* OWUser.m in Sources */ = {isa = PBXBuildFile; fileRef = D9EB4C7E166D67920019F8B6 /* OWUser.m */; };
 /* End PBXBuildFile section */
 
@@ -119,6 +119,8 @@
 		D9397BBB165D6FC70093B3C8 /* fabric@2x.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "fabric@2x.jpeg"; sourceTree = "<group>"; };
 		D9397BBF165D95940093B3C8 /* OWLocationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWLocationController.h; sourceTree = "<group>"; };
 		D9397BC0165D95940093B3C8 /* OWLocationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWLocationController.m; sourceTree = "<group>"; };
+		D948CFFC1672960800FFF1D2 /* OWRecordingTag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWRecordingTag.h; sourceTree = "<group>"; };
+		D948CFFD1672960800FFF1D2 /* OWRecordingTag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWRecordingTag.m; sourceTree = "<group>"; };
 		D96FA7A91656F15B00309F08 /* OWAccountAPIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWAccountAPIClient.h; sourceTree = "<group>"; };
 		D96FA7AA1656F15B00309F08 /* OWAccountAPIClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWAccountAPIClient.m; sourceTree = "<group>"; };
 		D99741711651D42F0034ABB0 /* OpenWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OpenWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -257,8 +259,6 @@
 		D9EB4C74166D5F500019F8B6 /* OWManagedRecording.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWManagedRecording.m; sourceTree = "<group>"; };
 		D9EB4C76166D5F600019F8B6 /* OWRecordingSegment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWRecordingSegment.h; sourceTree = "<group>"; };
 		D9EB4C77166D5F600019F8B6 /* OWRecordingSegment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWRecordingSegment.m; sourceTree = "<group>"; };
-		D9EB4C79166D5F700019F8B6 /* OWRecordingTag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWRecordingTag.h; sourceTree = "<group>"; };
-		D9EB4C7A166D5F700019F8B6 /* OWRecordingTag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWRecordingTag.m; sourceTree = "<group>"; };
 		D9EB4C7D166D67910019F8B6 /* OWUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWUser.h; sourceTree = "<group>"; };
 		D9EB4C7E166D67920019F8B6 /* OWUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWUser.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -626,8 +626,8 @@
 		D9EB4C7C166D5F7A0019F8B6 /* Core Data */ = {
 			isa = PBXGroup;
 			children = (
-				D9EB4C79166D5F700019F8B6 /* OWRecordingTag.h */,
-				D9EB4C7A166D5F700019F8B6 /* OWRecordingTag.m */,
+				D948CFFC1672960800FFF1D2 /* OWRecordingTag.h */,
+				D948CFFD1672960800FFF1D2 /* OWRecordingTag.m */,
 				D9EB4C76166D5F600019F8B6 /* OWRecordingSegment.h */,
 				D9EB4C77166D5F600019F8B6 /* OWRecordingSegment.m */,
 				D9EB4C59166D338B0019F8B6 /* Model.xcdatamodeld */,
@@ -777,8 +777,8 @@
 				D9EB4C72166D5F080019F8B6 /* OWLocalRecording.m in Sources */,
 				D9EB4C75166D5F500019F8B6 /* OWManagedRecording.m in Sources */,
 				D9EB4C78166D5F600019F8B6 /* OWRecordingSegment.m in Sources */,
-				D9EB4C7B166D5F700019F8B6 /* OWRecordingTag.m in Sources */,
 				D9EB4C7F166D67920019F8B6 /* OWUser.m in Sources */,
+				D948CFFE1672960800FFF1D2 /* OWRecordingTag.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

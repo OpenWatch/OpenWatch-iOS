@@ -2,7 +2,7 @@
 //  OWRecordingTag.h
 //  OpenWatch
 //
-//  Created by Christopher Ballinger on 12/3/12.
+//  Created by Christopher Ballinger on 12/7/12.
 //  Copyright (c) 2012 OpenWatch FPC. All rights reserved.
 //
 
@@ -14,6 +14,14 @@
 @interface OWRecordingTag : NSManagedObject
 
 @property (nonatomic, retain) NSString * name;
-@property (nonatomic, retain) OWManagedRecording *recording;
+@property (nonatomic, retain) NSSet *recordings;
+@end
+
+@interface OWRecordingTag (CoreDataGeneratedAccessors)
+
+- (void)addRecordingsObject:(OWManagedRecording *)value;
+- (void)removeRecordingsObject:(OWManagedRecording *)value;
+- (void)addRecordings:(NSSet *)values;
+- (void)removeRecordings:(NSSet *)values;
 
 @end

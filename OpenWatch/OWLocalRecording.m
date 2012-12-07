@@ -83,7 +83,7 @@
 }
 
 
-- (NSDictionary*) dictionaryRepresentation {
+- (NSDictionary*) metadataDictionary {
     NSMutableDictionary *dictionary = [NSMutableDictionary dictionaryWithDictionary:[super metadataDictionary]];
     
     [dictionary setObject:[self pathsForSegments] forKey:kAllFilesKey];
