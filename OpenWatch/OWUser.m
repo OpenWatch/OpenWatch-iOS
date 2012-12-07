@@ -15,5 +15,6 @@
 @dynamic username;
 @dynamic serverID;
 @dynamic recordings;
+@dynamic tags;
 
 @end

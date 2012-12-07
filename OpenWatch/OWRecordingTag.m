@@ -14,5 +14,7 @@
 
 @dynamic name;
 @dynamic recordings;
+@dynamic users;
+@dynamic isFeatured;
 
 @end
