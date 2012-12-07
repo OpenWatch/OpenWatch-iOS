@@ -7,6 +7,7 @@
 //
 
 #import "OWManagedRecording.h"
+#import "OWUtilities.h"
 
 #define kLastEditedKey @"last_edited"
 
@@ -78,14 +79,15 @@
     if (self.uuid) {
         [newMetadataDictionary setObject:[self.uuid copy] forKey:kUUIDKey];
     }
+    NSDateFormatter *dateFormatter = [OWUtilities isoDateFormatter];
     if (self.startDate) {
-        [newMetadataDictionary setObject:@([self.startDate timeIntervalSince1970]) forKey:kRecordingStartDateKey];
+        [newMetadataDictionary setObject:[dateFormatter stringFromDate:self.startDate] forKey:kRecordingStartDateKey];
     }
     if (self.endDate) {
-        [newMetadataDictionary setObject:@([self.endDate timeIntervalSince1970]) forKey:kRecordingEndDateKey];
+        [newMetadataDictionary setObject:[dateFormatter stringFromDate:self.endDate] forKey:kRecordingEndDateKey];
     }
     if (self.dateModified) {
-        [newMetadataDictionary setObject:@([self.dateModified timeIntervalSince1970]) forKey:kLastEditedKey];
+        [newMetadataDictionary setObject:[dateFormatter stringFromDate:self.dateModified] forKey:kLastEditedKey];
     }
     if (self.title) {
         [newMetadataDictionary setObject:[self.title copy] forKey:kTitleKey];
@@ -127,10 +129,10 @@
     if (serverID) {
         self.serverID = serverID;
     }
-    
-    NSNumber *lastEdited = [metadataDictionary objectForKey:kLastEditedKey];
+    NSDateFormatter *dateFormatter = [OWUtilities isoDateFormatter];
+    NSString *lastEdited = [metadataDictionary objectForKey:kLastEditedKey];
     if (lastEdited) {
-        self.dateModified = [NSDate dateWithTimeIntervalSince1970:[lastEdited doubleValue]];
+        self.dateModified = [dateFormatter dateFromString:lastEdited];
     }
     
     NSString *videoURL = [metadataDictionary objectForKey:@"video_url"];
@@ -150,13 +152,13 @@
     if (newDescription) {
         self.recordingDescription = newDescription;
     }
-    NSNumber *startDateTimestampNumber = [metadataDictionary objectForKey:kRecordingStartDateKey];
-    if (startDateTimestampNumber) {
-        self.startDate = [NSDate dateWithTimeIntervalSince1970:[startDateTimestampNumber doubleValue]];
+    NSString *startDateString = [metadataDictionary objectForKey:kRecordingStartDateKey];
+    if (startDateString) {
+        self.startDate = [dateFormatter dateFromString:startDateString];
     }
-    NSNumber *endDateTimestampNumber = [metadataDictionary objectForKey:kRecordingEndDateKey];
-    if (endDateTimestampNumber) {
-        self.endDate = [NSDate dateWithTimeIntervalSince1970:[endDateTimestampNumber doubleValue]];
+    NSString *endDateString = [metadataDictionary objectForKey:kRecordingEndDateKey];
+    if (endDateString) {
+        self.endDate = [dateFormatter dateFromString:endDateString];
     }
     NSDictionary *startLocationDictionary = [metadataDictionary objectForKey:kLocationStartKey];
     if (startLocationDictionary) {

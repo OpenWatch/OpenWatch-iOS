@@ -10,6 +10,7 @@
 #import "AFJSONRequestOperation.h"
 #import "OWManagedRecording.h"
 #import "OWLocalRecording.h"
+#import "OWUtilities.h"
 
 static NSString * const kOWAccountAPIClientBaseURLString = @"http://192.168.1.44:8000/api/";
 
@@ -97,17 +98,22 @@ static NSString * const kOWAccountAPIClientBaseURLString = @"http://192.168.1.44
         for (NSDictionary *recordingDict in recordings) {
             NSString *uuid = [recordingDict objectForKey:@"uuid"];
             int serverID = [[recordingDict objectForKey:@"id"] intValue];
-            int remoteLastEdited = [[recordingDict objectForKey:@"last_edited"] intValue];
+            NSString *remoteLastEditedString = [recordingDict objectForKey:@"last_edited"];
+            NSDateFormatter *dateFormatter = [OWUtilities isoDateFormatter];
+            
+            NSDate *remoteLastEditedDate = [dateFormatter dateFromString:remoteLastEditedString];
             OWManagedRecording *managedRecording = [OWManagedRecording MR_findFirstByAttribute:@"uuid" withValue:uuid];
+            NSDate *localLastEditedDate = managedRecording.dateModified;
             if (managedRecording) {
-                int localLastEdited = (int)[managedRecording.dateModified timeIntervalSince1970];
-                if (remoteLastEdited > localLastEdited) {
+                int localSeconds = (int)[localLastEditedDate timeIntervalSince1970];
+                int remoteSeconds = (int)[remoteLastEditedDate timeIntervalSince1970];
+                if (remoteSeconds > localSeconds) {
                     [self getRecordingWithServerID:serverID success:^{
                         
                     } failure:^(NSString *reason) {
                         
                     }];
-                } else {
+                } else if (remoteSeconds < localSeconds) {
                     [self postRecordingWithServerID:serverID success:^{
                         
                     } failure:^(NSString *reason) {
@@ -136,7 +142,7 @@ static NSString * const kOWAccountAPIClientBaseURLString = @"http://192.168.1.44
 
 - (void) getRecordingWithServerID:(NSInteger)serverID success:(void (^)(void))success failure:(void (^)(NSString *reason))failure {
     [self getPath:[self pathForRecordingWithServerID:serverID] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"Response: %@", [responseObject description] );
+        NSLog(@"GET Response: %@", [responseObject description] );
         NSDictionary *recordingDict = [responseObject objectForKey:kRecordingKey];
         if (recordingDict) {
             NSString *uuid = [recordingDict objectForKey:@"uuid"];
@@ -158,7 +164,7 @@ static NSString * const kOWAccountAPIClientBaseURLString = @"http://192.168.1.44
 - (void) postRecordingWithServerID:(NSInteger)serverID success:(void (^)(void))success failure:(void (^)(NSString *reason))failure {
     OWManagedRecording *managedRecording = [OWManagedRecording MR_findFirstByAttribute:@"serverID" withValue:@(serverID)];
     [self postPath:[self pathForRecordingWithServerID:serverID] parameters:managedRecording.metadataDictionary success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"post response: %@", [responseObject description]);
+        NSLog(@"POST response: %@", [responseObject description]);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"fail: %@", operation.responseString);
         failure([error description]);

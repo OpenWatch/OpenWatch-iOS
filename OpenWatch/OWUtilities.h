@@ -11,5 +11,6 @@
 @interface OWUtilities : NSObject
 
 + (UIColor*) fabricBackgroundPattern;
++ (NSDateFormatter*) isoDateFormatter;
 
 @end
