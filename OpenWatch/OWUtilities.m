@@ -14,10 +14,10 @@
     return [UIColor colorWithPatternImage:[UIImage imageNamed:@"fabric.jpeg"]];
 }
 
-+ (NSDateFormatter*) isoDateFormatter {
++ (NSDateFormatter*) dateFormatter {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss'Z'";
-    dateFormatter.timeZone = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];
+    dateFormatter.dateFormat = @"yyyy-MM-dd' 'HH:mm:ss";
+    dateFormatter.timeZone = [NSTimeZone timeZoneWithAbbreviation:@"UTC"];
     return dateFormatter;
 }
 

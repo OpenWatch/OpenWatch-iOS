@@ -99,11 +99,12 @@ static NSString * const kOWAccountAPIClientBaseURLString = @"http://192.168.1.44
             NSString *uuid = [recordingDict objectForKey:@"uuid"];
             int serverID = [[recordingDict objectForKey:@"id"] intValue];
             NSString *remoteLastEditedString = [recordingDict objectForKey:@"last_edited"];
-            NSDateFormatter *dateFormatter = [OWUtilities isoDateFormatter];
+            NSDateFormatter *dateFormatter = [OWUtilities dateFormatter];
             
             NSDate *remoteLastEditedDate = [dateFormatter dateFromString:remoteLastEditedString];
             OWManagedRecording *managedRecording = [OWManagedRecording MR_findFirstByAttribute:@"uuid" withValue:uuid];
             NSDate *localLastEditedDate = managedRecording.dateModified;
+            NSString *localLastEditedString = [dateFormatter stringFromDate:managedRecording.dateModified];
             if (managedRecording) {
                 int localSeconds = (int)[localLastEditedDate timeIntervalSince1970];
                 int remoteSeconds = (int)[remoteLastEditedDate timeIntervalSince1970];

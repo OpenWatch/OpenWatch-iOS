@@ -79,7 +79,7 @@
     if (self.uuid) {
         [newMetadataDictionary setObject:[self.uuid copy] forKey:kUUIDKey];
     }
-    NSDateFormatter *dateFormatter = [OWUtilities isoDateFormatter];
+    NSDateFormatter *dateFormatter = [OWUtilities dateFormatter];
     if (self.startDate) {
         [newMetadataDictionary setObject:[dateFormatter stringFromDate:self.startDate] forKey:kRecordingStartDateKey];
     }
@@ -129,7 +129,7 @@
     if (serverID) {
         self.serverID = serverID;
     }
-    NSDateFormatter *dateFormatter = [OWUtilities isoDateFormatter];
+    NSDateFormatter *dateFormatter = [OWUtilities dateFormatter];
     NSString *lastEdited = [metadataDictionary objectForKey:kLastEditedKey];
     if (lastEdited) {
         self.dateModified = [dateFormatter dateFromString:lastEdited];
