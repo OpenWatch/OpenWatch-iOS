@@ -52,7 +52,6 @@
     }
     self.startLatitude = @(startLocation.coordinate.latitude);
     self.startLongitude = @(startLocation.coordinate.longitude);
-    [self saveMetadata];
 }
 
 - (void) saveMetadata {
@@ -71,7 +70,6 @@
     }
     self.endLatitude = @(endLocation.coordinate.latitude);
     self.endLongitude = @(endLocation.coordinate.longitude);
-    [self saveMetadata];
 }
 
 - (NSDictionary*) metadataDictionary {

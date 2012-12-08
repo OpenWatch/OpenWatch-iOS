@@ -103,11 +103,16 @@ static NSString * const kOWAccountAPIClientBaseURLString = @"http://192.168.1.44
             
             NSDate *remoteLastEditedDate = [dateFormatter dateFromString:remoteLastEditedString];
             OWManagedRecording *managedRecording = [OWManagedRecording MR_findFirstByAttribute:@"uuid" withValue:uuid];
+            managedRecording.serverID = @(serverID);
+            NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
+            [context MR_saveNestedContexts];
             NSDate *localLastEditedDate = managedRecording.dateModified;
             NSString *localLastEditedString = [dateFormatter stringFromDate:managedRecording.dateModified];
             if (managedRecording) {
                 int localSeconds = (int)[localLastEditedDate timeIntervalSince1970];
                 int remoteSeconds = (int)[remoteLastEditedDate timeIntervalSince1970];
+                NSLog(@"loc: %@", localLastEditedString);
+                NSLog(@"rmt: %@", remoteLastEditedString);
                 if (remoteSeconds > localSeconds) {
                     [self getRecordingWithServerID:serverID success:^{
                         
@@ -164,8 +169,13 @@ static NSString * const kOWAccountAPIClientBaseURLString = @"http://192.168.1.44
 
 - (void) postRecordingWithServerID:(NSInteger)serverID success:(void (^)(void))success failure:(void (^)(NSString *reason))failure {
     OWManagedRecording *managedRecording = [OWManagedRecording MR_findFirstByAttribute:@"serverID" withValue:@(serverID)];
+    if (!managedRecording) {
+        NSLog(@"Recording %d not found!", serverID);
+        return;
+    }
     [self postPath:[self pathForRecordingWithServerID:serverID] parameters:managedRecording.metadataDictionary success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"POST response: %@", [responseObject description]);
+        //NSLog(@"POST body: %@", operation.request.HTTPBody);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"fail: %@", operation.responseString);
         failure([error description]);
