@@ -13,3 +13,9 @@
 [submodule "Submodules/MagicalRecord"]
 	path = Submodules/MagicalRecord
 	url = git://github.com/magicalpanda/MagicalRecord.git
+[submodule "Submodules/WEPopover"]
+	path = Submodules/WEPopover
+	url = git://github.com/werner77/WEPopover.git
+[submodule "Submodules/SuggestionsList"]
+	path = Submodules/SuggestionsList
+	url = git@github.com:OpenWatch/SuggestionsList.git

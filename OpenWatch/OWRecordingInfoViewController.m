@@ -11,6 +11,7 @@
 #import "OWCaptureAPIClient.h"
 #import "OWMapAnnotation.h"
 #import "OWRecordingController.h"
+#import "SuggestionsList.h"
 
 @interface OWRecordingInfoViewController ()
 @property (nonatomic) CLLocationCoordinate2D centerCoordinate;
@@ -20,10 +21,12 @@
 @property (nonatomic, strong) UITextField *descriptionTextField;
 @property (nonatomic, strong) UIBarButtonItem *saveButton;
 @property (nonatomic, strong) UIProgressView *uploadProgressView;
+@property (nonatomic, strong) UITextField *tagsTextField;
+@property (nonatomic, strong) SuggestionsList *suggestionsList;
 @end
 
 @implementation OWRecordingInfoViewController
-@synthesize recordingID, titleTextField, descriptionTextField, mapView, moviePlayer, centerCoordinate, uploadProgressView;
+@synthesize recordingID, titleTextField, descriptionTextField, mapView, moviePlayer, centerCoordinate, uploadProgressView, tagsTextField, suggestionsList;
 
 - (id) init {
     if (self = [super init]) {
@@ -47,7 +50,7 @@
 
 - (void) setupProgressView {
     self.uploadProgressView = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleDefault];
-    [self addCellInfoWithSection:0 row:2 labelText:PROGRESS_STRING cellType:kCellTypeProgress userInputView:self.uploadProgressView];
+    [self addCellInfoWithSection:0 row:3 labelText:PROGRESS_STRING cellType:kCellTypeProgress userInputView:self.uploadProgressView];
 }
 
 - (void) refreshProgressView {
@@ -206,6 +209,13 @@
     self.descriptionTextField = [self textFieldWithDefaults];
 
     [self addCellInfoWithSection:0 row:1 labelText:DESCRIPTION_STRING cellType:kCellTypeTextField userInputView:self.descriptionTextField];
+    
+    self.tagsTextField = [self textFieldWithDefaults];
+    [self addCellInfoWithSection:0 row:2 labelText:TAGS_STRING cellType:kCellTypeTextField userInputView:self.tagsTextField];
+    self.tagsTextField.delegate = self;
+    NSArray *strings = [NSArray arrayWithObjects:@"Berlin",@"Warsaw",@"Wroclaw",@"Barcelona",nil];
+    self.suggestionsList = [[SuggestionsList alloc] initWithSuggestionStrings:strings];
+
 }
 
 - (UITextField*)textFieldWithDefaults {
@@ -232,6 +242,13 @@
     [recording saveMetadata];
     [self.view endEditing:YES];
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+    if (textField == self.tagsTextField) {
+        [suggestionsList showSuggestionsFor:textField shouldChangeCharactersInRange:range replacementString:string];
+    }
+    return YES;
 }
 
 @end
