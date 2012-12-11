@@ -11,7 +11,12 @@
 #import "OWCaptureAPIClient.h"
 #import "OWMapAnnotation.h"
 #import "OWRecordingController.h"
-#import "SuggestionsList.h"
+#import "OWTagEditViewController.h"
+
+#define TITLE_ROW 0
+#define DESCRIPTION_ROW 1
+#define TAGS_ROW 2
+#define PROGRESS_ROW 3
 
 @interface OWRecordingInfoViewController ()
 @property (nonatomic) CLLocationCoordinate2D centerCoordinate;
@@ -21,12 +26,10 @@
 @property (nonatomic, strong) UITextField *descriptionTextField;
 @property (nonatomic, strong) UIBarButtonItem *saveButton;
 @property (nonatomic, strong) UIProgressView *uploadProgressView;
-@property (nonatomic, strong) UITextField *tagsTextField;
-@property (nonatomic, strong) SuggestionsList *suggestionsList;
 @end
 
 @implementation OWRecordingInfoViewController
-@synthesize recordingID, titleTextField, descriptionTextField, mapView, moviePlayer, centerCoordinate, uploadProgressView, tagsTextField, suggestionsList;
+@synthesize recordingID, titleTextField, descriptionTextField, mapView, moviePlayer, centerCoordinate, uploadProgressView;
 
 - (id) init {
     if (self = [super init]) {
@@ -197,25 +200,22 @@
         self.descriptionTextField.text = description;
     } else {
         self.descriptionTextField.text = @"";
-    }
+    }    
 }
+
+
 
 -(void)setupFields {
     self.titleTextField = [self textFieldWithDefaults];
     self.titleTextField.placeholder = REQUIRED_STRING;
 
-    [self addCellInfoWithSection:0 row:0 labelText:TITLE_STRING cellType:kCellTypeTextField userInputView:self.titleTextField];
+    [self addCellInfoWithSection:0 row:TITLE_ROW labelText:TITLE_STRING cellType:kCellTypeTextField userInputView:self.titleTextField];
     
     self.descriptionTextField = [self textFieldWithDefaults];
 
-    [self addCellInfoWithSection:0 row:1 labelText:DESCRIPTION_STRING cellType:kCellTypeTextField userInputView:self.descriptionTextField];
+    [self addCellInfoWithSection:0 row:DESCRIPTION_ROW labelText:DESCRIPTION_STRING cellType:kCellTypeTextField userInputView:self.descriptionTextField];
     
-    self.tagsTextField = [self textFieldWithDefaults];
-    [self addCellInfoWithSection:0 row:2 labelText:TAGS_STRING cellType:kCellTypeTextField userInputView:self.tagsTextField];
-    self.tagsTextField.delegate = self;
-    NSArray *strings = [NSArray arrayWithObjects:@"Berlin",@"Warsaw",@"Wroclaw",@"Barcelona",nil];
-    self.suggestionsList = [[SuggestionsList alloc] initWithSuggestionStrings:strings];
-
+    [self addCellInfoWithSection:0 row:TAGS_ROW labelText:TAGS_STRING cellType:kCellTypeNone userInputView:nil];
 }
 
 - (UITextField*)textFieldWithDefaults {
@@ -239,16 +239,19 @@
     OWLocalRecording *recording = [OWRecordingController recordingForObjectID:self.recordingID];
     recording.title = self.titleTextField.text;
     recording.recordingDescription = self.descriptionTextField.text;
+        
     [recording saveMetadata];
     [self.view endEditing:YES];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
-    if (textField == self.tagsTextField) {
-        [suggestionsList showSuggestionsFor:textField shouldChangeCharactersInRange:range replacementString:string];
+- (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row == TAGS_ROW) {
+        OWTagEditViewController *tagEditor = [[OWTagEditViewController alloc] init];
+        tagEditor.recordingObjectID = self.recordingID;
+        [self.navigationController pushViewController:tagEditor animated:YES];
     }
-    return YES;
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 @end

@@ -37,3 +37,4 @@
 #define WATCH_STRING NSLocalizedString(@"Watch", "Title for news button")
 #define ACCOUNT_STRING NSLocalizedString(@"Account", @"Title for account button")
 #define TAGS_STRING NSLocalizedString(@"Tags", @"Title for tags input view")
+#define TAG_STRING NSLocalizedString(@"Tag", @"Name for tag")

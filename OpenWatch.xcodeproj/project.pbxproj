@@ -77,6 +77,7 @@
 		D9D786FB16766C40006EE6A2 /* popoverArrowUp@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9D786EC16766C40006EE6A2 /* popoverArrowUp@2x.png */; };
 		D9D786FD16766C40006EE6A2 /* popoverBg.png in Resources */ = {isa = PBXBuildFile; fileRef = D9D786EE16766C40006EE6A2 /* popoverBg.png */; };
 		D9D786FE16766C40006EE6A2 /* popoverBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9D786EF16766C40006EE6A2 /* popoverBg@2x.png */; };
+		D9D7870A16769F52006EE6A2 /* OWTagEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D7870916769F52006EE6A2 /* OWTagEditViewController.m */; };
 		D9DFADFA16547DE7003C515C /* openwatch.png in Resources */ = {isa = PBXBuildFile; fileRef = D9DFADF816547DE7003C515C /* openwatch.png */; };
 		D9DFADFB16547DE7003C515C /* openwatch@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9DFADF916547DE7003C515C /* openwatch@2x.png */; };
 		D9EB4C3C166D314C0019F8B6 /* MagicalImportFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = D9EB4C04166D314C0019F8B6 /* MagicalImportFunctions.m */; };
@@ -231,6 +232,8 @@
 		D9D786EC16766C40006EE6A2 /* popoverArrowUp@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "popoverArrowUp@2x.png"; path = "Submodules/WEPopover/popoverArrowUp@2x.png"; sourceTree = SOURCE_ROOT; };
 		D9D786EE16766C40006EE6A2 /* popoverBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = popoverBg.png; path = Submodules/WEPopover/popoverBg.png; sourceTree = SOURCE_ROOT; };
 		D9D786EF16766C40006EE6A2 /* popoverBg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "popoverBg@2x.png"; path = "Submodules/WEPopover/popoverBg@2x.png"; sourceTree = SOURCE_ROOT; };
+		D9D7870816769F51006EE6A2 /* OWTagEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWTagEditViewController.h; sourceTree = "<group>"; };
+		D9D7870916769F52006EE6A2 /* OWTagEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWTagEditViewController.m; sourceTree = "<group>"; };
 		D9DFADF816547DE7003C515C /* openwatch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = openwatch.png; sourceTree = "<group>"; };
 		D9DFADF916547DE7003C515C /* openwatch@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "openwatch@2x.png"; sourceTree = "<group>"; };
 		D9EB4C03166D314C0019F8B6 /* MagicalImportFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MagicalImportFunctions.h; sourceTree = "<group>"; };
@@ -528,6 +531,8 @@
 		D9D2E21D16532B220000E7C5 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				D9D7870816769F51006EE6A2 /* OWTagEditViewController.h */,
+				D9D7870916769F52006EE6A2 /* OWTagEditViewController.m */,
 				D907022F1668270F00611607 /* OWHomeScreenViewController.h */,
 				D90702301668270F00611607 /* OWHomeScreenViewController.m */,
 				D9308512166406E5008C5D4C /* OWRecordingInfoViewController.h */,
@@ -868,6 +873,7 @@
 				D9D786DB16766415006EE6A2 /* WEPopoverController.m in Sources */,
 				D9D786DC16766415006EE6A2 /* WETouchableView.m in Sources */,
 				D9D786E1167666C1006EE6A2 /* SuggestionsList.m in Sources */,
+				D9D7870A16769F52006EE6A2 /* OWTagEditViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -8,8 +8,10 @@
 
 #import "OWManagedRecording.h"
 #import "OWUtilities.h"
+#import "OWRecordingTag.h"
 
 #define kLastEditedKey @"last_edited"
+#define kTagsKey @"tags"
 
 @interface OWManagedRecording()
 @property (nonatomic, retain) NSNumber * endLatitude;
@@ -101,8 +103,15 @@
         NSDictionary *endLocationDictionary = [self locationDictionaryForLocation:self.endLocation];
         [newMetadataDictionary setObject:endLocationDictionary forKey:kLocationEndKey];
     }
-    
-    
+    NSSet *tags = self.tags;
+    NSMutableArray *tagsArray = [NSMutableArray arrayWithCapacity:tags.count];
+    for (OWRecordingTag *tag in tags) {
+        if ([tag.name isEqualToString:@""]) {
+            continue;
+        }
+        [tagsArray addObject:tag.name];
+    }
+    [newMetadataDictionary setObject:tagsArray forKey:kTagsKey];
     
     return newMetadataDictionary;
 }
@@ -166,6 +175,23 @@
     if (endLocationDictionary) {
         self.endLocation = [self locationFromLocationDictionary:endLocationDictionary];
     }
+    NSArray *tagsArray = [metadataDictionary objectForKey:kTagsKey];
+    if (tagsArray) {
+        NSMutableSet *tags = [NSMutableSet set];
+        for (NSString *component in tagsArray) {
+            if ([component isEqualToString:@""]) {
+                continue;
+            }
+            OWRecordingTag *tag = [OWRecordingTag MR_findFirstByAttribute:@"name" withValue:component];
+            if (!tag) {
+                tag = [OWRecordingTag MR_createEntity];
+                tag.name = component;
+            }
+            [tags addObject:tag];
+        }
+        self.tags = tags;
+    }
+    
     NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
     [context MR_saveNestedContexts];
 }

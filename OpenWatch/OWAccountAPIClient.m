@@ -52,6 +52,7 @@ static NSString * const kOWAccountAPIClientBaseURLString = @"http://192.168.1.44
     
     // Accept HTTP Header; see http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.1
 	[self setDefaultHeader:@"Accept" value:@"application/json"];
+    self.parameterEncoding = AFJSONParameterEncoding;
     
     return self;
 }
@@ -114,13 +115,13 @@ static NSString * const kOWAccountAPIClientBaseURLString = @"http://192.168.1.44
                 NSLog(@"loc: %@", localLastEditedString);
                 NSLog(@"rmt: %@", remoteLastEditedString);
                 if (remoteSeconds > localSeconds) {
-                    [self getRecordingWithServerID:serverID success:^{
+                    [self getRecordingWithUUID:uuid success:^{
                         
                     } failure:^(NSString *reason) {
                         
                     }];
                 } else if (remoteSeconds < localSeconds) {
-                    [self postRecordingWithServerID:serverID success:^{
+                    [self postRecordingWithUUID:uuid success:^{
                         
                     } failure:^(NSString *reason) {
                         
@@ -128,7 +129,7 @@ static NSString * const kOWAccountAPIClientBaseURLString = @"http://192.168.1.44
                 }
             } else {
                 NSLog(@"Recording found on server that's not on client!");
-                [self getRecordingWithServerID:serverID success:^{
+                [self getRecordingWithUUID:uuid success:^{
                     
                 } failure:^(NSString *reason) {
                     
@@ -142,12 +143,12 @@ static NSString * const kOWAccountAPIClientBaseURLString = @"http://192.168.1.44
     }];
 }
 
-- (NSString*)pathForRecordingWithServerID:(NSInteger)serverID {
-    return [kRecordingKey stringByAppendingFormat:@"/%d/",serverID];
+- (NSString*)pathForRecordingWithUUID:(NSString*)UUID {
+    return [kRecordingKey stringByAppendingFormat:@"/%@/",UUID];
 }
 
-- (void) getRecordingWithServerID:(NSInteger)serverID success:(void (^)(void))success failure:(void (^)(NSString *reason))failure {
-    [self getPath:[self pathForRecordingWithServerID:serverID] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+- (void) getRecordingWithUUID:(NSString*)UUID success:(void (^)(void))success failure:(void (^)(NSString *reason))failure {
+    [self getPath:[self pathForRecordingWithUUID:UUID] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"GET Response: %@", [responseObject description] );
         NSDictionary *recordingDict = [responseObject objectForKey:kRecordingKey];
         if (recordingDict) {
@@ -167,13 +168,13 @@ static NSString * const kOWAccountAPIClientBaseURLString = @"http://192.168.1.44
     }];
 }
 
-- (void) postRecordingWithServerID:(NSInteger)serverID success:(void (^)(void))success failure:(void (^)(NSString *reason))failure {
-    OWManagedRecording *managedRecording = [OWManagedRecording MR_findFirstByAttribute:@"serverID" withValue:@(serverID)];
+- (void) postRecordingWithUUID:(NSString*)UUID success:(void (^)(void))success failure:(void (^)(NSString *reason))failure {
+    OWManagedRecording *managedRecording = [OWManagedRecording MR_findFirstByAttribute:@"uuid" withValue:UUID];
     if (!managedRecording) {
-        NSLog(@"Recording %d not found!", serverID);
+        NSLog(@"Recording %@ not found!", UUID);
         return;
     }
-    [self postPath:[self pathForRecordingWithServerID:serverID] parameters:managedRecording.metadataDictionary success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self postPath:[self pathForRecordingWithUUID:UUID] parameters:managedRecording.metadataDictionary success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"POST response: %@", [responseObject description]);
         //NSLog(@"POST body: %@", operation.request.HTTPBody);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
