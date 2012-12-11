@@ -66,7 +66,7 @@
 		D9D786DA16766415006EE6A2 /* WEPopoverContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D786D316766415006EE6A2 /* WEPopoverContainerView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		D9D786DB16766415006EE6A2 /* WEPopoverController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D786D516766415006EE6A2 /* WEPopoverController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		D9D786DC16766415006EE6A2 /* WETouchableView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D786D816766415006EE6A2 /* WETouchableView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		D9D786E1167666C1006EE6A2 /* SuggestionsList.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D786DF1676665D006EE6A2 /* SuggestionsList.m */; };
+		D9D786E1167666C1006EE6A2 /* OWAutocompletionView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D786DF1676665D006EE6A2 /* OWAutocompletionView.m */; };
 		D9D786F116766C40006EE6A2 /* popoverArrowDown.png in Resources */ = {isa = PBXBuildFile; fileRef = D9D786E216766C40006EE6A2 /* popoverArrowDown.png */; };
 		D9D786F216766C40006EE6A2 /* popoverArrowDown@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9D786E316766C40006EE6A2 /* popoverArrowDown@2x.png */; };
 		D9D786F416766C40006EE6A2 /* popoverArrowLeft.png in Resources */ = {isa = PBXBuildFile; fileRef = D9D786E516766C40006EE6A2 /* popoverArrowLeft.png */; };
@@ -220,8 +220,8 @@
 		D9D786D616766415006EE6A2 /* WEPopoverParentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WEPopoverParentView.h; sourceTree = "<group>"; };
 		D9D786D716766415006EE6A2 /* WETouchableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WETouchableView.h; sourceTree = "<group>"; };
 		D9D786D816766415006EE6A2 /* WETouchableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WETouchableView.m; sourceTree = "<group>"; };
-		D9D786DE1676665D006EE6A2 /* SuggestionsList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SuggestionsList.h; path = SuggestionsList/AutoComplete/SuggestionsList.h; sourceTree = "<group>"; };
-		D9D786DF1676665D006EE6A2 /* SuggestionsList.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = SuggestionsList.m; path = SuggestionsList/AutoComplete/SuggestionsList.m; sourceTree = "<group>"; };
+		D9D786DE1676665D006EE6A2 /* OWAutocompletionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = OWAutocompletionView.h; path = SuggestionsList/AutoComplete/OWAutocompletionView.h; sourceTree = "<group>"; };
+		D9D786DF1676665D006EE6A2 /* OWAutocompletionView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = OWAutocompletionView.m; path = SuggestionsList/AutoComplete/OWAutocompletionView.m; sourceTree = "<group>"; };
 		D9D786E216766C40006EE6A2 /* popoverArrowDown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = popoverArrowDown.png; path = Submodules/WEPopover/popoverArrowDown.png; sourceTree = SOURCE_ROOT; };
 		D9D786E316766C40006EE6A2 /* popoverArrowDown@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "popoverArrowDown@2x.png"; path = "Submodules/WEPopover/popoverArrowDown@2x.png"; sourceTree = SOURCE_ROOT; };
 		D9D786E516766C40006EE6A2 /* popoverArrowLeft.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = popoverArrowLeft.png; path = Submodules/WEPopover/popoverArrowLeft.png; sourceTree = SOURCE_ROOT; };
@@ -581,8 +581,8 @@
 		D9D786E016766661006EE6A2 /* SuggestionsList */ = {
 			isa = PBXGroup;
 			children = (
-				D9D786DE1676665D006EE6A2 /* SuggestionsList.h */,
-				D9D786DF1676665D006EE6A2 /* SuggestionsList.m */,
+				D9D786DE1676665D006EE6A2 /* OWAutocompletionView.h */,
+				D9D786DF1676665D006EE6A2 /* OWAutocompletionView.m */,
 			);
 			name = SuggestionsList;
 			sourceTree = "<group>";
@@ -872,7 +872,7 @@
 				D9D786DA16766415006EE6A2 /* WEPopoverContainerView.m in Sources */,
 				D9D786DB16766415006EE6A2 /* WEPopoverController.m in Sources */,
 				D9D786DC16766415006EE6A2 /* WETouchableView.m in Sources */,
-				D9D786E1167666C1006EE6A2 /* SuggestionsList.m in Sources */,
+				D9D786E1167666C1006EE6A2 /* OWAutocompletionView.m in Sources */,
 				D9D7870A16769F52006EE6A2 /* OWTagEditViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

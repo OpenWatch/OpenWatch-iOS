@@ -11,7 +11,7 @@
 #import "OWRecordingController.h"
 #import "OWRecordingTag.h"
 #import "OWStrings.h"
-#import "SuggestionsList.h"
+#import "OWAutocompletionView.h"
 
 @interface OWTagEditViewController ()
 @property (nonatomic, strong) UITableView *tagTableView;
@@ -19,11 +19,11 @@
 @property (nonatomic, strong) UITextField *tagTextField;
 @property (nonatomic, strong) NSMutableArray *tagsArray;
 @property (nonatomic, strong) UIButton *addTagButton;
-@property (nonatomic, strong) SuggestionsList *suggestionsList;
+@property (nonatomic, strong) OWAutocompletionView *autocompletionView;
 @end
 
 @implementation OWTagEditViewController
-@synthesize recordingObjectID, tagTableView, tagLabel, tagTextField, tagsArray, addTagButton, suggestionsList;
+@synthesize recordingObjectID, tagTableView, tagLabel, tagTextField, tagsArray, addTagButton, autocompletionView;
 
 - (id)init
 {
@@ -40,7 +40,8 @@
         self.addTagButton = [UIButton buttonWithType:UIButtonTypeContactAdd];
         [addTagButton addTarget:self action:@selector(addTagButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:SAVE_STRING style:UIBarButtonItemStyleDone target:self action:@selector(saveButtonPressed:)];
-        self.suggestionsList = [[SuggestionsList alloc] init];
+        self.autocompletionView = [[OWAutocompletionView alloc] init];
+        self.autocompletionView.delegate = self;
     }
     return self;
 }
@@ -81,9 +82,9 @@
     NSArray *allTags = [OWRecordingTag MR_findAll];
     NSMutableArray *suggestionStrings = [NSMutableArray arrayWithCapacity:[allTags count]];
     for (OWRecordingTag *tag in allTags) {
-        [suggestionStrings addObject:tag.name];
+        [suggestionStrings addObject:[tag.name lowercaseString]];
     }
-    self.suggestionsList.suggestionStrings = suggestionStrings;
+    self.autocompletionView.suggestionStrings = suggestionStrings;
 }
 
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -115,11 +116,15 @@
         return;
     }
     NSString *newTagString = [self.tagTextField.text lowercaseString];
+    [self addTagForName:newTagString];
+}
+
+- (void) addTagForName:(NSString*)tagName {
     self.tagTextField.text = @"";
-    OWRecordingTag *tag = [OWRecordingTag MR_findFirstByAttribute:@"name" withValue:newTagString];
+    OWRecordingTag *tag = [OWRecordingTag MR_findFirstByAttribute:@"name" withValue:tagName];
     if (!tag) {
         tag = [OWRecordingTag MR_createEntity];
-        tag.name = newTagString;
+        tag.name = tagName;
     }
     [self.tagsArray addObject:tag];
     NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES];
@@ -129,7 +134,14 @@
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
     if (textField == self.tagTextField) {
-        [suggestionsList showSuggestionsFor:textField shouldChangeCharactersInRange:range replacementString:string];
+        [autocompletionView showSuggestionsForTextField:textField shouldChangeCharactersInRange:range replacementString:string];
+    }
+    return YES;
+}
+
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+    if (textField == self.tagTextField) {
+        [autocompletionView showAllSuggestionsForTextField:self.tagTextField];
     }
     return YES;
 }
@@ -161,6 +173,10 @@
         [tagsArray removeObjectAtIndex:indexPath.row];
         [tableView reloadData];
     }
+}
+
+- (void) didSelectString:(NSString *)string forTextField:(UITextField *)textField {
+    [self addTagForName:string];
 }
 
 @end
