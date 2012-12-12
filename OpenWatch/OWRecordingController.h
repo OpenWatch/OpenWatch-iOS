@@ -21,5 +21,6 @@
 - (void) scanDirectoryForChanges;
 - (void) scanRecordingsForUnsubmittedData;
 + (OWLocalRecording*) recordingForObjectID:(NSManagedObjectID*)objectID;
++ (NSURL*) detailPageURLForRecordingServerID:(int)serverID;
 
 @end

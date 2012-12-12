@@ -21,4 +21,8 @@
     return dateFormatter;
 }
 
++ (NSString*) baseURLString {
+    return @"http://192.168.1.44:8000/";
+}
+
 @end

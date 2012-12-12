@@ -11,9 +11,7 @@
 #import "OWManagedRecording.h"
 #import "OWLocalRecording.h"
 #import "OWUtilities.h"
-
-static NSString * const kOWAccountAPIClientBaseURLString = @"http://192.168.1.44:8000/api/";
-
+#import "OWRecordingTag.h"
 
 #define kRecordingsKey @"recordings/"
 //#define kRecordingKey @"recording/"
@@ -29,14 +27,19 @@ static NSString * const kOWAccountAPIClientBaseURLString = @"http://192.168.1.44
 
 #define kCreateAccountPath @"create_account"
 #define kLoginAccountPath @"login_account"
+#define kTagPath @"tag/"
 
 @implementation OWAccountAPIClient
+
++ (NSString*) baseURL {
+    return [NSURL URLWithString:[[OWUtilities baseURLString] stringByAppendingFormat:@"api/"]];
+}
 
 + (OWAccountAPIClient *)sharedClient {
     static OWAccountAPIClient *_sharedClient = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        _sharedClient = [[OWAccountAPIClient alloc] initWithBaseURL:[NSURL URLWithString:kOWAccountAPIClientBaseURLString]];
+        _sharedClient = [[OWAccountAPIClient alloc] initWithBaseURL:[OWAccountAPIClient baseURL]];
     });
     
     return _sharedClient;
@@ -183,7 +186,55 @@ static NSString * const kOWAccountAPIClientBaseURLString = @"http://192.168.1.44
     }];
 }
 
-                
+- (NSString*) pathForTagFeed:(NSString*)tag {
+    return [kTagPath stringByAppendingString:tag];
+}
+
+- (void) fetchRecordingsForTag:(NSString *)tagName success:(void (^)(void))success failure:(void (^)(NSString *))failure {
+
+    [self getPath:[self pathForTagFeed:tagName] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
+
+        OWRecordingTag *tag = [OWRecordingTag MR_findFirstByAttribute:@"name" withValue:tagName];
+        if (!tag) {
+            tag = [OWRecordingTag MR_createEntity];
+            tag.name = [tagName lowercaseString];
+        }
+        
+        NSLog(@"success: %@", [responseObject description]);
+        NSArray *recordings = [responseObject objectForKey:@"recordings"];
+        for (NSDictionary *recordingDict in recordings) {
+            NSString *uuid = [recordingDict objectForKey:@"uuid"];
+            int serverID = [[recordingDict objectForKey:@"id"] intValue];
+            NSString *title = [recordingDict objectForKey:@"title"];
+            NSString *remoteLastEditedString = [recordingDict objectForKey:@"last_edited"];
+            NSDateFormatter *dateFormatter = [OWUtilities dateFormatter];
+            NSDate *remoteLastEditedDate = [dateFormatter dateFromString:remoteLastEditedString];
+            OWManagedRecording *managedRecording = [OWManagedRecording MR_findFirstByAttribute:@"uuid" withValue:uuid];
+            if (!managedRecording) {
+                managedRecording = [OWManagedRecording MR_createEntity];
+            }
+            managedRecording.serverID = @(serverID);
+            if (title) {
+                managedRecording.title = title;
+            }
+            if (remoteLastEditedDate) {
+                managedRecording.dateModified = remoteLastEditedDate;
+            }
+            if (uuid) {
+                managedRecording.uuid = uuid;
+            }
+            if (tag) {
+                [managedRecording addTagsObject:tag];
+            }
+        }
+        [context MR_saveNestedContexts];
+        success();
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"failure: %@", [error userInfo]);
+        failure(@"fart");
+    }];
+}
 
 
 @end

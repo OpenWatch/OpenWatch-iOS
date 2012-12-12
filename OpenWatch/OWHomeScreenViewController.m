@@ -13,6 +13,7 @@
 #import "OWSettingsController.h"
 #import "OWCaptureViewController.h"
 #import "OWSettingsViewController.h"
+#import "OWWatchViewController.h"
 
 @interface OWHomeScreenViewController ()
 @property (nonatomic, strong) UIButton *recordButton;
@@ -94,7 +95,8 @@
 }
 
 - (void) newsButtonPressed:(id)sender {
-    
+    OWWatchViewController *watchVC = [[OWWatchViewController alloc] init];
+    [self.navigationController pushViewController:watchVC animated:YES];
 }
 
 @end

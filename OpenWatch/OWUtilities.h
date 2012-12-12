@@ -12,5 +12,6 @@
 
 + (UIColor*) fabricBackgroundPattern;
 + (NSDateFormatter*) dateFormatter;
++ (NSString*) baseURLString;
 
 @end

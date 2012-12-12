@@ -36,6 +36,7 @@
 @dynamic tags;
 @dynamic user;
 @dynamic dateModified;
+@dynamic thumbnailURL;
 
 - (CLLocation*) startLocation {
     return [self locationWithLatitude:[self.startLatitude doubleValue] longitude:[self.startLongitude doubleValue]];

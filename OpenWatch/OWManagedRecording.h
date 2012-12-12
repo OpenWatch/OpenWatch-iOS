@@ -47,6 +47,7 @@
 @property (nonatomic, retain) NSString * uuid;
 @property (nonatomic, retain) NSNumber * serverID;
 @property (nonatomic, retain) NSString * remoteVideoURL;
+@property (nonatomic, retain) NSString *thumbnailURL;
 @property (nonatomic, retain) NSSet *tags;
 @property (nonatomic, strong) OWUser *user;
 

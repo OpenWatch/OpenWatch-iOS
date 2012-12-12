@@ -9,6 +9,8 @@
 #import "OWRecordingController.h"
 #import "OWCaptureAPIClient.h"
 #import "OWSettingsController.h"
+#import "OWUtilities.h"
+
 
 @interface OWRecordingController()
 @end
@@ -56,6 +58,12 @@
         error = nil;
     }
     return recording;
+}
+
++ (NSURL*) detailPageURLForRecordingServerID:(int)serverID {
+    NSString *urlString = [[OWUtilities baseURLString] stringByAppendingFormat:@"v/%d/",serverID];
+    NSURL *url = [NSURL URLWithString:urlString];
+    return url;
 }
 
 - (void) uploadFailedFileURLs:(NSArray*)failedFileURLs forRecording:(NSManagedObjectID*)recordingObjectID {
