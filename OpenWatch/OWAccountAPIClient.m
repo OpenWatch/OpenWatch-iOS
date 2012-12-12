@@ -152,6 +152,7 @@
 
 - (void) getRecordingWithUUID:(NSString*)UUID success:(void (^)(void))success failure:(void (^)(NSString *reason))failure {
     [self getPath:[self pathForRecordingWithUUID:UUID] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
         NSLog(@"GET Response: %@", [responseObject description] );
         NSDictionary *recordingDict = [responseObject objectForKey:kRecordingKey];
         if (recordingDict) {
@@ -159,6 +160,7 @@
             OWManagedRecording *managedRecording = [OWManagedRecording MR_findFirstByAttribute:@"uuid" withValue:uuid];
             if (managedRecording) {
                 [managedRecording loadMetadataFromDictionary:recordingDict];
+                [context MR_saveNestedContexts];
                 success();
             } else {
                 failure(@"No recording found");
@@ -190,7 +192,7 @@
     return [kTagPath stringByAppendingString:tag];
 }
 
-- (void) fetchRecordingsForTag:(NSString *)tagName success:(void (^)(void))success failure:(void (^)(NSString *))failure {
+- (void) fetchRecordingsForTag:(NSString *)tagName success:(void (^)(NSArray *recordings))success failure:(void (^)(NSString *))failure {
 
     [self getPath:[self pathForTagFeed:tagName] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
@@ -203,37 +205,32 @@
         
         NSLog(@"success: %@", [responseObject description]);
         NSArray *recordings = [responseObject objectForKey:@"recordings"];
+        NSMutableArray *recordingsToReturn = [NSMutableArray arrayWithCapacity:[recordings count]];
         for (NSDictionary *recordingDict in recordings) {
-            NSString *uuid = [recordingDict objectForKey:@"uuid"];
-            int serverID = [[recordingDict objectForKey:@"id"] intValue];
-            NSString *title = [recordingDict objectForKey:@"title"];
-            NSString *remoteLastEditedString = [recordingDict objectForKey:@"last_edited"];
-            NSDateFormatter *dateFormatter = [OWUtilities dateFormatter];
-            NSDate *remoteLastEditedDate = [dateFormatter dateFromString:remoteLastEditedString];
-            OWManagedRecording *managedRecording = [OWManagedRecording MR_findFirstByAttribute:@"uuid" withValue:uuid];
-            if (!managedRecording) {
-                managedRecording = [OWManagedRecording MR_createEntity];
-            }
-            managedRecording.serverID = @(serverID);
-            if (title) {
-                managedRecording.title = title;
-            }
-            if (remoteLastEditedDate) {
-                managedRecording.dateModified = remoteLastEditedDate;
-            }
-            if (uuid) {
-                managedRecording.uuid = uuid;
-            }
+            OWManagedRecording *managedRecording = [self managedRecordingForShortMetadataDictionary:recordingDict];
             if (tag) {
                 [managedRecording addTagsObject:tag];
             }
+            if (managedRecording) {
+                [recordingsToReturn addObject:managedRecording];
+            }
         }
         [context MR_saveNestedContexts];
-        success();
+        success(recordingsToReturn);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"failure: %@", [error userInfo]);
         failure(@"fart");
     }];
+}
+
+- (OWManagedRecording*) managedRecordingForShortMetadataDictionary:(NSDictionary*)recordingDict {
+    NSString *uuid = [recordingDict objectForKey:@"uuid"];
+    OWManagedRecording *managedRecording = [OWManagedRecording MR_findFirstByAttribute:@"uuid" withValue:uuid];
+    if (!managedRecording) {
+        managedRecording = [OWManagedRecording MR_createEntity];
+    }
+    [managedRecording loadMetadataFromDictionary:recordingDict];
+    return managedRecording;
 }
 
 

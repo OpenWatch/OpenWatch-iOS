@@ -17,6 +17,6 @@
 - (void) loginWithAccount:(OWAccount*)account success:(void (^)(void)) success failure:(void (^)(NSString *reason))failure;
 - (void) signupWithAccount:(OWAccount*)account success:(void (^)(void)) success failure:(void (^)(NSString *reason))failure;
 - (void) fetchRecordingsWithSuccessBlock:(void (^)(void)) success failure:(void (^)(NSString *reason))failure;
-- (void) fetchRecordingsForTag:(NSString*)tag success:(void (^)(void)) success failure:(void (^)(NSString *reason))failure;
+- (void) fetchRecordingsForTag:(NSString*)tag success:(void (^)(NSArray *recordings))success failure:(void (^)(NSString *reason))failure;
 
 @end

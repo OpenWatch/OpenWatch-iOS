@@ -15,12 +15,15 @@
 @end
 
 @implementation OWWatchViewController
+@synthesize recordingsTableView;
+@synthesize recordingsArray;
 
 - (id)init
 {
     self = [super init];
     if (self) {
-        // Custom initialization
+        self.recordingsTableView = [[UITableView alloc] init];
+        self.recordingsArray = [NSMutableArray array];
     }
     return self;
 }
@@ -37,17 +40,10 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void) refreshRecordings {
-    NSString *tagName = @"police";
-    [[OWAccountAPIClient sharedClient] fetchRecordingsForTag:tagName success:^{
-        OWRecordingTag *tag = [OWRecordingTag MR_findFirstByAttribute:@"name" withValue:tagName];
-        NSSet *recordingsForTag = tag.recordings;
-        self.recordingsArray = [NSMutableArray arrayWithArray:[recordingsForTag allObjects]];
-        [self.recordingsArray sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-            OWLocalRecording *rec1 = (OWLocalRecording*)obj1;
-            OWLocalRecording *rec2 = (OWLocalRecording*)obj2;
-            return [rec1.dateModified compare:rec2.dateModified];
-        }];        
+- (void) viewWillAppear:(BOOL)animated {
+    self.recordingsTableView.frame = self.view.frame;
+    [[OWAccountAPIClient sharedClient] fetchRecordingsForTag:@"police" success:^(NSArray *recordings) {
+        self.recordingsArray = [NSMutableArray arrayWithArray:recordings];
         [self.recordingsTableView reloadData];
     } failure:^(NSString *reason) {
         

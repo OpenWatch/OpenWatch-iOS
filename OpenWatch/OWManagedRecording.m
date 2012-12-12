@@ -9,9 +9,13 @@
 #import "OWManagedRecording.h"
 #import "OWUtilities.h"
 #import "OWRecordingTag.h"
+#import "OWUser.h"
 
 #define kLastEditedKey @"last_edited"
 #define kTagsKey @"tags"
+#define kUserKey @"user"
+#define kUsernameKey @"username"
+#define kIDKey @"id"
 
 @interface OWManagedRecording()
 @property (nonatomic, retain) NSNumber * endLatitude;
@@ -37,6 +41,12 @@
 @dynamic user;
 @dynamic dateModified;
 @dynamic thumbnailURL;
+@dynamic upvotes;
+@dynamic views;
+
+- (NSString*) thumbnailURL {
+    return @"http://lorempixel.com/100/100/";
+}
 
 - (CLLocation*) startLocation {
     return [self locationWithLatitude:[self.startLatitude doubleValue] longitude:[self.startLongitude doubleValue]];
@@ -192,9 +202,22 @@
         }
         self.tags = tags;
     }
-    
-    NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
-    [context MR_saveNestedContexts];
+    NSDictionary *userDictionary = [metadataDictionary objectForKey:kUserKey];
+    if (userDictionary) {
+        NSNumber *userID = [userDictionary objectForKey:kIDKey];
+        NSString *username = [userDictionary objectForKey:kUsernameKey];
+        OWUser *user = [OWUser MR_findFirstByAttribute:@"serverID" withValue:userID];
+        if (!user) {
+            user = [OWUser MR_createEntity];
+            user.serverID = userID;
+        }
+        user.username = username;
+        self.user = user;
+    }
+    NSNumber *views = [metadataDictionary objectForKey:@"views"];
+    self.views = views;
+    NSNumber *upvotes = [metadataDictionary objectForKey:@"upvotes"];
+    self.upvotes = upvotes;
 }
 
 - (CLLocation*)locationFromLocationDictionary:(NSDictionary*)locationDictionary {

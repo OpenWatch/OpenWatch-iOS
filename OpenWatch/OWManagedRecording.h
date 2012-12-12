@@ -51,6 +51,9 @@
 @property (nonatomic, retain) NSSet *tags;
 @property (nonatomic, strong) OWUser *user;
 
+@property (nonatomic, strong) NSNumber *upvotes;
+@property (nonatomic, strong) NSNumber *views;
+
 @property (nonatomic, strong) CLLocation *startLocation;
 @property (nonatomic, strong) CLLocation *endLocation;
 

@@ -9,6 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "OWRecordingListViewController.h"
 
-@interface OWWatchViewController : OWRecordingListViewController
+@interface OWWatchViewController : UIViewController
+
+@property (nonatomic, strong) UITableView *recordingsTableView;
+@property (nonatomic, strong) NSMutableArray *recordingsArray;
 
 @end

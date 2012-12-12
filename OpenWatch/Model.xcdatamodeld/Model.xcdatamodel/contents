@@ -18,7 +18,9 @@
         <attribute name="startLongitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="thumbnailURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="upvotes" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="uuid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="views" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <relationship name="tags" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="OWRecordingTag" inverseName="recordings" inverseEntity="OWRecordingTag" syncable="YES"/>
         <relationship name="user" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="OWUser" inverseName="recordings" inverseEntity="OWUser" syncable="YES"/>
     </entity>
@@ -42,7 +44,7 @@
     </entity>
     <elements>
         <element name="OWLocalRecording" positionX="277" positionY="171" width="128" height="88"/>
-        <element name="OWManagedRecording" positionX="430" positionY="251" width="128" height="268"/>
+        <element name="OWManagedRecording" positionX="430" positionY="251" width="128" height="300"/>
         <element name="OWRecordingSegment" positionX="99" positionY="234" width="128" height="103"/>
         <element name="OWRecordingTag" positionX="268" positionY="354" width="128" height="105"/>
         <element name="OWUser" positionX="90" positionY="435" width="128" height="105"/>
