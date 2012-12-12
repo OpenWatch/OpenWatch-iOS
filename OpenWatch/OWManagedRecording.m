@@ -45,7 +45,7 @@
 @dynamic views;
 
 - (NSString*) thumbnailURL {
-    return @"http://lorempixel.com/100/100/";
+    return @"http://lorempixel.com/200/200/";
 }
 
 - (CLLocation*) startLocation {

@@ -212,7 +212,7 @@
                 [managedRecording addTagsObject:tag];
             }
             if (managedRecording) {
-                [recordingsToReturn addObject:managedRecording];
+                [recordingsToReturn addObject:managedRecording.objectID];
             }
         }
         [context MR_saveNestedContexts];
@@ -227,7 +227,13 @@
     NSString *uuid = [recordingDict objectForKey:@"uuid"];
     OWManagedRecording *managedRecording = [OWManagedRecording MR_findFirstByAttribute:@"uuid" withValue:uuid];
     if (!managedRecording) {
+        NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
+        NSError *error = nil;
         managedRecording = [OWManagedRecording MR_createEntity];
+        [context obtainPermanentIDsForObjects:@[managedRecording] error:&error];
+        if (error) {
+            NSLog(@"Error getting permanent ID: %@", [error userInfo]);
+        }
     }
     [managedRecording loadMetadataFromDictionary:recordingDict];
     return managedRecording;

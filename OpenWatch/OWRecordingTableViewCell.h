@@ -11,10 +11,14 @@
 
 @interface OWRecordingTableViewCell : UITableViewCell
 
-@property (nonatomic, strong) OWManagedRecording *recording;
-@property (nonatomic, strong) UILabel *upvotesLabel;
+@property (nonatomic, strong) NSManagedObjectID *recordingObjectID;
+@property (nonatomic, strong) UILabel *actionsLabel;
 @property (nonatomic, strong) UILabel *viewsLabel;
 @property (nonatomic, strong) UILabel *usernameLabel;
 @property (nonatomic, strong) UILabel *titleLabel;
+@property (nonatomic, strong) UIImageView *thumbnailImageView;
+@property (nonatomic, strong) UIImageView *eyeImageView;
+@property (nonatomic, strong) UIImageView *actionImageView;
+@property (nonatomic, strong) UIView *tallyView;
 
 @end
