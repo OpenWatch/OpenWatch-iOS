@@ -9,9 +9,22 @@
 #import <UIKit/UIKit.h>
 #import "WEPopoverController.h"
 
+typedef enum {
+    kOWFeedTypeTag = 0,
+    kOWFeedTypeFeed
+} OWFeedType;
+
+typedef enum {
+    kOWFeedNameFeatured = 0,
+    kOWFeedNameFollowing,
+    kOWFeedNameLocal
+} OWFeedName;
+
 @protocol OWFeedSelectionDelegate <NSObject>
-- (void) didSelectTagWithName:(NSString*)tagName;
-- (void) didSelectFeedWithName:(NSString*)feedName;
+@required
+- (void) didSelectFeedWithName:(NSString*)feedName type:(OWFeedType)type;
+@property (nonatomic, strong) NSString *selectedFeedString;
+@property (nonatomic) OWFeedType feedType;
 @end
 
 @interface OWFeedSelectionViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>

@@ -93,7 +93,16 @@
 - (NSArray*) allRecordings {
     OWSettingsController *settingsController = [OWSettingsController sharedInstance];
     OWUser *user = [settingsController.account user];
-    return [user.recordings allObjects];
+    
+    NSMutableArray *recordingsArray = [NSMutableArray arrayWithCapacity:user.recordings.count];
+    
+    for (OWLocalRecording *recording in user.recordings) {
+        if ([recording isKindOfClass:[OWLocalRecording class]]) {
+            [recordingsArray addObject:recording];
+        }
+    }
+    
+    return recordingsArray;
 }
 
 - (void) scanDirectoryForChanges {

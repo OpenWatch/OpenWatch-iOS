@@ -22,6 +22,8 @@
 @synthesize recordingsTableView;
 @synthesize recordingsArray;
 @synthesize feedSelector;
+@synthesize feedType;
+@synthesize selectedFeedString;
 
 - (id)init
 {
@@ -41,24 +43,26 @@
     return self;
 }
 
-- (void) didSelectFeedWithName:(NSString *)feedName {
-    [[OWAccountAPIClient sharedClient] fetchRecordingsForFeed:feedName success:^(NSArray *recordings) {
-        self.recordingsArray = [NSMutableArray arrayWithArray:recordings];
-        self.title = feedName;
-        [self.recordingsTableView reloadData];
-    } failure:^(NSString *reason) {
-        
-    }];
-}
-
-- (void) didSelectTagWithName:(NSString *)tagName {
-    [[OWAccountAPIClient sharedClient] fetchRecordingsForTag:tagName success:^(NSArray *recordings) {
-        self.recordingsArray = [NSMutableArray arrayWithArray:recordings];
-        self.title = tagName;
-        [self.recordingsTableView reloadData];
-    } failure:^(NSString *reason) {
-        
-    }];
+- (void) didSelectFeedWithName:(NSString *)feedName type:(OWFeedType)type {
+    selectedFeedString = feedName;
+    feedType = type;
+    self.title = feedName;
+    
+    if (feedType == kOWFeedTypeFeed) {
+        [[OWAccountAPIClient sharedClient] fetchRecordingsForFeed:feedName success:^(NSArray *recordings) {
+            self.recordingsArray = [NSMutableArray arrayWithArray:recordings];
+            [self.recordingsTableView reloadData];
+        } failure:^(NSString *reason) {
+            
+        }];
+    } else if (feedType == kOWFeedTypeTag) {
+        [[OWAccountAPIClient sharedClient] fetchRecordingsForTag:feedName success:^(NSArray *recordings) {
+            self.recordingsArray = [NSMutableArray arrayWithArray:recordings];
+            [self.recordingsTableView reloadData];
+        } failure:^(NSString *reason) {
+            
+        }];
+    }
 }
 
 -(void)showPopOverListFor:(UIBarButtonItem*)buttonItem{
@@ -113,6 +117,7 @@
     OWRemoteRecordingViewController *remoteVC = [[OWRemoteRecordingViewController alloc] init];
     remoteVC.recordingURL = [OWRecordingController detailPageURLForRecordingServerID:[recording.serverID intValue]];
     [self.navigationController pushViewController:remoteVC animated:YES];
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 - (BOOL) shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {

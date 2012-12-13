@@ -38,17 +38,18 @@
     
     CGFloat buttonHeight = 80.0f;
     CGFloat buttonWidth = 60.0f;
-    self.recordButtonView = [[OWLabeledButtonView alloc] initWithFrame:CGRectMake(0, 0, 100.0f, 120.0f) defaultImageName:@"record-big.png" highlightedImageName:nil labelName:@"Record"];
-    self.watchButtonView = [[OWLabeledButtonView alloc] initWithFrame:CGRectMake(0, 0, buttonWidth, buttonHeight) defaultImageName:@"eye-big.png" highlightedImageName:nil labelName:@"Watch"];
-    self.localButtonView = [[OWLabeledButtonView alloc] initWithFrame:CGRectMake(0, 0, buttonWidth, buttonHeight) defaultImageName:@"local-big.png" highlightedImageName:nil labelName:@"Local"];
-    self.savedButtonView = [[OWLabeledButtonView alloc] initWithFrame:CGRectMake(0, 0, buttonWidth, buttonHeight) defaultImageName:@"saved-big.png" highlightedImageName:nil labelName:@"Saved"];
-    self.settingsButtonView = [[OWLabeledButtonView alloc] initWithFrame:CGRectMake(0, 0, buttonWidth, buttonHeight) defaultImageName:@"settings-big.png" highlightedImageName:nil labelName:@"Settings"];
+    self.recordButtonView = [[OWLabeledButtonView alloc] initWithFrame:CGRectMake(0, 0, 100.0f, 120.0f) defaultImageName:@"record-big.png" highlightedImageName:nil labelName:RECORD_STRING];
+    self.watchButtonView = [[OWLabeledButtonView alloc] initWithFrame:CGRectMake(0, 0, buttonWidth, buttonHeight) defaultImageName:@"eye-big.png" highlightedImageName:nil labelName:WATCH_STRING];
+    self.localButtonView = [[OWLabeledButtonView alloc] initWithFrame:CGRectMake(0, 0, buttonWidth, buttonHeight) defaultImageName:@"local-big.png" highlightedImageName:nil labelName:LOCAL_STRING];
+    self.savedButtonView = [[OWLabeledButtonView alloc] initWithFrame:CGRectMake(0, 0, buttonWidth, buttonHeight) defaultImageName:@"saved-big.png" highlightedImageName:nil labelName:SAVED_STRING];
+    self.settingsButtonView = [[OWLabeledButtonView alloc] initWithFrame:CGRectMake(0, 0, buttonWidth, buttonHeight) defaultImageName:@"settings-big.png" highlightedImageName:nil labelName:SETTINGS_STRING];
     
     [watchButtonView.button addTarget:self action:@selector(watchButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [recordButtonView.button addTarget:self action:@selector(recordButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [settingsButtonView.button addTarget:self action:@selector(settingsButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [savedButtonView.button addTarget:self action:@selector(savedButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [localButtonView.button addTarget:self action:@selector(localButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     
-
     [self.view addSubview:recordButtonView];
 }
 
@@ -118,9 +119,27 @@
     }];
 }
 
+- (void) savedButtonPressed:(id)sender {
+    OWRecordingListViewController *recordingListView = [[OWRecordingListViewController alloc] init];
+    [self.navigationController pushViewController:recordingListView animated:YES];
+}
+
 - (void) watchButtonPressed:(id)sender {
+    OWFeedType type = kOWFeedTypeFeed;
+    NSString *feedString = FEATURED_STRING;
+    [self pushWatchVCForFeedName:feedString type:type];
+}
+
+- (void) pushWatchVCForFeedName:(NSString*)feedName type:(OWFeedType)type {
     OWWatchViewController *watchVC = [[OWWatchViewController alloc] init];
+    [watchVC didSelectFeedWithName:feedName type:type];
     [self.navigationController pushViewController:watchVC animated:YES];
+}
+
+- (void) localButtonPressed:(id)sender {
+    OWFeedType type = kOWFeedTypeFeed;
+    NSString *feedString = LOCAL_STRING;
+    [self pushWatchVCForFeedName:feedString type:type];
 }
 
 @end

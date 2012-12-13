@@ -39,3 +39,7 @@
 #define TAGS_STRING NSLocalizedString(@"Tags", @"Title for tags input view")
 #define TAG_STRING NSLocalizedString(@"Tag", @"Name for tag")
 #define FEEDS_STRING NSLocalizedString(@"Feeds", @"Title for feeds section")
+#define FEATURED_STRING NSLocalizedString(@"Featured", @"Title for featured recordings")
+#define FOLLOWING_STRING NSLocalizedString(@"Following", @"Title for followed tags")
+#define LOCAL_STRING NSLocalizedString(@"Local", @"Title for local recordings")
+#define SAVED_STRING NSLocalizedString(@"Saved", @"Title for saved recordings")

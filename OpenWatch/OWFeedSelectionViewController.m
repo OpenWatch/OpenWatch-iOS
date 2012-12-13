@@ -27,7 +27,7 @@
 {
     self = [super init];
     if (self) {
-        self.feedNames = @[@"Featured", @"Following", @"Local"];
+        self.feedNames = @[FEATURED_STRING, FOLLOWING_STRING, LOCAL_STRING];
         NSSet *unsortedTags = [[[[OWSettingsController sharedInstance] account] user] tags];
         NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES];
         NSArray *sortedTags = [unsortedTags sortedArrayUsingDescriptors:@[sortDescriptor]];
@@ -38,7 +38,6 @@
         self.tagNames = mutableTagNames;
         self.popoverSize = CGSizeMake(200, 300);
         self.selectionTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, popoverSize.width, popoverSize.height) style:UITableViewStylePlain];
-        //self.selectionTableView.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleRightMargin;
         [self.view addSubview:selectionTableView];
         self.selectionTableView.dataSource = self;
         self.selectionTableView.delegate = self;
@@ -109,12 +108,19 @@
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
     }
+    cell.accessoryType = UITableViewCellAccessoryNone;
     switch (indexPath.section) {
         case FEED_SECTION:
             cell.textLabel.text = [feedNames objectAtIndex:indexPath.row];
+            if (delegate.feedType == kOWFeedTypeFeed && [cell.textLabel.text isEqualToString:delegate.selectedFeedString]) {
+                cell.accessoryType = UITableViewCellAccessoryCheckmark;
+            }
             break;
         case TAG_SECTION:
             cell.textLabel.text = [tagNames objectAtIndex:indexPath.row];
+            if (delegate.feedType == kOWFeedTypeTag && [cell.textLabel.text isEqualToString:delegate.selectedFeedString]) {
+                cell.accessoryType = UITableViewCellAccessoryCheckmark;
+            }
             break;
         default:
             break;
@@ -125,15 +131,15 @@
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     switch (indexPath.section) {
         case FEED_SECTION:
-            [self.delegate didSelectFeedWithName:[feedNames objectAtIndex:indexPath.row]];
+            [self.delegate didSelectFeedWithName:[feedNames objectAtIndex:indexPath.row] type:kOWFeedTypeFeed];
             break;
         case TAG_SECTION:
-            [self.delegate didSelectTagWithName:[tagNames objectAtIndex:indexPath.row]];
+            [self.delegate didSelectFeedWithName:[tagNames objectAtIndex:indexPath.row] type:kOWFeedTypeTag];
             break;
         default:
             break;
     }
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [tableView reloadData];
     [popOver dismissPopoverAnimated:YES];
 }
 
