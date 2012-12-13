@@ -21,6 +21,17 @@
 		D9397BBD165D6FC70093B3C8 /* fabric@2x.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = D9397BBB165D6FC70093B3C8 /* fabric@2x.jpeg */; };
 		D9397BC1165D95940093B3C8 /* OWLocationController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9397BC0165D95940093B3C8 /* OWLocationController.m */; };
 		D948CFFE1672960800FFF1D2 /* OWRecordingTag.m in Sources */ = {isa = PBXBuildFile; fileRef = D948CFFD1672960800FFF1D2 /* OWRecordingTag.m */; };
+		D94A26DF167A7B4600BD36EF /* OWLabeledButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = D94A26DE167A7B4600BD36EF /* OWLabeledButtonView.m */; };
+		D94A26ED167A858600BD36EF /* eye-big.png in Resources */ = {isa = PBXBuildFile; fileRef = D94A26E5167A858600BD36EF /* eye-big.png */; };
+		D94A26EE167A858600BD36EF /* eye-big@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D94A26E6167A858600BD36EF /* eye-big@2x.png */; };
+		D94A26EF167A858600BD36EF /* local-big.png in Resources */ = {isa = PBXBuildFile; fileRef = D94A26E7167A858600BD36EF /* local-big.png */; };
+		D94A26F0167A858600BD36EF /* local-big@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D94A26E8167A858600BD36EF /* local-big@2x.png */; };
+		D94A26F1167A858600BD36EF /* saved-big.png in Resources */ = {isa = PBXBuildFile; fileRef = D94A26E9167A858600BD36EF /* saved-big.png */; };
+		D94A26F2167A858600BD36EF /* saved-big@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D94A26EA167A858600BD36EF /* saved-big@2x.png */; };
+		D94A26F3167A858600BD36EF /* settings-big.png in Resources */ = {isa = PBXBuildFile; fileRef = D94A26EB167A858600BD36EF /* settings-big.png */; };
+		D94A26F4167A858600BD36EF /* settings-big@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D94A26EC167A858600BD36EF /* settings-big@2x.png */; };
+		D94A26F7167A8B4600BD36EF /* record-big.png in Resources */ = {isa = PBXBuildFile; fileRef = D94A26F5167A8B4600BD36EF /* record-big.png */; };
+		D94A26F8167A8B4600BD36EF /* record-big@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D94A26F6167A8B4600BD36EF /* record-big@2x.png */; };
 		D96FA7AB1656F15B00309F08 /* OWAccountAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = D96FA7AA1656F15B00309F08 /* OWAccountAPIClient.m */; };
 		D97EAAA1167911B100A1B038 /* OWRecordingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D97EAAA0167911B100A1B038 /* OWRecordingTableViewCell.m */; };
 		D97EAAA61679354200A1B038 /* eye.png in Resources */ = {isa = PBXBuildFile; fileRef = D97EAAA41679354200A1B038 /* eye.png */; };
@@ -147,6 +158,18 @@
 		D9397BC0165D95940093B3C8 /* OWLocationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWLocationController.m; sourceTree = "<group>"; };
 		D948CFFC1672960800FFF1D2 /* OWRecordingTag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWRecordingTag.h; sourceTree = "<group>"; };
 		D948CFFD1672960800FFF1D2 /* OWRecordingTag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWRecordingTag.m; sourceTree = "<group>"; };
+		D94A26DD167A7B4600BD36EF /* OWLabeledButtonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWLabeledButtonView.h; sourceTree = "<group>"; };
+		D94A26DE167A7B4600BD36EF /* OWLabeledButtonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWLabeledButtonView.m; sourceTree = "<group>"; };
+		D94A26E5167A858600BD36EF /* eye-big.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "eye-big.png"; sourceTree = "<group>"; };
+		D94A26E6167A858600BD36EF /* eye-big@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "eye-big@2x.png"; sourceTree = "<group>"; };
+		D94A26E7167A858600BD36EF /* local-big.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "local-big.png"; sourceTree = "<group>"; };
+		D94A26E8167A858600BD36EF /* local-big@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "local-big@2x.png"; sourceTree = "<group>"; };
+		D94A26E9167A858600BD36EF /* saved-big.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "saved-big.png"; sourceTree = "<group>"; };
+		D94A26EA167A858600BD36EF /* saved-big@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "saved-big@2x.png"; sourceTree = "<group>"; };
+		D94A26EB167A858600BD36EF /* settings-big.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settings-big.png"; sourceTree = "<group>"; };
+		D94A26EC167A858600BD36EF /* settings-big@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settings-big@2x.png"; sourceTree = "<group>"; };
+		D94A26F5167A8B4600BD36EF /* record-big.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "record-big.png"; sourceTree = "<group>"; };
+		D94A26F6167A8B4600BD36EF /* record-big@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "record-big@2x.png"; sourceTree = "<group>"; };
 		D96FA7A91656F15B00309F08 /* OWAccountAPIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWAccountAPIClient.h; sourceTree = "<group>"; };
 		D96FA7AA1656F15B00309F08 /* OWAccountAPIClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWAccountAPIClient.m; sourceTree = "<group>"; };
 		D97EAA9F167911B100A1B038 /* OWRecordingTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWRecordingTableViewCell.h; sourceTree = "<group>"; };
@@ -353,6 +376,8 @@
 			children = (
 				D97EAA9F167911B100A1B038 /* OWRecordingTableViewCell.h */,
 				D97EAAA0167911B100A1B038 /* OWRecordingTableViewCell.m */,
+				D94A26DD167A7B4600BD36EF /* OWLabeledButtonView.h */,
+				D94A26DE167A7B4600BD36EF /* OWLabeledButtonView.m */,
 			);
 			name = "Custom Views";
 			sourceTree = "<group>";
@@ -626,6 +651,16 @@
 		D9DFADF716547DE7003C515C /* Media */ = {
 			isa = PBXGroup;
 			children = (
+				D94A26F5167A8B4600BD36EF /* record-big.png */,
+				D94A26F6167A8B4600BD36EF /* record-big@2x.png */,
+				D94A26E5167A858600BD36EF /* eye-big.png */,
+				D94A26E6167A858600BD36EF /* eye-big@2x.png */,
+				D94A26E7167A858600BD36EF /* local-big.png */,
+				D94A26E8167A858600BD36EF /* local-big@2x.png */,
+				D94A26E9167A858600BD36EF /* saved-big.png */,
+				D94A26EA167A858600BD36EF /* saved-big@2x.png */,
+				D94A26EB167A858600BD36EF /* settings-big.png */,
+				D94A26EC167A858600BD36EF /* settings-big@2x.png */,
 				D97EAAAC16795B3000A1B038 /* list.png */,
 				D97EAAAD16795B3000A1B038 /* list@2x.png */,
 				D97EAAA81679426600A1B038 /* action.png */,
@@ -840,6 +875,16 @@
 				D97EAAAB1679426600A1B038 /* action@2x.png in Resources */,
 				D97EAAAE16795B3000A1B038 /* list.png in Resources */,
 				D97EAAAF16795B3000A1B038 /* list@2x.png in Resources */,
+				D94A26ED167A858600BD36EF /* eye-big.png in Resources */,
+				D94A26EE167A858600BD36EF /* eye-big@2x.png in Resources */,
+				D94A26EF167A858600BD36EF /* local-big.png in Resources */,
+				D94A26F0167A858600BD36EF /* local-big@2x.png in Resources */,
+				D94A26F1167A858600BD36EF /* saved-big.png in Resources */,
+				D94A26F2167A858600BD36EF /* saved-big@2x.png in Resources */,
+				D94A26F3167A858600BD36EF /* settings-big.png in Resources */,
+				D94A26F4167A858600BD36EF /* settings-big@2x.png in Resources */,
+				D94A26F7167A8B4600BD36EF /* record-big.png in Resources */,
+				D94A26F8167A8B4600BD36EF /* record-big@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -926,6 +971,7 @@
 				D9D7871016780374006EE6A2 /* OWRemoteRecordingViewController.m in Sources */,
 				D97EAAA1167911B100A1B038 /* OWRecordingTableViewCell.m in Sources */,
 				D97EAABB167A540900A1B038 /* OWFeedSelectionViewController.m in Sources */,
+				D94A26DF167A7B4600BD36EF /* OWLabeledButtonView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

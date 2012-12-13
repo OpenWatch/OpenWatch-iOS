@@ -77,7 +77,7 @@
 
 - (void) removeRecording:(NSManagedObjectID*)recordingObjectID {
     OWLocalRecording *recording = [OWRecordingController recordingForObjectID:recordingObjectID];
-    if (!recording) {
+    if (!recording || ![recording isKindOfClass:[OWLocalRecording class]]) {
         return;
     }
     NSError *error = nil;
@@ -87,6 +87,7 @@
         NSLog(@"Error removing recording: %@%@", [error localizedDescription], [error userInfo]);
         error = nil;
     }
+    [recording MR_deleteEntity];
 }
 
 - (NSArray*) allRecordings {

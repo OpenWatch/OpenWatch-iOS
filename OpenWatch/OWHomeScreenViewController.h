@@ -7,7 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "OWLabeledButtonView.h"
 
 @interface OWHomeScreenViewController : UIViewController
+
+@property (nonatomic, strong) OWLabeledButtonView *recordButtonView;
+@property (nonatomic, strong) OWLabeledButtonView *watchButtonView;
+@property (nonatomic, strong) OWLabeledButtonView *localButtonView;
+@property (nonatomic, strong) OWLabeledButtonView *savedButtonView;
+@property (nonatomic, strong) OWLabeledButtonView *settingsButtonView;
 
 @end

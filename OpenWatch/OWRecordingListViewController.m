@@ -122,6 +122,9 @@
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     OWLocalRecording *recording = [recordingsArray objectAtIndex:indexPath.row];
+    if (![recording isKindOfClass:[OWLocalRecording class]]) {
+        return;
+    }
     recordingInfoViewController.recordingID = recording.objectID;
     [self.navigationController pushViewController:recordingInfoViewController animated:YES];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];

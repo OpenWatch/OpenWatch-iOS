@@ -17,27 +17,15 @@
 #import "OWAccountAPIClient.h"
 
 @interface OWHomeScreenViewController ()
-@property (nonatomic, strong) UIButton *recordButton;
-@property (nonatomic, strong) UIButton *newsButton;
-@property (nonatomic, strong) UIButton *helpButton;
 @end
 
 @implementation OWHomeScreenViewController
-@synthesize recordButton, newsButton, helpButton;
+@synthesize recordButtonView, watchButtonView, localButtonView, savedButtonView, settingsButtonView;
 
 - (id)init
 {
     self = [super init];
     if (self) {
-        self.recordButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        recordButton.backgroundColor = [UIColor redColor];
-        recordButton.layer.borderColor = [UIColor blackColor].CGColor;
-        recordButton.layer.borderWidth = 1.0f;
-        recordButton.layer.cornerRadius = 10.0f;
-        //self.recordButton.tintColor = [UIColor redColor];
-        self.newsButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        self.helpButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"gear-white.png"] style:UIBarButtonItemStyleBordered target:self action:@selector(settingsButtonPressed:)];
         self.title = @"OpenWatch";
     }
     return self;
@@ -47,12 +35,21 @@
 {
     [super viewDidLoad];
     self.view.backgroundColor = [OWUtilities fabricBackgroundPattern];
-    [recordButton setTitle:RECORD_STRING forState:UIControlStateNormal];
-    [newsButton setTitle:WATCH_STRING forState:UIControlStateNormal];
-    [recordButton addTarget:self action:@selector(recordButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [newsButton addTarget:self action:@selector(newsButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:recordButton];
-    [self.view addSubview:newsButton];
+    
+    CGFloat buttonHeight = 80.0f;
+    CGFloat buttonWidth = 60.0f;
+    self.recordButtonView = [[OWLabeledButtonView alloc] initWithFrame:CGRectMake(0, 0, 100.0f, 120.0f) defaultImageName:@"record-big.png" highlightedImageName:nil labelName:@"Record"];
+    self.watchButtonView = [[OWLabeledButtonView alloc] initWithFrame:CGRectMake(0, 0, buttonWidth, buttonHeight) defaultImageName:@"eye-big.png" highlightedImageName:nil labelName:@"Watch"];
+    self.localButtonView = [[OWLabeledButtonView alloc] initWithFrame:CGRectMake(0, 0, buttonWidth, buttonHeight) defaultImageName:@"local-big.png" highlightedImageName:nil labelName:@"Local"];
+    self.savedButtonView = [[OWLabeledButtonView alloc] initWithFrame:CGRectMake(0, 0, buttonWidth, buttonHeight) defaultImageName:@"saved-big.png" highlightedImageName:nil labelName:@"Saved"];
+    self.settingsButtonView = [[OWLabeledButtonView alloc] initWithFrame:CGRectMake(0, 0, buttonWidth, buttonHeight) defaultImageName:@"settings-big.png" highlightedImageName:nil labelName:@"Settings"];
+    
+    [watchButtonView.button addTarget:self action:@selector(watchButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [recordButtonView.button addTarget:self action:@selector(recordButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [settingsButtonView.button addTarget:self action:@selector(settingsButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    
+
+    [self.view addSubview:recordButtonView];
 }
 
 
@@ -71,14 +68,31 @@
 
 - (void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    CGFloat recordButtonYOrigin = 50.0f;
-    CGFloat xPadding = 20.0f;
-    CGFloat yPadding = 20.0f;
-    CGFloat buttonHeight = 100.0f;
-    CGFloat buttonWidth = self.view.frame.size.width-xPadding*2;
-    self.recordButton.frame = CGRectMake(xPadding, recordButtonYOrigin, buttonWidth, buttonHeight);
-    self.newsButton.frame = CGRectMake(xPadding, recordButtonYOrigin+buttonHeight + yPadding, buttonWidth, buttonHeight);
-
+    CGFloat recordButtonYOrigin = 15.0f;
+    CGFloat xPadding = 50.0f;
+    CGFloat yPadding = 30.0f;
+    CGFloat buttonHeight = 80.0f;
+    CGFloat buttonWidth = 80.0f;
+    
+    CGFloat recordButtonHeight = 120.0f;
+    CGFloat recordButtonWidth = 100.0f;
+    self.recordButtonView.frame = CGRectMake(self.view.frame.size.width/2 - recordButtonWidth/2, recordButtonYOrigin, recordButtonWidth, recordButtonHeight);
+    
+    CGFloat firstButtonRowYOrigin = recordButtonYOrigin+recordButtonHeight + yPadding;
+    UIView *gridView = [[UIView alloc] initWithFrame:CGRectMake(xPadding, firstButtonRowYOrigin, self.view.frame.size.width-xPadding*2, self.view.frame.size.height - firstButtonRowYOrigin - yPadding*2)];
+    
+    self.watchButtonView.frame = CGRectMake(0, 0, buttonWidth, buttonHeight);
+    CGFloat secondButtonColumnXOrigin = gridView.frame.size.width - buttonWidth;
+    self.localButtonView.frame = CGRectMake(secondButtonColumnXOrigin, 0, buttonWidth, buttonHeight);
+    CGFloat secondButtonRowYOrigin = gridView.frame.size.height - buttonHeight;
+    self.savedButtonView.frame = CGRectMake(0, secondButtonRowYOrigin, buttonWidth, buttonHeight);
+    self.settingsButtonView.frame = CGRectMake(secondButtonColumnXOrigin, secondButtonRowYOrigin, buttonWidth, buttonHeight);
+    
+    [gridView addSubview:watchButtonView];
+    [gridView addSubview:localButtonView];
+    [gridView addSubview:savedButtonView];
+    [gridView addSubview:settingsButtonView];
+    [self.view addSubview:gridView];
 }
 
 - (void) viewDidAppear:(BOOL)animated {
@@ -104,7 +118,7 @@
     }];
 }
 
-- (void) newsButtonPressed:(id)sender {
+- (void) watchButtonPressed:(id)sender {
     OWWatchViewController *watchVC = [[OWWatchViewController alloc] init];
     [self.navigationController pushViewController:watchVC animated:YES];
 }

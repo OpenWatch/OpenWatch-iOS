@@ -27,8 +27,7 @@
 {
     self = [super init];
     if (self) {
-        self.feedNames = @[@"Top", @"Local"];
-        
+        self.feedNames = @[@"Featured", @"Following", @"Local"];
         NSSet *unsortedTags = [[[[OWSettingsController sharedInstance] account] user] tags];
         NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES];
         NSArray *sortedTags = [unsortedTags sortedArrayUsingDescriptors:@[sortDescriptor]];
