@@ -28,10 +28,16 @@
 {
     self = [super init];
     if (self) {
-        self.recordButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        self.recordButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        recordButton.backgroundColor = [UIColor redColor];
+        recordButton.layer.borderColor = [UIColor blackColor].CGColor;
+        recordButton.layer.borderWidth = 1.0f;
+        recordButton.layer.cornerRadius = 10.0f;
+        //self.recordButton.tintColor = [UIColor redColor];
         self.newsButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         self.helpButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"gear-white.png"] style:UIBarButtonItemStyleBordered target:self action:@selector(settingsButtonPressed:)];
+        self.title = @"OpenWatch";
     }
     return self;
 }

@@ -38,6 +38,9 @@
 
 - (void) scanRecordingsForUnsubmittedData {
     for (OWLocalRecording *recording in [self allRecordings]) {
+        if (![recording isKindOfClass:[OWLocalRecording class]]){
+            continue;
+        }
         if (recording.failedFileCount > 0) {
             NSLog(@"Unsubmitted data found for recording: %@", recording.localRecordingPath);
             [self uploadFailedFileURLs:recording.failedFileUploadURLs forRecording:recording.objectID];
@@ -108,6 +111,9 @@
     NSArray *currentRecordings = [self allRecordings];
     
     for (OWLocalRecording *recording in currentRecordings) {
+        if (![recording isKindOfClass:[OWLocalRecording class]]) {
+            continue;
+        }
         if (![fileManager fileExistsAtPath:recording.localRecordingPath]) {
             NSLog(@"Recording no longer exists, removing: %@", recording.localRecordingPath);
             [context deleteObject:recording];

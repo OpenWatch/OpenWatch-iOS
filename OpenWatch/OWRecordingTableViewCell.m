@@ -31,10 +31,12 @@
         self.titleLabel.numberOfLines = 3;
         [self styleLabel:titleLabel];
         self.titleLabel.font = [UIFont boldSystemFontOfSize:19.0f];
+        //self.titleLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleBottomMargin;
         CGFloat usernameLabelHeight = 20.0f;
         self.usernameLabel = [[UILabel alloc] initWithFrame:CGRectMake(PADDING, self.contentView.frame.size.height - usernameLabelHeight - PADDING, 150, usernameLabelHeight)];
         self.usernameLabel.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleRightMargin;
         [self styleLabel:usernameLabel];
+        usernameLabel.textColor = [UIColor colorWithRed:0.5 green:0.5 blue:0.5 alpha:1.0];
         self.backgroundView = nil;
 
         [self.contentView addSubview:titleLabel];
@@ -48,7 +50,6 @@
 - (void) setupTallyView {
     self.eyeImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"eye.png"]];
     self.actionImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"action.png"]];
-    CGFloat tallyViewYOrigin = thumbnailImageView.frame.origin.y + thumbnailImageView.frame.size.height - eyeImageView.image.size.height;
     CGFloat width = 125.0f;
     CGFloat height = 20.0f;
     CGFloat labelWidth = 35.0f;
@@ -80,7 +81,7 @@
     [self.thumbnailImageView cancelImageRequestOperation];
     [self.thumbnailImageView setImageWithURL:[NSURL URLWithString:recording.thumbnailURL]];
     self.titleLabel.text = recording.title;
-    [self.titleLabel sizeToFit];
+    //[self.titleLabel sizeToFit];
     self.usernameLabel.text = recording.user.username;
     self.actionsLabel.text = [NSString stringWithFormat:@"%d", [recording.upvotes intValue]];
     self.viewsLabel.text = [NSString stringWithFormat:@"%d", [recording.views intValue]];

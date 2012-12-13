@@ -21,6 +21,8 @@
     
     OWHomeScreenViewController *homeScreen = [[OWHomeScreenViewController alloc] init];
     UINavigationController *homeNavController = [[UINavigationController alloc] initWithRootViewController:homeScreen];
+    homeNavController.navigationBar.tintColor = [UIColor redColor];
+
     self.window.rootViewController = homeNavController;
     [MagicalRecord setupCoreDataStack];
     [self.window makeKeyAndVisible];
