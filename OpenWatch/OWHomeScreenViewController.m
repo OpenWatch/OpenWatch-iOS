@@ -14,6 +14,7 @@
 #import "OWCaptureViewController.h"
 #import "OWSettingsViewController.h"
 #import "OWWatchViewController.h"
+#import "OWAccountAPIClient.h"
 
 @interface OWHomeScreenViewController ()
 @property (nonatomic, strong) UIButton *recordButton;
@@ -56,13 +57,15 @@
 
 
 - (void) checkAccount {
-    OWLoginViewController *loginViewController = [[OWLoginViewController alloc] init];
-    UINavigationController *loginNavController = [[UINavigationController alloc] initWithRootViewController:loginViewController];
     OWSettingsController *settingsController = [OWSettingsController sharedInstance];
     if (![settingsController.account isLoggedIn]) {
+        OWLoginViewController *loginViewController = [[OWLoginViewController alloc] init];
+        UINavigationController *loginNavController = [[UINavigationController alloc] initWithRootViewController:loginViewController];
         [self presentViewController:loginNavController animated:YES completion:^{
             
         }];
+    } else {
+        [[OWAccountAPIClient sharedClient] updateSubscribedTags];
     }
 }
 
@@ -75,6 +78,7 @@
     CGFloat buttonWidth = self.view.frame.size.width-xPadding*2;
     self.recordButton.frame = CGRectMake(xPadding, recordButtonYOrigin, buttonWidth, buttonHeight);
     self.newsButton.frame = CGRectMake(xPadding, recordButtonYOrigin+buttonHeight + yPadding, buttonWidth, buttonHeight);
+
 }
 
 - (void) viewDidAppear:(BOOL)animated {

@@ -12,6 +12,8 @@
 #import "OWLocalRecording.h"
 #import "OWUtilities.h"
 #import "OWRecordingTag.h"
+#import "OWSettingsController.h"
+#import "OWUser.h"
 
 #define kRecordingsKey @"recordings/"
 //#define kRecordingKey @"recording/"
@@ -28,6 +30,8 @@
 #define kCreateAccountPath @"create_account"
 #define kLoginAccountPath @"login_account"
 #define kTagPath @"tag/"
+#define kFeedPath @"feed/"
+#define kTagsPath @"tags/"
 
 @implementation OWAccountAPIClient
 
@@ -192,35 +196,42 @@
     return [kTagPath stringByAppendingString:tag];
 }
 
+- (NSString*) pathForFeed:(NSString*)feedName {
+    return [kFeedPath stringByAppendingString:feedName];
+}
+
 - (void) fetchRecordingsForTag:(NSString *)tagName success:(void (^)(NSArray *recordings))success failure:(void (^)(NSString *))failure {
 
     [self getPath:[self pathForTagFeed:tagName] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
-
-        OWRecordingTag *tag = [OWRecordingTag MR_findFirstByAttribute:@"name" withValue:tagName];
-        if (!tag) {
-            tag = [OWRecordingTag MR_createEntity];
-            tag.name = [tagName lowercaseString];
-        }
-        
-        NSLog(@"success: %@", [responseObject description]);
-        NSArray *recordings = [responseObject objectForKey:@"recordings"];
-        NSMutableArray *recordingsToReturn = [NSMutableArray arrayWithCapacity:[recordings count]];
-        for (NSDictionary *recordingDict in recordings) {
-            OWManagedRecording *managedRecording = [self managedRecordingForShortMetadataDictionary:recordingDict];
-            if (tag) {
-                [managedRecording addTagsObject:tag];
-            }
-            if (managedRecording) {
-                [recordingsToReturn addObject:managedRecording.objectID];
-            }
-        }
-        [context MR_saveNestedContexts];
-        success(recordingsToReturn);
+        NSArray *recordings = [self recordingIDsFromRecordingsMetadataArray:[responseObject objectForKey:@"recordings"]];
+        success(recordings);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"failure: %@", [error userInfo]);
         failure(@"fart");
     }];
+}
+
+- (void) fetchRecordingsForFeed:(NSString *)feed success:(void (^)(NSArray *))success failure:(void (^)(NSString *))failure {
+    [self getPath:[self pathForFeed:feed] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSArray *recordings = [self recordingIDsFromRecordingsMetadataArray:[responseObject objectForKey:@"recordings"]];
+        success(recordings);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"failure: %@", [error userInfo]);
+        failure(@"fart");
+    }];
+}
+
+- (NSArray*) recordingIDsFromRecordingsMetadataArray:(NSArray*)array {
+    NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
+    NSMutableArray *recordingsToReturn = [NSMutableArray arrayWithCapacity:[array count]];
+    for (NSDictionary *recordingDict in array) {
+        OWManagedRecording *managedRecording = [self managedRecordingForShortMetadataDictionary:recordingDict];
+        if (managedRecording) {
+            [recordingsToReturn addObject:managedRecording.objectID];
+        }
+    }
+    [context MR_saveNestedContexts];
+    return recordingsToReturn;
 }
 
 - (OWManagedRecording*) managedRecordingForShortMetadataDictionary:(NSDictionary*)recordingDict {
@@ -239,5 +250,32 @@
     return managedRecording;
 }
 
+
+- (void) updateSubscribedTags {
+    OWAccount *account = [OWSettingsController sharedInstance].account;
+    if (!account.isLoggedIn) {
+        return;
+    }
+    
+    
+    [self getPath:kTagsPath parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
+        OWUser *user = account.user;
+        NSArray *rawTags = [responseObject objectForKey:@"tags"];
+        NSMutableSet *tags = [NSMutableSet setWithCapacity:[rawTags count]];
+        for (NSString *tagName in rawTags) {
+            OWRecordingTag *tag = [OWRecordingTag MR_findFirstByAttribute:@"name" withValue:tagName];
+            if (!tag) {
+                tag = [OWRecordingTag MR_createEntity];
+                tag.name = tagName;
+            }
+            [tags addObject:tag];
+        }
+        user.tags = tags;
+        [context MR_saveNestedContexts];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+    }];
+}
 
 @end

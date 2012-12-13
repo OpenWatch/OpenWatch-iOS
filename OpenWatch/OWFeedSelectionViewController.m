@@ -9,6 +9,10 @@
 #import "OWFeedSelectionViewController.h"
 #import "OWStrings.h"
 #import "OWUtilities.h"
+#import "OWUser.h"
+#import "OWAccount.h"
+#import "OWSettingsController.h"
+#import "OWRecordingTag.h"
 
 @interface OWFeedSelectionViewController ()
 @end
@@ -24,7 +28,15 @@
     self = [super init];
     if (self) {
         self.feedNames = @[@"Top", @"Local"];
-        self.tagNames = @[@"awesome", @"apple"];
+        
+        NSSet *unsortedTags = [[[[OWSettingsController sharedInstance] account] user] tags];
+        NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES];
+        NSArray *sortedTags = [unsortedTags sortedArrayUsingDescriptors:@[sortDescriptor]];
+        NSMutableArray *mutableTagNames = [NSMutableArray arrayWithCapacity:[sortedTags count]];
+        for (OWRecordingTag *tag in sortedTags) {
+            [mutableTagNames addObject:[tag.name lowercaseString]];
+        }
+        self.tagNames = mutableTagNames;
         self.popoverSize = CGSizeMake(200, 300);
         self.selectionTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, popoverSize.width, popoverSize.height) style:UITableViewStylePlain];
         //self.selectionTableView.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleRightMargin;

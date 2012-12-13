@@ -28,7 +28,7 @@
         [self setupTallyView];
         CGFloat titleLabelXOrigin = thumbnailImageView.frame.origin.x + thumbnailImageView.frame.size.width + PADDING;
         self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(titleLabelXOrigin, PADDING, self.contentView.frame.size.width - titleLabelXOrigin, 100)];
-        self.titleLabel.numberOfLines = 3;
+        self.titleLabel.numberOfLines = 0;
         [self styleLabel:titleLabel];
         self.titleLabel.font = [UIFont boldSystemFontOfSize:19.0f];
         //self.titleLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleBottomMargin;

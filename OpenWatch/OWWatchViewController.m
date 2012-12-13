@@ -42,11 +42,23 @@
 }
 
 - (void) didSelectFeedWithName:(NSString *)feedName {
-    
+    [[OWAccountAPIClient sharedClient] fetchRecordingsForFeed:feedName success:^(NSArray *recordings) {
+        self.recordingsArray = [NSMutableArray arrayWithArray:recordings];
+        self.title = feedName;
+        [self.recordingsTableView reloadData];
+    } failure:^(NSString *reason) {
+        
+    }];
 }
 
 - (void) didSelectTagWithName:(NSString *)tagName {
-    
+    [[OWAccountAPIClient sharedClient] fetchRecordingsForTag:tagName success:^(NSArray *recordings) {
+        self.recordingsArray = [NSMutableArray arrayWithArray:recordings];
+        self.title = tagName;
+        [self.recordingsTableView reloadData];
+    } failure:^(NSString *reason) {
+        
+    }];
 }
 
 -(void)showPopOverListFor:(UIBarButtonItem*)buttonItem{
@@ -72,12 +84,7 @@
 
 - (void) viewWillAppear:(BOOL)animated {
     self.recordingsTableView.frame = self.view.frame;
-    [[OWAccountAPIClient sharedClient] fetchRecordingsForTag:@"police" success:^(NSArray *recordings) {
-        self.recordingsArray = [NSMutableArray arrayWithArray:recordings];
-        [self.recordingsTableView reloadData];
-    } failure:^(NSString *reason) {
-        
-    }];
+
 }
 
 
