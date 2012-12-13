@@ -38,3 +38,4 @@
 #define ACCOUNT_STRING NSLocalizedString(@"Account", @"Title for account button")
 #define TAGS_STRING NSLocalizedString(@"Tags", @"Title for tags input view")
 #define TAG_STRING NSLocalizedString(@"Tag", @"Name for tag")
+#define FEEDS_STRING NSLocalizedString(@"Feeds", @"Title for feeds section")

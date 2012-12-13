@@ -7,11 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "WEPopoverController.h"
 
 @interface OWUtilities : NSObject
 
 + (UIColor*) fabricBackgroundPattern;
 + (NSDateFormatter*) dateFormatter;
 + (NSString*) baseURLString;
+
++ (WEPopoverContainerViewProperties *)improvedContainerViewProperties;
 
 @end

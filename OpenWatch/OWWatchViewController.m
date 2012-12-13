@@ -13,6 +13,7 @@
 #import "OWRecordingTableViewCell.h"
 #import "OWStrings.h"
 #import "OWUtilities.h"
+#import "WEPopoverController.h"
 
 @interface OWWatchViewController ()
 @end
@@ -20,6 +21,7 @@
 @implementation OWWatchViewController
 @synthesize recordingsTableView;
 @synthesize recordingsArray;
+@synthesize feedSelector;
 
 - (id)init
 {
@@ -32,8 +34,23 @@
         self.recordingsArray = [NSMutableArray array];
         self.title = WATCH_STRING;
         self.recordingsTableView.backgroundColor = [OWUtilities fabricBackgroundPattern];
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"list.png"] style:UIBarButtonItemStylePlain target:self action:@selector(feedSelectionButtonPressed:)];
+        self.feedSelector = [[OWFeedSelectionViewController alloc] init];
+        feedSelector.delegate = self;
     }
     return self;
+}
+
+- (void) didSelectFeedWithName:(NSString *)feedName {
+    
+}
+
+- (void) didSelectTagWithName:(NSString *)tagName {
+    
+}
+
+-(void)showPopOverListFor:(UIBarButtonItem*)buttonItem{
+    [self.feedSelector presentPopoverFromBarButtonItem:buttonItem];
 }
 
 - (void)viewDidLoad
@@ -47,6 +64,10 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void) feedSelectionButtonPressed:(id)sender {
+    [self showPopOverListFor:self.navigationItem.rightBarButtonItem];
 }
 
 - (void) viewWillAppear:(BOOL)animated {
