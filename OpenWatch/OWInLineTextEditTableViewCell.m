@@ -8,7 +8,7 @@
 
 #import "OWInLineTextEditTableViewCell.h"
 
-#define textLeftFieldBuffer 100
+#define textLeftFieldBuffer 105
 
 @implementation OWInLineTextEditTableViewCell
 

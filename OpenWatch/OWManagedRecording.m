@@ -212,7 +212,7 @@
     }
     NSNumber *views = [metadataDictionary objectForKey:@"views"];
     self.views = views;
-    NSNumber *upvotes = [metadataDictionary objectForKey:@"upvotes"];
+    NSNumber *upvotes = [metadataDictionary objectForKey:@"clicks"];
     self.upvotes = upvotes;
     
     self.thumbnailURL = [metadataDictionary objectForKey:@"thumbnail_url"];

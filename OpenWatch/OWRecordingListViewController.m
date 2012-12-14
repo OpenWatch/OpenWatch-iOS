@@ -142,6 +142,7 @@
     OWLocalRecording *recording = [OWRecordingController recordingForObjectID:recordingID];    if (![recording isKindOfClass:[OWLocalRecording class]]) {
         return;
     }
+    recordingInfoViewController.isLocalRecording = YES;
     recordingInfoViewController.recordingID = recordingID;
     [self.navigationController pushViewController:recordingInfoViewController animated:YES];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];

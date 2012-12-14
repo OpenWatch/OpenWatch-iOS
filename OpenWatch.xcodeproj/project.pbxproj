@@ -382,6 +382,8 @@
 				D97EAAA0167911B100A1B038 /* OWRecordingTableViewCell.m */,
 				D94A26DD167A7B4600BD36EF /* OWLabeledButtonView.h */,
 				D94A26DE167A7B4600BD36EF /* OWLabeledButtonView.m */,
+				D9D2E14D1652D7B80000E7C5 /* OWInLineTextEditTableViewCell.h */,
+				D9D2E14E1652D7B80000E7C5 /* OWInLineTextEditTableViewCell.m */,
 			);
 			name = "Custom Views";
 			sourceTree = "<group>";
@@ -434,7 +436,6 @@
 				D9D2E21C16532B180000E7C5 /* Controllers */,
 				D97EAAA3167911B900A1B038 /* Custom Views */,
 				D9D2E21D16532B220000E7C5 /* View Controllers */,
-				D9D2E21B16532B090000E7C5 /* Custom Views */,
 				D99741841651D42F0034ABB0 /* OWAppDelegate.h */,
 				D99741851651D42F0034ABB0 /* OWAppDelegate.m */,
 				D907023316682B4400611607 /* OWUtilities.h */,
@@ -561,15 +562,6 @@
 				D96FA7AA1656F15B00309F08 /* OWAccountAPIClient.m */,
 			);
 			name = Networking;
-			sourceTree = "<group>";
-		};
-		D9D2E21B16532B090000E7C5 /* Custom Views */ = {
-			isa = PBXGroup;
-			children = (
-				D9D2E14D1652D7B80000E7C5 /* OWInLineTextEditTableViewCell.h */,
-				D9D2E14E1652D7B80000E7C5 /* OWInLineTextEditTableViewCell.m */,
-			);
-			name = "Custom Views";
 			sourceTree = "<group>";
 		};
 		D9D2E21C16532B180000E7C5 /* Controllers */ = {

@@ -15,4 +15,6 @@
 @interface OWRecordingInfoViewController : OWGroupedTableViewController <UITableViewDataSource, UITableViewDelegate, MKMapViewDelegate>
 
 @property (nonatomic, strong) NSManagedObjectID *recordingID;
+@property (nonatomic) BOOL isLocalRecording;
+
 @end

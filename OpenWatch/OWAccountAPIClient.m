@@ -122,7 +122,7 @@
                 NSLog(@"loc: %@", localLastEditedString);
                 NSLog(@"rmt: %@", remoteLastEditedString);
                 if (remoteSeconds > localSeconds) {
-                    [self getRecordingWithUUID:uuid success:^{
+                    [self getRecordingWithUUID:uuid success:^(NSManagedObjectID *recordingObjectID) {
                         
                     } failure:^(NSString *reason) {
                         
@@ -136,7 +136,7 @@
                 }
             } else {
                 NSLog(@"Recording found on server that's not on client!");
-                [self getRecordingWithUUID:uuid success:^{
+                [self getRecordingWithUUID:uuid success:^(NSManagedObjectID *recordingObjectID) {
                     
                 } failure:^(NSString *reason) {
                     
@@ -154,7 +154,7 @@
     return [kRecordingKey stringByAppendingFormat:@"/%@/",UUID];
 }
 
-- (void) getRecordingWithUUID:(NSString*)UUID success:(void (^)(void))success failure:(void (^)(NSString *reason))failure {
+- (void) getRecordingWithUUID:(NSString*)UUID success:(void (^)(NSManagedObjectID *))success failure:(void (^)(NSString *))failure {
     [self getPath:[self pathForRecordingWithUUID:UUID] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
         NSLog(@"GET Response: %@", [responseObject description] );
@@ -165,7 +165,7 @@
             if (managedRecording) {
                 [managedRecording loadMetadataFromDictionary:recordingDict];
                 [context MR_saveNestedContexts];
-                success();
+                success(managedRecording.objectID);
             } else {
                 failure(@"No recording found");
             }

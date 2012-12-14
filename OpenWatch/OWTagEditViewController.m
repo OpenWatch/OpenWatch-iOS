@@ -23,7 +23,7 @@
 @end
 
 @implementation OWTagEditViewController
-@synthesize recordingObjectID, tagTableView, tagLabel, tagTextField, tagsArray, addTagButton, autocompletionView;
+@synthesize recordingObjectID, tagTableView, tagLabel, tagTextField, tagsArray, addTagButton, autocompletionView, isLocalRecording;
 
 - (id)init
 {
@@ -34,12 +34,13 @@
         self.tagTableView.dataSource = self;
         self.tagLabel = [[UILabel alloc] init];
         self.tagLabel.text = TAG_STRING;
+        self.tagLabel.textAlignment = UITextAlignmentCenter;
         self.title = TAGS_STRING;
         self.tagTextField = [[UITextField alloc] init];
+        self.tagTextField.borderStyle = UITextBorderStyleRoundedRect;
         self.tagTextField.delegate = self;
         self.addTagButton = [UIButton buttonWithType:UIButtonTypeContactAdd];
         [addTagButton addTarget:self action:@selector(addTagButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:SAVE_STRING style:UIBarButtonItemStyleDone target:self action:@selector(saveButtonPressed:)];
         self.autocompletionView = [[OWAutocompletionView alloc] init];
         self.autocompletionView.delegate = self;
     }
@@ -60,10 +61,20 @@
     CGFloat labelWidth = 80.0f;
     CGFloat labelHeight = 40.0f;
     CGFloat buttonWidth = 30.0f;
-    self.tagTextField.frame = CGRectMake(labelWidth, 0, self.view.frame.size.width - labelWidth - buttonWidth, labelHeight);
-    self.tagLabel.frame = CGRectMake(0, 0, labelWidth, labelHeight);
-    self.tagTableView.frame = CGRectMake(0, labelHeight, self.view.frame.size.width, self.view.frame.size.height-labelHeight);
-    self.addTagButton.frame = CGRectMake(self.view.frame.size.width-buttonWidth, 0, buttonWidth, labelHeight);
+    
+    if (self.isLocalRecording) {
+        self.tagTextField.frame = CGRectMake(labelWidth, 0, self.view.frame.size.width - labelWidth - buttonWidth, labelHeight);
+        self.tagLabel.frame = CGRectMake(0, 0, labelWidth, labelHeight);
+        self.tagTableView.frame = CGRectMake(0, labelHeight, self.view.frame.size.width, self.view.frame.size.height-labelHeight);
+        self.addTagButton.frame = CGRectMake(self.view.frame.size.width-buttonWidth, 0, buttonWidth, labelHeight);
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:SAVE_STRING style:UIBarButtonItemStyleDone target:self action:@selector(saveButtonPressed:)];
+    } else {
+        self.tagTableView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+        [tagTextField removeFromSuperview];
+        [tagLabel removeFromSuperview];
+        [addTagButton removeFromSuperview];
+        self.navigationItem.rightBarButtonItem = nil;
+    }
 }
 
 - (void) setRecordingObjectID:(NSManagedObjectID *)newRecordingObjectID {

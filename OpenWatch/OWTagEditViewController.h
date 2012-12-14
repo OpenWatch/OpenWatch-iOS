@@ -12,5 +12,6 @@
 @interface OWTagEditViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, OWAutocompletionViewDelegate>
 
 @property (nonatomic, strong) NSManagedObjectID *recordingObjectID;
+@property (nonatomic) BOOL isLocalRecording;
 
 @end

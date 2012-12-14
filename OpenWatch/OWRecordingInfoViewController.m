@@ -9,6 +9,7 @@
 #import "OWRecordingInfoViewController.h"
 #import "OWStrings.h"
 #import "OWCaptureAPIClient.h"
+#import "OWAccountAPIClient.h"
 #import "OWMapAnnotation.h"
 #import "OWRecordingController.h"
 #import "OWTagEditViewController.h"
@@ -29,16 +30,13 @@
 @end
 
 @implementation OWRecordingInfoViewController
-@synthesize recordingID, titleTextField, descriptionTextField, mapView, moviePlayer, centerCoordinate, uploadProgressView;
+@synthesize recordingID, titleTextField, descriptionTextField, mapView, moviePlayer, centerCoordinate, uploadProgressView, isLocalRecording;
 
 - (id) init {
     if (self = [super init]) {
         [self setupMapView];
         self.moviePlayer = [[MPMoviePlayerController alloc] init];
         self.title = INFO_STRING;
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:SAVE_STRING style:UIBarButtonItemStyleDone target:self action:@selector(saveButtonPressed:)];
-        [self setupFields];
-        [self setupProgressView];
     }
     return self;
 }
@@ -130,14 +128,36 @@
 
 - (void) setRecordingID:(NSManagedObjectID *)newRecordingID {
     recordingID = newRecordingID;
-    OWLocalRecording *recording = [OWRecordingController recordingForObjectID:recordingID];
-    self.moviePlayer.contentURL = [recording highQualityURL];
-    [moviePlayer prepareToPlay];
-    [self refreshMapParameters];
-    [self refreshFields];
-    [self refreshFrames];
-    [self refreshProgressView];
-    [self registerForUploadProgressNotifications];
+    [self setupFields];
+
+    if (isLocalRecording) {
+        OWLocalRecording *recording = [OWRecordingController recordingForObjectID:recordingID];
+        self.moviePlayer.contentURL = [recording highQualityURL];
+        [moviePlayer prepareToPlay];
+        [self setupProgressView];
+        [self refreshMapParameters];
+        [self refreshFields];
+        [self refreshFrames];
+        [self refreshProgressView];
+        [self registerForUploadProgressNotifications];
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:SAVE_STRING style:UIBarButtonItemStyleDone target:self action:@selector(saveButtonPressed:)];
+    } else {
+        OWManagedRecording *recording = [OWRecordingController recordingForObjectID:recordingID];
+        [[OWAccountAPIClient sharedClient] getRecordingWithUUID:recording.uuid success:^(NSManagedObjectID *recordingObjectID) {
+            OWManagedRecording *remoteRecording = [OWRecordingController recordingForObjectID:recordingObjectID];
+            self.moviePlayer.contentURL = [NSURL URLWithString:[remoteRecording remoteVideoURL]];
+            [moviePlayer prepareToPlay];
+            [self refreshMapParameters];
+            [self refreshFields];
+            [self refreshFrames];
+            [self.groupedTableView reloadData];
+        } failure:^(NSString *reason) {
+            
+        }];
+    }
+    
+
+
 }
 
 - (void) receivedUploadProgressNotification:(NSNotification*)notification {
@@ -200,12 +220,21 @@
         self.descriptionTextField.text = description;
     } else {
         self.descriptionTextField.text = @"";
-    }    
+    }
+    
+    if (isLocalRecording) {
+        self.titleTextField.userInteractionEnabled = YES;
+        self.descriptionTextField.userInteractionEnabled = YES;
+    } else {
+        self.titleTextField.userInteractionEnabled = NO;
+        self.descriptionTextField.userInteractionEnabled = NO;
+    }
 }
 
 
 
 -(void)setupFields {
+    self.tableViewArray = [[NSMutableArray alloc] init];
     self.titleTextField = [self textFieldWithDefaults];
     self.titleTextField.placeholder = REQUIRED_STRING;
 
@@ -214,7 +243,7 @@
     self.descriptionTextField = [self textFieldWithDefaults];
 
     [self addCellInfoWithSection:0 row:DESCRIPTION_ROW labelText:DESCRIPTION_STRING cellType:kCellTypeTextField userInputView:self.descriptionTextField];
-    
+
     [self addCellInfoWithSection:0 row:TAGS_ROW labelText:TAGS_STRING cellType:kCellTypeNone userInputView:nil];
 }
 
@@ -241,6 +270,8 @@
     recording.recordingDescription = self.descriptionTextField.text;
         
     [recording saveMetadata];
+    [[OWAccountAPIClient sharedClient] postRecordingWithUUID:recording.uuid success:nil failure:nil];
+    
     [self.view endEditing:YES];
     [self.navigationController popViewControllerAnimated:YES];
 }
@@ -249,6 +280,7 @@
     if (indexPath.row == TAGS_ROW) {
         OWTagEditViewController *tagEditor = [[OWTagEditViewController alloc] init];
         tagEditor.recordingObjectID = self.recordingID;
+        tagEditor.isLocalRecording = self.isLocalRecording;
         [self.navigationController pushViewController:tagEditor animated:YES];
     }
     [tableView deselectRowAtIndexPath:indexPath animated:YES];

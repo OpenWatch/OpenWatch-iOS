@@ -14,6 +14,7 @@
 #import "OWStrings.h"
 #import "OWUtilities.h"
 #import "WEPopoverController.h"
+#import "OWRecordingInfoViewController.h"
 
 @interface OWWatchViewController ()
 @end
@@ -113,10 +114,10 @@
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSManagedObjectID *recordingObjectID = [self.recordingsArray objectAtIndex:indexPath.row];
-    OWManagedRecording *recording = [OWRecordingController recordingForObjectID:recordingObjectID];
-    OWRemoteRecordingViewController *remoteVC = [[OWRemoteRecordingViewController alloc] init];
-    remoteVC.recordingURL = [OWRecordingController detailPageURLForRecordingServerID:[recording.serverID intValue]];
-    [self.navigationController pushViewController:remoteVC animated:YES];
+    OWRecordingInfoViewController *recordingVC = [[OWRecordingInfoViewController alloc] init];
+    recordingVC.isLocalRecording = NO;
+    recordingVC.recordingID = recordingObjectID;
+    [self.navigationController pushViewController:recordingVC animated:YES];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
