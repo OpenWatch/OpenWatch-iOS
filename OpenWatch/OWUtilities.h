@@ -12,6 +12,7 @@
 @interface OWUtilities : NSObject
 
 + (UIColor*) fabricBackgroundPattern;
++ (UIColor*) greyTextColor;
 + (NSDateFormatter*) dateFormatter;
 + (NSString*) baseURLString;
 

@@ -137,6 +137,7 @@
             NSLog(@"Recording created: %@", recording.localRecordingPath);
         }
     }
+    [context MR_saveNestedContexts];
 }
 
 @end

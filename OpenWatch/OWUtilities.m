@@ -21,6 +21,11 @@
     return dateFormatter;
 }
 
++ (UIColor*) greyTextColor {
+    CGFloat greyness = 0.3f;
+    return [UIColor colorWithRed:greyness green:greyness blue:greyness alpha:1.0f];
+}
+
 + (NSString*) baseURLString {
     return @"http://192.168.1.44:8000/";
 }

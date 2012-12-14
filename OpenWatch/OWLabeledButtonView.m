@@ -7,6 +7,7 @@
 //
 
 #import "OWLabeledButtonView.h"
+#import "OWUtilities.h"
 
 @implementation OWLabeledButtonView
 @synthesize button, textLabel;
@@ -35,6 +36,7 @@
         self.textLabel.font = [UIFont boldSystemFontOfSize:19.0f];
         self.textLabel.shadowColor = [UIColor lightGrayColor];
         self.textLabel.shadowOffset = CGSizeMake(0, 1);
+        self.textLabel.textColor = [OWUtilities greyTextColor];
         
         [self addSubview:textLabel];
         [self addSubview:button];
