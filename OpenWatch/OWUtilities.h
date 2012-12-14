@@ -13,7 +13,10 @@
 
 + (UIColor*) fabricBackgroundPattern;
 + (UIColor*) greyTextColor;
-+ (NSDateFormatter*) dateFormatter;
++ (UIColor*) greyColorWithGreyness:(CGFloat)greyness;
+
++ (NSDateFormatter*) utcDateFormatter;
++ (NSDateFormatter*) localDateFormatter;
 + (NSString*) baseURLString;
 
 + (WEPopoverContainerViewProperties *)improvedContainerViewProperties;

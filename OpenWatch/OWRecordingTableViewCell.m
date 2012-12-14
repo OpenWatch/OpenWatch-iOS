@@ -16,7 +16,7 @@
 #define PADDING 9.0f
 
 @implementation OWRecordingTableViewCell
-@synthesize recordingObjectID, thumbnailImageView, titleLabel, usernameLabel, eyeImageView, actionImageView, viewsLabel, actionsLabel, tallyView;
+@synthesize recordingObjectID, thumbnailImageView, titleLabel, usernameLabel, eyeImageView, actionImageView, viewsLabel, actionsLabel, tallyView, dateModifiedLabel, isLocalRecording;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -25,7 +25,17 @@
         self.thumbnailImageView = [[UIImageView alloc] initWithFrame:CGRectMake(PADDING, PADDING, 100, 100)];
         self.thumbnailImageView.layer.masksToBounds = YES;
         self.thumbnailImageView.layer.cornerRadius = 5.0;
+        self.isLocalRecording = NO;
         [self setupTallyView];
+        
+        CGFloat dateModifiedWidth = 180.0f;
+        CGFloat dateModifiedHeight = 20.0f;
+        self.dateModifiedLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.contentView.frame.size.width-dateModifiedWidth-PADDING, self.contentView.frame.size.height-dateModifiedHeight-PADDING, dateModifiedWidth, dateModifiedHeight)];
+        [self styleLabel:dateModifiedLabel];
+        dateModifiedLabel.textColor = [OWUtilities greyColorWithGreyness:0.5f];
+        self.dateModifiedLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin;
+        self.dateModifiedLabel.textAlignment = UITextAlignmentRight;
+
         CGFloat titleLabelXOrigin = thumbnailImageView.frame.origin.x + thumbnailImageView.frame.size.width + PADDING;
         self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(titleLabelXOrigin, PADDING, self.contentView.frame.size.width - titleLabelXOrigin, 100)];
         self.titleLabel.numberOfLines = 0;
@@ -36,7 +46,9 @@
         self.usernameLabel = [[UILabel alloc] initWithFrame:CGRectMake(PADDING, self.contentView.frame.size.height - usernameLabelHeight - PADDING, 150, usernameLabelHeight)];
         self.usernameLabel.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleRightMargin;
         [self styleLabel:usernameLabel];
-        usernameLabel.textColor = [UIColor colorWithRed:0.5 green:0.5 blue:0.5 alpha:1.0];
+        usernameLabel.textColor = [OWUtilities greyColorWithGreyness:0.5f];
+        
+        
         self.backgroundView = nil;
 
         [self.contentView addSubview:titleLabel];
@@ -78,13 +90,26 @@
 - (void) setRecordingObjectID:(NSManagedObjectID *)newRecordingObjectID {
     recordingObjectID = newRecordingObjectID;
     OWManagedRecording *recording = [OWRecordingController recordingForObjectID:newRecordingObjectID];
+    [tallyView removeFromSuperview];
+    [dateModifiedLabel removeFromSuperview];
+    if (self.isLocalRecording) {
+        NSDateFormatter *dateFormatter = [OWUtilities localDateFormatter];
+        self.dateModifiedLabel.text = [dateFormatter stringFromDate:recording.dateModified];
+        [self.contentView addSubview:dateModifiedLabel];
+    } else {
+        self.actionsLabel.text = [NSString stringWithFormat:@"%d", [recording.upvotes intValue]];
+        self.viewsLabel.text = [NSString stringWithFormat:@"%d", [recording.views intValue]];
+        [self.contentView addSubview:tallyView];
+    }
+    
     [self.thumbnailImageView cancelImageRequestOperation];
-    [self.thumbnailImageView setImageWithURL:[NSURL URLWithString:recording.thumbnailURL]];
+    [self.thumbnailImageView setImageWithURL:[NSURL URLWithString:recording.thumbnailURL] placeholderImage:[UIImage imageNamed:@"thumbnail_placeholder.png"]];
     self.titleLabel.text = recording.title;
     //[self.titleLabel sizeToFit];
     self.usernameLabel.text = recording.user.username;
-    self.actionsLabel.text = [NSString stringWithFormat:@"%d", [recording.upvotes intValue]];
-    self.viewsLabel.text = [NSString stringWithFormat:@"%d", [recording.views intValue]];
+
+    
+    
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated

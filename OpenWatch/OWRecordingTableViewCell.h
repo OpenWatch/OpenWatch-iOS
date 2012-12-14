@@ -20,5 +20,7 @@
 @property (nonatomic, strong) UIImageView *eyeImageView;
 @property (nonatomic, strong) UIImageView *actionImageView;
 @property (nonatomic, strong) UIView *tallyView;
+@property (nonatomic, strong) UILabel *dateModifiedLabel;
+@property (nonatomic) BOOL isLocalRecording;
 
 @end

@@ -16,9 +16,13 @@
 
 - (void) loginWithAccount:(OWAccount*)account success:(void (^)(void)) success failure:(void (^)(NSString *reason))failure;
 - (void) signupWithAccount:(OWAccount*)account success:(void (^)(void)) success failure:(void (^)(NSString *reason))failure;
+- (void) updateSubscribedTags;
+
 - (void) fetchRecordingsWithSuccessBlock:(void (^)(void)) success failure:(void (^)(NSString *reason))failure;
+- (void) postRecordingWithUUID:(NSString*)UUID success:(void (^)(void))success failure:(void (^)(NSString *reason))failure;
+- (void) getRecordingWithUUID:(NSString*)UUID success:(void (^)(void))success failure:(void (^)(NSString *reason))failure;
+
 - (void) fetchRecordingsForTag:(NSString*)tag success:(void (^)(NSArray *recordingObjectIDs))success failure:(void (^)(NSString *reason))failure;
 - (void) fetchRecordingsForFeed:(NSString*)feed success:(void (^)(NSArray *recordingObjectIDs))success failure:(void (^)(NSString *reason))failure;
-- (void) updateSubscribedTags;
 
 @end

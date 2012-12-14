@@ -10,6 +10,7 @@
 #import "OWLocalRecording.h"
 #import "OWStrings.h"
 #import "OWAccountAPIClient.h"
+#import "OWRecordingTableViewCell.h"
 
 @interface OWRecordingListViewController ()
 
@@ -55,15 +56,24 @@
     }];
 }
 
+- (void) viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    self.recordingsTableView.frame = self.view.frame; // 
+}
+
 - (void) refreshRecordings {
-    [self.recordingController scanDirectoryForChanges];
-    self.recordingsArray = [NSMutableArray arrayWithArray:[recordingController allRecordings]];
-    [self.recordingsArray sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-        OWLocalRecording *rec1 = (OWLocalRecording*)obj1;
-        OWLocalRecording *rec2 = (OWLocalRecording*)obj2;
-        return [rec1.startDate compare:rec2.startDate];
-    }];
-    [self.recordingsTableView reloadData];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [self.recordingController scanDirectoryForChanges];
+        self.recordingsArray = [NSMutableArray arrayWithArray:[recordingController allRecordings]];
+        [self.recordingsArray sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+            OWLocalRecording *rec1 = [OWRecordingController recordingForObjectID:obj1];
+            OWLocalRecording *rec2 = [OWRecordingController recordingForObjectID:obj2];
+            return [rec1.startDate compare:rec2.startDate];
+        }];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.recordingsTableView reloadData];
+        });
+    });
 }
 
 - (void)didReceiveMemoryWarning
@@ -81,15 +91,21 @@
 }
 
 - (UITableViewCell*) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString *cellIdentifier = @"CellIdentifier";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    static NSString *cellIdentifier = @"RecordingCellIdentifier";
+    OWRecordingTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier];
+        cell = [[OWRecordingTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+        cell.isLocalRecording = YES;
     }
-    OWLocalRecording *recording = [recordingsArray objectAtIndex:indexPath.row];
-    cell.textLabel.text = [recording.startDate description];
+    NSManagedObjectID *recordingID = [recordingsArray objectAtIndex:indexPath.row];
+    cell.recordingObjectID = recordingID;
     return cell;
 }
+
+- (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 147.0f;
+}
+
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -112,7 +128,8 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        OWLocalRecording *recording = [recordingsArray objectAtIndex:indexPath.row];
+        NSManagedObjectID *recordingID = [recordingsArray objectAtIndex:indexPath.row];
+        OWLocalRecording *recording = [OWRecordingController recordingForObjectID:recordingID];
         // Delete the row from the data source
         [recordingsArray removeObjectAtIndex:indexPath.row];
         [recordingController removeRecording:recording.objectID];
@@ -121,11 +138,11 @@
 }
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    OWLocalRecording *recording = [recordingsArray objectAtIndex:indexPath.row];
-    if (![recording isKindOfClass:[OWLocalRecording class]]) {
+    NSManagedObjectID *recordingID = [recordingsArray objectAtIndex:indexPath.row];
+    OWLocalRecording *recording = [OWRecordingController recordingForObjectID:recordingID];    if (![recording isKindOfClass:[OWLocalRecording class]]) {
         return;
     }
-    recordingInfoViewController.recordingID = recording.objectID;
+    recordingInfoViewController.recordingID = recordingID;
     [self.navigationController pushViewController:recordingInfoViewController animated:YES];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }

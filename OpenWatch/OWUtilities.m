@@ -14,15 +14,26 @@
     return [UIColor colorWithPatternImage:[UIImage imageNamed:@"fabric.jpeg"]];
 }
 
-+ (NSDateFormatter*) dateFormatter {
++ (NSDateFormatter*) utcDateFormatter {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     dateFormatter.dateFormat = @"yyyy-MM-dd' 'HH:mm:ss";
     dateFormatter.timeZone = [NSTimeZone timeZoneWithAbbreviation:@"UTC"];
     return dateFormatter;
 }
 
++ (NSDateFormatter*) localDateFormatter {
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.dateFormat = @"yyyy-MM-dd' 'h:mm a";
+    dateFormatter.timeZone = [NSTimeZone localTimeZone];
+    dateFormatter.locale = [NSLocale currentLocale];
+    return dateFormatter;
+}
+
 + (UIColor*) greyTextColor {
-    CGFloat greyness = 0.3f;
+    return [OWUtilities greyColorWithGreyness:0.3];
+}
+
++ (UIColor*) greyColorWithGreyness:(CGFloat)greyness {
     return [UIColor colorWithRed:greyness green:greyness blue:greyness alpha:1.0f];
 }
 

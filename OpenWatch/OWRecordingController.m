@@ -37,7 +37,8 @@
 }
 
 - (void) scanRecordingsForUnsubmittedData {
-    for (OWLocalRecording *recording in [self allRecordings]) {
+    for (NSManagedObjectID *objectID in [self allRecordings]) {
+        OWLocalRecording *recording = [OWRecordingController recordingForObjectID:objectID];
         if (![recording isKindOfClass:[OWLocalRecording class]]){
             continue;
         }
@@ -98,7 +99,7 @@
     
     for (OWLocalRecording *recording in user.recordings) {
         if ([recording isKindOfClass:[OWLocalRecording class]]) {
-            [recordingsArray addObject:recording];
+            [recordingsArray addObject:recording.objectID];
         }
     }
     
@@ -120,7 +121,9 @@
     
     NSArray *currentRecordings = [self allRecordings];
     
-    for (OWLocalRecording *recording in currentRecordings) {
+    for (NSManagedObjectID *recordingID in currentRecordings) {
+        OWLocalRecording *recording = [OWRecordingController recordingForObjectID:recordingID];
+
         if (![recording isKindOfClass:[OWLocalRecording class]]) {
             continue;
         }

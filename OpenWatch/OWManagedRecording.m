@@ -44,10 +44,6 @@
 @dynamic upvotes;
 @dynamic views;
 
-- (NSString*) thumbnailURL {
-    return @"http://lorempixel.com/200/200/";
-}
-
 - (CLLocation*) startLocation {
     return [self locationWithLatitude:[self.startLatitude doubleValue] longitude:[self.startLongitude doubleValue]];
 }
@@ -90,7 +86,7 @@
     if (self.uuid) {
         [newMetadataDictionary setObject:[self.uuid copy] forKey:kUUIDKey];
     }
-    NSDateFormatter *dateFormatter = [OWUtilities dateFormatter];
+    NSDateFormatter *dateFormatter = [OWUtilities utcDateFormatter];
     if (self.startDate) {
         [newMetadataDictionary setObject:[dateFormatter stringFromDate:self.startDate] forKey:kRecordingStartDateKey];
     }
@@ -147,7 +143,7 @@
     if (serverID) {
         self.serverID = serverID;
     }
-    NSDateFormatter *dateFormatter = [OWUtilities dateFormatter];
+    NSDateFormatter *dateFormatter = [OWUtilities utcDateFormatter];
     NSString *lastEdited = [metadataDictionary objectForKey:kLastEditedKey];
     if (lastEdited) {
         self.dateModified = [dateFormatter dateFromString:lastEdited];
@@ -218,6 +214,8 @@
     self.views = views;
     NSNumber *upvotes = [metadataDictionary objectForKey:@"upvotes"];
     self.upvotes = upvotes;
+    
+    self.thumbnailURL = [metadataDictionary objectForKey:@"thumbnail_url"];
 }
 
 - (CLLocation*)locationFromLocationDictionary:(NSDictionary*)locationDictionary {

@@ -107,7 +107,7 @@
             NSString *uuid = [recordingDict objectForKey:@"uuid"];
             int serverID = [[recordingDict objectForKey:@"id"] intValue];
             NSString *remoteLastEditedString = [recordingDict objectForKey:@"last_edited"];
-            NSDateFormatter *dateFormatter = [OWUtilities dateFormatter];
+            NSDateFormatter *dateFormatter = [OWUtilities utcDateFormatter];
             
             NSDate *remoteLastEditedDate = [dateFormatter dateFromString:remoteLastEditedString];
             OWManagedRecording *managedRecording = [OWManagedRecording MR_findFirstByAttribute:@"uuid" withValue:uuid];
