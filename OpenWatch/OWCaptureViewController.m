@@ -9,6 +9,8 @@
 #import "OWCaptureViewController.h"
 #import "OWStrings.h"
 #import "OWCaptureController.h"
+#import "OWRecordingInfoViewController.h"
+#import "OWAppDelegate.h"
 
 @interface OWCaptureViewController ()
 @property (nonatomic, strong) UIBarButtonItem *cancelButton;
@@ -84,7 +86,7 @@
 
 - (void) viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    
+    [self recordButtonPressed:nil];
 }
 
 - (void)didReceiveMemoryWarning
@@ -141,6 +143,11 @@
         
         [self dismissViewControllerAnimated:YES completion:^{
             //[videoProcessor stopAndTearDownCaptureSession];
+            OWRecordingInfoViewController *recordingInfo = [[OWRecordingInfoViewController alloc] init];
+            recordingInfo.isLocalRecording = YES;
+            recordingInfo.recordingID = videoProcessor.recordingID;
+            UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:recordingInfo];
+            [OW_APP_DELEGATE.homeScreen presentViewController:nav animated:YES completion:nil];
         }];
 	});
 }

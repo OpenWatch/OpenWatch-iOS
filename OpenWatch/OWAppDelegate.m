@@ -11,15 +11,15 @@
 #import "OWUtilities.h"
 
 @implementation OWAppDelegate
-@synthesize tabBarController;
+@synthesize homeScreen;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     self.window.backgroundColor = [OWUtilities fabricBackgroundPattern];
-    
-    OWHomeScreenViewController *homeScreen = [[OWHomeScreenViewController alloc] init];
+     
+    self.homeScreen = [[OWHomeScreenViewController alloc] init];
     UINavigationController *homeNavController = [[UINavigationController alloc] initWithRootViewController:homeScreen];
     homeNavController.navigationBar.tintColor = [UIColor redColor];
 

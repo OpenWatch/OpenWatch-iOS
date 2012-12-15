@@ -7,10 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "OWHomeScreenViewController.h"
+
+#define OW_APP_DELEGATE ((OWAppDelegate*)[UIApplication sharedApplication].delegate)
 
 @interface OWAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
-@property (strong, nonatomic) UITabBarController *tabBarController;
+@property (nonatomic, strong) OWHomeScreenViewController *homeScreen;
 
 @end
