@@ -13,6 +13,7 @@
 #import "OWMapAnnotation.h"
 #import "OWRecordingController.h"
 #import "OWTagEditViewController.h"
+#import "OWUtilities.h"
 
 #define TITLE_ROW 0
 #define DESCRIPTION_ROW 1
@@ -141,6 +142,7 @@
         [self refreshProgressView];
         [self registerForUploadProgressNotifications];
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:SAVE_STRING style:UIBarButtonItemStyleDone target:self action:@selector(saveButtonPressed:)];
+        self.navigationItem.rightBarButtonItem.tintColor = [OWUtilities doneButtonColor];
     } else {
         OWManagedRecording *recording = [OWRecordingController recordingForObjectID:recordingID];
         [[OWAccountAPIClient sharedClient] getRecordingWithUUID:recording.uuid success:^(NSManagedObjectID *recordingObjectID) {

@@ -26,7 +26,7 @@
 {
     self = [super init];
     if (self) {
-        self.title = @"OpenWatch";
+        self.title = OPENWATCH_STRING;
     }
     return self;
 }
@@ -86,6 +86,7 @@
     if (![settingsController.account isLoggedIn]) {
         OWLoginViewController *loginViewController = [[OWLoginViewController alloc] init];
         UINavigationController *loginNavController = [[UINavigationController alloc] initWithRootViewController:loginViewController];
+        loginNavController.navigationBar.tintColor = [OWUtilities navigationBarColor];
         [self presentViewController:loginNavController animated:YES completion:^{
             
         }];
@@ -124,6 +125,7 @@
 - (void) recordButtonPressed:(id)sender {
     OWCaptureViewController *captureView = [[OWCaptureViewController alloc] init];
     UINavigationController *captureNav = [[UINavigationController alloc] initWithRootViewController:captureView];
+    captureNav.navigationBar.tintColor = [OWUtilities navigationBarColor];
     [self presentViewController:captureNav animated:YES completion:^{
     }];
 }

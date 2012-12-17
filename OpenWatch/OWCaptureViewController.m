@@ -11,6 +11,7 @@
 #import "OWCaptureController.h"
 #import "OWRecordingInfoViewController.h"
 #import "OWAppDelegate.h"
+#import "OWUtilities.h"
 
 @interface OWCaptureViewController ()
 @property (nonatomic, strong) UIBarButtonItem *cancelButton;
@@ -27,6 +28,7 @@
         self.videoPreviewView = [[UIView alloc] init];
         self.title = CAPTURE_STRING;
         self.recordButton = [[UIBarButtonItem alloc] initWithTitle:RECORD_STRING style:UIBarButtonItemStyleDone target:self action:@selector(recordButtonPressed:)];
+        self.recordButton.tintColor = [OWUtilities doneButtonColor];
         self.cancelButton = [[UIBarButtonItem alloc] initWithTitle:CANCEL_STRING style:UIBarButtonItemStyleBordered target:self action:@selector(cancelButtonPressed:)];
     }
     return self;
@@ -147,6 +149,7 @@
             recordingInfo.isLocalRecording = YES;
             recordingInfo.recordingID = videoProcessor.recordingID;
             UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:recordingInfo];
+            nav.navigationBar.tintColor = [OWUtilities navigationBarColor];
             [OW_APP_DELEGATE.homeScreen presentViewController:nav animated:YES completion:nil];
         }];
 	});

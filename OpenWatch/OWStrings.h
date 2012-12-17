@@ -6,6 +6,7 @@
 //  Copyright (c) 2012 OpenWatch FPC. All rights reserved.
 //
 
+#define OPENWATCH_STRING @"OpenWatch"
 #define REGISTER_STRING NSLocalizedString(@"Register", @"For registering with our service")
 #define SIGNUP_STRING NSLocalizedString(@"Sign Up", @"Shown on button for registering with service")
 #define SETTINGS_STRING NSLocalizedString(@"Settings", @"Title for the screen to change preferences")
@@ -20,6 +21,7 @@
 #define USER_PASS_WRONG_STRING NSLocalizedString(@"Incorrect email address or password.", @"Shown when server response indicates login failure")
 
 #define OK_STRING NSLocalizedString(@"OK", @"Accept the dialog")
+#define COOL_STRING NSLocalizedString(@"Cool!", @"Button title for dismissing a dialog")
 #define SUBMIT_STRING NSLocalizedString(@"Submit", @"Title for button for submission of data")
 #define SIGNUP_HELP_STRING NSLocalizedString(@"Use this form to login with an existing account or create a new one.", @"Lets user know our form does both login and signup")
 #define CAPTURE_STRING NSLocalizedString(@"Capture", @"Title for view to record video and audio")
@@ -43,3 +45,5 @@
 #define FOLLOWING_STRING NSLocalizedString(@"Following", @"Title for followed tags")
 #define LOCAL_STRING NSLocalizedString(@"Local", @"Title for local recordings")
 #define SAVED_STRING NSLocalizedString(@"Saved", @"Title for saved recordings")
+#define WELCOME_STRING NSLocalizedString(@"Welcome!", @"title for welcome screen")
+#define WELCOME_TEXTVIEW_STRING NSLocalizedString(@"Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem. Investigationes demonstraverunt lectores legere me lius quod ii legunt saepius. Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima. Eodem modo typi, qui nunc nobis videntur parum clari, fiant sollemnes in futurum.", @"welcome blurb")

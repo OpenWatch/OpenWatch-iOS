@@ -13,6 +13,8 @@
 
 + (UIColor*) fabricBackgroundPattern;
 + (UIColor*) greyTextColor;
++ (UIColor*) navigationBarColor;
++ (UIColor*) doneButtonColor;
 + (UIColor*) greyColorWithGreyness:(CGFloat)greyness;
 
 + (NSDateFormatter*) utcDateFormatter;

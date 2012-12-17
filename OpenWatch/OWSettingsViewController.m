@@ -10,6 +10,7 @@
 #import "OWStrings.h"
 #import "OWLoginViewController.h"
 #import "OWRecordingListViewController.h"
+#import "OWUtilities.h"
 
 @interface OWSettingsViewController ()
 
@@ -43,6 +44,7 @@
     if (indexPath.row == 0) {
         OWLoginViewController *loginView = [[OWLoginViewController alloc] init];
         UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:loginView];
+        navController.navigationBar.tintColor = [OWUtilities navigationBarColor];
         [self presentViewController:navController animated:YES completion:nil];
     }
     [tableView deselectRowAtIndexPath:indexPath animated:YES];

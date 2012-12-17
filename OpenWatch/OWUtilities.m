@@ -14,6 +14,14 @@
     return [UIColor colorWithPatternImage:[UIImage imageNamed:@"fabric.jpeg"]];
 }
 
++ (UIColor*) navigationBarColor {
+    return [UIColor colorWithRed:1.0f green:0.0f blue:0.0f alpha:1.0f];
+}
+
++ (UIColor*) doneButtonColor {
+    return [UIColor colorWithRed:0.0f green:0.8f blue:0.0f alpha:1.0f];
+}
+
 + (NSDateFormatter*) utcDateFormatter {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     dateFormatter.dateFormat = @"yyyy-MM-dd' 'HH:mm:ss";

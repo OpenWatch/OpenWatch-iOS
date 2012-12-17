@@ -11,6 +11,8 @@
 #import "OWSettingsController.h"
 #import "OWAccountAPIClient.h"
 #import "MBProgressHUD.h"
+#import "OWWelcomeViewController.h"
+#import "OWUtilities.h"
 
 
 #define PADDING 10.0f
@@ -63,8 +65,10 @@
 
     
     self.loginButton = [[UIBarButtonItem alloc] initWithTitle:SUBMIT_STRING style:UIBarButtonItemStyleDone target:self action:@selector(loginButtonPressed:)];
+    self.loginButton.tintColor = [OWUtilities doneButtonColor];
     
     self.logoutButton = [[UIBarButtonItem alloc] initWithTitle:LOGOUT_STRING style:UIBarButtonItemStyleDone target:self action:@selector(logoutButtonPressed:)];
+    self.logoutButton.tintColor = [OWUtilities doneButtonColor];
     
     self.headerImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"openwatch.png"]];
     self.headerImageView.contentMode = UIViewContentModeCenter;
@@ -83,6 +87,7 @@
     self.headerImageView.frame = CGRectMake(padding, 0, self.view.frame.size.width-(padding*2), headerImageView.image.size.height+(padding*2));
 
     self.loginOrSignupSegmentedControl.frame = CGRectMake(padding, self.headerImageView.frame.size.height, self.view.frame.size.width-(padding*2), 35.0f);
+    self.loginOrSignupSegmentedControl.selectedSegmentIndex = 1;
     CGFloat loginTableViewYOrigin = loginOrSignupSegmentedControl.frame.size.height + loginOrSignupSegmentedControl.frame.origin.y;
     self.groupedTableView.frame = CGRectMake(0, loginTableViewYOrigin, self.view.frame.size.width, self.view.frame.size.height-loginTableViewYOrigin);
     
@@ -193,7 +198,8 @@
     NSLog(@"Login Success");
     [self refreshLoginButtons];
     [MBProgressHUD hideHUDForView:self.view animated:YES];
-    [self dismissViewControllerAnimated:YES completion:^{}];
+    OWWelcomeViewController *welcomeVC = [[OWWelcomeViewController alloc] init];
+    [self.navigationController pushViewController:welcomeVC animated:YES];
 }
 
 

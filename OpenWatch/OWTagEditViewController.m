@@ -12,6 +12,7 @@
 #import "OWRecordingTag.h"
 #import "OWStrings.h"
 #import "OWAutocompletionView.h"
+#import "OWUtilities.h"
 
 @interface OWTagEditViewController ()
 @property (nonatomic, strong) UITableView *tagTableView;
@@ -68,6 +69,7 @@
         self.tagTableView.frame = CGRectMake(0, labelHeight, self.view.frame.size.width, self.view.frame.size.height-labelHeight);
         self.addTagButton.frame = CGRectMake(self.view.frame.size.width-buttonWidth, 0, buttonWidth, labelHeight);
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:SAVE_STRING style:UIBarButtonItemStyleDone target:self action:@selector(saveButtonPressed:)];
+        self.navigationItem.rightBarButtonItem.tintColor = [OWUtilities doneButtonColor];
     } else {
         self.tagTableView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
         [tagTextField removeFromSuperview];
