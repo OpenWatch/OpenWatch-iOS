@@ -10,7 +10,7 @@
 #import "OWStrings.h"
 #import "OWSettingsController.h"
 #import "OWAccountAPIClient.h"
-
+#import "MBProgressHUD.h"
 
 
 #define PADDING 10.0f
@@ -162,7 +162,10 @@
     {
         account.email = self.emailTextField.text;
         account.password = self.passwordTextField.text;
-        
+        [self.emailTextField resignFirstResponder];
+        [self.passwordTextField resignFirstResponder];
+        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+
         if (loginOrSignupSegmentedControl.selectedSegmentIndex == 0) {
             [[OWAccountAPIClient sharedClient] loginWithAccount:account success:^{
                 [self loginSuccess];
@@ -183,11 +186,13 @@
     NSLog(@"Login failure: %@", reason);
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:ERROR_STRING message:USER_PASS_WRONG_STRING delegate:nil cancelButtonTitle:OK_STRING otherButtonTitles:nil];
     [alert show];
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
 }
 
 - (void) loginSuccess {
     NSLog(@"Login Success");
     [self refreshLoginButtons];
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
     [self dismissViewControllerAnimated:YES completion:^{}];
 }
 
