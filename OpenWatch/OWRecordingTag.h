@@ -14,9 +14,11 @@
 @interface OWRecordingTag : NSManagedObject
 
 @property (nonatomic, retain) NSString * name;
+@property (nonatomic, retain) NSNumber *isFeatured;
+@property (nonatomic, retain) NSNumber *serverID;
+
 @property (nonatomic, retain) NSSet *recordings;
 @property (nonatomic, retain) NSSet *users;
-@property (nonatomic, retain) NSNumber *isFeatured;
 
 @end
 

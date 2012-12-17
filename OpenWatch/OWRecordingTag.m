@@ -16,5 +16,6 @@
 @dynamic recordings;
 @dynamic users;
 @dynamic isFeatured;
+@dynamic serverID;
 
 @end

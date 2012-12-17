@@ -263,11 +263,14 @@
         OWUser *user = account.user;
         NSArray *rawTags = [responseObject objectForKey:@"tags"];
         NSMutableSet *tags = [NSMutableSet setWithCapacity:[rawTags count]];
-        for (NSString *tagName in rawTags) {
-            OWRecordingTag *tag = [OWRecordingTag MR_findFirstByAttribute:@"name" withValue:tagName];
+        for (NSDictionary *tagDictionary in rawTags) {
+            NSNumber *serverID = [tagDictionary objectForKey:@"id"];
+            OWRecordingTag *tag = [OWRecordingTag MR_findFirstByAttribute:@"serverID" withValue:serverID];
             if (!tag) {
                 tag = [OWRecordingTag MR_createEntity];
-                tag.name = tagName;
+                tag.name = [tagDictionary objectForKey:@"name"];
+                tag.isFeatured = [tagDictionary objectForKey:@"featured"];
+                tag.serverID = serverID;
             }
             [tags addObject:tag];
         }
