@@ -25,7 +25,7 @@
         self.videoProcessor.delegate = self;
         [self.videoProcessor setupAndStartCaptureSession];
         self.videoPreviewView = [[UIView alloc] init];
-        self.title = CAPTURE_STRING;
+        self.title = STREAMING_STRING;
         self.recordButton = [[UIBarButtonItem alloc] initWithTitle:RECORD_STRING style:UIBarButtonItemStyleDone target:self action:@selector(recordButtonPressed:)];
         self.recordButton.tintColor = [OWUtilities doneButtonColor];
     }
@@ -43,15 +43,12 @@
 
 - (void) recordButtonPressed:(id)sender {
     // Wait for the recording to start/stop before re-enabling the record button.
-    [[self recordButton] setEnabled:NO];
-    
-    if ( [videoProcessor isRecording] ) {
-        // The recordingWill/DidStop delegate methods will fire asynchronously in response to this call
-        [videoProcessor stopRecording];
-    }
-    else {
-        // The recordingWill/DidStart delegate methods will fire asynchronously in response to this call
+    if (![videoProcessor isRecording]) {
+        [[self recordButton] setEnabled:NO];
         [videoProcessor startRecording];
+    } else {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:STOP_RECORDING_STRING message:nil delegate:self cancelButtonTitle:NO_STRING otherButtonTitles:YES_STRING, nil];
+        [alert show];
     }
 }
 
@@ -157,6 +154,15 @@
 - (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation
 {
     return UIInterfaceOrientationLandscapeRight;
+}
+
+- (void) alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
+    if (buttonIndex != alertView.cancelButtonIndex) {
+        if ( [videoProcessor isRecording] ) {
+            [[self recordButton] setEnabled:NO];
+            [videoProcessor stopRecording];
+        }
+    }
 }
 
 

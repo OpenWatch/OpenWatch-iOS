@@ -11,7 +11,7 @@
 
 @class AVCaptureVideoPreviewLayer;
 
-@interface OWCaptureViewController : UIViewController <OWVideoProcessorDelegate> {
+@interface OWCaptureViewController : UIViewController <OWVideoProcessorDelegate, UIAlertViewDelegate> {
     UIBackgroundTaskIdentifier backgroundRecordingID;
 }
 
