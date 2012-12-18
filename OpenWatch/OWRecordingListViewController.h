@@ -15,6 +15,5 @@
 @property (nonatomic, strong) UITableView *recordingsTableView;
 @property (nonatomic, strong) NSMutableArray *recordingsArray;
 @property (nonatomic, strong) OWRecordingController *recordingController;
-@property (nonatomic, strong) OWRecordingInfoViewController *recordingInfoViewController;
 
 @end

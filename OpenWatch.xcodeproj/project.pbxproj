@@ -108,6 +108,7 @@
 		D9E72E51167FB10000C6CB75 /* icon-ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E72E50167FB10000C6CB75 /* icon-ipad.png */; };
 		D9E72E53167FB10500C6CB75 /* icon-ipad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E72E52167FB10500C6CB75 /* icon-ipad@2x.png */; };
 		D9E72E57167FB39A00C6CB75 /* OWWelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9E72E56167FB39A00C6CB75 /* OWWelcomeViewController.m */; };
+		D9E72E5A167FF6AE00C6CB75 /* OWRecordingEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9E72E59167FF6AD00C6CB75 /* OWRecordingEditViewController.m */; };
 		D9EB4C3C166D314C0019F8B6 /* MagicalImportFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = D9EB4C04166D314C0019F8B6 /* MagicalImportFunctions.m */; };
 		D9EB4C3D166D314C0019F8B6 /* NSAttributeDescription+MagicalDataImport.m in Sources */ = {isa = PBXBuildFile; fileRef = D9EB4C06166D314C0019F8B6 /* NSAttributeDescription+MagicalDataImport.m */; };
 		D9EB4C3E166D314C0019F8B6 /* NSEntityDescription+MagicalDataImport.m in Sources */ = {isa = PBXBuildFile; fileRef = D9EB4C08166D314C0019F8B6 /* NSEntityDescription+MagicalDataImport.m */; };
@@ -296,6 +297,8 @@
 		D9E72E52167FB10500C6CB75 /* icon-ipad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-ipad@2x.png"; sourceTree = "<group>"; };
 		D9E72E55167FB39A00C6CB75 /* OWWelcomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWWelcomeViewController.h; sourceTree = "<group>"; };
 		D9E72E56167FB39A00C6CB75 /* OWWelcomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWWelcomeViewController.m; sourceTree = "<group>"; };
+		D9E72E58167FF6AC00C6CB75 /* OWRecordingEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWRecordingEditViewController.h; sourceTree = "<group>"; };
+		D9E72E59167FF6AD00C6CB75 /* OWRecordingEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWRecordingEditViewController.m; sourceTree = "<group>"; };
 		D9EB4C03166D314C0019F8B6 /* MagicalImportFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MagicalImportFunctions.h; sourceTree = "<group>"; };
 		D9EB4C04166D314C0019F8B6 /* MagicalImportFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MagicalImportFunctions.m; sourceTree = "<group>"; };
 		D9EB4C05166D314C0019F8B6 /* NSAttributeDescription+MagicalDataImport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSAttributeDescription+MagicalDataImport.h"; sourceTree = "<group>"; };
@@ -605,6 +608,8 @@
 				D9D7870916769F52006EE6A2 /* OWTagEditViewController.m */,
 				D907022F1668270F00611607 /* OWHomeScreenViewController.h */,
 				D90702301668270F00611607 /* OWHomeScreenViewController.m */,
+				D9E72E58167FF6AC00C6CB75 /* OWRecordingEditViewController.h */,
+				D9E72E59167FF6AD00C6CB75 /* OWRecordingEditViewController.m */,
 				D9308512166406E5008C5D4C /* OWRecordingInfoViewController.h */,
 				D9308513166406E5008C5D4C /* OWRecordingInfoViewController.m */,
 				D9D2E19A165326BB0000E7C5 /* OWRecordingListViewController.h */,
@@ -1003,6 +1008,7 @@
 				D97EAABB167A540900A1B038 /* OWFeedSelectionViewController.m in Sources */,
 				D94A26DF167A7B4600BD36EF /* OWLabeledButtonView.m in Sources */,
 				D9E72E57167FB39A00C6CB75 /* OWWelcomeViewController.m in Sources */,
+				D9E72E5A167FF6AE00C6CB75 /* OWRecordingEditViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

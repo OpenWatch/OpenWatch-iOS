@@ -115,7 +115,6 @@
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSManagedObjectID *recordingObjectID = [self.recordingsArray objectAtIndex:indexPath.row];
     OWRecordingInfoViewController *recordingVC = [[OWRecordingInfoViewController alloc] init];
-    recordingVC.isLocalRecording = NO;
     recordingVC.recordingID = recordingObjectID;
     [self.navigationController pushViewController:recordingVC animated:YES];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];

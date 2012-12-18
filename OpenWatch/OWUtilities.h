@@ -21,6 +21,8 @@
 + (NSDateFormatter*) localDateFormatter;
 + (NSString*) baseURLString;
 
++ (CGFloat) bottomOfView:(UIView*)view;
+
 + (WEPopoverContainerViewProperties *)improvedContainerViewProperties;
 
 @end

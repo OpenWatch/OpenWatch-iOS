@@ -12,9 +12,15 @@
 #import <MapKit/MapKit.h>
 #import <MediaPlayer/MediaPlayer.h>
 
-@interface OWRecordingInfoViewController : OWGroupedTableViewController <UITableViewDataSource, UITableViewDelegate, MKMapViewDelegate>
+@interface OWRecordingInfoViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, MKMapViewDelegate>
+
+@property (nonatomic) CLLocationCoordinate2D centerCoordinate;
+@property (nonatomic, strong) MKMapView *mapView;
+@property (nonatomic, strong) MPMoviePlayerController *moviePlayer;
+@property (nonatomic, strong) UILabel *titleLabel;
+@property (nonatomic, strong) UILabel *descriptionLabel;
 
 @property (nonatomic, strong) NSManagedObjectID *recordingID;
-@property (nonatomic) BOOL isLocalRecording;
+@property (nonatomic, strong) UIScrollView *scrollView;
 
 @end

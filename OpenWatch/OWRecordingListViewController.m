@@ -11,13 +11,14 @@
 #import "OWStrings.h"
 #import "OWAccountAPIClient.h"
 #import "OWRecordingTableViewCell.h"
+#import "OWRecordingEditViewController.h"
 
 @interface OWRecordingListViewController ()
 
 @end
 
 @implementation OWRecordingListViewController
-@synthesize recordingsTableView, recordingController, recordingsArray, recordingInfoViewController;
+@synthesize recordingsTableView, recordingController, recordingsArray;
 
 - (id)init
 {
@@ -29,7 +30,6 @@
         self.recordingController = [OWRecordingController sharedInstance];
         self.title = RECORDINGS_STRING;
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(editButtonPressed:)];
-        self.recordingInfoViewController = [[OWRecordingInfoViewController alloc] init];
     }
     return self;
 }
@@ -142,9 +142,9 @@
     OWLocalRecording *recording = [OWRecordingController recordingForObjectID:recordingID];    if (![recording isKindOfClass:[OWLocalRecording class]]) {
         return;
     }
-    recordingInfoViewController.isLocalRecording = YES;
-    recordingInfoViewController.recordingID = recordingID;
-    [self.navigationController pushViewController:recordingInfoViewController animated:YES];
+    OWRecordingEditViewController *recordingEditVC = [[OWRecordingEditViewController alloc] init];
+    recordingEditVC.recordingID = recordingID;
+    [self.navigationController pushViewController:recordingEditVC animated:YES];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 

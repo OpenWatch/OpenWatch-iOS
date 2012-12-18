@@ -28,6 +28,7 @@
 #define SIGNUP_HELP_STRING NSLocalizedString(@"Use this form to login with an existing account or create a new one.", @"Lets user know our form does both login and signup")
 #define CAPTURE_STRING NSLocalizedString(@"Capture", @"Title for view to record video and audio")
 #define RECORDINGS_STRING NSLocalizedString(@"Recordings", @"Title for list of recorded videos")
+#define WHAT_HAPPENED_STRING NSLocalizedString(@"What Happened?", @"Label to ask what events occurred during a recording")
 #define STREAMING_STRING NSLocalizedString(@"Streaming...", @"describing that we're streaming live video from the phone")
 #define RECORDING_STRING NSLocalizedString(@"Recording", @"Subtitle for a video in the list that is currently being recorded")
 #define RECORD_STRING NSLocalizedString(@"Record", @"Title for button that starts a recording")

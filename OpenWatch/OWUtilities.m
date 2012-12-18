@@ -49,6 +49,10 @@
     return @"http://192.168.1.44:8000/";
 }
 
++ (CGFloat) bottomOfView:(UIView *)view {
+    return view.frame.origin.y + view.frame.size.height;
+}
+
 /**
  Thanks to Paul Solt for supplying these background images and container view properties
  */
