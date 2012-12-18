@@ -19,3 +19,6 @@
 [submodule "Submodules/SuggestionsList"]
 	path = Submodules/SuggestionsList
 	url = git@github.com:OpenWatch/SuggestionsList.git
+[submodule "Submodules/ShareKit"]
+	path = Submodules/ShareKit
+	url = git://github.com/ShareKit/ShareKit.git
