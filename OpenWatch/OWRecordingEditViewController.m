@@ -31,6 +31,9 @@
         [self setupFields];
         [self setupWhatHappenedLabel];
         [self setupProgressView];
+        [self registerForUploadProgressNotifications];
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:SAVE_STRING style:UIBarButtonItemStyleDone target:self action:@selector(saveButtonPressed:)];
+        self.navigationItem.rightBarButtonItem.tintColor = [OWUtilities doneButtonColor];
     }
     return self;
 }
@@ -97,8 +100,7 @@
     [self refreshFrames];
     [self refreshProgressView];
     [self registerForUploadProgressNotifications];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:SAVE_STRING style:UIBarButtonItemStyleDone target:self action:@selector(saveButtonPressed:)];
-    self.navigationItem.rightBarButtonItem.tintColor = [OWUtilities doneButtonColor];
+
     [self.groupedTableView reloadData];
 }
 
@@ -111,10 +113,7 @@
 
 - (void) registerForUploadProgressNotifications {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    OWLocalRecording *recording = [OWRecordingController recordingForObjectID:self.recordingID];
-    if (recording) {
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedUploadProgressNotification:) name:kOWCaptureAPIClientBandwidthNotification object:nil];
-    }
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedUploadProgressNotification:) name:kOWCaptureAPIClientBandwidthNotification object:nil];
 }
 
 - (void) refreshFields {

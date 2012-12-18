@@ -125,7 +125,6 @@
     OWLocalRecording *recording = [OWRecordingController recordingForObjectID:self.recordingObjectID];
     recording.tags = tagSet;
     [recording saveMetadata];
-    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void) addTagButtonPressed:(id)sender {
