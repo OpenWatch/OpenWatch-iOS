@@ -51,4 +51,17 @@
 #define SAVED_STRING NSLocalizedString(@"Saved", @"Title for saved recordings")
 #define WELCOME_STRING NSLocalizedString(@"Welcome!", @"title for welcome screen")
 #define STOP_RECORDING_STRING NSLocalizedString(@"Stop Recording?", @"Question whether user wants to actually stop recording")
-#define WELCOME_TEXTVIEW_STRING NSLocalizedString(@"Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem. Investigationes demonstraverunt lectores legere me lius quod ii legunt saepius. Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima. Eodem modo typi, qui nunc nobis videntur parum clari, fiant sollemnes in futurum.", @"welcome blurb")
+#define WELCOME_TEXTVIEW_STRING NSLocalizedString(@"Welcome, new Watcher!\n\
+\n\
+Thanks for installing OpenWatch!\n\
+\n\
+You should use OpenWatch whenever when you are a witness to an interesting event, you are stopped by the police or other authority figures, or when you feel like you are being victimized by criminals or corporate predators.\n\
+\n\
+When you press the 'Record' button, your camera immediately begins streaming video to our servers, which you can later watch online. After you stop recording, please describe your event and tag it so that other useres can find it. Meanwhile, a high-quality version of your recording will be synced online.\n\
+\n\
+You can also use the 'Watch' and 'Local' icons to watch interesting and local content. When you see something that you want to investigate further, go to OpenWatch.net and start a deeper investigation.\n\
+\n\
+If you find any bugs or have any ideas for new features, please let us know by sending feedback (on the Settings page) so we can work on them right away.\n\
+\n\
+Enjoy!\n\
+- Team OpenWatch", @"welcome blurb")
