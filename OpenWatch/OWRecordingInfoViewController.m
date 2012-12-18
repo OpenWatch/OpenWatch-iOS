@@ -25,11 +25,16 @@
 
 - (id) init {
     if (self = [super init]) {
+        [self setupScrollView];
         [self setupMapView];
         self.moviePlayer = [[MPMoviePlayerController alloc] init];
         self.title = INFO_STRING;
     }
     return self;
+}
+
+- (void) setupScrollView {
+    self.scrollView = [[UIScrollView alloc] init];
 }
 
 - (void) setupMapView {
@@ -61,35 +66,10 @@
     return pinView;
 }
 
-- (void) refreshFrames {
-    CGFloat padding = 10.0f;
-    CGFloat contentHeight = 0.0f;
-    CGFloat mapViewHeight = 100.0f;
-    CGFloat mapViewWidth = self.view.frame.size.width;
-    if (!CLLocationCoordinate2DIsValid(centerCoordinate)) {
-        mapViewHeight = 0.0f;
-        mapViewWidth = 0.0f;
-    }
-    self.mapView.frame = CGRectMake(0, 0, mapViewWidth, mapViewHeight);
-    contentHeight += mapViewHeight;
-    
-    CGFloat titleYOrigin;
-    CGFloat itemHeight = 30.0f;
-    CGFloat itemWidth = self.view.frame.size.width - padding*2;
-
-    CGFloat moviePlayerYOrigin = 0;
+- (void) refreshFrames {    
+    CGFloat moviePlayerYOrigin = 0.0f;
     CGFloat moviePlayerHeight = 250.0f;
     moviePlayer.view.frame = CGRectMake(0, moviePlayerYOrigin, self.view.frame.size.width, moviePlayerHeight);
-    /*
-    self.titleTextField.frame = CGRectMake(padding, titleYOrigin, itemWidth, itemHeight);
-    CGFloat descriptionYOrigin = [OWUtilities bottomOfView:titleTextField] + padding;
-    self.descriptionTextField.frame = CGRectMake(padding, descriptionYOrigin, itemWidth, 100.0f);
-    CGFloat tableViewYOrigin = [OWUtilities bottomOfView:descriptionTextField] + padding;
-    self.groupedTableView.frame = CGRectMake(0, tableViewYOrigin, self.view.frame.size.width, 70.0f);
-    contentHeight = [OWUtilities bottomOfView:self.groupedTableView] + padding*3;
-     */
-
-    self.scrollView.contentSize = CGSizeMake(self.view.frame.size.width, contentHeight);
 }
 
 - (void) viewWillAppear:(BOOL)animated {
@@ -180,7 +160,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self.scrollView addSubview:moviePlayer.view];
+    [self.view addSubview:moviePlayer.view];
     self.scrollView.scrollEnabled = YES;
 }
 
