@@ -12,6 +12,7 @@
 		D907023816682C8E00611607 /* gear-white.png in Resources */ = {isa = PBXBuildFile; fileRef = D907023616682C8E00611607 /* gear-white.png */; };
 		D907023916682C8E00611607 /* gear-white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D907023716682C8E00611607 /* gear-white@2x.png */; };
 		D907023C1668353800611607 /* OWCaptureController.m in Sources */ = {isa = PBXBuildFile; fileRef = D907023B1668353800611607 /* OWCaptureController.m */; };
+		D920584E16812A46004C2F1A /* OWSHKConfigurator.m in Sources */ = {isa = PBXBuildFile; fileRef = D920584D16812A46004C2F1A /* OWSHKConfigurator.m */; };
 		D92D29D71681257E00A9E408 /* ShareKit.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D966781F168124F2006F1815 /* ShareKit.bundle */; };
 		D92D29DB1681261C00A9E408 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D92D29DA1681261C00A9E408 /* MessageUI.framework */; };
 		D92D29DD1681262800A9E408 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D92D29DC1681262800A9E408 /* CFNetwork.framework */; };
@@ -457,6 +458,8 @@
 		D907023716682C8E00611607 /* gear-white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gear-white@2x.png"; sourceTree = "<group>"; };
 		D907023A1668353800611607 /* OWCaptureController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWCaptureController.h; sourceTree = "<group>"; };
 		D907023B1668353800611607 /* OWCaptureController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWCaptureController.m; sourceTree = "<group>"; };
+		D920584C16812A46004C2F1A /* OWSHKConfigurator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWSHKConfigurator.h; sourceTree = "<group>"; };
+		D920584D16812A46004C2F1A /* OWSHKConfigurator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWSHKConfigurator.m; sourceTree = "<group>"; };
 		D92D29D81681260F00A9E408 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		D92D29DA1681261C00A9E408 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		D92D29DC1681262800A9E408 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
@@ -962,6 +965,8 @@
 		D9D2E21C16532B180000E7C5 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				D920584C16812A46004C2F1A /* OWSHKConfigurator.h */,
+				D920584D16812A46004C2F1A /* OWSHKConfigurator.m */,
 				D9D2E198165326BB0000E7C5 /* OWRecordingController.h */,
 				D9D2E199165326BB0000E7C5 /* OWRecordingController.m */,
 				D9D2E1761652EC130000E7C5 /* OWSettingsController.h */,
@@ -1646,6 +1651,7 @@
 				D9E72E57167FB39A00C6CB75 /* OWWelcomeViewController.m in Sources */,
 				D9E72E5A167FF6AE00C6CB75 /* OWRecordingEditViewController.m in Sources */,
 				D96677EA16810B2A006F1815 /* OWTallyView.m in Sources */,
+				D920584E16812A46004C2F1A /* OWSHKConfigurator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1758,7 +1764,7 @@
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "OpenWatch/OpenWatch-Prefix.pch";
-				HEADER_SEARCH_PATHS = "$(SRC_ROOT)/Submodules/**";
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/Submodules/**";
 				INFOPLIST_FILE = "OpenWatch/OpenWatch-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (
@@ -1780,7 +1786,7 @@
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "OpenWatch/OpenWatch-Prefix.pch";
-				HEADER_SEARCH_PATHS = "$(SRC_ROOT)/Submodules/**";
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/Submodules/**";
 				INFOPLIST_FILE = "OpenWatch/OpenWatch-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (

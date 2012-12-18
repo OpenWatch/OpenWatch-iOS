@@ -21,6 +21,7 @@
 #define USER_PASS_WRONG_STRING NSLocalizedString(@"Incorrect email address or password.", @"Shown when server response indicates login failure")
 
 
+#define SHARE_STRING NSLocalizedString(@"Share", @"share a recording with others")
 #define MAP_STRING NSLocalizedString(@"Map", @"title for button to show recording on map")
 #define YES_STRING NSLocalizedString(@"Yes", @"confirm something")
 #define NO_STRING NSLocalizedString(@"No", @"deny something")

@@ -137,6 +137,12 @@
     return locationDictionary;
 }
 
+- (NSURL*) urlForRemoteRecording {
+    NSString *baseURLString = [OWUtilities apiBaseURLString];
+    NSString *recordingURLString = [baseURLString stringByAppendingFormat:@"v/%d/", [self.serverID intValue]];
+    return [NSURL URLWithString:recordingURLString];
+}
+
 - (void) loadMetadataFromDictionary:(NSDictionary*)metadataDictionary {
     
     NSNumber *serverID = [metadataDictionary objectForKey:@"id"];

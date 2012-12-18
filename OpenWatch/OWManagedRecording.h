@@ -65,6 +65,8 @@
 - (CLLocation*)locationFromLocationDictionary:(NSDictionary*)locationDictionary;
 - (NSDictionary*) locationDictionaryForLocation:(CLLocation*)location;
 
+- (NSURL*) urlForRemoteRecording;
+
 @end
 
 @interface OWManagedRecording (CoreDataGeneratedAccessors)

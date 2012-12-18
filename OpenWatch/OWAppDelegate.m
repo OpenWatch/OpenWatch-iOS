@@ -9,6 +9,11 @@
 #import "OWAppDelegate.h"
 #import "OWHomeScreenViewController.h"
 #import "OWUtilities.h"
+#import "OWSHKConfigurator.h"
+#import "SHKConfiguration.h"
+#import "SHK.h"
+#import "SHKFacebook.h"
+
 
 @implementation OWAppDelegate
 @synthesize homeScreen;
@@ -24,7 +29,9 @@
     homeNavController.navigationBar.tintColor = [OWUtilities navigationBarColor];
 
     self.window.rootViewController = homeNavController;
-    [MagicalRecord setupCoreDataStack];
+    DefaultSHKConfigurator *configurator = [[OWSHKConfigurator alloc] init];
+    [SHKConfiguration sharedInstanceWithConfigurator:configurator];
+    [MagicalRecord setupAutoMigratingCoreDataStack];
     [self.window makeKeyAndVisible];
     return YES;
 }
@@ -49,12 +56,36 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    [SHK flushOfflineQueue];
+    [SHKFacebook handleDidBecomeActive];
+
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     [MagicalRecord cleanUp];
+    [SHKFacebook handleWillTerminate];
+
+}
+
+- (BOOL)handleOpenURL:(NSURL*)url
+{
+    NSString* scheme = [url scheme];
+    NSString* prefix = [NSString stringWithFormat:@"fb%@", SHKCONFIG(facebookAppId)];
+    if ([scheme hasPrefix:prefix])
+        return [SHKFacebook handleOpenURL:url];
+    return YES;
+}
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+{
+    return [self handleOpenURL:url];
+}
+
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
+{
+    return [self handleOpenURL:url];
 }
 
 @end
