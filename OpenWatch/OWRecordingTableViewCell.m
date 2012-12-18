@@ -16,7 +16,7 @@
 #define PADDING 9.0f
 
 @implementation OWRecordingTableViewCell
-@synthesize recordingObjectID, thumbnailImageView, titleLabel, usernameLabel, eyeImageView, actionImageView, viewsLabel, actionsLabel, tallyView, dateModifiedLabel, isLocalRecording;
+@synthesize recordingObjectID, thumbnailImageView, titleLabel, usernameLabel, tallyView, dateModifiedLabel, isLocalRecording;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -31,7 +31,7 @@
         CGFloat dateModifiedWidth = 180.0f;
         CGFloat dateModifiedHeight = 20.0f;
         self.dateModifiedLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.contentView.frame.size.width-dateModifiedWidth-PADDING, self.contentView.frame.size.height-dateModifiedHeight-PADDING, dateModifiedWidth, dateModifiedHeight)];
-        [self styleLabel:dateModifiedLabel];
+        [OWUtilities styleLabel:dateModifiedLabel];
         dateModifiedLabel.textColor = [OWUtilities greyColorWithGreyness:0.5f];
         self.dateModifiedLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin;
         self.dateModifiedLabel.textAlignment = UITextAlignmentRight;
@@ -39,13 +39,13 @@
         CGFloat titleLabelXOrigin = thumbnailImageView.frame.origin.x + thumbnailImageView.frame.size.width + PADDING;
         self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(titleLabelXOrigin, PADDING, self.contentView.frame.size.width - titleLabelXOrigin, 100)];
         self.titleLabel.numberOfLines = 0;
-        [self styleLabel:titleLabel];
+        [OWUtilities styleLabel:titleLabel];
         self.titleLabel.font = [UIFont boldSystemFontOfSize:19.0f];
         //self.titleLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleBottomMargin;
         CGFloat usernameLabelHeight = 20.0f;
         self.usernameLabel = [[UILabel alloc] initWithFrame:CGRectMake(PADDING, self.contentView.frame.size.height - usernameLabelHeight - PADDING, 150, usernameLabelHeight)];
         self.usernameLabel.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleRightMargin;
-        [self styleLabel:usernameLabel];
+        [OWUtilities styleLabel:usernameLabel];
         usernameLabel.textColor = [OWUtilities greyColorWithGreyness:0.5f];
         
         
@@ -60,32 +60,17 @@
 }
 
 - (void) setupTallyView {
-    self.eyeImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"eye.png"]];
-    self.actionImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"action.png"]];
+
     CGFloat width = 125.0f;
     CGFloat height = 20.0f;
-    CGFloat labelWidth = 35.0f;
-    self.tallyView = [[UIView alloc] initWithFrame:CGRectMake(self.contentView.frame.size.width-width-PADDING, self.contentView.frame.size.height-height-PADDING, width, height)];
+    self.tallyView = [[OWTallyView alloc] initWithFrame:CGRectMake(self.contentView.frame.size.width-width-PADDING, self.contentView.frame.size.height-height-PADDING, width, height)];
     self.tallyView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin;
-    self.eyeImageView.frame = CGRectMake(0, 0, eyeImageView.image.size.width, eyeImageView.image.size.height);
-    self.viewsLabel = [[UILabel alloc] initWithFrame:CGRectMake(eyeImageView.image.size.width+PADDING, 0, labelWidth, height)];
-    self.actionImageView.frame = CGRectMake(self.viewsLabel.frame.origin.x + self.viewsLabel.frame.size.width + PADDING, 0, actionImageView.image.size.width, actionImageView.image.size.height);
-    self.actionsLabel = [[UILabel alloc] initWithFrame:CGRectMake(actionImageView.frame.origin.x + actionImageView.frame.size.width + PADDING, 0, labelWidth, height)];
-    [self styleLabel:viewsLabel];
-    [self styleLabel:actionsLabel];
 
-    [self.tallyView addSubview:eyeImageView];
-    [self.tallyView addSubview:actionImageView];
-    [self.tallyView addSubview:viewsLabel];
-    [self.tallyView addSubview:actionsLabel];
+
+
 }
 
-- (void) styleLabel:(UILabel*) label {
-    label.textColor = [UIColor darkTextColor];
-    label.shadowColor = [UIColor lightGrayColor];
-    label.shadowOffset = CGSizeMake(0, 1);
-    label.backgroundColor = [UIColor clearColor];
-}
+
 
 - (void) setRecordingObjectID:(NSManagedObjectID *)newRecordingObjectID {
     recordingObjectID = newRecordingObjectID;
@@ -97,8 +82,8 @@
         self.dateModifiedLabel.text = [dateFormatter stringFromDate:recording.dateModified];
         [self.contentView addSubview:dateModifiedLabel];
     } else {
-        self.actionsLabel.text = [NSString stringWithFormat:@"%d", [recording.upvotes intValue]];
-        self.viewsLabel.text = [NSString stringWithFormat:@"%d", [recording.views intValue]];
+        self.tallyView.actionsLabel.text = [NSString stringWithFormat:@"%d", [recording.upvotes intValue]];
+        self.tallyView.viewsLabel.text = [NSString stringWithFormat:@"%d", [recording.views intValue]];
         [self.contentView addSubview:tallyView];
     }
     

@@ -36,7 +36,7 @@
 @implementation OWAccountAPIClient
 
 + (NSString*) baseURL {
-    return [NSURL URLWithString:[[OWUtilities baseURLString] stringByAppendingFormat:@"api/"]];
+    return [NSURL URLWithString:[[OWUtilities apiBaseURLString] stringByAppendingFormat:@"api/"]];
 }
 
 + (OWAccountAPIClient *)sharedClient {

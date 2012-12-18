@@ -14,7 +14,10 @@
 #import "OWRecordingController.h"
 #import "OWTagEditViewController.h"
 #import "OWUtilities.h"
+#import "OWTallyView.h"
+#import "UIImageView+AFNetworking.h"
 
+#define PADDING 10.0f
 
 @interface OWRecordingInfoViewController ()
 @end
@@ -22,7 +25,8 @@
 @implementation OWRecordingInfoViewController
 @synthesize recordingID, mapView, moviePlayer, centerCoordinate, scrollView;
 @synthesize titleLabel, segmentedControl;
-@synthesize infoView, descriptionTextView;
+@synthesize infoView, descriptionTextView, profileImageView, tallyView;
+@synthesize usernameLabel;
 
 - (id) init {
     if (self = [super init]) {
@@ -30,7 +34,8 @@
         [self setupMapView];
         [self setupMoviePlayer];
         [self setupSegmentedControl];
-        [self setupFields];
+        [self setupDescriptionView];
+        [self setupInfoView];
         self.title = INFO_STRING;
     }
     return self;
@@ -39,6 +44,22 @@
 - (void) setupInfoView {
     self.infoView = [[UIView alloc] init];
     [self.scrollView addSubview:infoView];
+    
+    self.titleLabel = [[UILabel alloc] init];
+    [self.infoView addSubview:titleLabel];
+    [OWUtilities styleLabel:titleLabel];
+    
+    self.profileImageView = [[UIImageView alloc] init];
+    [self.infoView addSubview:profileImageView];
+    
+    self.usernameLabel = [[UILabel alloc] init];
+    [self.infoView addSubview:usernameLabel];
+    [OWUtilities styleLabel:usernameLabel];
+    
+    CGFloat width = 125.0f;
+    CGFloat height = 20.0f;
+    self.tallyView = [[OWTallyView alloc] initWithFrame:CGRectMake(0, 0, width, height)];
+    [self.infoView addSubview:tallyView];
 }
 
 - (void) setupDescriptionView {
@@ -67,7 +88,8 @@
 - (void) setupScrollView {
     self.scrollView = [[UIScrollView alloc] init];
     self.scrollView.scrollEnabled = NO; // why doesnt this work?
-    self.scrollView.userInteractionEnabled = NO;
+    //self.scrollView.userInteractionEnabled = NO;
+    self.scrollView.pagingEnabled = YES;
     [self.view addSubview:scrollView];
 }
 
@@ -99,7 +121,6 @@
 }
 
 - (void) refreshFrames {
-    CGFloat padding = 10.0f;
     CGFloat moviePlayerYOrigin = 0.0f;
     CGFloat moviePlayerHeight = 180.0f;
     CGFloat frameWidth = self.view.frame.size.width;
@@ -118,7 +139,11 @@
 }
 
 - (void) setFramesForInfoView {
-    self.titleLabel.frame = CGRectMake(0, 0, 100, 50);
+    self.profileImageView.frame = CGRectMake(30, 30, 100, 100);
+    self.usernameLabel.frame = CGRectMake(30, [OWUtilities bottomOfView:profileImageView], 100, 40);
+    
+    self.titleLabel.frame = CGRectMake([OWUtilities rightOfView:profileImageView] + PADDING, 50, 100, 50);
+    self.tallyView.frame = CGRectMake([OWUtilities rightOfView:profileImageView] + PADDING, [OWUtilities bottomOfView:titleLabel], self.tallyView.frame.size.width, self.tallyView.frame.size.height);
 }
 
 - (void) viewWillAppear:(BOOL)animated {
@@ -147,6 +172,9 @@
     recordingID = newRecordingID;
 
     OWManagedRecording *recording = [OWRecordingController recordingForObjectID:recordingID];
+    
+    [self refreshFields];
+    
     [[OWAccountAPIClient sharedClient] getRecordingWithUUID:recording.uuid success:^(NSManagedObjectID *recordingObjectID) {
         OWManagedRecording *remoteRecording = [OWRecordingController recordingForObjectID:recordingObjectID];
         self.moviePlayer.contentURL = [NSURL URLWithString:[remoteRecording remoteVideoURL]];
@@ -160,11 +188,6 @@
     
 
 
-}
-
-- (void) setupFields {
-    self.titleLabel = [[UILabel alloc] init];
-    [self.infoView addSubview:titleLabel];
 }
 
 
@@ -225,6 +248,13 @@
     } else {
         self.descriptionTextView.text = @"";
     }
+    
+    self.tallyView.actionsLabel.text = [NSString stringWithFormat:@"%d", [recording.upvotes intValue]];
+    self.tallyView.viewsLabel.text = [NSString stringWithFormat:@"%d", [recording.views intValue]];
+    self.usernameLabel.text = recording.user.username;
+    
+    // TODO: add profile image
+    [self.profileImageView setImageWithURL:nil placeholderImage:[UIImage imageNamed:@"thumbnail_placeholder.png"]];
 }
 
 

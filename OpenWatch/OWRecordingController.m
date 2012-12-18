@@ -65,7 +65,7 @@
 }
 
 + (NSURL*) detailPageURLForRecordingServerID:(int)serverID {
-    NSString *urlString = [[OWUtilities baseURLString] stringByAppendingFormat:@"v/%d/",serverID];
+    NSString *urlString = [[OWUtilities apiBaseURLString] stringByAppendingFormat:@"v/%d/",serverID];
     NSURL *url = [NSURL URLWithString:urlString];
     return url;
 }

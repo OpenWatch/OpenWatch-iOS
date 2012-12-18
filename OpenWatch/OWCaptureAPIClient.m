@@ -10,8 +10,7 @@
 #import "AFJSONRequestOperation.h"
 #import "OWRecordingController.h"
 #import "OWSettingsController.h"
-
-static NSString * const kOWCaptureAPIClientAPIBaseURLString = @"http://192.168.1.44:5000/";
+#import "OWUtilities.h"
 
 #define kUploadStateStart @"start"
 #define kUploadStateUpload @"upload"
@@ -25,7 +24,7 @@ static NSString * const kOWCaptureAPIClientAPIBaseURLString = @"http://192.168.1
     static OWCaptureAPIClient *_sharedClient = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        _sharedClient = [[OWCaptureAPIClient alloc] initWithBaseURL:[NSURL URLWithString:kOWCaptureAPIClientAPIBaseURLString]];
+        _sharedClient = [[OWCaptureAPIClient alloc] initWithBaseURL:[NSURL URLWithString:[OWUtilities captureBaseURLString]]];
     });
     
     return _sharedClient;

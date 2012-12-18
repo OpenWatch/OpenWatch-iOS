@@ -17,11 +17,16 @@
 + (UIColor*) doneButtonColor;
 + (UIColor*) greyColorWithGreyness:(CGFloat)greyness;
 
++ (void) styleLabel:(UILabel*) label;
+
 + (NSDateFormatter*) utcDateFormatter;
 + (NSDateFormatter*) localDateFormatter;
-+ (NSString*) baseURLString;
++ (NSString*) apiBaseURLString;
++ (NSString*) captureBaseURLString;
 
 + (CGFloat) bottomOfView:(UIView*)view;
++ (CGFloat) rightOfView:(UIView*)view;
+
 
 + (WEPopoverContainerViewProperties *)improvedContainerViewProperties;
 

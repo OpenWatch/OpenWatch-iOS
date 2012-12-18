@@ -29,6 +29,13 @@
     return dateFormatter;
 }
 
++ (void) styleLabel:(UILabel*) label {
+    label.textColor = [UIColor darkTextColor];
+    label.shadowColor = [UIColor lightGrayColor];
+    label.shadowOffset = CGSizeMake(0, 1);
+    label.backgroundColor = [UIColor clearColor];
+}
+
 + (NSDateFormatter*) localDateFormatter {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     dateFormatter.dateFormat = @"yyyy-MM-dd' 'h:mm a";
@@ -45,13 +52,22 @@
     return [UIColor colorWithRed:greyness green:greyness blue:greyness alpha:1.0f];
 }
 
-+ (NSString*) baseURLString {
-    //return @"http://192.168.1.44:8000/";
-    return @"http://172.20.10.3:8000/";
++ (NSString*) apiBaseURLString {
+    //return @"http://alpha.openwatch.net/";
+    return @"http://127.0.0.1:8000/";
+}
+
++ (NSString*) captureBaseURLString {
+    //return @"http://capture.openwatch.net/";
+    return @"http://127.0.0.1:5000/";
 }
 
 + (CGFloat) bottomOfView:(UIView *)view {
     return view.frame.origin.y + view.frame.size.height;
+}
+
++ (CGFloat) rightOfView:(UIView *)view {
+    return view.frame.origin.x + view.frame.size.width;
 }
 
 /**

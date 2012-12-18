@@ -11,16 +11,22 @@
 #import "OWGroupedTableViewController.h"
 #import <MapKit/MapKit.h>
 #import <MediaPlayer/MediaPlayer.h>
+#import "OWTallyView.h"
 
 @interface OWRecordingInfoViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, MKMapViewDelegate>
 
 @property (nonatomic) CLLocationCoordinate2D centerCoordinate;
 @property (nonatomic, strong) MKMapView *mapView;
 @property (nonatomic, strong) MPMoviePlayerController *moviePlayer;
-@property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UITextView *descriptionTextView;
 @property (nonatomic, strong) UISegmentedControl *segmentedControl;
+
+// Info view
 @property (nonatomic, strong) UIView *infoView;
+@property (nonatomic, strong) UIImageView *profileImageView;
+@property (nonatomic, strong) UILabel *titleLabel;
+@property (nonatomic, strong) UILabel *usernameLabel;
+@property (nonatomic, strong) OWTallyView *tallyView;
 
 @property (nonatomic, strong) NSManagedObjectID *recordingID;
 @property (nonatomic, strong) UIScrollView *scrollView;

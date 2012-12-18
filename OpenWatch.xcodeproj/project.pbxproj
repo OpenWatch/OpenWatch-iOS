@@ -32,6 +32,7 @@
 		D94A26F4167A858600BD36EF /* settings-big@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D94A26EC167A858600BD36EF /* settings-big@2x.png */; };
 		D94A26F7167A8B4600BD36EF /* record-big.png in Resources */ = {isa = PBXBuildFile; fileRef = D94A26F5167A8B4600BD36EF /* record-big.png */; };
 		D94A26F8167A8B4600BD36EF /* record-big@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D94A26F6167A8B4600BD36EF /* record-big@2x.png */; };
+		D96677EA16810B2A006F1815 /* OWTallyView.m in Sources */ = {isa = PBXBuildFile; fileRef = D96677E916810B2A006F1815 /* OWTallyView.m */; };
 		D96FA7AB1656F15B00309F08 /* OWAccountAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = D96FA7AA1656F15B00309F08 /* OWAccountAPIClient.m */; };
 		D97EAAA1167911B100A1B038 /* OWRecordingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D97EAAA0167911B100A1B038 /* OWRecordingTableViewCell.m */; };
 		D97EAAA61679354200A1B038 /* eye.png in Resources */ = {isa = PBXBuildFile; fileRef = D97EAAA41679354200A1B038 /* eye.png */; };
@@ -178,6 +179,8 @@
 		D94A26EC167A858600BD36EF /* settings-big@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settings-big@2x.png"; sourceTree = "<group>"; };
 		D94A26F5167A8B4600BD36EF /* record-big.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "record-big.png"; sourceTree = "<group>"; };
 		D94A26F6167A8B4600BD36EF /* record-big@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "record-big@2x.png"; sourceTree = "<group>"; };
+		D96677E816810B2A006F1815 /* OWTallyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWTallyView.h; sourceTree = "<group>"; };
+		D96677E916810B2A006F1815 /* OWTallyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWTallyView.m; sourceTree = "<group>"; };
 		D96FA7A91656F15B00309F08 /* OWAccountAPIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWAccountAPIClient.h; sourceTree = "<group>"; };
 		D96FA7AA1656F15B00309F08 /* OWAccountAPIClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWAccountAPIClient.m; sourceTree = "<group>"; };
 		D97EAA9F167911B100A1B038 /* OWRecordingTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWRecordingTableViewCell.h; sourceTree = "<group>"; };
@@ -394,6 +397,8 @@
 			children = (
 				D97EAA9F167911B100A1B038 /* OWRecordingTableViewCell.h */,
 				D97EAAA0167911B100A1B038 /* OWRecordingTableViewCell.m */,
+				D96677E816810B2A006F1815 /* OWTallyView.h */,
+				D96677E916810B2A006F1815 /* OWTallyView.m */,
 				D94A26DD167A7B4600BD36EF /* OWLabeledButtonView.h */,
 				D94A26DE167A7B4600BD36EF /* OWLabeledButtonView.m */,
 				D9D2E14D1652D7B80000E7C5 /* OWInLineTextEditTableViewCell.h */,
@@ -1009,6 +1014,7 @@
 				D94A26DF167A7B4600BD36EF /* OWLabeledButtonView.m in Sources */,
 				D9E72E57167FB39A00C6CB75 /* OWWelcomeViewController.m in Sources */,
 				D9E72E5A167FF6AE00C6CB75 /* OWRecordingEditViewController.m in Sources */,
+				D96677EA16810B2A006F1815 /* OWTallyView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
