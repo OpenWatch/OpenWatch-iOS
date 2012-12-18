@@ -20,6 +20,8 @@
 #define USER_PASS_BLANK_STRING NSLocalizedString(@"You must enter an E-mail and a password to login/register.", @"error message shown when user doesnt fill in a username or password")
 #define USER_PASS_WRONG_STRING NSLocalizedString(@"Incorrect email address or password.", @"Shown when server response indicates login failure")
 
+
+#define MAP_STRING NSLocalizedString(@"Map", @"title for button to show recording on map")
 #define YES_STRING NSLocalizedString(@"Yes", @"confirm something")
 #define NO_STRING NSLocalizedString(@"No", @"deny something")
 #define OK_STRING NSLocalizedString(@"OK", @"Accept the dialog")

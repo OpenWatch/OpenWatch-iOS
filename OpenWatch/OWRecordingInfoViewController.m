@@ -21,20 +21,54 @@
 
 @implementation OWRecordingInfoViewController
 @synthesize recordingID, mapView, moviePlayer, centerCoordinate, scrollView;
-@synthesize titleLabel, descriptionLabel;
+@synthesize titleLabel, segmentedControl;
+@synthesize infoView, descriptionTextView;
 
 - (id) init {
     if (self = [super init]) {
         [self setupScrollView];
         [self setupMapView];
-        self.moviePlayer = [[MPMoviePlayerController alloc] init];
+        [self setupMoviePlayer];
+        [self setupSegmentedControl];
+        [self setupFields];
         self.title = INFO_STRING;
     }
     return self;
 }
 
+- (void) setupInfoView {
+    self.infoView = [[UIView alloc] init];
+    [self.scrollView addSubview:infoView];
+}
+
+- (void) setupDescriptionView {
+    self.descriptionTextView = [[UITextView alloc] init];
+    [self.scrollView addSubview:descriptionTextView];
+}
+
+- (void) setupMoviePlayer {
+    self.moviePlayer = [[MPMoviePlayerController alloc] init];
+    [self.view addSubview:moviePlayer.view];
+}
+
+- (void) setupSegmentedControl {
+    self.segmentedControl = [[UISegmentedControl alloc] initWithItems:@[INFO_STRING, DESCRIPTION_STRING, MAP_STRING]];
+    self.segmentedControl.selectedSegmentIndex = 0;
+    //segmentedControl.segmentedControlStyle = 7;
+    [self.view addSubview:segmentedControl];
+    [segmentedControl addTarget:self action:@selector(segmentedControlValueChanged:) forControlEvents:UIControlEventValueChanged];
+}
+
+- (void) segmentedControlValueChanged:(id)sender {
+    CGPoint offset = CGPointMake(self.segmentedControl.selectedSegmentIndex * self.view.frame.size.width, 0);
+    [scrollView setContentOffset:offset animated:YES];
+}
+
 - (void) setupScrollView {
     self.scrollView = [[UIScrollView alloc] init];
+    self.scrollView.scrollEnabled = NO; // why doesnt this work?
+    self.scrollView.userInteractionEnabled = NO;
+    [self.view addSubview:scrollView];
 }
 
 - (void) setupMapView {
@@ -42,8 +76,6 @@
         [mapView removeFromSuperview];
     }
     self.mapView = [[MKMapView alloc] init];
-    mapView.scrollEnabled = NO;
-    mapView.zoomEnabled = NO;
     mapView.delegate = self;
     [self.scrollView addSubview:mapView];
 }
@@ -66,10 +98,27 @@
     return pinView;
 }
 
-- (void) refreshFrames {    
+- (void) refreshFrames {
+    CGFloat padding = 10.0f;
     CGFloat moviePlayerYOrigin = 0.0f;
-    CGFloat moviePlayerHeight = 250.0f;
-    moviePlayer.view.frame = CGRectMake(0, moviePlayerYOrigin, self.view.frame.size.width, moviePlayerHeight);
+    CGFloat moviePlayerHeight = 180.0f;
+    CGFloat frameWidth = self.view.frame.size.width;
+    CGFloat frameHeight = self.view.frame.size.height;
+    moviePlayer.view.frame = CGRectMake(0, moviePlayerYOrigin, frameWidth, moviePlayerHeight);
+    self.segmentedControl.frame = CGRectMake(0, moviePlayerHeight, frameWidth , 40.0f);
+    CGFloat scrollViewYOrigin = [OWUtilities bottomOfView:segmentedControl];
+    CGFloat scrollViewHeight = frameHeight-scrollViewYOrigin;
+    self.scrollView.frame = CGRectMake(0, scrollViewYOrigin, frameWidth, scrollViewHeight);
+    self.scrollView.contentSize = CGSizeMake(frameWidth * 3, scrollViewHeight);
+    
+    self.infoView.frame = CGRectMake(0, 0, frameWidth, scrollViewHeight);
+    self.descriptionTextView.frame = CGRectMake(frameWidth, 0, frameWidth, scrollViewHeight);
+    self.mapView.frame = CGRectMake(frameWidth*2, 0, frameWidth, scrollViewHeight);
+    [self setFramesForInfoView];
+}
+
+- (void) setFramesForInfoView {
+    self.titleLabel.frame = CGRectMake(0, 0, 100, 50);
 }
 
 - (void) viewWillAppear:(BOOL)animated {
@@ -96,8 +145,6 @@
 
 - (void) setRecordingID:(NSManagedObjectID *)newRecordingID {
     recordingID = newRecordingID;
-    [self setupFields];
-    
 
     OWManagedRecording *recording = [OWRecordingController recordingForObjectID:recordingID];
     [[OWAccountAPIClient sharedClient] getRecordingWithUUID:recording.uuid success:^(NSManagedObjectID *recordingObjectID) {
@@ -116,8 +163,8 @@
 }
 
 - (void) setupFields {
-    self.descriptionLabel = [[UILabel alloc] init];
     self.titleLabel = [[UILabel alloc] init];
+    [self.infoView addSubview:titleLabel];
 }
 
 
@@ -174,9 +221,9 @@
     }
     NSString *description = recording.recordingDescription;
     if (description) {
-        self.descriptionLabel.text = description;
+        self.descriptionTextView.text = description;
     } else {
-        self.descriptionLabel.text = @"";
+        self.descriptionTextView.text = @"";
     }
 }
 

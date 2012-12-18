@@ -18,7 +18,9 @@
 @property (nonatomic, strong) MKMapView *mapView;
 @property (nonatomic, strong) MPMoviePlayerController *moviePlayer;
 @property (nonatomic, strong) UILabel *titleLabel;
-@property (nonatomic, strong) UILabel *descriptionLabel;
+@property (nonatomic, strong) UITextView *descriptionTextView;
+@property (nonatomic, strong) UISegmentedControl *segmentedControl;
+@property (nonatomic, strong) UIView *infoView;
 
 @property (nonatomic, strong) NSManagedObjectID *recordingID;
 @property (nonatomic, strong) UIScrollView *scrollView;
