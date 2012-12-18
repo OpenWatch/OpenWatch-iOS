@@ -64,6 +64,9 @@
 
 - (void) setupDescriptionView {
     self.descriptionTextView = [[UITextView alloc] init];
+    self.descriptionTextView.backgroundColor = [UIColor clearColor];
+    self.descriptionTextView.editable = NO;
+    self.descriptionTextView.font = [UIFont systemFontOfSize:16.0f];
     [self.scrollView addSubview:descriptionTextView];
 }
 
@@ -90,7 +93,12 @@
     self.scrollView.scrollEnabled = NO; // why doesnt this work?
     //self.scrollView.userInteractionEnabled = NO;
     self.scrollView.pagingEnabled = YES;
+    self.scrollView.delegate = self;
     [self.view addSubview:scrollView];
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)theScrollView {
+    self.segmentedControl.selectedSegmentIndex = self.scrollView.contentOffset.x / self.view.frame.size.width;
 }
 
 - (void) setupMapView {

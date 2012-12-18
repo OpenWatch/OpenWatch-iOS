@@ -13,7 +13,7 @@
 #import <MediaPlayer/MediaPlayer.h>
 #import "OWTallyView.h"
 
-@interface OWRecordingInfoViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, MKMapViewDelegate>
+@interface OWRecordingInfoViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, MKMapViewDelegate, UIScrollViewDelegate>
 
 @property (nonatomic) CLLocationCoordinate2D centerCoordinate;
 @property (nonatomic, strong) MKMapView *mapView;
