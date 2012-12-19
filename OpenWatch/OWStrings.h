@@ -55,6 +55,7 @@
 #define SAVED_STRING NSLocalizedString(@"Saved", @"Title for saved recordings")
 #define WELCOME_STRING NSLocalizedString(@"Welcome!", @"title for welcome screen")
 #define STOP_RECORDING_STRING NSLocalizedString(@"Stop Recording?", @"Question whether user wants to actually stop recording")
+#define SEND_FEEDBACK_STRING NSLocalizedString(@"Send Feedback", @"help us improve the app")
 #define WELCOME_TEXTVIEW_STRING NSLocalizedString(@"Welcome, new Watcher!\n\
 \n\
 Thanks for installing OpenWatch!\n\

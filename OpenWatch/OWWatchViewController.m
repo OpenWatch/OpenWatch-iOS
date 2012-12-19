@@ -9,7 +9,6 @@
 #import "OWWatchViewController.h"
 #import "OWAccountAPIClient.h"
 #import "OWRecordingTag.h"
-#import "OWRemoteRecordingViewController.h"
 #import "OWRecordingTableViewCell.h"
 #import "OWStrings.h"
 #import "OWUtilities.h"

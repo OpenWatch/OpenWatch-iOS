@@ -12,6 +12,9 @@
 #import "OWRecordingListViewController.h"
 #import "OWUtilities.h"
 
+#define ACCOUNT_ROW 0
+#define FEEDBACK_ROW 1
+
 @interface OWSettingsViewController ()
 
 @end
@@ -31,7 +34,8 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    [self addCellInfoWithSection:0 row:0 labelText:ACCOUNT_STRING cellType:kCellTypeNone userInputView:nil];
+    [self addCellInfoWithSection:0 row:ACCOUNT_ROW labelText:ACCOUNT_STRING cellType:kCellTypeNone userInputView:nil];
+    [self addCellInfoWithSection:0 row:FEEDBACK_ROW labelText:SEND_FEEDBACK_STRING cellType:kCellTypeNone userInputView:nil];
 }
 
 - (void)didReceiveMemoryWarning
@@ -46,11 +50,13 @@
 }
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.row == 0) {
+    if (indexPath.row == ACCOUNT_ROW) {
         OWLoginViewController *loginView = [[OWLoginViewController alloc] init];
         UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:loginView];
         navController.navigationBar.tintColor = [OWUtilities navigationBarColor];
         [self presentViewController:navController animated:YES completion:nil];
+    } else if (indexPath.row == FEEDBACK_ROW) {
+        [TestFlight openFeedbackView];
     }
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
