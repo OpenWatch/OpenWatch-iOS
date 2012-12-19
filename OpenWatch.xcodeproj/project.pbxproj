@@ -69,6 +69,8 @@
 		D997418C1651D42F0034ABB0 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D997418B1651D42F0034ABB0 /* Default-568h@2x.png */; };
 		D997419D1651D8520034ABB0 /* OWLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D997419C1651D8520034ABB0 /* OWLoginViewController.m */; };
 		D99741A11651DB0B0034ABB0 /* OWSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D99741A01651DB0B0034ABB0 /* OWSettingsViewController.m */; };
+		D9CEED151682718600B236B5 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D9CEED101682718600B236B5 /* libTestFlight.a */; };
+		D9CEED19168271C700B236B5 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D9CEED18168271C700B236B5 /* libz.dylib */; };
 		D9D2E14F1652D7B80000E7C5 /* OWInLineTextEditTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D2E14E1652D7B80000E7C5 /* OWInLineTextEditTableViewCell.m */; };
 		D9D2E16A1652EA8B0000E7C5 /* SSKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D2E1581652EA8A0000E7C5 /* SSKeychain.m */; };
 		D9D2E1781652EC140000E7C5 /* OWSettingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D2E1771652EC140000E7C5 /* OWSettingsController.m */; };
@@ -115,7 +117,6 @@
 		D9D786FE16766C40006EE6A2 /* popoverBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9D786EF16766C40006EE6A2 /* popoverBg@2x.png */; };
 		D9D7870A16769F52006EE6A2 /* OWTagEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D7870916769F52006EE6A2 /* OWTagEditViewController.m */; };
 		D9D7870D1677EDB0006EE6A2 /* OWWatchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D7870C1677EDB0006EE6A2 /* OWWatchViewController.m */; };
-		D9D7871016780374006EE6A2 /* OWRemoteRecordingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D7870F16780374006EE6A2 /* OWRemoteRecordingViewController.m */; };
 		D9DFADFA16547DE7003C515C /* openwatch.png in Resources */ = {isa = PBXBuildFile; fileRef = D9DFADF816547DE7003C515C /* openwatch.png */; };
 		D9DFADFB16547DE7003C515C /* openwatch@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9DFADF916547DE7003C515C /* openwatch@2x.png */; };
 		D9E72E2C167BC6FF00C6CB75 /* thumbnail_placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E72E2A167BC6FE00C6CB75 /* thumbnail_placeholder.png */; };
@@ -530,6 +531,11 @@
 		D997419F1651DB0B0034ABB0 /* OWSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWSettingsViewController.h; sourceTree = "<group>"; };
 		D99741A01651DB0B0034ABB0 /* OWSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWSettingsViewController.m; sourceTree = "<group>"; };
 		D99741A21651DBC50034ABB0 /* OWStrings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OWStrings.h; sourceTree = "<group>"; };
+		D9CEED0D16826AB400B236B5 /* OWAPIKeys.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OWAPIKeys.h; sourceTree = "<group>"; };
+		D9CEED101682718600B236B5 /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
+		D9CEED131682718600B236B5 /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
+		D9CEED18168271C700B236B5 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		D9CEED1A1682734600B236B5 /* OWCheckpoints.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OWCheckpoints.h; sourceTree = "<group>"; };
 		D9D2E14D1652D7B80000E7C5 /* OWInLineTextEditTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWInLineTextEditTableViewCell.h; sourceTree = "<group>"; };
 		D9D2E14E1652D7B80000E7C5 /* OWInLineTextEditTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWInLineTextEditTableViewCell.m; sourceTree = "<group>"; };
 		D9D2E1571652EA8A0000E7C5 /* SSKeychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSKeychain.h; sourceTree = "<group>"; };
@@ -607,8 +613,6 @@
 		D9D7870916769F52006EE6A2 /* OWTagEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWTagEditViewController.m; sourceTree = "<group>"; };
 		D9D7870B1677EDB0006EE6A2 /* OWWatchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWWatchViewController.h; sourceTree = "<group>"; };
 		D9D7870C1677EDB0006EE6A2 /* OWWatchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWWatchViewController.m; sourceTree = "<group>"; };
-		D9D7870E16780373006EE6A2 /* OWRemoteRecordingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWRemoteRecordingViewController.h; sourceTree = "<group>"; };
-		D9D7870F16780374006EE6A2 /* OWRemoteRecordingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWRemoteRecordingViewController.m; sourceTree = "<group>"; };
 		D9DFADF816547DE7003C515C /* openwatch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = openwatch.png; sourceTree = "<group>"; };
 		D9DFADF916547DE7003C515C /* openwatch@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "openwatch@2x.png"; sourceTree = "<group>"; };
 		D9E72E2A167BC6FE00C6CB75 /* thumbnail_placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = thumbnail_placeholder.png; sourceTree = "<group>"; };
@@ -692,6 +696,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D9CEED19168271C700B236B5 /* libz.dylib in Frameworks */,
 				D92D29FB168128C500A9E408 /* libReachability.a in Frameworks */,
 				D92D29FA168128B600A9E408 /* libOAuth.a in Frameworks */,
 				D92D29F51681288800A9E408 /* libTwitter.a in Frameworks */,
@@ -718,6 +723,7 @@
 				D99741761651D42F0034ABB0 /* UIKit.framework in Frameworks */,
 				D99741781651D42F0034ABB0 /* Foundation.framework in Frameworks */,
 				D997417A1651D42F0034ABB0 /* CoreGraphics.framework in Frameworks */,
+				D9CEED151682718600B236B5 /* libTestFlight.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -783,6 +789,7 @@
 		D99741661651D42E0034ABB0 = {
 			isa = PBXGroup;
 			children = (
+				D9CEED18168271C700B236B5 /* libz.dylib */,
 				D9DFADF716547DE7003C515C /* Media */,
 				D997417B1651D42F0034ABB0 /* OpenWatch */,
 				D9D2E1501652EA8A0000E7C5 /* Submodules */,
@@ -840,6 +847,8 @@
 				D99741851651D42F0034ABB0 /* OWAppDelegate.m */,
 				D907023316682B4400611607 /* OWUtilities.h */,
 				D907023416682B4400611607 /* OWUtilities.m */,
+				D9CEED0D16826AB400B236B5 /* OWAPIKeys.h */,
+				D9CEED1A1682734600B236B5 /* OWCheckpoints.h */,
 				D997417C1651D42F0034ABB0 /* Supporting Files */,
 			);
 			path = OpenWatch;
@@ -860,9 +869,19 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		D9CEED0E1682718600B236B5 /* TestFlight */ = {
+			isa = PBXGroup;
+			children = (
+				D9CEED101682718600B236B5 /* libTestFlight.a */,
+				D9CEED131682718600B236B5 /* TestFlight.h */,
+			);
+			path = TestFlight;
+			sourceTree = "<group>";
+		};
 		D9D2E1501652EA8A0000E7C5 /* Submodules */ = {
 			isa = PBXGroup;
 			children = (
+				D9CEED0E1682718600B236B5 /* TestFlight */,
 				D96677EC168124F1006F1815 /* ShareKit.xcodeproj */,
 				D9D786E016766661006EE6A2 /* SuggestionsList */,
 				D9D786CF16766415006EE6A2 /* WEPopover */,
@@ -993,15 +1012,13 @@
 				D9D7870C1677EDB0006EE6A2 /* OWWatchViewController.m */,
 				D97EAAB9167A540800A1B038 /* OWFeedSelectionViewController.h */,
 				D97EAABA167A540900A1B038 /* OWFeedSelectionViewController.m */,
-				D9D7870E16780373006EE6A2 /* OWRemoteRecordingViewController.h */,
-				D9D7870F16780374006EE6A2 /* OWRemoteRecordingViewController.m */,
 				D9D7870816769F51006EE6A2 /* OWTagEditViewController.h */,
 				D9D7870916769F52006EE6A2 /* OWTagEditViewController.m */,
 				D907022F1668270F00611607 /* OWHomeScreenViewController.h */,
 				D90702301668270F00611607 /* OWHomeScreenViewController.m */,
 				D9E72E58167FF6AC00C6CB75 /* OWRecordingEditViewController.h */,
-				D9308512166406E5008C5D4C /* OWRecordingInfoViewController.h */,
 				D9E72E59167FF6AD00C6CB75 /* OWRecordingEditViewController.m */,
+				D9308512166406E5008C5D4C /* OWRecordingInfoViewController.h */,
 				D9308513166406E5008C5D4C /* OWRecordingInfoViewController.m */,
 				D9D2E19A165326BB0000E7C5 /* OWRecordingListViewController.h */,
 				D9D2E19B165326BB0000E7C5 /* OWRecordingListViewController.m */,
@@ -1649,7 +1666,6 @@
 				D9D786E1167666C1006EE6A2 /* OWAutocompletionView.m in Sources */,
 				D9D7870A16769F52006EE6A2 /* OWTagEditViewController.m in Sources */,
 				D9D7870D1677EDB0006EE6A2 /* OWWatchViewController.m in Sources */,
-				D9D7871016780374006EE6A2 /* OWRemoteRecordingViewController.m in Sources */,
 				D97EAAA1167911B100A1B038 /* OWRecordingTableViewCell.m in Sources */,
 				D97EAABB167A540900A1B038 /* OWFeedSelectionViewController.m in Sources */,
 				D94A26DF167A7B4600BD36EF /* OWLabeledButtonView.m in Sources */,
@@ -1768,6 +1784,7 @@
 		D99741901651D42F0034ABB0 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COPY_PHASE_STRIP = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "OpenWatch/OpenWatch-Prefix.pch";
 				HEADER_SEARCH_PATHS = "$(SRCROOT)/Submodules/**";
@@ -1776,6 +1793,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../../../Library/Developer/Xcode/DerivedData/OpenWatch-dniojtrnwcrcishgeakmipedpmkm/Build/Products/Debug-iphoneos\"",
+					"\"$(SRCROOT)/Submodules/TestFlight\"",
 				);
 				OTHER_LDFLAGS = (
 					"-all_load",
@@ -1790,6 +1808,7 @@
 		D99741911651D42F0034ABB0 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COPY_PHASE_STRIP = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "OpenWatch/OpenWatch-Prefix.pch";
 				HEADER_SEARCH_PATHS = "$(SRCROOT)/Submodules/**";
@@ -1798,6 +1817,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../../../Library/Developer/Xcode/DerivedData/OpenWatch-dniojtrnwcrcishgeakmipedpmkm/Build/Products/Debug-iphoneos\"",
+					"\"$(SRCROOT)/Submodules/TestFlight\"",
 				);
 				OTHER_LDFLAGS = (
 					"-all_load",

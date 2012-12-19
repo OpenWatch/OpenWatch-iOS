@@ -167,6 +167,7 @@
 - (void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self refreshFrames];
+    [TestFlight passCheckpoint:VIEW_RECORDING_CHECKPOINT];
 }
 
 - (void) viewDidDisappear:(BOOL)animated {
@@ -200,6 +201,7 @@
         [self refreshMapParameters];
         [self refreshFields];
         [self refreshFrames];
+        [TestFlight passCheckpoint:VIEW_RECORDING_ID_CHECKPOINT([remoteRecording.serverID intValue])];
     } failure:^(NSString *reason) {
         
     }];

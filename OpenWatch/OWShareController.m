@@ -55,11 +55,14 @@
 }
 
 - (void) share {
+    [TestFlight passCheckpoint:SHARE_CHECKPOINT];
     OWManagedRecording *recording = [OWRecordingController recordingForObjectID:recordingID];
     // Create the item to share (in this example, a url)
     NSURL *url = [recording urlForRemoteRecording];
     NSString *title = [NSString stringWithFormat:@"%@ - %@", OPENWATCH_STRING, recording.title];
     SHKItem *item = [SHKItem URL:url title:title contentType:SHKURLContentTypeWebpage];
+    
+    [TestFlight passCheckpoint:SHARE_ID_CHECKPOINT([recording.serverID intValue])];
     
     // Get the ShareKit action sheet
     SHKActionSheet *actionSheet = [SHKActionSheet actionSheetForItem:item];

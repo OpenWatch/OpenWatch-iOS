@@ -180,6 +180,7 @@
         } else {
             [[OWAccountAPIClient sharedClient] signupWithAccount:account success:^{
                 [self loginSuccess];
+                [TestFlight passCheckpoint:NEW_ACCOUNT_CHECKPOINT];
             } failure:^(NSString *reason) {
                 [self loginFailure:reason];
             }];
@@ -200,6 +201,7 @@
     [MBProgressHUD hideHUDForView:self.view animated:YES];
     OWWelcomeViewController *welcomeVC = [[OWWelcomeViewController alloc] init];
     [self.navigationController pushViewController:welcomeVC animated:YES];
+    [TestFlight passCheckpoint:LOGIN_CHECKPOINT];
 }
 
 

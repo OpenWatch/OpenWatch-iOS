@@ -110,6 +110,7 @@
     [super viewWillAppear:animated];
     [self refreshFrames];
     [self registerForUploadProgressNotifications];
+    [TestFlight passCheckpoint:EDIT_METADATA_CHECKPOINT];
 }
 
 

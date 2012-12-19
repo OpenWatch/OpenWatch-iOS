@@ -45,6 +45,7 @@
 }
 
 - (void) didSelectFeedWithName:(NSString *)feedName type:(OWFeedType)type {
+    [TestFlight passCheckpoint:VIEW_FEED_CHECKPOINT(feedName)];
     selectedFeedString = feedName;
     feedType = type;
     self.title = feedName;
@@ -88,8 +89,9 @@
 }
 
 - (void) viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     self.recordingsTableView.frame = self.view.frame;
-
+    [TestFlight passCheckpoint:WATCH_CHECKPOINT];
 }
 
 

@@ -83,6 +83,7 @@
 - (void) viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self recordButtonPressed:nil];
+    [TestFlight passCheckpoint:RECORDING_STARTED_CHECKPOINT];
 }
 
 - (void)didReceiveMemoryWarning

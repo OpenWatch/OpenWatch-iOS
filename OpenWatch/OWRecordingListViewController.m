@@ -48,6 +48,7 @@
     [super viewWillAppear:animated];
     self.recordingsTableView.frame = self.view.frame;
     [self refreshRecordings];
+    [TestFlight passCheckpoint:VIEW_LOCAL_RECORDINGS];
     
     [[OWAccountAPIClient sharedClient] fetchRecordingsWithSuccessBlock:^{
         

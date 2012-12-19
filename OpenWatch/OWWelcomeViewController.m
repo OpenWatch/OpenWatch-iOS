@@ -59,6 +59,7 @@
     self.welcomeLabel.frame = CGRectMake(PADDING, PADDING, self.view.frame.size.width-PADDING*2, 50.0f);
     CGFloat welcomeTextYOrigin = welcomeLabel.frame.origin.y + welcomeLabel.frame.size.height + PADDING;
     self.welcomeTextView.frame = CGRectMake(PADDING, welcomeTextYOrigin, self.view.frame.size.width-PADDING*2, self.view.frame.size.height - welcomeTextYOrigin - PADDING);
+    [TestFlight passCheckpoint:WELCOME_CHECKPOINT];
 }
 
 

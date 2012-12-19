@@ -13,13 +13,20 @@
 #import "SHKConfiguration.h"
 #import "SHK.h"
 #import "SHKFacebook.h"
-
+#import "TestFlight.h"
+#import "OWAPIKeys.h"
 
 @implementation OWAppDelegate
 @synthesize homeScreen;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+#define TESTING 1
+#ifdef TESTING
+    [TestFlight setDeviceIdentifier:[[UIDevice currentDevice] uniqueIdentifier]];
+#endif
+    [TestFlight takeOff:TESTFLIGHT_TEAM_TOKEN];
+    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     self.window.backgroundColor = [OWUtilities fabricBackgroundPattern];

@@ -6,9 +6,4 @@
 //  Copyright (c) 2012 OpenWatch FPC. All rights reserved.
 //
 
-#ifndef OpenWatch_OWAPIKeys_h
-#define OpenWatch_OWAPIKeys_h
-
-
-
-#endif
+#define TESTFLIGHT_TEAM_TOKEN @"00ec99ad69d957956aa66e0c2f13eba1_MTY4MjcwMjAxMi0xMi0xOSAxNjozMDozNi4zMzExOTA"

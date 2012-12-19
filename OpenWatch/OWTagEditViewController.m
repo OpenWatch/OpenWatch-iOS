@@ -62,6 +62,7 @@
     CGFloat labelWidth = 80.0f;
     CGFloat labelHeight = 40.0f;
     CGFloat buttonWidth = 30.0f;
+    [TestFlight passCheckpoint:EDIT_TAGS_CHECKPOINT];
     
     if (self.isLocalRecording) {
         self.tagTextField.frame = CGRectMake(labelWidth, 0, self.view.frame.size.width - labelWidth - buttonWidth, labelHeight);
