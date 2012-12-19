@@ -170,9 +170,8 @@
     return contents;
 }
 
-- (NSURL*) urlForNextSegment {
-    NSArray *segments = [self pathsForSegments];
-    NSString *movieName = [NSString stringWithFormat:@"%d.mp4", [segments count]+1];
+- (NSURL*) urlForNextSegmentWithCount:(NSUInteger)count {
+    NSString *movieName = [NSString stringWithFormat:@"%d.mp4", count+1];
     NSString *path = [[self pathForSegmentsDirectory] stringByAppendingPathComponent:movieName];
     NSURL *newMovieURL = [NSURL fileURLWithPath:path];
     return newMovieURL;
@@ -184,7 +183,7 @@
 
 - (NSSet*) failedFileSegments {
     NSPredicate *predicate =
-    [NSPredicate predicateWithFormat:@"fileUploadState == %d", OWFileUploadStateFailed];
+    [NSPredicate predicateWithFormat:@"fileUploadState != %d", OWFileUploadStateCompleted];
     NSSet *filteredSet = [self.segments filteredSetUsingPredicate:predicate];
     return filteredSet;
 }

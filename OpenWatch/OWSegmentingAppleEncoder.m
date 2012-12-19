@@ -18,6 +18,7 @@
 @synthesize segmentationTimer, queuedAssetWriter;
 @synthesize queuedAudioEncoder, queuedVideoEncoder;
 @synthesize audioBPS, videoBPS, shouldBeRecording;
+@synthesize segmentCount;
 
 - (void) dealloc {
     if (self.segmentationTimer) {
@@ -55,6 +56,7 @@
         [self performSelectorOnMainThread:@selector(createAndScheduleTimer) withObject:nil waitUntilDone:NO];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedBandwidthUpdateNotification:) name:kOWCaptureAPIClientBandwidthNotification object:nil];
         segmentingQueue = dispatch_queue_create("Segmenting Queue", DISPATCH_QUEUE_SERIAL);
+        self.segmentCount = 0;
     }
     return self;
 }
@@ -101,29 +103,34 @@
         if (!recording) {
             return;
         }
+        self.segmentCount++;
         if (self.readyToRecordAudio && self.readyToRecordVideo) {
             NSError *error = nil;
-            self.queuedAssetWriter = [[AVAssetWriter alloc] initWithURL:[recording urlForNextSegment] fileType:(NSString *)kUTTypeMPEG4 error:&error];
+            self.queuedAssetWriter = [[AVAssetWriter alloc] initWithURL:[self urlForNextSegment] fileType:(NSString *)kUTTypeMPEG4 error:&error];
             if (error) {
                 [self showError:error];
             }
             self.queuedVideoEncoder = [self setupVideoEncoderWithAssetWriter:self.queuedAssetWriter formatDescription:videoFormatDescription bitsPerSecond:videoBPS];
             self.queuedAudioEncoder = [self setupAudioEncoderWithAssetWriter:self.queuedAssetWriter formatDescription:audioFormatDescription bitsPerSecond:audioBPS];
             //NSLog(@"Encoder switch finished");
-
         }
     });
+}
+
+- (NSURL*) urlForNextSegment {
+    OWLocalRecording *recording = [OWRecordingController recordingForObjectID:self.recordingID];
+    NSURL *url = [recording urlForNextSegmentWithCount:segmentCount];
+    return url;
 }
 
 
 
 - (void) setupVideoEncoderWithFormatDescription:(CMFormatDescriptionRef)formatDescription bitsPerSecond:(int)bps {
-    OWLocalRecording *recording = [OWRecordingController recordingForObjectID:self.recordingID];
     videoFormatDescription = formatDescription;
     videoBPS = bps;
     if (!self.assetWriter) {
         NSError *error = nil;
-        self.assetWriter = [[AVAssetWriter alloc] initWithURL:[recording urlForNextSegment] fileType:(NSString *)kUTTypeMPEG4 error:&error];
+        self.assetWriter = [[AVAssetWriter alloc] initWithURL:[self urlForNextSegment] fileType:(NSString *)kUTTypeMPEG4 error:&error];
         if (error) {
             [self showError:error];
         }
@@ -131,8 +138,9 @@
     self.videoEncoder = [self setupVideoEncoderWithAssetWriter:self.assetWriter formatDescription:formatDescription bitsPerSecond:bps];
     
     if (!queuedAssetWriter) {
+        self.segmentCount++;
         NSError *error = nil;
-        self.queuedAssetWriter = [[AVAssetWriter alloc] initWithURL:[recording urlForNextSegment] fileType:(NSString *)kUTTypeMPEG4 error:&error];
+        self.queuedAssetWriter = [[AVAssetWriter alloc] initWithURL:[self urlForNextSegment] fileType:(NSString *)kUTTypeMPEG4 error:&error];
         if (error) {
             [self showError:error];
         }
@@ -142,12 +150,11 @@
 }
 
 - (void) setupAudioEncoderWithFormatDescription:(CMFormatDescriptionRef)formatDescription bitsPerSecond:(int)bps {
-    OWLocalRecording *recording = [OWRecordingController recordingForObjectID:self.recordingID];
     audioFormatDescription = formatDescription;
     audioBPS = bps;
     if (!self.assetWriter) {
         NSError *error = nil;
-        self.assetWriter = [[AVAssetWriter alloc] initWithURL:[recording urlForNextSegment] fileType:(NSString *)kUTTypeMPEG4 error:&error];
+        self.assetWriter = [[AVAssetWriter alloc] initWithURL:[self urlForNextSegment] fileType:(NSString *)kUTTypeMPEG4 error:&error];
         if (error) {
             [self showError:error];
         }
@@ -155,8 +162,9 @@
     self.audioEncoder = [self setupAudioEncoderWithAssetWriter:self.assetWriter formatDescription:formatDescription bitsPerSecond:bps];
     
     if (!queuedAssetWriter) {
+        self.segmentCount++;
         NSError *error = nil;
-        self.queuedAssetWriter = [[AVAssetWriter alloc] initWithURL:[recording urlForNextSegment] fileType:(NSString *)kUTTypeMPEG4 error:&error];
+        self.queuedAssetWriter = [[AVAssetWriter alloc] initWithURL:[self urlForNextSegment] fileType:(NSString *)kUTTypeMPEG4 error:&error];
         if (error) {
             [self showError:error];
         }

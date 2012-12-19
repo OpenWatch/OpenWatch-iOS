@@ -17,6 +17,7 @@
 @property (nonatomic, retain) AVAssetWriterInput *queuedAudioEncoder;
 @property (nonatomic, retain) AVAssetWriterInput *queuedVideoEncoder;
 @property (nonatomic) BOOL shouldBeRecording;
+@property (nonatomic) NSUInteger segmentCount;
 
 @property (nonatomic) int videoBPS; // bits/sec
 @property (nonatomic) int audioBPS; // bits/sec

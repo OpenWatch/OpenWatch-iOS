@@ -42,7 +42,7 @@
         if (![recording isKindOfClass:[OWLocalRecording class]]){
             continue;
         }
-        if (recording.failedFileCount > 0) {
+        if (recording.completedFileCount != recording.totalFileCount) {
             NSLog(@"Unsubmitted data found for recording: %@", recording.localRecordingPath);
             [self uploadFailedFileURLs:recording.failedFileUploadURLs forRecording:recording.objectID];
         }

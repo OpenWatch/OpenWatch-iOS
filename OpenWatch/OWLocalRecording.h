@@ -33,7 +33,7 @@
 - (void) startRecording;
 - (void) stopRecording;
 
-- (NSURL*) urlForNextSegment;
+- (NSURL*) urlForNextSegmentWithCount:(NSUInteger)count;
 - (NSURL*) highQualityURL;
 
 @end
