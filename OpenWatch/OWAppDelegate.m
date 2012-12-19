@@ -25,7 +25,7 @@
 #ifdef TESTING
     [TestFlight setDeviceIdentifier:[[UIDevice currentDevice] uniqueIdentifier]];
 #endif
-    [TestFlight takeOff:TESTFLIGHT_TEAM_TOKEN];
+    [TestFlight takeOff:TESTFLIGHT_APP_TOKEN];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
