@@ -22,6 +22,7 @@
 
 
 #define SHARE_STRING NSLocalizedString(@"Share", @"share a recording with others")
+#define SHARE_MESSAGE_STRING NSLocalizedString(@"Share this recording?", @"ask user to share recording")
 #define MAP_STRING NSLocalizedString(@"Map", @"title for button to show recording on map")
 #define YES_STRING NSLocalizedString(@"Yes", @"confirm something")
 #define NO_STRING NSLocalizedString(@"No", @"deny something")

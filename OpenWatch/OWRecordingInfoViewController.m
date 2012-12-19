@@ -16,7 +16,7 @@
 #import "OWUtilities.h"
 #import "OWTallyView.h"
 #import "UIImageView+AFNetworking.h"
-#import "SHK.h"
+#import "OWShareController.h"
 
 #define PADDING 10.0f
 
@@ -44,21 +44,7 @@
 }
 
 - (void) shareButtonPressed:(id)sender {
-    OWManagedRecording *recording = [OWRecordingController recordingForObjectID:recordingID];
-    // Create the item to share (in this example, a url)
-    NSURL *url = [recording urlForRemoteRecording];
-    NSString *title = [NSString stringWithFormat:@"%@ - %@", OPENWATCH_STRING, recording.title];
-    SHKItem *item = [SHKItem URL:url title:title contentType:SHKURLContentTypeWebpage];
-    
-    // Get the ShareKit action sheet
-    SHKActionSheet *actionSheet = [SHKActionSheet actionSheetForItem:item];
-    
-    // ShareKit detects top view controller (the one intended to present ShareKit UI) automatically,
-    // but sometimes it may not find one. To be safe, set it explicitly
-    [SHK setRootViewController:self];
-    
-    // Display the action sheet
-    [actionSheet showFromToolbar:self.navigationController.toolbar];
+    [[OWShareController sharedInstance] shareRecordingID:recordingID fromViewController:self];
 }
 
 - (void) setupSharing {

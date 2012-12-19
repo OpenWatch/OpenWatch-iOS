@@ -14,6 +14,8 @@
 #import "OWRecordingController.h"
 #import "OWTagEditViewController.h"
 #import "OWUtilities.h"
+#import "OWAppDelegate.h"
+#import "OWShareController.h"
 
 #define TAGS_ROW 0
 
@@ -186,7 +188,11 @@
     [[OWAccountAPIClient sharedClient] postRecordingWithUUID:recording.uuid success:nil failure:nil];
     
     [self.view endEditing:YES];
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:YES completion:^{
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:SHARE_STRING message:SHARE_MESSAGE_STRING delegate:OW_APP_DELEGATE.homeScreen cancelButtonTitle:NO_STRING otherButtonTitles:YES_STRING, nil];
+        [OWShareController sharedInstance].recordingID = self.recordingID;
+        [alert show];
+    }];
     [self.navigationController popViewControllerAnimated:YES];
 }
 

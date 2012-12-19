@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "OWLabeledButtonView.h"
 
-@interface OWHomeScreenViewController : UIViewController
+@interface OWHomeScreenViewController : UIViewController <UIAlertViewDelegate>
 
 @property (nonatomic, strong) OWLabeledButtonView *recordButtonView;
 @property (nonatomic, strong) OWLabeledButtonView *watchButtonView;

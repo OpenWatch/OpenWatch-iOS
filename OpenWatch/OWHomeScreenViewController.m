@@ -15,6 +15,7 @@
 #import "OWSettingsViewController.h"
 #import "OWWatchViewController.h"
 #import "OWAccountAPIClient.h"
+#import "OWShareController.h"
 
 @interface OWHomeScreenViewController ()
 @end
@@ -151,6 +152,12 @@
     OWFeedType type = kOWFeedTypeFeed;
     NSString *feedString = LOCAL_STRING;
     [self pushWatchVCForFeedName:feedString type:type];
+}
+
+- (void) alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
+    if (buttonIndex != alertView.cancelButtonIndex) {
+        [[OWShareController sharedInstance] shareFromViewController:self];
+    }
 }
 
 @end

@@ -12,6 +12,7 @@
 #import "OWRecordingEditViewController.h"
 #import "OWAppDelegate.h"
 #import "OWUtilities.h"
+#import "OWShareController.h"
 
 @interface OWCaptureViewController ()
 @end

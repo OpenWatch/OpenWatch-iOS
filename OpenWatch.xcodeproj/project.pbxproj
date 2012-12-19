@@ -13,6 +13,7 @@
 		D907023916682C8E00611607 /* gear-white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D907023716682C8E00611607 /* gear-white@2x.png */; };
 		D907023C1668353800611607 /* OWCaptureController.m in Sources */ = {isa = PBXBuildFile; fileRef = D907023B1668353800611607 /* OWCaptureController.m */; };
 		D920584E16812A46004C2F1A /* OWSHKConfigurator.m in Sources */ = {isa = PBXBuildFile; fileRef = D920584D16812A46004C2F1A /* OWSHKConfigurator.m */; };
+		D920585A16813643004C2F1A /* OWShareController.m in Sources */ = {isa = PBXBuildFile; fileRef = D920585916813643004C2F1A /* OWShareController.m */; };
 		D92D29D71681257E00A9E408 /* ShareKit.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D966781F168124F2006F1815 /* ShareKit.bundle */; };
 		D92D29DB1681261C00A9E408 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D92D29DA1681261C00A9E408 /* MessageUI.framework */; };
 		D92D29DD1681262800A9E408 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D92D29DC1681262800A9E408 /* CFNetwork.framework */; };
@@ -460,6 +461,8 @@
 		D907023B1668353800611607 /* OWCaptureController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWCaptureController.m; sourceTree = "<group>"; };
 		D920584C16812A46004C2F1A /* OWSHKConfigurator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWSHKConfigurator.h; sourceTree = "<group>"; };
 		D920584D16812A46004C2F1A /* OWSHKConfigurator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWSHKConfigurator.m; sourceTree = "<group>"; };
+		D920585816813643004C2F1A /* OWShareController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWShareController.h; sourceTree = "<group>"; };
+		D920585916813643004C2F1A /* OWShareController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWShareController.m; sourceTree = "<group>"; };
 		D92D29D81681260F00A9E408 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		D92D29DA1681261C00A9E408 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		D92D29DC1681262800A9E408 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
@@ -975,6 +978,8 @@
 				D9397BC0165D95940093B3C8 /* OWLocationController.m */,
 				D907023A1668353800611607 /* OWCaptureController.h */,
 				D907023B1668353800611607 /* OWCaptureController.m */,
+				D920585816813643004C2F1A /* OWShareController.h */,
+				D920585916813643004C2F1A /* OWShareController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -995,8 +1000,8 @@
 				D907022F1668270F00611607 /* OWHomeScreenViewController.h */,
 				D90702301668270F00611607 /* OWHomeScreenViewController.m */,
 				D9E72E58167FF6AC00C6CB75 /* OWRecordingEditViewController.h */,
-				D9E72E59167FF6AD00C6CB75 /* OWRecordingEditViewController.m */,
 				D9308512166406E5008C5D4C /* OWRecordingInfoViewController.h */,
+				D9E72E59167FF6AD00C6CB75 /* OWRecordingEditViewController.m */,
 				D9308513166406E5008C5D4C /* OWRecordingInfoViewController.m */,
 				D9D2E19A165326BB0000E7C5 /* OWRecordingListViewController.h */,
 				D9D2E19B165326BB0000E7C5 /* OWRecordingListViewController.m */,
@@ -1652,6 +1657,7 @@
 				D9E72E5A167FF6AE00C6CB75 /* OWRecordingEditViewController.m in Sources */,
 				D96677EA16810B2A006F1815 /* OWTallyView.m in Sources */,
 				D920584E16812A46004C2F1A /* OWSHKConfigurator.m in Sources */,
+				D920585A16813643004C2F1A /* OWShareController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
