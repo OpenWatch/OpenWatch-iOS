@@ -49,8 +49,11 @@
     NSString *path = [url path];
     NSString *fileName = [path lastPathComponent];
     NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
+    [context processPendingChanges];
+    OWLocalRecording *recording = (OWLocalRecording*)[context objectWithID:self.objectID];
+
     if ([[path lastPathComponent] isEqualToString:kHQFileName]) {
-        self.hqFileUploadState = @(uploadState);
+        recording.hqFileUploadState = @(uploadState);
         [context MR_saveNestedContexts];
         return;
     }
