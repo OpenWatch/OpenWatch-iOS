@@ -46,6 +46,7 @@
 
 - (void) shareButtonPressed:(id)sender {
     [[OWShareController sharedInstance] shareRecordingID:recordingID fromViewController:self];
+    [[OWAccountAPIClient sharedClient] hitRecording:self.recordingID hitType:kHitTypeClick];
 }
 
 - (void) setupSharing {
@@ -205,7 +206,7 @@
     
     [[OWAccountAPIClient sharedClient] getRecordingWithUUID:recording.uuid success:^(NSManagedObjectID *recordingObjectID) {
         OWManagedRecording *remoteRecording = [OWRecordingController recordingForObjectID:recordingObjectID];
-        [[OWAccountAPIClient sharedClient] hitRecording:remoteRecording.objectID hitType:@"view"];
+        [[OWAccountAPIClient sharedClient] hitRecording:remoteRecording.objectID hitType:kHitTypeView];
         self.moviePlayer.contentURL = [NSURL URLWithString:[remoteRecording remoteVideoURL]];
         [moviePlayer prepareToPlay];
         [self refreshMapParameters];

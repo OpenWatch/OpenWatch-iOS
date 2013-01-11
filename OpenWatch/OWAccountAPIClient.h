@@ -9,6 +9,9 @@
 #import "AFHTTPClient.h"
 #import "OWAccount.h"
 
+#define kHitTypeClick @"click"
+#define kHitTypeView @"view"
+
 @interface OWAccountAPIClient : AFHTTPClient
 
 + (OWAccountAPIClient *)sharedClient;
