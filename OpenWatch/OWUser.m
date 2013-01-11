@@ -16,5 +16,14 @@
 @dynamic serverID;
 @dynamic recordings;
 @dynamic tags;
+@dynamic csrfToken;
+@dynamic thumbnailURLString;
+
+- (NSURL*) thumbnailURL {
+    if (self.thumbnailURLString.length == 0) {
+        return nil;
+    }
+    return [NSURL URLWithString:self.thumbnailURLString];
+}
 
 @end

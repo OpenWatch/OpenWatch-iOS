@@ -38,7 +38,9 @@
         <relationship name="users" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="OWUser" inverseName="tags" inverseEntity="OWUser" syncable="YES"/>
     </entity>
     <entity name="OWUser" representedClassName="OWUser" syncable="YES">
+        <attribute name="csrfToken" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="serverID" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="thumbnailURLString" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="username" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="recordings" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="OWManagedRecording" inverseName="user" inverseEntity="OWManagedRecording" syncable="YES"/>
         <relationship name="tags" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="OWRecordingTag" inverseName="users" inverseEntity="OWRecordingTag" syncable="YES"/>
@@ -48,6 +50,6 @@
         <element name="OWManagedRecording" positionX="430" positionY="251" width="128" height="300"/>
         <element name="OWRecordingSegment" positionX="99" positionY="234" width="128" height="103"/>
         <element name="OWRecordingTag" positionX="268" positionY="354" width="128" height="120"/>
-        <element name="OWUser" positionX="90" positionY="435" width="128" height="105"/>
+        <element name="OWUser" positionX="90" positionY="435" width="128" height="135"/>
     </elements>
 </model>

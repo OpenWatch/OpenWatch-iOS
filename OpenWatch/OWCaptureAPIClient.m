@@ -71,9 +71,6 @@
         [recording setUploadState:OWFileUploadStateFailed forFileAtURL:url];
         return;
     }
-    NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithCapacity:2];
-    [parameters setObject:@"test" forKey:@"title"];
-    [parameters setObject:recording.uuid forKey:@"uid"];
     [recording setUploadState:OWFileUploadStateUploading forFileAtURL:url];
     NSString *postPath = nil;
     if ([[url lastPathComponent] isEqualToString:@"hq.mp4"]) {
@@ -84,7 +81,7 @@
 
 
 
-    NSURLRequest *request = [self multipartFormRequestWithMethod:@"POST" path:postPath parameters:parameters constructingBodyWithBlock: ^(id <AFMultipartFormData> formData) {
+    NSURLRequest *request = [self multipartFormRequestWithMethod:@"POST" path:postPath parameters:nil constructingBodyWithBlock: ^(id <AFMultipartFormData> formData) {
         //NSURL *fileURL = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"openwatch" ofType:@"png"]];
         
         NSError *error = nil;

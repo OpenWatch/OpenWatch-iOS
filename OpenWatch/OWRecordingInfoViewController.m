@@ -17,6 +17,7 @@
 #import "OWTallyView.h"
 #import "UIImageView+AFNetworking.h"
 #import "OWShareController.h"
+#import "QuartzCore/CALayer.h"
 
 #define PADDING 10.0f
 
@@ -60,6 +61,14 @@
     [OWUtilities styleLabel:titleLabel];
     
     self.profileImageView = [[UIImageView alloc] init];
+    self.profileImageView.contentMode = UIViewContentModeScaleAspectFill;
+    /*profileImageView.layer.shadowColor = [UIColor blackColor].CGColor;
+    profileImageView.layer.shadowOffset = CGSizeMake(0, 1);
+    profileImageView.layer.shadowOpacity = 1;
+    profileImageView.layer.shadowRadius = 3.0;
+     */
+    profileImageView.layer.cornerRadius = 5;
+    profileImageView.clipsToBounds = YES;
     [self.infoView addSubview:profileImageView];
     
     self.usernameLabel = [[UILabel alloc] init];
@@ -196,6 +205,7 @@
     
     [[OWAccountAPIClient sharedClient] getRecordingWithUUID:recording.uuid success:^(NSManagedObjectID *recordingObjectID) {
         OWManagedRecording *remoteRecording = [OWRecordingController recordingForObjectID:recordingObjectID];
+        [[OWAccountAPIClient sharedClient] hitRecording:remoteRecording.objectID hitType:@"view"];
         self.moviePlayer.contentURL = [NSURL URLWithString:[remoteRecording remoteVideoURL]];
         [moviePlayer prepareToPlay];
         [self refreshMapParameters];
@@ -203,7 +213,7 @@
         [self refreshFrames];
         [TestFlight passCheckpoint:VIEW_RECORDING_ID_CHECKPOINT([remoteRecording.serverID intValue])];
     } failure:^(NSString *reason) {
-        
+        NSLog(@"failure to fetch recording details: %@", reason);
     }];
     
 
@@ -256,6 +266,9 @@
 
 - (void) refreshFields {
     OWManagedRecording *recording = [OWRecordingController recordingForObjectID:self.recordingID];
+    if (!recording) {
+        return;
+    }
     NSString *title = recording.title;
     if (title) {
         self.titleLabel.text = title;
@@ -273,8 +286,7 @@
     self.tallyView.viewsLabel.text = [NSString stringWithFormat:@"%d", [recording.views intValue]];
     self.usernameLabel.text = recording.user.username;
     
-    // TODO: add profile image
-    [self.profileImageView setImageWithURL:nil placeholderImage:[UIImage imageNamed:@"thumbnail_placeholder.png"]];
+    [self.profileImageView setImageWithURL:recording.user.thumbnailURL placeholderImage:[UIImage imageNamed:@"thumbnail_placeholder.png"]];
 }
 
 

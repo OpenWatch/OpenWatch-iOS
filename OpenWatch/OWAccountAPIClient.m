@@ -14,6 +14,7 @@
 #import "OWRecordingTag.h"
 #import "OWSettingsController.h"
 #import "OWUser.h"
+#import "OWRecordingController.h"
 
 #define kRecordingsKey @"recordings/"
 //#define kRecordingKey @"recording/"
@@ -26,6 +27,7 @@
 #define kPubTokenKey @"public_upload_token"
 #define kPrivTokenKey @"private_upload_token"
 #define kServerIDKey @"server_id"
+#define kCSRFTokenKey @"csrf_token"
 
 #define kCreateAccountPath @"create_account"
 #define kLoginAccountPath @"login_account"
@@ -86,6 +88,7 @@
             account.publicUploadToken = [responseObject objectForKey:kPubTokenKey];
             account.privateUploadToken = [responseObject objectForKey:kPrivTokenKey];
             account.accountID = [responseObject objectForKey:kServerIDKey];
+            account.user.csrfToken = [responseObject objectForKey:kCSRFTokenKey];
             
             success();
         } else {
@@ -157,7 +160,7 @@
 - (void) getRecordingWithUUID:(NSString*)UUID success:(void (^)(NSManagedObjectID *))success failure:(void (^)(NSString *))failure {
     [self getPath:[self pathForRecordingWithUUID:UUID] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
-        NSLog(@"GET Response: %@", [responseObject description] );
+        NSLog(@"GET Response: %@", operation.responseString);
         NSDictionary *recordingDict = [responseObject objectForKey:kRecordingKey];
         if (recordingDict) {
             NSString *uuid = [recordingDict objectForKey:@"uuid"];
@@ -188,7 +191,7 @@
         //NSLog(@"POST body: %@", operation.request.HTTPBody);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"fail: %@", operation.responseString);
-        failure([error description]);
+        failure(@"Failed to POST recording");
     }];
 }
 
@@ -279,6 +282,32 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
     }];
+}
+
+- (void) hitRecording:(NSManagedObjectID *)objectID hitType:(NSString *)hitType {
+    OWManagedRecording *recording = [OWRecordingController recordingForObjectID:objectID];
+    if (!recording) {
+        return;
+    }
+    
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithCapacity:3];
+    [parameters setObject:recording.uuid forKey:@"uuid"];
+    [parameters setObject:hitType forKey:@"hit_type"];
+    [parameters setObject:@"iPhone" forKey:@"referrer"];
+        
+    [self postPath:@"increase_hitcount/" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"hit response: %@", operation.responseString);
+        NSLog(@"request: %@", operation.request.allHTTPHeaderFields);
+        NSString *httpBody = [NSString stringWithUTF8String:operation.request.HTTPBody.bytes];
+        NSLog(@"request body: %@", httpBody);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"hit failure: %@", operation.responseString);
+        NSLog(@"request: %@", operation.request.allHTTPHeaderFields);
+        NSString *httpBody = [NSString stringWithUTF8String:operation.request.HTTPBody.bytes];
+        NSLog(@"request body: %@", httpBody);
+    }];
+    
+    
 }
 
 @end

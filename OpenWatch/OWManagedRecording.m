@@ -208,20 +208,27 @@
     if (userDictionary) {
         NSNumber *userID = [userDictionary objectForKey:kIDKey];
         NSString *username = [userDictionary objectForKey:kUsernameKey];
+        NSString *thumbnail = [userDictionary objectForKey:@"thumbnail_url"];
         OWUser *user = [OWUser MR_findFirstByAttribute:@"serverID" withValue:userID];
         if (!user) {
             user = [OWUser MR_createEntity];
             user.serverID = userID;
         }
         user.username = username;
+        user.thumbnailURLString = thumbnail;
         self.user = user;
     }
     NSNumber *views = [metadataDictionary objectForKey:@"views"];
-    self.views = views;
+    if (views) {
+        self.views = views;
+    }
     NSNumber *upvotes = [metadataDictionary objectForKey:@"clicks"];
-    self.upvotes = upvotes;
-    
-    self.thumbnailURL = [metadataDictionary objectForKey:@"thumbnail_url"];
+    if (upvotes) {
+        self.upvotes = upvotes;
+    }
+    NSString *thumbnailURL = [metadataDictionary objectForKey:@"thumbnail_url"];
+    if (thumbnailURL)
+    self.thumbnailURL = thumbnailURL;
 }
 
 - (CLLocation*)locationFromLocationDictionary:(NSDictionary*)locationDictionary {

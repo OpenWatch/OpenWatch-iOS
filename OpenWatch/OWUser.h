@@ -14,9 +14,13 @@
 @interface OWUser : NSManagedObject
 
 @property (nonatomic, retain) NSString * username;
+@property (nonatomic, strong) NSString * csrfToken;
 @property (nonatomic, retain) NSNumber * serverID;
+@property (nonatomic, strong) NSString * thumbnailURLString;
 @property (nonatomic, retain) NSSet *recordings;
 @property (nonatomic, retain) NSSet *tags;
+
+- (NSURL*) thumbnailURL;
 
 @end
 

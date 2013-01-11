@@ -25,4 +25,7 @@
 - (void) fetchRecordingsForTag:(NSString*)tag success:(void (^)(NSArray *recordingObjectIDs))success failure:(void (^)(NSString *reason))failure;
 - (void) fetchRecordingsForFeed:(NSString*)feed success:(void (^)(NSArray *recordingObjectIDs))success failure:(void (^)(NSString *reason))failure;
 
+- (void) hitRecording:(NSManagedObjectID*)objectID hitType:(NSString*)hitType;
+
+
 @end

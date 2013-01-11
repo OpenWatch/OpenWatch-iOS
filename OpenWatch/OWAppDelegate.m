@@ -38,7 +38,7 @@
     self.window.rootViewController = homeNavController;
     DefaultSHKConfigurator *configurator = [[OWSHKConfigurator alloc] init];
     [SHKConfiguration sharedInstanceWithConfigurator:configurator];
-    [MagicalRecord setupAutoMigratingCoreDataStack];
+    [MagicalRecord setupCoreDataStack];
     [self.window makeKeyAndVisible];
     return YES;
 }
