@@ -53,12 +53,12 @@
 }
 
 + (NSString*) apiBaseURLString {
-    return @"http://alpha.openwatch.net/";
+    return @"https://alpha.openwatch.net/";
     //return @"http://192.168.1.44:8000/";
 }
 
 + (NSString*) captureBaseURLString {
-    return @"http://capture.openwatch.net/";
+    return @"https://capture.openwatch.net/";
     //return @"http://192.168.1.44:5000/";
 }
 

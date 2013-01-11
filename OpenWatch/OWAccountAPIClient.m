@@ -191,7 +191,7 @@
         //NSLog(@"POST body: %@", operation.request.HTTPBody);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"fail: %@", operation.responseString);
-        failure(@"Failed to POST recording");
+        //failure(@"Failed to POST recording");
     }];
 }
 
