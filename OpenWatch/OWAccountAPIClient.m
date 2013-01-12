@@ -35,6 +35,8 @@
 #define kFeedPath @"feed/"
 #define kTagsPath @"tags/"
 
+#define kObjectsKey @"objects"
+
 @implementation OWAccountAPIClient
 
 + (NSString*) baseURL {
@@ -105,7 +107,7 @@
 - (void) fetchRecordingsWithSuccessBlock:(void (^)(void))success failure:(void (^)(NSString *))failure {
     [self getPath:kRecordingsKey parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"success: %@", [responseObject description]);
-        NSArray *recordings = [responseObject objectForKey:@"recordings"];
+        NSArray *recordings = [responseObject objectForKey:kObjectsKey];
         for (NSDictionary *recordingDict in recordings) {
             NSString *uuid = [recordingDict objectForKey:@"uuid"];
             int serverID = [[recordingDict objectForKey:@"id"] intValue];
@@ -195,18 +197,18 @@
     }];
 }
 
-- (NSString*) pathForTagFeed:(NSString*)tag {
-    return [kTagPath stringByAppendingString:tag];
+- (NSString*) pathForTagFeed:(NSString*)tag page:(NSUInteger)page {
+    return [kTagPath stringByAppendingFormat:@"%@/%d/", tag, page];
 }
 
-- (NSString*) pathForFeed:(NSString*)feedName {
-    return [kFeedPath stringByAppendingString:feedName];
+- (NSString*) pathForFeed:(NSString*)feedName page:(NSUInteger)page {
+    return [kFeedPath stringByAppendingFormat:@"%@/%d/", feedName, page];
 }
 
-- (void) fetchRecordingsForTag:(NSString *)tagName success:(void (^)(NSArray *recordings))success failure:(void (^)(NSString *))failure {
+- (void) fetchRecordingsForTag:(NSString *)tagName page:(NSUInteger)page success:(void (^)(NSArray *recordings))success failure:(void (^)(NSString *))failure {
 
-    [self getPath:[self pathForTagFeed:tagName] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSArray *recordings = [self recordingIDsFromRecordingsMetadataArray:[responseObject objectForKey:@"recordings"]];
+    [self getPath:[self pathForTagFeed:tagName page:page] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSArray *recordings = [self recordingIDsFromRecordingsMetadataArray:[responseObject objectForKey:kObjectsKey]];
         success(recordings);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"failure: %@", [error userInfo]);
@@ -214,9 +216,9 @@
     }];
 }
 
-- (void) fetchRecordingsForFeed:(NSString *)feed success:(void (^)(NSArray *))success failure:(void (^)(NSString *))failure {
-    [self getPath:[self pathForFeed:feed] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSArray *recordings = [self recordingIDsFromRecordingsMetadataArray:[responseObject objectForKey:@"recordings"]];
+- (void) fetchRecordingsForFeed:(NSString *)feed page:(NSUInteger)page success:(void (^)(NSArray *))success failure:(void (^)(NSString *))failure {
+    [self getPath:[self pathForFeed:feed page:page] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSArray *recordings = [self recordingIDsFromRecordingsMetadataArray:[responseObject objectForKey:kObjectsKey]];
         success(recordings);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"failure: %@", [error userInfo]);
@@ -280,7 +282,7 @@
         user.tags = tags;
         [context MR_saveNestedContexts];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
+        NSLog(@"Failed to load tags: %@", operation.responseString);
     }];
 }
 

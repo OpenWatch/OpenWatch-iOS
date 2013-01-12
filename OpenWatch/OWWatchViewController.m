@@ -50,14 +50,14 @@
     self.title = feedName;
     
     if (feedType == kOWFeedTypeFeed) {
-        [[OWAccountAPIClient sharedClient] fetchRecordingsForFeed:feedName success:^(NSArray *recordings) {
+        [[OWAccountAPIClient sharedClient] fetchRecordingsForFeed:feedName page:0 success:^(NSArray *recordings) {
             self.recordingsArray = [NSMutableArray arrayWithArray:recordings];
             [self.recordingsTableView reloadData];
         } failure:^(NSString *reason) {
             
         }];
     } else if (feedType == kOWFeedTypeTag) {
-        [[OWAccountAPIClient sharedClient] fetchRecordingsForTag:feedName success:^(NSArray *recordings) {
+        [[OWAccountAPIClient sharedClient] fetchRecordingsForTag:feedName page:0 success:^(NSArray *recordings) {
             self.recordingsArray = [NSMutableArray arrayWithArray:recordings];
             [self.recordingsTableView reloadData];
         } failure:^(NSString *reason) {

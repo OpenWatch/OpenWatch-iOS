@@ -25,8 +25,8 @@
 - (void) postRecordingWithUUID:(NSString*)UUID success:(void (^)(void))success failure:(void (^)(NSString *reason))failure;
 - (void) getRecordingWithUUID:(NSString*)UUID success:(void (^)(NSManagedObjectID *recordingObjectID))success failure:(void (^)(NSString *reason))failure;
 
-- (void) fetchRecordingsForTag:(NSString*)tag success:(void (^)(NSArray *recordingObjectIDs))success failure:(void (^)(NSString *reason))failure;
-- (void) fetchRecordingsForFeed:(NSString*)feed success:(void (^)(NSArray *recordingObjectIDs))success failure:(void (^)(NSString *reason))failure;
+- (void) fetchRecordingsForTag:(NSString*)tag page:(NSUInteger)page success:(void (^)(NSArray *recordingObjectIDs))success failure:(void (^)(NSString *reason))failure;
+- (void) fetchRecordingsForFeed:(NSString*)feed page:(NSUInteger)page success:(void (^)(NSArray *recordingObjectIDs))success failure:(void (^)(NSString *reason))failure;
 
 - (void) hitRecording:(NSManagedObjectID*)objectID hitType:(NSString*)hitType;
 
