@@ -12,7 +12,7 @@
 #import "OWUser.h"
 #import "OWAccount.h"
 #import "OWSettingsController.h"
-#import "OWRecordingTag.h"
+#import "OWTag.h"
 
 @interface OWFeedSelectionViewController ()
 @end
@@ -32,7 +32,7 @@
         NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES];
         NSArray *sortedTags = [unsortedTags sortedArrayUsingDescriptors:@[sortDescriptor]];
         NSMutableArray *mutableTagNames = [NSMutableArray arrayWithCapacity:[sortedTags count]];
-        for (OWRecordingTag *tag in sortedTags) {
+        for (OWTag *tag in sortedTags) {
             [mutableTagNames addObject:[tag.name lowercaseString]];
         }
         self.tagNames = mutableTagNames;

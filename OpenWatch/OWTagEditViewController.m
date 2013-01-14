@@ -9,7 +9,7 @@
 #import "OWTagEditViewController.h"
 #import "OWManagedRecording.h"
 #import "OWRecordingController.h"
-#import "OWRecordingTag.h"
+#import "OWTag.h"
 #import "OWStrings.h"
 #import "OWAutocompletionView.h"
 #import "OWUtilities.h"
@@ -97,9 +97,9 @@
     self.tagsArray = [NSMutableArray arrayWithArray:[tags sortedArrayUsingDescriptors:@[sortDescriptor]]];
     [self.tagTableView reloadData];
     
-    NSArray *allTags = [OWRecordingTag MR_findAll];
+    NSArray *allTags = [OWTag MR_findAll];
     NSMutableArray *suggestionStrings = [NSMutableArray arrayWithCapacity:[allTags count]];
-    for (OWRecordingTag *tag in allTags) {
+    for (OWTag *tag in allTags) {
         [suggestionStrings addObject:[tag.name lowercaseString]];
     }
     self.autocompletionView.suggestionStrings = suggestionStrings;
@@ -116,7 +116,7 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
-    OWRecordingTag *tag = [tagsArray objectAtIndex:indexPath.row];
+    OWTag *tag = [tagsArray objectAtIndex:indexPath.row];
     cell.textLabel.text = [tag.name lowercaseString];
     return cell;
 }
@@ -138,9 +138,9 @@
 
 - (void) addTagForName:(NSString*)tagName {
     self.tagTextField.text = @"";
-    OWRecordingTag *tag = [OWRecordingTag MR_findFirstByAttribute:@"name" withValue:tagName];
+    OWTag *tag = [OWTag MR_findFirstByAttribute:@"name" withValue:tagName];
     if (!tag) {
-        tag = [OWRecordingTag MR_createEntity];
+        tag = [OWTag MR_createEntity];
         tag.name = tagName;
     }
     [self.tagsArray addObject:tag];

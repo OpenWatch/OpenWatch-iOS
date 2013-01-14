@@ -95,9 +95,9 @@
     OWSettingsController *settingsController = [OWSettingsController sharedInstance];
     OWUser *user = [settingsController.account user];
     
-    NSMutableArray *recordingsArray = [NSMutableArray arrayWithCapacity:user.recordings.count];
+    NSMutableArray *recordingsArray = [NSMutableArray arrayWithCapacity:user.objects.count];
     
-    for (OWLocalRecording *recording in user.recordings) {
+    for (OWLocalRecording *recording in user.objects) {
         if ([recording isKindOfClass:[OWLocalRecording class]]) {
             [recordingsArray addObject:recording.objectID];
         }

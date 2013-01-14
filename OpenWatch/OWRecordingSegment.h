@@ -6,8 +6,7 @@
 //  Copyright (c) 2012 OpenWatch FPC. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import <CoreData/CoreData.h>
+#import "_OWRecordingSegment.h"
 
 @class OWLocalRecording;
 
@@ -19,11 +18,8 @@ typedef enum {
     OWFileUploadStateRecording
 } OWFileUploadState;
 
-@interface OWRecordingSegment : NSManagedObject
+@interface OWRecordingSegment : _OWRecordingSegment
 
-@property (nonatomic, retain) NSString * filePath;
-@property (nonatomic, strong) NSString * fileName;
 @property (nonatomic) OWFileUploadState fileUploadState;
-@property (nonatomic, retain) OWLocalRecording *recording;
 
 @end

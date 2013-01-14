@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 #import <CoreLocation/CoreLocation.h>
+#import "_OWManagedRecording.h"
 
 #define kHQFileName @"hq.mp4"
 #define kAllFilesKey @"all_files"
@@ -37,22 +38,7 @@
 
 @class OWUser;
 
-@interface OWManagedRecording : NSManagedObject
-
-@property (nonatomic, retain) NSDate * endDate;
-@property (nonatomic, retain) NSDate * dateModified;
-@property (nonatomic, retain) NSString * recordingDescription;
-@property (nonatomic, retain) NSDate * startDate;
-@property (nonatomic, retain) NSString * title;
-@property (nonatomic, retain) NSString * uuid;
-@property (nonatomic, retain) NSNumber * serverID;
-@property (nonatomic, retain) NSString * remoteVideoURL;
-@property (nonatomic, retain) NSString *thumbnailURL;
-@property (nonatomic, retain) NSSet *tags;
-@property (nonatomic, strong) OWUser *user;
-
-@property (nonatomic, strong) NSNumber *upvotes;
-@property (nonatomic, strong) NSNumber *views;
+@interface OWManagedRecording : _OWManagedRecording
 
 @property (nonatomic, strong) CLLocation *startLocation;
 @property (nonatomic, strong) CLLocation *endLocation;

@@ -11,7 +11,7 @@
 #import "OWManagedRecording.h"
 #import "OWLocalRecording.h"
 #import "OWUtilities.h"
-#import "OWRecordingTag.h"
+#import "OWTag.h"
 #import "OWSettingsController.h"
 #import "OWUser.h"
 #import "OWRecordingController.h"
@@ -270,9 +270,9 @@
         NSMutableSet *tags = [NSMutableSet setWithCapacity:[rawTags count]];
         for (NSDictionary *tagDictionary in rawTags) {
             NSNumber *serverID = [tagDictionary objectForKey:@"id"];
-            OWRecordingTag *tag = [OWRecordingTag MR_findFirstByAttribute:@"serverID" withValue:serverID];
+            OWTag *tag = [OWTag MR_findFirstByAttribute:@"serverID" withValue:serverID];
             if (!tag) {
-                tag = [OWRecordingTag MR_createEntity];
+                tag = [OWTag MR_createEntity];
                 tag.name = [tagDictionary objectForKey:@"name"];
                 tag.isFeatured = [tagDictionary objectForKey:@"featured"];
                 tag.serverID = serverID;

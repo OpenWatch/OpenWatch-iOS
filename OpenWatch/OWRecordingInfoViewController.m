@@ -283,7 +283,7 @@
         self.descriptionTextView.text = @"";
     }
     
-    self.tallyView.actionsLabel.text = [NSString stringWithFormat:@"%d", [recording.upvotes intValue]];
+    self.tallyView.actionsLabel.text = [NSString stringWithFormat:@"%d", [recording.clicks intValue]];
     self.tallyView.viewsLabel.text = [NSString stringWithFormat:@"%d", [recording.views intValue]];
     self.usernameLabel.text = recording.user.username;
     

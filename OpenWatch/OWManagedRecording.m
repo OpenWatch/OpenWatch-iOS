@@ -8,7 +8,7 @@
 
 #import "OWManagedRecording.h"
 #import "OWUtilities.h"
-#import "OWRecordingTag.h"
+#import "OWTag.h"
 #import "OWUser.h"
 
 #define kLastEditedKey @"last_edited"
@@ -18,31 +18,10 @@
 #define kIDKey @"id"
 
 @interface OWManagedRecording()
-@property (nonatomic, retain) NSNumber * endLatitude;
-@property (nonatomic, retain) NSNumber * endLongitude;
-@property (nonatomic, retain) NSNumber * startLatitude;
-@property (nonatomic, retain) NSNumber * startLongitude;
 @end
 
 @implementation OWManagedRecording
 
-@dynamic endDate;
-@dynamic endLatitude;
-@dynamic endLongitude;
-@dynamic recordingDescription;
-@dynamic startDate;
-@dynamic startLatitude;
-@dynamic startLongitude;
-@dynamic title;
-@dynamic uuid;
-@dynamic serverID;
-@dynamic remoteVideoURL;
-@dynamic tags;
-@dynamic user;
-@dynamic dateModified;
-@dynamic thumbnailURL;
-@dynamic upvotes;
-@dynamic views;
 
 - (CLLocation*) startLocation {
     return [self locationWithLatitude:[self.startLatitude doubleValue] longitude:[self.startLongitude doubleValue]];
@@ -112,7 +91,7 @@
     }
     NSSet *tags = self.tags;
     NSMutableArray *tagsArray = [NSMutableArray arrayWithCapacity:tags.count];
-    for (OWRecordingTag *tag in tags) {
+    for (OWTag *tag in tags) {
         if ([tag.name isEqualToString:@""]) {
             continue;
         }
@@ -195,9 +174,9 @@
             if ([component isEqualToString:@""]) {
                 continue;
             }
-            OWRecordingTag *tag = [OWRecordingTag MR_findFirstByAttribute:@"name" withValue:component];
+            OWTag *tag = [OWTag MR_findFirstByAttribute:@"name" withValue:component];
             if (!tag) {
-                tag = [OWRecordingTag MR_createEntity];
+                tag = [OWTag MR_createEntity];
                 tag.name = component;
             }
             [tags addObject:tag];
@@ -222,9 +201,9 @@
     if (views) {
         self.views = views;
     }
-    NSNumber *upvotes = [metadataDictionary objectForKey:@"clicks"];
-    if (upvotes) {
-        self.upvotes = upvotes;
+    NSNumber *clicks = [metadataDictionary objectForKey:@"clicks"];
+    if (clicks) {
+        self.clicks = clicks;
     }
     NSString *thumbnailURL = [metadataDictionary objectForKey:@"thumbnail_url"];
     if (thumbnailURL)

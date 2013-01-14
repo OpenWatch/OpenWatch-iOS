@@ -82,7 +82,7 @@
         self.dateModifiedLabel.text = [dateFormatter stringFromDate:recording.dateModified];
         [self.contentView addSubview:dateModifiedLabel];
     } else {
-        self.tallyView.actionsLabel.text = [NSString stringWithFormat:@"%d", [recording.upvotes intValue]];
+        self.tallyView.actionsLabel.text = [NSString stringWithFormat:@"%d", [recording.clicks intValue]];
         self.tallyView.viewsLabel.text = [NSString stringWithFormat:@"%d", [recording.views intValue]];
         [self.contentView addSubview:tallyView];
     }

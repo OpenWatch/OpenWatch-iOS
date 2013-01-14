@@ -6,6 +6,20 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		D944DA9416A4A8ED00BC8E57 /* Mogenerator */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = D944DA9516A4A8ED00BC8E57 /* Build configuration list for PBXAggregateTarget "Mogenerator" */;
+			buildPhases = (
+				D944DA9816A4A8FD00BC8E57 /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = Mogenerator;
+			productName = Mogenerator;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		D90702311668270F00611607 /* OWHomeScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D90702301668270F00611607 /* OWHomeScreenViewController.m */; };
 		D907023516682B4400611607 /* OWUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = D907023416682B4400611607 /* OWUtilities.m */; };
@@ -36,7 +50,6 @@
 		D9397BBC165D6FC70093B3C8 /* fabric.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = D9397BBA165D6FC70093B3C8 /* fabric.jpeg */; };
 		D9397BBD165D6FC70093B3C8 /* fabric@2x.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = D9397BBB165D6FC70093B3C8 /* fabric@2x.jpeg */; };
 		D9397BC1165D95940093B3C8 /* OWLocationController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9397BC0165D95940093B3C8 /* OWLocationController.m */; };
-		D948CFFE1672960800FFF1D2 /* OWRecordingTag.m in Sources */ = {isa = PBXBuildFile; fileRef = D948CFFD1672960800FFF1D2 /* OWRecordingTag.m */; };
 		D94A26DF167A7B4600BD36EF /* OWLabeledButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = D94A26DE167A7B4600BD36EF /* OWLabeledButtonView.m */; };
 		D94A26ED167A858600BD36EF /* eye-big.png in Resources */ = {isa = PBXBuildFile; fileRef = D94A26E5167A858600BD36EF /* eye-big.png */; };
 		D94A26EE167A858600BD36EF /* eye-big@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D94A26E6167A858600BD36EF /* eye-big@2x.png */; };
@@ -58,6 +71,18 @@
 		D97EAAAE16795B3000A1B038 /* list.png in Resources */ = {isa = PBXBuildFile; fileRef = D97EAAAC16795B3000A1B038 /* list.png */; };
 		D97EAAAF16795B3000A1B038 /* list@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D97EAAAD16795B3000A1B038 /* list@2x.png */; };
 		D97EAABB167A540900A1B038 /* OWFeedSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D97EAABA167A540900A1B038 /* OWFeedSelectionViewController.m */; };
+		D98FCB4116A4AA570071DF6B /* _OWLocalRecording.m in Sources */ = {isa = PBXBuildFile; fileRef = D98FCB3216A4AA570071DF6B /* _OWLocalRecording.m */; };
+		D98FCB4216A4AA570071DF6B /* _OWManagedRecording.m in Sources */ = {isa = PBXBuildFile; fileRef = D98FCB3416A4AA570071DF6B /* _OWManagedRecording.m */; };
+		D98FCB4316A4AA570071DF6B /* _OWMediaObject.m in Sources */ = {isa = PBXBuildFile; fileRef = D98FCB3616A4AA570071DF6B /* _OWMediaObject.m */; };
+		D98FCB4416A4AA570071DF6B /* _OWRecordingSegment.m in Sources */ = {isa = PBXBuildFile; fileRef = D98FCB3816A4AA570071DF6B /* _OWRecordingSegment.m */; };
+		D98FCB4616A4AA570071DF6B /* _OWServerObject.m in Sources */ = {isa = PBXBuildFile; fileRef = D98FCB3C16A4AA570071DF6B /* _OWServerObject.m */; };
+		D98FCB4716A4AA570071DF6B /* _OWStory.m in Sources */ = {isa = PBXBuildFile; fileRef = D98FCB3E16A4AA570071DF6B /* _OWStory.m */; };
+		D98FCB4816A4AA570071DF6B /* _OWUser.m in Sources */ = {isa = PBXBuildFile; fileRef = D98FCB4016A4AA570071DF6B /* _OWUser.m */; };
+		D98FCB5016A4AB240071DF6B /* OWMediaObject.m in Sources */ = {isa = PBXBuildFile; fileRef = D98FCB4D16A4AB240071DF6B /* OWMediaObject.m */; };
+		D98FCB5116A4AB240071DF6B /* OWServerObject.m in Sources */ = {isa = PBXBuildFile; fileRef = D98FCB4F16A4AB240071DF6B /* OWServerObject.m */; };
+		D98FCB5416A4AB800071DF6B /* OWTag.m in Sources */ = {isa = PBXBuildFile; fileRef = D98FCB5316A4AB800071DF6B /* OWTag.m */; };
+		D98FCB5716A4AB8C0071DF6B /* _OWTag.m in Sources */ = {isa = PBXBuildFile; fileRef = D98FCB5616A4AB8C0071DF6B /* _OWTag.m */; };
+		D98FCB5A16A4AE8C0071DF6B /* OWStory.m in Sources */ = {isa = PBXBuildFile; fileRef = D98FCB5916A4AE8B0071DF6B /* OWStory.m */; };
 		D99741761651D42F0034ABB0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D99741751651D42F0034ABB0 /* UIKit.framework */; };
 		D99741781651D42F0034ABB0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D99741771651D42F0034ABB0 /* Foundation.framework */; };
 		D997417A1651D42F0034ABB0 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D99741791651D42F0034ABB0 /* CoreGraphics.framework */; };
@@ -449,6 +474,13 @@
 			remoteGlobalIDString = 7AB5360E1552E26800171BCE;
 			remoteInfo = "Resource Bundle";
 		};
+		D98FCB4A16A4AABE0071DF6B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D99741681651D42E0034ABB0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D944DA9416A4A8ED00BC8E57;
+			remoteInfo = Mogenerator;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -484,8 +516,6 @@
 		D9397BBB165D6FC70093B3C8 /* fabric@2x.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "fabric@2x.jpeg"; sourceTree = "<group>"; };
 		D9397BBF165D95940093B3C8 /* OWLocationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWLocationController.h; sourceTree = "<group>"; };
 		D9397BC0165D95940093B3C8 /* OWLocationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWLocationController.m; sourceTree = "<group>"; };
-		D948CFFC1672960800FFF1D2 /* OWRecordingTag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWRecordingTag.h; sourceTree = "<group>"; };
-		D948CFFD1672960800FFF1D2 /* OWRecordingTag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWRecordingTag.m; sourceTree = "<group>"; };
 		D94A26DD167A7B4600BD36EF /* OWLabeledButtonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWLabeledButtonView.h; sourceTree = "<group>"; };
 		D94A26DE167A7B4600BD36EF /* OWLabeledButtonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWLabeledButtonView.m; sourceTree = "<group>"; };
 		D94A26E5167A858600BD36EF /* eye-big.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "eye-big.png"; sourceTree = "<group>"; };
@@ -513,6 +543,30 @@
 		D97EAAAD16795B3000A1B038 /* list@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "list@2x.png"; sourceTree = "<group>"; };
 		D97EAAB9167A540800A1B038 /* OWFeedSelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWFeedSelectionViewController.h; sourceTree = "<group>"; };
 		D97EAABA167A540900A1B038 /* OWFeedSelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWFeedSelectionViewController.m; sourceTree = "<group>"; };
+		D98FCB3116A4AA570071DF6B /* _OWLocalRecording.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _OWLocalRecording.h; sourceTree = "<group>"; };
+		D98FCB3216A4AA570071DF6B /* _OWLocalRecording.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _OWLocalRecording.m; sourceTree = "<group>"; };
+		D98FCB3316A4AA570071DF6B /* _OWManagedRecording.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _OWManagedRecording.h; sourceTree = "<group>"; };
+		D98FCB3416A4AA570071DF6B /* _OWManagedRecording.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _OWManagedRecording.m; sourceTree = "<group>"; };
+		D98FCB3516A4AA570071DF6B /* _OWMediaObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _OWMediaObject.h; sourceTree = "<group>"; };
+		D98FCB3616A4AA570071DF6B /* _OWMediaObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _OWMediaObject.m; sourceTree = "<group>"; };
+		D98FCB3716A4AA570071DF6B /* _OWRecordingSegment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _OWRecordingSegment.h; sourceTree = "<group>"; };
+		D98FCB3816A4AA570071DF6B /* _OWRecordingSegment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _OWRecordingSegment.m; sourceTree = "<group>"; };
+		D98FCB3B16A4AA570071DF6B /* _OWServerObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _OWServerObject.h; sourceTree = "<group>"; };
+		D98FCB3C16A4AA570071DF6B /* _OWServerObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _OWServerObject.m; sourceTree = "<group>"; };
+		D98FCB3D16A4AA570071DF6B /* _OWStory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _OWStory.h; sourceTree = "<group>"; };
+		D98FCB3E16A4AA570071DF6B /* _OWStory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _OWStory.m; sourceTree = "<group>"; };
+		D98FCB3F16A4AA570071DF6B /* _OWUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _OWUser.h; sourceTree = "<group>"; };
+		D98FCB4016A4AA570071DF6B /* _OWUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _OWUser.m; sourceTree = "<group>"; };
+		D98FCB4C16A4AB240071DF6B /* OWMediaObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWMediaObject.h; sourceTree = "<group>"; };
+		D98FCB4D16A4AB240071DF6B /* OWMediaObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWMediaObject.m; sourceTree = "<group>"; };
+		D98FCB4E16A4AB240071DF6B /* OWServerObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWServerObject.h; sourceTree = "<group>"; };
+		D98FCB4F16A4AB240071DF6B /* OWServerObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWServerObject.m; sourceTree = "<group>"; };
+		D98FCB5216A4AB800071DF6B /* OWTag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWTag.h; sourceTree = "<group>"; };
+		D98FCB5316A4AB800071DF6B /* OWTag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWTag.m; sourceTree = "<group>"; };
+		D98FCB5516A4AB8C0071DF6B /* _OWTag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _OWTag.h; sourceTree = "<group>"; };
+		D98FCB5616A4AB8C0071DF6B /* _OWTag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _OWTag.m; sourceTree = "<group>"; };
+		D98FCB5816A4AE8B0071DF6B /* OWStory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWStory.h; sourceTree = "<group>"; };
+		D98FCB5916A4AE8B0071DF6B /* OWStory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWStory.m; sourceTree = "<group>"; };
 		D99741711651D42F0034ABB0 /* OpenWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OpenWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D99741751651D42F0034ABB0 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		D99741771651D42F0034ABB0 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -786,6 +840,29 @@
 			name = "Custom Views";
 			sourceTree = "<group>";
 		};
+		D98FCB4916A4AA5B0071DF6B /* Generated */ = {
+			isa = PBXGroup;
+			children = (
+				D98FCB3116A4AA570071DF6B /* _OWLocalRecording.h */,
+				D98FCB3216A4AA570071DF6B /* _OWLocalRecording.m */,
+				D98FCB3316A4AA570071DF6B /* _OWManagedRecording.h */,
+				D98FCB3416A4AA570071DF6B /* _OWManagedRecording.m */,
+				D98FCB3516A4AA570071DF6B /* _OWMediaObject.h */,
+				D98FCB3616A4AA570071DF6B /* _OWMediaObject.m */,
+				D98FCB3716A4AA570071DF6B /* _OWRecordingSegment.h */,
+				D98FCB3816A4AA570071DF6B /* _OWRecordingSegment.m */,
+				D98FCB3B16A4AA570071DF6B /* _OWServerObject.h */,
+				D98FCB3C16A4AA570071DF6B /* _OWServerObject.m */,
+				D98FCB3D16A4AA570071DF6B /* _OWStory.h */,
+				D98FCB3E16A4AA570071DF6B /* _OWStory.m */,
+				D98FCB3F16A4AA570071DF6B /* _OWUser.h */,
+				D98FCB4016A4AA570071DF6B /* _OWUser.m */,
+				D98FCB5516A4AB8C0071DF6B /* _OWTag.h */,
+				D98FCB5616A4AB8C0071DF6B /* _OWTag.m */,
+			);
+			name = Generated;
+			sourceTree = "<group>";
+		};
 		D99741661651D42E0034ABB0 = {
 			isa = PBXGroup;
 			children = (
@@ -837,6 +914,7 @@
 		D997417B1651D42F0034ABB0 /* OpenWatch */ = {
 			isa = PBXGroup;
 			children = (
+				D98FCB4916A4AA5B0071DF6B /* Generated */,
 				D9D2E21816532A870000E7C5 /* Data Model */,
 				D9D2E21916532AA80000E7C5 /* Video Processing */,
 				D9D2E21A16532ADF0000E7C5 /* Networking */,
@@ -1219,8 +1297,14 @@
 		D9EB4C7C166D5F7A0019F8B6 /* Core Data */ = {
 			isa = PBXGroup;
 			children = (
-				D948CFFC1672960800FFF1D2 /* OWRecordingTag.h */,
-				D948CFFD1672960800FFF1D2 /* OWRecordingTag.m */,
+				D98FCB5816A4AE8B0071DF6B /* OWStory.h */,
+				D98FCB5916A4AE8B0071DF6B /* OWStory.m */,
+				D98FCB5216A4AB800071DF6B /* OWTag.h */,
+				D98FCB5316A4AB800071DF6B /* OWTag.m */,
+				D98FCB4C16A4AB240071DF6B /* OWMediaObject.h */,
+				D98FCB4D16A4AB240071DF6B /* OWMediaObject.m */,
+				D98FCB4E16A4AB240071DF6B /* OWServerObject.h */,
+				D98FCB4F16A4AB240071DF6B /* OWServerObject.m */,
 				D9EB4C76166D5F600019F8B6 /* OWRecordingSegment.h */,
 				D9EB4C77166D5F600019F8B6 /* OWRecordingSegment.m */,
 				D9EB4C59166D338B0019F8B6 /* Model.xcdatamodeld */,
@@ -1248,6 +1332,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				D98FCB4B16A4AABE0071DF6B /* PBXTargetDependency */,
 				D92D29F9168128AF00A9E408 /* PBXTargetDependency */,
 				D92D29F7168128A700A9E408 /* PBXTargetDependency */,
 				D92D29EF168127B500A9E408 /* PBXTargetDependency */,
@@ -1290,6 +1375,7 @@
 			projectRoot = "";
 			targets = (
 				D99741701651D42F0034ABB0 /* OpenWatch */,
+				D944DA9416A4A8ED00BC8E57 /* Mogenerator */,
 			);
 		};
 /* End PBXProject section */
@@ -1588,6 +1674,22 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		D944DA9816A4A8FD00BC8E57 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cd OpenWatch\nmogenerator --template-var arc=true -m Model.xcdatamodeld/Model.xcdatamodel/";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		D997416D1651D42F0034ABB0 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -1658,7 +1760,6 @@
 				D9EB4C75166D5F500019F8B6 /* OWManagedRecording.m in Sources */,
 				D9EB4C78166D5F600019F8B6 /* OWRecordingSegment.m in Sources */,
 				D9EB4C7F166D67920019F8B6 /* OWUser.m in Sources */,
-				D948CFFE1672960800FFF1D2 /* OWRecordingTag.m in Sources */,
 				D9D786D916766415006EE6A2 /* UIBarButtonItem+WEPopover.m in Sources */,
 				D9D786DA16766415006EE6A2 /* WEPopoverContainerView.m in Sources */,
 				D9D786DB16766415006EE6A2 /* WEPopoverController.m in Sources */,
@@ -1674,6 +1775,18 @@
 				D96677EA16810B2A006F1815 /* OWTallyView.m in Sources */,
 				D920584E16812A46004C2F1A /* OWSHKConfigurator.m in Sources */,
 				D920585A16813643004C2F1A /* OWShareController.m in Sources */,
+				D98FCB4116A4AA570071DF6B /* _OWLocalRecording.m in Sources */,
+				D98FCB4216A4AA570071DF6B /* _OWManagedRecording.m in Sources */,
+				D98FCB4316A4AA570071DF6B /* _OWMediaObject.m in Sources */,
+				D98FCB4416A4AA570071DF6B /* _OWRecordingSegment.m in Sources */,
+				D98FCB4616A4AA570071DF6B /* _OWServerObject.m in Sources */,
+				D98FCB4716A4AA570071DF6B /* _OWStory.m in Sources */,
+				D98FCB4816A4AA570071DF6B /* _OWUser.m in Sources */,
+				D98FCB5016A4AB240071DF6B /* OWMediaObject.m in Sources */,
+				D98FCB5116A4AB240071DF6B /* OWServerObject.m in Sources */,
+				D98FCB5416A4AB800071DF6B /* OWTag.m in Sources */,
+				D98FCB5716A4AB8C0071DF6B /* _OWTag.m in Sources */,
+				D98FCB5A16A4AE8C0071DF6B /* OWStory.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1715,6 +1828,11 @@
 			name = "Resource Bundle";
 			targetProxy = D96678621681251B006F1815 /* PBXContainerItemProxy */;
 		};
+		D98FCB4B16A4AABE0071DF6B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D944DA9416A4A8ED00BC8E57 /* Mogenerator */;
+			targetProxy = D98FCB4A16A4AABE0071DF6B /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
@@ -1729,6 +1847,20 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		D944DA9616A4A8ED00BC8E57 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		D944DA9716A4A8ED00BC8E57 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		D997418D1651D42F0034ABB0 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1838,6 +1970,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		D944DA9516A4A8ED00BC8E57 /* Build configuration list for PBXAggregateTarget "Mogenerator" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D944DA9616A4A8ED00BC8E57 /* Debug */,
+				D944DA9716A4A8ED00BC8E57 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		D997416B1651D42E0034ABB0 /* Build configuration list for PBXProject "OpenWatch" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

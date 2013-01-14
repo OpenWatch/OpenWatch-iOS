@@ -12,13 +12,6 @@
 
 @implementation OWUser
 
-@dynamic username;
-@dynamic serverID;
-@dynamic recordings;
-@dynamic tags;
-@dynamic csrfToken;
-@dynamic thumbnailURLString;
-
 - (NSURL*) thumbnailURL {
     if (self.thumbnailURLString.length == 0) {
         return nil;
