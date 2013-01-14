@@ -327,4 +327,19 @@
     
 }
 
+- (void) getStoryWithObjectID:(NSManagedObjectID *)objectID success:(void (^)(NSManagedObjectID *recordingObjectID))success failure:(void (^)(NSString *reason))failure {
+    NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
+    OWStory *story = (OWStory*)[context objectWithID:objectID];
+    NSString *path = [NSString stringWithFormat:@"/api/story/%d/", [story.serverID intValue]];
+
+    [self getPath:path parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSDictionary *storyMetadata = [responseObject objectForKey:@"story"];
+        [story loadMetadataFromDictionary:storyMetadata];
+        success(objectID);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        failure(@"it failed");
+    }];
+}
+
+
 @end
