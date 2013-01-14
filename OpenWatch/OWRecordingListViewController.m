@@ -10,7 +10,7 @@
 #import "OWLocalRecording.h"
 #import "OWStrings.h"
 #import "OWAccountAPIClient.h"
-#import "OWRecordingTableViewCell.h"
+#import "OWMediaObjectTableViewCell.h"
 #import "OWRecordingEditViewController.h"
 
 @interface OWRecordingListViewController ()
@@ -92,14 +92,14 @@
 }
 
 - (UITableViewCell*) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString *cellIdentifier = @"RecordingCellIdentifier";
-    OWRecordingTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    static NSString *cellIdentifier = @"MediaObjectCellIdentifier";
+    OWMediaObjectTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if (!cell) {
-        cell = [[OWRecordingTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+        cell = [[OWMediaObjectTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
         cell.isLocalRecording = YES;
     }
     NSManagedObjectID *recordingID = [recordingsArray objectAtIndex:indexPath.row];
-    cell.recordingObjectID = recordingID;
+    cell.mediaObjectID = recordingID;
     return cell;
 }
 

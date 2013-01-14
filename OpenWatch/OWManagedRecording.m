@@ -12,10 +12,6 @@
 #import "OWUser.h"
 
 #define kLastEditedKey @"last_edited"
-#define kTagsKey @"tags"
-#define kUserKey @"user"
-#define kUsernameKey @"username"
-#define kIDKey @"id"
 
 @interface OWManagedRecording()
 @end
@@ -43,9 +39,8 @@
 }
 
 - (void) saveMetadata {
-    NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
     self.dateModified = [NSDate date];
-    [context MR_saveNestedContexts];
+    [super saveMetadata];
 }
 
 - (CLLocation*) endLocation {
@@ -60,8 +55,8 @@
     self.endLongitude = @(endLocation.coordinate.longitude);
 }
 
-- (NSDictionary*) metadataDictionary {
-    NSMutableDictionary *newMetadataDictionary = [NSMutableDictionary dictionary];
+- (NSMutableDictionary*) metadataDictionary {
+    NSMutableDictionary *newMetadataDictionary = [super metadataDictionary];
     if (self.uuid) {
         [newMetadataDictionary setObject:[self.uuid copy] forKey:kUUIDKey];
     }
@@ -75,9 +70,6 @@
     if (self.dateModified) {
         [newMetadataDictionary setObject:[dateFormatter stringFromDate:self.dateModified] forKey:kLastEditedKey];
     }
-    if (self.title) {
-        [newMetadataDictionary setObject:[self.title copy] forKey:kTitleKey];
-    }
     if (self.recordingDescription) {
         [newMetadataDictionary setObject:[self.recordingDescription copy] forKey:kDescriptionKey];
     }
@@ -89,15 +81,6 @@
         NSDictionary *endLocationDictionary = [self locationDictionaryForLocation:self.endLocation];
         [newMetadataDictionary setObject:endLocationDictionary forKey:kLocationEndKey];
     }
-    NSSet *tags = self.tags;
-    NSMutableArray *tagsArray = [NSMutableArray arrayWithCapacity:tags.count];
-    for (OWTag *tag in tags) {
-        if ([tag.name isEqualToString:@""]) {
-            continue;
-        }
-        [tagsArray addObject:tag.name];
-    }
-    [newMetadataDictionary setObject:tagsArray forKey:kTagsKey];
     
     return newMetadataDictionary;
 }
@@ -123,11 +106,7 @@
 }
 
 - (void) loadMetadataFromDictionary:(NSDictionary*)metadataDictionary {
-    
-    NSNumber *serverID = [metadataDictionary objectForKey:@"id"];
-    if (serverID) {
-        self.serverID = serverID;
-    }
+    [super loadMetadataFromDictionary:metadataDictionary];
     NSDateFormatter *dateFormatter = [OWUtilities utcDateFormatter];
     NSString *lastEdited = [metadataDictionary objectForKey:kLastEditedKey];
     if (lastEdited) {
@@ -142,10 +121,6 @@
     NSString *newUUID = [metadataDictionary objectForKey:kUUIDKey];
     if (newUUID) {
         self.uuid = newUUID;
-    }
-    NSString *newTitle = [metadataDictionary objectForKey:kTitleKey];
-    if (newTitle) {
-        self.title = newTitle;
     }
     NSString *newDescription = [metadataDictionary objectForKey:kDescriptionKey];
     if (newDescription) {
@@ -166,44 +141,6 @@
     NSDictionary *endLocationDictionary = [metadataDictionary objectForKey:kLocationEndKey];
     if (endLocationDictionary) {
         self.endLocation = [self locationFromLocationDictionary:endLocationDictionary];
-    }
-    NSArray *tagsArray = [metadataDictionary objectForKey:kTagsKey];
-    if (tagsArray) {
-        NSMutableSet *tags = [NSMutableSet set];
-        for (NSString *component in tagsArray) {
-            if ([component isEqualToString:@""]) {
-                continue;
-            }
-            OWTag *tag = [OWTag MR_findFirstByAttribute:@"name" withValue:component];
-            if (!tag) {
-                tag = [OWTag MR_createEntity];
-                tag.name = component;
-            }
-            [tags addObject:tag];
-        }
-        self.tags = tags;
-    }
-    NSDictionary *userDictionary = [metadataDictionary objectForKey:kUserKey];
-    if (userDictionary) {
-        NSNumber *userID = [userDictionary objectForKey:kIDKey];
-        NSString *username = [userDictionary objectForKey:kUsernameKey];
-        NSString *thumbnail = [userDictionary objectForKey:@"thumbnail_url"];
-        OWUser *user = [OWUser MR_findFirstByAttribute:@"serverID" withValue:userID];
-        if (!user) {
-            user = [OWUser MR_createEntity];
-            user.serverID = userID;
-        }
-        user.username = username;
-        user.thumbnailURLString = thumbnail;
-        self.user = user;
-    }
-    NSNumber *views = [metadataDictionary objectForKey:@"views"];
-    if (views) {
-        self.views = views;
-    }
-    NSNumber *clicks = [metadataDictionary objectForKey:@"clicks"];
-    if (clicks) {
-        self.clicks = clicks;
     }
     NSString *thumbnailURL = [metadataDictionary objectForKey:@"thumbnail_url"];
     if (thumbnailURL)

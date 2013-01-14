@@ -1,22 +1,23 @@
 //
-//  OWRecordingTableViewCell.m
+//  OWMediaObjectTableViewCell.m
 //  OpenWatch
 //
 //  Created by Christopher Ballinger on 12/12/12.
 //  Copyright (c) 2012 OpenWatch FPC. All rights reserved.
 //
 
-#import "OWRecordingTableViewCell.h"
+#import "OWMediaObjectTableViewCell.h"
 #import "UIImageView+AFNetworking.h"
 #import "OWRecordingController.h"
 #import "OWUser.h"
+#import "OWStory.h"
 #import "OWUtilities.h"
 #import <QuartzCore/QuartzCore.h>
 
 #define PADDING 9.0f
 
-@implementation OWRecordingTableViewCell
-@synthesize recordingObjectID, thumbnailImageView, titleLabel, usernameLabel, tallyView, dateModifiedLabel, isLocalRecording;
+@implementation OWMediaObjectTableViewCell
+@synthesize mediaObjectID, thumbnailImageView, titleLabel, usernameLabel, tallyView, dateModifiedLabel, isLocalRecording;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -71,30 +72,37 @@
 }
 
 
-
-- (void) setRecordingObjectID:(NSManagedObjectID *)newRecordingObjectID {
-    recordingObjectID = newRecordingObjectID;
-    OWManagedRecording *recording = [OWRecordingController recordingForObjectID:newRecordingObjectID];
+- (void) setMediaObjectID:(NSManagedObjectID *)newMediaObjectID {
+    mediaObjectID = newMediaObjectID;
+    NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
+    OWMediaObject *mediaObject = (OWMediaObject*)[context objectWithID:mediaObjectID];
     [tallyView removeFromSuperview];
     [dateModifiedLabel removeFromSuperview];
-    if (self.isLocalRecording) {
+    NSString *thumbnailURLString = nil;
+    if ([mediaObject isKindOfClass:[OWLocalRecording class]]) {
+        OWLocalRecording *recording = (OWLocalRecording*)mediaObject;
         NSDateFormatter *dateFormatter = [OWUtilities localDateFormatter];
         self.dateModifiedLabel.text = [dateFormatter stringFromDate:recording.dateModified];
         [self.contentView addSubview:dateModifiedLabel];
+        thumbnailURLString = recording.thumbnailURL;
     } else {
-        self.tallyView.actionsLabel.text = [NSString stringWithFormat:@"%d", [recording.clicks intValue]];
-        self.tallyView.viewsLabel.text = [NSString stringWithFormat:@"%d", [recording.views intValue]];
+        if ([mediaObject isKindOfClass:[OWManagedRecording class]]) {
+            OWManagedRecording *recording = (OWManagedRecording*)mediaObject;
+            thumbnailURLString = recording.thumbnailURL;
+        } else if ([mediaObject isKindOfClass:[OWStory class]]) {
+            thumbnailURLString = mediaObject.user.thumbnailURLString;
+        }
+        self.tallyView.actionsLabel.text = [NSString stringWithFormat:@"%d", [mediaObject.clicks intValue]];
+        self.tallyView.viewsLabel.text = [NSString stringWithFormat:@"%d", [mediaObject.views intValue]];
         [self.contentView addSubview:tallyView];
     }
     
+    
     [self.thumbnailImageView cancelImageRequestOperation];
-    [self.thumbnailImageView setImageWithURL:[NSURL URLWithString:recording.thumbnailURL] placeholderImage:[UIImage imageNamed:@"thumbnail_placeholder.png"]];
-    self.titleLabel.text = recording.title;
+    [self.thumbnailImageView setImageWithURL:[NSURL URLWithString:thumbnailURLString] placeholderImage:[UIImage imageNamed:@"thumbnail_placeholder.png"]];
+    self.titleLabel.text = mediaObject.title;
     //[self.titleLabel sizeToFit];
-    self.usernameLabel.text = recording.user.username;
-
-    
-    
+    self.usernameLabel.text = mediaObject.user.username;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated

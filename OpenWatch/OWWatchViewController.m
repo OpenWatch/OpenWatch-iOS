@@ -9,7 +9,7 @@
 #import "OWWatchViewController.h"
 #import "OWAccountAPIClient.h"
 #import "OWTag.h"
-#import "OWRecordingTableViewCell.h"
+#import "OWMediaObjectTableViewCell.h"
 #import "OWStrings.h"
 #import "OWUtilities.h"
 #import "WEPopoverController.h"
@@ -103,13 +103,13 @@
 }
 
 - (UITableViewCell*) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString *cellIdentifier = @"RecordingCellIdentifier";
-    OWRecordingTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    static NSString *cellIdentifier = @"MediaObjectCellIdentifier";
+    OWMediaObjectTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if (!cell) {
-        cell = [[OWRecordingTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier];
+        cell = [[OWMediaObjectTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier];
     }
     NSManagedObjectID *recordingObjectID = [self.recordingsArray objectAtIndex:indexPath.row];
-    cell.recordingObjectID = recordingObjectID;
+    cell.mediaObjectID = recordingObjectID;
     return cell;
 }
 

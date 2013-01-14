@@ -1,5 +1,5 @@
 //
-//  OWRecordingTableViewCell.h
+//  OWMediaObjectTableViewCell.h
 //  OpenWatch
 //
 //  Created by Christopher Ballinger on 12/12/12.
@@ -7,12 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "OWManagedRecording.h"
+#import "OWMediaObject.h"
 #import "OWTallyView.h"
 
-@interface OWRecordingTableViewCell : UITableViewCell
+@interface OWMediaObjectTableViewCell : UITableViewCell
 
-@property (nonatomic, strong) NSManagedObjectID *recordingObjectID;
+@property (nonatomic, strong) NSManagedObjectID *mediaObjectID;
 
 @property (nonatomic, strong) UILabel *usernameLabel;
 @property (nonatomic, strong) UILabel *titleLabel;

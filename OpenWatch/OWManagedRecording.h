@@ -30,9 +30,7 @@
 #define kSpeedKey @"speed"
 #define kCourseKey @"course"
 #define kTimestampKey @"timestamp"
-#define kTitleKey @"title"
 #define kDescriptionKey @"description"
-#define kUUIDKey @"uuid"
 #define kMetadataFileName @"metadata.json"
 #define kSegmentsDirectory @"/segments/"
 
@@ -43,9 +41,6 @@
 @property (nonatomic, strong) CLLocation *startLocation;
 @property (nonatomic, strong) CLLocation *endLocation;
 
-- (void) saveMetadata;
-- (NSDictionary*) metadataDictionary;
-- (void) loadMetadataFromDictionary:(NSDictionary*)metadataDictionary;
 
 
 - (CLLocation*)locationFromLocationDictionary:(NSDictionary*)locationDictionary;

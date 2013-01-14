@@ -63,7 +63,7 @@
 		D94A26F8167A8B4600BD36EF /* record-big@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D94A26F6167A8B4600BD36EF /* record-big@2x.png */; };
 		D96677EA16810B2A006F1815 /* OWTallyView.m in Sources */ = {isa = PBXBuildFile; fileRef = D96677E916810B2A006F1815 /* OWTallyView.m */; };
 		D96FA7AB1656F15B00309F08 /* OWAccountAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = D96FA7AA1656F15B00309F08 /* OWAccountAPIClient.m */; };
-		D97EAAA1167911B100A1B038 /* OWRecordingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D97EAAA0167911B100A1B038 /* OWRecordingTableViewCell.m */; };
+		D97EAAA1167911B100A1B038 /* OWMediaObjectTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D97EAAA0167911B100A1B038 /* OWMediaObjectTableViewCell.m */; };
 		D97EAAA61679354200A1B038 /* eye.png in Resources */ = {isa = PBXBuildFile; fileRef = D97EAAA41679354200A1B038 /* eye.png */; };
 		D97EAAA71679354200A1B038 /* eye@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D97EAAA51679354200A1B038 /* eye@2x.png */; };
 		D97EAAAA1679426600A1B038 /* action.png in Resources */ = {isa = PBXBuildFile; fileRef = D97EAAA81679426600A1B038 /* action.png */; };
@@ -533,8 +533,8 @@
 		D96677EC168124F1006F1815 /* ShareKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ShareKit.xcodeproj; path = ShareKit/ShareKit.xcodeproj; sourceTree = "<group>"; };
 		D96FA7A91656F15B00309F08 /* OWAccountAPIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWAccountAPIClient.h; sourceTree = "<group>"; };
 		D96FA7AA1656F15B00309F08 /* OWAccountAPIClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWAccountAPIClient.m; sourceTree = "<group>"; };
-		D97EAA9F167911B100A1B038 /* OWRecordingTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWRecordingTableViewCell.h; sourceTree = "<group>"; };
-		D97EAAA0167911B100A1B038 /* OWRecordingTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWRecordingTableViewCell.m; sourceTree = "<group>"; };
+		D97EAA9F167911B100A1B038 /* OWMediaObjectTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWMediaObjectTableViewCell.h; sourceTree = "<group>"; };
+		D97EAAA0167911B100A1B038 /* OWMediaObjectTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWMediaObjectTableViewCell.m; sourceTree = "<group>"; };
 		D97EAAA41679354200A1B038 /* eye.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = eye.png; sourceTree = "<group>"; };
 		D97EAAA51679354200A1B038 /* eye@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "eye@2x.png"; sourceTree = "<group>"; };
 		D97EAAA81679426600A1B038 /* action.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = action.png; sourceTree = "<group>"; };
@@ -828,8 +828,8 @@
 		D97EAAA3167911B900A1B038 /* Custom Views */ = {
 			isa = PBXGroup;
 			children = (
-				D97EAA9F167911B100A1B038 /* OWRecordingTableViewCell.h */,
-				D97EAAA0167911B100A1B038 /* OWRecordingTableViewCell.m */,
+				D97EAA9F167911B100A1B038 /* OWMediaObjectTableViewCell.h */,
+				D97EAAA0167911B100A1B038 /* OWMediaObjectTableViewCell.m */,
 				D96677E816810B2A006F1815 /* OWTallyView.h */,
 				D96677E916810B2A006F1815 /* OWTallyView.m */,
 				D94A26DD167A7B4600BD36EF /* OWLabeledButtonView.h */,
@@ -1767,7 +1767,7 @@
 				D9D786E1167666C1006EE6A2 /* OWAutocompletionView.m in Sources */,
 				D9D7870A16769F52006EE6A2 /* OWTagEditViewController.m in Sources */,
 				D9D7870D1677EDB0006EE6A2 /* OWWatchViewController.m in Sources */,
-				D97EAAA1167911B100A1B038 /* OWRecordingTableViewCell.m in Sources */,
+				D97EAAA1167911B100A1B038 /* OWMediaObjectTableViewCell.m in Sources */,
 				D97EAABB167A540900A1B038 /* OWFeedSelectionViewController.m in Sources */,
 				D94A26DF167A7B4600BD36EF /* OWLabeledButtonView.m in Sources */,
 				D9E72E57167FB39A00C6CB75 /* OWWelcomeViewController.m in Sources */,

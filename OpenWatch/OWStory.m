@@ -10,6 +10,37 @@
 
 @implementation OWStory
 
-// Custom logic goes here.
+- (void) loadMetadataFromDictionary:(NSDictionary*)metadataDictionary {
+    [super loadMetadataFromDictionary:metadataDictionary];
+    NSString *blurb = [metadataDictionary objectForKey:kBlurbKey];
+    if (blurb) {
+        self.blurb = blurb;
+    }
+    NSString *body = [metadataDictionary objectForKey:kBodyKey];
+    if (body) {
+        self.body = body;
+    }
+    NSString *slug = [metadataDictionary objectForKey:kSlugKey];
+    if (slug) {
+        self.slug = slug;
+    }
+}
+
+- (NSMutableDictionary*) metadataDictionary {
+    NSMutableDictionary *newMetadataDictionary = [super metadataDictionary];
+    NSString *blurb = self.blurb;
+    if (blurb) {
+        [newMetadataDictionary setObject:blurb forKey:kBlurbKey];
+    }
+    NSString *body = self.body;
+    if (body) {
+        [newMetadataDictionary setObject:body forKey:kBodyKey];
+    }
+    NSString *slug = self.slug;
+    if (slug) {
+        [newMetadataDictionary setObject:slug forKey:kSlugKey];
+    }
+    return newMetadataDictionary;
+}
 
 @end

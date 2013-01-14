@@ -14,6 +14,7 @@
 #import "OWTag.h"
 #import "OWSettingsController.h"
 #import "OWUser.h"
+#import "OWStory.h"
 #import "OWRecordingController.h"
 
 #define kRecordingsKey @"recordings/"
@@ -34,6 +35,11 @@
 #define kTagPath @"tag/"
 #define kFeedPath @"feed/"
 #define kTagsPath @"tags/"
+
+#define kTypeKey @"type"
+#define kVideoTypeKey @"video"
+#define kStoryTypeKey @"story"
+#define kUUIDKey @"uuid"
 
 #define kObjectsKey @"objects"
 
@@ -208,7 +214,7 @@
 - (void) fetchRecordingsForTag:(NSString *)tagName page:(NSUInteger)page success:(void (^)(NSArray *recordings))success failure:(void (^)(NSString *))failure {
 
     [self getPath:[self pathForTagFeed:tagName page:page] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSArray *recordings = [self recordingIDsFromRecordingsMetadataArray:[responseObject objectForKey:kObjectsKey]];
+        NSArray *recordings = [self objectIDsFromMediaObjectsMetadataArray:[responseObject objectForKey:kObjectsKey]];
         success(recordings);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"failure: %@", [error userInfo]);
@@ -218,7 +224,7 @@
 
 - (void) fetchRecordingsForFeed:(NSString *)feed page:(NSUInteger)page success:(void (^)(NSArray *))success failure:(void (^)(NSString *))failure {
     [self getPath:[self pathForFeed:feed page:page] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSArray *recordings = [self recordingIDsFromRecordingsMetadataArray:[responseObject objectForKey:kObjectsKey]];
+        NSArray *recordings = [self objectIDsFromMediaObjectsMetadataArray:[responseObject objectForKey:kObjectsKey]];
         success(recordings);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"failure: %@", [error userInfo]);
@@ -226,33 +232,42 @@
     }];
 }
 
-- (NSArray*) recordingIDsFromRecordingsMetadataArray:(NSArray*)array {
+- (NSArray*) objectIDsFromMediaObjectsMetadataArray:(NSArray*)array {
     NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
-    NSMutableArray *recordingsToReturn = [NSMutableArray arrayWithCapacity:[array count]];
+    NSMutableArray *objectIDsToReturn = [NSMutableArray arrayWithCapacity:[array count]];
     for (NSDictionary *recordingDict in array) {
-        OWManagedRecording *managedRecording = [self managedRecordingForShortMetadataDictionary:recordingDict];
-        if (managedRecording) {
-            [recordingsToReturn addObject:managedRecording.objectID];
+        OWMediaObject *mediaObject = [self mediaObjectForShortMetadataDictionary:recordingDict];
+        if (mediaObject) {
+            [objectIDsToReturn addObject:mediaObject.objectID];
         }
     }
     [context MR_saveNestedContexts];
-    return recordingsToReturn;
+    return objectIDsToReturn;
 }
 
-- (OWManagedRecording*) managedRecordingForShortMetadataDictionary:(NSDictionary*)recordingDict {
-    NSString *uuid = [recordingDict objectForKey:@"uuid"];
-    OWManagedRecording *managedRecording = [OWManagedRecording MR_findFirstByAttribute:@"uuid" withValue:uuid];
-    if (!managedRecording) {
-        NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
-        NSError *error = nil;
-        managedRecording = [OWManagedRecording MR_createEntity];
-        [context obtainPermanentIDsForObjects:@[managedRecording] error:&error];
-        if (error) {
-            NSLog(@"Error getting permanent ID: %@", [error userInfo]);
+- (OWMediaObject*) mediaObjectForShortMetadataDictionary:(NSDictionary*)dictionary {
+    NSNumber *serverID = [dictionary objectForKey:kIDKey];
+    OWMediaObject *mediaObject = nil;
+    NSString *type = [dictionary objectForKey:kTypeKey];
+    NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
+    if ([type isEqualToString:kVideoTypeKey]) {
+        mediaObject = [OWManagedRecording MR_findFirstByAttribute:@"serverID" withValue:serverID];
+        if (!mediaObject) {
+            mediaObject = [OWManagedRecording MR_createEntity];
+        }
+    } else if ([type isEqualToString:kStoryTypeKey]) {
+        mediaObject = [OWStory MR_findFirstByAttribute:@"serverID" withValue:serverID];
+        if (!mediaObject) {
+            mediaObject = [OWStory MR_createEntity];
         }
     }
-    [managedRecording loadMetadataFromDictionary:recordingDict];
-    return managedRecording;
+    NSError *error = nil;
+    [context obtainPermanentIDsForObjects:@[mediaObject] error:&error];
+    if (error) {
+        NSLog(@"Error getting permanent ID: %@", [error userInfo]);
+    }
+    [mediaObject loadMetadataFromDictionary:dictionary];
+    return mediaObject;
 }
 
 
