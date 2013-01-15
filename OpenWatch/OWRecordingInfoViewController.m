@@ -16,7 +16,6 @@
 #import "OWUtilities.h"
 #import "OWTallyView.h"
 #import "UIImageView+AFNetworking.h"
-#import "OWShareController.h"
 #import "QuartzCore/CALayer.h"
 
 #define PADDING 10.0f
@@ -25,7 +24,7 @@
 @end
 
 @implementation OWRecordingInfoViewController
-@synthesize recordingID, mapView, moviePlayer, centerCoordinate, scrollView;
+@synthesize mapView, moviePlayer, centerCoordinate, scrollView;
 @synthesize titleLabel, segmentedControl;
 @synthesize infoView, descriptionTextView, profileImageView, tallyView;
 @synthesize usernameLabel;
@@ -38,20 +37,12 @@
         [self setupSegmentedControl];
         [self setupDescriptionView];
         [self setupInfoView];
-        [self setupSharing];
         self.title = INFO_STRING;
     }
     return self;
 }
 
-- (void) shareButtonPressed:(id)sender {
-    [[OWShareController sharedInstance] shareRecordingID:recordingID fromViewController:self];
-    [[OWAccountAPIClient sharedClient] hitRecording:self.recordingID hitType:kHitTypeClick];
-}
 
-- (void) setupSharing {
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:SHARE_STRING style:UIBarButtonItemStyleBordered target:self action:@selector(shareButtonPressed:)];
-}
 
 - (void) setupInfoView {
     self.infoView = [[UIView alloc] init];
@@ -197,16 +188,15 @@
     [moviePlayer play];
 }
 
-- (void) setRecordingID:(NSManagedObjectID *)newRecordingID {
-    recordingID = newRecordingID;
+- (void) setMediaObjectID:(NSManagedObjectID *)newMediaObjectID {
+    [super setMediaObjectID:newMediaObjectID];
 
-    OWManagedRecording *recording = [OWRecordingController recordingForObjectID:recordingID];
+    OWManagedRecording *recording = [OWRecordingController recordingForObjectID:self.mediaObjectID];
     
     [self refreshFields];
     
     [[OWAccountAPIClient sharedClient] getRecordingWithUUID:recording.uuid success:^(NSManagedObjectID *recordingObjectID) {
         OWManagedRecording *remoteRecording = [OWRecordingController recordingForObjectID:recordingObjectID];
-        [[OWAccountAPIClient sharedClient] hitRecording:remoteRecording.objectID hitType:kHitTypeView];
         self.moviePlayer.contentURL = [NSURL URLWithString:[remoteRecording remoteVideoURL]];
         [moviePlayer prepareToPlay];
         [self refreshMapParameters];
@@ -223,7 +213,7 @@
 
 
 - (void) refreshMapParameters {
-    OWLocalRecording *recording = [OWRecordingController recordingForObjectID:self.recordingID];
+    OWLocalRecording *recording = [OWRecordingController recordingForObjectID:self.mediaObjectID];
     double lat = 0.0f;
     double lon = 0.0f;
     CLLocation *start = recording.startLocation;
@@ -266,7 +256,7 @@
 }
 
 - (void) refreshFields {
-    OWManagedRecording *recording = [OWRecordingController recordingForObjectID:self.recordingID];
+    OWManagedRecording *recording = [OWRecordingController recordingForObjectID:self.mediaObjectID];
     if (!recording) {
         return;
     }

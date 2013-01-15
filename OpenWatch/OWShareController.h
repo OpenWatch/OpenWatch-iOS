@@ -12,10 +12,10 @@
 
 + (OWShareController *)sharedInstance;
 
-@property (nonatomic, strong) NSManagedObjectID *recordingID;
+@property (nonatomic, strong) NSManagedObjectID *mediaObjectID;
 @property (nonatomic, strong) UIViewController *viewController;
 
-- (void) shareRecordingID:(NSManagedObjectID*)newRecordingID fromViewController:(UIViewController*)newViewController;
+- (void) shareMediaObjectID:(NSManagedObjectID*)newMediaObjectID fromViewController:(UIViewController*)newViewController;
 - (void) shareFromViewController:(UIViewController *)newViewController; // requires recordingID to be set
 
 @end

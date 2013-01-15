@@ -99,7 +99,7 @@
     return locationDictionary;
 }
 
-- (NSURL*) urlForRemoteRecording {
+- (NSURL*) urlForWeb {
     NSString *baseURLString = [OWUtilities apiBaseURLString];
     NSString *recordingURLString = [baseURLString stringByAppendingFormat:@"v/%d/", [self.serverID intValue]];
     return [NSURL URLWithString:recordingURLString];
@@ -151,6 +151,10 @@
     CLLocationDegrees latitude = [[locationDictionary objectForKey:kLatitudeKey] doubleValue];
     CLLocationDegrees longitude = [[locationDictionary objectForKey:kLongitudeKey] doubleValue];
     return [[CLLocation alloc] initWithLatitude:latitude longitude:longitude];
+}
+
+- (NSString*) type {
+    return @"video";
 }
 
 

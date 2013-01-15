@@ -13,6 +13,7 @@
 - (void) saveMetadata;
 - (NSMutableDictionary*) metadataDictionary;
 - (void) loadMetadataFromDictionary:(NSDictionary*)metadataDictionary;
-
+- (NSURL*) urlForWeb;
+- (NSString*) type;
 
 @end

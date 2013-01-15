@@ -7,13 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "OWMediaObjectViewController.h"
 
-@interface OWStoryViewController : UIViewController
+@interface OWStoryViewController : OWMediaObjectViewController
 
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UILabel *blurbLabel;
 @property (nonatomic, strong) UITextView *bodyTextView;
-
-@property (nonatomic, strong) NSManagedObjectID *storyObjectID;
 
 @end

@@ -16,6 +16,7 @@
 #import "OWRecordingInfoViewController.h"
 #import "OWStory.h"
 #import "OWStoryViewController.h"
+#import "OWMediaObjectViewController.h"
 
 @interface OWWatchViewController ()
 @end
@@ -119,18 +120,16 @@
     NSManagedObjectID *mediaObjectID = [self.recordingsArray objectAtIndex:indexPath.row];
     NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
     OWMediaObject *mediaObject = (OWMediaObject*)[context objectWithID:mediaObjectID];
-    UIViewController *vc = nil;
+    OWMediaObjectViewController *vc = nil;
     if ([mediaObject isKindOfClass:[OWManagedRecording class]]) {
         OWRecordingInfoViewController *recordingVC = [[OWRecordingInfoViewController alloc] init];
-        recordingVC.recordingID = mediaObjectID;
         vc = recordingVC;
     } else if ([mediaObject isKindOfClass:[OWStory class]]) {
         OWStoryViewController *storyVC = [[OWStoryViewController alloc] init];
-        storyVC.storyObjectID = mediaObjectID;
         vc = storyVC;
     }
-
     if (vc) {
+        vc.mediaObjectID = mediaObjectID;
         [self.navigationController pushViewController:vc animated:YES];
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
     }

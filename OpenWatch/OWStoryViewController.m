@@ -16,7 +16,7 @@
 @end
 
 @implementation OWStoryViewController
-@synthesize storyObjectID, blurbLabel, bodyTextView, titleLabel;
+@synthesize blurbLabel, bodyTextView, titleLabel;
 
 - (id)init
 {
@@ -63,17 +63,16 @@
 
 - (void) refreshFields {
     NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
-    OWStory *story = (OWStory*)[context objectWithID:storyObjectID];
+    OWStory *story = (OWStory*)[context objectWithID:self.mediaObjectID];
     self.title = story.title;
     self.titleLabel.text = story.title;
     self.blurbLabel.text = story.blurb;
     self.bodyTextView.text = story.body;
 }
 
-- (void) setStoryObjectID:(NSManagedObjectID *)newStoryObjectID {
-    storyObjectID = newStoryObjectID;
+- (void) setMediaObjectID:(NSManagedObjectID *)newMediaObjectID {    [super setMediaObjectID:newMediaObjectID];
     [self refreshFields];
-    [[OWAccountAPIClient sharedClient] getStoryWithObjectID:storyObjectID success:^(NSManagedObjectID *recordingObjectID) {
+    [[OWAccountAPIClient sharedClient] getStoryWithObjectID:self.mediaObjectID success:^(NSManagedObjectID *recordingObjectID) {
         [self refreshFields];
     } failure:^(NSString *reason) {
         

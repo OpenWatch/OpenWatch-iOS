@@ -11,9 +11,10 @@
 #import "OWStrings.h"
 #import "SHK.h"
 #import "OWAccountAPIClient.h"
+#import "OWStory.h"
 
 @implementation OWShareController
-@synthesize recordingID, viewController;
+@synthesize mediaObjectID, viewController;
 
 + (OWShareController *)sharedInstance {
     static OWShareController *_sharedClient = nil;
@@ -30,39 +31,49 @@
     return self;
 }
 
-- (void) shareRecordingID:(NSManagedObjectID *)newRecordingID fromViewController:(UIViewController *)newViewController {
-    recordingID = newRecordingID;
+- (void) shareMediaObjectID:(NSManagedObjectID*)newMediaObjectID fromViewController:(UIViewController*)newViewController {
+    mediaObjectID = newMediaObjectID;
     [self shareFromViewController:newViewController];
 }
 
 - (void) shareFromViewController:(UIViewController*)newViewController {
     viewController = newViewController;
-    if (!recordingID) {
+    if (!mediaObjectID) {
         return;
     }
-    OWManagedRecording *recording = [OWRecordingController recordingForObjectID:recordingID];
+    NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
+    OWMediaObject *mediaObject = (OWMediaObject*)[context objectWithID:self.mediaObjectID];
     
-    if ([recording.serverID intValue] != 0) {
+    if ([mediaObject.serverID intValue] != 0) {
         [self share];
     } else {
-        [[OWAccountAPIClient sharedClient] getRecordingWithUUID:recording.uuid success:^(NSManagedObjectID *recordingObjectID) {
-            [self share];
-        } failure:^(NSString *reason) {
-            NSLog(@"Failed to GET recording: %@", reason);
-        }];
+        if ([mediaObject isKindOfClass:[OWManagedRecording class]]) {
+            OWManagedRecording *recording = (OWManagedRecording*)mediaObject;
+            [[OWAccountAPIClient sharedClient] getRecordingWithUUID:recording.uuid success:^(NSManagedObjectID *recordingObjectID) {
+                [self share];
+            } failure:^(NSString *reason) {
+                NSLog(@"Failed to GET recording: %@", reason);
+            }];
+        } else if ([mediaObject isKindOfClass:[OWStory class]]) {
+            [[OWAccountAPIClient sharedClient] getStoryWithObjectID:self.mediaObjectID success:^(NSManagedObjectID *recordingObjectID) {
+                [self share];
+            } failure:^(NSString *reason) {
+                NSLog(@"Failed to GET recording: %@", reason);
+            }];
+        }
     }
-
 }
 
 - (void) share {
     [TestFlight passCheckpoint:SHARE_CHECKPOINT];
-    OWManagedRecording *recording = [OWRecordingController recordingForObjectID:recordingID];
+    NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
+    OWMediaObject *mediaObject = (OWMediaObject*)[context objectWithID:self.mediaObjectID];
     // Create the item to share (in this example, a url)
-    NSURL *url = [recording urlForRemoteRecording];
-    NSString *title = [NSString stringWithFormat:@"%@ - %@", OPENWATCH_STRING, recording.title];
+    NSURL *url = [mediaObject urlForWeb];
+    NSString *title = [NSString stringWithFormat:@"%@ - %@", OPENWATCH_STRING, mediaObject.title];
     SHKItem *item = [SHKItem URL:url title:title contentType:SHKURLContentTypeWebpage];
     
-    [TestFlight passCheckpoint:SHARE_ID_CHECKPOINT([recording.serverID intValue])];
+    [TestFlight passCheckpoint:SHARE_URL_CHECKPOINT(url.absoluteString)];
     
     // Get the ShareKit action sheet
     SHKActionSheet *actionSheet = [SHKActionSheet actionSheetForItem:item];
@@ -75,7 +86,7 @@
     [actionSheet showFromToolbar:viewController.navigationController.toolbar];
     
     self.viewController = nil;
-    self.recordingID = nil;
+    self.mediaObjectID = nil;
 }
 
 @end

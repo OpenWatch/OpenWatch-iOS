@@ -301,16 +301,17 @@
     }];
 }
 
-- (void) hitRecording:(NSManagedObjectID *)objectID hitType:(NSString *)hitType {
-    OWManagedRecording *recording = [OWRecordingController recordingForObjectID:objectID];
-    if (!recording) {
+- (void) hitMediaObject:(NSManagedObjectID*)objectID hitType:(NSString*)hitType {
+    NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
+    OWMediaObject *mediaObject = (OWMediaObject*)[context objectWithID:objectID];
+    if (!mediaObject) {
         return;
     }
     
     NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithCapacity:3];
-    [parameters setObject:recording.uuid forKey:@"uuid"];
+    [parameters setObject:mediaObject.serverID forKey:@"serverID"];
     [parameters setObject:hitType forKey:@"hit_type"];
-    [parameters setObject:@"iPhone" forKey:@"referrer"];
+    [parameters setObject:mediaObject.type forKey:@"media_type"];
         
     [self postPath:@"increase_hitcount/" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"hit response: %@", operation.responseString);

@@ -29,7 +29,7 @@
 - (void) fetchRecordingsForTag:(NSString*)tag page:(NSUInteger)page success:(void (^)(NSArray *recordingObjectIDs))success failure:(void (^)(NSString *reason))failure;
 - (void) fetchRecordingsForFeed:(NSString*)feed page:(NSUInteger)page success:(void (^)(NSArray *recordingObjectIDs))success failure:(void (^)(NSString *reason))failure;
 
-- (void) hitRecording:(NSManagedObjectID*)objectID hitType:(NSString*)hitType;
+- (void) hitMediaObject:(NSManagedObjectID*)objectID hitType:(NSString*)hitType;
 
 
 @end

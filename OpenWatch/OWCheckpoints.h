@@ -17,7 +17,7 @@
 #define VIEW_RECORDING_CHECKPOINT @"View Recording Screen"
 #define VIEW_RECORDING_ID_CHECKPOINT(ID) [NSString stringWithFormat:@"View Recording: %d", ID]
 #define SHARE_CHECKPOINT @"Share"
-#define SHARE_ID_CHECKPOINT(ID) [NSString stringWithFormat:@"Share Recording: %d", ID]
+#define SHARE_URL_CHECKPOINT(URL) [NSString stringWithFormat:@"Share URL: %@", URL]
 #define VIEW_SETTINGS_CHECKPOINT @"View Settings"
 #define VIEW_LOCAL_RECORDINGS @"Local Recordings Screen"
 #define EDIT_TAGS_CHECKPOINT @"Edit Tags Screen"

@@ -12,8 +12,9 @@
 #import <MapKit/MapKit.h>
 #import <MediaPlayer/MediaPlayer.h>
 #import "OWTallyView.h"
+#import "OWMediaObjectViewController.h"
 
-@interface OWRecordingInfoViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, MKMapViewDelegate, UIScrollViewDelegate>
+@interface OWRecordingInfoViewController : OWMediaObjectViewController <UITableViewDataSource, UITableViewDelegate, MKMapViewDelegate, UIScrollViewDelegate>
 
 @property (nonatomic) CLLocationCoordinate2D centerCoordinate;
 @property (nonatomic, strong) MKMapView *mapView;
@@ -28,7 +29,6 @@
 @property (nonatomic, strong) UILabel *usernameLabel;
 @property (nonatomic, strong) OWTallyView *tallyView;
 
-@property (nonatomic, strong) NSManagedObjectID *recordingID;
 @property (nonatomic, strong) UIScrollView *scrollView;
 
 @end
