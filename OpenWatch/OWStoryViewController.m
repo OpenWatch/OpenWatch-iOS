@@ -13,6 +13,7 @@
 #import "NSString+HTML.h"
 #import "BrowserViewController.h"
 #import "OWAppDelegate.h"
+#import "MBProgressHUD.h"
 
 #define PADDING 10.0f
 
@@ -108,16 +109,26 @@
     OWStory *story = (OWStory*)[context objectWithID:self.mediaObjectID];
     self.title = story.title;
     self.titleLabel.text = story.title;
-    self.blurbLabel.text = story.blurb;
-    //NSString *resizeJS = @"<script>window.onload = function() {\nwindow.location.href = \n\"ready://\" + \n}</script>";
-    NSString *decodedString = [story.body stringByDecodingHTMLEntities];
-    NSString *bodyHTML = [NSString stringWithFormat:@"<html><body><div style=\"font-family: Palatino, Georgia, 'Times New Roman', serif; font-size:18px; line-height: 22px;\">%@</div></body></html>", decodedString];
-    [self.bodyWebView loadHTMLString:bodyHTML baseURL:[NSURL URLWithString:@"file:///body.html"]];
+    if (story.blurb) {
+        self.blurbLabel.text = story.blurb;
+    }
+    if (story.body) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        NSString *decodedString = [story.body stringByDecodingHTMLEntities];
+        NSString *bodyHTML = [NSString stringWithFormat:@"<html><body><div style=\"font-family: Palatino, Georgia, 'Times New Roman', serif; font-size:18px; line-height: 22px;\">%@</div></body></html>", decodedString];
+        [self.bodyWebView loadHTMLString:bodyHTML baseURL:[NSURL URLWithString:@"file:///body.html"]];
+    }
     [self resizeFrames];
 }
 
-- (void) setMediaObjectID:(NSManagedObjectID *)newMediaObjectID {    [super setMediaObjectID:newMediaObjectID];
+- (void) setMediaObjectID:(NSManagedObjectID *)newMediaObjectID {
+    [super setMediaObjectID:newMediaObjectID];
     [self refreshFields];
+    NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
+    OWStory *story = (OWStory*)[context objectWithID:self.mediaObjectID];
+    if (!story.body) {
+        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    }
     [[OWAccountAPIClient sharedClient] getStoryWithObjectID:self.mediaObjectID success:^(NSManagedObjectID *recordingObjectID) {
         [self refreshFields];
     } failure:^(NSString *reason) {
