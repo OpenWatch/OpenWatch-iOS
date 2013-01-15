@@ -25,3 +25,6 @@
 [submodule "Submodules/TestFlight"]
 	path = Submodules/TestFlight
 	url = git@github.com:OpenWatch/TestFlight-SDK.git
+[submodule "Submodules/SDURLCache"]
+	path = Submodules/SDURLCache
+	url = git://github.com/rs/SDURLCache.git

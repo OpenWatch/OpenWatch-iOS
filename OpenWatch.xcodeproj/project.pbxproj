@@ -96,6 +96,7 @@
 		D99741A11651DB0B0034ABB0 /* OWSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D99741A01651DB0B0034ABB0 /* OWSettingsViewController.m */; };
 		D9C0332816A4C26900B7CFC7 /* OWStoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C0332716A4C26900B7CFC7 /* OWStoryViewController.m */; };
 		D9C0332B16A4CAC400B7CFC7 /* OWMediaObjectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C0332A16A4CAC400B7CFC7 /* OWMediaObjectViewController.m */; };
+		D9C0333D16A4E22100B7CFC7 /* libSDURLCache.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D9C0333816A4E1EC00B7CFC7 /* libSDURLCache.a */; };
 		D9CEED151682718600B236B5 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D9CEED101682718600B236B5 /* libTestFlight.a */; };
 		D9CEED19168271C700B236B5 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D9CEED18168271C700B236B5 /* libz.dylib */; };
 		D9D2E14F1652D7B80000E7C5 /* OWInLineTextEditTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D2E14E1652D7B80000E7C5 /* OWInLineTextEditTableViewCell.m */; };
@@ -483,6 +484,27 @@
 			remoteGlobalIDString = D944DA9416A4A8ED00BC8E57;
 			remoteInfo = Mogenerator;
 		};
+		D9C0333716A4E1EC00B7CFC7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D9C0332F16A4E1EC00B7CFC7 /* SDURLCache.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D2AAC07E0554694100DB518D;
+			remoteInfo = SDURLCache;
+		};
+		D9C0333916A4E1EC00B7CFC7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D9C0332F16A4E1EC00B7CFC7 /* SDURLCache.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 53F5591C114F1D5E00A3DA4B;
+			remoteInfo = SDURLCacheTestBundle;
+		};
+		D9C0333B16A4E21700B7CFC7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D9C0332F16A4E1EC00B7CFC7 /* SDURLCache.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = D2AAC07D0554694100DB518D;
+			remoteInfo = SDURLCache;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -591,6 +613,7 @@
 		D9C0332716A4C26900B7CFC7 /* OWStoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWStoryViewController.m; sourceTree = "<group>"; };
 		D9C0332916A4CAC400B7CFC7 /* OWMediaObjectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWMediaObjectViewController.h; sourceTree = "<group>"; };
 		D9C0332A16A4CAC400B7CFC7 /* OWMediaObjectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWMediaObjectViewController.m; sourceTree = "<group>"; };
+		D9C0332F16A4E1EC00B7CFC7 /* SDURLCache.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SDURLCache.xcodeproj; path = SDURLCache/SDURLCache.xcodeproj; sourceTree = "<group>"; };
 		D9CEED0D16826AB400B236B5 /* OWAPIKeys.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OWAPIKeys.h; sourceTree = "<group>"; };
 		D9CEED101682718600B236B5 /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
 		D9CEED131682718600B236B5 /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
@@ -756,6 +779,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D9C0333D16A4E22100B7CFC7 /* libSDURLCache.a in Frameworks */,
 				D9CEED19168271C700B236B5 /* libz.dylib in Frameworks */,
 				D92D29FB168128C500A9E408 /* libReachability.a in Frameworks */,
 				D92D29FA168128B600A9E408 /* libOAuth.a in Frameworks */,
@@ -953,6 +977,15 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		D9C0333016A4E1EC00B7CFC7 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D9C0333816A4E1EC00B7CFC7 /* libSDURLCache.a */,
+				D9C0333A16A4E1EC00B7CFC7 /* SDURLCacheTestBundle.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		D9CEED0E1682718600B236B5 /* TestFlight */ = {
 			isa = PBXGroup;
 			children = (
@@ -965,6 +998,7 @@
 		D9D2E1501652EA8A0000E7C5 /* Submodules */ = {
 			isa = PBXGroup;
 			children = (
+				D9C0332F16A4E1EC00B7CFC7 /* SDURLCache.xcodeproj */,
 				D9CEED0E1682718600B236B5 /* TestFlight */,
 				D96677EC168124F1006F1815 /* ShareKit.xcodeproj */,
 				D9D786E016766661006EE6A2 /* SuggestionsList */,
@@ -1342,6 +1376,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				D9C0333C16A4E21700B7CFC7 /* PBXTargetDependency */,
 				D98FCB4B16A4AABE0071DF6B /* PBXTargetDependency */,
 				D92D29F9168128AF00A9E408 /* PBXTargetDependency */,
 				D92D29F7168128A700A9E408 /* PBXTargetDependency */,
@@ -1377,6 +1412,10 @@
 			productRefGroup = D99741721651D42F0034ABB0 /* Products */;
 			projectDirPath = "";
 			projectReferences = (
+				{
+					ProductGroup = D9C0333016A4E1EC00B7CFC7 /* Products */;
+					ProjectRef = D9C0332F16A4E1EC00B7CFC7 /* SDURLCache.xcodeproj */;
+				},
 				{
 					ProductGroup = D96677ED168124F1006F1815 /* Products */;
 					ProjectRef = D96677EC168124F1006F1815 /* ShareKit.xcodeproj */;
@@ -1629,6 +1668,20 @@
 			remoteRef = D966785C168124F2006F1815 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		D9C0333816A4E1EC00B7CFC7 /* libSDURLCache.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libSDURLCache.a;
+			remoteRef = D9C0333716A4E1EC00B7CFC7 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D9C0333A16A4E1EC00B7CFC7 /* SDURLCacheTestBundle.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = SDURLCacheTestBundle.octest;
+			remoteRef = D9C0333916A4E1EC00B7CFC7 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
@@ -1845,6 +1898,11 @@
 			target = D944DA9416A4A8ED00BC8E57 /* Mogenerator */;
 			targetProxy = D98FCB4A16A4AABE0071DF6B /* PBXContainerItemProxy */;
 		};
+		D9C0333C16A4E21700B7CFC7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = SDURLCache;
+			targetProxy = D9C0333B16A4E21700B7CFC7 /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
@@ -1932,7 +1990,7 @@
 				COPY_PHASE_STRIP = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "OpenWatch/OpenWatch-Prefix.pch";
-				HEADER_SEARCH_PATHS = "$(SRCROOT)/Submodules/**";
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Submodules\"/**";
 				INFOPLIST_FILE = "OpenWatch/OpenWatch-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (
@@ -1959,7 +2017,7 @@
 				COPY_PHASE_STRIP = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "OpenWatch/OpenWatch-Prefix.pch";
-				HEADER_SEARCH_PATHS = "$(SRCROOT)/Submodules/**";
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Submodules\"/**";
 				INFOPLIST_FILE = "OpenWatch/OpenWatch-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (

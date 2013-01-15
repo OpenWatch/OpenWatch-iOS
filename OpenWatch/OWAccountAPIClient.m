@@ -16,6 +16,7 @@
 #import "OWUser.h"
 #import "OWStory.h"
 #import "OWRecordingController.h"
+#import "SDURLCache.h"
 
 #define kRecordingsKey @"recordings/"
 //#define kRecordingKey @"recording/"
@@ -64,7 +65,10 @@
     if (!self) {
         return nil;
     }
-    
+    SDURLCache *urlCache = [[SDURLCache alloc] initWithMemoryCapacity:1024*1024   // 1MB mem cache
+                                                         diskCapacity:1024*1024*5 // 5MB disk cache
+                                                             diskPath:[SDURLCache defaultCachePath]];
+    [NSURLCache setSharedURLCache:urlCache];
     [self registerHTTPOperationClass:[AFJSONRequestOperation class]];
     
     // Accept HTTP Header; see http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.1
