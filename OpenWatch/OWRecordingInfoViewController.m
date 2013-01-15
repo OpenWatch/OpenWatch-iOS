@@ -182,9 +182,7 @@
 
 - (void) viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    if (CLLocationCoordinate2DIsValid(centerCoordinate)) {
-        [self.mapView setRegion:MKCoordinateRegionMakeWithDistance(centerCoordinate, 1000, 1000) animated:YES];
-    }
+
     [moviePlayer play];
 }
 
@@ -193,7 +191,13 @@
 
     OWManagedRecording *recording = [OWRecordingController recordingForObjectID:self.mediaObjectID];
     
+    if (recording.remoteVideoURL) {
+        self.moviePlayer.contentURL = [NSURL URLWithString:recording.remoteVideoURL];
+        [moviePlayer prepareToPlay];
+    }
+    
     [self refreshFields];
+    [self refreshMapParameters];
     
     [[OWAccountAPIClient sharedClient] getRecordingWithUUID:recording.uuid success:^(NSManagedObjectID *recordingObjectID) {
         OWManagedRecording *remoteRecording = [OWRecordingController recordingForObjectID:recordingObjectID];
@@ -206,9 +210,6 @@
     } failure:^(NSString *reason) {
         NSLog(@"failure to fetch recording details: %@", reason);
     }];
-    
-
-
 }
 
 
@@ -245,6 +246,9 @@
     if (recording.endLocation) {
         OWMapAnnotation *endAnnotation = [[OWMapAnnotation alloc] initWithCoordinate:recording.endLocation.coordinate title:END_STRING subtitle:nil];
         [mapView addAnnotation:endAnnotation];
+    }
+    if (CLLocationCoordinate2DIsValid(centerCoordinate)) {
+        [self.mapView setRegion:MKCoordinateRegionMakeWithDistance(centerCoordinate, 1000, 1000) animated:YES];
     }
 }
 
