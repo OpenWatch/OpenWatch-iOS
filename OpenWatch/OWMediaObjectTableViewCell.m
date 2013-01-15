@@ -79,7 +79,7 @@
     [tallyView removeFromSuperview];
     [dateModifiedLabel removeFromSuperview];
     NSString *thumbnailURLString = nil;
-    if ([mediaObject isKindOfClass:[OWLocalRecording class]]) {
+    if (isLocalRecording) {
         OWLocalRecording *recording = (OWLocalRecording*)mediaObject;
         NSDateFormatter *dateFormatter = [OWUtilities localDateFormatter];
         self.dateModifiedLabel.text = [dateFormatter stringFromDate:recording.dateModified];
