@@ -11,8 +11,9 @@
 #import "OWManagedRecording.h"
 #import "OWRecordingSegment.h"
 #import "OWLocationController.h"
+#import "_OWLocalRecording.h"
 
-@interface OWLocalRecording : OWManagedRecording <OWLocationControlerDelegate>
+@interface OWLocalRecording : _OWLocalRecording <OWLocationControlerDelegate>
 
 @property (nonatomic, retain) NSString * localRecordingPath;
 @property (nonatomic, retain) NSNumber * hqFileUploadState;
