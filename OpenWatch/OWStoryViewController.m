@@ -14,6 +14,7 @@
 #import "BrowserViewController.h"
 #import "OWAppDelegate.h"
 #import "MBProgressHUD.h"
+#import "OWStrings.h"
 
 #define PADDING 10.0f
 
@@ -22,7 +23,7 @@
 @end
 
 @implementation OWStoryViewController
-@synthesize blurbLabel, bodyWebView, titleLabel, scrollView;
+@synthesize blurbLabel, bodyWebView, titleLabel, scrollView, authorLabel, dateLabel;
 
 - (id)init
 {
@@ -44,8 +45,20 @@
     self.blurbLabel = [[UILabel alloc] init];
     blurbLabel.backgroundColor = [UIColor clearColor];
     blurbLabel.font = [UIFont fontWithName:@"Palatino-BoldItalic" size:18.0f];
+    
+    self.dateLabel = [[UILabel alloc] init];
+    self.dateLabel.font = [UIFont fontWithName:@"Palatino-Roman" size:18.0f];
+    self.dateLabel.backgroundColor = [UIColor clearColor];
+    self.dateLabel.textAlignment = UITextAlignmentRight;
+    self.authorLabel = [[UILabel alloc] init];
+    self.authorLabel.font = [UIFont fontWithName:@"Palatino-Bold" size:18.0f];
+    self.authorLabel.backgroundColor = [UIColor clearColor];
+    self.authorLabel.textAlignment = UITextAlignmentLeft;
+    
     [self.scrollView addSubview:titleLabel];
     [self.scrollView addSubview:blurbLabel];
+    [self.scrollView addSubview:dateLabel];
+    [self.scrollView addSubview:authorLabel];
 }
 
 
@@ -85,7 +98,15 @@
     [self resizeLabel:titleLabel];
     self.blurbLabel.frame = CGRectMake(PADDING, [OWUtilities bottomOfView:titleLabel]+PADDING, width-PADDING, labelHeight);
     [self resizeLabel:blurbLabel];
-    CGFloat bodyTextViewYOrigin = [OWUtilities bottomOfView:blurbLabel];
+    CGRect blurbFrame = blurbLabel.frame;
+    self.blurbLabel.frame = CGRectMake(blurbFrame.origin.x, blurbFrame.origin.y, blurbFrame.size.width, blurbFrame.size.height+20);
+    
+    CGFloat dateAndBylineYOrigin = [OWUtilities bottomOfView:blurbLabel]+5;
+    CGFloat dateAndBylineWidth = (width-PADDING)/2;
+    self.authorLabel.frame = CGRectMake(PADDING, dateAndBylineYOrigin, dateAndBylineWidth, labelHeight);
+    self.dateLabel.frame = CGRectMake(dateAndBylineWidth, dateAndBylineYOrigin, dateAndBylineWidth, labelHeight);
+    
+    CGFloat bodyTextViewYOrigin = [OWUtilities bottomOfView:dateLabel];
     self.bodyWebView.frame = CGRectMake(0, bodyTextViewYOrigin, width, self.bodyWebView.scrollView.contentSize.height);
     self.scrollView.contentSize = CGSizeMake(width, titleLabel.frame.size.height+blurbLabel.frame.size.height+bodyWebView.frame.size.height);
 }
@@ -109,8 +130,15 @@
     OWStory *story = (OWStory*)[context objectWithID:self.mediaObjectID];
     self.title = story.title;
     self.titleLabel.text = story.title;
+    self.authorLabel.text = [NSString stringWithFormat:@"%@ %@.",BY_STRING, story.user.username];
     if (story.blurb) {
         self.blurbLabel.text = story.blurb;
+    }
+    if (story.firstPostedDate) {
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
+        [dateFormatter setTimeStyle:NSDateFormatterNoStyle];
+        self.dateLabel.text = [dateFormatter stringFromDate:story.firstPostedDate];
     }
     if (story.body) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];

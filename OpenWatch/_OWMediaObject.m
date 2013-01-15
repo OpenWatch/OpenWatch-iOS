@@ -5,6 +5,8 @@
 
 const struct OWMediaObjectAttributes OWMediaObjectAttributes = {
 	.clicks = @"clicks",
+	.firstPostedDate = @"firstPostedDate",
+	.modifiedDate = @"modifiedDate",
 	.title = @"title",
 	.views = @"views",
 };
@@ -81,6 +83,20 @@ const struct OWMediaObjectFetchedProperties OWMediaObjectFetchedProperties = {
 - (void)setPrimitiveClicksValue:(int32_t)value_ {
 	[self setPrimitiveClicks:[NSNumber numberWithInt:value_]];
 }
+
+
+
+
+
+@dynamic firstPostedDate;
+
+
+
+
+
+
+@dynamic modifiedDate;
+
 
 
 

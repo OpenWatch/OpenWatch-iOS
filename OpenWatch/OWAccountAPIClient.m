@@ -119,18 +119,18 @@
         NSLog(@"success: %@", [responseObject description]);
         NSArray *recordings = [responseObject objectForKey:kObjectsKey];
         for (NSDictionary *recordingDict in recordings) {
-            NSString *uuid = [recordingDict objectForKey:@"uuid"];
-            int serverID = [[recordingDict objectForKey:@"id"] intValue];
-            NSString *remoteLastEditedString = [recordingDict objectForKey:@"last_edited"];
+            NSString *uuid = [recordingDict objectForKey:kUUIDKey];
+            int serverID = [[recordingDict objectForKey:kIDKey] intValue];
+            NSString *remoteLastEditedString = [recordingDict objectForKey:kLastEditedKey];
             NSDateFormatter *dateFormatter = [OWUtilities utcDateFormatter];
             
             NSDate *remoteLastEditedDate = [dateFormatter dateFromString:remoteLastEditedString];
-            OWManagedRecording *managedRecording = [OWManagedRecording MR_findFirstByAttribute:@"uuid" withValue:uuid];
+            OWManagedRecording *managedRecording = [OWManagedRecording MR_findFirstByAttribute:kUUIDKey withValue:uuid];
             managedRecording.serverID = @(serverID);
             NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
             [context MR_saveNestedContexts];
-            NSDate *localLastEditedDate = managedRecording.dateModified;
-            NSString *localLastEditedString = [dateFormatter stringFromDate:managedRecording.dateModified];
+            NSDate *localLastEditedDate = managedRecording.modifiedDate;
+            NSString *localLastEditedString = [dateFormatter stringFromDate:managedRecording.modifiedDate];
             if (managedRecording) {
                 int localSeconds = (int)[localLastEditedDate timeIntervalSince1970];
                 int remoteSeconds = (int)[remoteLastEditedDate timeIntervalSince1970];

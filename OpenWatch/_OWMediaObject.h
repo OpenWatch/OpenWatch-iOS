@@ -6,6 +6,8 @@
 
 extern const struct OWMediaObjectAttributes {
 	__unsafe_unretained NSString *clicks;
+	__unsafe_unretained NSString *firstPostedDate;
+	__unsafe_unretained NSString *modifiedDate;
 	__unsafe_unretained NSString *title;
 	__unsafe_unretained NSString *views;
 } OWMediaObjectAttributes;
@@ -20,6 +22,8 @@ extern const struct OWMediaObjectFetchedProperties {
 
 @class OWTag;
 @class OWUser;
+
+
 
 
 
@@ -47,6 +51,26 @@ extern const struct OWMediaObjectFetchedProperties {
 - (void)setClicksValue:(int32_t)value_;
 
 //- (BOOL)validateClicks:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
+@property (nonatomic, strong) NSDate* firstPostedDate;
+
+
+
+//- (BOOL)validateFirstPostedDate:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
+@property (nonatomic, strong) NSDate* modifiedDate;
+
+
+
+//- (BOOL)validateModifiedDate:(id*)value_ error:(NSError**)error_;
 
 
 
@@ -110,6 +134,18 @@ extern const struct OWMediaObjectFetchedProperties {
 
 - (int32_t)primitiveClicksValue;
 - (void)setPrimitiveClicksValue:(int32_t)value_;
+
+
+
+
+- (NSDate*)primitiveFirstPostedDate;
+- (void)setPrimitiveFirstPostedDate:(NSDate*)value;
+
+
+
+
+- (NSDate*)primitiveModifiedDate;
+- (void)setPrimitiveModifiedDate:(NSDate*)value;
 
 
 

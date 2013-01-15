@@ -82,7 +82,7 @@
     if (isLocalRecording) {
         OWLocalRecording *recording = (OWLocalRecording*)mediaObject;
         NSDateFormatter *dateFormatter = [OWUtilities localDateFormatter];
-        self.dateModifiedLabel.text = [dateFormatter stringFromDate:recording.dateModified];
+        self.dateModifiedLabel.text = [dateFormatter stringFromDate:recording.modifiedDate];
         [self.contentView addSubview:dateModifiedLabel];
         thumbnailURLString = recording.thumbnailURL;
     } else {

@@ -6,7 +6,6 @@
         <relationship name="segments" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="OWRecordingSegment" inverseName="recording" inverseEntity="OWRecordingSegment" syncable="YES"/>
     </entity>
     <entity name="OWManagedRecording" representedClassName="OWManagedRecording" parentEntity="OWMediaObject" syncable="YES">
-        <attribute name="dateModified" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="endDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="endLatitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="endLongitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
@@ -20,6 +19,8 @@
     </entity>
     <entity name="OWMediaObject" representedClassName="OWMediaObject" isAbstract="YES" parentEntity="OWServerObject" syncable="YES">
         <attribute name="clicks" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="firstPostedDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="modifiedDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="views" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <relationship name="tags" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="OWTag" inverseName="objects" inverseEntity="OWTag" syncable="YES"/>
@@ -56,8 +57,8 @@
     </entity>
     <elements>
         <element name="OWLocalRecording" positionX="277" positionY="171" width="128" height="88"/>
-        <element name="OWManagedRecording" positionX="430" positionY="251" width="128" height="210"/>
-        <element name="OWMediaObject" positionX="160" positionY="192" width="128" height="120"/>
+        <element name="OWManagedRecording" positionX="430" positionY="251" width="128" height="195"/>
+        <element name="OWMediaObject" positionX="160" positionY="192" width="128" height="150"/>
         <element name="OWRecordingSegment" positionX="99" positionY="234" width="128" height="103"/>
         <element name="OWServerObject" positionX="160" positionY="192" width="128" height="60"/>
         <element name="OWStory" positionX="160" positionY="192" width="128" height="90"/>

@@ -11,7 +11,6 @@
 #import "OWTag.h"
 #import "OWUser.h"
 
-#define kLastEditedKey @"last_edited"
 
 @interface OWManagedRecording()
 @end
@@ -39,7 +38,7 @@
 }
 
 - (void) saveMetadata {
-    self.dateModified = [NSDate date];
+    self.modifiedDate = [NSDate date];
     [super saveMetadata];
 }
 
@@ -67,8 +66,8 @@
     if (self.endDate) {
         [newMetadataDictionary setObject:[dateFormatter stringFromDate:self.endDate] forKey:kRecordingEndDateKey];
     }
-    if (self.dateModified) {
-        [newMetadataDictionary setObject:[dateFormatter stringFromDate:self.dateModified] forKey:kLastEditedKey];
+    if (self.modifiedDate) {
+        [newMetadataDictionary setObject:[dateFormatter stringFromDate:self.modifiedDate] forKey:kLastEditedKey];
     }
     if (self.recordingDescription) {
         [newMetadataDictionary setObject:[self.recordingDescription copy] forKey:kDescriptionKey];
@@ -108,10 +107,6 @@
 - (void) loadMetadataFromDictionary:(NSDictionary*)metadataDictionary {
     [super loadMetadataFromDictionary:metadataDictionary];
     NSDateFormatter *dateFormatter = [OWUtilities utcDateFormatter];
-    NSString *lastEdited = [metadataDictionary objectForKey:kLastEditedKey];
-    if (lastEdited) {
-        self.dateModified = [dateFormatter dateFromString:lastEdited];
-    }
     
     NSString *videoURL = [metadataDictionary objectForKey:@"video_url"];
     if (videoURL) {

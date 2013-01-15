@@ -1,6 +1,8 @@
 #import "OWMediaObject.h"
 #import "OWTag.h"
 #import "OWUser.h"
+#import "OWUtilities.h"
+#import "OWManagedRecording.h"
 
 @interface OWMediaObject ()
 
@@ -36,7 +38,15 @@
 }
 
 - (void) loadMetadataFromDictionary:(NSDictionary*)metadataDictionary {
-    
+    NSDateFormatter *dateFormatter = [OWUtilities utcDateFormatter];
+    NSString *lastEdited = [metadataDictionary objectForKey:kLastEditedKey];
+    if (lastEdited) {
+        self.modifiedDate = [dateFormatter dateFromString:lastEdited];
+    }
+    NSString *firstPosted = [metadataDictionary objectForKey:kFirstPostedKey];
+    if (firstPosted) {
+        self.firstPostedDate = [dateFormatter dateFromString:firstPosted];
+    }
     NSNumber *serverID = [metadataDictionary objectForKey:@"id"];
     if (serverID) {
         self.serverID = serverID;

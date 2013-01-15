@@ -4,7 +4,6 @@
 #import "_OWManagedRecording.h"
 
 const struct OWManagedRecordingAttributes OWManagedRecordingAttributes = {
-	.dateModified = @"dateModified",
 	.endDate = @"endDate",
 	.endLatitude = @"endLatitude",
 	.endLongitude = @"endLongitude",
@@ -72,13 +71,6 @@ const struct OWManagedRecordingFetchedProperties OWManagedRecordingFetchedProper
 
 	return keyPaths;
 }
-
-
-
-
-@dynamic dateModified;
-
-
 
 
 

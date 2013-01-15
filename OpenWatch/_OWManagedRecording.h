@@ -5,7 +5,6 @@
 #import "OWMediaObject.h"
 
 extern const struct OWManagedRecordingAttributes {
-	__unsafe_unretained NSString *dateModified;
 	__unsafe_unretained NSString *endDate;
 	__unsafe_unretained NSString *endLatitude;
 	__unsafe_unretained NSString *endLongitude;
@@ -36,7 +35,6 @@ extern const struct OWManagedRecordingFetchedProperties {
 
 
 
-
 @interface OWManagedRecordingID : NSManagedObjectID {}
 @end
 
@@ -45,16 +43,6 @@ extern const struct OWManagedRecordingFetchedProperties {
 + (NSString*)entityName;
 + (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;
 - (OWManagedRecordingID*)objectID;
-
-
-
-
-
-@property (nonatomic, strong) NSDate* dateModified;
-
-
-
-//- (BOOL)validateDateModified:(id*)value_ error:(NSError**)error_;
 
 
 
@@ -184,12 +172,6 @@ extern const struct OWManagedRecordingFetchedProperties {
 @end
 
 @interface _OWManagedRecording (CoreDataGeneratedPrimitiveAccessors)
-
-
-- (NSDate*)primitiveDateModified;
-- (void)setPrimitiveDateModified:(NSDate*)value;
-
-
 
 
 - (NSDate*)primitiveEndDate;

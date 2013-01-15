@@ -33,6 +33,7 @@
 #define kDescriptionKey @"description"
 #define kMetadataFileName @"metadata.json"
 #define kSegmentsDirectory @"/segments/"
+#define kLastEditedKey @"last_edited"
 
 @class OWUser;
 
