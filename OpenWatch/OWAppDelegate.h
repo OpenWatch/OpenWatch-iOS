@@ -8,12 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import "OWHomeScreenViewController.h"
+#import "BrowserViewController.h"
 
 #define OW_APP_DELEGATE ((OWAppDelegate*)[UIApplication sharedApplication].delegate)
 
-@interface OWAppDelegate : UIResponder <UIApplicationDelegate>
+@interface OWAppDelegate : UIResponder <UIApplicationDelegate, BrowserViewDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 @property (nonatomic, strong) OWHomeScreenViewController *homeScreen;
+@property (nonatomic, strong) UINavigationController *navigationController;
 
 @end

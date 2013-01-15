@@ -17,7 +17,7 @@
 #import "OWAPIKeys.h"
 
 @implementation OWAppDelegate
-@synthesize homeScreen;
+@synthesize homeScreen, navigationController;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -32,10 +32,10 @@
     self.window.backgroundColor = [OWUtilities fabricBackgroundPattern];
      
     self.homeScreen = [[OWHomeScreenViewController alloc] init];
-    UINavigationController *homeNavController = [[UINavigationController alloc] initWithRootViewController:homeScreen];
-    homeNavController.navigationBar.tintColor = [OWUtilities navigationBarColor];
+    self.navigationController = [[UINavigationController alloc] initWithRootViewController:homeScreen];
+    navigationController.navigationBar.tintColor = [OWUtilities navigationBarColor];
 
-    self.window.rootViewController = homeNavController;
+    self.window.rootViewController = navigationController;
     DefaultSHKConfigurator *configurator = [[OWSHKConfigurator alloc] init];
     [SHKConfiguration sharedInstanceWithConfigurator:configurator];
     [MagicalRecord setupCoreDataStack];
@@ -93,6 +93,13 @@
 - (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
 {
     return [self handleOpenURL:url];
+}
+
+- (BOOL)openURL:(NSURL*)url
+{
+    BrowserViewController *bvc = [[BrowserViewController alloc] initWithUrls:url];
+    [self.navigationController pushViewController:bvc animated:YES];
+    return YES;
 }
 
 @end

@@ -28,3 +28,9 @@
 [submodule "Submodules/SDURLCache"]
 	path = Submodules/SDURLCache
 	url = git://github.com/rs/SDURLCache.git
+[submodule "Submodules/MWFeedParser"]
+	path = Submodules/MWFeedParser
+	url = git@github.com:OpenWatch/MWFeedParser.git
+[submodule "Submodules/Browser-View-Controller"]
+	path = Submodules/Browser-View-Controller
+	url = git@github.com:OpenWatch/Browser-View-Controller--iPhone-.git

@@ -9,10 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "OWMediaObjectViewController.h"
 
-@interface OWStoryViewController : OWMediaObjectViewController
+@interface OWStoryViewController : OWMediaObjectViewController <UIWebViewDelegate>
 
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UILabel *blurbLabel;
-@property (nonatomic, strong) UITextView *bodyTextView;
+@property (nonatomic, strong) UIWebView *bodyWebView;
+@property (nonatomic, strong) UIScrollView *scrollView;
 
 @end

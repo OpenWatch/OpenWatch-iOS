@@ -147,6 +147,14 @@
 		D9D7870D1677EDB0006EE6A2 /* OWWatchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D7870C1677EDB0006EE6A2 /* OWWatchViewController.m */; };
 		D9DFADFA16547DE7003C515C /* openwatch.png in Resources */ = {isa = PBXBuildFile; fileRef = D9DFADF816547DE7003C515C /* openwatch.png */; };
 		D9DFADFB16547DE7003C515C /* openwatch@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9DFADF916547DE7003C515C /* openwatch@2x.png */; };
+		D9E226E816A5D9F200F06C31 /* NSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = D9E226E716A5D9F200F06C31 /* NSString+HTML.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		D9E226EC16A5DABB00F06C31 /* GTMNSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = D9E226EB16A5DABB00F06C31 /* GTMNSString+HTML.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		D9E226F416A5E32A00F06C31 /* BrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9E226EE16A5E32A00F06C31 /* BrowserViewController.m */; };
+		D9E226F516A5E32A00F06C31 /* BrowserViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9E226EF16A5E32A00F06C31 /* BrowserViewController.xib */; };
+		D9E226F616A5E32A00F06C31 /* left.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E226F016A5E32A00F06C31 /* left.png */; };
+		D9E226F716A5E32A00F06C31 /* left@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E226F116A5E32A00F06C31 /* left@2x.png */; };
+		D9E226F816A5E32A00F06C31 /* right.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E226F216A5E32A00F06C31 /* right.png */; };
+		D9E226F916A5E32A00F06C31 /* right@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E226F316A5E32A00F06C31 /* right@2x.png */; };
 		D9E72E2C167BC6FF00C6CB75 /* thumbnail_placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E72E2A167BC6FE00C6CB75 /* thumbnail_placeholder.png */; };
 		D9E72E2D167BC6FF00C6CB75 /* thumbnail_placeholder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E72E2B167BC6FE00C6CB75 /* thumbnail_placeholder@2x.png */; };
 		D9E72E4C167FB0EE00C6CB75 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E72E4B167FB0EE00C6CB75 /* icon.png */; };
@@ -698,6 +706,17 @@
 		D9D7870C1677EDB0006EE6A2 /* OWWatchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWWatchViewController.m; sourceTree = "<group>"; };
 		D9DFADF816547DE7003C515C /* openwatch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = openwatch.png; sourceTree = "<group>"; };
 		D9DFADF916547DE7003C515C /* openwatch@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "openwatch@2x.png"; sourceTree = "<group>"; };
+		D9E226E616A5D9F200F06C31 /* NSString+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+HTML.h"; path = "MWFeedParser/Classes/NSString+HTML.h"; sourceTree = "<group>"; };
+		D9E226E716A5D9F200F06C31 /* NSString+HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+HTML.m"; path = "MWFeedParser/Classes/NSString+HTML.m"; sourceTree = "<group>"; };
+		D9E226EA16A5DABB00F06C31 /* GTMNSString+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "GTMNSString+HTML.h"; path = "MWFeedParser/Classes/GTMNSString+HTML.h"; sourceTree = "<group>"; };
+		D9E226EB16A5DABB00F06C31 /* GTMNSString+HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "GTMNSString+HTML.m"; path = "MWFeedParser/Classes/GTMNSString+HTML.m"; sourceTree = "<group>"; };
+		D9E226ED16A5E32A00F06C31 /* BrowserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BrowserViewController.h; path = "Browser-View-Controller/Browser Demo/BrowserViewController (Copy to your App)/BrowserViewController.h"; sourceTree = "<group>"; };
+		D9E226EE16A5E32A00F06C31 /* BrowserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BrowserViewController.m; path = "Browser-View-Controller/Browser Demo/BrowserViewController (Copy to your App)/BrowserViewController.m"; sourceTree = "<group>"; };
+		D9E226EF16A5E32A00F06C31 /* BrowserViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = BrowserViewController.xib; path = "Browser-View-Controller/Browser Demo/BrowserViewController (Copy to your App)/BrowserViewController.xib"; sourceTree = "<group>"; };
+		D9E226F016A5E32A00F06C31 /* left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = left.png; path = "Browser-View-Controller/Browser Demo/BrowserViewController (Copy to your App)/left.png"; sourceTree = "<group>"; };
+		D9E226F116A5E32A00F06C31 /* left@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "left@2x.png"; path = "Browser-View-Controller/Browser Demo/BrowserViewController (Copy to your App)/left@2x.png"; sourceTree = "<group>"; };
+		D9E226F216A5E32A00F06C31 /* right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = right.png; path = "Browser-View-Controller/Browser Demo/BrowserViewController (Copy to your App)/right.png"; sourceTree = "<group>"; };
+		D9E226F316A5E32A00F06C31 /* right@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "right@2x.png"; path = "Browser-View-Controller/Browser Demo/BrowserViewController (Copy to your App)/right@2x.png"; sourceTree = "<group>"; };
 		D9E72E2A167BC6FE00C6CB75 /* thumbnail_placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = thumbnail_placeholder.png; sourceTree = "<group>"; };
 		D9E72E2B167BC6FE00C6CB75 /* thumbnail_placeholder@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "thumbnail_placeholder@2x.png"; sourceTree = "<group>"; };
 		D9E72E4B167FB0EE00C6CB75 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
@@ -998,6 +1017,8 @@
 		D9D2E1501652EA8A0000E7C5 /* Submodules */ = {
 			isa = PBXGroup;
 			children = (
+				D9E226FA16A5E33100F06C31 /* BrowserViewController */,
+				D9E226E916A5D9F500F06C31 /* MWFeedParser */,
 				D9C0332F16A4E1EC00B7CFC7 /* SDURLCache.xcodeproj */,
 				D9CEED0E1682718600B236B5 /* TestFlight */,
 				D96677EC168124F1006F1815 /* ShareKit.xcodeproj */,
@@ -1222,6 +1243,31 @@
 				D9397BBB165D6FC70093B3C8 /* fabric@2x.jpeg */,
 			);
 			path = Media;
+			sourceTree = "<group>";
+		};
+		D9E226E916A5D9F500F06C31 /* MWFeedParser */ = {
+			isa = PBXGroup;
+			children = (
+				D9E226EA16A5DABB00F06C31 /* GTMNSString+HTML.h */,
+				D9E226EB16A5DABB00F06C31 /* GTMNSString+HTML.m */,
+				D9E226E616A5D9F200F06C31 /* NSString+HTML.h */,
+				D9E226E716A5D9F200F06C31 /* NSString+HTML.m */,
+			);
+			name = MWFeedParser;
+			sourceTree = "<group>";
+		};
+		D9E226FA16A5E33100F06C31 /* BrowserViewController */ = {
+			isa = PBXGroup;
+			children = (
+				D9E226ED16A5E32A00F06C31 /* BrowserViewController.h */,
+				D9E226EE16A5E32A00F06C31 /* BrowserViewController.m */,
+				D9E226EF16A5E32A00F06C31 /* BrowserViewController.xib */,
+				D9E226F016A5E32A00F06C31 /* left.png */,
+				D9E226F116A5E32A00F06C31 /* left@2x.png */,
+				D9E226F216A5E32A00F06C31 /* right.png */,
+				D9E226F316A5E32A00F06C31 /* right@2x.png */,
+			);
+			name = BrowserViewController;
 			sourceTree = "<group>";
 		};
 		D9E72E54167FB11100C6CB75 /* icons */ = {
@@ -1732,6 +1778,11 @@
 				D9E72E4F167FB0F700C6CB75 /* icon@2x.png in Resources */,
 				D9E72E51167FB10000C6CB75 /* icon-ipad.png in Resources */,
 				D9E72E53167FB10500C6CB75 /* icon-ipad@2x.png in Resources */,
+				D9E226F516A5E32A00F06C31 /* BrowserViewController.xib in Resources */,
+				D9E226F616A5E32A00F06C31 /* left.png in Resources */,
+				D9E226F716A5E32A00F06C31 /* left@2x.png in Resources */,
+				D9E226F816A5E32A00F06C31 /* right.png in Resources */,
+				D9E226F916A5E32A00F06C31 /* right@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1852,6 +1903,9 @@
 				D98FCB5A16A4AE8C0071DF6B /* OWStory.m in Sources */,
 				D9C0332816A4C26900B7CFC7 /* OWStoryViewController.m in Sources */,
 				D9C0332B16A4CAC400B7CFC7 /* OWMediaObjectViewController.m in Sources */,
+				D9E226E816A5D9F200F06C31 /* NSString+HTML.m in Sources */,
+				D9E226EC16A5DABB00F06C31 /* GTMNSString+HTML.m in Sources */,
+				D9E226F416A5E32A00F06C31 /* BrowserViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
