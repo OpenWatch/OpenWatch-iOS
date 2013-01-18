@@ -20,12 +20,12 @@
 
 @property (nonatomic, retain) NSURL *movieURL;
 
-@property (nonatomic, retain) AVAssetWriterInput *audioEncoder;
-@property (nonatomic, retain) AVAssetWriterInput *videoEncoder;
-@property (nonatomic, retain) AVAssetWriter *assetWriter;
+@property (atomic, retain) AVAssetWriterInput *audioEncoder;
+@property (atomic, retain) AVAssetWriterInput *videoEncoder;
+@property (atomic, retain) AVAssetWriter *assetWriter;
 
-@property (nonatomic) BOOL readyToRecordAudio;
-@property (nonatomic) BOOL readyToRecordVideo;
+@property (atomic) BOOL readyToRecordAudio;
+@property (atomic) BOOL readyToRecordVideo;
 @property (nonatomic) AVCaptureVideoOrientation referenceOrientation;
 @property (nonatomic) AVCaptureVideoOrientation videoOrientation;
 @property (nonatomic, strong) NSManagedObjectID *recordingID;
@@ -47,5 +47,6 @@
 
 - (void) finishEncoding;
 - (void) showError:(NSError*)error;
+- (void) handleException:(NSException*)exception;
 
 @end

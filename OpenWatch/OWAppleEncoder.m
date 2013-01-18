@@ -117,9 +117,15 @@
 		currentVideoEncoder = [[AVAssetWriterInput alloc] initWithMediaType:AVMediaTypeVideo outputSettings:videoCompressionSettings];
 		currentVideoEncoder.expectsMediaDataInRealTime = YES;
 		currentVideoEncoder.transform = [self transformFromCurrentVideoOrientationToOrientation:self.referenceOrientation];
-		if ([currentAssetWriter canAddInput:currentVideoEncoder])
-			[currentAssetWriter addInput:currentVideoEncoder];
-		else {
+		if ([currentAssetWriter canAddInput:currentVideoEncoder]) {
+            @try {
+                [currentAssetWriter addInput:currentVideoEncoder];
+            }
+            @catch (NSException *exception) {
+                NSLog(@"Couldn't add input: %@", [exception description]);
+                [self handleException:exception];
+            }
+        } else {
 			NSLog(@"Couldn't add asset writer video input.");
 		}
 	}
@@ -225,9 +231,15 @@
 	if ([currentAssetWriter canApplyOutputSettings:audioCompressionSettings forMediaType:AVMediaTypeAudio]) {
 		currentAudioEncoder = [[AVAssetWriterInput alloc] initWithMediaType:AVMediaTypeAudio outputSettings:audioCompressionSettings];
 		currentAudioEncoder.expectsMediaDataInRealTime = YES;
-		if ([currentAssetWriter canAddInput:currentAudioEncoder])
-			[currentAssetWriter addInput:currentAudioEncoder];
-		else {
+		if ([currentAssetWriter canAddInput:currentAudioEncoder]) {
+            @try {
+                [currentAssetWriter addInput:currentAudioEncoder];
+            }
+            @catch (NSException *exception) {
+                NSLog(@"Couldn't add audio input: %@", [exception description]);
+                [self handleException:exception];
+            }
+        } else {
 			NSLog(@"Couldn't add asset writer audio input.");
 		}
 	}
@@ -258,32 +270,53 @@
 		
 		if (mediaType == AVMediaTypeVideo) {
 			if (videoEncoder.readyForMoreMediaData) {
-				if (![videoEncoder appendSampleBuffer:sampleBuffer]) {
-					[self showError:[assetWriter error]];
-				}
+                @try {
+                    if (![videoEncoder appendSampleBuffer:sampleBuffer]) {
+                        [self showError:[assetWriter error]];
+                    }
+                }
+                @catch (NSException *exception) {
+                    NSLog(@"Couldn't append video sample buffer: %@", [exception description]);
+                    [self handleException:exception];
+                }
 			}
 		}
 		else if (mediaType == AVMediaTypeAudio) {
 			if (audioEncoder.readyForMoreMediaData) {
-				if (![audioEncoder appendSampleBuffer:sampleBuffer]) {
-					[self showError:[assetWriter error]];
-				}
+                @try {
+                    if (![audioEncoder appendSampleBuffer:sampleBuffer]) {
+                        [self showError:[assetWriter error]];
+                    }
+                }
+                @catch (NSException *exception) {
+                    NSLog(@"Couldn't append audio sample buffer: %@", [exception description]);
+                    [self handleException:exception];
+                }
 			}
 		}
 	}
 }
 
-
+- (void) handleException:(NSException *)exception {
+    
+}
 
 - (void) finishEncoding {
     self.readyToRecordAudio = NO;
     self.readyToRecordVideo = NO;
     if (assetWriter.status == AVAssetWriterStatusWriting) {
-        [self.audioEncoder markAsFinished];
-        [self.videoEncoder markAsFinished];
-        if (![assetWriter finishWriting]) {
-            [self showError:[assetWriter error]];
+        @try {
+            [self.audioEncoder markAsFinished];
+            [self.videoEncoder markAsFinished];
+            if (![assetWriter finishWriting]) {
+                [self showError:[assetWriter error]];
+            }
         }
+        @catch (NSException *exception) {
+            NSLog(@"Caught exception: %@", [exception description]);
+            [self handleException:exception];
+        }
+
     }
     if(source) {
         dispatch_source_cancel(source);

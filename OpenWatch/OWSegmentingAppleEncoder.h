@@ -13,16 +13,16 @@
     NSTimeInterval segmentationInterval;
 }
 
-@property (nonatomic, retain) AVAssetWriter *queuedAssetWriter;
-@property (nonatomic, retain) AVAssetWriterInput *queuedAudioEncoder;
-@property (nonatomic, retain) AVAssetWriterInput *queuedVideoEncoder;
-@property (nonatomic) BOOL shouldBeRecording;
-@property (nonatomic) NSUInteger segmentCount;
+@property (atomic, retain) AVAssetWriter *queuedAssetWriter;
+@property (atomic, retain) AVAssetWriterInput *queuedAudioEncoder;
+@property (atomic, retain) AVAssetWriterInput *queuedVideoEncoder;
+@property (atomic) BOOL shouldBeRecording;
+@property (atomic) NSUInteger segmentCount;
 
-@property (nonatomic) int videoBPS; // bits/sec
-@property (nonatomic) int audioBPS; // bits/sec
+@property (atomic) int videoBPS; // bits/sec
+@property (atomic) int audioBPS; // bits/sec
 
-@property (nonatomic, retain) NSTimer *segmentationTimer;
+@property (atomic, retain) NSTimer *segmentationTimer;
 
 - (id) initWithURL:(NSURL *)url segmentationInterval:(NSTimeInterval)timeInterval;
 

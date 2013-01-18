@@ -91,8 +91,13 @@
     
     dispatch_async(segmentingQueue, ^{
         if (tempAssetWriter.status == AVAssetWriterStatusWriting) {
-            [tempAudioEncoder markAsFinished];
-            [tempVideoEncoder markAsFinished];
+            @try {
+                [tempAudioEncoder markAsFinished];
+                [tempVideoEncoder markAsFinished];
+            }
+            @catch (NSException *exception) {
+                NSLog(@"Caught exception: %@", [exception description]);
+            }
             if(![tempAssetWriter finishWriting]) {
                 [self showError:[tempAssetWriter error]];
             } else {
@@ -171,6 +176,10 @@
     }
     self.queuedAudioEncoder = [self setupAudioEncoderWithAssetWriter:self.queuedAssetWriter formatDescription:formatDescription bitsPerSecond:bps];
     self.readyToRecordAudio = YES;
+}
+
+- (void) handleException:(NSException *)exception {
+    [self segmentRecording:nil];
 }
 
 - (void) uploadFileURL:(NSURL*)url {
