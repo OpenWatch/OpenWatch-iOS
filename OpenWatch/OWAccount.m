@@ -137,12 +137,12 @@
         if (error || !success) {
             NSLog(@"Error convert to permanent ID: %@", [error userInfo]);
         }
-        [context MR_saveNestedContexts];
+        [context MR_saveToPersistentStoreAndWait];
         return user;
     }
     if (![user.username isEqualToString:[self username]]) {
         user.username = [self username];
-        [context MR_saveNestedContexts];
+        [context MR_saveToPersistentStoreAndWait];
     }
     return user;
 }

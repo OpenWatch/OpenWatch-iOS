@@ -13,6 +13,7 @@
 #import "OWStrings.h"
 #import "OWAutocompletionView.h"
 #import "OWUtilities.h"
+#import "OWSettingsController.h"
 
 @interface OWTagEditViewController ()
 @property (nonatomic, strong) UITableView *tagTableView;
@@ -137,12 +138,20 @@
 }
 
 - (void) addTagForName:(NSString*)tagName {
+    NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
     self.tagTextField.text = @"";
     OWTag *tag = [OWTag MR_findFirstByAttribute:@"name" withValue:tagName];
     if (!tag) {
         tag = [OWTag MR_createEntity];
         tag.name = tagName;
+        OWUser *user = [[[OWSettingsController sharedInstance] account] user];
+        [user addTagsObject:tag];
     }
+    [context MR_saveToPersistentStoreWithCompletion:^(BOOL success, NSError *error) {
+        if (error) {
+            NSLog(@"Error saving to persistent store: %@", [error userInfo]);
+        }
+    }];
     [self.tagsArray addObject:tag];
     NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES];
     [self.tagsArray sortUsingDescriptors:@[sortDescriptor]];

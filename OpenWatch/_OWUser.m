@@ -5,7 +5,6 @@
 
 const struct OWUserAttributes OWUserAttributes = {
 	.csrfToken = @"csrfToken",
-	.serverID = @"serverID",
 	.thumbnailURLString = @"thumbnailURLString",
 	.username = @"username",
 };
@@ -44,11 +43,6 @@ const struct OWUserFetchedProperties OWUserFetchedProperties = {
 + (NSSet*)keyPathsForValuesAffectingValueForKey:(NSString*)key {
 	NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
 	
-	if ([key isEqualToString:@"serverIDValue"]) {
-		NSSet *affectingKey = [NSSet setWithObject:@"serverID"];
-		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
-		return keyPaths;
-	}
 
 	return keyPaths;
 }
@@ -58,32 +52,6 @@ const struct OWUserFetchedProperties OWUserFetchedProperties = {
 
 @dynamic csrfToken;
 
-
-
-
-
-
-@dynamic serverID;
-
-
-
-- (int32_t)serverIDValue {
-	NSNumber *result = [self serverID];
-	return [result intValue];
-}
-
-- (void)setServerIDValue:(int32_t)value_ {
-	[self setServerID:[NSNumber numberWithInt:value_]];
-}
-
-- (int32_t)primitiveServerIDValue {
-	NSNumber *result = [self primitiveServerID];
-	return [result intValue];
-}
-
-- (void)setPrimitiveServerIDValue:(int32_t)value_ {
-	[self setPrimitiveServerID:[NSNumber numberWithInt:value_]];
-}
 
 
 

@@ -25,6 +25,13 @@
 @implementation OWStoryViewController
 @synthesize blurbLabel, bodyWebView, titleLabel, scrollView, authorLabel, dateLabel;
 
+- (void) dealloc {
+    if ([bodyWebView isLoading]) {
+        [bodyWebView stopLoading];
+    }
+    self.bodyWebView.delegate = nil;
+}
+
 - (id)init
 {
     self = [super init];

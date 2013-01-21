@@ -28,28 +28,35 @@
     self = [super init];
     if (self) {
         self.feedNames = @[FEATURED_STRING, FOLLOWING_STRING, LOCAL_STRING];
-        NSSet *unsortedTags = [[[[OWSettingsController sharedInstance] account] user] tags];
-        NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES];
-        NSArray *sortedTags = [unsortedTags sortedArrayUsingDescriptors:@[sortDescriptor]];
-        NSMutableArray *mutableTagNames = [NSMutableArray arrayWithCapacity:[sortedTags count]];
-        for (OWTag *tag in sortedTags) {
-            [mutableTagNames addObject:[tag.name lowercaseString]];
-        }
-        self.tagNames = mutableTagNames;
-        self.popoverSize = CGSizeMake(200, 300);
+        [self refreshTags];
+        self.popoverSize = CGSizeMake(220, 350);
         self.selectionTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, popoverSize.width, popoverSize.height) style:UITableViewStylePlain];
+        //self.selectionTableView.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleWidth;
         [self.view addSubview:selectionTableView];
         self.selectionTableView.dataSource = self;
         self.selectionTableView.delegate = self;
-        self.popOver = [[WEPopoverController alloc] initWithContentViewController:self];
+        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:self];
+        self.popOver = [[WEPopoverController alloc] initWithContentViewController:nav];
         self.popOver.containerViewProperties = [OWUtilities improvedContainerViewProperties];
     }
     return self;
 }
 
+- (void) refreshTags {
+    NSSet *unsortedTags = [[[[OWSettingsController sharedInstance] account] user] tags];
+    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES];
+    NSArray *sortedTags = [unsortedTags sortedArrayUsingDescriptors:@[sortDescriptor]];
+    NSMutableArray *mutableTagNames = [NSMutableArray arrayWithCapacity:[sortedTags count]];
+    for (OWTag *tag in sortedTags) {
+        [mutableTagNames addObject:[tag.name lowercaseString]];
+    }
+    self.tagNames = mutableTagNames;
+    [self.selectionTableView reloadData];
+}
+
 - (void) presentPopoverFromBarButtonItem:(UIBarButtonItem *)buttonItem {
     self.popOver.popoverContentSize = self.popoverSize;
-    self.selectionTableView.frame = CGRectMake(0, 0, popoverSize.width, popoverSize.height);
+    self.selectionTableView.frame = CGRectMake(0, 0, popoverSize.width, popoverSize.height-45);
     UIPopoverArrowDirection arrowDirection = UIPopoverArrowDirectionUp;
     if(!popOver.isPopoverVisible){
         [popOver presentPopoverFromBarButtonItem:buttonItem permittedArrowDirections:arrowDirection animated:YES];

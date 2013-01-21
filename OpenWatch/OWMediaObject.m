@@ -34,7 +34,7 @@
 
 - (void) saveMetadata {
     NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
-    [context MR_saveNestedContexts];
+    [context MR_saveToPersistentStoreAndWait];
 }
 
 - (void) loadMetadataFromDictionary:(NSDictionary*)metadataDictionary {

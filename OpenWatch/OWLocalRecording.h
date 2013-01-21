@@ -38,12 +38,3 @@
 - (NSURL*) highQualityURL;
 
 @end
-
-@interface OWLocalRecording (CoreDataGeneratedAccessors)
-
-- (void)addSegmentsObject:(OWRecordingSegment *)value;
-- (void)removeSegmentsObject:(OWRecordingSegment *)value;
-- (void)addSegments:(NSSet *)values;
-- (void)removeSegments:(NSSet *)values;
-
-@end

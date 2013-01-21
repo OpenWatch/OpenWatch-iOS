@@ -6,7 +6,6 @@
 const struct OWTagAttributes OWTagAttributes = {
 	.isFeatured = @"isFeatured",
 	.name = @"name",
-	.serverID = @"serverID",
 };
 
 const struct OWTagRelationships OWTagRelationships = {
@@ -45,11 +44,6 @@ const struct OWTagFetchedProperties OWTagFetchedProperties = {
 	
 	if ([key isEqualToString:@"isFeaturedValue"]) {
 		NSSet *affectingKey = [NSSet setWithObject:@"isFeatured"];
-		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
-		return keyPaths;
-	}
-	if ([key isEqualToString:@"serverIDValue"]) {
-		NSSet *affectingKey = [NSSet setWithObject:@"serverID"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
 		return keyPaths;
 	}
@@ -93,32 +87,6 @@ const struct OWTagFetchedProperties OWTagFetchedProperties = {
 
 
 
-@dynamic serverID;
-
-
-
-- (int32_t)serverIDValue {
-	NSNumber *result = [self serverID];
-	return [result intValue];
-}
-
-- (void)setServerIDValue:(int32_t)value_ {
-	[self setServerID:[NSNumber numberWithInt:value_]];
-}
-
-- (int32_t)primitiveServerIDValue {
-	NSNumber *result = [self primitiveServerID];
-	return [result intValue];
-}
-
-- (void)setPrimitiveServerIDValue:(int32_t)value_ {
-	[self setPrimitiveServerID:[NSNumber numberWithInt:value_]];
-}
-
-
-
-
-
 @dynamic objects;
 
 	
@@ -134,6 +102,15 @@ const struct OWTagFetchedProperties OWTagFetchedProperties = {
 
 @dynamic users;
 
+	
+- (NSMutableSet*)usersSet {
+	[self willAccessValueForKey:@"users"];
+  
+	NSMutableSet *result = (NSMutableSet*)[self mutableSetValueForKey:@"users"];
+  
+	[self didAccessValueForKey:@"users"];
+	return result;
+}
 	
 
 

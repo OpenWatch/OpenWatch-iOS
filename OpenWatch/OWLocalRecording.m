@@ -40,7 +40,7 @@
         if (error || !success) {
             NSLog(@"Error convert to permanent ID: %@", [error userInfo]);
         }
-        [context MR_saveNestedContexts];
+        [context MR_saveToPersistentStoreAndWait];
     }
     return recording;
 }
@@ -54,7 +54,7 @@
 
     if ([[path lastPathComponent] isEqualToString:kHQFileName]) {
         recording.hqFileUploadState = @(uploadState);
-        [context MR_saveNestedContexts];
+        [context MR_saveToPersistentStoreAndWait];
         return;
     }
     
@@ -68,7 +68,7 @@
         segment.recording = self;
         segment.fileName = fileName;
     }
-    [context MR_saveNestedContexts];
+    [context MR_saveToPersistentStoreAndWait];
 }
 
 - (OWFileUploadState)uploadStateForFileAtURL:(NSURL*)url {

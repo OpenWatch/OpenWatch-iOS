@@ -2,11 +2,10 @@
 // Make changes to OWUser.h instead.
 
 #import <CoreData/CoreData.h>
-
+#import "OWServerObject.h"
 
 extern const struct OWUserAttributes {
 	__unsafe_unretained NSString *csrfToken;
-	__unsafe_unretained NSString *serverID;
 	__unsafe_unretained NSString *thumbnailURLString;
 	__unsafe_unretained NSString *username;
 } OWUserAttributes;
@@ -26,11 +25,10 @@ extern const struct OWUserFetchedProperties {
 
 
 
-
 @interface OWUserID : NSManagedObjectID {}
 @end
 
-@interface _OWUser : NSManagedObject {}
+@interface _OWUser : OWServerObject {}
 + (id)insertInManagedObjectContext:(NSManagedObjectContext*)moc_;
 + (NSString*)entityName;
 + (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;
@@ -45,20 +43,6 @@ extern const struct OWUserFetchedProperties {
 
 
 //- (BOOL)validateCsrfToken:(id*)value_ error:(NSError**)error_;
-
-
-
-
-
-@property (nonatomic, strong) NSNumber* serverID;
-
-
-
-@property int32_t serverIDValue;
-- (int32_t)serverIDValue;
-- (void)setServerIDValue:(int32_t)value_;
-
-//- (BOOL)validateServerID:(id*)value_ error:(NSError**)error_;
 
 
 
@@ -120,15 +104,6 @@ extern const struct OWUserFetchedProperties {
 
 - (NSString*)primitiveCsrfToken;
 - (void)setPrimitiveCsrfToken:(NSString*)value;
-
-
-
-
-- (NSNumber*)primitiveServerID;
-- (void)setPrimitiveServerID:(NSNumber*)value;
-
-- (int32_t)primitiveServerIDValue;
-- (void)setPrimitiveServerIDValue:(int32_t)value_;
 
 
 

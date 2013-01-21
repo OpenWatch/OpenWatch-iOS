@@ -128,7 +128,7 @@
             OWManagedRecording *managedRecording = [OWManagedRecording MR_findFirstByAttribute:kUUIDKey withValue:uuid];
             managedRecording.serverID = @(serverID);
             NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
-            [context MR_saveNestedContexts];
+            [context MR_saveToPersistentStoreAndWait];
             NSDate *localLastEditedDate = managedRecording.modifiedDate;
             NSString *localLastEditedString = [dateFormatter stringFromDate:managedRecording.modifiedDate];
             if (managedRecording) {
@@ -179,7 +179,7 @@
             OWManagedRecording *managedRecording = [OWManagedRecording MR_findFirstByAttribute:@"uuid" withValue:uuid];
             if (managedRecording) {
                 [managedRecording loadMetadataFromDictionary:recordingDict];
-                [context MR_saveNestedContexts];
+                [context MR_saveToPersistentStoreAndWait];
                 success(managedRecording.objectID);
             } else {
                 failure(@"No recording found");
@@ -245,7 +245,7 @@
             [objectIDsToReturn addObject:mediaObject.objectID];
         }
     }
-    [context MR_saveNestedContexts];
+    [context MR_saveToPersistentStoreAndWait];
     return objectIDsToReturn;
 }
 
@@ -299,7 +299,7 @@
             [tags addObject:tag];
         }
         user.tags = tags;
-        [context MR_saveNestedContexts];
+        [context MR_saveToPersistentStoreAndWait];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Failed to load tags: %@", operation.responseString);
     }];

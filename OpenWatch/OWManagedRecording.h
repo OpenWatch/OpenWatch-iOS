@@ -46,12 +46,3 @@
 - (NSDictionary*) locationDictionaryForLocation:(CLLocation*)location;
 
 @end
-
-@interface OWManagedRecording (CoreDataGeneratedAccessors)
-
-- (void)addTagsObject:(NSManagedObject *)value;
-- (void)removeTagsObject:(NSManagedObject *)value;
-- (void)addTags:(NSSet *)values;
-- (void)removeTags:(NSSet *)values;
-
-@end

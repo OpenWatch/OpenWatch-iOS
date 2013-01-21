@@ -140,7 +140,7 @@
             NSLog(@"Recording created: %@", recording.localRecordingPath);
         }
     }
-    [context MR_saveNestedContexts];
+    [context MR_saveToPersistentStoreAndWait];
 }
 
 @end

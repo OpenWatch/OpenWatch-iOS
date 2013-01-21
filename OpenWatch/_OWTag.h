@@ -2,12 +2,11 @@
 // Make changes to OWTag.h instead.
 
 #import <CoreData/CoreData.h>
-
+#import "OWServerObject.h"
 
 extern const struct OWTagAttributes {
 	__unsafe_unretained NSString *isFeatured;
 	__unsafe_unretained NSString *name;
-	__unsafe_unretained NSString *serverID;
 } OWTagAttributes;
 
 extern const struct OWTagRelationships {
@@ -24,11 +23,10 @@ extern const struct OWTagFetchedProperties {
 
 
 
-
 @interface OWTagID : NSManagedObjectID {}
 @end
 
-@interface _OWTag : NSManagedObject {}
+@interface _OWTag : OWServerObject {}
 + (id)insertInManagedObjectContext:(NSManagedObjectContext*)moc_;
 + (NSString*)entityName;
 + (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;
@@ -62,20 +60,6 @@ extern const struct OWTagFetchedProperties {
 
 
 
-@property (nonatomic, strong) NSNumber* serverID;
-
-
-
-@property int32_t serverIDValue;
-- (int32_t)serverIDValue;
-- (void)setServerIDValue:(int32_t)value_;
-
-//- (BOOL)validateServerID:(id*)value_ error:(NSError**)error_;
-
-
-
-
-
 @property (nonatomic, strong) NSSet *objects;
 
 - (NSMutableSet*)objectsSet;
@@ -83,9 +67,9 @@ extern const struct OWTagFetchedProperties {
 
 
 
-@property (nonatomic, strong) OWUser *users;
+@property (nonatomic, strong) NSSet *users;
 
-//- (BOOL)validateUsers:(id*)value_ error:(NSError**)error_;
+- (NSMutableSet*)usersSet;
 
 
 
@@ -99,6 +83,11 @@ extern const struct OWTagFetchedProperties {
 - (void)removeObjects:(NSSet*)value_;
 - (void)addObjectsObject:(OWMediaObject*)value_;
 - (void)removeObjectsObject:(OWMediaObject*)value_;
+
+- (void)addUsers:(NSSet*)value_;
+- (void)removeUsers:(NSSet*)value_;
+- (void)addUsersObject:(OWUser*)value_;
+- (void)removeUsersObject:(OWUser*)value_;
 
 @end
 
@@ -120,23 +109,14 @@ extern const struct OWTagFetchedProperties {
 
 
 
-- (NSNumber*)primitiveServerID;
-- (void)setPrimitiveServerID:(NSNumber*)value;
-
-- (int32_t)primitiveServerIDValue;
-- (void)setPrimitiveServerIDValue:(int32_t)value_;
-
-
-
-
 
 - (NSMutableSet*)primitiveObjects;
 - (void)setPrimitiveObjects:(NSMutableSet*)value;
 
 
 
-- (OWUser*)primitiveUsers;
-- (void)setPrimitiveUsers:(OWUser*)value;
+- (NSMutableSet*)primitiveUsers;
+- (void)setPrimitiveUsers:(NSMutableSet*)value;
 
 
 @end
