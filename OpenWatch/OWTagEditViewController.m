@@ -14,6 +14,7 @@
 #import "OWAutocompletionView.h"
 #import "OWUtilities.h"
 #import "OWSettingsController.h"
+#import "OWAccountAPIClient.h"
 
 @interface OWTagEditViewController ()
 @property (nonatomic, strong) UITableView *tagTableView;
@@ -144,14 +145,19 @@
     if (!tag) {
         tag = [OWTag MR_createEntity];
         tag.name = tagName;
-        OWUser *user = [[[OWSettingsController sharedInstance] account] user];
-        [user addTagsObject:tag];
     }
-    [context MR_saveToPersistentStoreWithCompletion:^(BOOL success, NSError *error) {
-        if (error) {
-            NSLog(@"Error saving to persistent store: %@", [error userInfo]);
-        }
-    }];
+    OWUser *user = [[[OWSettingsController sharedInstance] account] user];
+    if (![user.tags containsObject:tag]) {
+        [user addTagsObject:tag];
+        [context MR_saveToPersistentStoreWithCompletion:^(BOOL success, NSError *error) {
+            if (error) {
+                NSLog(@"Error saving to persistent store: %@", [error userInfo]);
+            } else {
+                [[OWAccountAPIClient sharedClient] postSubscribedTags];
+            }
+        }];
+    }
+    
     [self.tagsArray addObject:tag];
     NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES];
     [self.tagsArray sortUsingDescriptors:@[sortDescriptor]];

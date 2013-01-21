@@ -274,8 +274,29 @@
     return mediaObject;
 }
 
+- (void) postSubscribedTags {
+    OWAccount *account = [OWSettingsController sharedInstance].account;
+    if (!account.isLoggedIn) {
+        return;
+    }
+    NSSet *tags = account.user.tags;
+    NSMutableArray *tagsArray = [NSMutableArray arrayWithCapacity:tags.count];
+    for (OWTag *tag in tags) {
+        NSDictionary *tagDictionary = @{@"name" : [tag.name lowercaseString]};
+        [tagsArray addObject:tagDictionary];
+    }
+    NSDictionary *parameters = @{kTagsKey : tagsArray};
+    
+    [self postPath:kTagsPath parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"Tags updated on server");
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Failed to post tags: %@", operation.responseString);
 
-- (void) updateSubscribedTags {
+    }];
+}
+
+
+- (void) getSubscribedTags {
     OWAccount *account = [OWSettingsController sharedInstance].account;
     if (!account.isLoggedIn) {
         return;

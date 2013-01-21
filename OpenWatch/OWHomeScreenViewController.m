@@ -79,6 +79,8 @@
     [gridView addSubview:savedButtonView];
     [gridView addSubview:settingsButtonView];
     [self.view addSubview:gridView];
+    
+    [[OWAccountAPIClient sharedClient] getSubscribedTags];
 }
 
 
@@ -91,8 +93,6 @@
         [self presentViewController:loginNavController animated:YES completion:^{
             
         }];
-    } else {
-        [[OWAccountAPIClient sharedClient] updateSubscribedTags];
     }
 }
 

@@ -94,12 +94,12 @@
 - (NSArray*) allRecordings {
     OWSettingsController *settingsController = [OWSettingsController sharedInstance];
     OWUser *user = [settingsController.account user];
+    NSSet *objects = user.objects;
+    NSMutableArray *recordingsArray = [NSMutableArray arrayWithCapacity:objects.count];
     
-    NSMutableArray *recordingsArray = [NSMutableArray arrayWithCapacity:user.objects.count];
-    
-    for (OWLocalRecording *recording in user.objects) {
-        if ([recording isKindOfClass:[OWLocalRecording class]]) {
-            [recordingsArray addObject:recording.objectID];
+    for (OWMediaObject *object in user.objects) {
+        if ([object isKindOfClass:[OWManagedRecording class]]) {
+            [recordingsArray addObject:object.objectID];
         }
     }
     

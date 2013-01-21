@@ -19,7 +19,8 @@
 
 - (void) loginWithAccount:(OWAccount*)account success:(void (^)(void)) success failure:(void (^)(NSString *reason))failure;
 - (void) signupWithAccount:(OWAccount*)account success:(void (^)(void)) success failure:(void (^)(NSString *reason))failure;
-- (void) updateSubscribedTags;
+- (void) getSubscribedTags;
+- (void) postSubscribedTags;
 
 - (void) fetchRecordingsWithSuccessBlock:(void (^)(void)) success failure:(void (^)(NSString *reason))failure;
 - (void) postRecordingWithUUID:(NSString*)UUID success:(void (^)(void))success failure:(void (^)(NSString *reason))failure;
