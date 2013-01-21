@@ -17,6 +17,7 @@
 #import "OWStory.h"
 #import "OWStoryViewController.h"
 #import "OWMediaObjectViewController.h"
+#import "MBProgressHUD.h"
 
 @interface OWWatchViewController ()
 @end
@@ -51,22 +52,31 @@
     selectedFeedString = feedName;
     feedType = type;
     self.title = feedName;
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     
     if (feedType == kOWFeedTypeFeed) {
         [[OWAccountAPIClient sharedClient] fetchRecordingsForFeed:feedName page:0 success:^(NSArray *recordings) {
-            self.recordingsArray = [NSMutableArray arrayWithArray:recordings];
-            [self.recordingsTableView reloadData];
+            [self reloadFeed:recordings];
         } failure:^(NSString *reason) {
-            
+            [self failedToLoadFeed:reason];
         }];
     } else if (feedType == kOWFeedTypeTag) {
         [[OWAccountAPIClient sharedClient] fetchRecordingsForTag:feedName page:0 success:^(NSArray *recordings) {
-            self.recordingsArray = [NSMutableArray arrayWithArray:recordings];
-            [self.recordingsTableView reloadData];
+            [self reloadFeed:recordings];
         } failure:^(NSString *reason) {
-            
+            [self failedToLoadFeed:reason];
         }];
     }
+}
+
+- (void) reloadFeed:(NSArray*)recordings {
+    self.recordingsArray = [NSMutableArray arrayWithArray:recordings];
+    [self.recordingsTableView reloadData];
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
+}
+
+- (void) failedToLoadFeed:(NSString*)reason {
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
 }
 
 -(void)showPopOverListFor:(UIBarButtonItem*)buttonItem{
