@@ -21,7 +21,7 @@
 	url = git@github.com:OpenWatch/SuggestionsList.git
 [submodule "Submodules/ShareKit"]
 	path = Submodules/ShareKit
-	url = git@github.com:OpenWatch/ShareKit.git
+	url = git://github.com/ShareKit/ShareKit.git
 [submodule "Submodules/TestFlight"]
 	path = Submodules/TestFlight
 	url = git@github.com:OpenWatch/TestFlight-SDK.git
@@ -34,6 +34,3 @@
 [submodule "Submodules/Browser-View-Controller"]
 	path = Submodules/Browser-View-Controller
 	url = git@github.com:OpenWatch/Browser-View-Controller--iPhone-.git
-[submodule "Submodules/three20"]
-	path = Submodules/three20
-	url = git@github.com:OpenWatch/three20.git

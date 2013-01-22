@@ -114,7 +114,7 @@
     [self enqueueHTTPRequestOperation:operation];
 }
 
-- (void) fetchUserRecordingsWithSuccessBlock:(void (^)(void))success failure:(void (^)(NSString *))failure {
+- (void) fetchRecordingsWithSuccessBlock:(void (^)(void))success failure:(void (^)(NSString *))failure {
     [self getPath:kRecordingsKey parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"success: %@", [responseObject description]);
         NSArray *recordings = [responseObject objectForKey:kObjectsKey];
