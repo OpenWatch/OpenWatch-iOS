@@ -118,6 +118,7 @@
     [self getPath:kRecordingsKey parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"success: %@", [responseObject description]);
         NSArray *recordings = [responseObject objectForKey:kObjectsKey];
+        
         for (NSDictionary *recordingDict in recordings) {
             NSString *uuid = [recordingDict objectForKey:kUUIDKey];
             int serverID = [[recordingDict objectForKey:kIDKey] intValue];
@@ -250,16 +251,17 @@
 }
 
 - (OWMediaObject*) mediaObjectForShortMetadataDictionary:(NSDictionary*)dictionary {
-    NSNumber *serverID = [dictionary objectForKey:kIDKey];
     OWMediaObject *mediaObject = nil;
     NSString *type = [dictionary objectForKey:kTypeKey];
     NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
     if ([type isEqualToString:kVideoTypeKey]) {
-        mediaObject = [OWManagedRecording MR_findFirstByAttribute:@"serverID" withValue:serverID];
+        NSString *uuid = [dictionary objectForKey:kUUIDKey];
+        mediaObject = [OWManagedRecording MR_findFirstByAttribute:@"uuid" withValue:uuid];
         if (!mediaObject) {
             mediaObject = [OWManagedRecording MR_createEntity];
         }
     } else if ([type isEqualToString:kStoryTypeKey]) {
+        NSString *serverID = [dictionary objectForKey:kIDKey];
         mediaObject = [OWStory MR_findFirstByAttribute:@"serverID" withValue:serverID];
         if (!mediaObject) {
             mediaObject = [OWStory MR_createEntity];

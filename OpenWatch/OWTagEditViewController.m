@@ -42,6 +42,8 @@
         self.tagTextField = [[UITextField alloc] init];
         self.tagTextField.borderStyle = UITextBorderStyleRoundedRect;
         self.tagTextField.delegate = self;
+        self.tagTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
+        self.tagTextField.autocorrectionType = UITextAutocorrectionTypeNo;
         self.addTagButton = [UIButton buttonWithType:UIButtonTypeContactAdd];
         [addTagButton addTarget:self action:@selector(addTagButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         self.autocompletionView = [[OWAutocompletionView alloc] init];
