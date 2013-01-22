@@ -27,7 +27,7 @@
 	url = git@github.com:OpenWatch/TestFlight-SDK.git
 [submodule "Submodules/SDURLCache"]
 	path = Submodules/SDURLCache
-	url = git://github.com/rs/SDURLCache.git
+	url = git@github.com:OpenWatch/SDURLCache.git
 [submodule "Submodules/MWFeedParser"]
 	path = Submodules/MWFeedParser
 	url = git@github.com:OpenWatch/MWFeedParser.git
