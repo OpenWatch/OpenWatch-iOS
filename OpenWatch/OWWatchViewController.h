@@ -9,12 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "OWRecordingListViewController.h"
 #import "OWFeedSelectionViewController.h"
+#import "OWPaginatedTableViewController.h"
 
 
+@interface OWWatchViewController : OWPaginatedTableViewController <OWFeedSelectionDelegate>
 
-@interface OWWatchViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, OWFeedSelectionDelegate>
-
-@property (nonatomic, strong) UITableView *recordingsTableView;
 @property (nonatomic, strong) NSMutableArray *recordingsArray;
 @property (nonatomic, strong) OWFeedSelectionViewController *feedSelector;
 

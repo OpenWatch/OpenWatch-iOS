@@ -66,8 +66,10 @@
         return nil;
     }
     SDURLCache *urlCache = [[SDURLCache alloc] initWithMemoryCapacity:1024*1024   // 1MB mem cache
-                                                         diskCapacity:1024*1024*5 // 5MB disk cache
-                                                             diskPath:[SDURLCache defaultCachePath]];
+                                                         diskCapacity:1024*1024*15 // 15MB disk cache
+                                                             diskPath:[SDURLCache defaultCachePath]
+                                                   enableForIOS5AndUp:YES];
+    urlCache.ignoreMemoryOnlyStoragePolicy = YES;
     [NSURLCache setSharedURLCache:urlCache];
     [self registerHTTPOperationClass:[AFJSONRequestOperation class]];
     

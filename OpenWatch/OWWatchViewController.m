@@ -23,7 +23,6 @@
 @end
 
 @implementation OWWatchViewController
-@synthesize recordingsTableView;
 @synthesize recordingsArray;
 @synthesize feedSelector;
 @synthesize feedType;
@@ -33,13 +32,9 @@
 {
     self = [super init];
     if (self) {
-        self.recordingsTableView = [[UITableView alloc] init];
-        self.recordingsTableView.delegate = self;
-        self.recordingsTableView.dataSource = self;
-        self.recordingsTableView.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleWidth;
         self.recordingsArray = [NSMutableArray array];
         self.title = WATCH_STRING;
-        self.recordingsTableView.backgroundColor = [OWUtilities fabricBackgroundPattern];
+        self.tableView.backgroundColor = [OWUtilities fabricBackgroundPattern];
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"list.png"] style:UIBarButtonItemStylePlain target:self action:@selector(feedSelectionButtonPressed:)];
         self.feedSelector = [[OWFeedSelectionViewController alloc] init];
         feedSelector.delegate = self;
@@ -47,32 +42,46 @@
     return self;
 }
 
-- (void) didSelectFeedWithName:(NSString *)feedName type:(OWFeedType)type {
+- (void) didSelectFeedWithName:(NSString *)feedName type:(OWFeedType)type shouldShowHUD:(BOOL)shouldShowHUD pageNumber:(NSUInteger)pageNumber {
     [TestFlight passCheckpoint:VIEW_FEED_CHECKPOINT(feedName)];
     selectedFeedString = feedName;
     feedType = type;
     self.title = feedName;
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    if (shouldShowHUD) {
+        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    }
     
     if (feedType == kOWFeedTypeFeed) {
-        [[OWAccountAPIClient sharedClient] fetchRecordingsForFeed:feedName page:0 success:^(NSArray *recordings) {
+        [[OWAccountAPIClient sharedClient] fetchRecordingsForFeed:feedName page:pageNumber success:^(NSArray *recordings) {
             [self reloadFeed:recordings];
         } failure:^(NSString *reason) {
             [self failedToLoadFeed:reason];
         }];
     } else if (feedType == kOWFeedTypeTag) {
-        [[OWAccountAPIClient sharedClient] fetchRecordingsForTag:feedName page:0 success:^(NSArray *recordings) {
+        [[OWAccountAPIClient sharedClient] fetchRecordingsForTag:feedName page:pageNumber success:^(NSArray *recordings) {
             [self reloadFeed:recordings];
         } failure:^(NSString *reason) {
             [self failedToLoadFeed:reason];
         }];
     }
+
+}
+
+- (void) didSelectFeedWithName:(NSString *)feedName type:(OWFeedType)type {
+    [self didSelectFeedWithName:feedName type:type shouldShowHUD:YES pageNumber:0];
 }
 
 - (void) reloadFeed:(NSArray*)recordings {
     self.recordingsArray = [NSMutableArray arrayWithArray:recordings];
-    [self.recordingsTableView reloadData];
+    [self.tableView reloadData];
+    
+	[self doneLoadingTableViewData];
     [MBProgressHUD hideHUDForView:self.view animated:YES];
+}
+
+- (void) reloadTableViewDataSource {
+    [super reloadTableViewDataSource];
+    [self didSelectFeedWithName:selectedFeedString type:feedType shouldShowHUD:NO pageNumber:0];
 }
 
 - (void) failedToLoadFeed:(NSString*)reason {
@@ -86,7 +95,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self.view addSubview:recordingsTableView];
 	// Do any additional setup after loading the view.
 }
 
@@ -102,7 +110,6 @@
 
 - (void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    self.recordingsTableView.frame = self.view.frame;
     [TestFlight passCheckpoint:WATCH_CHECKPOINT];
 }
 

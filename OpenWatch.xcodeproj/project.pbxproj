@@ -28,6 +28,17 @@
 		D907023C1668353800611607 /* OWCaptureController.m in Sources */ = {isa = PBXBuildFile; fileRef = D907023B1668353800611607 /* OWCaptureController.m */; };
 		D920584E16812A46004C2F1A /* OWSHKConfigurator.m in Sources */ = {isa = PBXBuildFile; fileRef = D920584D16812A46004C2F1A /* OWSHKConfigurator.m */; };
 		D920585A16813643004C2F1A /* OWShareController.m in Sources */ = {isa = PBXBuildFile; fileRef = D920585916813643004C2F1A /* OWShareController.m */; };
+		D92B6A7316AF4FD3006605E1 /* EGORefreshTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = D92B6A6916AF4FD3006605E1 /* EGORefreshTableHeaderView.m */; };
+		D92B6A7416AF4FD3006605E1 /* blackArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = D92B6A6B16AF4FD3006605E1 /* blackArrow.png */; };
+		D92B6A7516AF4FD3006605E1 /* blackArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D92B6A6C16AF4FD3006605E1 /* blackArrow@2x.png */; };
+		D92B6A7616AF4FD3006605E1 /* blueArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = D92B6A6D16AF4FD3006605E1 /* blueArrow.png */; };
+		D92B6A7716AF4FD3006605E1 /* blueArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D92B6A6E16AF4FD3006605E1 /* blueArrow@2x.png */; };
+		D92B6A7816AF4FD3006605E1 /* grayArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = D92B6A6F16AF4FD3006605E1 /* grayArrow.png */; };
+		D92B6A7916AF4FD3006605E1 /* grayArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D92B6A7016AF4FD3006605E1 /* grayArrow@2x.png */; };
+		D92B6A7A16AF4FD3006605E1 /* whiteArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = D92B6A7116AF4FD3006605E1 /* whiteArrow.png */; };
+		D92B6A7B16AF4FD3006605E1 /* whiteArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D92B6A7216AF4FD3006605E1 /* whiteArrow@2x.png */; };
+		D92B6A7E16AF5209006605E1 /* OWPaginatedTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D92B6A7D16AF5209006605E1 /* OWPaginatedTableViewController.m */; };
+		D92B6A8016AF52B2006605E1 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D92B6A7F16AF52B2006605E1 /* QuartzCore.framework */; };
 		D92D29D71681257E00A9E408 /* ShareKit.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D966781F168124F2006F1815 /* ShareKit.bundle */; };
 		D92D29DB1681261C00A9E408 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D92D29DA1681261C00A9E408 /* MessageUI.framework */; };
 		D92D29DD1681262800A9E408 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D92D29DC1681262800A9E408 /* CFNetwork.framework */; };
@@ -528,6 +539,19 @@
 		D920584D16812A46004C2F1A /* OWSHKConfigurator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWSHKConfigurator.m; sourceTree = "<group>"; };
 		D920585816813643004C2F1A /* OWShareController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWShareController.h; sourceTree = "<group>"; };
 		D920585916813643004C2F1A /* OWShareController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWShareController.m; sourceTree = "<group>"; };
+		D92B6A6816AF4FD3006605E1 /* EGORefreshTableHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EGORefreshTableHeaderView.h; sourceTree = "<group>"; };
+		D92B6A6916AF4FD3006605E1 /* EGORefreshTableHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EGORefreshTableHeaderView.m; sourceTree = "<group>"; };
+		D92B6A6B16AF4FD3006605E1 /* blackArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blackArrow.png; sourceTree = "<group>"; };
+		D92B6A6C16AF4FD3006605E1 /* blackArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "blackArrow@2x.png"; sourceTree = "<group>"; };
+		D92B6A6D16AF4FD3006605E1 /* blueArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blueArrow.png; sourceTree = "<group>"; };
+		D92B6A6E16AF4FD3006605E1 /* blueArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "blueArrow@2x.png"; sourceTree = "<group>"; };
+		D92B6A6F16AF4FD3006605E1 /* grayArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grayArrow.png; sourceTree = "<group>"; };
+		D92B6A7016AF4FD3006605E1 /* grayArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "grayArrow@2x.png"; sourceTree = "<group>"; };
+		D92B6A7116AF4FD3006605E1 /* whiteArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = whiteArrow.png; sourceTree = "<group>"; };
+		D92B6A7216AF4FD3006605E1 /* whiteArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "whiteArrow@2x.png"; sourceTree = "<group>"; };
+		D92B6A7C16AF5209006605E1 /* OWPaginatedTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWPaginatedTableViewController.h; sourceTree = "<group>"; };
+		D92B6A7D16AF5209006605E1 /* OWPaginatedTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWPaginatedTableViewController.m; sourceTree = "<group>"; };
+		D92B6A7F16AF52B2006605E1 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		D92D29D81681260F00A9E408 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		D92D29DA1681261C00A9E408 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		D92D29DC1681262800A9E408 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
@@ -798,6 +822,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D92B6A8016AF52B2006605E1 /* QuartzCore.framework in Frameworks */,
 				D9C0333D16A4E22100B7CFC7 /* libSDURLCache.a in Frameworks */,
 				D9CEED19168271C700B236B5 /* libz.dylib in Frameworks */,
 				D92D29FB168128C500A9E408 /* libReachability.a in Frameworks */,
@@ -833,6 +858,48 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D92B6A6516AF4FD3006605E1 /* EGOTableViewPullRefresh */ = {
+			isa = PBXGroup;
+			children = (
+				D92B6A6616AF4FD3006605E1 /* Classes */,
+				D92B6A6A16AF4FD3006605E1 /* Resources */,
+			);
+			name = EGOTableViewPullRefresh;
+			path = EGOTableViewPullRefresh/EGOTableViewPullRefresh;
+			sourceTree = "<group>";
+		};
+		D92B6A6616AF4FD3006605E1 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				D92B6A6716AF4FD3006605E1 /* View */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		D92B6A6716AF4FD3006605E1 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				D92B6A6816AF4FD3006605E1 /* EGORefreshTableHeaderView.h */,
+				D92B6A6916AF4FD3006605E1 /* EGORefreshTableHeaderView.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		D92B6A6A16AF4FD3006605E1 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				D92B6A6B16AF4FD3006605E1 /* blackArrow.png */,
+				D92B6A6C16AF4FD3006605E1 /* blackArrow@2x.png */,
+				D92B6A6D16AF4FD3006605E1 /* blueArrow.png */,
+				D92B6A6E16AF4FD3006605E1 /* blueArrow@2x.png */,
+				D92B6A6F16AF4FD3006605E1 /* grayArrow.png */,
+				D92B6A7016AF4FD3006605E1 /* grayArrow@2x.png */,
+				D92B6A7116AF4FD3006605E1 /* whiteArrow.png */,
+				D92B6A7216AF4FD3006605E1 /* whiteArrow@2x.png */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		D96677ED168124F1006F1815 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -915,6 +982,7 @@
 		D99741661651D42E0034ABB0 = {
 			isa = PBXGroup;
 			children = (
+				D92B6A7F16AF52B2006605E1 /* QuartzCore.framework */,
 				D9DFADF716547DE7003C515C /* Media */,
 				D997417B1651D42F0034ABB0 /* OpenWatch */,
 				D9D2E1501652EA8A0000E7C5 /* Submodules */,
@@ -1017,6 +1085,7 @@
 		D9D2E1501652EA8A0000E7C5 /* Submodules */ = {
 			isa = PBXGroup;
 			children = (
+				D92B6A6516AF4FD3006605E1 /* EGOTableViewPullRefresh */,
 				D9E226FA16A5E33100F06C31 /* BrowserViewController */,
 				D9E226E916A5D9F500F06C31 /* MWFeedParser */,
 				D9C0332F16A4E1EC00B7CFC7 /* SDURLCache.xcodeproj */,
@@ -1145,6 +1214,8 @@
 		D9D2E21D16532B220000E7C5 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				D92B6A7C16AF5209006605E1 /* OWPaginatedTableViewController.h */,
+				D92B6A7D16AF5209006605E1 /* OWPaginatedTableViewController.m */,
 				D9E72E55167FB39A00C6CB75 /* OWWelcomeViewController.h */,
 				D9E72E56167FB39A00C6CB75 /* OWWelcomeViewController.m */,
 				D9D7870B1677EDB0006EE6A2 /* OWWatchViewController.h */,
@@ -1783,6 +1854,14 @@
 				D9E226F716A5E32A00F06C31 /* left@2x.png in Resources */,
 				D9E226F816A5E32A00F06C31 /* right.png in Resources */,
 				D9E226F916A5E32A00F06C31 /* right@2x.png in Resources */,
+				D92B6A7416AF4FD3006605E1 /* blackArrow.png in Resources */,
+				D92B6A7516AF4FD3006605E1 /* blackArrow@2x.png in Resources */,
+				D92B6A7616AF4FD3006605E1 /* blueArrow.png in Resources */,
+				D92B6A7716AF4FD3006605E1 /* blueArrow@2x.png in Resources */,
+				D92B6A7816AF4FD3006605E1 /* grayArrow.png in Resources */,
+				D92B6A7916AF4FD3006605E1 /* grayArrow@2x.png in Resources */,
+				D92B6A7A16AF4FD3006605E1 /* whiteArrow.png in Resources */,
+				D92B6A7B16AF4FD3006605E1 /* whiteArrow@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1906,6 +1985,8 @@
 				D9E226E816A5D9F200F06C31 /* NSString+HTML.m in Sources */,
 				D9E226EC16A5DABB00F06C31 /* GTMNSString+HTML.m in Sources */,
 				D9E226F416A5E32A00F06C31 /* BrowserViewController.m in Sources */,
+				D92B6A7316AF4FD3006605E1 /* EGORefreshTableHeaderView.m in Sources */,
+				D92B6A7E16AF5209006605E1 /* OWPaginatedTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
