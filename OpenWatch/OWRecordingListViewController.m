@@ -18,7 +18,7 @@
 @end
 
 @implementation OWRecordingListViewController
-@synthesize recordingsTableView, recordingController, recordingsArray;
+@synthesize recordingsTableView, recordingController, recordingsArray, currentPage, totalPages;
 
 - (id)init
 {
@@ -50,7 +50,7 @@
     [self refreshRecordings];
     [TestFlight passCheckpoint:VIEW_LOCAL_RECORDINGS];
     
-    [[OWAccountAPIClient sharedClient] fetchRecordingsWithSuccessBlock:^{
+    [[OWAccountAPIClient sharedClient] fetchUserRecordingsWithSuccessBlock:^{
         
     } failure:^(NSString *reason) {
         

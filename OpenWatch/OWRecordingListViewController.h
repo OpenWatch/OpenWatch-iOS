@@ -12,6 +12,9 @@
 
 @interface OWRecordingListViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
+@property (nonatomic) NSUInteger currentPage;
+@property (nonatomic) NSUInteger totalPages;
+
 @property (nonatomic, strong) UITableView *recordingsTableView;
 @property (nonatomic, strong) NSMutableArray *recordingsArray;
 @property (nonatomic, strong) OWRecordingController *recordingController;
