@@ -9,7 +9,6 @@
 #import "OWWatchViewController.h"
 #import "OWAccountAPIClient.h"
 #import "OWTag.h"
-#import "OWMediaObjectTableViewCell.h"
 #import "OWStrings.h"
 #import "OWUtilities.h"
 #import "WEPopoverController.h"
@@ -23,7 +22,6 @@
 @end
 
 @implementation OWWatchViewController
-@synthesize recordingsArray;
 @synthesize feedSelector;
 @synthesize feedType;
 @synthesize selectedFeedString;
@@ -32,7 +30,7 @@
 {
     self = [super init];
     if (self) {
-        self.recordingsArray = [NSMutableArray array];
+        self.objectIDs = [NSMutableArray array];
         self.title = WATCH_STRING;
         self.tableView.backgroundColor = [OWUtilities fabricBackgroundPattern];
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"list.png"] style:UIBarButtonItemStylePlain target:self action:@selector(feedSelectionButtonPressed:)];
@@ -43,6 +41,9 @@
 }
 
 - (void) didSelectFeedWithName:(NSString *)feedName type:(OWFeedType)type shouldShowHUD:(BOOL)shouldShowHUD pageNumber:(NSUInteger)pageNumber {
+    if (pageNumber <= 1) {
+        self.currentPage = 1;
+    }
     [TestFlight passCheckpoint:VIEW_FEED_CHECKPOINT(feedName)];
     selectedFeedString = feedName;
     feedType = type;
@@ -52,13 +53,15 @@
     }
     
     if (feedType == kOWFeedTypeFeed) {
-        [[OWAccountAPIClient sharedClient] fetchRecordingsForFeed:feedName page:pageNumber success:^(NSArray *recordings) {
+        [[OWAccountAPIClient sharedClient] fetchRecordingsForFeed:feedName page:pageNumber success:^(NSArray *recordings, NSUInteger totalPages) {
+            self.totalPages = totalPages;
             [self reloadFeed:recordings];
         } failure:^(NSString *reason) {
             [self failedToLoadFeed:reason];
         }];
     } else if (feedType == kOWFeedTypeTag) {
-        [[OWAccountAPIClient sharedClient] fetchRecordingsForTag:feedName page:pageNumber success:^(NSArray *recordings) {
+        [[OWAccountAPIClient sharedClient] fetchRecordingsForTag:feedName page:pageNumber success:^(NSArray *recordings, NSUInteger totalPages) {
+            self.totalPages = totalPages;
             [self reloadFeed:recordings];
         } failure:^(NSString *reason) {
             [self failedToLoadFeed:reason];
@@ -68,11 +71,15 @@
 }
 
 - (void) didSelectFeedWithName:(NSString *)feedName type:(OWFeedType)type {
-    [self didSelectFeedWithName:feedName type:type shouldShowHUD:YES pageNumber:0];
+    [self didSelectFeedWithName:feedName type:type shouldShowHUD:YES pageNumber:1];
+}
+
+- (void) fetchObjectsForPageNumber:(NSUInteger)pageNumber {
+    [self didSelectFeedWithName:selectedFeedString type:feedType shouldShowHUD:NO pageNumber:pageNumber];
 }
 
 - (void) reloadFeed:(NSArray*)recordings {
-    self.recordingsArray = [NSMutableArray arrayWithArray:recordings];
+    self.objectIDs = [NSMutableArray arrayWithArray:recordings];
     [self.tableView reloadData];
     
 	[self doneLoadingTableViewData];
@@ -81,7 +88,7 @@
 
 - (void) reloadTableViewDataSource {
     [super reloadTableViewDataSource];
-    [self didSelectFeedWithName:selectedFeedString type:feedType shouldShowHUD:NO pageNumber:0];
+    [self didSelectFeedWithName:selectedFeedString type:feedType shouldShowHUD:NO pageNumber:1];
 }
 
 - (void) failedToLoadFeed:(NSString*)reason {
@@ -114,27 +121,12 @@
 }
 
 
-- (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return recordingsArray.count;
-}
-
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 147.0f;
 }
 
-- (UITableViewCell*) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString *cellIdentifier = @"MediaObjectCellIdentifier";
-    OWMediaObjectTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    if (!cell) {
-        cell = [[OWMediaObjectTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier];
-    }
-    NSManagedObjectID *recordingObjectID = [self.recordingsArray objectAtIndex:indexPath.row];
-    cell.mediaObjectID = recordingObjectID;
-    return cell;
-}
-
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSManagedObjectID *mediaObjectID = [self.recordingsArray objectAtIndex:indexPath.row];
+    NSManagedObjectID *mediaObjectID = [self.objectIDs objectAtIndex:indexPath.row];
     NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
     OWMediaObject *mediaObject = (OWMediaObject*)[context objectWithID:mediaObjectID];
     OWMediaObjectViewController *vc = nil;

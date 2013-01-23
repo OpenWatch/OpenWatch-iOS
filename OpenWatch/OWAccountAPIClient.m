@@ -43,6 +43,8 @@
 #define kUUIDKey @"uuid"
 
 #define kObjectsKey @"objects"
+#define kMetaKey @"meta"
+#define kPageCountKey @"page_count"
 
 @implementation OWAccountAPIClient
 
@@ -116,7 +118,7 @@
     [self enqueueHTTPRequestOperation:operation];
 }
 
-- (void) fetchRecordingsWithSuccessBlock:(void (^)(void))success failure:(void (^)(NSString *))failure {
+- (void) fetchUserRecordingsWithSuccessBlock:(void (^)(void))success failure:(void (^)(NSString *))failure {
     [self getPath:kRecordingsKey parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"success: %@", [responseObject description]);
         NSArray *recordings = [responseObject objectForKey:kObjectsKey];
@@ -218,21 +220,25 @@
     return [kFeedPath stringByAppendingFormat:@"%@/%d/", feedName, page];
 }
 
-- (void) fetchRecordingsForTag:(NSString *)tagName page:(NSUInteger)page success:(void (^)(NSArray *recordings))success failure:(void (^)(NSString *))failure {
+- (void) fetchRecordingsForTag:(NSString *)tagName page:(NSUInteger)page success:(void (^)(NSArray *recordings, NSUInteger totalPages))success failure:(void (^)(NSString *))failure {
 
     [self getPath:[self pathForTagFeed:tagName page:page] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSArray *recordings = [self objectIDsFromMediaObjectsMetadataArray:[responseObject objectForKey:kObjectsKey]];
-        success(recordings);
+        NSDictionary *meta = [responseObject objectForKey:kMetaKey];
+        NSUInteger pageCount = [[meta objectForKey:kPageCountKey] unsignedIntegerValue];
+        success(recordings, pageCount);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"failure: %@", [error userInfo]);
         failure(@"fart");
     }];
 }
 
-- (void) fetchRecordingsForFeed:(NSString *)feed page:(NSUInteger)page success:(void (^)(NSArray *))success failure:(void (^)(NSString *))failure {
+- (void) fetchRecordingsForFeed:(NSString *)feed page:(NSUInteger)page success:(void (^)(NSArray *recordings, NSUInteger totalPages))success failure:(void (^)(NSString *))failure {
     [self getPath:[self pathForFeed:feed page:page] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSArray *recordings = [self objectIDsFromMediaObjectsMetadataArray:[responseObject objectForKey:kObjectsKey]];
-        success(recordings);
+        NSDictionary *meta = [responseObject objectForKey:kMetaKey];
+        NSUInteger pageCount = [[meta objectForKey:kPageCountKey] unsignedIntegerValue];
+        success(recordings, pageCount);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"failure: %@", [error userInfo]);
         failure(@"fart");

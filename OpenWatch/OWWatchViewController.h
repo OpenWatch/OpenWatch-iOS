@@ -14,7 +14,6 @@
 
 @interface OWWatchViewController : OWPaginatedTableViewController <OWFeedSelectionDelegate>
 
-@property (nonatomic, strong) NSMutableArray *recordingsArray;
 @property (nonatomic, strong) OWFeedSelectionViewController *feedSelector;
 
 @end

@@ -7,6 +7,9 @@
 //
 
 #import "OWPaginatedTableViewController.h"
+#import "OWMediaObjectTableViewCell.h"
+
+#define kLoadingCellTag 31415
 
 @interface OWPaginatedTableViewController ()
 
@@ -15,12 +18,15 @@
 @implementation OWPaginatedTableViewController
 @synthesize refreshHeaderView = _refreshHeaderView;
 @synthesize isReloading;
+@synthesize currentPage;
+@synthesize totalPages;
+@synthesize objectIDs;
 
 - (id)init
 {
     self = [super init];
     if (self) {
-        // Custom initialization
+        currentPage = 0;
     }
     return self;
 }
@@ -79,6 +85,67 @@
 - (NSDate*)egoRefreshTableHeaderDataSourceLastUpdated:(EGORefreshTableHeaderView*)view{
 	return [NSDate date];
 }
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    if (currentPage == 0) {
+        return 0;
+    }
+    
+    if (currentPage == totalPages) {
+        return self.objectIDs.count;
+    }
+    return self.objectIDs.count + 1;
+}
+
+- (UITableViewCell *)mediaObjectCellForIndexPath:(NSIndexPath *)indexPath {
+    static NSString *cellIdentifier = @"MediaObjectCellIdentifier";
+    OWMediaObjectTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    if (!cell) {
+        cell = [[OWMediaObjectTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier];
+    }
+    NSManagedObjectID *recordingObjectID = [self.objectIDs objectAtIndex:indexPath.row];
+    cell.mediaObjectID = recordingObjectID;
+    return cell;
+    
+    return cell;
+}
+
+- (UITableViewCell *)loadingCell {
+    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                                    reuseIdentifier:nil];
+    
+    UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc]
+                                                  initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    activityIndicator.center = cell.center;
+    [cell addSubview:activityIndicator];
+    
+    [activityIndicator startAnimating];
+    
+    cell.tag = kLoadingCellTag;
+    
+    return cell;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row < self.objectIDs.count) {
+        return [self mediaObjectCellForIndexPath:indexPath];
+    } else {
+        return [self loadingCell];
+    }
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (cell.tag == kLoadingCellTag && currentPage <= totalPages) {
+        currentPage++;
+        [self fetchObjectsForPageNumber:currentPage];
+    }
+}
+
+- (void) fetchObjectsForPageNumber:(NSUInteger)pageNumber {}
 
 
 @end

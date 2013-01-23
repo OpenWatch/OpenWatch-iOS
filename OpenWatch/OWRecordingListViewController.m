@@ -50,7 +50,7 @@
     [self refreshRecordings];
     [TestFlight passCheckpoint:VIEW_LOCAL_RECORDINGS];
     
-    [[OWAccountAPIClient sharedClient] fetchRecordingsWithSuccessBlock:^{
+    [[OWAccountAPIClient sharedClient] fetchUserRecordingsWithSuccessBlock:^{
         
     } failure:^(NSString *reason) {
         
