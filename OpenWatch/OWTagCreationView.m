@@ -43,7 +43,16 @@
 
 - (void) sendTagNamesToDelegate {
     if (delegate) {
-        [self.delegate tagCreationView:self didSelectTags:@[textField.text]];
+        NSCharacterSet *characterSet = [NSCharacterSet characterSetWithCharactersInString:@", "];
+        NSArray *components = [textField.text componentsSeparatedByCharactersInSet:characterSet];
+        NSMutableArray *tagNames = [NSMutableArray arrayWithCapacity:components.count];
+        for (NSString *component in components) {
+            if (component.length > 0) {
+                [tagNames addObject:[component lowercaseString]];
+            }
+        }
+        [self.delegate tagCreationView:self didSelectTags:tagNames];
+        self.textField.text = @"";
     }
 }
 
