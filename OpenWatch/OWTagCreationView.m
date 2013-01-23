@@ -37,11 +37,11 @@
 
 - (BOOL) textFieldShouldReturn:(UITextField *)_textField {
     [self sendTagNamesToDelegate];
-    [_textField resignFirstResponder];
     return YES;
 }
 
 - (void) sendTagNamesToDelegate {
+    [textField resignFirstResponder];
     if (delegate) {
         NSCharacterSet *characterSet = [NSCharacterSet characterSetWithCharactersInString:@", "];
         NSArray *components = [textField.text componentsSeparatedByCharactersInSet:characterSet];

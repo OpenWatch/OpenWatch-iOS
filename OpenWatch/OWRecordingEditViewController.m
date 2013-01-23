@@ -121,10 +121,16 @@
     self.tagCreationView.frame = CGRectMake(padding, [OWUtilities bottomOfView:descriptionTextField] + padding, itemWidth, itemHeight);
     self.tagList.frame = CGRectMake(padding, [OWUtilities bottomOfView:tagCreationView] + padding, itemWidth, itemHeight);
     [self.tagList display];
+    [self refreshTaglistFrame];
     contentHeight = [OWUtilities bottomOfView:self.tagList] + padding*3;
-    
     self.scrollView.contentSize = CGSizeMake(self.view.frame.size.width, contentHeight);
     self.scrollView.frame = self.view.bounds;
+}
+
+- (void) refreshTaglistFrame {
+    CGRect tagListFrame = self.tagList.frame;
+    tagListFrame.size.height = self.tagList.fittedSize.height;
+    self.tagList.frame = tagListFrame;
 }
 
 - (void) setRecordingID:(NSManagedObjectID *)newRecordingID {
@@ -255,6 +261,7 @@
     NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"description" ascending:YES];
     NSArray *sortedArray = [mutableTagNamesSet sortedArrayUsingDescriptors:@[sortDescriptor]];
     [tagList setTags:sortedArray];
+    [self refreshTaglistFrame];
 }
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
