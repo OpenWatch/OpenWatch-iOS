@@ -274,6 +274,8 @@
         if (!mediaObject) {
             mediaObject = [OWStory MR_createEntity];
         }
+    } else {
+        return nil;
     }
     NSError *error = nil;
     [context obtainPermanentIDsForObjects:@[mediaObject] error:&error];
