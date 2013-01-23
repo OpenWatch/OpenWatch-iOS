@@ -173,7 +173,6 @@
     [tagList setTags:tagNameArray];
 }
 
-
 - (UITextField*)textFieldWithDefaults {
     UITextField *textField = [[UITextField alloc] init];
     textField.delegate = self;
@@ -248,9 +247,14 @@
 }
 
 - (void) tagCreationView:(OWTagCreationView*)tagCreationView didSelectTags:(NSArray*)tagListArray {
-    for (NSString *tag in tagListArray) {
-        NSLog(@"selected tag: %@", tag);
+    NSMutableSet *mutableTagNamesSet = [NSMutableSet setWithArray:tagList.textArray];
+    for (NSString *tagName in tagListArray) {
+        [mutableTagNamesSet addObject:tagName];
+        NSLog(@"added tag: %@", tagName);
     }
+    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"description" ascending:YES];
+    NSArray *sortedArray = [mutableTagNamesSet sortedArrayUsingDescriptors:@[sortDescriptor]];
+    [tagList setTags:sortedArray];
 }
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
