@@ -18,6 +18,8 @@
 #import "OWMediaObjectViewController.h"
 #import "MBProgressHUD.h"
 
+#define kFirstPage 1
+
 @interface OWWatchViewController ()
 @end
 
@@ -41,8 +43,8 @@
 }
 
 - (void) didSelectFeedWithName:(NSString *)feedName type:(OWFeedType)type shouldShowHUD:(BOOL)shouldShowHUD pageNumber:(NSUInteger)pageNumber {
-    if (pageNumber <= 1) {
-        self.currentPage = 1;
+    if (pageNumber <= kFirstPage) {
+        self.currentPage = kFirstPage;
     }
     [TestFlight passCheckpoint:VIEW_FEED_CHECKPOINT(feedName)];
     selectedFeedString = feedName;
@@ -55,15 +57,23 @@
     if (feedType == kOWFeedTypeFeed) {
         [[OWAccountAPIClient sharedClient] fetchRecordingsForFeed:feedName page:pageNumber success:^(NSArray *recordings, NSUInteger totalPages) {
             self.totalPages = totalPages;
-            [self reloadFeed:recordings];
+            BOOL shouldReplaceObjects = NO;
+            if (self.currentPage == kFirstPage) {
+                shouldReplaceObjects = YES;
+            }
+            [self reloadFeed:recordings replaceObjects:shouldReplaceObjects];
+
         } failure:^(NSString *reason) {
             [self failedToLoadFeed:reason];
         }];
     } else if (feedType == kOWFeedTypeTag) {
         [[OWAccountAPIClient sharedClient] fetchRecordingsForTag:feedName page:pageNumber success:^(NSArray *recordings, NSUInteger totalPages) {
             self.totalPages = totalPages;
-            [self reloadFeed:recordings];
-        } failure:^(NSString *reason) {
+            BOOL shouldReplaceObjects = NO;
+            if (self.currentPage == kFirstPage) {
+                shouldReplaceObjects = YES;
+            }
+            [self reloadFeed:recordings replaceObjects:shouldReplaceObjects];        } failure:^(NSString *reason) {
             [self failedToLoadFeed:reason];
         }];
     }
@@ -78,8 +88,12 @@
     [self didSelectFeedWithName:selectedFeedString type:feedType shouldShowHUD:NO pageNumber:pageNumber];
 }
 
-- (void) reloadFeed:(NSArray*)recordings {
-    self.objectIDs = [NSMutableArray arrayWithArray:recordings];
+- (void) reloadFeed:(NSArray*)recordings replaceObjects:(BOOL)replaceObjects {
+    if (replaceObjects) {
+        self.objectIDs = [NSMutableArray arrayWithArray:recordings];
+    } else {
+        [self.objectIDs addObjectsFromArray:recordings];
+    }
     [self.tableView reloadData];
     
 	[self doneLoadingTableViewData];
