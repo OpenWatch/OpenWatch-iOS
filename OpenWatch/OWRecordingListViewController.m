@@ -65,7 +65,7 @@
 - (void) refreshRecordings {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [self.recordingController scanDirectoryForChanges];
-        self.recordingsArray = [NSMutableArray arrayWithArray:[recordingController allRecordings]];
+        self.recordingsArray = [NSMutableArray arrayWithArray:[recordingController allLocalRecordings]];
         [self.recordingsArray sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
             OWLocalRecording *rec1 = [OWRecordingController recordingForObjectID:obj1];
             OWLocalRecording *rec2 = [OWRecordingController recordingForObjectID:obj2];
@@ -140,7 +140,8 @@
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSManagedObjectID *recordingID = [recordingsArray objectAtIndex:indexPath.row];
-    OWLocalRecording *recording = [OWRecordingController recordingForObjectID:recordingID];    if (![recording isKindOfClass:[OWLocalRecording class]]) {
+    OWLocalRecording *recording = [OWRecordingController recordingForObjectID:recordingID];
+    if (![recording isKindOfClass:[OWLocalRecording class]]) {
         return;
     }
     OWRecordingEditViewController *recordingEditVC = [[OWRecordingEditViewController alloc] init];

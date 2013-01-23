@@ -22,6 +22,10 @@
     return [UIColor colorWithRed:0.0f green:0.8f blue:0.0f alpha:1.0f];
 }
 
++ (UIColor*) textFieldTextColor {
+    return [UIColor colorWithRed:0.22 green:0.33 blue:0.53 alpha:1.0];
+}
+
 + (NSDateFormatter*) utcDateFormatter {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     dateFormatter.dateFormat = @"yyyy-MM-dd' 'HH:mm:ss";

@@ -85,9 +85,8 @@
     // Dispose of any resources that can be recreated.
 }
 
-
 - (UIColor*) textFieldTextColor {
-    return [UIColor colorWithRed:0.22 green:0.33 blue:0.53 alpha:1.0];
+    return [OWUtilities textFieldTextColor];
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

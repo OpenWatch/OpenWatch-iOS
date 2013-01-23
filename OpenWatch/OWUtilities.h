@@ -16,6 +16,7 @@
 + (UIColor*) navigationBarColor;
 + (UIColor*) doneButtonColor;
 + (UIColor*) greyColorWithGreyness:(CGFloat)greyness;
++ (UIColor*) textFieldTextColor;
 
 + (void) styleLabel:(UILabel*) label;
 

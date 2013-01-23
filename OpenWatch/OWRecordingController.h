@@ -14,7 +14,8 @@
 
 + (OWRecordingController *)sharedInstance;
 
-- (NSArray*) allRecordings;
+- (NSArray*) allManagedRecordings;
+- (NSArray*) allLocalRecordings;
 
 - (void) removeRecording:(NSManagedObjectID*)recordingID;
 

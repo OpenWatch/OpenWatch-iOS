@@ -37,3 +37,6 @@
 [submodule "Submodules/EGOTableViewPullRefresh"]
 	path = Submodules/EGOTableViewPullRefresh
 	url = git@github.com:OpenWatch/EGOTableViewPullRefresh.git
+[submodule "Submodules/DWTagList"]
+	path = Submodules/DWTagList
+	url = git@github.com:OpenWatch/DWTagList.git

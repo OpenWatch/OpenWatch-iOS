@@ -37,7 +37,7 @@
 }
 
 - (void) scanRecordingsForUnsubmittedData {
-    for (NSManagedObjectID *objectID in [self allRecordings]) {
+    for (NSManagedObjectID *objectID in [self allLocalRecordings]) {
         OWLocalRecording *recording = [OWRecordingController recordingForObjectID:objectID];
         if (![recording isKindOfClass:[OWLocalRecording class]]){
             continue;
@@ -91,19 +91,34 @@
     [recording MR_deleteEntity];
 }
 
-- (NSArray*) allRecordings {
-    OWSettingsController *settingsController = [OWSettingsController sharedInstance];
-    OWUser *user = [settingsController.account user];
+- (NSArray*) allMediaObjectsForUser:(OWUser*)user {
     NSSet *objects = user.objects;
+    return [objects allObjects];
+
+}
+
+- (NSArray*) mediaObjectsForClass:(Class)class {
+    OWSettingsController *settingsController = [OWSettingsController sharedInstance];
+    
+    OWUser *user = [settingsController.account user];
+    NSArray *objects = [self allMediaObjectsForUser:user];
+    
     NSMutableArray *recordingsArray = [NSMutableArray arrayWithCapacity:objects.count];
     
     for (OWMediaObject *object in user.objects) {
-        if ([object isKindOfClass:[OWManagedRecording class]]) {
+        if ([object isKindOfClass:class]) {
             [recordingsArray addObject:object.objectID];
         }
     }
-    
     return recordingsArray;
+}
+
+- (NSArray*) allManagedRecordings {
+    return [self mediaObjectsForClass:[OWManagedRecording class]];
+}
+
+- (NSArray*) allLocalRecordings {
+    return [self mediaObjectsForClass:[OWLocalRecording class]];
 }
 
 - (void) scanDirectoryForChanges {
@@ -119,7 +134,7 @@
         error = nil;
     }
     
-    NSArray *currentRecordings = [self allRecordings];
+    NSArray *currentRecordings = [self allLocalRecordings];
     
     for (NSManagedObjectID *recordingID in currentRecordings) {
         OWLocalRecording *recording = [OWRecordingController recordingForObjectID:recordingID];
