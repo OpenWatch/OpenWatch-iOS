@@ -10,6 +10,7 @@
 #import "OWMediaObjectTableViewCell.h"
 #import "MBProgressHUD.h"
 #import "OWUtilities.h"
+#import "OWAppDelegate.h"
 
 #define kLoadingCellTag 31415
 
@@ -23,17 +24,11 @@
 @synthesize currentPage;
 @synthesize totalPages;
 @synthesize objectIDs;
-@synthesize tableView;
 
 - (id)init
 {
     self = [super init];
     if (self) {
-        self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
-        self.tableView.dataSource = self;
-        self.tableView.delegate = self;
-        self.tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleRightMargin;
-        [self.view addSubview:tableView];
         self.tableView.backgroundColor = [OWUtilities fabricBackgroundPattern];
         currentPage = 0;
     }
@@ -62,7 +57,7 @@
 }
 
 - (void)doneLoadingTableViewData {
-    [MBProgressHUD hideHUDForView:self.view animated:YES];
+    [MBProgressHUD hideHUDForView:OW_APP_DELEGATE.window animated:YES];
     isReloading = NO;
 	[_refreshHeaderView egoRefreshScrollViewDataSourceDidFinishedLoading:self.tableView];
 }
@@ -171,11 +166,11 @@
     [self.tableView reloadData];
     
 	[self doneLoadingTableViewData];
-    [MBProgressHUD hideHUDForView:self.view animated:YES];
+    [MBProgressHUD hideHUDForView:OW_APP_DELEGATE.window animated:YES];
 }
 
 - (void) failedToLoadFeed:(NSString*)reason {
-    [MBProgressHUD hideHUDForView:self.view animated:YES];
+    [MBProgressHUD hideHUDForView:OW_APP_DELEGATE.window animated:YES];
 }
 
 - (void) fetchObjectsForPageNumber:(NSUInteger)pageNumber {}

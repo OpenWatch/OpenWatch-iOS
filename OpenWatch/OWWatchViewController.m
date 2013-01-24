@@ -17,6 +17,7 @@
 #import "OWStoryViewController.h"
 #import "OWMediaObjectViewController.h"
 #import "MBProgressHUD.h"
+#import "OWAppDelegate.h"
 
 
 @interface OWWatchViewController ()
@@ -49,7 +50,7 @@
     feedType = type;
     self.title = feedName;
     if (shouldShowHUD) {
-        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        [MBProgressHUD showHUDAddedTo:OW_APP_DELEGATE.window animated:YES];
     }
     
     if (feedType == kOWFeedTypeFeed) {

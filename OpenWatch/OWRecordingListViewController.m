@@ -68,7 +68,7 @@
         self.currentPage = kFirstPage;
     }
     if (shouldShowHUD) {
-        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        [MBProgressHUD showHUDAddedTo:OW_APP_DELEGATE.window animated:YES];
     }
     [[OWAccountAPIClient sharedClient] fetchUserRecordingsOnPage:pageNumber success:^(NSArray *recordingObjectIDs, NSUInteger totalPages) {
         self.totalPages = totalPages;
@@ -78,7 +78,7 @@
         }
         [self reloadFeed:recordingObjectIDs replaceObjects:shouldReplaceObjects];
     } failure:^(NSString *reason) {
-        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [MBProgressHUD hideHUDForView:OW_APP_DELEGATE.window animated:YES];
         [self loadOfflineRecordings];
     }];
 }

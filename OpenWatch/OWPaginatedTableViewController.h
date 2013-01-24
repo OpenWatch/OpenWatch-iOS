@@ -11,9 +11,8 @@
 
 #define kFirstPage 1
 
-@interface OWPaginatedTableViewController : UIViewController  <EGORefreshTableHeaderDelegate, UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate>
+@interface OWPaginatedTableViewController : UITableViewController  <EGORefreshTableHeaderDelegate, UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate>
 
-@property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic) NSUInteger currentPage;
 @property (nonatomic) NSUInteger totalPages;
 @property (nonatomic) BOOL isReloading;
