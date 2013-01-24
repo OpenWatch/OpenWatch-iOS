@@ -28,6 +28,10 @@
 @synthesize infoView, descriptionTextView, profileImageView, tallyView;
 @synthesize usernameLabel;
 
+- (void) dealloc {
+    self.moviePlayer = nil;
+}
+
 - (id) init {
     if (self = [super init]) {
         [self setupScrollView];
@@ -88,7 +92,7 @@
 - (void) setupSegmentedControl {
     self.segmentedControl = [[UISegmentedControl alloc] initWithItems:@[INFO_STRING, DESCRIPTION_STRING, MAP_STRING]];
     self.segmentedControl.selectedSegmentIndex = 0;
-    //segmentedControl.segmentedControlStyle = 7;
+    segmentedControl.segmentedControlStyle = 7;
     [self.view addSubview:segmentedControl];
     [segmentedControl addTarget:self action:@selector(segmentedControlValueChanged:) forControlEvents:UIControlEventValueChanged];
 }
@@ -121,8 +125,6 @@
 }
 
 
-
-
 - (MKAnnotationView*) mapView:(MKMapView *)theMapView viewForAnnotation:(id<MKAnnotation>)annotation {
     static NSString *pinReuseIdentifier = @"pinReuseIdentifier";
     OWMapAnnotation *mapAnnotation = (OWMapAnnotation*)annotation;
@@ -138,9 +140,11 @@
     return pinView;
 }
 
+
+
 - (void) refreshFrames {
     CGFloat moviePlayerYOrigin = 0.0f;
-    CGFloat moviePlayerHeight = 180.0f;
+    CGFloat moviePlayerHeight = 240.0f;
     CGFloat frameWidth = self.view.frame.size.width;
     CGFloat frameHeight = self.view.frame.size.height;
     moviePlayer.view.frame = CGRectMake(0, moviePlayerYOrigin, frameWidth, moviePlayerHeight);
@@ -157,10 +161,11 @@
 }
 
 - (void) setFramesForInfoView {
-    self.profileImageView.frame = CGRectMake(30, 30, 100, 100);
-    self.usernameLabel.frame = CGRectMake(30, [OWUtilities bottomOfView:profileImageView], 100, 40);
+    CGFloat topMargin = 10.0f;
+    self.profileImageView.frame = CGRectMake(30, topMargin, 100, 100);
+    self.usernameLabel.frame = CGRectMake(30, [OWUtilities bottomOfView:profileImageView], 100, 20);
     
-    self.titleLabel.frame = CGRectMake([OWUtilities rightOfView:profileImageView] + PADDING, 50, 100, 50);
+    self.titleLabel.frame = CGRectMake([OWUtilities rightOfView:profileImageView] + PADDING, topMargin + 10, 100, 50);
     self.tallyView.frame = CGRectMake([OWUtilities rightOfView:profileImageView] + PADDING, [OWUtilities bottomOfView:titleLabel], self.tallyView.frame.size.width, self.tallyView.frame.size.height);
 }
 
@@ -191,6 +196,7 @@
     OWManagedRecording *recording = [OWRecordingController recordingForObjectID:self.mediaObjectID];
     
     if (recording.remoteVideoURL) {
+        [self.moviePlayer setMovieSourceType:MPMovieSourceTypeStreaming]; // for streaming
         self.moviePlayer.contentURL = [NSURL URLWithString:recording.remoteVideoURL];
         [moviePlayer prepareToPlay];
     }
@@ -213,7 +219,7 @@
 
 
 - (void) refreshMapParameters {
-    OWLocalRecording *recording = [OWRecordingController localRecordingForObjectID:self.mediaObjectID];
+    OWManagedRecording *recording = [OWRecordingController recordingForObjectID:self.mediaObjectID];
     double lat = 0.0f;
     double lon = 0.0f;
     CLLocation *start = recording.startLocation;
