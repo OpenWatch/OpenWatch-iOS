@@ -33,6 +33,7 @@
 
 - (id) init {
     if (self = [super init]) {
+        self.title = EDIT_STRING;
         [self setupScrollView];
         [self setupFields];
         [self setupWhatHappenedLabel];
