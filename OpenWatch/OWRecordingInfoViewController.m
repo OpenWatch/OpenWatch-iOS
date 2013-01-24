@@ -12,7 +12,6 @@
 #import "OWAccountAPIClient.h"
 #import "OWMapAnnotation.h"
 #import "OWRecordingController.h"
-#import "OWTagEditViewController.h"
 #import "OWUtilities.h"
 #import "OWTallyView.h"
 #import "UIImageView+AFNetworking.h"

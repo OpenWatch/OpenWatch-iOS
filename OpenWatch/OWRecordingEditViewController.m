@@ -12,7 +12,6 @@
 #import "OWAccountAPIClient.h"
 #import "OWMapAnnotation.h"
 #import "OWRecordingController.h"
-#import "OWTagEditViewController.h"
 #import "OWUtilities.h"
 #import "OWAppDelegate.h"
 #import "OWShareController.h"
@@ -219,19 +218,6 @@
     }];
     [self.navigationController popViewControllerAnimated:YES];
 }
-
-
-- (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.row == TAGS_ROW) {
-        OWTagEditViewController *tagEditor = [[OWTagEditViewController alloc] init];
-        tagEditor.recordingObjectID = self.recordingID;
-        tagEditor.isLocalRecording = YES;
-        [self.navigationController pushViewController:tagEditor animated:YES];
-    }
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-}
-
-
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
 {
