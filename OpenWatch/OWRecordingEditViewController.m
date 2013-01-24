@@ -156,14 +156,8 @@
     } else {
         self.descriptionTextField.text = @"";
     }
-    NSSet *tagSet = recording.user.tags;
-    NSMutableArray *tagNameArray = [[NSMutableArray alloc] initWithCapacity:tagSet.count];
-    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES];
-    NSArray *tagObjectArray = [tagSet sortedArrayUsingDescriptors:@[sortDescriptor]];
-    for (OWTag *tag in tagObjectArray) {
-        [tagNameArray addObject:tag.name];
-    }
-    tagEditView.tagNamesArray = tagNameArray;
+    NSSet *tagSet = recording.tags;
+    tagEditView.tags = tagSet;
 }
 
 - (UITextField*)textFieldWithDefaults {
@@ -211,6 +205,7 @@
     OWLocalRecording *recording = [OWRecordingController recordingForObjectID:self.recordingID];
     recording.title = self.titleTextField.text;
     recording.recordingDescription = self.descriptionTextField.text;
+    recording.tags = tagEditView.tags;
     
     [recording saveMetadata];
     [[OWAccountAPIClient sharedClient] postRecordingWithUUID:recording.uuid success:nil failure:nil];

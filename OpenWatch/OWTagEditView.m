@@ -9,13 +9,15 @@
 #import "OWTagEditView.h"
 #import "OWStrings.h"
 #import "OWUtilities.h"
+#import "OWTag.h"
 
 @interface OWTagEditView()
 @property (nonatomic) CGSize contentSize;
+@property (nonatomic, strong) NSMutableArray *tagNames;
 @end
 
 @implementation OWTagEditView
-@synthesize tagNamesArray, tagList, tagCreationView, contentSize, delegate;
+@synthesize tagNames, tagList, tagCreationView, contentSize, delegate;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -53,13 +55,13 @@
     self.contentSize = CGSizeMake(self.frame.size.width, self.tagCreationView.frame.size.height + self.tagList.fittedSize.height + padding);
 }
 
-- (void) setTagNamesArray:(NSMutableArray *)newTagNamesArray {
-    tagNamesArray = newTagNamesArray;
+- (void) setTagNames:(NSMutableArray *)newTagNamesArray {
+    tagNames = newTagNamesArray;
     [self refreshTagListItems];
 }
 
 - (void) refreshTagListItems {
-    [tagList setTags:tagNamesArray];
+    [tagList setTags:tagNames];
     [self refreshFrames];
 }
 
@@ -79,12 +81,12 @@
 
 - (void) alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
     if (alertView.cancelButtonIndex != buttonIndex) {
-        [tagNamesArray removeObjectAtIndex:alertView.tag];
+        [tagNames removeObjectAtIndex:alertView.tag];
         [self refreshTagListItems];
     }
 }
 
-- (void) tagCreationView:(OWTagCreationView*)tagCreationView didSelectTags:(NSArray*)tagListArray {
+- (void) tagCreationView:(OWTagCreationView*)tagCreationView didCreateTags:(NSArray*)tagListArray {
     NSMutableSet *mutableTagNamesSet = [NSMutableSet setWithArray:tagList.textArray];
     for (NSString *tagName in tagListArray) {
         [mutableTagNamesSet addObject:tagName];
@@ -92,14 +94,40 @@
     }
     NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"description" ascending:YES];
     NSArray *sortedArray = [mutableTagNamesSet sortedArrayUsingDescriptors:@[sortDescriptor]];
-    [tagList setTags:sortedArray];
-    [self refreshTaglistFrame];
+    NSMutableArray *mutableSortedTags = [NSMutableArray arrayWithArray:sortedArray];
+    self.tagNames = mutableSortedTags;
 }
 
 - (void) tagCreationViewDidBeginEditing:(OWTagCreationView *)_tagCreationView {
     if (delegate && [delegate respondsToSelector:@selector(tagEditViewDidBeginEditing:)]) {
         [delegate tagEditViewDidBeginEditing:self];
     }
+}
+
+- (NSSet*) tags {
+    NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
+    NSMutableSet *tagSet = [[NSMutableSet alloc] initWithCapacity:tagNames.count];
+    for (NSString *tagName in tagNames) {
+        OWTag *tag = [OWTag MR_findFirstByAttribute:@"name" withValue:tagName inContext:context];
+        if (!tag) {
+            tag = [OWTag MR_createEntity];
+            tag.name = tagName;
+            [context obtainPermanentIDsForObjects:@[tag] error:nil];
+        }
+        [tagSet addObject:tag];
+    }
+    [context MR_saveToPersistentStoreAndWait];
+    return tagSet;
+}
+
+- (void) setTags:(NSSet *)tagSet {
+    NSMutableArray *tagNameArray = [[NSMutableArray alloc] initWithCapacity:tagSet.count];
+    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES];
+    NSArray *tagObjectArray = [tagSet sortedArrayUsingDescriptors:@[sortDescriptor]];
+    for (OWTag *tag in tagObjectArray) {
+        [tagNameArray addObject:tag.name];
+    }
+    self.tagNames = tagNameArray;
 }
 
 @end

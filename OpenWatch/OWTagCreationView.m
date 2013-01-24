@@ -51,7 +51,7 @@
                 [tagNames addObject:[component lowercaseString]];
             }
         }
-        [self.delegate tagCreationView:self didSelectTags:tagNames];
+        [self.delegate tagCreationView:self didCreateTags:tagNames];
         self.textField.text = @"";
     }
 }

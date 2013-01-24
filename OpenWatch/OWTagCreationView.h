@@ -11,7 +11,7 @@
 @class OWTagCreationView;
 @protocol OWTagCreationViewDelegate <NSObject>
 @required
-- (void) tagCreationView:(OWTagCreationView*)tagCreationView didSelectTags:(NSArray*)tagListArray;
+- (void) tagCreationView:(OWTagCreationView*)tagCreationView didCreateTags:(NSArray*)tagListArray;
 @optional
 - (void) tagCreationViewDidBeginEditing:(OWTagCreationView*)tagCreationView;
 - (void) tagCreationViewDidEndEditing:(OWTagCreationView*)tagCreationView;

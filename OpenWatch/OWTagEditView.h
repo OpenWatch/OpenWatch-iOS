@@ -19,9 +19,9 @@
 @interface OWTagEditView : UIView <DWTagListDelegate, OWTagCreationViewDelegate, UIAlertViewDelegate>
 
 @property (nonatomic, weak) id<OWTagEditViewDelegate> delegate;
-@property (nonatomic, strong) NSMutableArray *tagNamesArray;
 @property (nonatomic, strong) DWTagList *tagList;
 @property (nonatomic, strong) OWTagCreationView *tagCreationView;
 @property (nonatomic, readonly) CGSize contentSize;
+@property (nonatomic, strong) NSSet *tags; // Array of OWTags
 
 @end
