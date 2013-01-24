@@ -96,6 +96,7 @@
 		D98FCB5716A4AB8C0071DF6B /* _OWTag.m in Sources */ = {isa = PBXBuildFile; fileRef = D98FCB5616A4AB8C0071DF6B /* _OWTag.m */; };
 		D98FCB5A16A4AE8C0071DF6B /* OWStory.m in Sources */ = {isa = PBXBuildFile; fileRef = D98FCB5916A4AE8B0071DF6B /* OWStory.m */; };
 		D991B6B816B0783100223A02 /* OWTagCreationView.m in Sources */ = {isa = PBXBuildFile; fileRef = D991B6B716B0783100223A02 /* OWTagCreationView.m */; };
+		D991B6EA16B0A84100223A02 /* OWTagEditView.m in Sources */ = {isa = PBXBuildFile; fileRef = D991B6E916B0A84100223A02 /* OWTagEditView.m */; };
 		D99741761651D42F0034ABB0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D99741751651D42F0034ABB0 /* UIKit.framework */; };
 		D99741781651D42F0034ABB0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D99741771651D42F0034ABB0 /* Foundation.framework */; };
 		D997417A1651D42F0034ABB0 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D99741791651D42F0034ABB0 /* CoreGraphics.framework */; };
@@ -629,6 +630,8 @@
 		D98FCB5916A4AE8B0071DF6B /* OWStory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWStory.m; sourceTree = "<group>"; };
 		D991B6B616B0783100223A02 /* OWTagCreationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWTagCreationView.h; sourceTree = "<group>"; };
 		D991B6B716B0783100223A02 /* OWTagCreationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWTagCreationView.m; sourceTree = "<group>"; };
+		D991B6E816B0A84100223A02 /* OWTagEditView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWTagEditView.h; sourceTree = "<group>"; };
+		D991B6E916B0A84100223A02 /* OWTagEditView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWTagEditView.m; sourceTree = "<group>"; };
 		D99741711651D42F0034ABB0 /* OpenWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OpenWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D99741751651D42F0034ABB0 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		D99741771651D42F0034ABB0 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -973,6 +976,8 @@
 		D97EAAA3167911B900A1B038 /* Custom Views */ = {
 			isa = PBXGroup;
 			children = (
+				D991B6E816B0A84100223A02 /* OWTagEditView.h */,
+				D991B6E916B0A84100223A02 /* OWTagEditView.m */,
 				D991B6B616B0783100223A02 /* OWTagCreationView.h */,
 				D991B6B716B0783100223A02 /* OWTagCreationView.m */,
 				D97EAA9F167911B100A1B038 /* OWMediaObjectTableViewCell.h */,
@@ -2016,6 +2021,7 @@
 				D92B6A7E16AF5209006605E1 /* OWPaginatedTableViewController.m in Sources */,
 				D92B6AD816AFBA82006605E1 /* DWTagList.m in Sources */,
 				D991B6B816B0783100223A02 /* OWTagCreationView.m in Sources */,
+				D991B6EA16B0A84100223A02 /* OWTagEditView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

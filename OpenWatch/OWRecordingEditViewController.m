@@ -26,7 +26,7 @@
 @end
 
 @implementation OWRecordingEditViewController
-@synthesize titleTextField, descriptionTextField, whatHappenedLabel, saveButton, uploadProgressView, recordingID, scrollView, tagList, tagCreationView;
+@synthesize titleTextField, descriptionTextField, whatHappenedLabel, saveButton, uploadProgressView, recordingID, scrollView, tagEditView;
 
 - (void) dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -38,8 +38,7 @@
         [self setupFields];
         [self setupWhatHappenedLabel];
         [self setupProgressView];
-        [self setupTagView];
-        [self setupTagCreationView];
+        [self setupTagEditView];
         [self registerForUploadProgressNotifications];
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:SAVE_STRING style:UIBarButtonItemStyleDone target:self action:@selector(saveButtonPressed:)];
         self.navigationItem.rightBarButtonItem.tintColor = [OWUtilities doneButtonColor];
@@ -58,21 +57,15 @@
     return self;
 }
 
-- (void) setupTagView {
-    self.tagList = [[DWTagList alloc] initWithFrame:CGRectZero];
-    self.tagList.delegate = self;
-    [self.scrollView addSubview:tagList];
-}
-
-- (void) setupTagCreationView {
-    self.tagCreationView = [[OWTagCreationView alloc] initWithFrame:CGRectZero];
-    self.tagCreationView.delegate = self;
-    self.tagCreationView.textField.placeholder = TAGS_STRING;
-    [self.scrollView addSubview:tagCreationView];
+- (void) setupTagEditView {
+    self.tagEditView = [[OWTagEditView alloc] initWithFrame:CGRectMake(PADDING, 0, self.view.frame.size.width - PADDING*2, 100.0f)];
+    self.tagEditView.delegate = self;
+    [self.scrollView addSubview:tagEditView];
 }
 
 - (void) setupScrollView {
     self.scrollView = [[UIScrollView alloc] init];
+    self.scrollView.delaysContentTouches = NO;
 }
 
 - (void) setupWhatHappenedLabel {
@@ -118,20 +111,14 @@
     self.titleTextField.frame = CGRectMake(padding, titleYOrigin, itemWidth, itemHeight);
     CGFloat descriptionYOrigin = [OWUtilities bottomOfView:titleTextField] + padding;
     self.descriptionTextField.frame = CGRectMake(padding, descriptionYOrigin, itemWidth, 100.0f);
-    self.tagCreationView.frame = CGRectMake(padding, [OWUtilities bottomOfView:descriptionTextField] + padding, itemWidth, itemHeight);
-    self.tagList.frame = CGRectMake(padding, [OWUtilities bottomOfView:tagCreationView] + padding, itemWidth, itemHeight);
-    [self.tagList display];
-    [self refreshTaglistFrame];
-    contentHeight = [OWUtilities bottomOfView:self.tagList] + padding*3;
+    CGFloat tagViewHeight = tagEditView.contentSize.height;
+    self.tagEditView.frame = CGRectMake(padding, [OWUtilities bottomOfView:descriptionTextField] + padding, itemWidth, tagViewHeight);
+    contentHeight = [OWUtilities bottomOfView:self.tagEditView] + padding*3;
     self.scrollView.contentSize = CGSizeMake(self.view.frame.size.width, contentHeight);
     self.scrollView.frame = self.view.bounds;
 }
 
-- (void) refreshTaglistFrame {
-    CGRect tagListFrame = self.tagList.frame;
-    tagListFrame.size.height = self.tagList.fittedSize.height;
-    self.tagList.frame = tagListFrame;
-}
+
 
 - (void) setRecordingID:(NSManagedObjectID *)newRecordingID {
     recordingID = newRecordingID;
@@ -176,7 +163,7 @@
     for (OWTag *tag in tagObjectArray) {
         [tagNameArray addObject:tag.name];
     }
-    [tagList setTags:tagNameArray];
+    tagEditView.tagNamesArray = tagNameArray;
 }
 
 - (UITextField*)textFieldWithDefaults {
@@ -248,21 +235,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
-- (void) selectedTag:(NSString *)tagName {
-    NSLog(@"selected: %@", tagName);
-}
 
-- (void) tagCreationView:(OWTagCreationView*)tagCreationView didSelectTags:(NSArray*)tagListArray {
-    NSMutableSet *mutableTagNamesSet = [NSMutableSet setWithArray:tagList.textArray];
-    for (NSString *tagName in tagListArray) {
-        [mutableTagNamesSet addObject:tagName];
-        NSLog(@"added tag: %@", tagName);
-    }
-    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"description" ascending:YES];
-    NSArray *sortedArray = [mutableTagNamesSet sortedArrayUsingDescriptors:@[sortDescriptor]];
-    [tagList setTags:sortedArray];
-    [self refreshTaglistFrame];
-}
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
 {
@@ -274,8 +247,8 @@
     [self.scrollView setContentOffset:CGPointMake(0, titleTextField.frame.origin.y - PADDING) animated:YES];
 }
 
-- (void) tagCreationViewDidBeginEditing:(OWTagCreationView *)_tagCreationView {
-    [self.scrollView setContentOffset:CGPointMake(0, _tagCreationView.frame.origin.y - PADDING) animated:YES];
+- (void) tagEditViewDidBeginEditing:(OWTagEditView *)_tagEditView {
+    [self.scrollView setContentOffset:CGPointMake(0, tagEditView.frame.origin.y - PADDING) animated:YES];
 }
 
 - (void)keyboardWillShow: (NSNotification *) notif{}

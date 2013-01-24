@@ -7,11 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "OWGroupedTableViewController.h"
-#import "DWTagList.h"
-#import "OWTagCreationView.h"
+#import "OWTagEditView.h"
 
-@interface OWRecordingEditViewController : UIViewController <DWTagListDelegate, UITextFieldDelegate, OWTagCreationViewDelegate>
+@interface OWRecordingEditViewController : UIViewController <UITextFieldDelegate, OWTagEditViewDelegate>
 
 @property (nonatomic, strong) UITextField *titleTextField;
 @property (nonatomic, strong) UITextField *descriptionTextField;
@@ -19,8 +17,7 @@
 @property (nonatomic, strong) UIBarButtonItem *saveButton;
 @property (nonatomic, strong) UIProgressView *uploadProgressView;
 @property (nonatomic, strong) UIScrollView *scrollView;
-@property (nonatomic, strong) DWTagList *tagList;
-@property (nonatomic, strong) OWTagCreationView *tagCreationView;
+@property (nonatomic, strong) OWTagEditView *tagEditView;
 
 @property (nonatomic, strong) NSManagedObjectID *recordingID;
 
