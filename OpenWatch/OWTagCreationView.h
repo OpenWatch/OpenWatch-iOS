@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "OWAutocompletionViewController.h"
+#import "OWPastelessTextField.h"
 
 @class OWTagCreationView;
 @protocol OWTagCreationViewDelegate <NSObject>
@@ -21,7 +22,7 @@
 @interface OWTagCreationView : UIView <UITextFieldDelegate, OWAutocompletionDelegate>
 
 @property (nonatomic, weak) id<OWTagCreationViewDelegate> delegate;
-@property (nonatomic, strong) UITextField *textField;
+@property (nonatomic, strong) OWPastelessTextField *textField;
 @property (nonatomic, strong) UIButton *addButton;
 @property (nonatomic, strong) OWAutocompletionViewController *autocompletionView;
 

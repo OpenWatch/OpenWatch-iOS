@@ -16,23 +16,32 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        self.textField = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
-        self.textField.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin;
-        self.textField.borderStyle = UITextBorderStyleRoundedRect;
-        self.textField.autocapitalizationType = UITextAutocapitalizationTypeNone;
-        self.textField.autocorrectionType = UITextAutocorrectionTypeNo;
-        self.textField.delegate = self;
-        self.addButton = [UIButton buttonWithType:UIButtonTypeContactAdd];
-        [self.addButton addTarget:self action:@selector(addButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-        self.addButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
-        self.addButton.frame = CGRectMake(self.frame.size.width - self.addButton.frame.size.width, 1, self.addButton.frame.size.width, self.addButton.frame.size.height);
-        [self addSubview:textField];
-        [self addSubview:addButton];
+        [self setupTextField];
+        [self setupAddButton];
         [self setupAutocompletionView];
     }
     return self;
 }
 
+- (void) setupAddButton {
+    self.addButton = [UIButton buttonWithType:UIButtonTypeContactAdd];
+    [self.addButton addTarget:self action:@selector(addButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    self.addButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+    self.addButton.frame = CGRectMake(self.frame.size.width - self.addButton.frame.size.width, 1, self.addButton.frame.size.width, self.addButton.frame.size.height);
+    [self addSubview:addButton];
+}
+
+- (void) setupTextField {
+    self.textField = [[OWPastelessTextField alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
+    self.textField.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin;
+    self.textField.borderStyle = UITextBorderStyleRoundedRect;
+    self.textField.autocapitalizationType = UITextAutocapitalizationTypeNone;
+    self.textField.autocorrectionType = UITextAutocorrectionTypeNo;
+    self.textField.delegate = self;
+    //http://stackoverflow.com/questions/8797726/how-can-i-respond-to-touch-events-on-a-uitextfield
+    [self.textField addTarget:self action:@selector(textFieldPressed:) forControlEvents:UIControlEventTouchCancel];
+    [self addSubview:textField];
+}
 
 - (void) setupAutocompletionView {
     self.autocompletionView = [[OWAutocompletionViewController alloc] init];
@@ -45,6 +54,10 @@
     NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"description" ascending:YES];
     NSArray *sortedArray = [suggestionStrings sortedArrayUsingDescriptors:@[sortDescriptor]];
     self.autocompletionView.suggestionStrings = sortedArray;
+}
+
+- (void) textFieldPressed:(id)sender {
+    [autocompletionView showAllSuggestionsForTextField:self.textField];
 }
 
 - (void) addButtonPressed:(id)sender {
@@ -73,7 +86,6 @@
 }
 
 - (void) textFieldDidBeginEditing:(UITextField *)textField {
-    [autocompletionView showAllSuggestionsForTextField:self.textField];
     if (delegate && [delegate respondsToSelector:@selector(tagCreationViewDidBeginEditing:)]) {
         [delegate tagCreationViewDidBeginEditing:self];
     }
