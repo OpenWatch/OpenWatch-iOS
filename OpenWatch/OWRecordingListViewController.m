@@ -12,70 +12,77 @@
 #import "OWAccountAPIClient.h"
 #import "OWMediaObjectTableViewCell.h"
 #import "OWRecordingEditViewController.h"
+#import "MBProgressHUD.h"
+#import "OWAppDelegate.h"
 
 @interface OWRecordingListViewController ()
 
 @end
 
 @implementation OWRecordingListViewController
-@synthesize recordingsTableView, recordingController, recordingsArray;
+@synthesize recordingController;
 
 - (id)init
 {
     self = [super init];
     if (self) {
-        self.recordingsTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
-        self.recordingsTableView.dataSource = self;
-        self.recordingsTableView.delegate = self;
         self.recordingController = [OWRecordingController sharedInstance];
         self.title = RECORDINGS_STRING;
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(editButtonPressed:)];
+        self.navigationItem.rightBarButtonItem = self.editButtonItem;
     }
     return self;
 }
 
-- (void) editButtonPressed:(id)sender {
-    [self.recordingsTableView setEditing:!self.recordingsTableView.editing animated:YES];
-}
-
-- (void)viewDidLoad
-{
+- (void) viewDidLoad {
     [super viewDidLoad];
-	[self.view addSubview:recordingsTableView];
 }
 
 - (void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    self.recordingsTableView.frame = self.view.frame;
-    [self refreshRecordings];
     [TestFlight passCheckpoint:VIEW_LOCAL_RECORDINGS];
-    
-    [[OWAccountAPIClient sharedClient] fetchUserRecordingsWithSuccessBlock:^{
-        
-    } failure:^(NSString *reason) {
-        
-    }];
+    [self reloadTableViewDataSource];
 }
 
-- (void) viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    self.recordingsTableView.frame = self.view.frame; // 
+- (void) reloadTableViewDataSource {
+    [super reloadTableViewDataSource];
+    [self fetchObjectsForPageNumber:1];
 }
 
-- (void) refreshRecordings {
+- (void) loadOfflineRecordings {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [self.recordingController scanDirectoryForChanges];
-        self.recordingsArray = [NSMutableArray arrayWithArray:[recordingController allLocalRecordings]];
-        [self.recordingsArray sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-            OWLocalRecording *rec1 = [OWRecordingController recordingForObjectID:obj1];
-            OWLocalRecording *rec2 = [OWRecordingController recordingForObjectID:obj2];
+        NSMutableArray *objectIDs = [NSMutableArray arrayWithArray:[recordingController allLocalRecordings]];
+        [self.objectIDs sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+            OWLocalRecording *rec1 = [OWRecordingController localRecordingForObjectID:obj1];
+            OWLocalRecording *rec2 = [OWRecordingController localRecordingForObjectID:obj2];
             return [rec1.startDate compare:rec2.startDate];
         }];
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self.recordingsTableView reloadData];
+            [self reloadFeed:objectIDs replaceObjects:YES];
         });
     });
 }
+
+- (void) didSelectFeedWithPageNumber:(NSUInteger)pageNumber showHUD:(BOOL)shouldShowHUD {
+    if (pageNumber <= kFirstPage) {
+        self.currentPage = kFirstPage;
+    }
+    if (shouldShowHUD) {
+        [MBProgressHUD showHUDAddedTo:OW_APP_DELEGATE.window animated:YES];
+    }
+    [[OWAccountAPIClient sharedClient] fetchUserRecordingsOnPage:pageNumber success:^(NSArray *recordingObjectIDs, NSUInteger totalPages) {
+        self.totalPages = totalPages;
+        BOOL shouldReplaceObjects = NO;
+        if (self.currentPage == kFirstPage) {
+            shouldReplaceObjects = YES;
+        }
+        [self reloadFeed:recordingObjectIDs replaceObjects:shouldReplaceObjects];
+    } failure:^(NSString *reason) {
+        [MBProgressHUD hideHUDForView:OW_APP_DELEGATE.window animated:YES];
+        [self loadOfflineRecordings];
+    }];
+}
+
 
 - (void)didReceiveMemoryWarning
 {
@@ -83,36 +90,28 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [recordingsArray count];
-}
-
-- (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
-}
-
 - (UITableViewCell*) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString *cellIdentifier = @"MediaObjectCellIdentifier";
-    OWMediaObjectTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    if (!cell) {
-        cell = [[OWMediaObjectTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
-        cell.isLocalRecording = YES;
+    UITableViewCell *cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
+    if ([cell isKindOfClass:[OWMediaObjectTableViewCell class]]) {
+        OWMediaObjectTableViewCell *mediaCell = (OWMediaObjectTableViewCell*)cell;
+        mediaCell.isLocalRecording = YES;
     }
-    NSManagedObjectID *recordingID = [recordingsArray objectAtIndex:indexPath.row];
-    cell.mediaObjectID = recordingID;
     return cell;
-}
-
-- (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 147.0f;
 }
 
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    //OWLocalRecording *recording = [recordingsArray objectAtIndex:indexPath.row];
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
+    if (indexPath.row >= self.objectIDs.count) {
+        return NO;
+    }
+    NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
+    NSManagedObjectID *recordingObjectID = [self.objectIDs objectAtIndex:indexPath.row];
+    NSManagedObject *object = [context objectWithID:recordingObjectID];
+    if ([object isKindOfClass:[OWLocalRecording class]]) {
+        return YES;
+    }
+    return NO;
 }
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -129,25 +128,28 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        NSManagedObjectID *recordingID = [recordingsArray objectAtIndex:indexPath.row];
-        OWLocalRecording *recording = [OWRecordingController recordingForObjectID:recordingID];
+        NSManagedObjectID *recordingID = [self.objectIDs objectAtIndex:indexPath.row];
+        OWLocalRecording *recording = [OWRecordingController localRecordingForObjectID:recordingID];
         // Delete the row from the data source
-        [recordingsArray removeObjectAtIndex:indexPath.row];
+        [self.objectIDs removeObjectAtIndex:indexPath.row];
         [recordingController removeRecording:recording.objectID];
-        [recordingsTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
     }
 }
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSManagedObjectID *recordingID = [recordingsArray objectAtIndex:indexPath.row];
-    OWLocalRecording *recording = [OWRecordingController recordingForObjectID:recordingID];
-    if (![recording isKindOfClass:[OWLocalRecording class]]) {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if (indexPath.row >= self.objectIDs.count) {
         return;
     }
+    NSManagedObjectID *recordingID = [self.objectIDs objectAtIndex:indexPath.row];
     OWRecordingEditViewController *recordingEditVC = [[OWRecordingEditViewController alloc] init];
     recordingEditVC.recordingID = recordingID;
     [self.navigationController pushViewController:recordingEditVC animated:YES];
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+- (void) fetchObjectsForPageNumber:(NSUInteger)pageNumber {
+    [self didSelectFeedWithPageNumber:pageNumber showHUD:NO];;
 }
 
 @end

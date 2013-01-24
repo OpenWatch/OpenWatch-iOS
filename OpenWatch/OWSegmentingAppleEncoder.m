@@ -104,7 +104,7 @@
                 [self uploadFileURL:tempAssetWriter.outputURL];
             }
         }
-        OWLocalRecording *recording = [OWRecordingController recordingForObjectID:self.recordingID];
+        OWLocalRecording *recording = [OWRecordingController localRecordingForObjectID:self.recordingID];
         if (!recording) {
             return;
         }
@@ -123,7 +123,7 @@
 }
 
 - (NSURL*) urlForNextSegment {
-    OWLocalRecording *recording = [OWRecordingController recordingForObjectID:self.recordingID];
+    OWLocalRecording *recording = [OWRecordingController localRecordingForObjectID:self.recordingID];
     NSURL *url = [recording urlForNextSegmentWithCount:segmentCount];
     return url;
 }
@@ -183,7 +183,7 @@
 }
 
 - (void) uploadFileURL:(NSURL*)url {
-    OWLocalRecording *recording = [OWRecordingController recordingForObjectID:self.recordingID];
+    OWLocalRecording *recording = [OWRecordingController localRecordingForObjectID:self.recordingID];
     OWCaptureAPIClient *captureClient = [OWCaptureAPIClient sharedClient];
     [captureClient uploadFileURL:url recording:recording.objectID priority:NSOperationQueuePriorityVeryHigh];
     [recording saveMetadata];

@@ -9,11 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "OWRecordingController.h"
 #import "OWRecordingInfoViewController.h"
+#import "OWPaginatedTableViewController.h"
 
-@interface OWRecordingListViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+@interface OWRecordingListViewController : OWPaginatedTableViewController <UITableViewDataSource, UITableViewDelegate>
 
-@property (nonatomic, strong) UITableView *recordingsTableView;
-@property (nonatomic, strong) NSMutableArray *recordingsArray;
 @property (nonatomic, strong) OWRecordingController *recordingController;
 
 @end

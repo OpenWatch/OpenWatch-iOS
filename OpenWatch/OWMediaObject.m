@@ -58,15 +58,8 @@
     NSArray *tagsArray = [metadataDictionary objectForKey:kTagsKey];
     if (tagsArray) {
         NSMutableSet *tags = [NSMutableSet set];
-        for (NSString *component in tagsArray) {
-            if ([component isEqualToString:@""]) {
-                continue;
-            }
-            OWTag *tag = [OWTag MR_findFirstByAttribute:@"name" withValue:component];
-            if (!tag) {
-                tag = [OWTag MR_createEntity];
-                tag.name = component;
-            }
+        for (NSDictionary *tagDictionary in tagsArray) {
+            OWTag *tag = [OWTag tagWithDictionary:tagDictionary];
             [tags addObject:tag];
         }
         self.tags = tags;

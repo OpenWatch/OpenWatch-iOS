@@ -38,7 +38,7 @@
 
 - (void) scanRecordingsForUnsubmittedData {
     for (NSManagedObjectID *objectID in [self allLocalRecordings]) {
-        OWLocalRecording *recording = [OWRecordingController recordingForObjectID:objectID];
+        OWLocalRecording *recording = [OWRecordingController localRecordingForObjectID:objectID];
         if (![recording isKindOfClass:[OWLocalRecording class]]){
             continue;
         }
@@ -50,13 +50,21 @@
 }
 
 
-+ (OWLocalRecording*) recordingForObjectID:(NSManagedObjectID*)objectID {
++ (OWLocalRecording*) localRecordingForObjectID:(NSManagedObjectID*)objectID {
+    OWManagedRecording *recording = [OWRecordingController recordingForObjectID:objectID];
+    if ([recording isKindOfClass:[OWLocalRecording class]]) {
+        return (OWLocalRecording*)recording;
+    }
+    return nil;
+}
+
++ (OWManagedRecording*) recordingForObjectID:(NSManagedObjectID*)objectID {
     if (!objectID) {
         return nil;
     }
     NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
     NSError *error = nil;
-    OWLocalRecording *recording = (OWLocalRecording*)[context existingObjectWithID:objectID error:&error];
+    OWManagedRecording *recording = (OWManagedRecording*)[context existingObjectWithID:objectID error:&error];
     if (error) {
         NSLog(@"Error: %@", [error userInfo]);
         error = nil;
@@ -77,7 +85,7 @@
 }
 
 - (void) removeRecording:(NSManagedObjectID*)recordingObjectID {
-    OWLocalRecording *recording = [OWRecordingController recordingForObjectID:recordingObjectID];
+    OWLocalRecording *recording = [OWRecordingController localRecordingForObjectID:recordingObjectID];
     if (!recording || ![recording isKindOfClass:[OWLocalRecording class]]) {
         return;
     }
@@ -137,7 +145,7 @@
     NSArray *currentRecordings = [self allLocalRecordings];
     
     for (NSManagedObjectID *recordingID in currentRecordings) {
-        OWLocalRecording *recording = [OWRecordingController recordingForObjectID:recordingID];
+        OWLocalRecording *recording = [OWRecordingController localRecordingForObjectID:recordingID];
 
         if (![recording isKindOfClass:[OWLocalRecording class]]) {
             continue;

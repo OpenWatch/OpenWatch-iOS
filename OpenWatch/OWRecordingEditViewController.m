@@ -90,10 +90,13 @@
 
 
 - (void) refreshProgressView {
-    OWLocalRecording *recording = [OWRecordingController recordingForObjectID:self.recordingID];
-    if (recording) {
-        float progress = ((float)[recording completedFileCount]) / [recording totalFileCount];
+    OWManagedRecording *recording = [OWRecordingController recordingForObjectID:self.recordingID];
+    if ([recording isKindOfClass:[OWLocalRecording class]]) {
+        OWLocalRecording *localRecording = (OWLocalRecording*)recording;
+        float progress = ((float)[localRecording completedFileCount]) / [localRecording totalFileCount];
         [self.uploadProgressView setProgress:progress animated:YES];
+    } else {
+        [self.uploadProgressView setProgress:1.0];
     }
 }
 
@@ -203,7 +206,7 @@
 }
 
 - (void) saveButtonPressed:(id)sender {
-    OWLocalRecording *recording = [OWRecordingController recordingForObjectID:self.recordingID];
+    OWLocalRecording *recording = [OWRecordingController localRecordingForObjectID:self.recordingID];
     recording.title = self.titleTextField.text;
     recording.recordingDescription = self.descriptionTextField.text;
     recording.tags = tagEditView.tags;

@@ -255,7 +255,7 @@
 		
         if ([assetWriter startWriting]) {
 			[assetWriter startSessionAtSourceTime:CMSampleBufferGetPresentationTimeStamp(sampleBuffer)];
-            OWLocalRecording *recording = [OWRecordingController recordingForObjectID:recordingID];
+            OWLocalRecording *recording = [OWRecordingController localRecordingForObjectID:recordingID];
             [recording setUploadState:OWFileUploadStateRecording forFileAtURL:assetWriter.outputURL];
 		}
 		else {
@@ -329,7 +329,7 @@
 
 - (void) uploadFileURL:(NSURL*)url {
     OWCaptureAPIClient *captureClient = [OWCaptureAPIClient sharedClient];
-    OWLocalRecording *recording = [OWRecordingController recordingForObjectID:recordingID];
+    OWLocalRecording *recording = [OWRecordingController localRecordingForObjectID:recordingID];
     [captureClient uploadFileURL:url recording:recording.objectID priority:NSOperationQueuePriorityNormal];
     [recording saveMetadata];
 }

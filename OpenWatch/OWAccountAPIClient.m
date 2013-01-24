@@ -118,11 +118,19 @@
     [self enqueueHTTPRequestOperation:operation];
 }
 
-- (void) fetchUserRecordingsWithSuccessBlock:(void (^)(void))success failure:(void (^)(NSString *))failure {
-    [self getPath:kRecordingsKey parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+- (void) fetchUserRecordingsOnPage:(NSUInteger)page success:(void (^)(NSArray *recordingObjectIDs, NSUInteger totalPages))success failure:(void (^)(NSString *reason))failure {
+    [self getPath:[self pathForUserRecordingsOnPage:page] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSArray *recordings = [self objectIDsFromMediaObjectsMetadataArray:[responseObject objectForKey:kObjectsKey]];
+        NSDictionary *meta = [responseObject objectForKey:kMetaKey];
+        NSUInteger pageCount = [[meta objectForKey:kPageCountKey] unsignedIntegerValue];
+        success(recordings, pageCount);
+        /**** move to RecordingEditView ******
         NSLog(@"success: %@", [responseObject description]);
         NSArray *recordings = [responseObject objectForKey:kObjectsKey];
-        
+        NSMutableArray *recordingObjectIDs = [NSMutableArray arrayWithCapacity:recordings.count];
+        NSDictionary *meta = [responseObject objectForKey:kMetaKey];
+        NSUInteger pageCount = [[meta objectForKey:kPageCountKey] unsignedIntegerValue];
+
         for (NSDictionary *recordingDict in recordings) {
             NSString *uuid = [recordingDict objectForKey:kUUIDKey];
             int serverID = [[recordingDict objectForKey:kIDKey] intValue];
@@ -130,13 +138,13 @@
             NSDateFormatter *dateFormatter = [OWUtilities utcDateFormatter];
             
             NSDate *remoteLastEditedDate = [dateFormatter dateFromString:remoteLastEditedString];
-            OWManagedRecording *managedRecording = [OWManagedRecording MR_findFirstByAttribute:kUUIDKey withValue:uuid];
-            managedRecording.serverID = @(serverID);
             NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
+            OWManagedRecording *managedRecording = (OWManagedRecording*)[self mediaObjectForShortMetadataDictionary:recordingDict];
             [context MR_saveToPersistentStoreAndWait];
+            [recordingObjectIDs addObject:managedRecording.objectID];
             NSDate *localLastEditedDate = managedRecording.modifiedDate;
             NSString *localLastEditedString = [dateFormatter stringFromDate:managedRecording.modifiedDate];
-            if (managedRecording) {
+            if (!notFound) {
                 int localSeconds = (int)[localLastEditedDate timeIntervalSince1970];
                 int remoteSeconds = (int)[remoteLastEditedDate timeIntervalSince1970];
                 NSLog(@"loc: %@", localLastEditedString);
@@ -163,7 +171,8 @@
                 }];
             }
         }
-        success();
+        success(recordingObjectIDs, pageCount);
+         */
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"failure: %@", [error userInfo]);
         failure(@"fart");
@@ -210,6 +219,10 @@
         NSLog(@"fail: %@", operation.responseString);
         //failure(@"Failed to POST recording");
     }];
+}
+
+- (NSString*) pathForUserRecordingsOnPage:(NSUInteger)page {
+    return [NSString stringWithFormat:@"recordings/%d/", page];
 }
 
 - (NSString*) pathForTagFeed:(NSString*)tag page:(NSUInteger)page {
@@ -321,14 +334,7 @@
         NSArray *rawTags = [responseObject objectForKey:@"tags"];
         NSMutableSet *tags = [NSMutableSet setWithCapacity:[rawTags count]];
         for (NSDictionary *tagDictionary in rawTags) {
-            NSNumber *serverID = [tagDictionary objectForKey:@"id"];
-            OWTag *tag = [OWTag MR_findFirstByAttribute:@"serverID" withValue:serverID];
-            if (!tag) {
-                tag = [OWTag MR_createEntity];
-                tag.name = [tagDictionary objectForKey:@"name"];
-                tag.isFeatured = [tagDictionary objectForKey:@"featured"];
-                tag.serverID = serverID;
-            }
+            OWTag *tag = [OWTag tagWithDictionary:tagDictionary];
             [tags addObject:tag];
         }
         user.tags = tags;

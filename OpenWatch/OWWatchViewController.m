@@ -17,8 +17,8 @@
 #import "OWStoryViewController.h"
 #import "OWMediaObjectViewController.h"
 #import "MBProgressHUD.h"
+#import "OWAppDelegate.h"
 
-#define kFirstPage 1
 
 @interface OWWatchViewController ()
 @end
@@ -34,7 +34,6 @@
     if (self) {
         self.objectIDs = [NSMutableArray array];
         self.title = WATCH_STRING;
-        self.tableView.backgroundColor = [OWUtilities fabricBackgroundPattern];
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"list.png"] style:UIBarButtonItemStylePlain target:self action:@selector(feedSelectionButtonPressed:)];
         self.feedSelector = [[OWFeedSelectionViewController alloc] init];
         feedSelector.delegate = self;
@@ -51,7 +50,7 @@
     feedType = type;
     self.title = feedName;
     if (shouldShowHUD) {
-        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        [MBProgressHUD showHUDAddedTo:OW_APP_DELEGATE.window animated:YES];
     }
     
     if (feedType == kOWFeedTypeFeed) {
@@ -88,25 +87,9 @@
     [self didSelectFeedWithName:selectedFeedString type:feedType shouldShowHUD:NO pageNumber:pageNumber];
 }
 
-- (void) reloadFeed:(NSArray*)recordings replaceObjects:(BOOL)replaceObjects {
-    if (replaceObjects) {
-        self.objectIDs = [NSMutableArray arrayWithArray:recordings];
-    } else {
-        [self.objectIDs addObjectsFromArray:recordings];
-    }
-    [self.tableView reloadData];
-    
-	[self doneLoadingTableViewData];
-    [MBProgressHUD hideHUDForView:self.view animated:YES];
-}
-
 - (void) reloadTableViewDataSource {
     [super reloadTableViewDataSource];
     [self didSelectFeedWithName:selectedFeedString type:feedType shouldShowHUD:NO pageNumber:1];
-}
-
-- (void) failedToLoadFeed:(NSString*)reason {
-    [MBProgressHUD hideHUDForView:self.view animated:YES];
 }
 
 -(void)showPopOverListFor:(UIBarButtonItem*)buttonItem{
@@ -135,11 +118,11 @@
 }
 
 
-- (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 147.0f;
-}
-
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if (indexPath.row >= self.objectIDs.count) {
+        return;
+    }
     NSManagedObjectID *mediaObjectID = [self.objectIDs objectAtIndex:indexPath.row];
     NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
     OWMediaObject *mediaObject = (OWMediaObject*)[context objectWithID:mediaObjectID];
@@ -154,7 +137,6 @@
     if (vc) {
         vc.mediaObjectID = mediaObjectID;
         [self.navigationController pushViewController:vc animated:YES];
-        [tableView deselectRowAtIndexPath:indexPath animated:YES];
     }
 }
 

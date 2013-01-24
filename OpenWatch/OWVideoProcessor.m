@@ -127,7 +127,7 @@
     self.recordingID = currentRecording.objectID;
     
 	dispatch_async(movieWritingQueue, ^{
-        OWLocalRecording *localRecording = [OWRecordingController recordingForObjectID:self.recordingID];
+        OWLocalRecording *localRecording = [OWRecordingController localRecordingForObjectID:self.recordingID];
 
 		if ( recordingWillBeStarted || self.recording )
 			return;
@@ -147,7 +147,7 @@
 
 
 - (void) initializeAssetWriters {
-    OWLocalRecording *localRecording = [OWRecordingController recordingForObjectID:self.recordingID];
+    OWLocalRecording *localRecording = [OWRecordingController localRecordingForObjectID:self.recordingID];
 
     // Create an asset writer
     self.appleEncoder1 = [[OWAppleEncoder alloc] initWithURL:[localRecording highQualityURL] movieFragmentInterval:CMTimeMakeWithSeconds(5, 30)];
@@ -162,7 +162,7 @@
 	dispatch_async(movieWritingQueue, ^{
 		if ( recordingWillBeStopped || self.recording == NO)
 			return;
-        OWLocalRecording *localRecording = [OWRecordingController recordingForObjectID:self.recordingID];
+        OWLocalRecording *localRecording = [OWRecordingController localRecordingForObjectID:self.recordingID];
 
 		
 		recordingWillBeStopped = YES;

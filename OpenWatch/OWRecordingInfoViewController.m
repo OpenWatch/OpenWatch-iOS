@@ -213,7 +213,7 @@
 
 
 - (void) refreshMapParameters {
-    OWLocalRecording *recording = [OWRecordingController recordingForObjectID:self.mediaObjectID];
+    OWLocalRecording *recording = [OWRecordingController localRecordingForObjectID:self.mediaObjectID];
     double lat = 0.0f;
     double lon = 0.0f;
     CLLocation *start = recording.startLocation;

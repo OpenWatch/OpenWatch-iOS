@@ -8,6 +8,9 @@
 
 #import "OWPaginatedTableViewController.h"
 #import "OWMediaObjectTableViewCell.h"
+#import "MBProgressHUD.h"
+#import "OWUtilities.h"
+#import "OWAppDelegate.h"
 
 #define kLoadingCellTag 31415
 
@@ -26,6 +29,7 @@
 {
     self = [super init];
     if (self) {
+        self.tableView.backgroundColor = [OWUtilities fabricBackgroundPattern];
         currentPage = 0;
     }
     return self;
@@ -53,6 +57,7 @@
 }
 
 - (void)doneLoadingTableViewData {
+    [MBProgressHUD hideHUDForView:OW_APP_DELEGATE.window animated:YES];
     isReloading = NO;
 	[_refreshHeaderView egoRefreshScrollViewDataSourceDidFinishedLoading:self.tableView];
 }
@@ -130,6 +135,13 @@
     return cell;
 }
 
+- (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row >= self.objectIDs.count) {
+        return 45.0f;
+    }
+    return 147.0f;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row < self.objectIDs.count) {
         return [self mediaObjectCellForIndexPath:indexPath];
@@ -143,6 +155,22 @@
         currentPage++;
         [self fetchObjectsForPageNumber:currentPage];
     }
+}
+
+- (void) reloadFeed:(NSArray*)recordings replaceObjects:(BOOL)replaceObjects {
+    if (replaceObjects) {
+        self.objectIDs = [NSMutableArray arrayWithArray:recordings];
+    } else {
+        [self.objectIDs addObjectsFromArray:recordings];
+    }
+    [self.tableView reloadData];
+    
+	[self doneLoadingTableViewData];
+    [MBProgressHUD hideHUDForView:OW_APP_DELEGATE.window animated:YES];
+}
+
+- (void) failedToLoadFeed:(NSString*)reason {
+    [MBProgressHUD hideHUDForView:OW_APP_DELEGATE.window animated:YES];
 }
 
 - (void) fetchObjectsForPageNumber:(NSUInteger)pageNumber {}

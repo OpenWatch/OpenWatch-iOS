@@ -1102,6 +1102,19 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		D9BECEF116B1D3AC009046E1 /* Paginated Tables */ = {
+			isa = PBXGroup;
+			children = (
+				D92B6A7C16AF5209006605E1 /* OWPaginatedTableViewController.h */,
+				D92B6A7D16AF5209006605E1 /* OWPaginatedTableViewController.m */,
+				D9D2E19A165326BB0000E7C5 /* OWRecordingListViewController.h */,
+				D9D2E19B165326BB0000E7C5 /* OWRecordingListViewController.m */,
+				D9D7870B1677EDB0006EE6A2 /* OWWatchViewController.h */,
+				D9D7870C1677EDB0006EE6A2 /* OWWatchViewController.m */,
+			);
+			name = "Paginated Tables";
+			sourceTree = "<group>";
+		};
 		D9C0333016A4E1EC00B7CFC7 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -1253,12 +1266,9 @@
 		D9D2E21D16532B220000E7C5 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				D92B6A7C16AF5209006605E1 /* OWPaginatedTableViewController.h */,
-				D92B6A7D16AF5209006605E1 /* OWPaginatedTableViewController.m */,
+				D9BECEF116B1D3AC009046E1 /* Paginated Tables */,
 				D9E72E55167FB39A00C6CB75 /* OWWelcomeViewController.h */,
 				D9E72E56167FB39A00C6CB75 /* OWWelcomeViewController.m */,
-				D9D7870B1677EDB0006EE6A2 /* OWWatchViewController.h */,
-				D9D7870C1677EDB0006EE6A2 /* OWWatchViewController.m */,
 				D97EAAB9167A540800A1B038 /* OWFeedSelectionViewController.h */,
 				D97EAABA167A540900A1B038 /* OWFeedSelectionViewController.m */,
 				D907022F1668270F00611607 /* OWHomeScreenViewController.h */,
@@ -1266,8 +1276,6 @@
 				D9E72E58167FF6AC00C6CB75 /* OWRecordingEditViewController.h */,
 				D9E72E59167FF6AD00C6CB75 /* OWRecordingEditViewController.m */,
 				D95BD80A16B06738002C43A5 /* Media View */,
-				D9D2E19A165326BB0000E7C5 /* OWRecordingListViewController.h */,
-				D9D2E19B165326BB0000E7C5 /* OWRecordingListViewController.m */,
 				D930851616640C6E008C5D4C /* OWGroupedTableViewController.h */,
 				D930851716640C6E008C5D4C /* OWGroupedTableViewController.m */,
 				D997419B1651D8520034ABB0 /* OWLoginViewController.h */,

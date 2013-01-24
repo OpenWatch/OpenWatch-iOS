@@ -63,7 +63,7 @@
 }
 
 - (void) uploadFileURL:(NSURL*)url recording:(NSManagedObjectID*)recordingObjectID priority:(NSOperationQueuePriority)priority {
-    OWLocalRecording *recording = [OWRecordingController recordingForObjectID:recordingObjectID];
+    OWLocalRecording *recording = [OWRecordingController localRecordingForObjectID:recordingObjectID];
     if (!recording) {
         return;
     }
@@ -113,7 +113,7 @@
      */
     
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        OWLocalRecording *localRecording = [OWRecordingController recordingForObjectID:recordingObjectID];
+        OWLocalRecording *localRecording = [OWRecordingController localRecordingForObjectID:recordingObjectID];
         NSDate *endDate = [NSDate date];
         NSTimeInterval endTime = [endDate timeIntervalSince1970];
         NSTimeInterval diff = endTime - startTime;
@@ -152,7 +152,7 @@
 
 
 - (void) uploadMetadataForRecording:(NSManagedObjectID*)recordingObjectID postPath:(NSString*)postPath  {
-    OWLocalRecording *recording = [OWRecordingController recordingForObjectID:recordingObjectID];
+    OWLocalRecording *recording = [OWRecordingController localRecordingForObjectID:recordingObjectID];
     NSDictionary *params = recording.metadataDictionary;
     NSLog(@"WTF: %@", [params description]);
     [self postPath:postPath parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -163,7 +163,7 @@
 }
 
 - (NSString*) postPathForRecording:(NSManagedObjectID*)recordingObjectID uploadState:(NSString*)state {
-    OWLocalRecording *recording = [OWRecordingController recordingForObjectID:recordingObjectID];
+    OWLocalRecording *recording = [OWRecordingController localRecordingForObjectID:recordingObjectID];
     OWSettingsController *settingsController = [OWSettingsController sharedInstance];
     NSString *publicUploadToken = settingsController.account.publicUploadToken;
     NSString *uploadPath = [NSString stringWithFormat:@"/%@/%@/%@", state, publicUploadToken, recording.uuid];

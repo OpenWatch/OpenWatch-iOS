@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "EGORefreshTableHeaderView.h"
 
+#define kFirstPage 1
+
 @interface OWPaginatedTableViewController : UITableViewController  <EGORefreshTableHeaderDelegate, UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate>
 
 @property (nonatomic) NSUInteger currentPage;
@@ -20,5 +22,7 @@
 - (void) reloadTableViewDataSource;
 - (void) doneLoadingTableViewData;
 - (void) fetchObjectsForPageNumber:(NSUInteger)pageNumber; // stub method, implement in subclass
+- (void) reloadFeed:(NSArray*)recordings replaceObjects:(BOOL)replaceObjects;
+- (void) failedToLoadFeed:(NSString*)reason;
 
 @end
