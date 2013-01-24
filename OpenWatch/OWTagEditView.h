@@ -16,7 +16,7 @@
 - (void) tagEditViewDidBeginEditing:(OWTagEditView*)tagEditView;
 @end
 
-@interface OWTagEditView : UIView <DWTagListDelegate, OWTagCreationViewDelegate>
+@interface OWTagEditView : UIView <DWTagListDelegate, OWTagCreationViewDelegate, UIAlertViewDelegate>
 
 @property (nonatomic, weak) id<OWTagEditViewDelegate> delegate;
 @property (nonatomic, strong) NSMutableArray *tagNamesArray;

@@ -55,6 +55,10 @@
 
 - (void) setTagNamesArray:(NSMutableArray *)newTagNamesArray {
     tagNamesArray = newTagNamesArray;
+    [self refreshTagListItems];
+}
+
+- (void) refreshTagListItems {
     [tagList setTags:tagNamesArray];
     [self refreshFrames];
 }
@@ -66,7 +70,18 @@
 }
 
 - (void) selectedTagName:(NSString *)tagName atIndex:(NSUInteger)index {
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:DELETE_TAG_TITLE_STRING message:[NSString stringWithFormat:DELETE_TAG_MESSAGE_STRING, tagName] delegate:self cancelButtonTitle:NO_STRING otherButtonTitles:YES_STRING, nil];
+    alertView.delegate = self;
+    alertView.tag = index;
+    [alertView show];
     NSLog(@"selected %d, %@", index, tagName);
+}
+
+- (void) alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
+    if (alertView.cancelButtonIndex != buttonIndex) {
+        [tagNamesArray removeObjectAtIndex:alertView.tag];
+        [self refreshTagListItems];
+    }
 }
 
 - (void) tagCreationView:(OWTagCreationView*)tagCreationView didSelectTags:(NSArray*)tagListArray {

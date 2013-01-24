@@ -56,6 +56,8 @@
 #define SAVED_STRING NSLocalizedString(@"Saved", @"Title for saved recordings")
 #define WELCOME_STRING NSLocalizedString(@"Welcome!", @"title for welcome screen")
 #define STOP_RECORDING_STRING NSLocalizedString(@"Stop Recording?", @"Question whether user wants to actually stop recording")
+#define DELETE_TAG_TITLE_STRING NSLocalizedString(@"Delete Tag", @"ask user if they want to delete the tag")
+#define DELETE_TAG_MESSAGE_STRING NSLocalizedString(@"Do you want to delete the \"%@\" tag?", @"ask if they want to delete specific tag name")
 #define SEND_FEEDBACK_STRING NSLocalizedString(@"Send Feedback", @"help us improve the app")
 #define WELCOME_TEXTVIEW_STRING NSLocalizedString(@"Welcome, new Watcher!\n\
 \n\
