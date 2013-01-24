@@ -20,5 +20,6 @@
 @property (nonatomic, strong) OWTagEditView *tagEditView;
 
 @property (nonatomic, strong) NSManagedObjectID *recordingID;
+@property (nonatomic) BOOL showingAfterCapture;
 
 @end

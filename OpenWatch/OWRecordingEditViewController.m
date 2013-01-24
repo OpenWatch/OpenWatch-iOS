@@ -16,6 +16,7 @@
 #import "OWAppDelegate.h"
 #import "OWShareController.h"
 #import "OWTag.h"
+#import "MBProgressHUD.h"
 
 #define TAGS_ROW 0
 #define PADDING 10.0f
@@ -25,7 +26,7 @@
 @end
 
 @implementation OWRecordingEditViewController
-@synthesize titleTextField, descriptionTextField, whatHappenedLabel, saveButton, uploadProgressView, recordingID, scrollView, tagEditView;
+@synthesize titleTextField, descriptionTextField, whatHappenedLabel, saveButton, uploadProgressView, recordingID, scrollView, tagEditView, showingAfterCapture;
 
 - (void) dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -39,6 +40,7 @@
         [self setupWhatHappenedLabel];
         [self setupProgressView];
         [self setupTagEditView];
+        self.showingAfterCapture = NO;
         [self registerForUploadProgressNotifications];
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:SAVE_STRING style:UIBarButtonItemStyleDone target:self action:@selector(saveButtonPressed:)];
         self.navigationItem.rightBarButtonItem.tintColor = [OWUtilities doneButtonColor];
@@ -138,6 +140,7 @@
     [self refreshFrames];
     [self registerForUploadProgressNotifications];
     [TestFlight passCheckpoint:EDIT_METADATA_CHECKPOINT];
+    [self checkRecording];
 }
 
 
@@ -221,6 +224,22 @@
         [alert show];
     }];
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void) checkRecording {
+    if (showingAfterCapture) {
+        return;
+    }
+    OWManagedRecording *recording = [OWRecordingController recordingForObjectID:self.recordingID];
+    if (![recording isKindOfClass:[OWLocalRecording class]]) {
+        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        [[OWAccountAPIClient sharedClient] getRecordingWithUUID:recording.uuid success:^(NSManagedObjectID *recordingObjectID) {
+            [self refreshFields];
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
+        } failure:^(NSString *reason) {
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
+        }];
+    }
 }
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField

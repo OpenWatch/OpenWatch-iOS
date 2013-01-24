@@ -124,55 +124,6 @@
         NSDictionary *meta = [responseObject objectForKey:kMetaKey];
         NSUInteger pageCount = [[meta objectForKey:kPageCountKey] unsignedIntegerValue];
         success(recordings, pageCount);
-        /**** move to RecordingEditView ******
-        NSLog(@"success: %@", [responseObject description]);
-        NSArray *recordings = [responseObject objectForKey:kObjectsKey];
-        NSMutableArray *recordingObjectIDs = [NSMutableArray arrayWithCapacity:recordings.count];
-        NSDictionary *meta = [responseObject objectForKey:kMetaKey];
-        NSUInteger pageCount = [[meta objectForKey:kPageCountKey] unsignedIntegerValue];
-
-        for (NSDictionary *recordingDict in recordings) {
-            NSString *uuid = [recordingDict objectForKey:kUUIDKey];
-            int serverID = [[recordingDict objectForKey:kIDKey] intValue];
-            NSString *remoteLastEditedString = [recordingDict objectForKey:kLastEditedKey];
-            NSDateFormatter *dateFormatter = [OWUtilities utcDateFormatter];
-            
-            NSDate *remoteLastEditedDate = [dateFormatter dateFromString:remoteLastEditedString];
-            NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
-            OWManagedRecording *managedRecording = (OWManagedRecording*)[self mediaObjectForShortMetadataDictionary:recordingDict];
-            [context MR_saveToPersistentStoreAndWait];
-            [recordingObjectIDs addObject:managedRecording.objectID];
-            NSDate *localLastEditedDate = managedRecording.modifiedDate;
-            NSString *localLastEditedString = [dateFormatter stringFromDate:managedRecording.modifiedDate];
-            if (!notFound) {
-                int localSeconds = (int)[localLastEditedDate timeIntervalSince1970];
-                int remoteSeconds = (int)[remoteLastEditedDate timeIntervalSince1970];
-                NSLog(@"loc: %@", localLastEditedString);
-                NSLog(@"rmt: %@", remoteLastEditedString);
-                if (remoteSeconds > localSeconds) {
-                    [self getRecordingWithUUID:uuid success:^(NSManagedObjectID *recordingObjectID) {
-                        
-                    } failure:^(NSString *reason) {
-                        
-                    }];
-                } else if (remoteSeconds < localSeconds) {
-                    [self postRecordingWithUUID:uuid success:^{
-                        
-                    } failure:^(NSString *reason) {
-                        
-                    }];
-                }
-            } else {
-                NSLog(@"Recording found on server that's not on client!");
-                [self getRecordingWithUUID:uuid success:^(NSManagedObjectID *recordingObjectID) {
-                    
-                } failure:^(NSString *reason) {
-                    
-                }];
-            }
-        }
-        success(recordingObjectIDs, pageCount);
-         */
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"failure: %@", [error userInfo]);
         failure(@"fart");
@@ -184,7 +135,9 @@
 }
 
 - (void) getRecordingWithUUID:(NSString*)UUID success:(void (^)(NSManagedObjectID *))success failure:(void (^)(NSString *))failure {
-    [self getPath:[self pathForRecordingWithUUID:UUID] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    NSString *path = [self pathForRecordingWithUUID:UUID];
+    NSLog(@"Fetching %@", path);
+    [self getPath:path parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
         NSLog(@"GET Response: %@", operation.responseString);
         NSDictionary *recordingDict = [responseObject objectForKey:kRecordingKey];
@@ -277,6 +230,9 @@
     NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
     if ([type isEqualToString:kVideoTypeKey]) {
         NSString *uuid = [dictionary objectForKey:kUUIDKey];
+        if (uuid.length == 0) {
+            NSLog(@"no uuid!");
+        }
         mediaObject = [OWManagedRecording MR_findFirstByAttribute:@"uuid" withValue:uuid];
         if (!mediaObject) {
             mediaObject = [OWManagedRecording MR_createEntity];
@@ -326,7 +282,6 @@
     if (!account.isLoggedIn) {
         return;
     }
-    
     
     [self getPath:kTagsPath parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];

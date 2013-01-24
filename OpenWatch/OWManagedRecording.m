@@ -116,6 +116,8 @@
     NSString *newUUID = [metadataDictionary objectForKey:kUUIDKey];
     if (newUUID) {
         self.uuid = newUUID;
+    } else {
+        NSLog(@"uuid not found!");
     }
     NSString *newDescription = [metadataDictionary objectForKey:kDescriptionKey];
     if (newDescription) {

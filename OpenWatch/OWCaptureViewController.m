@@ -141,6 +141,7 @@
             //[videoProcessor stopAndTearDownCaptureSession];
             OWRecordingEditViewController *recordingInfo = [[OWRecordingEditViewController alloc] init];
             recordingInfo.recordingID = videoProcessor.recordingID;
+            recordingInfo.showingAfterCapture = YES;
             UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:recordingInfo];
             nav.navigationBar.tintColor = [OWUtilities navigationBarColor];
             [OW_APP_DELEGATE.homeScreen presentViewController:nav animated:YES completion:nil];
