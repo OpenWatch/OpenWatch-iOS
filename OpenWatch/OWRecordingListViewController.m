@@ -95,6 +95,9 @@
     if ([cell isKindOfClass:[OWMediaObjectTableViewCell class]]) {
         OWMediaObjectTableViewCell *mediaCell = (OWMediaObjectTableViewCell*)cell;
         mediaCell.isLocalRecording = YES;
+        // hack to get subviews to display properly
+        NSManagedObjectID *recordingObjectID = [self.objectIDs objectAtIndex:indexPath.row];
+        mediaCell.mediaObjectID = recordingObjectID;
     }
     return cell;
 }

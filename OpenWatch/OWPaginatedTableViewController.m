@@ -29,12 +29,6 @@
 {
     self = [super init];
     if (self) {
-        self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
-        self.tableView.dataSource = self;
-        self.tableView.delegate = self;
-        self.tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleRightMargin;
-        [self.view addSubview:tableView];
-        self.tableView.backgroundColor = [OWUtilities fabricBackgroundPattern];
         currentPage = 0;
     }
     return self;
@@ -43,6 +37,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.tableView.backgroundColor = [OWUtilities fabricBackgroundPattern];
+
 	if (_refreshHeaderView == nil) {
 		
 		EGORefreshTableHeaderView *view = [[EGORefreshTableHeaderView alloc] initWithFrame:CGRectMake(0.0f, 0.0f - self.tableView.bounds.size.height, self.view.frame.size.width, self.tableView.bounds.size.height)];
@@ -53,6 +49,7 @@
 	}
 	[_refreshHeaderView refreshLastUpdatedDate];
 }
+
 
 #pragma mark -
 #pragma mark Data Source Loading / Reloading Methods
@@ -119,7 +116,6 @@
     }
     NSManagedObjectID *recordingObjectID = [self.objectIDs objectAtIndex:indexPath.row];
     cell.mediaObjectID = recordingObjectID;
-    return cell;
     
     return cell;
 }
@@ -141,10 +137,12 @@
 }
 
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    CGFloat loadingCellHeight = 45.0f;
+    CGFloat regularCellHeight = 147.0f;
     if (indexPath.row >= self.objectIDs.count) {
-        return 45.0f;
+        return loadingCellHeight;
     }
-    return 147.0f;
+    return regularCellHeight;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
