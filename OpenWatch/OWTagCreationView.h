@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "OWAutocompletionViewController.h"
 
 @class OWTagCreationView;
 @protocol OWTagCreationViewDelegate <NSObject>
@@ -17,10 +18,12 @@
 - (void) tagCreationViewDidEndEditing:(OWTagCreationView*)tagCreationView;
 @end
 
-@interface OWTagCreationView : UIView <UITextFieldDelegate>
+@interface OWTagCreationView : UIView <UITextFieldDelegate, OWAutocompletionDelegate>
 
 @property (nonatomic, weak) id<OWTagCreationViewDelegate> delegate;
 @property (nonatomic, strong) UITextField *textField;
 @property (nonatomic, strong) UIButton *addButton;
+@property (nonatomic, strong) OWAutocompletionViewController *autocompletionView;
+
 
 @end

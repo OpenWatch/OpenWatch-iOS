@@ -60,6 +60,7 @@
 - (void) setupTagEditView {
     self.tagEditView = [[OWTagEditView alloc] initWithFrame:CGRectMake(PADDING, 0, self.view.frame.size.width - PADDING*2, 100.0f)];
     self.tagEditView.delegate = self;
+    self.tagEditView.viewForAutocompletionPopover = self.view;
     [self.scrollView addSubview:tagEditView];
 }
 

@@ -23,5 +23,6 @@
 @property (nonatomic, strong) OWTagCreationView *tagCreationView;
 @property (nonatomic, readonly) CGSize contentSize;
 @property (nonatomic, strong) NSSet *tags; // Array of OWTags
+@property (nonatomic, weak) UIView *viewForAutocompletionPopover;
 
 @end

@@ -11,7 +11,7 @@
 #import "OWRecordingController.h"
 #import "OWTag.h"
 #import "OWStrings.h"
-#import "OWAutocompletionView.h"
+#import "OWAutocompletionViewController.h"
 #import "OWUtilities.h"
 #import "OWSettingsController.h"
 #import "OWAccountAPIClient.h"
@@ -22,7 +22,6 @@
 @property (nonatomic, strong) UITextField *tagTextField;
 @property (nonatomic, strong) NSMutableArray *tagsArray;
 @property (nonatomic, strong) UIButton *addTagButton;
-@property (nonatomic, strong) OWAutocompletionView *autocompletionView;
 @end
 
 @implementation OWTagEditViewController
@@ -46,7 +45,7 @@
         self.tagTextField.autocorrectionType = UITextAutocorrectionTypeNo;
         self.addTagButton = [UIButton buttonWithType:UIButtonTypeContactAdd];
         [addTagButton addTarget:self action:@selector(addTagButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-        self.autocompletionView = [[OWAutocompletionView alloc] init];
+        self.autocompletionView = [[OWAutocompletionViewController alloc] init];
         self.autocompletionView.delegate = self;
     }
     return self;
@@ -209,8 +208,5 @@
     }
 }
 
-- (void) didSelectString:(NSString *)string forTextField:(UITextField *)textField {
-    [self addTagForName:string];
-}
 
 @end

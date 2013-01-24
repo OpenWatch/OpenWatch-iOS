@@ -17,7 +17,7 @@
 @end
 
 @implementation OWTagEditView
-@synthesize tagNames, tagList, tagCreationView, contentSize, delegate;
+@synthesize tagNames, tagList, tagCreationView, contentSize, delegate, viewForAutocompletionPopover;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -30,6 +30,7 @@
     }
     return self;
 }
+
 
 - (void) setupTagView {
     self.tagList = [[DWTagList alloc] initWithFrame:CGRectZero];
@@ -128,6 +129,11 @@
         [tagNameArray addObject:tag.name];
     }
     self.tagNames = tagNameArray;
+}
+
+- (void) setViewForAutocompletionPopover:(UIView *)_viewForAutocompletionPopover {
+    viewForAutocompletionPopover = _viewForAutocompletionPopover;
+    self.tagCreationView.autocompletionView.viewForAutocompletionPopover = viewForAutocompletionPopover;
 }
 
 @end

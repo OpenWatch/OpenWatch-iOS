@@ -7,11 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "OWAutocompletionView.h"
+#import "OWAutocompletionViewController.h"
 
-@interface OWTagEditViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, OWAutocompletionViewDelegate>
+@interface OWTagEditViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, OWAutocompletionDelegate>
 
 @property (nonatomic, strong) NSManagedObjectID *recordingObjectID;
 @property (nonatomic) BOOL isLocalRecording;
+@property (nonatomic, strong) OWAutocompletionViewController *autocompletionView;
 
 @end

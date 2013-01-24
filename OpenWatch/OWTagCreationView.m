@@ -7,9 +7,10 @@
 //
 
 #import "OWTagCreationView.h"
+#import "OWTag.h"
 
 @implementation OWTagCreationView
-@synthesize delegate, textField, addButton;
+@synthesize delegate, textField, addButton, autocompletionView;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -27,8 +28,23 @@
         self.addButton.frame = CGRectMake(self.frame.size.width - self.addButton.frame.size.width, 1, self.addButton.frame.size.width, self.addButton.frame.size.height);
         [self addSubview:textField];
         [self addSubview:addButton];
+        [self setupAutocompletionView];
     }
     return self;
+}
+
+
+- (void) setupAutocompletionView {
+    self.autocompletionView = [[OWAutocompletionViewController alloc] init];
+    self.autocompletionView.delegate = self;
+    NSArray *allTags = [OWTag MR_findAll];
+    NSMutableSet *suggestionStrings = [NSMutableSet setWithCapacity:[allTags count]];
+    for (OWTag *tag in allTags) {
+        [suggestionStrings addObject:[tag.name lowercaseString]];
+    }
+    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"description" ascending:YES];
+    NSArray *sortedArray = [suggestionStrings sortedArrayUsingDescriptors:@[sortDescriptor]];
+    self.autocompletionView.suggestionStrings = sortedArray;
 }
 
 - (void) addButtonPressed:(id)sender {
@@ -57,15 +73,31 @@
 }
 
 - (void) textFieldDidBeginEditing:(UITextField *)textField {
+    [autocompletionView showAllSuggestionsForTextField:self.textField];
     if (delegate && [delegate respondsToSelector:@selector(tagCreationViewDidBeginEditing:)]) {
         [delegate tagCreationViewDidBeginEditing:self];
     }
 }
 
 - (void) textFieldDidEndEditing:(UITextField *)textField {
+    [autocompletionView.popOver dismissPopoverAnimated:YES];
     if (delegate && [delegate respondsToSelector:@selector(tagCreationViewDidEndEditing:)]) {
         [delegate tagCreationViewDidEndEditing:self];
     }
+}
+
+
+- (BOOL)textField:(UITextField *)_textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+    if (_textField == self.textField) {
+        [autocompletionView showSuggestionsForTextField:textField shouldChangeCharactersInRange:range replacementString:string];
+    }
+    return YES;
+}
+
+
+- (void) didSelectString:(NSString *)string forTextField:(UITextField *)_textField {
+    [self.delegate tagCreationView:self didCreateTags:@[string]];
+    textField.text = @"";
 }
 
 /*
