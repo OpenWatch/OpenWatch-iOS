@@ -116,6 +116,7 @@
     self.segmentedControl = [[UISegmentedControl alloc] initWithItems:@[INFO_STRING, TAGS_STRING, DESCRIPTION_STRING, MAP_STRING]];
     self.segmentedControl.selectedSegmentIndex = 0;
     segmentedControl.segmentedControlStyle = 7;
+    self.segmentedControl.tintColor = [OWUtilities navigationBarColor];
     [self.view addSubview:segmentedControl];
     [segmentedControl addTarget:self action:@selector(segmentedControlValueChanged:) forControlEvents:UIControlEventValueChanged];
 }

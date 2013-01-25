@@ -21,7 +21,7 @@
         CGFloat labelWidth = 23.0f;
         CGFloat height = frame.size.height;
         self.eyeImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"eye.png"]];
-        self.actionImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"action.png"]];
+        self.actionImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"275-broadcast.png"]];
         self.eyeImageView.frame = CGRectMake(0, 0, eyeImageView.image.size.width, eyeImageView.image.size.height);
         self.viewsLabel = [[UILabel alloc] initWithFrame:CGRectMake(eyeImageView.image.size.width+PADDING, 0, labelWidth, height)];
         self.actionImageView.frame = CGRectMake(self.viewsLabel.frame.origin.x + self.viewsLabel.frame.size.width + PADDING, 0, actionImageView.image.size.width, actionImageView.image.size.height);
@@ -34,8 +34,8 @@
         self.viewsLabel.backgroundColor = [UIColor clearColor];
         
         self.viewsLabel.adjustsFontSizeToFitWidth = YES;
-        self.viewsLabel.adjustsLetterSpacingToFitWidth = YES;
-        self.actionsLabel.adjustsLetterSpacingToFitWidth = YES;
+        //self.viewsLabel.adjustsLetterSpacingToFitWidth = YES;
+        //self.actionsLabel.adjustsLetterSpacingToFitWidth = YES;
         self.actionsLabel.adjustsFontSizeToFitWidth = YES;
         
         [self addSubview:eyeImageView];

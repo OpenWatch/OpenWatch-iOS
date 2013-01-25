@@ -12,6 +12,7 @@
 #import "SHK.h"
 #import "OWAccountAPIClient.h"
 #import "OWStory.h"
+#import "OWAppDelegate.h"
 
 @implementation OWShareController
 @synthesize mediaObjectID, viewController;
@@ -80,10 +81,16 @@
     
     // ShareKit detects top view controller (the one intended to present ShareKit UI) automatically,
     // but sometimes it may not find one. To be safe, set it explicitly
-    [SHK setRootViewController:viewController];
+    if (viewController) {
+        [SHK setRootViewController:viewController];
+    }
     
     // Display the action sheet
-    [actionSheet showFromToolbar:viewController.navigationController.toolbar];
+    if (viewController) {
+        [actionSheet showFromToolbar:viewController.navigationController.toolbar];
+    } else {
+        [actionSheet showFromToolbar:OW_APP_DELEGATE.navigationController.toolbar];
+    }
     
     self.viewController = nil;
     self.mediaObjectID = nil;
