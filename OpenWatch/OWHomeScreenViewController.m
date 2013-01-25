@@ -17,8 +17,8 @@
 #import "OWAccountAPIClient.h"
 #import "OWShareController.h"
 
-#define RECORD_BUTTON_HEIGHT 150.0f
-#define RECORD_BUTTON_WIDTH 150.0f
+#define RECORD_BUTTON_HEIGHT 120.0f
+#define RECORD_BUTTON_WIDTH 120.0f
 #define BUTTON_HEIGHT 80.0f
 #define BUTTON_WIDTH 80.0f
 
