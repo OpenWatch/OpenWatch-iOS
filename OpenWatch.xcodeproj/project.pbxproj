@@ -109,6 +109,8 @@
 		D997418C1651D42F0034ABB0 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D997418B1651D42F0034ABB0 /* Default-568h@2x.png */; };
 		D997419D1651D8520034ABB0 /* OWLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D997419C1651D8520034ABB0 /* OWLoginViewController.m */; };
 		D99741A11651DB0B0034ABB0 /* OWSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D99741A01651DB0B0034ABB0 /* OWSettingsViewController.m */; };
+		D9BECF0016B20E01009046E1 /* navbar.png in Resources */ = {isa = PBXBuildFile; fileRef = D9BECEFE16B20E01009046E1 /* navbar.png */; };
+		D9BECF0116B20E01009046E1 /* navbar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9BECEFF16B20E01009046E1 /* navbar@2x.png */; };
 		D9C0332816A4C26900B7CFC7 /* OWStoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C0332716A4C26900B7CFC7 /* OWStoryViewController.m */; };
 		D9C0332B16A4CAC400B7CFC7 /* OWMediaObjectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C0332A16A4CAC400B7CFC7 /* OWMediaObjectViewController.m */; };
 		D9C0333D16A4E22100B7CFC7 /* libSDURLCache.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D9C0333816A4E1EC00B7CFC7 /* libSDURLCache.a */; };
@@ -652,6 +654,8 @@
 		D997419F1651DB0B0034ABB0 /* OWSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWSettingsViewController.h; sourceTree = "<group>"; };
 		D99741A01651DB0B0034ABB0 /* OWSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWSettingsViewController.m; sourceTree = "<group>"; };
 		D99741A21651DBC50034ABB0 /* OWStrings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OWStrings.h; sourceTree = "<group>"; };
+		D9BECEFE16B20E01009046E1 /* navbar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navbar.png; sourceTree = "<group>"; };
+		D9BECEFF16B20E01009046E1 /* navbar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navbar@2x.png"; sourceTree = "<group>"; };
 		D9C0332616A4C26900B7CFC7 /* OWStoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWStoryViewController.h; sourceTree = "<group>"; };
 		D9C0332716A4C26900B7CFC7 /* OWStoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWStoryViewController.m; sourceTree = "<group>"; };
 		D9C0332916A4CAC400B7CFC7 /* OWMediaObjectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWMediaObjectViewController.h; sourceTree = "<group>"; };
@@ -1020,7 +1024,6 @@
 		D99741661651D42E0034ABB0 = {
 			isa = PBXGroup;
 			children = (
-				D92B6A7F16AF52B2006605E1 /* QuartzCore.framework */,
 				D9DFADF716547DE7003C515C /* Media */,
 				D997417B1651D42F0034ABB0 /* OpenWatch */,
 				D9D2E1501652EA8A0000E7C5 /* Submodules */,
@@ -1040,6 +1043,7 @@
 		D99741741651D42F0034ABB0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D92B6A7F16AF52B2006605E1 /* QuartzCore.framework */,
 				D9CEED18168271C700B236B5 /* libz.dylib */,
 				D92D29E61681267900A9E408 /* Social.framework */,
 				D92D29E41681266B00A9E408 /* libsqlite3.dylib */,
@@ -1327,6 +1331,8 @@
 		D9DFADF716547DE7003C515C /* Media */ = {
 			isa = PBXGroup;
 			children = (
+				D9BECEFE16B20E01009046E1 /* navbar.png */,
+				D9BECEFF16B20E01009046E1 /* navbar@2x.png */,
 				D9E72E54167FB11100C6CB75 /* icons */,
 				D9E72E2A167BC6FE00C6CB75 /* thumbnail_placeholder.png */,
 				D9E72E2B167BC6FE00C6CB75 /* thumbnail_placeholder@2x.png */,
@@ -1902,6 +1908,8 @@
 				D92B6A7916AF4FD3006605E1 /* grayArrow@2x.png in Resources */,
 				D92B6A7A16AF4FD3006605E1 /* whiteArrow.png in Resources */,
 				D92B6A7B16AF4FD3006605E1 /* whiteArrow@2x.png in Resources */,
+				D9BECF0016B20E01009046E1 /* navbar.png in Resources */,
+				D9BECF0116B20E01009046E1 /* navbar@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

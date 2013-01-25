@@ -10,12 +10,19 @@
 
 @implementation OWUtilities
 
++ (UIColor*) oldColorWithRed:(CGFloat)red green:(CGFloat)green blue:(CGFloat)blue alpha:(CGFloat)alpha {
+    CGFloat max = 255.0f;
+    return [UIColor colorWithRed:red/max green:green/max blue:blue/max alpha:alpha];
+}
+
 + (UIColor*) fabricBackgroundPattern {
     return [UIColor colorWithPatternImage:[UIImage imageNamed:@"fabric.jpeg"]];
 }
 
 + (UIColor*) navigationBarColor {
-    return [UIColor colorWithRed:1.0f green:0.0f blue:0.0f alpha:1.0f];
+    //238	207	161
+    //return [UIColor brownColor];
+    return [OWUtilities oldColorWithRed:220 green:220 blue:220 alpha:1.0];
 }
 
 + (UIColor*) doneButtonColor {

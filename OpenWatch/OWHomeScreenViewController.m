@@ -17,11 +17,16 @@
 #import "OWAccountAPIClient.h"
 #import "OWShareController.h"
 
+#define RECORD_BUTTON_HEIGHT 150.0f
+#define RECORD_BUTTON_WIDTH 150.0f
+#define BUTTON_HEIGHT 80.0f
+#define BUTTON_WIDTH 80.0f
+
 @interface OWHomeScreenViewController ()
 @end
 
 @implementation OWHomeScreenViewController
-@synthesize recordButtonView, watchButtonView, localButtonView, savedButtonView, settingsButtonView;
+@synthesize recordButtonView, watchButtonView, localButtonView, savedButtonView, settingsButtonView, gridView;
 
 - (id)init
 {
@@ -36,11 +41,17 @@
 {
     [super viewDidLoad];
     self.view.backgroundColor = [OWUtilities fabricBackgroundPattern];
+
     
-    CGFloat buttonHeight = 80.0f;
-    CGFloat buttonWidth = 80.0f;
-    CGFloat recordButtonHeight = 150.0f;
-    CGFloat recordButtonWidth = 150.0f;
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"openwatch.png"]];
+    imageView.frame = CGRectMake(0, 0, 200, 25);
+    imageView.contentMode = UIViewContentModeScaleAspectFit;
+    self.navigationItem.titleView = imageView;
+    
+    CGFloat buttonHeight = BUTTON_HEIGHT;
+    CGFloat buttonWidth = BUTTON_WIDTH;
+    CGFloat recordButtonHeight = RECORD_BUTTON_HEIGHT;
+    CGFloat recordButtonWidth = RECORD_BUTTON_WIDTH;
     self.recordButtonView = [[OWLabeledButtonView alloc] initWithFrame:CGRectMake(0, 0, recordButtonWidth, recordButtonHeight) defaultImageName:@"record-big.png" highlightedImageName:nil labelName:RECORD_STRING];
     self.recordButtonView.textLabel.font = [UIFont boldSystemFontOfSize:25.0f];
     self.watchButtonView = [[OWLabeledButtonView alloc] initWithFrame:CGRectMake(0, 0, buttonWidth, buttonHeight) defaultImageName:@"eye-big.png" highlightedImageName:nil labelName:WATCH_STRING];
@@ -54,34 +65,19 @@
     [savedButtonView.button addTarget:self action:@selector(savedButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [localButtonView.button addTarget:self action:@selector(localButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     
-    [self.view addSubview:recordButtonView];
-    
-    
-    CGFloat xPadding = 50.0f;
-    CGFloat yPadding = 10.0f;
-    
-    CGFloat recordButtonYOrigin = 0.0f;
-
-    self.recordButtonView.frame = CGRectMake(self.view.frame.size.width/2 - recordButtonWidth/2, recordButtonYOrigin, recordButtonWidth, recordButtonHeight);
-    
-    CGFloat firstButtonRowYOrigin = recordButtonYOrigin+recordButtonHeight + yPadding*5;
-    UIView *gridView = [[UIView alloc] initWithFrame:CGRectMake(xPadding, firstButtonRowYOrigin, self.view.frame.size.width-xPadding*2, self.view.frame.size.height - firstButtonRowYOrigin - yPadding*5)];
-    
-    self.watchButtonView.frame = CGRectMake(0, 0, buttonWidth, buttonHeight);
-    CGFloat secondButtonColumnXOrigin = gridView.frame.size.width - buttonWidth;
-    self.localButtonView.frame = CGRectMake(secondButtonColumnXOrigin, 0, buttonWidth, buttonHeight);
-    CGFloat secondButtonRowYOrigin = gridView.frame.size.height - buttonHeight;
-    self.savedButtonView.frame = CGRectMake(0, secondButtonRowYOrigin, buttonWidth, buttonHeight);
-    self.settingsButtonView.frame = CGRectMake(secondButtonColumnXOrigin, secondButtonRowYOrigin, buttonWidth, buttonHeight);
+    self.gridView = [[UIView alloc] init];
     
     [gridView addSubview:watchButtonView];
     [gridView addSubview:localButtonView];
     [gridView addSubview:savedButtonView];
     [gridView addSubview:settingsButtonView];
     [self.view addSubview:gridView];
+    [self.view addSubview:recordButtonView];
+
     
     [[OWAccountAPIClient sharedClient] getSubscribedTags];
 }
+
 
 
 - (void) checkAccount {
@@ -96,15 +92,30 @@
     }
 }
 
-- (void) viewWillDisappear:(BOOL)animated {
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
-}
-
 - (void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
     [TestFlight passCheckpoint:HOME_CHECKPOINT];
-
+    CGFloat buttonHeight = BUTTON_HEIGHT;
+    CGFloat buttonWidth = BUTTON_WIDTH;
+    CGFloat recordButtonHeight = RECORD_BUTTON_HEIGHT;
+    CGFloat recordButtonWidth = RECORD_BUTTON_WIDTH;
+    
+    CGFloat xPadding = 50.0f;
+    CGFloat yPadding = 10.0f;
+    
+    CGFloat recordButtonYOrigin = 0.0f;
+    
+    self.recordButtonView.frame = CGRectMake(self.view.frame.size.width/2 - recordButtonWidth/2, recordButtonYOrigin, recordButtonWidth, recordButtonHeight);
+    
+    CGFloat firstButtonRowYOrigin = recordButtonYOrigin+recordButtonHeight + yPadding*5;
+    gridView.frame = CGRectMake(xPadding, firstButtonRowYOrigin, self.view.frame.size.width-xPadding*2, self.view.frame.size.height - firstButtonRowYOrigin - yPadding*5);
+    
+    self.watchButtonView.frame = CGRectMake(0, 0, buttonWidth, buttonHeight);
+    CGFloat secondButtonColumnXOrigin = gridView.frame.size.width - buttonWidth;
+    self.localButtonView.frame = CGRectMake(secondButtonColumnXOrigin, 0, buttonWidth, buttonHeight);
+    CGFloat secondButtonRowYOrigin = gridView.frame.size.height - buttonHeight;
+    self.savedButtonView.frame = CGRectMake(0, secondButtonRowYOrigin, buttonWidth, buttonHeight);
+    self.settingsButtonView.frame = CGRectMake(secondButtonColumnXOrigin, secondButtonRowYOrigin, buttonWidth, buttonHeight);
 }
 
 - (void) viewDidAppear:(BOOL)animated {

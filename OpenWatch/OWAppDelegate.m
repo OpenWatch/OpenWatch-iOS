@@ -35,7 +35,13 @@
      
     self.homeScreen = [[OWHomeScreenViewController alloc] init];
     self.navigationController = [[UINavigationController alloc] initWithRootViewController:homeScreen];
+    UINavigationBar *navigationBar = self.navigationController.navigationBar;
+    UIImage *image = [UIImage imageNamed: @"navbar.png"];
+    [navigationBar setBackgroundImage:image forBarMetrics: UIBarMetricsDefault];
+    navigationController.navigationBar.backgroundColor = [UIColor clearColor];
     navigationController.navigationBar.tintColor = [OWUtilities navigationBarColor];
+    [[UINavigationBar appearance] setTitleTextAttributes:
+     @{UITextAttributeTextColor : [UIColor blackColor]}];
 
     self.window.rootViewController = navigationController;
     DefaultSHKConfigurator *configurator = [[OWSHKConfigurator alloc] init];

@@ -11,6 +11,8 @@
 
 @interface OWHomeScreenViewController : UIViewController <UIAlertViewDelegate>
 
+@property (nonatomic, strong) UIView *gridView;
+
 @property (nonatomic, strong) OWLabeledButtonView *recordButtonView;
 @property (nonatomic, strong) OWLabeledButtonView *watchButtonView;
 @property (nonatomic, strong) OWLabeledButtonView *localButtonView;
