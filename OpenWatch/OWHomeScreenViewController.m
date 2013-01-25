@@ -85,7 +85,7 @@
     if (![settingsController.account isLoggedIn]) {
         OWLoginViewController *loginViewController = [[OWLoginViewController alloc] init];
         UINavigationController *loginNavController = [[UINavigationController alloc] initWithRootViewController:loginViewController];
-        loginNavController.navigationBar.tintColor = [OWUtilities navigationBarColor];
+        [OWUtilities styleNavigationController:loginNavController];
         [self presentViewController:loginNavController animated:YES completion:^{
             
         }];
@@ -138,6 +138,7 @@
 - (void) recordButtonPressed:(id)sender {
     OWCaptureViewController *captureView = [[OWCaptureViewController alloc] init];
     UINavigationController *captureNav = [[UINavigationController alloc] initWithRootViewController:captureView];
+    //[OWUtilities styleNavigationController:captureNav];
     captureNav.navigationBar.tintColor = [OWUtilities navigationBarColor];
     [self presentViewController:captureNav animated:YES completion:^{
     }];

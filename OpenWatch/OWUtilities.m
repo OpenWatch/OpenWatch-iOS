@@ -19,6 +19,14 @@
     return [UIColor colorWithPatternImage:[UIImage imageNamed:@"fabric.jpeg"]];
 }
 
++ (void) styleNavigationController:(UINavigationController*)navigationController {
+    UINavigationBar *navigationBar = navigationController.navigationBar;
+    UIImage *image = [UIImage imageNamed: @"navbar.png"];
+    [navigationBar setBackgroundImage:image forBarMetrics: UIBarMetricsDefault];
+    navigationController.navigationBar.backgroundColor = [UIColor clearColor];
+    navigationController.navigationBar.tintColor = [OWUtilities navigationBarColor];
+}
+
 + (UIColor*) navigationBarColor {
     //238	207	161
     //return [UIColor brownColor];

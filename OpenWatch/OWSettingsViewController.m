@@ -53,7 +53,7 @@
     if (indexPath.row == ACCOUNT_ROW) {
         OWLoginViewController *loginView = [[OWLoginViewController alloc] init];
         UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:loginView];
-        navController.navigationBar.tintColor = [OWUtilities navigationBarColor];
+        [OWUtilities styleNavigationController:navController];
         [self presentViewController:navController animated:YES completion:nil];
     } else if (indexPath.row == FEEDBACK_ROW) {
         [TestFlight openFeedbackView];

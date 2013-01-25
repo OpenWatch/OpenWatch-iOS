@@ -18,6 +18,8 @@
 + (UIColor*) greyColorWithGreyness:(CGFloat)greyness;
 + (UIColor*) textFieldTextColor;
 
+
++ (void) styleNavigationController:(UINavigationController*)navigationController;
 + (void) styleLabel:(UILabel*) label;
 
 + (NSDateFormatter*) utcDateFormatter;

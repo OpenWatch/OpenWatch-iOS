@@ -143,6 +143,7 @@
             recordingInfo.recordingID = videoProcessor.recordingID;
             recordingInfo.showingAfterCapture = YES;
             UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:recordingInfo];
+            [OWUtilities styleNavigationController:nav];
             nav.navigationBar.tintColor = [OWUtilities navigationBarColor];
             [OW_APP_DELEGATE.homeScreen presentViewController:nav animated:YES completion:nil];
         }];

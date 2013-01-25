@@ -35,8 +35,7 @@
         [self.view addSubview:selectionTableView];
         self.selectionTableView.dataSource = self;
         self.selectionTableView.delegate = self;
-        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:self];
-        self.popOver = [[WEPopoverController alloc] initWithContentViewController:nav];
+        self.popOver = [[WEPopoverController alloc] initWithContentViewController:self];
         self.popOver.containerViewProperties = [OWUtilities improvedContainerViewProperties];
     }
     return self;
