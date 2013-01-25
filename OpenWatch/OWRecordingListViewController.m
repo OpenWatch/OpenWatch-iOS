@@ -12,8 +12,6 @@
 #import "OWAccountAPIClient.h"
 #import "OWMediaObjectTableViewCell.h"
 #import "OWRecordingEditViewController.h"
-#import "MBProgressHUD.h"
-#import "OWAppDelegate.h"
 
 @interface OWRecordingListViewController ()
 
@@ -63,12 +61,9 @@
     });
 }
 
-- (void) didSelectFeedWithPageNumber:(NSUInteger)pageNumber showHUD:(BOOL)shouldShowHUD {
+- (void) didSelectFeedWithPageNumber:(NSUInteger)pageNumber {
     if (pageNumber <= kFirstPage) {
         self.currentPage = kFirstPage;
-    }
-    if (shouldShowHUD) {
-        [MBProgressHUD showHUDAddedTo:OW_APP_DELEGATE.window animated:YES];
     }
     [[OWAccountAPIClient sharedClient] fetchUserRecordingsOnPage:pageNumber success:^(NSArray *recordingObjectIDs, NSUInteger totalPages) {
         self.totalPages = totalPages;
@@ -78,7 +73,6 @@
         }
         [self reloadFeed:recordingObjectIDs replaceObjects:shouldReplaceObjects];
     } failure:^(NSString *reason) {
-        [MBProgressHUD hideHUDForView:OW_APP_DELEGATE.window animated:YES];
         [self loadOfflineRecordings];
     }];
 }
@@ -152,7 +146,7 @@
 }
 
 - (void) fetchObjectsForPageNumber:(NSUInteger)pageNumber {
-    [self didSelectFeedWithPageNumber:pageNumber showHUD:NO];;
+    [self didSelectFeedWithPageNumber:pageNumber];
 }
 
 @end

@@ -8,9 +8,7 @@
 
 #import "OWPaginatedTableViewController.h"
 #import "OWMediaObjectTableViewCell.h"
-#import "MBProgressHUD.h"
 #import "OWUtilities.h"
-#import "OWAppDelegate.h"
 
 #define kLoadingCellTag 31415
 
@@ -57,7 +55,6 @@
 }
 
 - (void)doneLoadingTableViewData {
-    [MBProgressHUD hideHUDForView:OW_APP_DELEGATE.window animated:YES];
     isReloading = NO;
 	[_refreshHeaderView egoRefreshScrollViewDataSourceDidFinishedLoading:self.tableView];
 }
@@ -166,11 +163,10 @@
     [self.tableView reloadData];
     
 	[self doneLoadingTableViewData];
-    [MBProgressHUD hideHUDForView:OW_APP_DELEGATE.window animated:YES];
 }
 
 - (void) failedToLoadFeed:(NSString*)reason {
-    [MBProgressHUD hideHUDForView:OW_APP_DELEGATE.window animated:YES];
+    [self doneLoadingTableViewData];
 }
 
 - (void) fetchObjectsForPageNumber:(NSUInteger)pageNumber {}

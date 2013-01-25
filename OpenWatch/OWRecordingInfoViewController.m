@@ -16,6 +16,7 @@
 #import "OWTallyView.h"
 #import "UIImageView+AFNetworking.h"
 #import "QuartzCore/CALayer.h"
+#import "OWTag.h"
 
 #define PADDING 10.0f
 
@@ -26,7 +27,7 @@
 @synthesize mapView, moviePlayer, centerCoordinate, scrollView;
 @synthesize titleLabel, segmentedControl;
 @synthesize infoView, descriptionTextView, profileImageView, tallyView;
-@synthesize usernameLabel;
+@synthesize usernameLabel, tagList;
 
 - (void) dealloc {
     self.moviePlayer = nil;
@@ -40,11 +41,32 @@
         [self setupSegmentedControl];
         [self setupDescriptionView];
         [self setupInfoView];
+        [self setupTagList];
         self.title = INFO_STRING;
     }
     return self;
 }
 
+- (void) setupTagList {
+    self.tagList = [[DWTagList alloc] init];
+    self.tagList.delegate = self;
+    [self.scrollView addSubview:tagList];
+}
+
+- (void) refreshTagsForRecording:(OWManagedRecording*)recording {
+    NSSet *tagSet = recording.tags;
+    NSMutableArray *tagNameArray = [[NSMutableArray alloc] initWithCapacity:tagSet.count];
+    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES];
+    NSArray *tagObjectArray = [tagSet sortedArrayUsingDescriptors:@[sortDescriptor]];
+    for (OWTag *tag in tagObjectArray) {
+        [tagNameArray addObject:tag.name];
+    }
+    [tagList setTags:tagNameArray];
+}
+
+- (void) selectedTagName:(NSString *)tagName atIndex:(NSUInteger)index {
+    NSLog(@"selected: %d %@", index, tagName);
+}
 
 
 - (void) setupInfoView {
@@ -90,7 +112,7 @@
 }
 
 - (void) setupSegmentedControl {
-    self.segmentedControl = [[UISegmentedControl alloc] initWithItems:@[INFO_STRING, DESCRIPTION_STRING, MAP_STRING]];
+    self.segmentedControl = [[UISegmentedControl alloc] initWithItems:@[INFO_STRING, TAGS_STRING, DESCRIPTION_STRING, MAP_STRING]];
     self.segmentedControl.selectedSegmentIndex = 0;
     segmentedControl.segmentedControlStyle = 7;
     [self.view addSubview:segmentedControl];
@@ -152,11 +174,16 @@
     CGFloat scrollViewYOrigin = [OWUtilities bottomOfView:segmentedControl];
     CGFloat scrollViewHeight = frameHeight-scrollViewYOrigin;
     self.scrollView.frame = CGRectMake(0, scrollViewYOrigin, frameWidth, scrollViewHeight);
-    self.scrollView.contentSize = CGSizeMake(frameWidth * 3, scrollViewHeight);
+    self.scrollView.contentSize = CGSizeMake(frameWidth * 4, scrollViewHeight);
+    
     
     self.infoView.frame = CGRectMake(0, 0, frameWidth, scrollViewHeight);
-    self.descriptionTextView.frame = CGRectMake(frameWidth, 0, frameWidth, scrollViewHeight);
-    self.mapView.frame = CGRectMake(frameWidth*2, 0, frameWidth, scrollViewHeight);
+    CGSize tagListSize = self.tagList.fittedSize;
+    CGFloat xMargin = floorf((frameWidth - tagListSize.width) / 2);
+    CGFloat yMargin = floorf((scrollViewHeight - tagListSize.height) / 2);
+    self.tagList.frame = CGRectMake(frameWidth + xMargin, yMargin, frameWidth - xMargin, scrollViewHeight - yMargin);
+    self.descriptionTextView.frame = CGRectMake(frameWidth*2, 0, frameWidth, scrollViewHeight);
+    self.mapView.frame = CGRectMake(frameWidth*3, 0, frameWidth, scrollViewHeight);
     [self setFramesForInfoView];
 }
 
@@ -202,6 +229,7 @@
     }
     
     [self refreshFields];
+    [self refreshFrames];
     [self refreshMapParameters];
     
     [[OWAccountAPIClient sharedClient] getRecordingWithUUID:recording.uuid success:^(NSManagedObjectID *recordingObjectID) {
@@ -287,12 +315,9 @@
     self.usernameLabel.text = recording.user.username;
     
     [self.profileImageView setImageWithURL:recording.user.thumbnailURL placeholderImage:[UIImage imageNamed:@"thumbnail_placeholder.png"]];
+    
+    [self refreshTagsForRecording:recording];
 }
-
-
-
-
-
 
 
 - (void)didReceiveMemoryWarning

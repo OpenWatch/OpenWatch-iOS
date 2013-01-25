@@ -16,8 +16,6 @@
 #import "OWStory.h"
 #import "OWStoryViewController.h"
 #import "OWMediaObjectViewController.h"
-#import "MBProgressHUD.h"
-#import "OWAppDelegate.h"
 
 
 @interface OWWatchViewController ()
@@ -41,7 +39,7 @@
     return self;
 }
 
-- (void) didSelectFeedWithName:(NSString *)feedName type:(OWFeedType)type shouldShowHUD:(BOOL)shouldShowHUD pageNumber:(NSUInteger)pageNumber {
+- (void) didSelectFeedWithName:(NSString *)feedName type:(OWFeedType)type pageNumber:(NSUInteger)pageNumber {
     if (pageNumber <= kFirstPage) {
         self.currentPage = kFirstPage;
     }
@@ -49,9 +47,6 @@
     selectedFeedString = feedName;
     feedType = type;
     self.title = feedName;
-    if (shouldShowHUD) {
-        [MBProgressHUD showHUDAddedTo:OW_APP_DELEGATE.window animated:YES];
-    }
     
     if (feedType == kOWFeedTypeFeed) {
         [[OWAccountAPIClient sharedClient] fetchRecordingsForFeed:feedName page:pageNumber success:^(NSArray *recordings, NSUInteger totalPages) {
@@ -80,16 +75,16 @@
 }
 
 - (void) didSelectFeedWithName:(NSString *)feedName type:(OWFeedType)type {
-    [self didSelectFeedWithName:feedName type:type shouldShowHUD:YES pageNumber:1];
+    [self didSelectFeedWithName:feedName type:type pageNumber:1];
 }
 
 - (void) fetchObjectsForPageNumber:(NSUInteger)pageNumber {
-    [self didSelectFeedWithName:selectedFeedString type:feedType shouldShowHUD:NO pageNumber:pageNumber];
+    [self didSelectFeedWithName:selectedFeedString type:feedType pageNumber:pageNumber];
 }
 
 - (void) reloadTableViewDataSource {
     [super reloadTableViewDataSource];
-    [self didSelectFeedWithName:selectedFeedString type:feedType shouldShowHUD:NO pageNumber:1];
+    [self didSelectFeedWithName:selectedFeedString type:feedType pageNumber:1];
 }
 
 -(void)showPopOverListFor:(UIBarButtonItem*)buttonItem{
