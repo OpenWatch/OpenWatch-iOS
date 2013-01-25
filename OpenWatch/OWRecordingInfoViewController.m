@@ -85,6 +85,7 @@
     profileImageView.layer.shadowRadius = 3.0;
      */
     profileImageView.layer.cornerRadius = 5;
+    profileImageView.layer.shouldRasterize = YES;
     profileImageView.clipsToBounds = YES;
     [self.infoView addSubview:profileImageView];
     

@@ -136,7 +136,7 @@
     if (indexPath.row >= self.objectIDs.count) {
         return 45.0f;
     }
-    return 147.0f;
+    return 120.0f;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

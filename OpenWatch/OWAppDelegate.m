@@ -41,7 +41,7 @@
     navigationController.navigationBar.backgroundColor = [UIColor clearColor];
     navigationController.navigationBar.tintColor = [OWUtilities navigationBarColor];
     [[UINavigationBar appearance] setTitleTextAttributes:
-     @{UITextAttributeTextColor : [UIColor blackColor], UITextAttributeTextShadowColor: [UIColor whiteColor]}];
+     @{UITextAttributeTextColor : [UIColor blackColor], UITextAttributeTextShadowColor: [UIColor whiteColor], UITextAttributeFont: [UIFont systemFontOfSize:22.0f]}];
 
     self.window.rootViewController = navigationController;
     DefaultSHKConfigurator *configurator = [[OWSHKConfigurator alloc] init];
