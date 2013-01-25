@@ -111,6 +111,7 @@
 		D99741A11651DB0B0034ABB0 /* OWSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D99741A01651DB0B0034ABB0 /* OWSettingsViewController.m */; };
 		D9BECF0016B20E01009046E1 /* navbar.png in Resources */ = {isa = PBXBuildFile; fileRef = D9BECEFE16B20E01009046E1 /* navbar.png */; };
 		D9BECF0116B20E01009046E1 /* navbar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9BECEFF16B20E01009046E1 /* navbar@2x.png */; };
+		D9BECF9816B22B06009046E1 /* UINavigationBar+DropShadow.m in Sources */ = {isa = PBXBuildFile; fileRef = D9BECF9716B22B06009046E1 /* UINavigationBar+DropShadow.m */; };
 		D9C0332816A4C26900B7CFC7 /* OWStoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C0332716A4C26900B7CFC7 /* OWStoryViewController.m */; };
 		D9C0332B16A4CAC400B7CFC7 /* OWMediaObjectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C0332A16A4CAC400B7CFC7 /* OWMediaObjectViewController.m */; };
 		D9C0333D16A4E22100B7CFC7 /* libSDURLCache.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D9C0333816A4E1EC00B7CFC7 /* libSDURLCache.a */; };
@@ -656,6 +657,8 @@
 		D99741A21651DBC50034ABB0 /* OWStrings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OWStrings.h; sourceTree = "<group>"; };
 		D9BECEFE16B20E01009046E1 /* navbar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navbar.png; sourceTree = "<group>"; };
 		D9BECEFF16B20E01009046E1 /* navbar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navbar@2x.png"; sourceTree = "<group>"; };
+		D9BECF9616B22B06009046E1 /* UINavigationBar+DropShadow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationBar+DropShadow.h"; sourceTree = "<group>"; };
+		D9BECF9716B22B06009046E1 /* UINavigationBar+DropShadow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationBar+DropShadow.m"; sourceTree = "<group>"; };
 		D9C0332616A4C26900B7CFC7 /* OWStoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWStoryViewController.h; sourceTree = "<group>"; };
 		D9C0332716A4C26900B7CFC7 /* OWStoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWStoryViewController.m; sourceTree = "<group>"; };
 		D9C0332916A4CAC400B7CFC7 /* OWMediaObjectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWMediaObjectViewController.h; sourceTree = "<group>"; };
@@ -980,6 +983,8 @@
 		D97EAAA3167911B900A1B038 /* Custom Views */ = {
 			isa = PBXGroup;
 			children = (
+				D9BECF9616B22B06009046E1 /* UINavigationBar+DropShadow.h */,
+				D9BECF9716B22B06009046E1 /* UINavigationBar+DropShadow.m */,
 				D94499DF16B0D19600A2225A /* OWPastelessTextField.h */,
 				D94499E016B0D19600A2225A /* OWPastelessTextField.m */,
 				D991B6E816B0A84100223A02 /* OWTagEditView.h */,
@@ -2038,6 +2043,7 @@
 				D991B6B816B0783100223A02 /* OWTagCreationView.m in Sources */,
 				D991B6EA16B0A84100223A02 /* OWTagEditView.m in Sources */,
 				D94499E116B0D19600A2225A /* OWPastelessTextField.m in Sources */,
+				D9BECF9816B22B06009046E1 /* UINavigationBar+DropShadow.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
