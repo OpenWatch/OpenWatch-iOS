@@ -35,6 +35,7 @@
         [self.view addSubview:selectionTableView];
         self.selectionTableView.dataSource = self;
         self.selectionTableView.delegate = self;
+        //self.view.backgroundColor = [OWUtilities fabricBackgroundPattern];
         self.popOver = [[WEPopoverController alloc] initWithContentViewController:self];
         self.popOver.containerViewProperties = [OWUtilities improvedContainerViewProperties];
     }

@@ -53,7 +53,7 @@
     CGFloat recordButtonHeight = RECORD_BUTTON_HEIGHT;
     CGFloat recordButtonWidth = RECORD_BUTTON_WIDTH;
     self.recordButtonView = [[OWLabeledButtonView alloc] initWithFrame:CGRectMake(0, 0, recordButtonWidth, recordButtonHeight) defaultImageName:@"record-big.png" highlightedImageName:nil labelName:RECORD_STRING];
-    self.recordButtonView.textLabel.font = [UIFont boldSystemFontOfSize:25.0f];
+    self.recordButtonView.textLabel.font = [UIFont systemFontOfSize:25.0f];
     self.watchButtonView = [[OWLabeledButtonView alloc] initWithFrame:CGRectMake(0, 0, buttonWidth, buttonHeight) defaultImageName:@"eye-big.png" highlightedImageName:nil labelName:WATCH_STRING];
     self.localButtonView = [[OWLabeledButtonView alloc] initWithFrame:CGRectMake(0, 0, buttonWidth, buttonHeight) defaultImageName:@"local-big.png" highlightedImageName:nil labelName:LOCAL_STRING];
     self.savedButtonView = [[OWLabeledButtonView alloc] initWithFrame:CGRectMake(0, 0, buttonWidth, buttonHeight) defaultImageName:@"saved-big.png" highlightedImageName:nil labelName:SAVED_STRING];

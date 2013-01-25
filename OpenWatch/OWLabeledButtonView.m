@@ -33,9 +33,7 @@
         self.frame = frame;
         self.textLabel.backgroundColor = [UIColor clearColor];
         self.textLabel.textAlignment = UITextAlignmentCenter;
-        self.textLabel.font = [UIFont boldSystemFontOfSize:19.0f];
-        self.textLabel.shadowColor = [UIColor lightGrayColor];
-        self.textLabel.shadowOffset = CGSizeMake(0, 1);
+        self.textLabel.font = [UIFont systemFontOfSize:19.0f];
         self.textLabel.textColor = [OWUtilities greyTextColor];
         
         [self addSubview:textLabel];
