@@ -21,6 +21,7 @@
 
 + (void) styleNavigationController:(UINavigationController*)navigationController;
 + (void) styleLabel:(UILabel*) label;
++ (void) applyShadowToView:(UIView*)view;
 
 + (NSDateFormatter*) utcDateFormatter;
 + (NSDateFormatter*) localDateFormatter;

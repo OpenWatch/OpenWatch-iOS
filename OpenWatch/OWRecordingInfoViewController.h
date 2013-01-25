@@ -22,6 +22,7 @@
 @property (nonatomic, strong) MPMoviePlayerController *moviePlayer;
 @property (nonatomic, strong) UITextView *descriptionTextView;
 @property (nonatomic, strong) UISegmentedControl *segmentedControl;
+@property (nonatomic, strong) UIToolbar *toolbar;
 @property (nonatomic, strong) DWTagList *tagList;
 
 // Info view

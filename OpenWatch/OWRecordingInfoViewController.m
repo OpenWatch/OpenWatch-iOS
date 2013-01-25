@@ -28,6 +28,7 @@
 @synthesize titleLabel, segmentedControl;
 @synthesize infoView, descriptionTextView, profileImageView, tallyView;
 @synthesize usernameLabel, tagList;
+@synthesize toolbar;
 
 - (void) dealloc {
     self.moviePlayer = nil;
@@ -113,12 +114,20 @@
 }
 
 - (void) setupSegmentedControl {
-    self.segmentedControl = [[UISegmentedControl alloc] initWithItems:@[INFO_STRING, TAGS_STRING, DESCRIPTION_STRING, MAP_STRING]];
+    self.segmentedControl = [[UISegmentedControl alloc] initWithItems:@[INFO_STRING, DESCRIPTION_STRING, MAP_STRING]];
     self.segmentedControl.selectedSegmentIndex = 0;
-    segmentedControl.segmentedControlStyle = 7;
+    segmentedControl.segmentedControlStyle = UISegmentedControlStyleBar;
     self.segmentedControl.tintColor = [OWUtilities navigationBarColor];
-    [self.view addSubview:segmentedControl];
     [segmentedControl addTarget:self action:@selector(segmentedControlValueChanged:) forControlEvents:UIControlEventValueChanged];
+    
+    self.toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 40)];
+    self.toolbar.tintColor = [OWUtilities navigationBarColor];
+    UIBarButtonItem *barControl = [[UIBarButtonItem alloc] initWithCustomView:segmentedControl];
+    UIBarButtonItem *flexibleSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+    self.toolbar.items = @[flexibleSpace, barControl, flexibleSpace];
+    [self.view addSubview:toolbar];
+    [OWUtilities applyShadowToView:toolbar];
+    //toolbar.layer.masksToBounds = NO;
 }
 
 - (void) segmentedControlValueChanged:(id)sender {
@@ -172,7 +181,7 @@
     CGFloat frameWidth = self.view.frame.size.width;
     CGFloat frameHeight = self.view.frame.size.height;
     moviePlayer.view.frame = CGRectMake(0, moviePlayerYOrigin, frameWidth, moviePlayerHeight);
-    self.segmentedControl.frame = CGRectMake(0, moviePlayerHeight, frameWidth , 40.0f);
+    self.toolbar.frame = CGRectMake(0, moviePlayerHeight, frameWidth , 40.0f);
     CGFloat scrollViewYOrigin = [OWUtilities bottomOfView:segmentedControl];
     CGFloat scrollViewHeight = frameHeight-scrollViewYOrigin;
     self.scrollView.frame = CGRectMake(0, scrollViewYOrigin, frameWidth, scrollViewHeight);

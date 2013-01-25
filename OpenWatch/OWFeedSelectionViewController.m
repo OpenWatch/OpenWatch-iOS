@@ -55,7 +55,7 @@
 
 - (void) presentPopoverFromBarButtonItem:(UIBarButtonItem *)buttonItem {
     self.popOver.popoverContentSize = self.popoverSize;
-    self.selectionTableView.frame = CGRectMake(0, 0, popoverSize.width, popoverSize.height-45);
+    self.selectionTableView.frame = CGRectMake(0, 0, popoverSize.width, popoverSize.height);
     UIPopoverArrowDirection arrowDirection = UIPopoverArrowDirectionUp;
     if(!popOver.isPopoverVisible){
         [popOver presentPopoverFromBarButtonItem:buttonItem permittedArrowDirections:arrowDirection animated:YES];

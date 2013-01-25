@@ -45,6 +45,7 @@
 #define SAVE_STRING NSLocalizedString(@"Save", @"Title for button to save recording metadata")
 #define BY_STRING NSLocalizedString(@"By", @"author byline string")
 #define PROGRESS_STRING NSLocalizedString(@"Progress", @"Upload completion progress")
+#define MORE_STRING NSLocalizedString(@"More", @"when there's more stuff")
 #define WATCH_STRING NSLocalizedString(@"Watch", "Title for news button")
 #define ACCOUNT_STRING NSLocalizedString(@"Account", @"Title for account button")
 #define TAGS_STRING NSLocalizedString(@"Tags", @"Title for tags input view")

@@ -7,6 +7,7 @@
 //
 
 #import "OWUtilities.h"
+#import <QuartzCore/QuartzCore.h>
 
 @implementation OWUtilities
 
@@ -17,6 +18,15 @@
 
 + (UIColor*) fabricBackgroundPattern {
     return [UIColor colorWithPatternImage:[UIImage imageNamed:@"fabric.jpeg"]];
+}
+
++ (void) applyShadowToView:(UIView *)view {
+    view.layer.shadowColor = [UIColor blackColor].CGColor;
+    view.layer.shadowOpacity = 1;
+    view.layer.shadowOffset = CGSizeMake(0,1);
+    CGRect shadowPath = CGRectMake(view.layer.bounds.origin.x - 10, view.layer.bounds.size.height - 6, view.layer.bounds.size.width + 20, 4);
+    view.layer.shadowPath = [UIBezierPath bezierPathWithRect:shadowPath].CGPath;
+    view.layer.shouldRasterize = YES;
 }
 
 + (void) styleNavigationController:(UINavigationController*)navigationController {
