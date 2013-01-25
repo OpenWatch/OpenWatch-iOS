@@ -76,7 +76,7 @@
     
     self.titleLabel = [[UILabel alloc] init];
     [self.infoView addSubview:titleLabel];
-    [OWUtilities styleLabel:titleLabel];
+    self.titleLabel.backgroundColor = [UIColor clearColor];
     
     self.profileImageView = [[UIImageView alloc] init];
     self.profileImageView.contentMode = UIViewContentModeScaleAspectFill;
@@ -92,7 +92,7 @@
     
     self.usernameLabel = [[UILabel alloc] init];
     [self.infoView addSubview:usernameLabel];
-    [OWUtilities styleLabel:usernameLabel];
+    self.usernameLabel.backgroundColor = [UIColor clearColor];
     
     CGFloat width = 125.0f;
     CGFloat height = 20.0f;
@@ -182,10 +182,10 @@
     CGFloat frameHeight = self.view.frame.size.height;
     moviePlayer.view.frame = CGRectMake(0, moviePlayerYOrigin, frameWidth, moviePlayerHeight);
     self.toolbar.frame = CGRectMake(0, moviePlayerHeight, frameWidth , 40.0f);
-    CGFloat scrollViewYOrigin = [OWUtilities bottomOfView:segmentedControl];
+    CGFloat scrollViewYOrigin = [OWUtilities bottomOfView:toolbar];
     CGFloat scrollViewHeight = frameHeight-scrollViewYOrigin;
     self.scrollView.frame = CGRectMake(0, scrollViewYOrigin, frameWidth, scrollViewHeight);
-    self.scrollView.contentSize = CGSizeMake(frameWidth * 4, scrollViewHeight);
+    self.scrollView.contentSize = CGSizeMake(frameWidth * 3, scrollViewHeight);
     
     
     self.infoView.frame = CGRectMake(0, 0, frameWidth, scrollViewHeight);
@@ -193,8 +193,8 @@
     CGFloat xMargin = floorf((frameWidth - tagListSize.width) / 2);
     CGFloat yMargin = floorf((scrollViewHeight - tagListSize.height) / 2);
     self.tagList.frame = CGRectMake(frameWidth + xMargin, yMargin, frameWidth - xMargin, scrollViewHeight - yMargin);
-    self.descriptionTextView.frame = CGRectMake(frameWidth*2, 0, frameWidth, scrollViewHeight);
-    self.mapView.frame = CGRectMake(frameWidth*3, 0, frameWidth, scrollViewHeight);
+    self.descriptionTextView.frame = CGRectMake(frameWidth, 0, frameWidth, scrollViewHeight);
+    self.mapView.frame = CGRectMake(frameWidth*2, 0, frameWidth, scrollViewHeight);
     [self setFramesForInfoView];
 }
 
