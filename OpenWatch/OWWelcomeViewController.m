@@ -50,6 +50,7 @@
     welcomeTextView.backgroundColor = [UIColor clearColor];
     welcomeTextView.font = [UIFont systemFontOfSize:16.0f];
     welcomeTextView.textColor = [OWUtilities greyTextColor];
+    welcomeTextView.editable = NO;
     [self.view addSubview:welcomeLabel];
     [self.view addSubview:welcomeTextView];
 }
