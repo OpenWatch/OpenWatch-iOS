@@ -178,37 +178,35 @@
     return [NSString stringWithFormat:@"recordings/%d/", page];
 }
 
-- (NSString*) pathForTagFeed:(NSString*)tag page:(NSUInteger)page {
-    return [kTagPath stringByAppendingFormat:@"%@/%d/", tag, page];
+- (NSString*) pathForFeedType:(OWFeedType)feedType feedName:(NSString*)feedName page:(NSUInteger)page {
+    NSString *path = nil;
+    NSString *prefix = nil;
+    if (feedType == kOWFeedTypeFeed) {
+        prefix = kFeedPath;
+    } else if (feedType == kOWFeedTypeTag) {
+        prefix = kTagPath;
+    }
+    path = [prefix stringByAppendingFormat:@"%@/%d/", feedName, page];
+    return path;
 }
 
-- (NSString*) pathForFeed:(NSString*)feedName page:(NSUInteger)page {
-    return [kFeedPath stringByAppendingFormat:@"%@/%d/", feedName, page];
-}
 
-- (void) fetchRecordingsForTag:(NSString *)tagName page:(NSUInteger)page success:(void (^)(NSArray *recordings, NSUInteger totalPages))success failure:(void (^)(NSString *))failure {
-
-    [self getPath:[self pathForTagFeed:tagName page:page] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+- (void) fetchMediaObjectsForFeedType:(OWFeedType)feedType feedName:(NSString*)feedName page:(NSUInteger)page success:(void (^)(NSArray *mediaObjectIDs, NSUInteger totalPages))success failure:(void (^)(NSString *reason))failure {
+    NSString *path = [self pathForFeedType:feedType feedName:feedName page:page];
+    if (!path) {
+        failure(@"Path is nil!");
+        return;
+    }
+    [self getPath:path parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSArray *recordings = [self objectIDsFromMediaObjectsMetadataArray:[responseObject objectForKey:kObjectsKey]];
         NSDictionary *meta = [responseObject objectForKey:kMetaKey];
         NSUInteger pageCount = [[meta objectForKey:kPageCountKey] unsignedIntegerValue];
         success(recordings, pageCount);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"failure: %@", [error userInfo]);
-        failure(@"fart");
+        failure(@"couldn't fetch objects");
     }];
-}
 
-- (void) fetchRecordingsForFeed:(NSString *)feed page:(NSUInteger)page success:(void (^)(NSArray *recordings, NSUInteger totalPages))success failure:(void (^)(NSString *))failure {
-    [self getPath:[self pathForFeed:feed page:page] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSArray *recordings = [self objectIDsFromMediaObjectsMetadataArray:[responseObject objectForKey:kObjectsKey]];
-        NSDictionary *meta = [responseObject objectForKey:kMetaKey];
-        NSUInteger pageCount = [[meta objectForKey:kPageCountKey] unsignedIntegerValue];
-        success(recordings, pageCount);
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"failure: %@", [error userInfo]);
-        failure(@"fart");
-    }];
 }
 
 - (NSArray*) objectIDsFromMediaObjectsMetadataArray:(NSArray*)array {

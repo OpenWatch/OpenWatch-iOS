@@ -42,36 +42,26 @@
 - (void) didSelectFeedWithName:(NSString *)feedName type:(OWFeedType)type pageNumber:(NSUInteger)pageNumber {
     if (pageNumber <= kFirstPage) {
         self.currentPage = kFirstPage;
+        self.totalPages = 0;
+        [super reloadTableViewDataSource];
+        self.objectIDs = [NSArray array];
+        [self.tableView reloadData];
     }
     [TestFlight passCheckpoint:VIEW_FEED_CHECKPOINT(feedName)];
     selectedFeedString = feedName;
     feedType = type;
     self.title = feedName;
-    
-    if (feedType == kOWFeedTypeFeed) {
-        [[OWAccountAPIClient sharedClient] fetchRecordingsForFeed:feedName page:pageNumber success:^(NSArray *recordings, NSUInteger totalPages) {
-            self.totalPages = totalPages;
-            BOOL shouldReplaceObjects = NO;
-            if (self.currentPage == kFirstPage) {
-                shouldReplaceObjects = YES;
-            }
-            [self reloadFeed:recordings replaceObjects:shouldReplaceObjects];
-
-        } failure:^(NSString *reason) {
-            [self failedToLoadFeed:reason];
-        }];
-    } else if (feedType == kOWFeedTypeTag) {
-        [[OWAccountAPIClient sharedClient] fetchRecordingsForTag:feedName page:pageNumber success:^(NSArray *recordings, NSUInteger totalPages) {
-            self.totalPages = totalPages;
-            BOOL shouldReplaceObjects = NO;
-            if (self.currentPage == kFirstPage) {
-                shouldReplaceObjects = YES;
-            }
-            [self reloadFeed:recordings replaceObjects:shouldReplaceObjects];        } failure:^(NSString *reason) {
-            [self failedToLoadFeed:reason];
-        }];
-    }
-
+    [[OWAccountAPIClient sharedClient] fetchMediaObjectsForFeedType:feedType feedName:feedName page:pageNumber success:^(NSArray *mediaObjectIDs, NSUInteger totalPages) {
+        self.totalPages = totalPages;
+        BOOL shouldReplaceObjects = NO;
+        if (self.currentPage == kFirstPage) {
+            shouldReplaceObjects = YES;
+        }
+        [self reloadFeed:mediaObjectIDs replaceObjects:shouldReplaceObjects];
+        
+    } failure:^(NSString *reason) {
+        [self failedToLoadFeed:reason];
+    }];
 }
 
 - (void) didSelectFeedWithName:(NSString *)feedName type:(OWFeedType)type {

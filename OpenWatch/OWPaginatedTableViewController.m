@@ -96,6 +96,9 @@
     if (currentPage == 0) {
         return 0;
     }
+    if (currentPage == 1 && self.objectIDs.count == 0) {
+        return 1;
+    }
     
     if (currentPage == totalPages) {
         return self.objectIDs.count;
