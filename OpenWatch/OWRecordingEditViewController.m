@@ -17,6 +17,7 @@
 #import "OWShareController.h"
 #import "OWTag.h"
 #import "MBProgressHUD.h"
+#import "OWSettingsController.h"
 
 #define TAGS_ROW 0
 #define PADDING 10.0f
@@ -39,7 +40,6 @@
         [self setupFields];
         [self setupWhatHappenedLabel];
         [self setupProgressView];
-        [self setupTagEditView];
         self.showingAfterCapture = NO;
         [self registerForUploadProgressNotifications];
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:SAVE_STRING style:UIBarButtonItemStyleDone target:self action:@selector(saveButtonPressed:)];
@@ -60,8 +60,11 @@
 }
 
 - (void) setupTagEditView {
-    self.tagEditView = [[OWTagEditView alloc] initWithFrame:CGRectMake(PADDING, 0, self.view.frame.size.width - PADDING*2, 100.0f)];
+    CGFloat width = 320.0f; // HACK
+    CGFloat height = 300.0f; // HACK FIX THIS
+    self.tagEditView = [[OWTagEditView alloc] initWithFrame:CGRectMake(PADDING, 0, width - PADDING*2, height)];
     self.tagEditView.delegate = self;
+    //self.tagEditView.autoresizesSubviews =
     self.tagEditView.viewForAutocompletionPopover = self.view;
     [self.scrollView addSubview:tagEditView];
 }
@@ -117,11 +120,16 @@
     self.titleTextField.frame = CGRectMake(padding, titleYOrigin, itemWidth, itemHeight);
     CGFloat descriptionYOrigin = [OWUtilities bottomOfView:titleTextField] + padding;
     self.descriptionTextField.frame = CGRectMake(padding, descriptionYOrigin, itemWidth, 100.0f);
-    CGFloat tagViewHeight = tagEditView.contentSize.height;
-    self.tagEditView.frame = CGRectMake(padding, [OWUtilities bottomOfView:descriptionTextField] + padding, itemWidth, tagViewHeight);
-    contentHeight = [OWUtilities bottomOfView:self.tagEditView] + padding*3;
+        contentHeight = [OWUtilities bottomOfView:self.tagEditView] + padding*3;
+    [self refreshTagEditViewFrame];
     self.scrollView.contentSize = CGSizeMake(self.view.frame.size.width, contentHeight);
     self.scrollView.frame = self.view.bounds;
+}
+
+- (void) refreshTagEditViewFrame {
+    CGFloat itemWidth = self.view.frame.size.width - PADDING*2;
+    CGFloat tagViewHeight = tagEditView.contentSize.height;
+    self.tagEditView.frame = CGRectMake(PADDING, [OWUtilities bottomOfView:descriptionTextField] + PADDING, itemWidth, tagViewHeight);
 }
 
 
@@ -205,14 +213,23 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self setupTagEditView];
 	[self.view addSubview:scrollView];
 }
 
 - (void) saveButtonPressed:(id)sender {
-    OWLocalRecording *recording = [OWRecordingController localRecordingForObjectID:self.recordingID];
+    OWManagedRecording *recording = [OWRecordingController recordingForObjectID:self.recordingID];
+    NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
     recording.title = self.titleTextField.text;
     recording.recordingDescription = self.descriptionTextField.text;
     recording.tags = tagEditView.tags;
+    
+    OWAccount *account = [[OWSettingsController sharedInstance] account];
+    OWUser *user = account.user;
+    NSMutableSet *tagSet = user.tagsSet;
+    [tagSet addObjectsFromArray:[recording.tags allObjects]];
+    user.tags = tagSet;
+    [context MR_saveToPersistentStoreAndWait];
     
     [recording saveMetadata];
     [[OWAccountAPIClient sharedClient] postRecordingWithUUID:recording.uuid success:nil failure:nil];
@@ -228,6 +245,7 @@
 
 - (void) checkRecording {
     if (showingAfterCapture) {
+        [self refreshFields];
         return;
     }
     OWManagedRecording *recording = [OWRecordingController recordingForObjectID:self.recordingID];

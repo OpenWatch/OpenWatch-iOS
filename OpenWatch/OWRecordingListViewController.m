@@ -12,13 +12,14 @@
 #import "OWAccountAPIClient.h"
 #import "OWMediaObjectTableViewCell.h"
 #import "OWRecordingEditViewController.h"
+#import "OWSettingsController.h"
 
 @interface OWRecordingListViewController ()
 
 @end
 
 @implementation OWRecordingListViewController
-@synthesize recordingController;
+@synthesize recordingController, objectIDSet;
 
 - (id)init
 {
@@ -27,6 +28,7 @@
         self.recordingController = [OWRecordingController sharedInstance];
         self.title = RECORDINGS_STRING;
         self.navigationItem.rightBarButtonItem = self.editButtonItem;
+        self.objectIDSet = [NSMutableSet set];
     }
     return self;
 }
@@ -50,20 +52,29 @@
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [self.recordingController scanDirectoryForChanges];
         NSMutableArray *objectIDs = [NSMutableArray arrayWithArray:[recordingController allLocalRecordings]];
-        [self.objectIDs sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-            OWLocalRecording *rec1 = [OWRecordingController localRecordingForObjectID:obj1];
-            OWLocalRecording *rec2 = [OWRecordingController localRecordingForObjectID:obj2];
-            return [rec1.startDate compare:rec2.startDate];
-        }];
+        [objectIDs addObjectsFromArray:self.objectIDs];
+        [self.objectIDSet addObjectsFromArray:objectIDs];
+
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self reloadFeed:objectIDs replaceObjects:YES];
+            [self refreshRecordingsFromSet];
         });
     });
+}
+
+- (void) refreshRecordingsFromSet {
+    self.objectIDs = [NSMutableArray arrayWithArray:[self.objectIDSet allObjects]];
+    [self.objectIDs sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        OWManagedRecording *rec1 = [OWRecordingController recordingForObjectID:obj1];
+        OWManagedRecording *rec2 = [OWRecordingController recordingForObjectID:obj2];
+        return [rec1.startDate compare:rec2.startDate];
+    }];
+    [self.tableView reloadData];
 }
 
 - (void) didSelectFeedWithPageNumber:(NSUInteger)pageNumber {
     if (pageNumber <= kFirstPage) {
         self.currentPage = kFirstPage;
+        [self loadOfflineRecordings];
     }
     [[OWAccountAPIClient sharedClient] fetchUserRecordingsOnPage:pageNumber success:^(NSArray *recordingObjectIDs, NSUInteger totalPages) {
         self.totalPages = totalPages;
@@ -72,6 +83,7 @@
             shouldReplaceObjects = YES;
         }
         [self reloadFeed:recordingObjectIDs replaceObjects:shouldReplaceObjects];
+        [self loadOfflineRecordings];
     } failure:^(NSString *reason) {
         [self loadOfflineRecordings];
     }];

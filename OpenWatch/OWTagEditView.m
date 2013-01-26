@@ -46,6 +46,11 @@
     [self addSubview:tagCreationView];
 }
 
+- (void) setFrame:(CGRect)frame {
+    [super setFrame:frame];
+    [self refreshFrames];
+}
+
 - (void) refreshFrames {
     CGFloat padding = 10.0f;
     CGFloat itemHeight = 30.0f;

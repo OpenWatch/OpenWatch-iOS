@@ -13,6 +13,7 @@
 
 @interface OWRecordingListViewController : OWPaginatedTableViewController <UITableViewDataSource, UITableViewDelegate>
 
+@property (nonatomic, strong) NSMutableSet *objectIDSet;
 @property (nonatomic, strong) OWRecordingController *recordingController;
 
 @end
