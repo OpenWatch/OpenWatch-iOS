@@ -18,6 +18,7 @@
 + (UIColor*) greyColorWithGreyness:(CGFloat)greyness;
 + (UIColor*) textFieldTextColor;
 
++ (void) logFrame:(CGRect)frame;
 
 + (void) styleNavigationController:(UINavigationController*)navigationController;
 + (void) styleLabel:(UILabel*) label;

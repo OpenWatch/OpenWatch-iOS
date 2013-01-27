@@ -59,6 +59,7 @@
     [self.tagList display];
     [self refreshTaglistFrame];
     self.contentSize = CGSizeMake(self.frame.size.width, self.tagCreationView.frame.size.height + self.tagList.fittedSize.height + padding);
+
 }
 
 - (void) setTagNames:(NSMutableArray *)newTagNamesArray {
@@ -69,6 +70,9 @@
 - (void) refreshTagListItems {
     [tagList setTags:tagNames];
     [self refreshFrames];
+    if (self.delegate && [delegate respondsToSelector:@selector(tagEditView:sizeDidChange:)]) {
+        [delegate tagEditView:self sizeDidChange:contentSize];
+    }
 }
 
 - (void) refreshTaglistFrame {

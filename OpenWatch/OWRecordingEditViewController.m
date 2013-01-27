@@ -175,6 +175,10 @@
     tagEditView.tags = tagSet;
 }
 
+- (void) tagEditView:(OWTagEditView *)tagEditView sizeDidChange:(CGSize)newSize {
+    self.tagEditView.frame = CGRectMake(self.tagEditView.frame.origin.x, self.tagEditView.frame.origin.y, newSize.width, newSize.height);
+}
+
 - (UITextField*)textFieldWithDefaults {
     UITextField *textField = [[UITextField alloc] init];
     textField.delegate = self;

@@ -14,6 +14,7 @@
 @protocol OWTagEditViewDelegate <NSObject>
 @optional
 - (void) tagEditViewDidBeginEditing:(OWTagEditView*)tagEditView;
+- (void) tagEditView:(OWTagEditView*)tagEditView sizeDidChange:(CGSize)newSize;
 @end
 
 @interface OWTagEditView : UIView <DWTagListDelegate, OWTagCreationViewDelegate, UIAlertViewDelegate>

@@ -137,4 +137,8 @@
 	return props;
 }
 
++ (void) logFrame:(CGRect)frame {
+    NSLog(@"frame: (%f, %f, %f, %f)", frame.origin.x, frame.origin.y, frame.size.width, frame.size.height);
+}
+
 @end
