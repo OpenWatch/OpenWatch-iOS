@@ -88,8 +88,10 @@
 
 - (NSDictionary*) metadataDictionary {
     NSMutableDictionary *dictionary = [NSMutableDictionary dictionaryWithDictionary:[super metadataDictionary]];
-    
-    [dictionary setObject:[self pathsForSegments] forKey:kAllFilesKey];
+    NSArray *paths = [self pathsForSegments];
+    if (paths) {
+        [dictionary setObject:paths forKey:kAllFilesKey];
+    }
     return dictionary;
 }
 
