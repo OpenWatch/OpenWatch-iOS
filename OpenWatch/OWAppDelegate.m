@@ -36,7 +36,7 @@
     self.homeScreen = [[OWHomeScreenViewController alloc] init];
     self.navigationController = [[UINavigationController alloc] initWithRootViewController:homeScreen];
         [[UINavigationBar appearance] setTitleTextAttributes:
-     @{UITextAttributeTextColor : [UIColor blackColor], UITextAttributeTextShadowColor: [UIColor whiteColor], UITextAttributeFont: [UIFont systemFontOfSize:20.0f]}];
+     @{UITextAttributeTextColor : [UIColor blackColor], UITextAttributeTextShadowColor: [UIColor whiteColor], UITextAttributeFont: [UIFont systemFontOfSize:0]}];
     [OWUtilities styleNavigationController:self.navigationController];
     self.window.rootViewController = navigationController;
     DefaultSHKConfigurator *configurator = [[OWSHKConfigurator alloc] init];
