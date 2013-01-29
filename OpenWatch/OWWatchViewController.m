@@ -18,6 +18,7 @@
 #import "OWMediaObjectViewController.h"
 
 
+
 @interface OWWatchViewController ()
 @end
 
@@ -25,6 +26,7 @@
 @synthesize feedSelector;
 @synthesize feedType;
 @synthesize selectedFeedString;
+@synthesize lastLocation;
 
 - (id)init
 {
@@ -39,6 +41,30 @@
     return self;
 }
 
+- (void) locationUpdated:(CLLocation *)location {
+    self.lastLocation = location;
+    [[OWLocationController sharedInstance] stop];
+    
+    [self fetchObjectsForLocation:self.lastLocation page:self.currentPage];
+}
+
+- (void) fetchObjectsForLocation:(CLLocation*)location page:(NSUInteger)page {
+    if (!location) {
+        [[OWLocationController sharedInstance] startWithDelegate:self];
+        return;
+    }
+    [[OWAccountAPIClient sharedClient] fetchMediaObjectsForLocation:location page:page success:^(NSArray *mediaObjectIDs, NSUInteger totalPages) {
+        self.totalPages = totalPages;
+        BOOL shouldReplaceObjects = NO;
+        if (self.currentPage == kFirstPage) {
+            shouldReplaceObjects = YES;
+        }
+        [self reloadFeed:mediaObjectIDs replaceObjects:shouldReplaceObjects];
+    } failure:^(NSString *reason) {
+        [self failedToLoadFeed:reason];
+    }];
+}
+
 - (void) didSelectFeedWithName:(NSString *)feedName type:(OWFeedType)type pageNumber:(NSUInteger)pageNumber {
     if (pageNumber <= kFirstPage) {
         self.currentPage = kFirstPage;
@@ -51,6 +77,12 @@
     selectedFeedString = feedName;
     feedType = type;
     self.title = feedName;
+    
+    if ([[feedName lowercaseString] isEqualToString:@"local"]) {
+        [self fetchObjectsForLocation:self.lastLocation page:pageNumber];
+        return;
+    }
+    
     [[OWAccountAPIClient sharedClient] fetchMediaObjectsForFeedType:feedType feedName:feedName page:pageNumber success:^(NSArray *mediaObjectIDs, NSUInteger totalPages) {
         self.totalPages = totalPages;
         BOOL shouldReplaceObjects = NO;

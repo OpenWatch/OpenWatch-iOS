@@ -44,6 +44,7 @@
 #define END_STRING NSLocalizedString(@"End", "Describes where recording ends")
 #define INFO_STRING NSLocalizedString(@"Info", "Title for recording information screen")
 #define SAVE_STRING NSLocalizedString(@"Save", @"Title for button to save recording metadata")
+#define RAW_STRING NSLocalizedString(@"Raw", @"show all recordings and stories unfiltered")
 #define BY_STRING NSLocalizedString(@"By", @"author byline string")
 #define PROGRESS_STRING NSLocalizedString(@"Progress", @"Upload completion progress")
 #define MORE_STRING NSLocalizedString(@"More", @"when there's more stuff")

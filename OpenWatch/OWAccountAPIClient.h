@@ -9,6 +9,7 @@
 #import "AFHTTPClient.h"
 #import "OWAccount.h"
 #import "OWFeedSelectionViewController.h"
+#import <CoreLocation/CoreLocation.h>
 
 #define kHitTypeClick @"click"
 #define kHitTypeView @"view"
@@ -29,6 +30,9 @@
 - (void) getStoryWithObjectID:(NSManagedObjectID *)objectID success:(void (^)(NSManagedObjectID *recordingObjectID))success failure:(void (^)(NSString *reason))failure;
 
 - (void) fetchMediaObjectsForFeedType:(OWFeedType)feedType feedName:(NSString*)feedName page:(NSUInteger)page success:(void (^)(NSArray *mediaObjectIDs, NSUInteger totalPages))success failure:(void (^)(NSString *reason))failure;
+- (void) fetchMediaObjectsForLocation:(CLLocation*)location page:(NSUInteger)page success:(void (^)(NSArray *mediaObjectIDs, NSUInteger totalPages))success failure:(void (^)(NSString *reason))failure; 
+
+
 
 - (void) hitMediaObject:(NSManagedObjectID*)objectID hitType:(NSString*)hitType;
 

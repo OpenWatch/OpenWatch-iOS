@@ -10,10 +10,12 @@
 #import "OWRecordingListViewController.h"
 #import "OWFeedSelectionViewController.h"
 #import "OWPaginatedTableViewController.h"
+#import "OWLocationController.h"
 
 
-@interface OWWatchViewController : OWPaginatedTableViewController <OWFeedSelectionDelegate>
+@interface OWWatchViewController : OWPaginatedTableViewController <OWFeedSelectionDelegate, OWLocationControllerDelegate>
 
+@property (nonatomic, strong) CLLocation *lastLocation;
 @property (nonatomic, strong) OWFeedSelectionViewController *feedSelector;
 
 @end

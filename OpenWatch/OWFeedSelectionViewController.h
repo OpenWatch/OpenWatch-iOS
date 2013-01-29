@@ -14,12 +14,6 @@ typedef enum {
     kOWFeedTypeFeed
 } OWFeedType;
 
-typedef enum {
-    kOWFeedNameFeatured = 0,
-    kOWFeedNameFollowing,
-    kOWFeedNameLocal
-} OWFeedName;
-
 @protocol OWFeedSelectionDelegate <NSObject>
 @required
 - (void) didSelectFeedWithName:(NSString*)feedName type:(OWFeedType)type;

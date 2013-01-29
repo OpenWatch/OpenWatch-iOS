@@ -9,16 +9,16 @@
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
 
-@protocol OWLocationControlerDelegate <NSObject>
-- (void) startLocationUpdated:(CLLocation*)location;
+@protocol OWLocationControllerDelegate <NSObject>
+- (void) locationUpdated:(CLLocation*)location;
 @end
 
 @interface OWLocationController : NSObject <CLLocationManagerDelegate>
 
-@property (nonatomic, weak) id<OWLocationControlerDelegate> delegate;
+@property (nonatomic, weak) id<OWLocationControllerDelegate> delegate;
 @property (nonatomic, strong) CLLocation *currentLocation;
 
-- (void) startWithDelegate:(id<OWLocationControlerDelegate>)newDelegate;
+- (void) startWithDelegate:(id<OWLocationControllerDelegate>)newDelegate;
 - (void) stop;
 
 + (OWLocationController *)sharedInstance;

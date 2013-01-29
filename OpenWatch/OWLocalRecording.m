@@ -121,7 +121,7 @@
 }
 
 
-- (void) startLocationUpdated:(CLLocation *)location {
+- (void) locationUpdated:(CLLocation *)location {
     self.startLocation = location;
     [self saveMetadata];
     [[OWCaptureAPIClient sharedClient] updateMetadataForRecording:self.objectID];

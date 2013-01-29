@@ -27,7 +27,7 @@
 {
     self = [super init];
     if (self) {
-        self.feedNames = @[FEATURED_STRING, FOLLOWING_STRING, LOCAL_STRING];
+        self.feedNames = @[FEATURED_STRING, FOLLOWING_STRING, LOCAL_STRING, RAW_STRING];
         [self refreshTags];
         self.popoverSize = CGSizeMake(220, 350);
         self.selectionTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, popoverSize.width, popoverSize.height) style:UITableViewStylePlain];

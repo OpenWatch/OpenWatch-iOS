@@ -7,6 +7,7 @@
 //
 
 #import "OWLocationController.h"
+#import "OWAppDelegate.h"
 
 @interface OWLocationController()
 @property (nonatomic, strong) CLLocationManager *locationManager;
@@ -16,14 +17,7 @@
 @synthesize currentLocation, locationManager, delegate;
 
 + (OWLocationController *)sharedInstance {
-    static OWLocationController *_sharedClient = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        dispatch_sync(dispatch_get_main_queue(), ^{
-            _sharedClient = [[OWLocationController alloc] init];
-        });
-    });
-    return _sharedClient;
+    return OW_APP_DELEGATE.locationController;
 }
 
 - (id) init {
@@ -48,14 +42,17 @@
     if (!newLocation) {
         return;
     }
-    if (!currentLocation) {
-        [self.delegate startLocationUpdated:newLocation];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(locationUpdated:)]) {
+        [self.delegate locationUpdated:newLocation];
     }
     self.currentLocation = newLocation;
 }
 
-- (void) startWithDelegate:(id<OWLocationControlerDelegate>)newDelegate {
+- (void) startWithDelegate:(id<OWLocationControllerDelegate>)newDelegate {
     self.delegate = newDelegate;
+    if (currentLocation) {
+        [self updateCurrentLocation:currentLocation];
+    }
     [locationManager startUpdatingLocation];
 }
 

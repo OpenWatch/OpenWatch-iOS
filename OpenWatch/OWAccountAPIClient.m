@@ -338,5 +338,23 @@
     }];
 }
 
+- (void) fetchMediaObjectsForLocation:(CLLocation*)location page:(NSUInteger)page success:(void (^)(NSArray *mediaObjectIDs, NSUInteger totalPages))success failure:(void (^)(NSString *reason))failure {
+    NSString *path = [self pathForFeedType:kOWFeedTypeFeed feedName:@"local" page:page];
+    if (!path) {
+        failure(@"Path is nil!");
+        return;
+    }
+    NSDictionary *locationDictionary = @{@"latitude": @(location.coordinate.latitude), @"longitude": @(location.coordinate.longitude)};
+    NSDictionary *parameters = @{@"location": locationDictionary};
+    [self postPath:path parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSArray *recordings = [self objectIDsFromMediaObjectsMetadataArray:[responseObject objectForKey:kObjectsKey]];
+        NSDictionary *meta = [responseObject objectForKey:kMetaKey];
+        NSUInteger pageCount = [[meta objectForKey:kPageCountKey] unsignedIntegerValue];
+        success(recordings, pageCount);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"failure: %@", [error userInfo]);
+        failure(@"couldn't fetch objects");
+    }];
+}
 
 @end
