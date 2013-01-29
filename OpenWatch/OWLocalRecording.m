@@ -132,7 +132,6 @@
 - (void) startRecording {
     self.startDate = [NSDate date];
     self.uuid = [self newUUID];
-    [[OWLocationController sharedInstance] startWithDelegate:self];
     NSFileManager *fileManager = [NSFileManager defaultManager];
     BOOL isDirectory;
     if (![fileManager fileExistsAtPath:self.localRecordingPath isDirectory:&isDirectory]) {
@@ -144,6 +143,9 @@
     }
     [self saveMetadata];
     [[OWCaptureAPIClient sharedClient] startedRecording:self.objectID];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [[OWLocationController sharedInstance] startWithDelegate:self];
+    });
 }
 
 - (NSString*) pathForSegmentsDirectory {
@@ -153,7 +155,6 @@
 - (void) stopRecording {
     self.endDate = [NSDate date];
     self.endLocation = [OWLocationController sharedInstance].currentLocation;
-    [[OWLocationController sharedInstance] stop];
     [self saveMetadata];
     [[OWCaptureAPIClient sharedClient] finishedRecording:self.objectID];
     [[OWCaptureAPIClient sharedClient] updateMetadataForRecording:self.objectID];

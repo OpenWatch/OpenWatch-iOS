@@ -134,6 +134,11 @@
     [TestFlight passCheckpoint:WATCH_CHECKPOINT];
 }
 
+- (void) viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [[OWLocationController sharedInstance] stop];
+}
+
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];

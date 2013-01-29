@@ -120,6 +120,7 @@
 {
 	dispatch_async(dispatch_get_main_queue(), ^{
 		// Disable until saving to the camera roll is complete
+        [[OWLocationController sharedInstance] stop];
 		[[self recordButton] setTitle:RECORD_STRING];
 		[[self recordButton] setEnabled:NO];
 	});
