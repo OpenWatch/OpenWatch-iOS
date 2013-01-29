@@ -59,8 +59,6 @@
 		D930851B166424C1008C5D4C /* OWMapAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = D930851A166424C1008C5D4C /* OWMapAnnotation.m */; };
 		D930851D166426A4008C5D4C /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D930851C166426A4008C5D4C /* MediaPlayer.framework */; };
 		D930851F166426A9008C5D4C /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D930851E166426A9008C5D4C /* MapKit.framework */; };
-		D9397BBC165D6FC70093B3C8 /* fabric.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = D9397BBA165D6FC70093B3C8 /* fabric.jpeg */; };
-		D9397BBD165D6FC70093B3C8 /* fabric@2x.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = D9397BBB165D6FC70093B3C8 /* fabric@2x.jpeg */; };
 		D9397BC1165D95940093B3C8 /* OWLocationController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9397BC0165D95940093B3C8 /* OWLocationController.m */; };
 		D94499E116B0D19600A2225A /* OWPastelessTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = D94499E016B0D19600A2225A /* OWPastelessTextField.m */; };
 		D94A26DF167A7B4600BD36EF /* OWLabeledButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = D94A26DE167A7B4600BD36EF /* OWLabeledButtonView.m */; };
@@ -86,6 +84,8 @@
 		D97EAAAE16795B3000A1B038 /* list.png in Resources */ = {isa = PBXBuildFile; fileRef = D97EAAAC16795B3000A1B038 /* list.png */; };
 		D97EAAAF16795B3000A1B038 /* list@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D97EAAAD16795B3000A1B038 /* list@2x.png */; };
 		D97EAABB167A540900A1B038 /* OWFeedSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D97EAABA167A540900A1B038 /* OWFeedSelectionViewController.m */; };
+		D980EC8516B854E600ADD398 /* stone.png in Resources */ = {isa = PBXBuildFile; fileRef = D980EC8316B854E600ADD398 /* stone.png */; };
+		D980EC8616B854E600ADD398 /* stone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D980EC8416B854E600ADD398 /* stone@2x.png */; };
 		D98FCB4116A4AA570071DF6B /* _OWLocalRecording.m in Sources */ = {isa = PBXBuildFile; fileRef = D98FCB3216A4AA570071DF6B /* _OWLocalRecording.m */; };
 		D98FCB4216A4AA570071DF6B /* _OWManagedRecording.m in Sources */ = {isa = PBXBuildFile; fileRef = D98FCB3416A4AA570071DF6B /* _OWManagedRecording.m */; };
 		D98FCB4316A4AA570071DF6B /* _OWMediaObject.m in Sources */ = {isa = PBXBuildFile; fileRef = D98FCB3616A4AA570071DF6B /* _OWMediaObject.m */; };
@@ -578,8 +578,6 @@
 		D930851A166424C1008C5D4C /* OWMapAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWMapAnnotation.m; sourceTree = "<group>"; };
 		D930851C166426A4008C5D4C /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		D930851E166426A9008C5D4C /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
-		D9397BBA165D6FC70093B3C8 /* fabric.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = fabric.jpeg; sourceTree = "<group>"; };
-		D9397BBB165D6FC70093B3C8 /* fabric@2x.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "fabric@2x.jpeg"; sourceTree = "<group>"; };
 		D9397BBF165D95940093B3C8 /* OWLocationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWLocationController.h; sourceTree = "<group>"; };
 		D9397BC0165D95940093B3C8 /* OWLocationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWLocationController.m; sourceTree = "<group>"; };
 		D94499DF16B0D19600A2225A /* OWPastelessTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWPastelessTextField.h; sourceTree = "<group>"; };
@@ -613,6 +611,8 @@
 		D97EAAAD16795B3000A1B038 /* list@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "list@2x.png"; sourceTree = "<group>"; };
 		D97EAAB9167A540800A1B038 /* OWFeedSelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWFeedSelectionViewController.h; sourceTree = "<group>"; };
 		D97EAABA167A540900A1B038 /* OWFeedSelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWFeedSelectionViewController.m; sourceTree = "<group>"; };
+		D980EC8316B854E600ADD398 /* stone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stone.png; sourceTree = "<group>"; };
+		D980EC8416B854E600ADD398 /* stone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "stone@2x.png"; sourceTree = "<group>"; };
 		D98FCB3116A4AA570071DF6B /* _OWLocalRecording.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _OWLocalRecording.h; sourceTree = "<group>"; };
 		D98FCB3216A4AA570071DF6B /* _OWLocalRecording.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _OWLocalRecording.m; sourceTree = "<group>"; };
 		D98FCB3316A4AA570071DF6B /* _OWManagedRecording.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _OWManagedRecording.h; sourceTree = "<group>"; };
@@ -1367,8 +1367,8 @@
 				D907023716682C8E00611607 /* gear-white@2x.png */,
 				D9DFADF816547DE7003C515C /* openwatch.png */,
 				D9DFADF916547DE7003C515C /* openwatch@2x.png */,
-				D9397BBA165D6FC70093B3C8 /* fabric.jpeg */,
-				D9397BBB165D6FC70093B3C8 /* fabric@2x.jpeg */,
+				D980EC8316B854E600ADD398 /* stone.png */,
+				D980EC8416B854E600ADD398 /* stone@2x.png */,
 			);
 			path = Media;
 			sourceTree = "<group>";
@@ -1572,7 +1572,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = OW;
-				LastUpgradeCheck = 0450;
+				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = "OpenWatch FPC";
 			};
 			buildConfigurationList = D997416B1651D42E0034ABB0 /* Build configuration list for PBXProject "OpenWatch" */;
@@ -1870,8 +1870,6 @@
 				D997418C1651D42F0034ABB0 /* Default-568h@2x.png in Resources */,
 				D9DFADFA16547DE7003C515C /* openwatch.png in Resources */,
 				D9DFADFB16547DE7003C515C /* openwatch@2x.png in Resources */,
-				D9397BBC165D6FC70093B3C8 /* fabric.jpeg in Resources */,
-				D9397BBD165D6FC70093B3C8 /* fabric@2x.jpeg in Resources */,
 				D907023816682C8E00611607 /* gear-white.png in Resources */,
 				D907023916682C8E00611607 /* gear-white@2x.png in Resources */,
 				D9D786F116766C40006EE6A2 /* popoverArrowDown.png in Resources */,
@@ -1923,6 +1921,8 @@
 				D9BECF0116B20E01009046E1 /* navbar@2x.png in Resources */,
 				D955371616B32E3C00753C15 /* 275-broadcast.png in Resources */,
 				D955371716B32E3C00753C15 /* 275-broadcast@2x.png in Resources */,
+				D980EC8516B854E600ADD398 /* stone.png in Resources */,
+				D980EC8616B854E600ADD398 /* stone@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2205,6 +2205,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				RUN_CLANG_STATIC_ANALYZER = NO;
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -2233,6 +2234,7 @@
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				RUN_CLANG_STATIC_ANALYZER = YES;
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

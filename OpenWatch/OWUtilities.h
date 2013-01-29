@@ -11,7 +11,7 @@
 
 @interface OWUtilities : NSObject
 
-+ (UIColor*) fabricBackgroundPattern;
++ (UIColor*) stoneBackgroundPattern;
 + (UIColor*) greyTextColor;
 + (UIColor*) navigationBarColor;
 + (UIColor*) doneButtonColor;

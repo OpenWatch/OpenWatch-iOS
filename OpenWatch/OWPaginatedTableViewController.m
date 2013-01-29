@@ -27,7 +27,7 @@
 {
     self = [super init];
     if (self) {
-        self.tableView.backgroundColor = [OWUtilities fabricBackgroundPattern];
+        self.tableView.backgroundColor = [OWUtilities stoneBackgroundPattern];
         currentPage = 0;
     }
     return self;

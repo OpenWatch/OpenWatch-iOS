@@ -31,7 +31,7 @@
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
-    self.window.backgroundColor = [OWUtilities fabricBackgroundPattern];
+    self.window.backgroundColor = [OWUtilities stoneBackgroundPattern];
      
     self.homeScreen = [[OWHomeScreenViewController alloc] init];
     self.navigationController = [[UINavigationController alloc] initWithRootViewController:homeScreen];

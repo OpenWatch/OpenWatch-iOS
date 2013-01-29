@@ -16,8 +16,8 @@
     return [UIColor colorWithRed:red/max green:green/max blue:blue/max alpha:alpha];
 }
 
-+ (UIColor*) fabricBackgroundPattern {
-    return [UIColor colorWithPatternImage:[UIImage imageNamed:@"fabric.jpeg"]];
++ (UIColor*) stoneBackgroundPattern {
+    return [UIColor colorWithPatternImage:[UIImage imageNamed:@"stone.png"]];
 }
 
 + (void) applyShadowToView:(UIView *)view {

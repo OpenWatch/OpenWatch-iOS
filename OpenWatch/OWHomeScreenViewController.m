@@ -40,7 +40,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.view.backgroundColor = [OWUtilities fabricBackgroundPattern];
+    self.view.backgroundColor = [OWUtilities stoneBackgroundPattern];
 
     
     UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"openwatch.png"]];
