@@ -60,6 +60,8 @@
 #define DELETE_TAG_TITLE_STRING NSLocalizedString(@"Delete Tag", @"ask user if they want to delete the tag")
 #define EDIT_STRING NSLocalizedString(@"Edit", @"title to edit recording info")
 #define DELETE_TAG_MESSAGE_STRING NSLocalizedString(@"Do you want to delete the \"%@\" tag?", @"ask if they want to delete specific tag name")
+#define NEEDS_TITLE_STRING NSLocalizedString(@"Title Required", @"title for alert box for recording edit view")
+#define NEEDS_TITLE_MESSAGE_STRING NSLocalizedString(@"Please enter a title for your recording.", @"ask user to enter title") 
 #define SEND_FEEDBACK_STRING NSLocalizedString(@"Send Feedback", @"help us improve the app")
 #define WELCOME_TEXTVIEW_STRING NSLocalizedString(@"Welcome, new Watcher!\n\
 \n\

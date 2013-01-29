@@ -221,7 +221,19 @@
 	[self.view addSubview:scrollView];
 }
 
+- (BOOL) checkFields {
+    if (self.titleTextField.text.length > 2) {
+        return YES;
+    }
+    return NO;
+}
+
 - (void) saveButtonPressed:(id)sender {
+    if (![self checkFields]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NEEDS_TITLE_STRING message:NEEDS_TITLE_MESSAGE_STRING delegate:nil cancelButtonTitle:OK_STRING otherButtonTitles: nil];
+        [alert show];
+        return;
+    }
     OWManagedRecording *recording = [OWRecordingController recordingForObjectID:self.recordingID];
     NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
     recording.title = self.titleTextField.text;
