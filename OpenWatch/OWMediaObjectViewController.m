@@ -10,6 +10,7 @@
 #import "OWShareController.h"
 #import "OWAccountAPIClient.h"
 #import "OWStrings.h"
+#import "OWUtilities.h"
 
 @interface OWMediaObjectViewController ()
 
@@ -33,7 +34,9 @@
 }
 
 - (void) setupSharing {
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:SHARE_STRING style:UIBarButtonItemStyleBordered target:self action:@selector(shareButtonPressed:)];
+    UIBarButtonItem *shareButton = [[UIBarButtonItem alloc] initWithTitle:SHARE_STRING style:UIBarButtonItemStyleBordered target:self action:@selector(shareButtonPressed:)];
+    shareButton.tintColor = [OWUtilities doneButtonColor];
+    self.navigationItem.rightBarButtonItem = shareButton;
 }
 
 - (void)viewDidLoad
