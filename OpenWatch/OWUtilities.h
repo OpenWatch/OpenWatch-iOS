@@ -25,7 +25,7 @@
 + (void) applyShadowToView:(UIView*)view;
 
 + (NSDateFormatter*) utcDateFormatter;
-+ (NSDateFormatter*) localDateFormatter;
++ (NSDateFormatter*) humanizedDateFormatter;
 + (NSString*) apiBaseURLString;
 + (NSString*) captureBaseURLString;
 

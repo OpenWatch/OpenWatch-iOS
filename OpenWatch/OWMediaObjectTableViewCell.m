@@ -79,7 +79,7 @@
     NSString *thumbnailURLString = nil;
     if (isLocalRecording) {
         OWLocalRecording *recording = (OWLocalRecording*)mediaObject;
-        NSDateFormatter *dateFormatter = [OWUtilities localDateFormatter];
+        NSDateFormatter *dateFormatter = [OWUtilities humanizedDateFormatter];
         self.dateModifiedLabel.text = [dateFormatter stringFromDate:recording.modifiedDate];
         [self.contentView addSubview:dateModifiedLabel];
         thumbnailURLString = recording.thumbnailURL;

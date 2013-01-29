@@ -17,10 +17,10 @@
 #import "OWAccountAPIClient.h"
 #import "OWShareController.h"
 
-#define RECORD_BUTTON_HEIGHT 120.0f
-#define RECORD_BUTTON_WIDTH 120.0f
+#define RECORD_BUTTON_HEIGHT 131.0f
+#define RECORD_BUTTON_WIDTH 150.0f
 #define BUTTON_HEIGHT 80.0f
-#define BUTTON_WIDTH 80.0f
+#define BUTTON_WIDTH 90.0f
 
 @interface OWHomeScreenViewController ()
 @end
@@ -52,9 +52,9 @@
     CGFloat buttonWidth = BUTTON_WIDTH;
     CGFloat recordButtonHeight = RECORD_BUTTON_HEIGHT;
     CGFloat recordButtonWidth = RECORD_BUTTON_WIDTH;
-    self.recordButtonView = [[OWLabeledButtonView alloc] initWithFrame:CGRectMake(0, 0, recordButtonWidth, recordButtonHeight) defaultImageName:@"record-big.png" highlightedImageName:nil labelName:RECORD_STRING];
+    self.recordButtonView = [[OWLabeledButtonView alloc] initWithFrame:CGRectMake(0, 0, recordButtonWidth, recordButtonHeight) defaultImageName:@"giant-eye-red.png" highlightedImageName:nil labelName:@"Watch"];
     self.recordButtonView.textLabel.font = [UIFont systemFontOfSize:25.0f];
-    self.watchButtonView = [[OWLabeledButtonView alloc] initWithFrame:CGRectMake(0, 0, buttonWidth, buttonHeight) defaultImageName:@"eye-big.png" highlightedImageName:nil labelName:WATCH_STRING];
+    self.watchButtonView = [[OWLabeledButtonView alloc] initWithFrame:CGRectMake(0, 0, buttonWidth, buttonHeight) defaultImageName:@"play_button_dark.png" highlightedImageName:nil labelName:@"Consume"];
     self.localButtonView = [[OWLabeledButtonView alloc] initWithFrame:CGRectMake(0, 0, buttonWidth, buttonHeight) defaultImageName:@"local-big.png" highlightedImageName:nil labelName:LOCAL_STRING];
     self.savedButtonView = [[OWLabeledButtonView alloc] initWithFrame:CGRectMake(0, 0, buttonWidth, buttonHeight) defaultImageName:@"saved-big.png" highlightedImageName:nil labelName:SAVED_STRING];
     self.settingsButtonView = [[OWLabeledButtonView alloc] initWithFrame:CGRectMake(0, 0, buttonWidth, buttonHeight) defaultImageName:@"settings-big.png" highlightedImageName:nil labelName:SETTINGS_STRING];

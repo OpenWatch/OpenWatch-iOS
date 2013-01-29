@@ -52,10 +52,14 @@
 }
 
 + (NSDateFormatter*) utcDateFormatter {
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    dateFormatter.dateFormat = @"yyyy-MM-dd' 'HH:mm:ss";
-    dateFormatter.timeZone = [NSTimeZone timeZoneWithAbbreviation:@"UTC"];
-    return dateFormatter;
+    static NSDateFormatter *utcDateFormatter = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        utcDateFormatter = [[NSDateFormatter alloc] init];
+        utcDateFormatter.dateFormat = @"yyyy-MM-dd' 'HH:mm:ss";
+        utcDateFormatter.timeZone = [NSTimeZone timeZoneWithAbbreviation:@"UTC"];
+    });
+    return utcDateFormatter;
 }
 
 + (void) styleLabel:(UILabel*) label {
@@ -65,12 +69,17 @@
     label.backgroundColor = [UIColor clearColor];
 }
 
-+ (NSDateFormatter*) localDateFormatter {
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    dateFormatter.dateFormat = @"yyyy-MM-dd' 'h:mm a";
-    dateFormatter.timeZone = [NSTimeZone localTimeZone];
-    dateFormatter.locale = [NSLocale currentLocale];
-    return dateFormatter;
++ (NSDateFormatter*) humanizedDateFormatter {
+    static NSDateFormatter *humanizedDateFormatter = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        humanizedDateFormatter = [[NSDateFormatter alloc] init];
+        humanizedDateFormatter.dateStyle = NSDateFormatterMediumStyle;
+        humanizedDateFormatter.timeStyle = NSDateFormatterShortStyle;
+        humanizedDateFormatter.timeZone = [NSTimeZone localTimeZone];
+        humanizedDateFormatter.locale = [NSLocale currentLocale];
+    });
+    return humanizedDateFormatter;
 }
 
 + (UIColor*) greyTextColor {
