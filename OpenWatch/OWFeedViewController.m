@@ -1,12 +1,12 @@
 //
-//  OWWatchViewController.m
+//  OWFeedViewController.m
 //  OpenWatch
 //
 //  Created by Christopher Ballinger on 12/11/12.
 //  Copyright (c) 2012 OpenWatch FPC. All rights reserved.
 //
 
-#import "OWWatchViewController.h"
+#import "OWFeedViewController.h"
 #import "OWAccountAPIClient.h"
 #import "OWTag.h"
 #import "OWStrings.h"
@@ -16,13 +16,13 @@
 #import "OWStory.h"
 #import "OWStoryViewController.h"
 #import "OWMediaObjectViewController.h"
+#import "OWFeedTableViewCell.h"
 
 
-
-@interface OWWatchViewController ()
+@interface OWFeedViewController ()
 @end
 
-@implementation OWWatchViewController
+@implementation OWFeedViewController
 @synthesize feedSelector;
 @synthesize feedType;
 @synthesize selectedFeedString;
@@ -37,6 +37,7 @@
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"list.png"] style:UIBarButtonItemStylePlain target:self action:@selector(feedSelectionButtonPressed:)];
         self.feedSelector = [[OWFeedSelectionViewController alloc] init];
         feedSelector.delegate = self;
+        self.cellClass = [OWFeedTableViewCell class];
     }
     return self;
 }

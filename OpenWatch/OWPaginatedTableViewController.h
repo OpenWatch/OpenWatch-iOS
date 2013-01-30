@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "EGORefreshTableHeaderView.h"
+#import "OWMediaObjectTableViewCell.h"
 
 #define kFirstPage 1
 
@@ -18,6 +19,7 @@
 @property (nonatomic) BOOL isReloading;
 @property (nonatomic, strong) EGORefreshTableHeaderView *refreshHeaderView;
 @property (nonatomic, strong) NSMutableArray *objectIDs;
+@property (nonatomic, strong) Class cellClass;
 
 - (void) reloadTableViewDataSource;
 - (void) doneLoadingTableViewData;

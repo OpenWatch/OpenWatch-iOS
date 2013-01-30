@@ -13,6 +13,7 @@
 #import "OWMediaObjectTableViewCell.h"
 #import "OWRecordingEditViewController.h"
 #import "OWSettingsController.h"
+#import "OWLocalRecordingTableViewCell.h"
 
 @interface OWRecordingListViewController ()
 
@@ -29,6 +30,7 @@
         self.title = RECORDINGS_STRING;
         self.navigationItem.rightBarButtonItem = self.editButtonItem;
         self.objectIDSet = [NSMutableSet set];
+        self.cellClass = [OWLocalRecordingTableViewCell class];
     }
     return self;
 }
@@ -54,21 +56,20 @@
         NSMutableArray *objectIDs = [NSMutableArray arrayWithArray:[recordingController allLocalRecordings]];
         [objectIDs addObjectsFromArray:self.objectIDs];
         [self.objectIDSet addObjectsFromArray:objectIDs];
-
+        [self refreshRecordingsFromSet];
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self refreshRecordingsFromSet];
+            [self.tableView reloadData];
         });
     });
 }
 
 - (void) refreshRecordingsFromSet {
     self.objectIDs = [NSMutableArray arrayWithArray:[self.objectIDSet allObjects]];
-    [self.objectIDs sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+    [self.objectIDs sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
         OWManagedRecording *rec1 = [OWRecordingController recordingForObjectID:obj1];
         OWManagedRecording *rec2 = [OWRecordingController recordingForObjectID:obj2];
-        return [rec1.startDate compare:rec2.startDate];
+        return [rec2.startDate compare:rec1.startDate];
     }];
-    [self.tableView reloadData];
 }
 
 - (void) didSelectFeedWithPageNumber:(NSUInteger)pageNumber {
@@ -84,9 +85,15 @@
         }
         [self reloadFeed:recordingObjectIDs replaceObjects:shouldReplaceObjects];
         [self loadOfflineRecordings];
+        [self doneLoadingTableViewData];
     } failure:^(NSString *reason) {
         [self loadOfflineRecordings];
+        [self doneLoadingTableViewData];
     }];
+}
+
+- (void) reloadFeed:(NSArray*)recordings replaceObjects:(BOOL)replaceObjects {
+    [self.objectIDSet addObjectsFromArray:recordings];
 }
 
 
@@ -94,18 +101,6 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-- (UITableViewCell*) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
-    if ([cell isKindOfClass:[OWMediaObjectTableViewCell class]]) {
-        OWMediaObjectTableViewCell *mediaCell = (OWMediaObjectTableViewCell*)cell;
-        mediaCell.isLocalRecording = YES;
-        // hack to get cell to display properly
-        NSManagedObjectID *recordingObjectID = [self.objectIDs objectAtIndex:indexPath.row];
-        mediaCell.mediaObjectID = recordingObjectID;
-    }
-    return cell;
 }
 
 

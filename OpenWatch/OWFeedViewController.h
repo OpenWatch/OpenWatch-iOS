@@ -1,5 +1,5 @@
 //
-//  OWWatchViewController.h
+//  OWFeedViewController.h
 //  OpenWatch
 //
 //  Created by Christopher Ballinger on 12/11/12.
@@ -13,7 +13,7 @@
 #import "OWLocationController.h"
 
 
-@interface OWWatchViewController : OWPaginatedTableViewController <OWFeedSelectionDelegate, OWLocationControllerDelegate>
+@interface OWFeedViewController : OWPaginatedTableViewController <OWFeedSelectionDelegate, OWLocationControllerDelegate>
 
 @property (nonatomic, strong) CLLocation *lastLocation;
 @property (nonatomic, strong) OWFeedSelectionViewController *feedSelector;

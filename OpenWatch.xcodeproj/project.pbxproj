@@ -113,6 +113,8 @@
 		D9C0332816A4C26900B7CFC7 /* OWStoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C0332716A4C26900B7CFC7 /* OWStoryViewController.m */; };
 		D9C0332B16A4CAC400B7CFC7 /* OWMediaObjectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C0332A16A4CAC400B7CFC7 /* OWMediaObjectViewController.m */; };
 		D9C0333D16A4E22100B7CFC7 /* libSDURLCache.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D9C0333816A4E1EC00B7CFC7 /* libSDURLCache.a */; };
+		D9C8A58016B9A1D2004F9E05 /* OWLocalRecordingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C8A57F16B9A1D2004F9E05 /* OWLocalRecordingTableViewCell.m */; };
+		D9C8A5A116B9A2EA004F9E05 /* OWFeedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C8A5A016B9A2EA004F9E05 /* OWFeedTableViewCell.m */; };
 		D9CEED151682718600B236B5 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D9CEED101682718600B236B5 /* libTestFlight.a */; };
 		D9CEED19168271C700B236B5 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D9CEED18168271C700B236B5 /* libz.dylib */; };
 		D9D2E14F1652D7B80000E7C5 /* OWInLineTextEditTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D2E14E1652D7B80000E7C5 /* OWInLineTextEditTableViewCell.m */; };
@@ -159,7 +161,7 @@
 		D9D786FB16766C40006EE6A2 /* popoverArrowUp@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9D786EC16766C40006EE6A2 /* popoverArrowUp@2x.png */; };
 		D9D786FD16766C40006EE6A2 /* popoverBg.png in Resources */ = {isa = PBXBuildFile; fileRef = D9D786EE16766C40006EE6A2 /* popoverBg.png */; };
 		D9D786FE16766C40006EE6A2 /* popoverBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9D786EF16766C40006EE6A2 /* popoverBg@2x.png */; };
-		D9D7870D1677EDB0006EE6A2 /* OWWatchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D7870C1677EDB0006EE6A2 /* OWWatchViewController.m */; };
+		D9D7870D1677EDB0006EE6A2 /* OWFeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D7870C1677EDB0006EE6A2 /* OWFeedViewController.m */; };
 		D9DFADFA16547DE7003C515C /* openwatch.png in Resources */ = {isa = PBXBuildFile; fileRef = D9DFADF816547DE7003C515C /* openwatch.png */; };
 		D9DFADFB16547DE7003C515C /* openwatch@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9DFADF916547DE7003C515C /* openwatch@2x.png */; };
 		D9E226E816A5D9F200F06C31 /* NSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = D9E226E716A5D9F200F06C31 /* NSString+HTML.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -660,6 +662,10 @@
 		D9C0332916A4CAC400B7CFC7 /* OWMediaObjectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWMediaObjectViewController.h; sourceTree = "<group>"; };
 		D9C0332A16A4CAC400B7CFC7 /* OWMediaObjectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWMediaObjectViewController.m; sourceTree = "<group>"; };
 		D9C0332F16A4E1EC00B7CFC7 /* SDURLCache.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SDURLCache.xcodeproj; path = SDURLCache/SDURLCache.xcodeproj; sourceTree = "<group>"; };
+		D9C8A57E16B9A1D2004F9E05 /* OWLocalRecordingTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWLocalRecordingTableViewCell.h; sourceTree = "<group>"; };
+		D9C8A57F16B9A1D2004F9E05 /* OWLocalRecordingTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWLocalRecordingTableViewCell.m; sourceTree = "<group>"; };
+		D9C8A59F16B9A2EA004F9E05 /* OWFeedTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWFeedTableViewCell.h; sourceTree = "<group>"; };
+		D9C8A5A016B9A2EA004F9E05 /* OWFeedTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWFeedTableViewCell.m; sourceTree = "<group>"; };
 		D9CEED0D16826AB400B236B5 /* OWAPIKeys.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OWAPIKeys.h; sourceTree = "<group>"; };
 		D9CEED101682718600B236B5 /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
 		D9CEED131682718600B236B5 /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
@@ -738,8 +744,8 @@
 		D9D786EC16766C40006EE6A2 /* popoverArrowUp@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "popoverArrowUp@2x.png"; path = "Submodules/WEPopover/popoverArrowUp@2x.png"; sourceTree = SOURCE_ROOT; };
 		D9D786EE16766C40006EE6A2 /* popoverBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = popoverBg.png; path = Submodules/WEPopover/popoverBg.png; sourceTree = SOURCE_ROOT; };
 		D9D786EF16766C40006EE6A2 /* popoverBg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "popoverBg@2x.png"; path = "Submodules/WEPopover/popoverBg@2x.png"; sourceTree = SOURCE_ROOT; };
-		D9D7870B1677EDB0006EE6A2 /* OWWatchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWWatchViewController.h; sourceTree = "<group>"; };
-		D9D7870C1677EDB0006EE6A2 /* OWWatchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWWatchViewController.m; sourceTree = "<group>"; };
+		D9D7870B1677EDB0006EE6A2 /* OWFeedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWFeedViewController.h; sourceTree = "<group>"; };
+		D9D7870C1677EDB0006EE6A2 /* OWFeedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWFeedViewController.m; sourceTree = "<group>"; };
 		D9DFADF816547DE7003C515C /* openwatch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = openwatch.png; sourceTree = "<group>"; };
 		D9DFADF916547DE7003C515C /* openwatch@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "openwatch@2x.png"; sourceTree = "<group>"; };
 		D9E226E616A5D9F200F06C31 /* NSString+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+HTML.h"; path = "MWFeedParser/Classes/NSString+HTML.h"; sourceTree = "<group>"; };
@@ -979,6 +985,7 @@
 		D97EAAA3167911B900A1B038 /* Custom Views */ = {
 			isa = PBXGroup;
 			children = (
+				D9C8A59E16B9A1E0004F9E05 /* Table Cells */,
 				D9BECF9616B22B06009046E1 /* UINavigationBar+DropShadow.h */,
 				D9BECF9716B22B06009046E1 /* UINavigationBar+DropShadow.m */,
 				D94499DF16B0D19600A2225A /* OWPastelessTextField.h */,
@@ -987,8 +994,6 @@
 				D991B6E916B0A84100223A02 /* OWTagEditView.m */,
 				D991B6B616B0783100223A02 /* OWTagCreationView.h */,
 				D991B6B716B0783100223A02 /* OWTagCreationView.m */,
-				D97EAA9F167911B100A1B038 /* OWMediaObjectTableViewCell.h */,
-				D97EAAA0167911B100A1B038 /* OWMediaObjectTableViewCell.m */,
 				D96677E816810B2A006F1815 /* OWTallyView.h */,
 				D96677E916810B2A006F1815 /* OWTallyView.m */,
 				D94A26DD167A7B4600BD36EF /* OWLabeledButtonView.h */,
@@ -1114,8 +1119,8 @@
 				D92B6A7D16AF5209006605E1 /* OWPaginatedTableViewController.m */,
 				D9D2E19A165326BB0000E7C5 /* OWRecordingListViewController.h */,
 				D9D2E19B165326BB0000E7C5 /* OWRecordingListViewController.m */,
-				D9D7870B1677EDB0006EE6A2 /* OWWatchViewController.h */,
-				D9D7870C1677EDB0006EE6A2 /* OWWatchViewController.m */,
+				D9D7870B1677EDB0006EE6A2 /* OWFeedViewController.h */,
+				D9D7870C1677EDB0006EE6A2 /* OWFeedViewController.m */,
 			);
 			name = "Paginated Tables";
 			sourceTree = "<group>";
@@ -1127,6 +1132,19 @@
 				D9C0333A16A4E1EC00B7CFC7 /* SDURLCacheTestBundle.octest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		D9C8A59E16B9A1E0004F9E05 /* Table Cells */ = {
+			isa = PBXGroup;
+			children = (
+				D9C8A57E16B9A1D2004F9E05 /* OWLocalRecordingTableViewCell.h */,
+				D9C8A57F16B9A1D2004F9E05 /* OWLocalRecordingTableViewCell.m */,
+				D97EAA9F167911B100A1B038 /* OWMediaObjectTableViewCell.h */,
+				D97EAAA0167911B100A1B038 /* OWMediaObjectTableViewCell.m */,
+				D9C8A59F16B9A2EA004F9E05 /* OWFeedTableViewCell.h */,
+				D9C8A5A016B9A2EA004F9E05 /* OWFeedTableViewCell.m */,
+			);
+			name = "Table Cells";
 			sourceTree = "<group>";
 		};
 		D9CEED0E1682718600B236B5 /* TestFlight */ = {
@@ -2003,7 +2021,7 @@
 				D9D786DB16766415006EE6A2 /* WEPopoverController.m in Sources */,
 				D9D786DC16766415006EE6A2 /* WETouchableView.m in Sources */,
 				D9D786E1167666C1006EE6A2 /* OWAutocompletionViewController.m in Sources */,
-				D9D7870D1677EDB0006EE6A2 /* OWWatchViewController.m in Sources */,
+				D9D7870D1677EDB0006EE6A2 /* OWFeedViewController.m in Sources */,
 				D97EAAA1167911B100A1B038 /* OWMediaObjectTableViewCell.m in Sources */,
 				D97EAABB167A540900A1B038 /* OWFeedSelectionViewController.m in Sources */,
 				D94A26DF167A7B4600BD36EF /* OWLabeledButtonView.m in Sources */,
@@ -2036,6 +2054,8 @@
 				D991B6EA16B0A84100223A02 /* OWTagEditView.m in Sources */,
 				D94499E116B0D19600A2225A /* OWPastelessTextField.m in Sources */,
 				D9BECF9816B22B06009046E1 /* UINavigationBar+DropShadow.m in Sources */,
+				D9C8A58016B9A1D2004F9E05 /* OWLocalRecordingTableViewCell.m in Sources */,
+				D9C8A5A116B9A2EA004F9E05 /* OWFeedTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

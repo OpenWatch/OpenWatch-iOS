@@ -22,6 +22,7 @@
 @synthesize currentPage;
 @synthesize totalPages;
 @synthesize objectIDs;
+@synthesize cellClass;
 
 - (id)init
 {
@@ -106,18 +107,18 @@
     return self.objectIDs.count + 1;
 }
 
-- (UITableViewCell *)mediaObjectCellForIndexPath:(NSIndexPath *)indexPath {
+
+- (OWMediaObjectTableViewCell*) mediaObjectCellForIndexPath:(NSIndexPath *)indexPath {
     static NSString *cellIdentifier = @"MediaObjectCellIdentifier";
     OWMediaObjectTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if (!cell) {
-        cell = [[OWMediaObjectTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier];
+        cell = [[cellClass alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier];
     }
     NSManagedObjectID *recordingObjectID = [self.objectIDs objectAtIndex:indexPath.row];
     cell.mediaObjectID = recordingObjectID;
     return cell;
-    
-    return cell;
 }
+
 
 - (UITableViewCell *)loadingCell {
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault

@@ -8,17 +8,15 @@
 
 #import <UIKit/UIKit.h>
 #import "OWMediaObject.h"
-#import "OWTallyView.h"
 
 @interface OWMediaObjectTableViewCell : UITableViewCell
 
 @property (nonatomic, strong) NSManagedObjectID *mediaObjectID;
 
-@property (nonatomic, strong) UILabel *usernameLabel;
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UIImageView *thumbnailImageView;
-@property (nonatomic, strong) OWTallyView *tallyView;
-@property (nonatomic, strong) UILabel *dateModifiedLabel;
-@property (nonatomic) BOOL isLocalRecording;
+@property (nonatomic, strong) NSURL *thumbnailURL;
+
+- (void) refreshThumbnailImage;
 
 @end

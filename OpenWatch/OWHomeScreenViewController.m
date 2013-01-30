@@ -13,7 +13,7 @@
 #import "OWSettingsController.h"
 #import "OWCaptureViewController.h"
 #import "OWSettingsViewController.h"
-#import "OWWatchViewController.h"
+#import "OWFeedViewController.h"
 #import "OWAccountAPIClient.h"
 #import "OWShareController.h"
 
@@ -152,19 +152,19 @@
 - (void) watchButtonPressed:(id)sender {
     OWFeedType type = kOWFeedTypeFeed;
     NSString *feedString = FEATURED_STRING;
-    [self pushWatchVCForFeedName:feedString type:type];
+    [self pushFeedVCForFeedName:feedString type:type];
 }
 
-- (void) pushWatchVCForFeedName:(NSString*)feedName type:(OWFeedType)type {
-    OWWatchViewController *watchVC = [[OWWatchViewController alloc] init];
-    [watchVC didSelectFeedWithName:feedName type:type];
-    [self.navigationController pushViewController:watchVC animated:YES];
+- (void) pushFeedVCForFeedName:(NSString*)feedName type:(OWFeedType)type {
+    OWFeedViewController *feedVC = [[OWFeedViewController alloc] init];
+    [feedVC didSelectFeedWithName:feedName type:type];
+    [self.navigationController pushViewController:feedVC animated:YES];
 }
 
 - (void) localButtonPressed:(id)sender {
     OWFeedType type = kOWFeedTypeFeed;
     NSString *feedString = LOCAL_STRING;
-    [self pushWatchVCForFeedName:feedString type:type];
+    [self pushFeedVCForFeedName:feedString type:type];
 }
 
 - (void) alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {

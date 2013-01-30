@@ -63,12 +63,7 @@
         return nil;
     }
     NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
-    NSError *error = nil;
-    OWManagedRecording *recording = (OWManagedRecording*)[context existingObjectWithID:objectID error:&error];
-    if (error) {
-        NSLog(@"Error: %@", [error userInfo]);
-        error = nil;
-    }
+    OWManagedRecording *recording = (OWManagedRecording*)[context objectWithID:objectID];
     return recording;
 }
 
