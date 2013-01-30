@@ -139,9 +139,6 @@
     if (endLocationDictionary) {
         self.endLocation = [self locationFromLocationDictionary:endLocationDictionary];
     }
-    NSString *thumbnailURL = [metadataDictionary objectForKey:@"thumbnail_url"];
-    if (thumbnailURL)
-    self.thumbnailURL = thumbnailURL;
 }
 
 - (CLLocation*)locationFromLocationDictionary:(NSDictionary*)locationDictionary {

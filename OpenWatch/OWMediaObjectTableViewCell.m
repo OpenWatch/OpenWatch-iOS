@@ -18,7 +18,7 @@
 #define PADDING 10.0f
 
 @implementation OWMediaObjectTableViewCell
-@synthesize mediaObjectID, thumbnailImageView, titleLabel, thumbnailURL;
+@synthesize mediaObjectID, thumbnailImageView, titleLabel;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -57,11 +57,7 @@
     NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
     OWMediaObject *mediaObject = (OWMediaObject*)[context objectWithID:mediaObjectID];
     self.titleLabel.text = mediaObject.title;
-}
-
-- (void) refreshThumbnailImage {
-    [self.thumbnailImageView cancelImageRequestOperation];
-    [self.thumbnailImageView setImageWithURL:thumbnailURL placeholderImage:[UIImage imageNamed:@"thumbnail_placeholder.png"]];
+    [self.thumbnailImageView setImageWithURL:mediaObject.thumbnailURL placeholderImage:[UIImage imageNamed:@"thumbnail_placeholder.png"]];
 }
 
 @end

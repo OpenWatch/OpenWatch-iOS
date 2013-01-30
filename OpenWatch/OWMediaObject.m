@@ -86,10 +86,16 @@
     if (clicks) {
         self.clicks = clicks;
     }
+    NSString *thumbnailURL = [metadataDictionary objectForKey:@"thumbnail_url"];
+    if (thumbnailURL)
+        self.thumbnailURLString = thumbnailURL;
 }
 
 // stub methods, implemented in subclasses
 - (NSURL*) urlForWeb {return nil;}
 - (NSString*) type { return nil; }
+- (NSURL*) thumbnailURL {
+    return [NSURL URLWithString:self.thumbnailURLString];
+}
 
 @end

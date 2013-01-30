@@ -16,5 +16,6 @@
 - (void) loadMetadataFromDictionary:(NSDictionary*)metadataDictionary;
 - (NSURL*) urlForWeb;
 - (NSString*) type;
+- (NSURL*) thumbnailURL;
 
 @end

@@ -15,8 +15,5 @@
 
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UIImageView *thumbnailImageView;
-@property (nonatomic, strong) NSURL *thumbnailURL;
-
-- (void) refreshThumbnailImage;
 
 @end

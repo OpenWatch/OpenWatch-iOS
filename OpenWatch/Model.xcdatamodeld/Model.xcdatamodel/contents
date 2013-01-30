@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1811" systemVersion="12C60" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="2057" systemVersion="12C60" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="OWLocalRecording" representedClassName="OWLocalRecording" parentEntity="OWManagedRecording" syncable="YES">
         <attribute name="hqFileUploadState" optional="YES" attributeType="Integer 16" syncable="YES"/>
         <attribute name="localRecordingPath" optional="YES" attributeType="String" syncable="YES"/>
@@ -14,13 +14,13 @@
         <attribute name="startDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="startLatitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="startLongitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
-        <attribute name="thumbnailURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="uuid" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="OWMediaObject" representedClassName="OWMediaObject" isAbstract="YES" parentEntity="OWServerObject" syncable="YES">
         <attribute name="clicks" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="firstPostedDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="modifiedDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="thumbnailURLString" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="views" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <relationship name="tags" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="OWTag" inverseName="objects" inverseEntity="OWTag" syncable="YES"/>
@@ -55,8 +55,8 @@
     </entity>
     <elements>
         <element name="OWLocalRecording" positionX="277" positionY="171" width="128" height="88"/>
-        <element name="OWManagedRecording" positionX="430" positionY="251" width="128" height="195"/>
-        <element name="OWMediaObject" positionX="160" positionY="192" width="128" height="150"/>
+        <element name="OWManagedRecording" positionX="430" positionY="251" width="128" height="180"/>
+        <element name="OWMediaObject" positionX="160" positionY="192" width="128" height="165"/>
         <element name="OWRecordingSegment" positionX="99" positionY="234" width="128" height="103"/>
         <element name="OWServerObject" positionX="160" positionY="192" width="128" height="60"/>
         <element name="OWStory" positionX="160" positionY="192" width="128" height="90"/>

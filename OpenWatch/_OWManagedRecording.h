@@ -13,7 +13,6 @@ extern const struct OWManagedRecordingAttributes {
 	__unsafe_unretained NSString *startDate;
 	__unsafe_unretained NSString *startLatitude;
 	__unsafe_unretained NSString *startLongitude;
-	__unsafe_unretained NSString *thumbnailURL;
 	__unsafe_unretained NSString *uuid;
 } OWManagedRecordingAttributes;
 
@@ -22,7 +21,6 @@ extern const struct OWManagedRecordingRelationships {
 
 extern const struct OWManagedRecordingFetchedProperties {
 } OWManagedRecordingFetchedProperties;
-
 
 
 
@@ -144,16 +142,6 @@ extern const struct OWManagedRecordingFetchedProperties {
 
 
 
-@property (nonatomic, strong) NSString* thumbnailURL;
-
-
-
-//- (BOOL)validateThumbnailURL:(id*)value_ error:(NSError**)error_;
-
-
-
-
-
 @property (nonatomic, strong) NSString* uuid;
 
 
@@ -230,12 +218,6 @@ extern const struct OWManagedRecordingFetchedProperties {
 
 - (double)primitiveStartLongitudeValue;
 - (void)setPrimitiveStartLongitudeValue:(double)value_;
-
-
-
-
-- (NSString*)primitiveThumbnailURL;
-- (void)setPrimitiveThumbnailURL:(NSString*)value;
 
 
 

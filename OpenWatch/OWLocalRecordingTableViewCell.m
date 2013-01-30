@@ -42,9 +42,6 @@
     OWLocalRecording *recording = (OWLocalRecording*)mediaObject;
     NSDateFormatter *dateFormatter = [OWUtilities humanizedDateFormatter];
     self.dateCreatedLabel.text = [dateFormatter stringFromDate:recording.startDate];
-    [self.contentView addSubview:dateCreatedLabel];
-    self.thumbnailURL = [NSURL URLWithString:recording.thumbnailURL];
-    [self refreshThumbnailImage];
 }
 
 @end

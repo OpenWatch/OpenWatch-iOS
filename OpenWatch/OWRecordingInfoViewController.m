@@ -327,6 +327,8 @@
     
     [self.profileImageView setImageWithURL:recording.user.thumbnailURL placeholderImage:[UIImage imageNamed:@"thumbnail_placeholder.png"]];
     
+    self.title = recording.title;
+    
     [self refreshTagsForRecording:recording];
 }
 

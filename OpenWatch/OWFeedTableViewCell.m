@@ -49,19 +49,9 @@
     [super setMediaObjectID:mediaObjectID];
     NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
     OWMediaObject *mediaObject = (OWMediaObject*)[context objectWithID:mediaObjectID];
-    NSString *thumbnailURLString = nil;
-    if ([mediaObject isKindOfClass:[OWManagedRecording class]]) {
-        OWManagedRecording *recording = (OWManagedRecording*)mediaObject;
-        thumbnailURLString = recording.thumbnailURL;
-    } else if ([mediaObject isKindOfClass:[OWStory class]]) {
-        thumbnailURLString = mediaObject.user.thumbnailURLString;
-    }
     self.tallyView.actionsLabel.text = [NSString stringWithFormat:@"%d", [mediaObject.clicks intValue]];
     self.tallyView.viewsLabel.text = [NSString stringWithFormat:@"%d", [mediaObject.views intValue]];
-    [self.contentView addSubview:tallyView];
     self.usernameLabel.text = mediaObject.user.username;
-    self.thumbnailURL = [NSURL URLWithString:thumbnailURLString];
-    [self refreshThumbnailImage];
 }
 
 @end

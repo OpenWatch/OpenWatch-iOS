@@ -67,8 +67,8 @@
     if (!self) {
         return nil;
     }
-    SDURLCache *urlCache = [[SDURLCache alloc] initWithMemoryCapacity:1024*1024   // 1MB mem cache
-                                                         diskCapacity:1024*1024*15 // 15MB disk cache
+    SDURLCache *urlCache = [[SDURLCache alloc] initWithMemoryCapacity:1024*1024*10   // 10MB mem cache
+                                                         diskCapacity:1024*1024*100 // 100MB disk cache
                                                              diskPath:[SDURLCache defaultCachePath]
                                                    enableForIOS5AndUp:YES];
     urlCache.ignoreMemoryOnlyStoragePolicy = YES;
