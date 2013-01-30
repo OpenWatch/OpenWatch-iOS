@@ -154,7 +154,8 @@
 
 - (void) stopRecording {
     self.endDate = [NSDate date];
-    self.endLocation = [OWLocationController sharedInstance].currentLocation;
+    CLLocation *endLoc = [OWLocationController sharedInstance].currentLocation;
+    self.endLocation = endLoc;
     [self saveMetadata];
     [[OWCaptureAPIClient sharedClient] finishedRecording:self.objectID];
     [[OWCaptureAPIClient sharedClient] updateMetadataForRecording:self.objectID];

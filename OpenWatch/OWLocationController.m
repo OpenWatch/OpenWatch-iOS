@@ -58,7 +58,6 @@
 
 - (void) stop {
     [locationManager stopUpdatingLocation];
-    self.currentLocation = nil;
     self.delegate = nil;
 }
 

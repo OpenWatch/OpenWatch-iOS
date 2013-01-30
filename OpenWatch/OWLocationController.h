@@ -16,7 +16,7 @@
 @interface OWLocationController : NSObject <CLLocationManagerDelegate>
 
 @property (nonatomic, weak) id<OWLocationControllerDelegate> delegate;
-@property (nonatomic, strong) CLLocation *currentLocation;
+@property (atomic, strong) CLLocation *currentLocation;
 
 - (void) startWithDelegate:(id<OWLocationControllerDelegate>)newDelegate;
 - (void) stop;
