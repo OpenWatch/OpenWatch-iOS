@@ -65,9 +65,11 @@
     CGRect bounds = [view bounds];
     [captureVideoPreviewLayer setFrame:bounds];
     
+    /* iOS 6 doesn't like this
     if ([captureVideoPreviewLayer isOrientationSupported]) {
         [captureVideoPreviewLayer setOrientation:AVCaptureVideoOrientationLandscapeRight];
     }
+     */
     
     [captureVideoPreviewLayer setVideoGravity:AVLayerVideoGravityResizeAspectFill];
     
@@ -153,6 +155,14 @@
 
 - (BOOL) shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     return UIInterfaceOrientationLandscapeRight == interfaceOrientation;
+}
+
+- (BOOL) shouldAutorotate {
+    return NO;
+}
+
+-(NSUInteger) supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskLandscapeRight;
 }
 
 - (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation

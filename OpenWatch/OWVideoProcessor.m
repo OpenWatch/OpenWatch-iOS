@@ -148,7 +148,7 @@
 
 - (void) initializeAssetWriters {
     OWLocalRecording *localRecording = [OWRecordingController localRecordingForObjectID:self.recordingID];
-
+    NSLog(@"Starting asset writer for: %@", localRecording.localRecordingPath);
     // Create an asset writer
     self.appleEncoder1 = [[OWAppleEncoder alloc] initWithURL:[localRecording highQualityURL] movieFragmentInterval:CMTimeMakeWithSeconds(5, 30)];
     self.appleEncoder1.recordingID = localRecording.objectID;
@@ -341,8 +341,9 @@
 	if ([captureSession canAddOutput:videoOut])
 		[captureSession addOutput:videoOut];
 	videoConnection = [videoOut connectionWithMediaType:AVMediaTypeVideo];
-	self.videoOrientation = [videoConnection videoOrientation];
-    
+    // TODO FIXME iOS 6:
+    self.videoOrientation = AVCaptureVideoOrientationLandscapeRight;
+    videoConnection.videoOrientation = self.videoOrientation;
 	return YES;
 }
 
