@@ -43,7 +43,7 @@
         return;
     }
     NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
-    OWMediaObject *mediaObject = (OWMediaObject*)[context objectWithID:self.mediaObjectID];
+    OWMediaObject *mediaObject = (OWMediaObject*)[context existingObjectWithID:self.mediaObjectID error:nil];
     
     if ([mediaObject.serverID intValue] != 0) {
         [self share];
@@ -68,7 +68,7 @@
 - (void) share {
     [TestFlight passCheckpoint:SHARE_CHECKPOINT];
     NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
-    OWMediaObject *mediaObject = (OWMediaObject*)[context objectWithID:self.mediaObjectID];
+    OWMediaObject *mediaObject = (OWMediaObject*)[context existingObjectWithID:self.mediaObjectID error:nil];
     // Create the item to share (in this example, a url)
     NSURL *url = [mediaObject urlForWeb];
     NSString *title = [NSString stringWithFormat:@"%@ - %@", OPENWATCH_STRING, mediaObject.title];

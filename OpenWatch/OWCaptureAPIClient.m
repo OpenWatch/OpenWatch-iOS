@@ -140,6 +140,7 @@
 }
 
 - (void) finishedRecording:(NSManagedObjectID*)recordingObjectID {
+    NSLog(@"Finishing (POSTing) recording...");
     NSString *postPath = [self postPathForRecording:recordingObjectID uploadState:kUploadStateEnd];
     [self uploadMetadataForRecording:recordingObjectID postPath:postPath];
 }

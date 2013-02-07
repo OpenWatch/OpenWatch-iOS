@@ -55,7 +55,7 @@
 - (void) setMediaObjectID:(NSManagedObjectID *)newMediaObjectID {
     mediaObjectID = newMediaObjectID;
     NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
-    OWMediaObject *mediaObject = (OWMediaObject*)[context objectWithID:mediaObjectID];
+    OWMediaObject *mediaObject = (OWMediaObject*)[context existingObjectWithID:mediaObjectID error:nil];
     self.titleLabel.text = mediaObject.title;
     [self.thumbnailImageView setImageWithURL:mediaObject.thumbnailURL placeholderImage:[UIImage imageNamed:@"thumbnail_placeholder.png"]];
 }

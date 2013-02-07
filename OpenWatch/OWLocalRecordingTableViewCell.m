@@ -38,7 +38,7 @@
 - (void) setMediaObjectID:(NSManagedObjectID *)mediaObjectID {
     [super setMediaObjectID:mediaObjectID];
     NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
-    OWMediaObject *mediaObject = (OWMediaObject*)[context objectWithID:mediaObjectID];
+    OWMediaObject *mediaObject = (OWMediaObject*)[context existingObjectWithID:mediaObjectID error:nil];
     OWLocalRecording *recording = (OWLocalRecording*)mediaObject;
     NSDateFormatter *dateFormatter = [OWUtilities humanizedDateFormatter];
     self.dateCreatedLabel.text = [dateFormatter stringFromDate:recording.startDate];

@@ -48,7 +48,7 @@
 - (void) setMediaObjectID:(NSManagedObjectID *)mediaObjectID {
     [super setMediaObjectID:mediaObjectID];
     NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
-    OWMediaObject *mediaObject = (OWMediaObject*)[context objectWithID:mediaObjectID];
+    OWMediaObject *mediaObject = (OWMediaObject*)[context existingObjectWithID:mediaObjectID error:nil];
     self.tallyView.actionsLabel.text = [NSString stringWithFormat:@"%d", [mediaObject.clicks intValue]];
     self.tallyView.viewsLabel.text = [NSString stringWithFormat:@"%d", [mediaObject.views intValue]];
     self.usernameLabel.text = mediaObject.user.username;

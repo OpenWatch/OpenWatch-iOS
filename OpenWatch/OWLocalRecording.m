@@ -30,11 +30,11 @@
 + (OWLocalRecording*) recordingWithPath:(NSString *)path {
     OWLocalRecording *recording = [OWLocalRecording MR_findFirstByAttribute:@"localRecordingPath" withValue:path];
     if (!recording) {
-        recording = [OWLocalRecording MR_createEntity];
+        NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
+        recording = [OWLocalRecording MR_createInContext:context];
         recording.localRecordingPath = path;
         OWUser *user = [[[OWSettingsController sharedInstance] account] user];
         recording.user = user;
-        NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
         NSError *error = nil;
         BOOL success = [context obtainPermanentIDsForObjects:@[recording] error:&error];
         if (error || !success) {
@@ -50,7 +50,7 @@
     NSString *fileName = [path lastPathComponent];
     NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
     [context processPendingChanges];
-    OWLocalRecording *recording = (OWLocalRecording*)[context objectWithID:self.objectID];
+    OWLocalRecording *recording = (OWLocalRecording*)[context existingObjectWithID:self.objectID error:nil];
 
     if ([[path lastPathComponent] isEqualToString:kHQFileName]) {
         recording.hqFileUploadState = @(uploadState);

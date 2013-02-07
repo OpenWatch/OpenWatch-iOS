@@ -51,7 +51,7 @@
 @property (readonly) CMVideoCodecType videoType;
 @property (nonatomic, strong) OWAppleEncoder *appleEncoder1;
 @property (nonatomic, strong) OWSegmentingAppleEncoder *appleEncoder2;
-@property (nonatomic, strong) NSManagedObjectID *recordingID;
+@property (atomic, strong) NSManagedObjectID *recordingID;
 @property (nonatomic, strong) AVCaptureSession *captureSession;
 
 @property (nonatomic) AVCaptureVideoOrientation referenceOrientation;

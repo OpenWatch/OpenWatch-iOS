@@ -299,7 +299,7 @@
 
 - (void) hitMediaObject:(NSManagedObjectID*)objectID hitType:(NSString*)hitType {
     NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
-    OWMediaObject *mediaObject = (OWMediaObject*)[context objectWithID:objectID];
+    OWMediaObject *mediaObject = (OWMediaObject*)[context existingObjectWithID:objectID error:nil];
     if (!mediaObject) {
         return;
     }
@@ -326,7 +326,7 @@
 
 - (void) getStoryWithObjectID:(NSManagedObjectID *)objectID success:(void (^)(NSManagedObjectID *recordingObjectID))success failure:(void (^)(NSString *reason))failure {
     NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
-    OWStory *story = (OWStory*)[context objectWithID:objectID];
+    OWStory *story = (OWStory*)[context existingObjectWithID:objectID error:nil];
     NSString *path = [NSString stringWithFormat:@"/api/story/%d/", [story.serverID intValue]];
 
     [self getPath:path parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {

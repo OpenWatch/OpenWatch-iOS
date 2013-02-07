@@ -122,12 +122,10 @@
     NSString *directoryName = [NSString stringWithFormat:@"%f.recording", [date timeIntervalSince1970]];
     NSString *recordingPath = [basePath stringByAppendingPathComponent:directoryName];
     
-    OWLocalRecording *currentRecording = [OWLocalRecording recordingWithPath:recordingPath];
-
-    self.recordingID = currentRecording.objectID;
-    
 	dispatch_async(movieWritingQueue, ^{
-        OWLocalRecording *localRecording = [OWRecordingController localRecordingForObjectID:self.recordingID];
+        OWLocalRecording *currentRecording = [OWLocalRecording recordingWithPath:recordingPath];
+        self.recordingID = currentRecording.objectID;
+        NSLog(@"setting objectID: %@", [self.recordingID description]);
 
 		if ( recordingWillBeStarted || self.recording )
 			return;
@@ -138,16 +136,20 @@
 		[self.delegate recordingWillStart];
 			
         [self initializeAssetWriters];
-        [localRecording startRecording];
+        [currentRecording startRecording];
 	});
-
-
 }
 
 
 
 - (void) initializeAssetWriters {
+    NSLog(@"getting objectID: %@", [self.recordingID description]);
+
+    if (self.recordingID.isTemporaryID) {
+        NSLog(@"Recording ID is temporary!");
+    }
     OWLocalRecording *localRecording = [OWRecordingController localRecordingForObjectID:self.recordingID];
+    
     NSLog(@"Starting asset writer for: %@", localRecording.localRecordingPath);
     // Create an asset writer
     self.appleEncoder1 = [[OWAppleEncoder alloc] initWithURL:[localRecording highQualityURL] movieFragmentInterval:CMTimeMakeWithSeconds(5, 30)];

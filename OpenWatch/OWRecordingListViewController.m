@@ -111,7 +111,7 @@
     }
     NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
     NSManagedObjectID *recordingObjectID = [self.objectIDs objectAtIndex:indexPath.row];
-    NSManagedObject *object = [context objectWithID:recordingObjectID];
+    NSManagedObject *object = [context existingObjectWithID:recordingObjectID error:nil];
     if ([object isKindOfClass:[OWLocalRecording class]]) {
         return YES;
     }

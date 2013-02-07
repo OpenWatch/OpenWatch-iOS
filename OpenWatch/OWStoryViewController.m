@@ -134,7 +134,7 @@
 
 - (void) refreshFields {
     NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
-    OWStory *story = (OWStory*)[context objectWithID:self.mediaObjectID];
+    OWStory *story = (OWStory*)[context existingObjectWithID:self.mediaObjectID error:nil];
     self.title = story.title;
     self.titleLabel.text = story.title;
     self.authorLabel.text = [NSString stringWithFormat:@"%@ %@.",BY_STRING, story.user.username];
@@ -160,7 +160,7 @@
     [super setMediaObjectID:newMediaObjectID];
     [self refreshFields];
     NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
-    OWStory *story = (OWStory*)[context objectWithID:self.mediaObjectID];
+    OWStory *story = (OWStory*)[context existingObjectWithID:self.mediaObjectID error:nil];
     if (!story.body) {
         [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     }

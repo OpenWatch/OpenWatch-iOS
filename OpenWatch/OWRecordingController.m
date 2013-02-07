@@ -63,7 +63,7 @@
         return nil;
     }
     NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
-    OWManagedRecording *recording = (OWManagedRecording*)[context objectWithID:objectID];
+    OWManagedRecording *recording = (OWManagedRecording*)[context existingObjectWithID:objectID error:nil];
     return recording;
 }
 

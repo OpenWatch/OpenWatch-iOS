@@ -148,7 +148,7 @@
     }
     NSManagedObjectID *mediaObjectID = [self.objectIDs objectAtIndex:indexPath.row];
     NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
-    OWMediaObject *mediaObject = (OWMediaObject*)[context objectWithID:mediaObjectID];
+    OWMediaObject *mediaObject = (OWMediaObject*)[context existingObjectWithID:mediaObjectID error:nil];
     OWMediaObjectViewController *vc = nil;
     if ([mediaObject isKindOfClass:[OWManagedRecording class]]) {
         OWRecordingInfoViewController *recordingVC = [[OWRecordingInfoViewController alloc] init];
