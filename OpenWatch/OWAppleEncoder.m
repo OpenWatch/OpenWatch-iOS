@@ -33,7 +33,7 @@
             [self showError:error];
         }
         assetWriter.movieFragmentInterval = fragmentInterval;
-        referenceOrientation = UIDeviceOrientationPortrait;
+        referenceOrientation = UIDeviceOrientationLandscapeRight;
         fileOffset = 0;
         fileNumber = 0;
         source = NULL;
@@ -116,7 +116,7 @@
 	if ([currentAssetWriter canApplyOutputSettings:videoCompressionSettings forMediaType:AVMediaTypeVideo]) {
 		currentVideoEncoder = [[AVAssetWriterInput alloc] initWithMediaType:AVMediaTypeVideo outputSettings:videoCompressionSettings];
 		currentVideoEncoder.expectsMediaDataInRealTime = YES;
-		currentVideoEncoder.transform = [self transformFromCurrentVideoOrientationToOrientation:self.referenceOrientation];
+		//currentVideoEncoder.transform = [self transformFromCurrentVideoOrientationToOrientation:self.referenceOrientation];
 		if ([currentAssetWriter canAddInput:currentVideoEncoder]) {
             @try {
                 [currentAssetWriter addInput:currentVideoEncoder];

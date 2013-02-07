@@ -27,10 +27,19 @@
         [self.videoProcessor setupAndStartCaptureSession];
         self.videoPreviewView = [[UIView alloc] init];
         self.title = STREAMING_STRING;
-        self.recordButton = [[UIBarButtonItem alloc] initWithTitle:RECORD_STRING style:UIBarButtonItemStyleDone target:self action:@selector(recordButtonPressed:)];
-        self.recordButton.tintColor = [OWUtilities doneButtonColor];
+        [self setupRecordButton];
     }
     return self;
+}
+
+- (void) setupRecordButton {
+    self.recordButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    self.recordButton.layer.opacity = 0.7;
+    //recordButton.transform = CGAffineTransformMakeRotation(M_PI / 2);
+    [recordButton setTitle:RECORD_STRING forState:UIControlStateNormal];
+    self.recordButton.tintColor = [OWUtilities doneButtonColor];
+    [self.recordButton addTarget:self action:@selector(recordButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    //self.recordButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin;
 }
 
 - (void) loadView {
@@ -38,8 +47,7 @@
     self.videoPreviewView.frame = self.view.bounds;
     self.videoPreviewView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin;
     [self.view addSubview:videoPreviewView];
-    
-    self.navigationItem.rightBarButtonItem = recordButton;
+    [self.view addSubview:recordButton];    
 }
 
 - (void) recordButtonPressed:(id)sender {
@@ -57,6 +65,7 @@
 {
     [super viewDidLoad];
     self.captureVideoPreviewLayer = [AVCaptureVideoPreviewLayer layerWithSession:videoProcessor.captureSession];
+    self.captureVideoPreviewLayer.orientation = AVCaptureVideoOrientationLandscapeRight;
     
     UIView *view = [self videoPreviewView];
     CALayer *viewLayer = [view layer];
@@ -79,7 +88,15 @@
 - (void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.videoPreviewView.frame = self.view.bounds;
+    CGFloat buttonWidth = 100.0f;
+    CGFloat buttonHeight = 45.0f;
+    CGFloat padding = 10.0f;
+    self.recordButton.frame = CGRectMake(self.view.frame.size.width - buttonWidth - padding, padding, buttonWidth, buttonHeight);
     [captureVideoPreviewLayer setFrame:self.view.bounds];
+}
+
+- (void) viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
 }
 
 - (void) viewDidAppear:(BOOL)animated {
@@ -100,7 +117,7 @@
 {
 	dispatch_async(dispatch_get_main_queue(), ^{
 		[[self recordButton] setEnabled:NO];
-		[[self recordButton] setTitle:STOP_STRING];
+		[[self recordButton] setTitle:STOP_STRING forState:UIControlStateNormal];
         
 		// Disable the idle timer while we are recording
 		[UIApplication sharedApplication].idleTimerDisabled = YES;
@@ -123,7 +140,7 @@
 	dispatch_async(dispatch_get_main_queue(), ^{
 		// Disable until saving to the camera roll is complete
         [[OWLocationController sharedInstance] stop];
-		[[self recordButton] setTitle:RECORD_STRING];
+		[[self recordButton] setTitle:RECORD_STRING forState:UIControlStateNormal];
 		[[self recordButton] setEnabled:NO];
 	});
 }
@@ -169,6 +186,22 @@
 {
     return UIInterfaceOrientationLandscapeRight;
 }
+
+-(void)willAnimateRotationToInterfaceOrientation:
+(UIInterfaceOrientation)toInterfaceOrientation
+                                        duration:(NSTimeInterval)duration {
+    
+    [CATransaction begin];
+    if (toInterfaceOrientation==UIInterfaceOrientationLandscapeRight){
+        captureVideoPreviewLayer.orientation = AVCaptureVideoOrientationLandscapeRight;
+    } else {
+        captureVideoPreviewLayer.orientation = AVCaptureVideoOrientationLandscapeRight;
+    }
+    
+    [CATransaction commit];
+    [super willAnimateRotationToInterfaceOrientation:toInterfaceOrientation duration:duration];
+}
+
 
 - (void) alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
     if (buttonIndex != alertView.cancelButtonIndex) {

@@ -136,11 +136,11 @@
 }
 
 - (void) recordButtonPressed:(id)sender {
-    OWCaptureViewController *captureView = [[OWCaptureViewController alloc] init];
-    UINavigationController *captureNav = [[UINavigationController alloc] initWithRootViewController:captureView];
+    OWCaptureViewController *captureVC = [[OWCaptureViewController alloc] init];
+    //UINavigationController *captureNav = [[UINavigationController alloc] initWithRootViewController:captureView];
     //[OWUtilities styleNavigationController:captureNav];
-    captureNav.navigationBar.tintColor = [OWUtilities navigationBarColor];
-    [self presentViewController:captureNav animated:YES completion:^{
+    //captureNav.navigationBar.tintColor = [OWUtilities navigationBarColor];
+    [self presentViewController:captureVC animated:YES completion:^{
     }];
 }
 
