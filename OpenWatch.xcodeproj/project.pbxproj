@@ -2196,7 +2196,7 @@
 				GCC_PREFIX_HEADER = "OpenWatch/OpenWatch-Prefix.pch";
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Submodules\"/**";
 				INFOPLIST_FILE = "OpenWatch/OpenWatch-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../../../Library/Developer/Xcode/DerivedData/OpenWatch-dniojtrnwcrcishgeakmipedpmkm/Build/Products/Debug-iphoneos\"",
@@ -2217,14 +2217,14 @@
 		D99741911651D42F0034ABB0 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "OpenWatch/OpenWatch-Prefix.pch";
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Submodules\"/**";
 				INFOPLIST_FILE = "OpenWatch/OpenWatch-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../../../Library/Developer/Xcode/DerivedData/OpenWatch-dniojtrnwcrcishgeakmipedpmkm/Build/Products/Debug-iphoneos\"",
@@ -2237,7 +2237,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
-				RUN_CLANG_STATIC_ANALYZER = YES;
+				RUN_CLANG_STATIC_ANALYZER = NO;
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};

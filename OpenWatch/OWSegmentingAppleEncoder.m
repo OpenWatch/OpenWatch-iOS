@@ -24,7 +24,6 @@
     if (self.segmentationTimer) {
         [self performSelectorOnMainThread:@selector(invalidateTimer) withObject:nil waitUntilDone:NO];
     }
-    dispatch_release(segmentingQueue);
 }
 
 - (void) finishEncoding {

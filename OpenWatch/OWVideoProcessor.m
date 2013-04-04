@@ -320,7 +320,6 @@
 	AVCaptureAudioDataOutput *audioOut = [[AVCaptureAudioDataOutput alloc] init];
 	dispatch_queue_t audioCaptureQueue = dispatch_queue_create("Audio Capture Queue", DISPATCH_QUEUE_SERIAL);
 	[audioOut setSampleBufferDelegate:self queue:audioCaptureQueue];
-	dispatch_release(audioCaptureQueue);
 	if ([captureSession canAddOutput:audioOut])
 		[captureSession addOutput:audioOut];
 	audioConnection = [audioOut connectionWithMediaType:AVMediaTypeAudio];
@@ -339,7 +338,6 @@
 	[videoOut setVideoSettings:[NSDictionary dictionaryWithObject:[NSNumber numberWithInt:kCVPixelFormatType_420YpCbCr8BiPlanarFullRange] forKey:(id)kCVPixelBufferPixelFormatTypeKey]];
 	dispatch_queue_t videoCaptureQueue = dispatch_queue_create("Video Capture Queue", DISPATCH_QUEUE_SERIAL);
 	[videoOut setSampleBufferDelegate:self queue:videoCaptureQueue];
-	dispatch_release(videoCaptureQueue);
 	if ([captureSession canAddOutput:videoOut])
 		[captureSession addOutput:videoOut];
 	videoConnection = [videoOut connectionWithMediaType:AVMediaTypeVideo];
@@ -393,7 +391,6 @@
 		[[NSNotificationCenter defaultCenter] removeObserver:self name:AVCaptureSessionDidStopRunningNotification object:captureSession];
 	captureSession = nil;
 	if (movieWritingQueue) {
-		dispatch_release(movieWritingQueue);
 		movieWritingQueue = NULL;
 	}
 }
