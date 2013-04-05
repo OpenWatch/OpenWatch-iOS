@@ -15,6 +15,7 @@
 #import "SHKFacebook.h"
 #import "TestFlight.h"
 #import "OWAPIKeys.h"
+#import "OWFancyLoginViewController.h"
 
 @implementation OWAppDelegate
 @synthesize homeScreen, navigationController, locationController;
@@ -35,7 +36,10 @@
     self.locationController = [[OWLocationController alloc] init];
      
     self.homeScreen = [[OWHomeScreenViewController alloc] init];
-    self.navigationController = [[UINavigationController alloc] initWithRootViewController:homeScreen];
+    
+    OWFancyLoginViewController *fancy = [[OWFancyLoginViewController alloc] init];
+    
+    self.navigationController = [[UINavigationController alloc] initWithRootViewController:fancy];
         [[UINavigationBar appearance] setTitleTextAttributes:
      @{UITextAttributeTextColor : [UIColor blackColor], UITextAttributeTextShadowColor: [UIColor whiteColor], UITextAttributeFont: [UIFont systemFontOfSize:0]}];
     [OWUtilities styleNavigationController:self.navigationController];

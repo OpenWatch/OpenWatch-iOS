@@ -79,7 +79,7 @@
         postPath = [self postPathForRecording:recording.objectID uploadState:kUploadStateUpload];
     }
 
-
+    NSLog(@"POSTing %@", postPath);
 
     NSURLRequest *request = [self multipartFormRequestWithMethod:@"POST" path:postPath parameters:nil constructingBodyWithBlock: ^(id <AFMultipartFormData> formData) {
         //NSURL *fileURL = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"openwatch" ofType:@"png"]];
@@ -133,6 +133,7 @@
         NSLog(@"timeSpent: %f fileLength: %lld, %f bits/sec", diff, length, bps);
 
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Failed to POST: %@", postPath);
         [recording setUploadState:OWFileUploadStateFailed forFileAtURL:url];
     }];
     
