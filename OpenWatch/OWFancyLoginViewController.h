@@ -12,5 +12,6 @@
 @interface OWFancyLoginViewController : UIViewController
 
 @property (nonatomic, strong) OWKenBurnsView *backgroundImageView;
+@property (nonatomic, strong) UIImageView *logoView;
 
 @end

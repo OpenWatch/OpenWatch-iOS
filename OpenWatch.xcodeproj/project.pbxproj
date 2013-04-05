@@ -70,6 +70,8 @@
 		D94A759B170E17F700525289 /* background1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D94A7599170E17F700525289 /* background1.jpg */; };
 		D94A759C170E17F700525289 /* background2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D94A759A170E17F700525289 /* background2.jpg */; };
 		D94A759F170E432600525289 /* OWKenBurnsView.m in Sources */ = {isa = PBXBuildFile; fileRef = D94A759E170E432500525289 /* OWKenBurnsView.m */; };
+		D94A75A2170E555900525289 /* openwatch-light.png in Resources */ = {isa = PBXBuildFile; fileRef = D94A75A0170E555800525289 /* openwatch-light.png */; };
+		D94A75A3170E555900525289 /* openwatch-light@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D94A75A1170E555800525289 /* openwatch-light@2x.png */; };
 		D955371616B32E3C00753C15 /* 275-broadcast.png in Resources */ = {isa = PBXBuildFile; fileRef = D955371416B32E3C00753C15 /* 275-broadcast.png */; };
 		D955371716B32E3C00753C15 /* 275-broadcast@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D955371516B32E3C00753C15 /* 275-broadcast@2x.png */; };
 		D96677EA16810B2A006F1815 /* OWTallyView.m in Sources */ = {isa = PBXBuildFile; fileRef = D96677E916810B2A006F1815 /* OWTallyView.m */; };
@@ -596,6 +598,8 @@
 		D94A759A170E17F700525289 /* background2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = background2.jpg; sourceTree = "<group>"; };
 		D94A759D170E432500525289 /* OWKenBurnsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWKenBurnsView.h; sourceTree = "<group>"; };
 		D94A759E170E432500525289 /* OWKenBurnsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWKenBurnsView.m; sourceTree = "<group>"; };
+		D94A75A0170E555800525289 /* openwatch-light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "openwatch-light.png"; sourceTree = "<group>"; };
+		D94A75A1170E555800525289 /* openwatch-light@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "openwatch-light@2x.png"; sourceTree = "<group>"; };
 		D955371416B32E3C00753C15 /* 275-broadcast.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "275-broadcast.png"; sourceTree = "<group>"; };
 		D955371516B32E3C00753C15 /* 275-broadcast@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "275-broadcast@2x.png"; sourceTree = "<group>"; };
 		D96677E816810B2A006F1815 /* OWTallyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWTallyView.h; sourceTree = "<group>"; };
@@ -1389,6 +1393,8 @@
 				D97EAAA51679354200A1B038 /* eye@2x.png */,
 				D9DFADF816547DE7003C515C /* openwatch.png */,
 				D9DFADF916547DE7003C515C /* openwatch@2x.png */,
+				D94A75A0170E555800525289 /* openwatch-light.png */,
+				D94A75A1170E555800525289 /* openwatch-light@2x.png */,
 				D980EC8316B854E600ADD398 /* stone.png */,
 				D980EC8416B854E600ADD398 /* stone@2x.png */,
 			);
@@ -1943,6 +1949,8 @@
 				D980EC9416B87A4100ADD398 /* play_button_dark.png in Resources */,
 				D94A759B170E17F700525289 /* background1.jpg in Resources */,
 				D94A759C170E17F700525289 /* background2.jpg in Resources */,
+				D94A75A2170E555900525289 /* openwatch-light.png in Resources */,
+				D94A75A3170E555900525289 /* openwatch-light@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
