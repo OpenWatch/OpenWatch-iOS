@@ -15,15 +15,15 @@
 
 @interface OWLocalRecording : _OWLocalRecording <OWLocationControllerDelegate>
 
-@property (nonatomic, retain) NSString * localRecordingPath;
-@property (nonatomic, retain) NSNumber * hqFileUploadState;
-@property (nonatomic, retain) NSSet *segments;
++ (NSString*) mediaDirectoryPath;
++ (NSString*) pathForUUID:(NSString*)uuid;
 
-
-+ (OWLocalRecording*) recordingWithPath:(NSString*)path;
++ (OWLocalRecording*) recordingWithUUID:(NSString*)uuid;
++ (OWLocalRecording*) recording;
 - (void) setUploadState:(OWFileUploadState)uploadState forFileAtURL:(NSURL*)url;
 - (OWFileUploadState)uploadStateForFileAtURL:(NSURL*)url;
 
+- (NSString*) localRecordingPath;
 - (NSArray*) failedFileUploadURLs;
 - (NSUInteger) failedFileCount;
 - (NSUInteger) completedFileCount;

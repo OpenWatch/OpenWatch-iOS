@@ -19,7 +19,7 @@
 
 - (void) removeRecording:(NSManagedObjectID*)recordingID;
 
-- (void) scanDirectoryForChanges;
+- (void) scanVideoDirectoryForChanges;
 - (void) scanRecordingsForUnsubmittedData;
 + (OWLocalRecording*) localRecordingForObjectID:(NSManagedObjectID*)objectID;
 + (OWManagedRecording*) recordingForObjectID:(NSManagedObjectID*)objectID;

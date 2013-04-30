@@ -28,12 +28,27 @@
 
 - (id) init {
     if (self = [super init]) {
-        [self scanDirectoryForChanges];
+        [self checkForVideosDirectory];
+        [self scanVideoDirectoryForChanges];
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             [self scanRecordingsForUnsubmittedData];
         });
     }
     return self;
+}
+
+- (void) checkForVideosDirectory {
+    NSString *videosDirectory = [OWLocalRecording mediaDirectoryPath];
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    if (![fileManager fileExistsAtPath:videosDirectory isDirectory:YES]) {
+        NSError *error = nil;
+        [fileManager createDirectoryAtPath:videosDirectory withIntermediateDirectories:YES attributes:nil error:&error];
+        if (error) {
+            NSLog(@"Error creating video directory: %@", error.userInfo);
+            return;
+        }
+        NSLog(@"Video directory created.");
+    }
 }
 
 - (void) scanRecordingsForUnsubmittedData {
@@ -124,14 +139,13 @@
     return [self mediaObjectsForClass:[OWLocalRecording class]];
 }
 
-- (void) scanDirectoryForChanges {
+- (void) scanVideoDirectoryForChanges {
     NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
 
     NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *basePath = ([paths count] > 0) ? [paths objectAtIndex:0] : nil;
+    NSString *videosPath = [OWLocalRecording mediaDirectoryPath];
     NSError *error = nil;
-    NSArray *recordingFileNames = [fileManager contentsOfDirectoryAtPath:basePath error:&error];
+    NSArray *recordingFileNames = [fileManager contentsOfDirectoryAtPath:videosPath error:&error];
     if (error) {
         NSLog(@"Error loading directory of recordings: %@%@", [error localizedDescription], [error userInfo]);
         error = nil;
@@ -151,12 +165,9 @@
         }
     }
     
-    for (NSString *recordingFileName in recordingFileNames) {
-        if ([recordingFileName rangeOfString:@"recording"].location != NSNotFound) {
-            NSString *recordingPath = [basePath stringByAppendingPathComponent:recordingFileName];
-            OWLocalRecording *recording = [OWLocalRecording recordingWithPath:recordingPath];
-            NSLog(@"Recording created: %@", recording.localRecordingPath);
-        }
+    for (NSString *uuid in recordingFileNames) {
+        OWLocalRecording *recording = [OWLocalRecording recordingWithUUID:uuid];
+        NSLog(@"Recording created: %@", recording.localRecordingPath);
     }
     [context MR_saveToPersistentStoreAndWait];
 }

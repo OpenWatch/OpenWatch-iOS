@@ -116,14 +116,8 @@
 
 - (void) startRecording
 {
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *basePath = ([paths count] > 0) ? [paths objectAtIndex:0] : nil;
-    NSDate *date = [NSDate date];
-    NSString *directoryName = [NSString stringWithFormat:@"%f.recording", [date timeIntervalSince1970]];
-    NSString *recordingPath = [basePath stringByAppendingPathComponent:directoryName];
-    
 	dispatch_async(movieWritingQueue, ^{
-        OWLocalRecording *currentRecording = [OWLocalRecording recordingWithPath:recordingPath];
+        OWLocalRecording *currentRecording = [OWLocalRecording recording];
         self.recordingID = currentRecording.objectID;
         NSLog(@"setting objectID: %@", [self.recordingID description]);
 

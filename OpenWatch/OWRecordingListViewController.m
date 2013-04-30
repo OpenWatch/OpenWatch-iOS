@@ -52,7 +52,7 @@
 
 - (void) loadOfflineRecordings {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        [self.recordingController scanDirectoryForChanges];
+        [self.recordingController scanVideoDirectoryForChanges];
         NSMutableArray *objectIDs = [NSMutableArray arrayWithArray:[recordingController allLocalRecordings]];
         [objectIDs addObjectsFromArray:self.objectIDs];
         [self.objectIDSet addObjectsFromArray:objectIDs];

@@ -57,12 +57,23 @@
     NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
     OWMediaObject *mediaObject = (OWMediaObject*)[context existingObjectWithID:mediaObjectID error:nil];
     self.titleLabel.text = mediaObject.title;
-    NSURLRequest *request = [NSURLRequest requestWithURL:mediaObject.thumbnailURL];
-    [self.thumbnailImageView setImageWithURLRequest:request placeholderImage:[UIImage imageNamed:@"thumbnail_placeholder.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
-        NSLog(@"Loaded thumbnail: %@", request.URL.description);
+    
+    if (!mediaObject.thumbnailURL || mediaObject.thumbnailURL.absoluteString.length == 0) {
+        NSLog(@"No thumbnail!");
+    }
+    
+    UIImage *placeholderImage = [UIImage imageNamed:@"thumbnail_placeholder.png"];
+    
+    //NSURLRequest *request = [NSURLRequest requestWithURL:mediaObject.thumbnailURL];
+    [self.thumbnailImageView setImageWithURL:mediaObject.thumbnailURL placeholderImage:placeholderImage];
+    /*
+    [self.thumbnailImageView setImageWithURLRequest:request placeholderImage:placeholderImage success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+        NSLog(@"Loaded thumbnail (%d): %@ %@", response.statusCode, response.description, request.URL.description);
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
         NSLog(@"Failed to load thumbnail (%d): %@ %@", response.statusCode, request.URL.description, [error userInfo].description);
     }];
+     */
+    
 }
 
 @end

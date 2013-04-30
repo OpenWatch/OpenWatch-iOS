@@ -5,7 +5,6 @@
 
 const struct OWLocalRecordingAttributes OWLocalRecordingAttributes = {
 	.hqFileUploadState = @"hqFileUploadState",
-	.localRecordingPath = @"localRecordingPath",
 };
 
 const struct OWLocalRecordingRelationships OWLocalRecordingRelationships = {
@@ -74,13 +73,6 @@ const struct OWLocalRecordingFetchedProperties OWLocalRecordingFetchedProperties
 - (void)setPrimitiveHqFileUploadStateValue:(int16_t)value_ {
 	[self setPrimitiveHqFileUploadState:[NSNumber numberWithShort:value_]];
 }
-
-
-
-
-
-@dynamic localRecordingPath;
-
 
 
 

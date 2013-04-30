@@ -15,11 +15,15 @@
 
 @implementation OWLocalRecording
 
-@dynamic localRecordingPath;
-@dynamic hqFileUploadState;
-@dynamic segments;
 
-- (NSString *)newUUID
++ (NSString*) mediaDirectoryPath {
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *basePath = ([paths count] > 0) ? [paths objectAtIndex:0] : nil;
+    NSString *videosPath = [basePath stringByAppendingPathComponent:@"videos"];
+    return videosPath;
+}
+
++ (NSString *)newUUID
 {
     CFUUIDRef theUUID = CFUUIDCreate(NULL);
     CFStringRef string = CFUUIDCreateString(NULL, theUUID);
@@ -27,12 +31,30 @@
     return (__bridge_transfer NSString *)string;
 }
 
-+ (OWLocalRecording*) recordingWithPath:(NSString *)path {
-    OWLocalRecording *recording = [OWLocalRecording MR_findFirstByAttribute:@"localRecordingPath" withValue:path];
++ (NSString*) pathForUUID:(NSString*)uuid {
+    NSString *videosPath = [OWLocalRecording mediaDirectoryPath];
+    NSString *recordingPath = [videosPath stringByAppendingPathComponent:uuid];
+    return recordingPath;
+}
+
+- (NSString*) localRecordingPath {
+    return [OWLocalRecording pathForUUID:self.uuid];
+}
+
++ (OWLocalRecording*) recording {
+    NSString *uuid = [OWLocalRecording newUUID];
+    OWLocalRecording* recording = [OWLocalRecording recordingWithUUID:uuid];
+    NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
+    [context MR_saveToPersistentStoreAndWait];
+    return recording;
+}
+
++ (OWLocalRecording*) recordingWithUUID:(NSString *)uuid {
+    OWLocalRecording *recording = [OWLocalRecording MR_findFirstByAttribute:@"uuid" withValue:uuid];
     if (!recording) {
         NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
         recording = [OWLocalRecording MR_createInContext:context];
-        recording.localRecordingPath = path;
+        recording.uuid = uuid;
         OWUser *user = [[[OWSettingsController sharedInstance] account] user];
         recording.user = user;
         NSError *error = nil;
@@ -131,7 +153,6 @@
 
 - (void) startRecording {
     self.startDate = [NSDate date];
-    self.uuid = [self newUUID];
     NSFileManager *fileManager = [NSFileManager defaultManager];
     BOOL isDirectory;
     if (![fileManager fileExistsAtPath:self.localRecordingPath isDirectory:&isDirectory]) {
@@ -216,6 +237,9 @@
     for (OWRecordingSegment *segment in failedFileSegments) {
         NSString *path = segment.filePath;
         [urls addObject:[NSURL fileURLWithPath:path]];
+    }
+    if (!self.isHighQualityFileUploaded) {
+        [urls addObject:self.highQualityURL];
     }
     return urls;
 }

@@ -3,7 +3,6 @@
     <entity name="OWInvestigation" representedClassName="OWInvestigation" parentEntity="OWMediaObject" syncable="YES"/>
     <entity name="OWLocalRecording" representedClassName="OWLocalRecording" parentEntity="OWManagedRecording" syncable="YES">
         <attribute name="hqFileUploadState" optional="YES" attributeType="Integer 16" syncable="YES"/>
-        <attribute name="localRecordingPath" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="segments" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="OWRecordingSegment" inverseName="recording" inverseEntity="OWRecordingSegment" syncable="YES"/>
     </entity>
     <entity name="OWManagedRecording" representedClassName="OWManagedRecording" parentEntity="OWMediaObject" syncable="YES">
@@ -55,7 +54,7 @@
         <relationship name="tags" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="OWTag" inverseName="users" inverseEntity="OWTag" syncable="YES"/>
     </entity>
     <elements>
-        <element name="OWLocalRecording" positionX="378" positionY="117" width="128" height="88"/>
+        <element name="OWLocalRecording" positionX="378" positionY="117" width="128" height="73"/>
         <element name="OWManagedRecording" positionX="484" positionY="243" width="128" height="180"/>
         <element name="OWMediaObject" positionX="36" positionY="-39" width="128" height="165"/>
         <element name="OWRecordingSegment" positionX="99" positionY="234" width="128" height="103"/>

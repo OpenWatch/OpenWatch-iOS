@@ -6,7 +6,6 @@
 
 extern const struct OWLocalRecordingAttributes {
 	__unsafe_unretained NSString *hqFileUploadState;
-	__unsafe_unretained NSString *localRecordingPath;
 } OWLocalRecordingAttributes;
 
 extern const struct OWLocalRecordingRelationships {
@@ -17,7 +16,6 @@ extern const struct OWLocalRecordingFetchedProperties {
 } OWLocalRecordingFetchedProperties;
 
 @class OWRecordingSegment;
-
 
 
 
@@ -43,16 +41,6 @@ extern const struct OWLocalRecordingFetchedProperties {
 - (void)setHqFileUploadStateValue:(int16_t)value_;
 
 //- (BOOL)validateHqFileUploadState:(id*)value_ error:(NSError**)error_;
-
-
-
-
-
-@property (nonatomic, strong) NSString* localRecordingPath;
-
-
-
-//- (BOOL)validateLocalRecordingPath:(id*)value_ error:(NSError**)error_;
 
 
 
@@ -85,12 +73,6 @@ extern const struct OWLocalRecordingFetchedProperties {
 
 - (int16_t)primitiveHqFileUploadStateValue;
 - (void)setPrimitiveHqFileUploadStateValue:(int16_t)value_;
-
-
-
-
-- (NSString*)primitiveLocalRecordingPath;
-- (void)setPrimitiveLocalRecordingPath:(NSString*)value;
 
 
 
