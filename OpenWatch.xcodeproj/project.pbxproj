@@ -169,6 +169,8 @@
 		D9D786FE16766C40006EE6A2 /* popoverBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9D786EF16766C40006EE6A2 /* popoverBg@2x.png */; };
 		D9D7870D1677EDB0006EE6A2 /* OWFeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D7870C1677EDB0006EE6A2 /* OWFeedViewController.m */; };
 		D9DA079C173039E60041B638 /* libfacebook_ios_sdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D9DA0799173039A50041B638 /* libfacebook_ios_sdk.a */; };
+		D9DA079F17304A7E0041B638 /* OWInvestigation.m in Sources */ = {isa = PBXBuildFile; fileRef = D9DA079E17304A7E0041B638 /* OWInvestigation.m */; };
+		D9DA07A217304AA00041B638 /* _OWInvestigation.m in Sources */ = {isa = PBXBuildFile; fileRef = D9DA07A117304A9F0041B638 /* _OWInvestigation.m */; };
 		D9DFADFA16547DE7003C515C /* openwatch.png in Resources */ = {isa = PBXBuildFile; fileRef = D9DFADF816547DE7003C515C /* openwatch.png */; };
 		D9DFADFB16547DE7003C515C /* openwatch@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9DFADF916547DE7003C515C /* openwatch@2x.png */; };
 		D9E226E816A5D9F200F06C31 /* NSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = D9E226E716A5D9F200F06C31 /* NSString+HTML.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -839,6 +841,10 @@
 		D9D7870B1677EDB0006EE6A2 /* OWFeedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWFeedViewController.h; sourceTree = "<group>"; };
 		D9D7870C1677EDB0006EE6A2 /* OWFeedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWFeedViewController.m; sourceTree = "<group>"; };
 		D9DA0793173039A50041B638 /* facebook-ios-sdk.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "facebook-ios-sdk.xcodeproj"; path = "ShareKit/Submodules/facebook-ios-sdk/src/facebook-ios-sdk.xcodeproj"; sourceTree = "<group>"; };
+		D9DA079D17304A7E0041B638 /* OWInvestigation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWInvestigation.h; sourceTree = "<group>"; };
+		D9DA079E17304A7E0041B638 /* OWInvestigation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWInvestigation.m; sourceTree = "<group>"; };
+		D9DA07A017304A9F0041B638 /* _OWInvestigation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _OWInvestigation.h; sourceTree = "<group>"; };
+		D9DA07A117304A9F0041B638 /* _OWInvestigation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _OWInvestigation.m; sourceTree = "<group>"; };
 		D9DFADF816547DE7003C515C /* openwatch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = openwatch.png; sourceTree = "<group>"; };
 		D9DFADF916547DE7003C515C /* openwatch@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "openwatch@2x.png"; sourceTree = "<group>"; };
 		D9E226E616A5D9F200F06C31 /* NSString+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+HTML.h"; path = "MWFeedParser/Classes/NSString+HTML.h"; sourceTree = "<group>"; };
@@ -1110,6 +1116,8 @@
 		D98FCB4916A4AA5B0071DF6B /* Generated */ = {
 			isa = PBXGroup;
 			children = (
+				D9DA07A017304A9F0041B638 /* _OWInvestigation.h */,
+				D9DA07A117304A9F0041B638 /* _OWInvestigation.m */,
 				D98FCB3116A4AA570071DF6B /* _OWLocalRecording.h */,
 				D98FCB3216A4AA570071DF6B /* _OWLocalRecording.m */,
 				D98FCB3316A4AA570071DF6B /* _OWManagedRecording.h */,
@@ -1653,6 +1661,8 @@
 				D9EB4C76166D5F600019F8B6 /* OWRecordingSegment.h */,
 				D9EB4C77166D5F600019F8B6 /* OWRecordingSegment.m */,
 				D9EB4C59166D338B0019F8B6 /* Model.xcdatamodeld */,
+				D9DA079D17304A7E0041B638 /* OWInvestigation.h */,
+				D9DA079E17304A7E0041B638 /* OWInvestigation.m */,
 				D9EB4C7D166D67910019F8B6 /* OWUser.h */,
 				D9EB4C7E166D67920019F8B6 /* OWUser.m */,
 				D9EB4C73166D5F500019F8B6 /* OWManagedRecording.h */,
@@ -2264,6 +2274,8 @@
 				D9C8A5A116B9A2EA004F9E05 /* OWFeedTableViewCell.m in Sources */,
 				D94A757B170E137D00525289 /* OWFancyLoginViewController.m in Sources */,
 				D94A759F170E432600525289 /* OWKenBurnsView.m in Sources */,
+				D9DA079F17304A7E0041B638 /* OWInvestigation.m in Sources */,
+				D9DA07A217304AA00041B638 /* _OWInvestigation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

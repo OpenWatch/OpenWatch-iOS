@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="2057" systemVersion="12C60" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="2061" systemVersion="12D78" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="OWInvestigation" representedClassName="OWInvestigation" parentEntity="OWMediaObject" syncable="YES"/>
     <entity name="OWLocalRecording" representedClassName="OWLocalRecording" parentEntity="OWManagedRecording" syncable="YES">
         <attribute name="hqFileUploadState" optional="YES" attributeType="Integer 16" syncable="YES"/>
         <attribute name="localRecordingPath" optional="YES" attributeType="String" syncable="YES"/>
@@ -54,13 +55,14 @@
         <relationship name="tags" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="OWTag" inverseName="users" inverseEntity="OWTag" syncable="YES"/>
     </entity>
     <elements>
-        <element name="OWLocalRecording" positionX="277" positionY="171" width="128" height="88"/>
-        <element name="OWManagedRecording" positionX="430" positionY="251" width="128" height="180"/>
-        <element name="OWMediaObject" positionX="160" positionY="192" width="128" height="165"/>
+        <element name="OWLocalRecording" positionX="378" positionY="117" width="128" height="88"/>
+        <element name="OWManagedRecording" positionX="484" positionY="243" width="128" height="180"/>
+        <element name="OWMediaObject" positionX="36" positionY="-39" width="128" height="165"/>
         <element name="OWRecordingSegment" positionX="99" positionY="234" width="128" height="103"/>
-        <element name="OWServerObject" positionX="160" positionY="192" width="128" height="60"/>
-        <element name="OWStory" positionX="160" positionY="192" width="128" height="90"/>
+        <element name="OWServerObject" positionX="-117" positionY="99" width="128" height="60"/>
+        <element name="OWStory" positionX="207" positionY="9" width="128" height="90"/>
         <element name="OWTag" positionX="268" positionY="354" width="128" height="105"/>
-        <element name="OWUser" positionX="90" positionY="435" width="128" height="120"/>
+        <element name="OWUser" positionX="-54" positionY="360" width="128" height="120"/>
+        <element name="OWInvestigation" positionX="439" positionY="504" width="128" height="43"/>
     </elements>
 </model>
