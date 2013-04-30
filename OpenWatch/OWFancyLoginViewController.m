@@ -20,7 +20,7 @@
 {
     self = [super init];
     if (self) {
-        self.logoView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"openwatch-light.png"]];
+        //self.logoView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"openwatch-light.png"]];
     }
     return self;
 }
@@ -30,8 +30,8 @@
     self.backgroundImageView = [[OWKenBurnsView alloc] initWithFrame:self.view.frame];
 
     [self.view addSubview:backgroundImageView];
-    [self.view addSubview:logoView];
-    self.logoView.contentMode = UIViewContentModeScaleAspectFit;
+    //[self.view addSubview:logoView];
+    //self.logoView.contentMode = UIViewContentModeScaleAspectFit;
 }
 
 - (void)viewDidLoad

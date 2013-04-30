@@ -86,7 +86,7 @@
     if (clicks) {
         self.clicks = clicks;
     }
-    NSString *thumbnailURL = [metadataDictionary objectForKey:@"thumbnail_url"];
+    NSString *thumbnailURL = [[metadataDictionary objectForKey:@"thumbnail_url"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     if (thumbnailURL)
         self.thumbnailURLString = thumbnailURL;
 }
