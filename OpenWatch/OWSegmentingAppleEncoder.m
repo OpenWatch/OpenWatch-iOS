@@ -97,11 +97,13 @@
             @catch (NSException *exception) {
                 NSLog(@"Caught exception: %@", [exception description]);
             }
-            if(![tempAssetWriter finishWriting]) {
-                [self showError:[tempAssetWriter error]];
-            } else {
-                [self uploadFileURL:tempAssetWriter.outputURL];
-            }
+            [tempAssetWriter finishWritingWithCompletionHandler:^{
+                if (tempAssetWriter.status == AVAssetWriterStatusFailed) {
+                    [self showError:tempAssetWriter.error];
+                } else {
+                    [self uploadFileURL:tempAssetWriter.outputURL];
+                }
+            }];
         }
         OWLocalRecording *recording = [OWRecordingController localRecordingForObjectID:self.recordingID];
         if (!recording) {

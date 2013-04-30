@@ -30,7 +30,7 @@
 - (void) setupUsernameLabel {
     CGFloat usernameLabelHeight = 20.0f;
     self.usernameLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.titleLabel.frame.origin.x, self.contentView.frame.size.height-usernameLabelHeight-PADDING, 95.0f, usernameLabelHeight)];
-    usernameLabel.textAlignment = UITextAlignmentLeft;
+    usernameLabel.textAlignment = NSTextAlignmentLeft;
     usernameLabel.textColor = [OWUtilities greyColorWithGreyness:0.5f];
     usernameLabel.backgroundColor = [UIColor clearColor];
     self.usernameLabel.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;

@@ -56,11 +56,11 @@
     self.dateLabel = [[UILabel alloc] init];
     self.dateLabel.font = [UIFont fontWithName:@"Palatino-Roman" size:18.0f];
     self.dateLabel.backgroundColor = [UIColor clearColor];
-    self.dateLabel.textAlignment = UITextAlignmentRight;
+    self.dateLabel.textAlignment = NSTextAlignmentRight;
     self.authorLabel = [[UILabel alloc] init];
     self.authorLabel.font = [UIFont fontWithName:@"Palatino-Bold" size:18.0f];
     self.authorLabel.backgroundColor = [UIColor clearColor];
-    self.authorLabel.textAlignment = UITextAlignmentLeft;
+    self.authorLabel.textAlignment = NSTextAlignmentLeft;
     
     [self.scrollView addSubview:titleLabel];
     [self.scrollView addSubview:blurbLabel];
@@ -120,9 +120,9 @@
 
 //http://stackoverflow.com/questions/1054558/vertically-align-text-within-a-uilabel/1054681#1054681
 - (void) resizeLabel:(UILabel*)myLabel {
-    myLabel.textAlignment = UITextAlignmentLeft;
+    myLabel.textAlignment = NSTextAlignmentLeft;
     
-    [myLabel setNumberOfLines:0];
+    [myLabel setNumberOfLines: 0];
     [myLabel sizeToFit];
     
     CGRect myFrame = myLabel.frame;

@@ -32,7 +32,7 @@
         self.textLabel = [[UILabel alloc] init];
         self.frame = frame;
         self.textLabel.backgroundColor = [UIColor clearColor];
-        self.textLabel.textAlignment = UITextAlignmentCenter;
+        self.textLabel.textAlignment = NSTextAlignmentCenter;
         self.textLabel.font = [UIFont systemFontOfSize:19.0f];
         self.textLabel.textColor = [OWUtilities greyTextColor];
         

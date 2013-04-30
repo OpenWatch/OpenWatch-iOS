@@ -52,7 +52,7 @@
     [self setupFields];
 
     self.helpLabel = [[UILabel alloc] init];
-    self.helpLabel.textAlignment = UITextAlignmentCenter;
+    self.helpLabel.textAlignment = NSTextAlignmentCenter;
     self.helpLabel.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin;
     self.helpLabel.numberOfLines = 0;
     self.helpLabel.text = SIGNUP_HELP_STRING;

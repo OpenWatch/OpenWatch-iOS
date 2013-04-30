@@ -308,9 +308,11 @@
         @try {
             [self.audioEncoder markAsFinished];
             [self.videoEncoder markAsFinished];
-            if (![assetWriter finishWriting]) {
-                [self showError:[assetWriter error]];
-            }
+            [assetWriter finishWritingWithCompletionHandler:^{
+                if (assetWriter.status == AVAssetWriterStatusFailed) {
+                    [self showError:[assetWriter error]];
+                }
+            }];
         }
         @catch (NSException *exception) {
             NSLog(@"Caught exception: %@", [exception description]);

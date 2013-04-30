@@ -168,6 +168,7 @@
 		D9D786FD16766C40006EE6A2 /* popoverBg.png in Resources */ = {isa = PBXBuildFile; fileRef = D9D786EE16766C40006EE6A2 /* popoverBg.png */; };
 		D9D786FE16766C40006EE6A2 /* popoverBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9D786EF16766C40006EE6A2 /* popoverBg@2x.png */; };
 		D9D7870D1677EDB0006EE6A2 /* OWFeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D7870C1677EDB0006EE6A2 /* OWFeedViewController.m */; };
+		D9DA079C173039E60041B638 /* libfacebook_ios_sdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D9DA0799173039A50041B638 /* libfacebook_ios_sdk.a */; };
 		D9DFADFA16547DE7003C515C /* openwatch.png in Resources */ = {isa = PBXBuildFile; fileRef = D9DFADF816547DE7003C515C /* openwatch.png */; };
 		D9DFADFB16547DE7003C515C /* openwatch@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9DFADF916547DE7003C515C /* openwatch@2x.png */; };
 		D9E226E816A5D9F200F06C31 /* NSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = D9E226E716A5D9F200F06C31 /* NSString+HTML.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -228,13 +229,6 @@
 			remoteGlobalIDString = 7A0F91D1156BA2A0009CB40A;
 			remoteInfo = "Static Library Core";
 		};
-		D92D29EA1681275600A9E408 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D96677EC168124F1006F1815 /* ShareKit.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = AABBED25162F0B65009D46E4;
-			remoteInfo = Facebook;
-		};
 		D92D29EC168127A800A9E408 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D96677EC168124F1006F1815 /* ShareKit.xcodeproj */;
@@ -253,7 +247,7 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = D96677EC168124F1006F1815 /* ShareKit.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 7AEE037D160E1B4000FEC06E;
+			remoteGlobalIDString = 7A49DBBB16BC193E004B7E78;
 			remoteInfo = Readability;
 		};
 		D92D29F8168128AF00A9E408 /* PBXContainerItemProxy */ = {
@@ -290,13 +284,6 @@
 			proxyType = 2;
 			remoteGlobalIDString = 7A0F9246156BA2A0009CB40A;
 			remoteInfo = "Static Library Core";
-		};
-		D9667822168124F2006F1815 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D96677EC168124F1006F1815 /* ShareKit.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 7A1AFCAE160E11810086B98A;
-			remoteInfo = JSONKit;
 		};
 		D9667824168124F2006F1815 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -536,6 +523,97 @@
 			remoteGlobalIDString = D2AAC07D0554694100DB518D;
 			remoteInfo = SDURLCache;
 		};
+		D9DA077D173039090041B638 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D96677EC168124F1006F1815 /* ShareKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4503EBC0169104470057294C;
+			remoteInfo = "Google Plus";
+		};
+		D9DA077F173039090041B638 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D96677EC168124F1006F1815 /* ShareKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 7AA83BF91705E355009C483A;
+			remoteInfo = "Google Plus SDK";
+		};
+		D9DA0781173039090041B638 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D96677EC168124F1006F1815 /* ShareKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 7AC2A3A016597F4C0089ABE8;
+			remoteInfo = "Sina Weibo";
+		};
+		D9DA0783173039090041B638 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D96677EC168124F1006F1815 /* ShareKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 7A49DBC316BC193E004B7E78;
+			remoteInfo = Readability;
+		};
+		D9DA0785173039090041B638 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D96677EC168124F1006F1815 /* ShareKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 7A203D0A16EB7DA200421995;
+			remoteInfo = Hatena;
+		};
+		D9DA0787173039090041B638 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D96677EC168124F1006F1815 /* ShareKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 7AAE8CA516EB960500429C51;
+			remoteInfo = Plurk;
+		};
+		D9DA0789173039090041B638 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D96677EC168124F1006F1815 /* ShareKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = DE334C2116F3339300FF692B;
+			remoteInfo = Dropbox;
+		};
+		D9DA078B173039090041B638 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D96677EC168124F1006F1815 /* ShareKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = DE334CCF16F34BDD00FF692B;
+			remoteInfo = "Dropbox SDK";
+		};
+		D9DA078D173039090041B638 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D96677EC168124F1006F1815 /* ShareKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 7AECF322171D5194000722FA;
+			remoteInfo = YouTube;
+		};
+		D9DA078F173039090041B638 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D96677EC168124F1006F1815 /* ShareKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 7AECF32C171D51C3000722FA;
+			remoteInfo = "YouTube SDK";
+		};
+		D9DA0791173039630041B638 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D96677EC168124F1006F1815 /* ShareKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = AABBED25162F0B65009D46E4;
+			remoteInfo = Facebook;
+		};
+		D9DA0798173039A50041B638 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D9DA0793173039A50041B638 /* facebook-ios-sdk.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D2AAC07E0554694100DB518D;
+			remoteInfo = "facebook-ios-sdk";
+		};
+		D9DA079A173039A50041B638 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D9DA0793173039A50041B638 /* facebook-ios-sdk.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = B9CBC519152537270036AA71;
+			remoteInfo = FacebookSDKTests;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -760,6 +838,7 @@
 		D9D786EF16766C40006EE6A2 /* popoverBg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "popoverBg@2x.png"; path = "Submodules/WEPopover/popoverBg@2x.png"; sourceTree = SOURCE_ROOT; };
 		D9D7870B1677EDB0006EE6A2 /* OWFeedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWFeedViewController.h; sourceTree = "<group>"; };
 		D9D7870C1677EDB0006EE6A2 /* OWFeedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWFeedViewController.m; sourceTree = "<group>"; };
+		D9DA0793173039A50041B638 /* facebook-ios-sdk.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "facebook-ios-sdk.xcodeproj"; path = "ShareKit/Submodules/facebook-ios-sdk/src/facebook-ios-sdk.xcodeproj"; sourceTree = "<group>"; };
 		D9DFADF816547DE7003C515C /* openwatch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = openwatch.png; sourceTree = "<group>"; };
 		D9DFADF916547DE7003C515C /* openwatch@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "openwatch@2x.png"; sourceTree = "<group>"; };
 		D9E226E616A5D9F200F06C31 /* NSString+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+HTML.h"; path = "MWFeedParser/Classes/NSString+HTML.h"; sourceTree = "<group>"; };
@@ -854,6 +933,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D9DA079C173039E60041B638 /* libfacebook_ios_sdk.a in Frameworks */,
 				D92B6A8016AF52B2006605E1 /* QuartzCore.framework in Frameworks */,
 				D9C0333D16A4E22100B7CFC7 /* libSDURLCache.a in Frameworks */,
 				D9CEED19168271C700B236B5 /* libz.dylib in Frameworks */,
@@ -962,36 +1042,45 @@
 				D966781D168124F2006F1815 /* libShareKit.a */,
 				D966781F168124F2006F1815 /* ShareKit.bundle */,
 				D9667821168124F2006F1815 /* libShareKitCore.a */,
-				D9667823168124F2006F1815 /* libJSONKit.a */,
 				D9667825168124F2006F1815 /* libSSKeyChain.a */,
 				D9667827168124F2006F1815 /* libOAuth.a */,
 				D9667829168124F2006F1815 /* libReachability.a */,
-				D966782B168124F2006F1815 /* libPrint.a */,
-				D966782D168124F2006F1815 /* libLogout.a */,
 				D966782F168124F2006F1815 /* libCopy.a */,
 				D9667831168124F2006F1815 /* libEmail.a */,
+				D966782D168124F2006F1815 /* libLogout.a */,
 				D9667833168124F2006F1815 /* libOpen in Safari.a */,
+				D966782B168124F2006F1815 /* libPrint.a */,
 				D9667835168124F2006F1815 /* libSave to Album.a */,
 				D9667837168124F2006F1815 /* libText Message.a */,
-				D9667839168124F2006F1815 /* libKippt.a */,
 				D966783B168124F2006F1815 /* libDelicious.a */,
 				D966783D168124F2006F1815 /* libDiigo.a */,
-				D966783F168124F2006F1815 /* libVKontakte.a */,
 				D9667841168124F2006F1815 /* libEvernote.a */,
 				D9667843168124F2006F1815 /* libEvernote SDK.a */,
 				D9667845168124F2006F1815 /* libFacebook.a */,
 				D9667847168124F2006F1815 /* libFoursquareV2.a */,
 				D9667849168124F2006F1815 /* libFlickr.a */,
 				D966784B168124F2006F1815 /* libFlickr SDK.a */,
+				D9DA077E173039090041B638 /* libGoogle Plus.a */,
+				D9DA0780173039090041B638 /* libGoogle Plus SDK.a */,
 				D966784D168124F2006F1815 /* libGoogle Reader.a */,
 				D966784F168124F2006F1815 /* libInstagram.a */,
 				D9667851168124F2006F1815 /* libInstapaper.a */,
+				D9667839168124F2006F1815 /* libKippt.a */,
 				D9667853168124F2006F1815 /* libLinkedIn.a */,
 				D9667855168124F2006F1815 /* libPinboard.a */,
 				D9667857168124F2006F1815 /* libRead It Later.a */,
+				D966785D168124F2006F1815 /* libSina Weibo.a */,
 				D9667859168124F2006F1815 /* libTumblr.a */,
 				D966785B168124F2006F1815 /* libTwitter.a */,
-				D966785D168124F2006F1815 /* libSina Weibo.a */,
+				D966783F168124F2006F1815 /* libVKontakte.a */,
+				D9DA0782173039090041B638 /* libSina Weibo.a */,
+				D9DA0784173039090041B638 /* libReadability.a */,
+				D9DA0786173039090041B638 /* libHatena.a */,
+				D9DA0788173039090041B638 /* libPlurk.a */,
+				D9DA078A173039090041B638 /* libDropbox.a */,
+				D9DA078C173039090041B638 /* libDropbox SDK.a */,
+				D9DA078E173039090041B638 /* libYouTube.a */,
+				D9DA0790173039090041B638 /* libYouTube SDK.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1173,6 +1262,7 @@
 		D9D2E1501652EA8A0000E7C5 /* Submodules */ = {
 			isa = PBXGroup;
 			children = (
+				D9DA0793173039A50041B638 /* facebook-ios-sdk.xcodeproj */,
 				D92B6AD516AFBA82006605E1 /* DWTagList */,
 				D92B6A6516AF4FD3006605E1 /* EGOTableViewPullRefresh */,
 				D9E226FA16A5E33100F06C31 /* BrowserViewController */,
@@ -1363,6 +1453,15 @@
 				D9D786DF1676665D006EE6A2 /* OWAutocompletionViewController.m */,
 			);
 			name = SuggestionsList;
+			sourceTree = "<group>";
+		};
+		D9DA0794173039A50041B638 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D9DA0799173039A50041B638 /* libfacebook_ios_sdk.a */,
+				D9DA079B173039A50041B638 /* FacebookSDKTests.octest */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		D9DFADF716547DE7003C515C /* Media */ = {
@@ -1578,13 +1677,13 @@
 			buildRules = (
 			);
 			dependencies = (
-				D9C0333C16A4E21700B7CFC7 /* PBXTargetDependency */,
 				D98FCB4B16A4AABE0071DF6B /* PBXTargetDependency */,
+				D9C0333C16A4E21700B7CFC7 /* PBXTargetDependency */,
+				D9DA0792173039630041B638 /* PBXTargetDependency */,
 				D92D29F9168128AF00A9E408 /* PBXTargetDependency */,
 				D92D29F7168128A700A9E408 /* PBXTargetDependency */,
 				D92D29EF168127B500A9E408 /* PBXTargetDependency */,
 				D92D29ED168127A800A9E408 /* PBXTargetDependency */,
-				D92D29EB1681275600A9E408 /* PBXTargetDependency */,
 				D92D29E91681274C00A9E408 /* PBXTargetDependency */,
 				D96678631681251B006F1815 /* PBXTargetDependency */,
 			);
@@ -1614,6 +1713,10 @@
 			productRefGroup = D99741721651D42F0034ABB0 /* Products */;
 			projectDirPath = "";
 			projectReferences = (
+				{
+					ProductGroup = D9DA0794173039A50041B638 /* Products */;
+					ProjectRef = D9DA0793173039A50041B638 /* facebook-ios-sdk.xcodeproj */;
+				},
 				{
 					ProductGroup = D9C0333016A4E1EC00B7CFC7 /* Products */;
 					ProjectRef = D9C0332F16A4E1EC00B7CFC7 /* SDURLCache.xcodeproj */;
@@ -1658,13 +1761,6 @@
 			fileType = archive.ar;
 			path = libShareKitCore.a;
 			remoteRef = D9667820168124F2006F1815 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		D9667823168124F2006F1815 /* libJSONKit.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libJSONKit.a;
-			remoteRef = D9667822168124F2006F1815 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		D9667825168124F2006F1815 /* libSSKeyChain.a */ = {
@@ -1884,6 +1980,90 @@
 			remoteRef = D9C0333916A4E1EC00B7CFC7 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		D9DA077E173039090041B638 /* libGoogle Plus.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libGoogle Plus.a";
+			remoteRef = D9DA077D173039090041B638 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D9DA0780173039090041B638 /* libGoogle Plus SDK.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libGoogle Plus SDK.a";
+			remoteRef = D9DA077F173039090041B638 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D9DA0782173039090041B638 /* libSina Weibo.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libSina Weibo.a";
+			remoteRef = D9DA0781173039090041B638 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D9DA0784173039090041B638 /* libReadability.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libReadability.a;
+			remoteRef = D9DA0783173039090041B638 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D9DA0786173039090041B638 /* libHatena.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libHatena.a;
+			remoteRef = D9DA0785173039090041B638 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D9DA0788173039090041B638 /* libPlurk.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libPlurk.a;
+			remoteRef = D9DA0787173039090041B638 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D9DA078A173039090041B638 /* libDropbox.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libDropbox.a;
+			remoteRef = D9DA0789173039090041B638 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D9DA078C173039090041B638 /* libDropbox SDK.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libDropbox SDK.a";
+			remoteRef = D9DA078B173039090041B638 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D9DA078E173039090041B638 /* libYouTube.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libYouTube.a;
+			remoteRef = D9DA078D173039090041B638 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D9DA0790173039090041B638 /* libYouTube SDK.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libYouTube SDK.a";
+			remoteRef = D9DA078F173039090041B638 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D9DA0799173039A50041B638 /* libfacebook_ios_sdk.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libfacebook_ios_sdk.a;
+			remoteRef = D9DA0798173039A50041B638 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D9DA079B173039A50041B638 /* FacebookSDKTests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = FacebookSDKTests.octest;
+			remoteRef = D9DA079A173039A50041B638 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
@@ -2095,11 +2275,6 @@
 			name = "Static Library Core";
 			targetProxy = D92D29E81681274C00A9E408 /* PBXContainerItemProxy */;
 		};
-		D92D29EB1681275600A9E408 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = Facebook;
-			targetProxy = D92D29EA1681275600A9E408 /* PBXContainerItemProxy */;
-		};
 		D92D29ED168127A800A9E408 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = Twitter;
@@ -2134,6 +2309,11 @@
 			isa = PBXTargetDependency;
 			name = SDURLCache;
 			targetProxy = D9C0333B16A4E21700B7CFC7 /* PBXContainerItemProxy */;
+		};
+		D9DA0792173039630041B638 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Facebook;
+			targetProxy = D9DA0791173039630041B638 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -2227,7 +2407,6 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/../../../Library/Developer/Xcode/DerivedData/OpenWatch-dniojtrnwcrcishgeakmipedpmkm/Build/Products/Debug-iphoneos\"",
 					"\"$(SRCROOT)/Submodules/TestFlight\"",
 				);
 				OTHER_LDFLAGS = (
@@ -2255,7 +2434,6 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/../../../Library/Developer/Xcode/DerivedData/OpenWatch-dniojtrnwcrcishgeakmipedpmkm/Build/Products/Debug-iphoneos\"",
 					"\"$(SRCROOT)/Submodules/TestFlight\"",
 				);
 				OTHER_LDFLAGS = (

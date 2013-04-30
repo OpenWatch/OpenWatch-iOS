@@ -31,7 +31,7 @@
     self.dateCreatedLabel.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
     [OWUtilities styleLabel:dateCreatedLabel];
     dateCreatedLabel.textColor = [OWUtilities greyColorWithGreyness:0.5f];
-    self.dateCreatedLabel.textAlignment = UITextAlignmentRight;
+    self.dateCreatedLabel.textAlignment = NSTextAlignmentRight;
     [self.contentView addSubview:dateCreatedLabel];
 }
 
