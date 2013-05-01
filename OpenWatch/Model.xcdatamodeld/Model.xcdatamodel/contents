@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="2061" systemVersion="12D78" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
-    <entity name="OWInvestigation" representedClassName="OWInvestigation" parentEntity="OWMediaObject" syncable="YES"/>
+    <entity name="OWInvestigation" representedClassName="OWInvestigation" parentEntity="OWMediaObject" syncable="YES">
+        <attribute name="bigLogo" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="blurb" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="body" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="logo" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="questions" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="tasks" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="OWTask" inverseName="investigation" inverseEntity="OWTask" syncable="YES"/>
+    </entity>
     <entity name="OWLocalRecording" representedClassName="OWLocalRecording" parentEntity="OWManagedRecording" syncable="YES">
         <attribute name="hqFileUploadState" optional="YES" attributeType="Integer 16" syncable="YES"/>
         <relationship name="segments" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="OWRecordingSegment" inverseName="recording" inverseEntity="OWRecordingSegment" syncable="YES"/>
@@ -46,14 +53,22 @@
         <relationship name="objects" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="OWMediaObject" inverseName="tags" inverseEntity="OWMediaObject" syncable="YES"/>
         <relationship name="users" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="OWUser" inverseName="tags" inverseEntity="OWUser" syncable="YES"/>
     </entity>
+    <entity name="OWTask" parentEntity="OWServerObject" syncable="YES">
+        <attribute name="body" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="investigation" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="OWInvestigation" inverseName="tasks" inverseEntity="OWInvestigation" syncable="YES"/>
+        <relationship name="user" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="OWUser" inverseName="tasks" inverseEntity="OWUser" syncable="YES"/>
+    </entity>
     <entity name="OWUser" representedClassName="OWUser" parentEntity="OWServerObject" syncable="YES">
         <attribute name="csrfToken" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="thumbnailURLString" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="username" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="objects" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="OWMediaObject" inverseName="user" inverseEntity="OWMediaObject" syncable="YES"/>
         <relationship name="tags" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="OWTag" inverseName="users" inverseEntity="OWTag" syncable="YES"/>
+        <relationship name="tasks" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="OWTask" inverseName="user" inverseEntity="OWTask" syncable="YES"/>
     </entity>
     <elements>
+        <element name="OWInvestigation" positionX="439" positionY="504" width="128" height="135"/>
         <element name="OWLocalRecording" positionX="378" positionY="117" width="128" height="73"/>
         <element name="OWManagedRecording" positionX="484" positionY="243" width="128" height="180"/>
         <element name="OWMediaObject" positionX="36" positionY="-39" width="128" height="165"/>
@@ -61,7 +76,7 @@
         <element name="OWServerObject" positionX="-117" positionY="99" width="128" height="60"/>
         <element name="OWStory" positionX="207" positionY="9" width="128" height="90"/>
         <element name="OWTag" positionX="268" positionY="354" width="128" height="105"/>
-        <element name="OWUser" positionX="-54" positionY="360" width="128" height="120"/>
-        <element name="OWInvestigation" positionX="439" positionY="504" width="128" height="43"/>
+        <element name="OWUser" positionX="-54" positionY="360" width="128" height="133"/>
+        <element name="OWTask" positionX="-353" positionY="579" width="128" height="105"/>
     </elements>
 </model>

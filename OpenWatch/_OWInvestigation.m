@@ -4,9 +4,15 @@
 #import "_OWInvestigation.h"
 
 const struct OWInvestigationAttributes OWInvestigationAttributes = {
+	.bigLogo = @"bigLogo",
+	.blurb = @"blurb",
+	.body = @"body",
+	.logo = @"logo",
+	.questions = @"questions",
 };
 
 const struct OWInvestigationRelationships OWInvestigationRelationships = {
+	.tasks = @"tasks",
 };
 
 const struct OWInvestigationFetchedProperties OWInvestigationFetchedProperties = {
@@ -44,6 +50,54 @@ const struct OWInvestigationFetchedProperties OWInvestigationFetchedProperties =
 
 
 
+
+@dynamic bigLogo;
+
+
+
+
+
+
+@dynamic blurb;
+
+
+
+
+
+
+@dynamic body;
+
+
+
+
+
+
+@dynamic logo;
+
+
+
+
+
+
+@dynamic questions;
+
+
+
+
+
+
+@dynamic tasks;
+
+	
+- (NSMutableSet*)tasksSet {
+	[self willAccessValueForKey:@"tasks"];
+  
+	NSMutableSet *result = (NSMutableSet*)[self mutableSetValueForKey:@"tasks"];
+  
+	[self didAccessValueForKey:@"tasks"];
+	return result;
+}
+	
 
 
 

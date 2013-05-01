@@ -13,6 +13,7 @@ extern const struct OWUserAttributes {
 extern const struct OWUserRelationships {
 	__unsafe_unretained NSString *objects;
 	__unsafe_unretained NSString *tags;
+	__unsafe_unretained NSString *tasks;
 } OWUserRelationships;
 
 extern const struct OWUserFetchedProperties {
@@ -20,6 +21,7 @@ extern const struct OWUserFetchedProperties {
 
 @class OWMediaObject;
 @class OWTag;
+@class NSManagedObject;
 
 
 
@@ -82,6 +84,13 @@ extern const struct OWUserFetchedProperties {
 
 
 
+@property (nonatomic, strong) NSSet *tasks;
+
+- (NSMutableSet*)tasksSet;
+
+
+
+
 
 @end
 
@@ -96,6 +105,11 @@ extern const struct OWUserFetchedProperties {
 - (void)removeTags:(NSSet*)value_;
 - (void)addTagsObject:(OWTag*)value_;
 - (void)removeTagsObject:(OWTag*)value_;
+
+- (void)addTasks:(NSSet*)value_;
+- (void)removeTasks:(NSSet*)value_;
+- (void)addTasksObject:(NSManagedObject*)value_;
+- (void)removeTasksObject:(NSManagedObject*)value_;
 
 @end
 
@@ -128,6 +142,11 @@ extern const struct OWUserFetchedProperties {
 
 - (NSMutableSet*)primitiveTags;
 - (void)setPrimitiveTags:(NSMutableSet*)value;
+
+
+
+- (NSMutableSet*)primitiveTasks;
+- (void)setPrimitiveTasks:(NSMutableSet*)value;
 
 
 @end

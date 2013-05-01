@@ -12,6 +12,7 @@ const struct OWUserAttributes OWUserAttributes = {
 const struct OWUserRelationships OWUserRelationships = {
 	.objects = @"objects",
 	.tags = @"tags",
+	.tasks = @"tasks",
 };
 
 const struct OWUserFetchedProperties OWUserFetchedProperties = {
@@ -93,6 +94,19 @@ const struct OWUserFetchedProperties OWUserFetchedProperties = {
 	NSMutableSet *result = (NSMutableSet*)[self mutableSetValueForKey:@"tags"];
   
 	[self didAccessValueForKey:@"tags"];
+	return result;
+}
+	
+
+@dynamic tasks;
+
+	
+- (NSMutableSet*)tasksSet {
+	[self willAccessValueForKey:@"tasks"];
+  
+	NSMutableSet *result = (NSMutableSet*)[self mutableSetValueForKey:@"tasks"];
+  
+	[self didAccessValueForKey:@"tasks"];
 	return result;
 }
 	

@@ -17,6 +17,7 @@
 #import "OWStory.h"
 #import "OWRecordingController.h"
 #import "SDURLCache.h"
+#import "OWInvestigation.h"
 
 #define kRecordingsKey @"recordings/"
 //#define kRecordingKey @"recording/"
@@ -39,6 +40,7 @@
 
 #define kTypeKey @"type"
 #define kVideoTypeKey @"video"
+#define kInvestigationTypeKey @"investigation"
 #define kStoryTypeKey @"story"
 #define kUUIDKey @"uuid"
 
@@ -240,6 +242,12 @@
         mediaObject = [OWStory MR_findFirstByAttribute:@"serverID" withValue:serverID];
         if (!mediaObject) {
             mediaObject = [OWStory MR_createEntity];
+        }
+    } else if ([type isEqualToString:kInvestigationTypeKey]) {
+        NSString *serverID = [dictionary objectForKey:kIDKey];
+        mediaObject = [OWInvestigation MR_findFirstByAttribute:@"serverID" withValue:serverID];
+        if (!mediaObject) {
+            mediaObject = [OWInvestigation MR_createEntity];
         }
     } else {
         return nil;
