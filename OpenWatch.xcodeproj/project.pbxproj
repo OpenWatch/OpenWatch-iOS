@@ -117,6 +117,8 @@
 		D9A6D99F1731939200C1488A /* greenButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9A6D99B1731939200C1488A /* greenButton@2x.png */; };
 		D9A6D9A01731939200C1488A /* greenButtonHighlight.png in Resources */ = {isa = PBXBuildFile; fileRef = D9A6D99C1731939200C1488A /* greenButtonHighlight.png */; };
 		D9A6D9A11731939200C1488A /* greenButtonHighlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9A6D99D1731939200C1488A /* greenButtonHighlight@2x.png */; };
+		D9A6D9D51731D03400C1488A /* BSKeyboardControls.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A6D9D11731D03400C1488A /* BSKeyboardControls.m */; };
+		D9A6D9D61731D03400C1488A /* BSKeyboardControls.strings in Resources */ = {isa = PBXBuildFile; fileRef = D9A6D9D21731D03400C1488A /* BSKeyboardControls.strings */; };
 		D9BECF0016B20E01009046E1 /* navbar.png in Resources */ = {isa = PBXBuildFile; fileRef = D9BECEFE16B20E01009046E1 /* navbar.png */; };
 		D9BECF0116B20E01009046E1 /* navbar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9BECEFF16B20E01009046E1 /* navbar@2x.png */; };
 		D9BECF9816B22B06009046E1 /* UINavigationBar+DropShadow.m in Sources */ = {isa = PBXBuildFile; fileRef = D9BECF9716B22B06009046E1 /* UINavigationBar+DropShadow.m */; };
@@ -755,6 +757,10 @@
 		D9A6D99B1731939200C1488A /* greenButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "greenButton@2x.png"; sourceTree = "<group>"; };
 		D9A6D99C1731939200C1488A /* greenButtonHighlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = greenButtonHighlight.png; sourceTree = "<group>"; };
 		D9A6D99D1731939200C1488A /* greenButtonHighlight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "greenButtonHighlight@2x.png"; sourceTree = "<group>"; };
+		D9A6D9D01731D03400C1488A /* BSKeyboardControls.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSKeyboardControls.h; sourceTree = "<group>"; };
+		D9A6D9D11731D03400C1488A /* BSKeyboardControls.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSKeyboardControls.m; sourceTree = "<group>"; };
+		D9A6D9D31731D03400C1488A /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/BSKeyboardControls.strings; sourceTree = "<group>"; };
+		D9A6D9D41731D03400C1488A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/BSKeyboardControls.strings; sourceTree = "<group>"; };
 		D9BECEFE16B20E01009046E1 /* navbar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navbar.png; sourceTree = "<group>"; };
 		D9BECEFF16B20E01009046E1 /* navbar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navbar@2x.png"; sourceTree = "<group>"; };
 		D9BECF9616B22B06009046E1 /* UINavigationBar+DropShadow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationBar+DropShadow.h"; sourceTree = "<group>"; };
@@ -1242,6 +1248,17 @@
 			path = buttons;
 			sourceTree = "<group>";
 		};
+		D9A6D9CF1731D03400C1488A /* BSKeyboardControls */ = {
+			isa = PBXGroup;
+			children = (
+				D9A6D9D01731D03400C1488A /* BSKeyboardControls.h */,
+				D9A6D9D11731D03400C1488A /* BSKeyboardControls.m */,
+				D9A6D9D21731D03400C1488A /* BSKeyboardControls.strings */,
+			);
+			name = BSKeyboardControls;
+			path = BSKeyboardControls/BSKeyboardControls;
+			sourceTree = "<group>";
+		};
 		D9BECEF116B1D3AC009046E1 /* Paginated Tables */ = {
 			isa = PBXGroup;
 			children = (
@@ -1289,6 +1306,7 @@
 		D9D2E1501652EA8A0000E7C5 /* Submodules */ = {
 			isa = PBXGroup;
 			children = (
+				D9A6D9CF1731D03400C1488A /* BSKeyboardControls */,
 				D9DA0793173039A50041B638 /* facebook-ios-sdk.xcodeproj */,
 				D92B6AD516AFBA82006605E1 /* DWTagList */,
 				D92B6A6516AF4FD3006605E1 /* EGOTableViewPullRefresh */,
@@ -1738,6 +1756,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				da,
 			);
 			mainGroup = D99741661651D42E0034ABB0;
 			productRefGroup = D99741721651D42F0034ABB0 /* Products */;
@@ -2165,6 +2184,7 @@
 				D9A6D99F1731939200C1488A /* greenButton@2x.png in Resources */,
 				D9A6D9A01731939200C1488A /* greenButtonHighlight.png in Resources */,
 				D9A6D9A11731939200C1488A /* greenButtonHighlight@2x.png in Resources */,
+				D9A6D9D61731D03400C1488A /* BSKeyboardControls.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2300,6 +2320,7 @@
 				D94A759F170E432600525289 /* OWKenBurnsView.m in Sources */,
 				D9DA079F17304A7E0041B638 /* OWInvestigation.m in Sources */,
 				D9DA07A217304AA00041B638 /* _OWInvestigation.m in Sources */,
+				D9A6D9D51731D03400C1488A /* BSKeyboardControls.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2360,6 +2381,15 @@
 				D997417F1651D42F0034ABB0 /* en */,
 			);
 			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		D9A6D9D21731D03400C1488A /* BSKeyboardControls.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D9A6D9D31731D03400C1488A /* da */,
+				D9A6D9D41731D03400C1488A /* en */,
+			);
+			name = BSKeyboardControls.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

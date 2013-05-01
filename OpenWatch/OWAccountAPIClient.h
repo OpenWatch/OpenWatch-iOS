@@ -19,6 +19,7 @@
 + (OWAccountAPIClient *)sharedClient;
 + (NSURL*) baseURL;
 
+- (void) checkEmailAvailability:(NSString*)email callback:(void (^)(BOOL available))callback;
 - (void) loginWithAccount:(OWAccount*)account success:(void (^)(void)) success failure:(void (^)(NSString *reason))failure;
 - (void) signupWithAccount:(OWAccount*)account success:(void (^)(void)) success failure:(void (^)(NSString *reason))failure;
 - (void) getSubscribedTags;

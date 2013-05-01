@@ -84,6 +84,17 @@
     return self;
 }
 
+- (void) checkEmailAvailability:(NSString*)email callback:(void (^)(BOOL available))callback {
+    
+    [self getPath:@"email_available" parameters:@{@"email": email} success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        BOOL available = [[responseObject objectForKey:@"available"] boolValue];
+        callback(available);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error checking email availability: %@", error.userInfo);
+        callback(NO);
+    }];
+}
+
 - (void) loginWithAccount:(OWAccount*)account success:(void (^)(void)) success failure:(void (^)(NSString *reason))failure {
     [self registerWithAccount:account path:kLoginAccountPath success:success failure:failure];
 }
