@@ -9,10 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "OWKenBurnsView.h"
 
-@interface OWFancyLoginViewController : UIViewController
+@interface OWFancyLoginViewController : UIViewController <UITextFieldDelegate>
 
+@property (nonatomic, strong) UIScrollView *scrollView;
 
 @property (nonatomic, strong) UITextField *emailField;
+@property (nonatomic, strong) UITextField *passwordField;
 @property (nonatomic, strong) UILabel *blurbLabel;
 @property (nonatomic, strong) UIButton *startButton;
 
