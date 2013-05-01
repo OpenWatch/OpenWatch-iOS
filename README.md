@@ -17,6 +17,14 @@ Or if you didn't use the `--recursive` flag when cloning you can do:
     
 This will ensure you have all of the required submodules. 
 
+Setup
+----------------------
+Install [mogenerator](https://github.com/rentzsch/mogenerator)
+
+Create `./OpenWatch/OWAPIKeys.h` with the following content:
+
+		#define TESTFLIGHT_APP_TOKEN @"your_testflight_token"
+
 Running
 ----------------------
 
