@@ -18,7 +18,7 @@
 @end
 
 @implementation OWFancyLoginViewController
-@synthesize backgroundImageView, logoView, blurbLabel, emailField, startButton, scrollView, passwordField, activityIndicatorView, processingLogin;
+@synthesize backgroundImageView, logoView, blurbLabel, emailField, startButton, scrollView, passwordField, activityIndicatorView, processingLogin, keyboardControls;
 
 
 - (id)init
@@ -59,6 +59,12 @@
     self.startButton.titleLabel.shadowOffset = CGSizeMake(0, -1);
     [self.startButton addTarget:self action:@selector(startButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     
+    
+    NSArray *fields = @[emailField];
+    
+    self.keyboardControls = [[BSKeyboardControls alloc] initWithFields:fields];
+    self.keyboardControls.delegate = self;
+    
     [self.view addSubview:scrollView];
     
     [self.scrollView addSubview:backgroundImageView];
@@ -97,7 +103,14 @@
 
 - (void) textFieldDidBeginEditing:(UITextField *)textField {
     [self.scrollView setContentOffset:CGPointMake(0, 145) animated:YES];
+    [self.keyboardControls setActiveField:textField];
 }
+
+/*
+- (void)keyboardControls:(BSKeyboardControls *)keyboardControls selectedField:(UIView *)field inDirection:(BSKeyboardControlsDirection)direction
+{
+}
+*/
 
 - (void) textFieldDidEndEditing:(UITextField *)textField {
     [self.scrollView setContentOffset:CGPointZero animated:YES];
@@ -111,6 +124,7 @@
 - (void) showPasswordField {
     if (!self.passwordField) {
         self.passwordField = [[UITextField alloc] init];
+        self.keyboardControls.fields = @[emailField, passwordField];
         self.passwordField.delegate = self;
         self.passwordField.placeholder = @"Password";
         self.passwordField.secureTextEntry = YES;
@@ -129,7 +143,10 @@
         }];
         [UIView animateWithDuration:0.5 delay:0.2 options:nil animations:^{
             self.passwordField.layer.opacity = 1.0f;
-        } completion:nil];
+        } completion:^(BOOL finished) {
+            [self.passwordField becomeFirstResponder];
+            self.keyboardControls.activeField = passwordField;
+        }];
     }
 }
 
@@ -206,6 +223,11 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)keyboardControlsDonePressed:(BSKeyboardControls *)keyControls
+{
+    [keyControls.activeField resignFirstResponder];
 }
 
 @end

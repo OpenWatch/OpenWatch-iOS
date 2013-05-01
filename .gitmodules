@@ -40,3 +40,6 @@
 [submodule "Submodules/DWTagList"]
 	path = Submodules/DWTagList
 	url = git@github.com:OpenWatch/DWTagList.git
+[submodule "Submodules/BSKeyboardControls"]
+	path = Submodules/BSKeyboardControls
+	url = https://github.com/OpenWatch/BSKeyboardControls.git

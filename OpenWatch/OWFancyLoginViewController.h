@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "OWKenBurnsView.h"
+#import "BSKeyboardControls.h"
 
-@interface OWFancyLoginViewController : UIViewController <UITextFieldDelegate>
+@interface OWFancyLoginViewController : UIViewController <UITextFieldDelegate, BSKeyboardControlsDelegate>
 
 
 @property (nonatomic) BOOL processingLogin;
@@ -24,5 +25,7 @@
 
 @property (nonatomic, strong) OWKenBurnsView *backgroundImageView;
 @property (nonatomic, strong) UIImageView *logoView;
+@property (nonatomic, strong) BSKeyboardControls *keyboardControls;
+
 
 @end
