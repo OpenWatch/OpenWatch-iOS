@@ -9,13 +9,16 @@
 #import "OWFancyLoginViewController.h"
 #import "OWUtilities.h"
 #import <QuartzCore/QuartzCore.h>
+#import "OWSettingsController.h"
+#import "OWAccountAPIClient.h"
+#import "OWAppDelegate.h"
 
 @interface OWFancyLoginViewController ()
 
 @end
 
 @implementation OWFancyLoginViewController
-@synthesize backgroundImageView, logoView, blurbLabel, emailField, startButton, scrollView, passwordField;
+@synthesize backgroundImageView, logoView, blurbLabel, emailField, startButton, scrollView, passwordField, activityIndicatorView, processingLogin;
 
 
 - (id)init
@@ -28,6 +31,8 @@
         self.logoView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"openwatch-light.png"]];
         self.scrollView = [[UIScrollView alloc] init];
         self.startButton = [OWUtilities bigGreenButton];
+        self.activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+        self.processingLogin = NO;
     }
     return self;
 }
@@ -35,6 +40,7 @@
 - (void) loadView {
     [super loadView];
     self.backgroundImageView = [[OWKenBurnsView alloc] initWithFrame:self.view.frame];
+    self.activityIndicatorView.layer.opacity = 0.0f;
     self.logoView.contentMode = UIViewContentModeScaleAspectFit;
     self.blurbLabel.text = @"Welcome to OpenWatch, a social muckraking platform. Enter your email address to get started.";
     self.blurbLabel.backgroundColor = [UIColor clearColor];
@@ -60,6 +66,7 @@
     [self.scrollView addSubview:blurbLabel];
     [self.scrollView addSubview:emailField];
     [self.scrollView addSubview:startButton];
+    [self.startButton addSubview:activityIndicatorView];
 }
 
 - (void)viewDidLoad
@@ -80,6 +87,8 @@
     self.blurbLabel.frame = CGRectMake(xPadding, [OWUtilities bottomOfView:logoView] + 20, logoWidth, 100);
     self.emailField.frame = CGRectMake(xPadding, [OWUtilities bottomOfView:blurbLabel] + 20, logoWidth, 30);
     self.startButton.frame = CGRectMake(xPadding, [OWUtilities bottomOfView:emailField] + 20, logoWidth, 50);
+    
+    self.activityIndicatorView.frame = CGRectMake(floorf(logoWidth * .75), startButton.frame.size.height / 2 - activityIndicatorView.frame.size.height/2, self.activityIndicatorView.frame.size.width, self.activityIndicatorView.frame.size.height);
     
     self.backgroundImageView.frame = self.view.bounds;
     [backgroundImageView zoomImageView:backgroundImageView.currentImageView];
@@ -116,6 +125,7 @@
             CGRect startButtonFrame = self.startButton.frame;
             startButtonFrame.origin.y = [OWUtilities bottomOfView:passwordField] + 20;
             self.startButton.frame = startButtonFrame;
+            [self.startButton setTitle:@"Login →" forState:UIControlStateNormal];
         }];
         [UIView animateWithDuration:0.5 delay:0.2 options:nil animations:^{
             self.passwordField.layer.opacity = 1.0f;
@@ -124,8 +134,72 @@
 }
 
 - (void) startButtonPressed:(id)sender {
-    [self showPasswordField];
+    [self processLogin];
     //[self.emailField resignFirstResponder];
+}
+
+- (void) setProcessingLogin:(BOOL)isProcessingLogin {
+    processingLogin = isProcessingLogin;
+    
+    [self showActivityIndicator:processingLogin];
+}
+
+- (void) showActivityIndicator:(BOOL)enabled {
+    CGFloat newAlpha = 0.0f;
+    if (enabled) {
+        newAlpha = 1.0f;
+        [self.activityIndicatorView startAnimating];
+    }
+    [UIView animateWithDuration:0.5 animations:^{
+        self.activityIndicatorView.layer.opacity = newAlpha;
+    } completion:^(BOOL finished) {
+        if (!enabled) {
+            [self.activityIndicatorView stopAnimating];
+        }
+    }];
+}
+
+- (void) processLogin {
+    if (processingLogin) {
+        return;
+    }
+    OWSettingsController *settingsController = [OWSettingsController sharedInstance];
+    OWAccount *account = settingsController.account;
+    [account clearAccountData];
+
+    NSString *email = self.emailField.text;
+    NSString *password = self.passwordField.text;
+    
+    if ([email rangeOfString:@"@"].location == NSNotFound) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Login Error" message:@"Please enter a valid email address." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alert show];
+        return;
+    }
+    
+    [self setProcessingLogin:YES];
+    
+    if (password.length > 0) {
+        account.email = email;
+        account.password = password;
+        [[OWAccountAPIClient sharedClient] loginWithAccount:account success:^{
+            [self.navigationController pushViewController:OW_APP_DELEGATE.homeScreen animated:YES];
+            [self setProcessingLogin:NO];
+        } failure:^(NSString *reason) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Login Error" message:@"Please check your username and password and try again." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [alert show];
+            [self setProcessingLogin:NO];
+        }];
+    } else {
+        [[OWAccountAPIClient sharedClient] checkEmailAvailability:email callback:^(BOOL available) {
+            if (available) {
+                NSLog(@"Not available!");
+                [self setProcessingLogin:NO];
+            } else {
+                [self showPasswordField];
+                [self setProcessingLogin:NO];
+            }
+        }];
+    }
 }
 
 - (void)didReceiveMemoryWarning

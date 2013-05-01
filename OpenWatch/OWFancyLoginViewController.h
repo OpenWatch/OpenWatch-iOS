@@ -11,7 +11,11 @@
 
 @interface OWFancyLoginViewController : UIViewController <UITextFieldDelegate>
 
+
+@property (nonatomic) BOOL processingLogin;
+
 @property (nonatomic, strong) UIScrollView *scrollView;
+@property (nonatomic, strong) UIActivityIndicatorView *activityIndicatorView;
 
 @property (nonatomic, strong) UITextField *emailField;
 @property (nonatomic, strong) UITextField *passwordField;
