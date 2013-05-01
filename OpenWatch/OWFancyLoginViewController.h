@@ -11,6 +11,11 @@
 
 @interface OWFancyLoginViewController : UIViewController
 
+
+@property (nonatomic, strong) UITextField *emailField;
+@property (nonatomic, strong) UILabel *blurbLabel;
+@property (nonatomic, strong) UIButton *startButton;
+
 @property (nonatomic, strong) OWKenBurnsView *backgroundImageView;
 @property (nonatomic, strong) UIImageView *logoView;
 

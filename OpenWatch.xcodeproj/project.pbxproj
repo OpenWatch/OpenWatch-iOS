@@ -113,6 +113,10 @@
 		D997418C1651D42F0034ABB0 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D997418B1651D42F0034ABB0 /* Default-568h@2x.png */; };
 		D997419D1651D8520034ABB0 /* OWLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D997419C1651D8520034ABB0 /* OWLoginViewController.m */; };
 		D99741A11651DB0B0034ABB0 /* OWSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D99741A01651DB0B0034ABB0 /* OWSettingsViewController.m */; };
+		D9A6D99E1731939200C1488A /* greenButton.png in Resources */ = {isa = PBXBuildFile; fileRef = D9A6D99A1731939200C1488A /* greenButton.png */; };
+		D9A6D99F1731939200C1488A /* greenButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9A6D99B1731939200C1488A /* greenButton@2x.png */; };
+		D9A6D9A01731939200C1488A /* greenButtonHighlight.png in Resources */ = {isa = PBXBuildFile; fileRef = D9A6D99C1731939200C1488A /* greenButtonHighlight.png */; };
+		D9A6D9A11731939200C1488A /* greenButtonHighlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9A6D99D1731939200C1488A /* greenButtonHighlight@2x.png */; };
 		D9BECF0016B20E01009046E1 /* navbar.png in Resources */ = {isa = PBXBuildFile; fileRef = D9BECEFE16B20E01009046E1 /* navbar.png */; };
 		D9BECF0116B20E01009046E1 /* navbar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9BECEFF16B20E01009046E1 /* navbar@2x.png */; };
 		D9BECF9816B22B06009046E1 /* UINavigationBar+DropShadow.m in Sources */ = {isa = PBXBuildFile; fileRef = D9BECF9716B22B06009046E1 /* UINavigationBar+DropShadow.m */; };
@@ -747,6 +751,10 @@
 		D997419F1651DB0B0034ABB0 /* OWSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWSettingsViewController.h; sourceTree = "<group>"; };
 		D99741A01651DB0B0034ABB0 /* OWSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWSettingsViewController.m; sourceTree = "<group>"; };
 		D99741A21651DBC50034ABB0 /* OWStrings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OWStrings.h; sourceTree = "<group>"; };
+		D9A6D99A1731939200C1488A /* greenButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = greenButton.png; sourceTree = "<group>"; };
+		D9A6D99B1731939200C1488A /* greenButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "greenButton@2x.png"; sourceTree = "<group>"; };
+		D9A6D99C1731939200C1488A /* greenButtonHighlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = greenButtonHighlight.png; sourceTree = "<group>"; };
+		D9A6D99D1731939200C1488A /* greenButtonHighlight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "greenButtonHighlight@2x.png"; sourceTree = "<group>"; };
 		D9BECEFE16B20E01009046E1 /* navbar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navbar.png; sourceTree = "<group>"; };
 		D9BECEFF16B20E01009046E1 /* navbar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navbar@2x.png"; sourceTree = "<group>"; };
 		D9BECF9616B22B06009046E1 /* UINavigationBar+DropShadow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationBar+DropShadow.h"; sourceTree = "<group>"; };
@@ -1223,6 +1231,17 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		D9A6D9991731939200C1488A /* buttons */ = {
+			isa = PBXGroup;
+			children = (
+				D9A6D99A1731939200C1488A /* greenButton.png */,
+				D9A6D99B1731939200C1488A /* greenButton@2x.png */,
+				D9A6D99C1731939200C1488A /* greenButtonHighlight.png */,
+				D9A6D99D1731939200C1488A /* greenButtonHighlight@2x.png */,
+			);
+			path = buttons;
+			sourceTree = "<group>";
+		};
 		D9BECEF116B1D3AC009046E1 /* Paginated Tables */ = {
 			isa = PBXGroup;
 			children = (
@@ -1475,6 +1494,7 @@
 		D9DFADF716547DE7003C515C /* Media */ = {
 			isa = PBXGroup;
 			children = (
+				D9A6D9991731939200C1488A /* buttons */,
 				D94A7599170E17F700525289 /* background1.jpg */,
 				D94A759A170E17F700525289 /* background2.jpg */,
 				D980EC9216B87A4100ADD398 /* play_button_dark.png */,
@@ -2141,6 +2161,10 @@
 				D94A759C170E17F700525289 /* background2.jpg in Resources */,
 				D94A75A2170E555900525289 /* openwatch-light.png in Resources */,
 				D94A75A3170E555900525289 /* openwatch-light@2x.png in Resources */,
+				D9A6D99E1731939200C1488A /* greenButton.png in Resources */,
+				D9A6D99F1731939200C1488A /* greenButton@2x.png in Resources */,
+				D9A6D9A01731939200C1488A /* greenButtonHighlight.png in Resources */,
+				D9A6D9A11731939200C1488A /* greenButtonHighlight@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

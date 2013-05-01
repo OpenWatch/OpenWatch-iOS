@@ -39,7 +39,7 @@
     
     OWFancyLoginViewController *fancy = [[OWFancyLoginViewController alloc] init];
     
-    self.navigationController = [[UINavigationController alloc] initWithRootViewController:homeScreen];
+    self.navigationController = [[UINavigationController alloc] initWithRootViewController:fancy];
         [[UINavigationBar appearance] setTitleTextAttributes:
      @{UITextAttributeTextColor : [UIColor blackColor], UITextAttributeTextShadowColor: [UIColor whiteColor], UITextAttributeFont: [UIFont systemFontOfSize:0]}];
     [OWUtilities styleNavigationController:self.navigationController];

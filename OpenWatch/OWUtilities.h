@@ -32,6 +32,8 @@
 + (CGFloat) bottomOfView:(UIView*)view;
 + (CGFloat) rightOfView:(UIView*)view;
 
++ (UIButton*) bigGreenButton;
+
 
 + (WEPopoverContainerViewProperties *)improvedContainerViewProperties;
 
