@@ -101,13 +101,9 @@
                 if (tempAssetWriter.status == AVAssetWriterStatusFailed) {
                     [self showError:tempAssetWriter.error];
                 } else {
-                    [self uploadFileURL:tempAssetWriter.outputURL];
+                    [self uploadLocalURL:tempAssetWriter.outputURL];
                 }
             }];
-        }
-        OWLocalRecording *recording = [OWRecordingController localRecordingForObjectID:self.recordingID];
-        if (!recording) {
-            return;
         }
         self.segmentCount++;
         if (self.readyToRecordAudio && self.readyToRecordVideo) {
@@ -183,7 +179,7 @@
     [self segmentRecording:nil];
 }
 
-- (void) uploadFileURL:(NSURL*)url {
+- (void) uploadLocalURL:(NSURL*)url {
     OWLocalRecording *recording = [OWRecordingController localRecordingForObjectID:self.recordingID];
     OWCaptureAPIClient *captureClient = [OWCaptureAPIClient sharedClient];
     [captureClient uploadFileURL:url recording:recording.objectID priority:NSOperationQueuePriorityVeryHigh];

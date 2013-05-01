@@ -43,7 +43,7 @@
 
 @property (nonatomic) BOOL watchOutputFile;
 
-- (void) uploadFileURL:(NSURL*)url;
+- (void) uploadLocalURL:(NSURL*)url;
 
 - (void) finishEncoding;
 - (void) showError:(NSError*)error;

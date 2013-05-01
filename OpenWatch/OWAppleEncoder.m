@@ -311,11 +311,13 @@
             [assetWriter finishWritingWithCompletionHandler:^{
                 if (assetWriter.status == AVAssetWriterStatusFailed) {
                     [self showError:[assetWriter error]];
+                } else {
+                    [self uploadLocalURL:assetWriter.outputURL];
                 }
             }];
         }
         @catch (NSException *exception) {
-            NSLog(@"Caught exception: %@", [exception description]);
+            NSLog(@"Error: Caught exception: %@", [exception description]);
             [self handleException:exception];
         }
 
@@ -324,12 +326,9 @@
         dispatch_source_cancel(source);
         source = NULL;
     }
-    if (self.assetWriter.status == AVAssetWriterStatusCompleted) {
-        [self uploadFileURL:self.assetWriter.outputURL];
-    }
 }
 
-- (void) uploadFileURL:(NSURL*)url {
+- (void) uploadLocalURL:(NSURL*)url {
     OWCaptureAPIClient *captureClient = [OWCaptureAPIClient sharedClient];
     OWLocalRecording *recording = [OWRecordingController localRecordingForObjectID:recordingID];
     [captureClient uploadFileURL:url recording:recording.objectID priority:NSOperationQueuePriorityNormal];

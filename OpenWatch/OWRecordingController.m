@@ -28,7 +28,7 @@
 
 - (id) init {
     if (self = [super init]) {
-        [self checkForVideosDirectory];
+        //[self checkForVideosDirectory];
         [self scanVideoDirectoryForChanges];
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             [self scanRecordingsForUnsubmittedData];
@@ -37,6 +37,7 @@
     return self;
 }
 
+/*
 - (void) checkForVideosDirectory {
     NSString *videosDirectory = [OWLocalRecording mediaDirectoryPath];
     NSFileManager *fileManager = [NSFileManager defaultManager];
@@ -50,7 +51,7 @@
         NSLog(@"Video directory created.");
     }
 }
-
+*/
 - (void) scanRecordingsForUnsubmittedData {
     for (NSManagedObjectID *objectID in [self allLocalRecordings]) {
         OWLocalRecording *recording = [OWRecordingController localRecordingForObjectID:objectID];
