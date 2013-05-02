@@ -13,6 +13,9 @@
 #import "OWAccountAPIClient.h"
 #import "OWAppDelegate.h"
 
+#define kOffsetWithPassword 208
+#define kOffset 145
+
 @interface OWFancyLoginViewController ()
 
 @end
@@ -53,6 +56,8 @@
     self.emailField.returnKeyType = UIReturnKeyGo;
     self.emailField.keyboardType = UIKeyboardTypeEmailAddress;
     self.emailField.borderStyle = UITextBorderStyleRoundedRect;
+    self.emailField.autocapitalizationType = UITextAutocapitalizationTypeNone;
+    self.emailField.autocorrectionType = UITextAutocorrectionTypeNo;
     [self.startButton setTitle:@"Get Started →" forState:UIControlStateNormal];
     [self.startButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self.startButton setTitleShadowColor:[UIColor grayColor] forState:UIControlStateNormal];
@@ -90,7 +95,7 @@
     CGFloat yPadding = 20.0f;
     CGFloat logoWidth = self.view.frame.size.width - xPadding * 2;
     self.logoView.frame = CGRectMake(xPadding, yPadding, logoWidth, 100.0f);
-    self.blurbLabel.frame = CGRectMake(xPadding, [OWUtilities bottomOfView:logoView] + 20, logoWidth, 100);
+    self.blurbLabel.frame = CGRectMake(xPadding, [OWUtilities bottomOfView:logoView] + 25, logoWidth, 65);
     self.emailField.frame = CGRectMake(xPadding, [OWUtilities bottomOfView:blurbLabel] + 20, logoWidth, 30);
     self.startButton.frame = CGRectMake(xPadding, [OWUtilities bottomOfView:emailField] + 20, logoWidth, 50);
     
@@ -102,7 +107,11 @@
 }
 
 - (void) textFieldDidBeginEditing:(UITextField *)textField {
-    [self.scrollView setContentOffset:CGPointMake(0, 145) animated:YES];
+    CGFloat offset = kOffset;
+    if (self.passwordField) {
+        offset = kOffsetWithPassword;
+    }
+    [self.scrollView setContentOffset:CGPointMake(0, offset) animated:YES];
     [self.keyboardControls setActiveField:textField];
 }
 
@@ -140,6 +149,8 @@
             startButtonFrame.origin.y = [OWUtilities bottomOfView:passwordField] + 20;
             self.startButton.frame = startButtonFrame;
             [self.startButton setTitle:@"Login →" forState:UIControlStateNormal];
+        } completion:^(BOOL finished) {
+            [self.scrollView setContentOffset:CGPointMake(0, kOffsetWithPassword) animated:YES];
         }];
         [UIView animateWithDuration:0.5 delay:0.2 options:nil animations:^{
             self.passwordField.layer.opacity = 1.0f;
@@ -186,7 +197,8 @@
 
     NSString *email = self.emailField.text;
     NSString *password = self.passwordField.text;
-    
+    account.email = email;
+
     if ([email rangeOfString:@"@"].location == NSNotFound) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Login Error" message:@"Please enter a valid email address." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alert show];
@@ -196,11 +208,10 @@
     [self setProcessingLogin:YES];
     
     if (password.length > 0) {
-        account.email = email;
         account.password = password;
         [[OWAccountAPIClient sharedClient] loginWithAccount:account success:^{
-            [self.navigationController pushViewController:OW_APP_DELEGATE.homeScreen animated:YES];
             [self setProcessingLogin:NO];
+            [self.navigationController pushViewController:OW_APP_DELEGATE.homeScreen animated:YES];
         } failure:^(NSString *reason) {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Login Error" message:@"Please check your username and password and try again." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
             [alert show];
@@ -209,8 +220,12 @@
     } else {
         [[OWAccountAPIClient sharedClient] checkEmailAvailability:email callback:^(BOOL available) {
             if (available) {
-                NSLog(@"Not available!");
-                [self setProcessingLogin:NO];
+                [[OWAccountAPIClient sharedClient] quickSignupWithAccount:account callback:^(BOOL success) {
+                    [self setProcessingLogin:NO];
+                    if (success) {
+                        [self.navigationController pushViewController:OW_APP_DELEGATE.homeScreen animated:YES];
+                    }
+                }];
             } else {
                 [self showPasswordField];
                 [self setProcessingLogin:NO];
@@ -227,7 +242,8 @@
 
 - (void)keyboardControlsDonePressed:(BSKeyboardControls *)keyControls
 {
-    [keyControls.activeField resignFirstResponder];
+    [self processLogin];
+    //[keyControls.activeField resignFirstResponder];
 }
 
 @end

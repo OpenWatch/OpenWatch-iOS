@@ -81,6 +81,7 @@
 
 
 - (void) checkAccount {
+    return;
     OWSettingsController *settingsController = [OWSettingsController sharedInstance];
     if (![settingsController.account isLoggedIn]) {
         OWLoginViewController *loginViewController = [[OWLoginViewController alloc] init];
