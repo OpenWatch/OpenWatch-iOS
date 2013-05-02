@@ -14,6 +14,8 @@
 #import "WEPopoverController.h"
 #import "OWRecordingInfoViewController.h"
 #import "OWStory.h"
+#import "OWInvestigation.h"
+#import "OWInvestigationViewController.h"
 #import "OWStoryViewController.h"
 #import "OWMediaObjectViewController.h"
 #import "OWFeedTableViewCell.h"
@@ -156,6 +158,9 @@
     } else if ([mediaObject isKindOfClass:[OWStory class]]) {
         OWStoryViewController *storyVC = [[OWStoryViewController alloc] init];
         vc = storyVC;
+    }else if ([mediaObject isKindOfClass:[OWInvestigation class]]) {
+        OWInvestigationViewController *investigationVC = [[OWInvestigationViewController alloc] init];
+        vc = investigationVC;
     }
     if (vc) {
         vc.mediaObjectID = mediaObjectID;

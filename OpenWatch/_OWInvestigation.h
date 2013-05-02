@@ -8,6 +8,7 @@ extern const struct OWInvestigationAttributes {
 	__unsafe_unretained NSString *bigLogo;
 	__unsafe_unretained NSString *blurb;
 	__unsafe_unretained NSString *body;
+	__unsafe_unretained NSString *html;
 	__unsafe_unretained NSString *logo;
 	__unsafe_unretained NSString *questions;
 } OWInvestigationAttributes;
@@ -20,6 +21,7 @@ extern const struct OWInvestigationFetchedProperties {
 } OWInvestigationFetchedProperties;
 
 @class NSManagedObject;
+
 
 
 
@@ -65,6 +67,16 @@ extern const struct OWInvestigationFetchedProperties {
 
 
 //- (BOOL)validateBody:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
+@property (nonatomic, strong) NSString* html;
+
+
+
+//- (BOOL)validateHtml:(id*)value_ error:(NSError**)error_;
 
 
 
@@ -126,6 +138,12 @@ extern const struct OWInvestigationFetchedProperties {
 
 - (NSString*)primitiveBody;
 - (void)setPrimitiveBody:(NSString*)value;
+
+
+
+
+- (NSString*)primitiveHtml;
+- (void)setPrimitiveHtml:(NSString*)value;
 
 
 

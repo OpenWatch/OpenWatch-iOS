@@ -10,6 +10,7 @@
 
 #define kBlurbKey @"blurb"
 #define kBodyKey @"body"
+#define kHtmlKey @"html"
 #define kLogoKey @"logo"
 #define kBigLogoKey @"big_logo"
 #define kQuestionsKey @"questions"
@@ -38,6 +39,10 @@
     NSString *questions = [metadataDictionary objectForKey:kQuestionsKey];
     if (questions) {
         self.questions = questions;
+    }
+    NSString *html = [metadataDictionary objectForKey:kHtmlKey];
+    if (html) {
+        self.html = html;
     }
 }
 

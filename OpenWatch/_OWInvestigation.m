@@ -7,6 +7,7 @@ const struct OWInvestigationAttributes OWInvestigationAttributes = {
 	.bigLogo = @"bigLogo",
 	.blurb = @"blurb",
 	.body = @"body",
+	.html = @"html",
 	.logo = @"logo",
 	.questions = @"questions",
 };
@@ -66,6 +67,13 @@ const struct OWInvestigationFetchedProperties OWInvestigationFetchedProperties =
 
 
 @dynamic body;
+
+
+
+
+
+
+@dynamic html;
 
 
 

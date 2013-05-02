@@ -21,6 +21,7 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		30B5C4EC17331AAD00CC0244 /* OWInvestigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30B5C4EB17331AAD00CC0244 /* OWInvestigationViewController.m */; };
 		D90702311668270F00611607 /* OWHomeScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D90702301668270F00611607 /* OWHomeScreenViewController.m */; };
 		D907023516682B4400611607 /* OWUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = D907023416682B4400611607 /* OWUtilities.m */; };
 		D907023C1668353800611607 /* OWCaptureController.m in Sources */ = {isa = PBXBuildFile; fileRef = D907023B1668353800611607 /* OWCaptureController.m */; };
@@ -636,6 +637,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		30B5C4EA17331AAD00CC0244 /* OWInvestigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWInvestigationViewController.h; sourceTree = "<group>"; };
+		30B5C4EB17331AAD00CC0244 /* OWInvestigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWInvestigationViewController.m; sourceTree = "<group>"; };
 		D907022F1668270F00611607 /* OWHomeScreenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWHomeScreenViewController.h; sourceTree = "<group>"; };
 		D90702301668270F00611607 /* OWHomeScreenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWHomeScreenViewController.m; sourceTree = "<group>"; };
 		D907023316682B4400611607 /* OWUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWUtilities.h; sourceTree = "<group>"; };
@@ -1069,6 +1072,8 @@
 		D95BD80A16B06738002C43A5 /* Media View */ = {
 			isa = PBXGroup;
 			children = (
+				30B5C4EA17331AAD00CC0244 /* OWInvestigationViewController.h */,
+				30B5C4EB17331AAD00CC0244 /* OWInvestigationViewController.m */,
 				D9C0332616A4C26900B7CFC7 /* OWStoryViewController.h */,
 				D9C0332716A4C26900B7CFC7 /* OWStoryViewController.m */,
 				D9308512166406E5008C5D4C /* OWRecordingInfoViewController.h */,
@@ -2367,6 +2372,7 @@
 				D9DA079F17304A7E0041B638 /* OWInvestigation.m in Sources */,
 				D9DA07A217304AA00041B638 /* _OWInvestigation.m in Sources */,
 				D9A6D9D51731D03400C1488A /* BSKeyboardControls.m in Sources */,
+				30B5C4EC17331AAD00CC0244 /* OWInvestigationViewController.m in Sources */,
 				D91AC0011733003100823179 /* OWDashboardViewController.m in Sources */,
 				D91AC02B173300A000823179 /* OWActionBarView.m in Sources */,
 			);
