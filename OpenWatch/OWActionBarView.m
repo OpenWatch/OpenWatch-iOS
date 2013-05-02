@@ -15,7 +15,9 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        self.segmentedControl = [[UISegmentedControl alloc] initWithFrame:frame];
+        CGRect newFrame = [self hackyFrameForFrame:frame];
+        self.segmentedControl = [[UISegmentedControl alloc] initWithFrame:newFrame];
+        self.clipsToBounds = YES;
         self.segmentedControl.momentary = YES;
         UIImage *videoImage = [UIImage imageNamed:@"279-videocamera.png"];
         UIImage *photoImage = [UIImage imageNamed:@"86-camera.png"];
@@ -33,9 +35,15 @@
     return self;
 }
 
+// Expands the segmented controls beyond width of screen
+- (CGRect) hackyFrameForFrame:(CGRect)frame {
+    CGFloat padding = 8;
+    return CGRectMake(frame.origin.x - padding, frame.origin.y, frame.size.width + padding*2, frame.size.height);
+}
+
 - (void) setFrame:(CGRect)frame {
     [super setFrame:frame];
-    self.segmentedControl.frame = frame;
+    self.segmentedControl.frame = [self hackyFrameForFrame:frame];
 }
 
 - (void) segmentedControlValueChanged:(id)sender {
