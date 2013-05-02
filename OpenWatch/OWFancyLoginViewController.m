@@ -242,7 +242,8 @@
 
 - (void)keyboardControlsDonePressed:(BSKeyboardControls *)keyControls
 {
-    [keyControls.activeField resignFirstResponder];
+    [self processLogin];
+    //[keyControls.activeField resignFirstResponder];
 }
 
 @end
