@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "OWActionBarView.h"
+#import "OWPaginatedTableViewController.h"
 
-@interface OWDashboardViewController : UIViewController <OWActionBarViewDelegate>
+@interface OWDashboardViewController : OWPaginatedTableViewController <OWActionBarViewDelegate>
 
 @property (nonatomic, strong) OWActionBarView *actionBarView;
 @property (nonatomic, strong) UIImageView *onboardingImageView;

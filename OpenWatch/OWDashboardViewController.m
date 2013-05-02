@@ -16,6 +16,8 @@
 #import "OWStrings.h"
 #import "OWFeedViewController.h"
 
+#define kActionBarHeight 70.0f
+
 
 @interface OWDashboardViewController ()
 
@@ -39,8 +41,9 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    [self.view addSubview:actionBarView];
-    [self.view addSubview:onboardingImageView];
+    //[self.view addSubview:actionBarView];
+    //self.tableView.tableHeaderView = actionBarView;
+    //[self.view addSubview:onboardingImageView];
     
     self.view.backgroundColor = [OWUtilities stoneBackgroundPattern];
     
@@ -65,8 +68,8 @@
 - (void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:animated];
-    self.actionBarView.frame = CGRectMake(0, 0, self.view.frame.size.width, 70);
-    self.onboardingImageView.frame = CGRectMake(0, [OWUtilities bottomOfView:actionBarView], self.view.frame.size.width, self.onboardingImageView.image.size.height);
+    CGFloat actionBarHeight = kActionBarHeight;
+    self.actionBarView.frame = CGRectMake(0, 0, self.view.frame.size.width, actionBarHeight);
 }
 
 - (void) actionBarView:(OWActionBarView *)actionBarView didSelectButtonAtIndex:(NSUInteger)buttonIndex {
@@ -78,6 +81,20 @@
     } else if (buttonIndex == 2) { // mic
         
     }
+}
+
+- (UIView*) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    if (section == 0) {
+        return actionBarView;
+    }
+    return nil;
+}
+
+- (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    if (section == 0) {
+        return kActionBarHeight;
+    }
+    return [super tableView:tableView heightForHeaderInSection:section];
 }
 
 - (void) recordButtonPressed:(id)sender {

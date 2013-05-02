@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "OWLabeledButtonView.h"
+#import "OWPaginatedTableViewController.h"
 
 @interface OWHomeScreenViewController : UIViewController <UIAlertViewDelegate>
 
