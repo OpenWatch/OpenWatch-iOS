@@ -24,6 +24,17 @@
 		D90702311668270F00611607 /* OWHomeScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D90702301668270F00611607 /* OWHomeScreenViewController.m */; };
 		D907023516682B4400611607 /* OWUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = D907023416682B4400611607 /* OWUtilities.m */; };
 		D907023C1668353800611607 /* OWCaptureController.m in Sources */ = {isa = PBXBuildFile; fileRef = D907023B1668353800611607 /* OWCaptureController.m */; };
+		D91AC0011733003100823179 /* OWDashboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D91AC0001733003100823179 /* OWDashboardViewController.m */; };
+		D91AC02B173300A000823179 /* OWActionBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = D91AC02A173300A000823179 /* OWActionBarView.m */; };
+		D91AC0341733021800823179 /* 66-microphone.png in Resources */ = {isa = PBXBuildFile; fileRef = D91AC02C1733021800823179 /* 66-microphone.png */; };
+		D91AC0351733021800823179 /* 66-microphone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D91AC02D1733021800823179 /* 66-microphone@2x.png */; };
+		D91AC0361733021800823179 /* 86-camera.png in Resources */ = {isa = PBXBuildFile; fileRef = D91AC02E1733021800823179 /* 86-camera.png */; };
+		D91AC0371733021800823179 /* 86-camera@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D91AC02F1733021800823179 /* 86-camera@2x.png */; };
+		D91AC0381733021800823179 /* 275-broadcast.png in Resources */ = {isa = PBXBuildFile; fileRef = D91AC0301733021800823179 /* 275-broadcast.png */; };
+		D91AC0391733021800823179 /* 275-broadcast@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D91AC0311733021800823179 /* 275-broadcast@2x.png */; };
+		D91AC03A1733021800823179 /* 279-videocamera.png in Resources */ = {isa = PBXBuildFile; fileRef = D91AC0321733021800823179 /* 279-videocamera.png */; };
+		D91AC03B1733021800823179 /* 279-videocamera@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D91AC0331733021800823179 /* 279-videocamera@2x.png */; };
+		D91AC03D1733079E00823179 /* ow_space1@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D91AC03C1733079E00823179 /* ow_space1@2x.jpg */; };
 		D920584E16812A46004C2F1A /* OWSHKConfigurator.m in Sources */ = {isa = PBXBuildFile; fileRef = D920584D16812A46004C2F1A /* OWSHKConfigurator.m */; };
 		D920585A16813643004C2F1A /* OWShareController.m in Sources */ = {isa = PBXBuildFile; fileRef = D920585916813643004C2F1A /* OWShareController.m */; };
 		D92B6A7316AF4FD3006605E1 /* EGORefreshTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = D92B6A6916AF4FD3006605E1 /* EGORefreshTableHeaderView.m */; };
@@ -631,6 +642,19 @@
 		D907023416682B4400611607 /* OWUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWUtilities.m; sourceTree = "<group>"; };
 		D907023A1668353800611607 /* OWCaptureController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWCaptureController.h; sourceTree = "<group>"; };
 		D907023B1668353800611607 /* OWCaptureController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWCaptureController.m; sourceTree = "<group>"; };
+		D91ABFFF1733003100823179 /* OWDashboardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWDashboardViewController.h; sourceTree = "<group>"; };
+		D91AC0001733003100823179 /* OWDashboardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWDashboardViewController.m; sourceTree = "<group>"; };
+		D91AC029173300A000823179 /* OWActionBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWActionBarView.h; sourceTree = "<group>"; };
+		D91AC02A173300A000823179 /* OWActionBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWActionBarView.m; sourceTree = "<group>"; };
+		D91AC02C1733021800823179 /* 66-microphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "66-microphone.png"; sourceTree = "<group>"; };
+		D91AC02D1733021800823179 /* 66-microphone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "66-microphone@2x.png"; sourceTree = "<group>"; };
+		D91AC02E1733021800823179 /* 86-camera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "86-camera.png"; sourceTree = "<group>"; };
+		D91AC02F1733021800823179 /* 86-camera@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "86-camera@2x.png"; sourceTree = "<group>"; };
+		D91AC0301733021800823179 /* 275-broadcast.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "275-broadcast.png"; sourceTree = "<group>"; };
+		D91AC0311733021800823179 /* 275-broadcast@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "275-broadcast@2x.png"; sourceTree = "<group>"; };
+		D91AC0321733021800823179 /* 279-videocamera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "279-videocamera.png"; sourceTree = "<group>"; };
+		D91AC0331733021800823179 /* 279-videocamera@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "279-videocamera@2x.png"; sourceTree = "<group>"; };
+		D91AC03C1733079E00823179 /* ow_space1@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "ow_space1@2x.jpg"; sourceTree = "<group>"; };
 		D920584C16812A46004C2F1A /* OWSHKConfigurator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWSHKConfigurator.h; sourceTree = "<group>"; };
 		D920584D16812A46004C2F1A /* OWSHKConfigurator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWSHKConfigurator.m; sourceTree = "<group>"; };
 		D920585816813643004C2F1A /* OWShareController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWShareController.h; sourceTree = "<group>"; };
@@ -1460,6 +1484,10 @@
 				D9D2E1871653236E0000E7C5 /* OWCaptureViewController.m */,
 				D997419F1651DB0B0034ABB0 /* OWSettingsViewController.h */,
 				D99741A01651DB0B0034ABB0 /* OWSettingsViewController.m */,
+				D91ABFFF1733003100823179 /* OWDashboardViewController.h */,
+				D91AC0001733003100823179 /* OWDashboardViewController.m */,
+				D91AC029173300A000823179 /* OWActionBarView.h */,
+				D91AC02A173300A000823179 /* OWActionBarView.m */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -1512,6 +1540,15 @@
 		D9DFADF716547DE7003C515C /* Media */ = {
 			isa = PBXGroup;
 			children = (
+				D91AC03C1733079E00823179 /* ow_space1@2x.jpg */,
+				D91AC02C1733021800823179 /* 66-microphone.png */,
+				D91AC02D1733021800823179 /* 66-microphone@2x.png */,
+				D91AC02E1733021800823179 /* 86-camera.png */,
+				D91AC02F1733021800823179 /* 86-camera@2x.png */,
+				D91AC0301733021800823179 /* 275-broadcast.png */,
+				D91AC0311733021800823179 /* 275-broadcast@2x.png */,
+				D91AC0321733021800823179 /* 279-videocamera.png */,
+				D91AC0331733021800823179 /* 279-videocamera@2x.png */,
 				D9A6D9991731939200C1488A /* buttons */,
 				D94A7599170E17F700525289 /* background1.jpg */,
 				D94A759A170E17F700525289 /* background2.jpg */,
@@ -2185,6 +2222,15 @@
 				D9A6D9A01731939200C1488A /* greenButtonHighlight.png in Resources */,
 				D9A6D9A11731939200C1488A /* greenButtonHighlight@2x.png in Resources */,
 				D9A6D9D61731D03400C1488A /* BSKeyboardControls.strings in Resources */,
+				D91AC0341733021800823179 /* 66-microphone.png in Resources */,
+				D91AC0351733021800823179 /* 66-microphone@2x.png in Resources */,
+				D91AC0361733021800823179 /* 86-camera.png in Resources */,
+				D91AC0371733021800823179 /* 86-camera@2x.png in Resources */,
+				D91AC0381733021800823179 /* 275-broadcast.png in Resources */,
+				D91AC0391733021800823179 /* 275-broadcast@2x.png in Resources */,
+				D91AC03A1733021800823179 /* 279-videocamera.png in Resources */,
+				D91AC03B1733021800823179 /* 279-videocamera@2x.png in Resources */,
+				D91AC03D1733079E00823179 /* ow_space1@2x.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2321,6 +2367,8 @@
 				D9DA079F17304A7E0041B638 /* OWInvestigation.m in Sources */,
 				D9DA07A217304AA00041B638 /* _OWInvestigation.m in Sources */,
 				D9A6D9D51731D03400C1488A /* BSKeyboardControls.m in Sources */,
+				D91AC0011733003100823179 /* OWDashboardViewController.m in Sources */,
+				D91AC02B173300A000823179 /* OWActionBarView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

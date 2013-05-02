@@ -16,9 +16,11 @@
 #import "TestFlight.h"
 #import "OWAPIKeys.h"
 #import "OWFancyLoginViewController.h"
+#import "OWSettingsController.h"
+
 
 @implementation OWAppDelegate
-@synthesize homeScreen, navigationController, locationController;
+@synthesize homeScreen, navigationController, locationController, dashboardViewController;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -35,11 +37,20 @@
     self.window.backgroundColor = [OWUtilities stoneBackgroundPattern];
     self.locationController = [[OWLocationController alloc] init];
      
-    self.homeScreen = [[OWHomeScreenViewController alloc] init];
+    //self.homeScreen = [[OWHomeScreenViewController alloc] init];
+    self.dashboardViewController = [[OWDashboardViewController alloc] init];
     
-    OWFancyLoginViewController *fancy = [[OWFancyLoginViewController alloc] init];
+    OWSettingsController *settingsController = [OWSettingsController sharedInstance];
+    OWAccount *account = settingsController.account;
+    UIViewController *vc = nil;
+    if ([account isLoggedIn]) {
+        vc = dashboardViewController;
+    } else {
+        OWFancyLoginViewController *fancy = [[OWFancyLoginViewController alloc] init];
+        vc = fancy;
+    }
     
-    self.navigationController = [[UINavigationController alloc] initWithRootViewController:fancy];
+    self.navigationController = [[UINavigationController alloc] initWithRootViewController:vc];
         [[UINavigationBar appearance] setTitleTextAttributes:
      @{UITextAttributeTextColor : [UIColor blackColor], UITextAttributeTextShadowColor: [UIColor whiteColor], UITextAttributeFont: [UIFont systemFontOfSize:0]}];
     [OWUtilities styleNavigationController:self.navigationController];

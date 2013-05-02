@@ -12,10 +12,10 @@
 #import "OWLoginViewController.h"
 #import "OWSettingsController.h"
 #import "OWCaptureViewController.h"
-#import "OWSettingsViewController.h"
 #import "OWFeedViewController.h"
-#import "OWAccountAPIClient.h"
 #import "OWShareController.h"
+#import "OWAccountAPIClient.h"
+
 
 #define RECORD_BUTTON_HEIGHT 131.0f
 #define RECORD_BUTTON_WIDTH 150.0f
@@ -37,46 +37,7 @@
     return self;
 }
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    self.view.backgroundColor = [OWUtilities stoneBackgroundPattern];
 
-    
-    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"openwatch.png"]];
-    imageView.frame = CGRectMake(0, 0, 200, 25);
-    imageView.contentMode = UIViewContentModeScaleAspectFit;
-    self.navigationItem.titleView = imageView;
-    
-    CGFloat buttonHeight = BUTTON_HEIGHT;
-    CGFloat buttonWidth = BUTTON_WIDTH;
-    CGFloat recordButtonHeight = RECORD_BUTTON_HEIGHT;
-    CGFloat recordButtonWidth = RECORD_BUTTON_WIDTH;
-    self.recordButtonView = [[OWLabeledButtonView alloc] initWithFrame:CGRectMake(0, 0, recordButtonWidth, recordButtonHeight) defaultImageName:@"giant-eye-red.png" highlightedImageName:nil labelName:@"Watch"];
-    self.recordButtonView.textLabel.font = [UIFont systemFontOfSize:25.0f];
-    self.watchButtonView = [[OWLabeledButtonView alloc] initWithFrame:CGRectMake(0, 0, buttonWidth, buttonHeight) defaultImageName:@"play_button_dark.png" highlightedImageName:nil labelName:@"Consume"];
-    self.localButtonView = [[OWLabeledButtonView alloc] initWithFrame:CGRectMake(0, 0, buttonWidth, buttonHeight) defaultImageName:@"local-big.png" highlightedImageName:nil labelName:LOCAL_STRING];
-    self.savedButtonView = [[OWLabeledButtonView alloc] initWithFrame:CGRectMake(0, 0, buttonWidth, buttonHeight) defaultImageName:@"saved-big.png" highlightedImageName:nil labelName:SAVED_STRING];
-    self.settingsButtonView = [[OWLabeledButtonView alloc] initWithFrame:CGRectMake(0, 0, buttonWidth, buttonHeight) defaultImageName:@"settings-big.png" highlightedImageName:nil labelName:SETTINGS_STRING];
-    
-    [watchButtonView.button addTarget:self action:@selector(watchButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [recordButtonView.button addTarget:self action:@selector(recordButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [settingsButtonView.button addTarget:self action:@selector(settingsButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [savedButtonView.button addTarget:self action:@selector(savedButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [localButtonView.button addTarget:self action:@selector(localButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    
-    self.gridView = [[UIView alloc] init];
-    
-    [gridView addSubview:watchButtonView];
-    [gridView addSubview:localButtonView];
-    [gridView addSubview:savedButtonView];
-    [gridView addSubview:settingsButtonView];
-    [self.view addSubview:gridView];
-    [self.view addSubview:recordButtonView];
-
-    
-    [[OWAccountAPIClient sharedClient] getSubscribedTags];
-}
 
 
 
@@ -95,6 +56,7 @@
 
 - (void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:animated];
     [TestFlight passCheckpoint:HOME_CHECKPOINT];
     CGFloat buttonHeight = BUTTON_HEIGHT;
     CGFloat buttonWidth = BUTTON_WIDTH;
@@ -131,47 +93,5 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void) settingsButtonPressed:(id)sender {
-    OWSettingsViewController *settingsView = [[OWSettingsViewController alloc] init];
-    [self.navigationController pushViewController:settingsView animated:YES];
-}
-
-- (void) recordButtonPressed:(id)sender {
-    OWCaptureViewController *captureVC = [[OWCaptureViewController alloc] init];
-    //UINavigationController *captureNav = [[UINavigationController alloc] initWithRootViewController:captureView];
-    //[OWUtilities styleNavigationController:captureNav];
-    //captureNav.navigationBar.tintColor = [OWUtilities navigationBarColor];
-    [self presentViewController:captureVC animated:YES completion:^{
-    }];
-}
-
-- (void) savedButtonPressed:(id)sender {
-    OWRecordingListViewController *recordingListView = [[OWRecordingListViewController alloc] init];
-    [self.navigationController pushViewController:recordingListView animated:YES];
-}
-
-- (void) watchButtonPressed:(id)sender {
-    OWFeedType type = kOWFeedTypeFeed;
-    NSString *feedString = FEATURED_STRING;
-    [self pushFeedVCForFeedName:feedString type:type];
-}
-
-- (void) pushFeedVCForFeedName:(NSString*)feedName type:(OWFeedType)type {
-    OWFeedViewController *feedVC = [[OWFeedViewController alloc] init];
-    [feedVC didSelectFeedWithName:feedName type:type];
-    [self.navigationController pushViewController:feedVC animated:YES];
-}
-
-- (void) localButtonPressed:(id)sender {
-    OWFeedType type = kOWFeedTypeFeed;
-    NSString *feedString = LOCAL_STRING;
-    [self pushFeedVCForFeedName:feedString type:type];
-}
-
-- (void) alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
-    if (buttonIndex != alertView.cancelButtonIndex) {
-        [[OWShareController sharedInstance] shareFromViewController:self];
-    }
-}
 
 @end

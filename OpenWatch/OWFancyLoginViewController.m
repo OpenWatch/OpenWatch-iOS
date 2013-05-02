@@ -12,6 +12,7 @@
 #import "OWSettingsController.h"
 #import "OWAccountAPIClient.h"
 #import "OWAppDelegate.h"
+#import "OWCheckpoints.h"
 
 #define kOffsetWithPassword 208
 #define kOffset 145
@@ -45,7 +46,7 @@
     self.backgroundImageView = [[OWKenBurnsView alloc] initWithFrame:self.view.frame];
     self.activityIndicatorView.layer.opacity = 0.0f;
     self.logoView.contentMode = UIViewContentModeScaleAspectFit;
-    self.blurbLabel.text = @"Welcome to OpenWatch, a social muckraking platform. Enter your email address to get started.";
+    self.blurbLabel.text = @"Welcome to OpenWatch. Enter your email address to get started.";
     self.blurbLabel.backgroundColor = [UIColor clearColor];
     self.blurbLabel.textColor = [UIColor whiteColor];
     self.blurbLabel.font = [UIFont boldSystemFontOfSize:17.0f];
@@ -56,6 +57,7 @@
     self.emailField.returnKeyType = UIReturnKeyGo;
     self.emailField.keyboardType = UIKeyboardTypeEmailAddress;
     self.emailField.borderStyle = UITextBorderStyleRoundedRect;
+    self.emailField.clearButtonMode = UITextFieldViewModeWhileEditing;
     self.emailField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     self.emailField.autocorrectionType = UITextAutocorrectionTypeNo;
     [self.startButton setTitle:@"Get Started →" forState:UIControlStateNormal];
@@ -89,6 +91,9 @@
 }
 
 - (void) viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [TestFlight passCheckpoint:FANCY_LOGIN_CHECKPOINT];
+
     self.scrollView.frame = self.view.bounds;
     self.scrollView.contentSize = self.view.bounds.size;
     CGFloat xPadding = 20.0f;
@@ -136,6 +141,7 @@
         self.keyboardControls.fields = @[emailField, passwordField];
         self.passwordField.delegate = self;
         self.passwordField.placeholder = @"Password";
+        self.passwordField.clearButtonMode = UITextFieldViewModeWhileEditing;
         self.passwordField.secureTextEntry = YES;
         self.passwordField.returnKeyType = UIReturnKeyGo;
         self.passwordField.borderStyle = UITextBorderStyleRoundedRect;
@@ -211,7 +217,7 @@
         account.password = password;
         [[OWAccountAPIClient sharedClient] loginWithAccount:account success:^{
             [self setProcessingLogin:NO];
-            [self.navigationController pushViewController:OW_APP_DELEGATE.homeScreen animated:YES];
+            [self showDashboardScreen];
         } failure:^(NSString *reason) {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Login Error" message:@"Please check your username and password and try again." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
             [alert show];
@@ -223,7 +229,7 @@
                 [[OWAccountAPIClient sharedClient] quickSignupWithAccount:account callback:^(BOOL success) {
                     [self setProcessingLogin:NO];
                     if (success) {
-                        [self.navigationController pushViewController:OW_APP_DELEGATE.homeScreen animated:YES];
+                        [self showDashboardScreen];
                     }
                 }];
             } else {
@@ -232,6 +238,11 @@
             }
         }];
     }
+}
+
+- (void) showDashboardScreen {
+    OWDashboardViewController *dashboardVC = OW_APP_DELEGATE.dashboardViewController;
+    [self.navigationController setViewControllers:@[dashboardVC] animated:YES];
 }
 
 - (void)didReceiveMemoryWarning

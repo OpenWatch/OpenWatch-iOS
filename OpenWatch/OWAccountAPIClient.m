@@ -98,6 +98,9 @@
 - (void) quickSignupWithAccount:(OWAccount*)account callback:(void (^)(BOOL success))callback {
     [self postPath:@"quick_signup" parameters:@{@"email": account.email} success:^(AFHTTPRequestOperation *operation, id responseObject) {
         BOOL success = [[responseObject objectForKey:@"success"] boolValue];
+        if (success) {
+            [self processLoginDictionary:responseObject account:account];
+        }
         NSLog(@"quickSignup response: %@", responseObject);
         callback(success);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -114,6 +117,14 @@
     [self registerWithAccount:account path:kCreateAccountPath success:success failure:failure];
 }
 
+- (void) processLoginDictionary:(NSDictionary*)responseObject account:(OWAccount*)account {
+    account.username = [responseObject objectForKey:kUsernameKey];
+    account.publicUploadToken = [responseObject objectForKey:kPubTokenKey];
+    account.privateUploadToken = [responseObject objectForKey:kPrivTokenKey];
+    account.accountID = [responseObject objectForKey:kServerIDKey];
+    account.user.csrfToken = [responseObject objectForKey:kCSRFTokenKey];
+}
+
 - (void) registerWithAccount:(OWAccount*)account path:(NSString*)path success:(void (^)(void)) success failure:(void (^)(NSString *reason))failure {
     NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithCapacity:2];
     [parameters setObject:account.email forKey:kEmailKey];
@@ -124,11 +135,7 @@
         NSLog(@"Response: %@", [responseObject description]);
         if ([[responseObject objectForKey:kSuccessKey] boolValue]) {
             
-            account.username = [responseObject objectForKey:kUsernameKey];
-            account.publicUploadToken = [responseObject objectForKey:kPubTokenKey];
-            account.privateUploadToken = [responseObject objectForKey:kPrivTokenKey];
-            account.accountID = [responseObject objectForKey:kServerIDKey];
-            account.user.csrfToken = [responseObject objectForKey:kCSRFTokenKey];
+            [self processLoginDictionary:responseObject account:account];
             
             success();
         } else {

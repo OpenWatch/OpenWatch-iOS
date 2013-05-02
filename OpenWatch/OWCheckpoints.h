@@ -14,6 +14,7 @@
 #define EDIT_METADATA_CHECKPOINT @"Edit Metadata"
 #define WELCOME_CHECKPOINT @"Welcome Screen"
 #define HOME_CHECKPOINT @"Home Screen"
+#define FANCY_LOGIN_CHECKPOINT @"Fancy Login Screen"
 #define VIEW_RECORDING_CHECKPOINT @"View Recording Screen"
 #define VIEW_RECORDING_ID_CHECKPOINT(ID) [NSString stringWithFormat:@"View Recording: %d", ID]
 #define SHARE_CHECKPOINT @"Share"
