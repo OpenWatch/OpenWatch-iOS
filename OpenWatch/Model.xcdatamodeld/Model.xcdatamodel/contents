@@ -4,6 +4,7 @@
         <attribute name="bigLogo" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="blurb" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="body" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="html" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="logo" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="questions" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="tasks" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="OWTask" inverseName="investigation" inverseEntity="OWTask" syncable="YES"/>
@@ -68,7 +69,7 @@
         <relationship name="tasks" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="OWTask" inverseName="user" inverseEntity="OWTask" syncable="YES"/>
     </entity>
     <elements>
-        <element name="OWInvestigation" positionX="439" positionY="504" width="128" height="135"/>
+        <element name="OWInvestigation" positionX="439" positionY="504" width="128" height="150"/>
         <element name="OWLocalRecording" positionX="378" positionY="117" width="128" height="73"/>
         <element name="OWManagedRecording" positionX="484" positionY="243" width="128" height="180"/>
         <element name="OWMediaObject" positionX="36" positionY="-39" width="128" height="165"/>
@@ -76,7 +77,7 @@
         <element name="OWServerObject" positionX="-117" positionY="99" width="128" height="60"/>
         <element name="OWStory" positionX="207" positionY="9" width="128" height="90"/>
         <element name="OWTag" positionX="268" positionY="354" width="128" height="105"/>
-        <element name="OWUser" positionX="-54" positionY="360" width="128" height="133"/>
         <element name="OWTask" positionX="-353" positionY="579" width="128" height="105"/>
+        <element name="OWUser" positionX="-54" positionY="360" width="128" height="133"/>
     </elements>
 </model>
