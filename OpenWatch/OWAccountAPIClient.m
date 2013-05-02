@@ -93,6 +93,17 @@
     }];
 }
 
+- (void) quickSignupWithAccount:(OWAccount*)account callback:(void (^)(BOOL success))callback {
+    [self postPath:@"quick_signup" parameters:@{@"email": account.email} success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        BOOL success = [[responseObject objectForKey:@"success"] boolValue];
+        NSLog(@"quickSignup response: %@", responseObject);
+        callback(success);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error signing up for account: %@", error.userInfo);
+        callback(NO);
+    }];
+}
+
 - (void) loginWithAccount:(OWAccount*)account success:(void (^)(void)) success failure:(void (^)(NSString *reason))failure {
     [self registerWithAccount:account path:kLoginAccountPath success:success failure:failure];
 }

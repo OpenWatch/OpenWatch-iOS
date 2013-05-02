@@ -197,7 +197,8 @@
 
     NSString *email = self.emailField.text;
     NSString *password = self.passwordField.text;
-    
+    account.email = email;
+
     if ([email rangeOfString:@"@"].location == NSNotFound) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Login Error" message:@"Please enter a valid email address." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alert show];
@@ -207,11 +208,10 @@
     [self setProcessingLogin:YES];
     
     if (password.length > 0) {
-        account.email = email;
         account.password = password;
         [[OWAccountAPIClient sharedClient] loginWithAccount:account success:^{
-            [self.navigationController pushViewController:OW_APP_DELEGATE.homeScreen animated:YES];
             [self setProcessingLogin:NO];
+            [self.navigationController pushViewController:OW_APP_DELEGATE.homeScreen animated:YES];
         } failure:^(NSString *reason) {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Login Error" message:@"Please check your username and password and try again." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
             [alert show];
@@ -220,8 +220,12 @@
     } else {
         [[OWAccountAPIClient sharedClient] checkEmailAvailability:email callback:^(BOOL available) {
             if (available) {
-                NSLog(@"Not available!");
-                [self setProcessingLogin:NO];
+                [[OWAccountAPIClient sharedClient] quickSignupWithAccount:account callback:^(BOOL success) {
+                    [self setProcessingLogin:NO];
+                    if (success) {
+                        [self.navigationController pushViewController:OW_APP_DELEGATE.homeScreen animated:YES];
+                    }
+                }];
             } else {
                 [self showPasswordField];
                 [self setProcessingLogin:NO];
