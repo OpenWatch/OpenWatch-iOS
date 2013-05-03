@@ -41,9 +41,9 @@
         OWDashboardItem *photoItem = [[OWDashboardItem alloc] initWithTitle:@"Take Photo" image:[UIImage imageNamed:@"86-camera.png"] target:self selector:@selector(comingSoon:)];
         OWDashboardItem *audioItem = [[OWDashboardItem alloc] initWithTitle:@"Record Audio" image:[UIImage imageNamed:@"66-microphone.png"] target:self selector:@selector(comingSoon:)];
         
-        OWDashboardItem *topStories = [[OWDashboardItem alloc] initWithTitle:@"Top Stories" image:nil target:self selector:@selector(comingSoon:)];
-        OWDashboardItem *yourMedia = [[OWDashboardItem alloc] initWithTitle:@"Your Media" image:nil target:self selector:@selector(comingSoon:)];
-        OWDashboardItem *settings = [[OWDashboardItem alloc] initWithTitle:@"Settings" image:nil target:self selector:@selector(comingSoon:)];
+        OWDashboardItem *topStories = [[OWDashboardItem alloc] initWithTitle:@"Top Stories" image:[UIImage imageNamed:@"28-star.png"] target:self selector:@selector(feedButtonPressed:)];
+        OWDashboardItem *yourMedia = [[OWDashboardItem alloc] initWithTitle:@"Your Media" image:[UIImage imageNamed:@"160-voicemail-2.png"] target:self selector:@selector(yourMediaPressed:)];
+        OWDashboardItem *settings = [[OWDashboardItem alloc] initWithTitle:@"Settings" image:[UIImage imageNamed:@"19-gear.png"] target:self selector:@selector(settingsButtonPressed:)];
         
         NSArray *topItems = @[videoItem, photoItem, audioItem];
         NSArray *bottonItems = @[topStories, yourMedia, settings];
@@ -55,7 +55,25 @@
 
 - (void) feedButtonPressed:(id)sender {
     OWFeedViewController *feedVC = [[OWFeedViewController alloc] init];
+    feedVC.title = @"Top Stories";
+    [feedVC didSelectFeedWithName:nil type:kOWFeedTypeFrontPage];
     [self.navigationController pushViewController:feedVC animated:YES];
+}
+
+- (void) recordButtonPressed:(id)sender {
+    OWCaptureViewController *captureVC = [[OWCaptureViewController alloc] init];
+    [self presentViewController:captureVC animated:YES completion:^{
+    }];
+}
+
+- (void) yourMediaPressed:(id)sender {
+    OWRecordingListViewController *recordingListVC = [[OWRecordingListViewController alloc] init];
+    [self.navigationController pushViewController:recordingListVC animated:YES];
+}
+
+- (void) settingsButtonPressed:(id) sender {
+    OWSettingsViewController *settingsVC = [[OWSettingsViewController alloc] init];
+    [self.navigationController pushViewController:settingsVC animated:YES];
 }
 
 - (void) comingSoon:(id)sender {
@@ -105,13 +123,6 @@
         self.onboardingView.images = @[firstImage, secondImage];
         [self.view addSubview:onboardingView];
     }
-}
-
-
-- (void) recordButtonPressed:(id)sender {
-    OWCaptureViewController *captureVC = [[OWCaptureViewController alloc] init];
-    [self presentViewController:captureVC animated:YES completion:^{
-    }];
 }
 
 

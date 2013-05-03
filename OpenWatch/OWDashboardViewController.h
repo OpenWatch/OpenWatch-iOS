@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "OWActionBarView.h"
 #import "OWPaginatedTableViewController.h"
 #import "OWOnboardingView.h"
 #import "OWDashboardView.h"

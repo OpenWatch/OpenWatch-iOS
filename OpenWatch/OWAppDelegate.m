@@ -7,7 +7,6 @@
 //
 
 #import "OWAppDelegate.h"
-#import "OWHomeScreenViewController.h"
 #import "OWUtilities.h"
 #import "OWSHKConfigurator.h"
 #import "SHKConfiguration.h"
