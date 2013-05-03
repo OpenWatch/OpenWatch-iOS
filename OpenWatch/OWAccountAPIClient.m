@@ -352,7 +352,7 @@
     [parameters setObject:mediaObject.serverID forKey:@"serverID"];
     [parameters setObject:hitType forKey:@"hit_type"];
     [parameters setObject:mediaObject.type forKey:@"media_type"];
-        
+    
     [self postPath:@"increase_hitcount/" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"hit response: %@", operation.responseString);
         NSLog(@"request: %@", operation.request.allHTTPHeaderFields);
@@ -369,7 +369,20 @@
 }
 
 - (void) getInvestigationWithObjectID:(NSManagedObjectID *)objectID success:(void (^)(NSManagedObjectID *recordingObjectID))success failure:(void (^)(NSString *reason))failure {
-    
+    NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
+    OWInvestigation *story = (OWInvestigation*)[context existingObjectWithID:objectID error:nil];
+    NSString *path = [NSString stringWithFormat:@"/api/i/%d/", [story.serverID intValue]];
+    NSDictionary *parameters = @{@"html": @(YES)};
+    [self getPath:path parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        if ([responseObject isKindOfClass:[NSDictionary class]]) {
+            [story loadMetadataFromDictionary:responseObject];
+            success(objectID);
+        } else {
+            failure(@"not a dict");
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        failure(@"it failed");
+    }];
 }
 
 - (void) getStoryWithObjectID:(NSManagedObjectID *)objectID success:(void (^)(NSManagedObjectID *recordingObjectID))success failure:(void (^)(NSString *reason))failure {
