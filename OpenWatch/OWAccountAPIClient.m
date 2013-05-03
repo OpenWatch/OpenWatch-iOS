@@ -372,7 +372,7 @@
     NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
     OWInvestigation *story = (OWInvestigation*)[context existingObjectWithID:objectID error:nil];
     NSString *path = [NSString stringWithFormat:@"/api/i/%d/", [story.serverID intValue]];
-    NSDictionary *parameters = @{@"html": @(YES)};
+    NSDictionary *parameters = @{@"html": @"true"};
     [self getPath:path parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if ([responseObject isKindOfClass:[NSDictionary class]]) {
             [story loadMetadataFromDictionary:responseObject];
