@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "OWMediaObjectViewController.h"
+#import "OWInvestigation.h"
 
 @interface OWInvestigationViewController : OWMediaObjectViewController <UIWebViewDelegate>
 
