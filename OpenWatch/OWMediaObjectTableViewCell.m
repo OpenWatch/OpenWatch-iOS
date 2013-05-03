@@ -63,8 +63,8 @@
     }
     
     UIImage *placeholderImage = [UIImage imageNamed:@"thumbnail_placeholder.png"];
-    //[self.thumbnailImageView setImageWithURL:mediaObject.thumbnailURL placeholderImage:placeholderImage];
-
+    [self.thumbnailImageView setImageWithURL:mediaObject.thumbnailURL placeholderImage:placeholderImage];
+    /*
     NSURLRequest *request = [NSURLRequest requestWithURL:mediaObject.thumbnailURL];       
     [self.thumbnailImageView setImageWithURLRequest:request placeholderImage:placeholderImage success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
         NSLog(@"Loaded thumbnail (%d): %@ %@", response.statusCode, response.description, request.URL.description);
@@ -72,7 +72,7 @@
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
         NSLog(@"Failed to load thumbnail (%d): %@ %@", response.statusCode, request.URL.description, [error userInfo].description);
     }];
-     
+    */ 
     
 }
 
