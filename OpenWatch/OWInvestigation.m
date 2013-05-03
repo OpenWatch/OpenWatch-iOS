@@ -46,5 +46,9 @@
     }
 }
 
+- (NSString*) type {
+    return @"investigation";
+}
+
 
 @end

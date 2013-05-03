@@ -16,6 +16,7 @@
 #import "OWStrings.h"
 #import "OWFeedViewController.h"
 #import "OWFeedSelectionViewController.h"
+#import "OWInvestigationViewController.h"
 
 #define kActionBarHeight 70.0f
 
@@ -156,6 +157,21 @@
 
 - (void) fetchObjectsForPageNumber:(NSUInteger)pageNumber {
     
+}
+
+- (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if (indexPath.row >= self.objectIDs.count) {
+        return;
+    }
+    NSManagedObjectID *mediaObjectID = [self.objectIDs objectAtIndex:indexPath.row];
+    //NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
+    //OWMediaObject *mediaObject = (OWMediaObject*)[context existingObjectWithID:mediaObjectID error:nil];
+    
+    OWInvestigationViewController *owc = [[OWInvestigationViewController alloc] init];
+    owc.mediaObjectID = mediaObjectID;
+    
+    [self.navigationController pushViewController:owc animated:YES];
 }
 
 @end

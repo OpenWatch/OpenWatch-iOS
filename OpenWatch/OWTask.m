@@ -13,4 +13,9 @@
 
 @implementation OWTask
 
+- (NSString*) type {
+    return @"task";
+}
+
+
 @end
