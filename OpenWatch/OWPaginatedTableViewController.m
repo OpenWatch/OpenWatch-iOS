@@ -30,6 +30,7 @@
     if (self) {
         self.tableView.backgroundColor = [OWUtilities stoneBackgroundPattern];
         currentPage = 0;
+        self.cellClass = [OWMediaObjectTableViewCell class];
     }
     return self;
 }

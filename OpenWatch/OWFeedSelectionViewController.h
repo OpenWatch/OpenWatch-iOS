@@ -11,7 +11,8 @@
 
 typedef enum {
     kOWFeedTypeTag = 0,
-    kOWFeedTypeFeed
+    kOWFeedTypeFeed = 1,
+    kOWFeedTypeFrontPage = 2
 } OWFeedType;
 
 @protocol OWFeedSelectionDelegate <NSObject>

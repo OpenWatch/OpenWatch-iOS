@@ -86,6 +86,8 @@
 		D94A75A3170E555900525289 /* openwatch-light@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D94A75A1170E555800525289 /* openwatch-light@2x.png */; };
 		D955371616B32E3C00753C15 /* 275-broadcast.png in Resources */ = {isa = PBXBuildFile; fileRef = D955371416B32E3C00753C15 /* 275-broadcast.png */; };
 		D955371716B32E3C00753C15 /* 275-broadcast@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D955371516B32E3C00753C15 /* 275-broadcast@2x.png */; };
+		D964E59017333F5600ECF972 /* OWTask.m in Sources */ = {isa = PBXBuildFile; fileRef = D964E58F17333F5600ECF972 /* OWTask.m */; };
+		D964E5BA17333FAF00ECF972 /* _OWTask.m in Sources */ = {isa = PBXBuildFile; fileRef = D964E5B917333F7000ECF972 /* _OWTask.m */; };
 		D96677EA16810B2A006F1815 /* OWTallyView.m in Sources */ = {isa = PBXBuildFile; fileRef = D96677E916810B2A006F1815 /* OWTallyView.m */; };
 		D96FA7AB1656F15B00309F08 /* OWAccountAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = D96FA7AA1656F15B00309F08 /* OWAccountAPIClient.m */; };
 		D97EAAA1167911B100A1B038 /* OWMediaObjectTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D97EAAA0167911B100A1B038 /* OWMediaObjectTableViewCell.m */; };
@@ -715,6 +717,10 @@
 		D94A75A1170E555800525289 /* openwatch-light@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "openwatch-light@2x.png"; sourceTree = "<group>"; };
 		D955371416B32E3C00753C15 /* 275-broadcast.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "275-broadcast.png"; sourceTree = "<group>"; };
 		D955371516B32E3C00753C15 /* 275-broadcast@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "275-broadcast@2x.png"; sourceTree = "<group>"; };
+		D964E58E17333F5600ECF972 /* OWTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWTask.h; sourceTree = "<group>"; };
+		D964E58F17333F5600ECF972 /* OWTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWTask.m; sourceTree = "<group>"; };
+		D964E5B817333F7000ECF972 /* _OWTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _OWTask.h; sourceTree = "<group>"; };
+		D964E5B917333F7000ECF972 /* _OWTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _OWTask.m; sourceTree = "<group>"; };
 		D96677E816810B2A006F1815 /* OWTallyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWTallyView.h; sourceTree = "<group>"; };
 		D96677E916810B2A006F1815 /* OWTallyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWTallyView.m; sourceTree = "<group>"; };
 		D96677EC168124F1006F1815 /* ShareKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ShareKit.xcodeproj; path = ShareKit/ShareKit.xcodeproj; sourceTree = "<group>"; };
@@ -1175,6 +1181,8 @@
 				D98FCB3E16A4AA570071DF6B /* _OWStory.m */,
 				D98FCB3F16A4AA570071DF6B /* _OWUser.h */,
 				D98FCB4016A4AA570071DF6B /* _OWUser.m */,
+				D964E5B817333F7000ECF972 /* _OWTask.h */,
+				D964E5B917333F7000ECF972 /* _OWTask.m */,
 				D98FCB5516A4AB8C0071DF6B /* _OWTag.h */,
 				D98FCB5616A4AB8C0071DF6B /* _OWTag.m */,
 			);
@@ -1741,6 +1749,8 @@
 				D9EB4C76166D5F600019F8B6 /* OWRecordingSegment.h */,
 				D9EB4C77166D5F600019F8B6 /* OWRecordingSegment.m */,
 				D9EB4C59166D338B0019F8B6 /* Model.xcdatamodeld */,
+				D964E58E17333F5600ECF972 /* OWTask.h */,
+				D964E58F17333F5600ECF972 /* OWTask.m */,
 				D9DA079D17304A7E0041B638 /* OWInvestigation.h */,
 				D9DA079E17304A7E0041B638 /* OWInvestigation.m */,
 				D9EB4C7D166D67910019F8B6 /* OWUser.h */,
@@ -2375,6 +2385,8 @@
 				30B5C4EC17331AAD00CC0244 /* OWInvestigationViewController.m in Sources */,
 				D91AC0011733003100823179 /* OWDashboardViewController.m in Sources */,
 				D91AC02B173300A000823179 /* OWActionBarView.m in Sources */,
+				D964E59017333F5600ECF972 /* OWTask.m in Sources */,
+				D964E5BA17333FAF00ECF972 /* _OWTask.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

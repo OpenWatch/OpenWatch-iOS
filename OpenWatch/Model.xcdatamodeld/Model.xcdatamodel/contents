@@ -54,7 +54,7 @@
         <relationship name="objects" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="OWMediaObject" inverseName="tags" inverseEntity="OWMediaObject" syncable="YES"/>
         <relationship name="users" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="OWUser" inverseName="tags" inverseEntity="OWUser" syncable="YES"/>
     </entity>
-    <entity name="OWTask" parentEntity="OWServerObject" syncable="YES">
+    <entity name="OWTask" representedClassName="OWTask" parentEntity="OWServerObject" syncable="YES">
         <attribute name="body" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="investigation" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="OWInvestigation" inverseName="tasks" inverseEntity="OWInvestigation" syncable="YES"/>

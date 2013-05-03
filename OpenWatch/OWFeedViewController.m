@@ -158,7 +158,7 @@
     } else if ([mediaObject isKindOfClass:[OWStory class]]) {
         OWStoryViewController *storyVC = [[OWStoryViewController alloc] init];
         vc = storyVC;
-    }else if ([mediaObject isKindOfClass:[OWInvestigation class]]) {
+    } else if ([mediaObject isKindOfClass:[OWInvestigation class]]) {
         OWInvestigationViewController *investigationVC = [[OWInvestigationViewController alloc] init];
         vc = investigationVC;
     }
