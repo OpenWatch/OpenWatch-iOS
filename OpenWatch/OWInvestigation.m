@@ -30,7 +30,7 @@
     }
     NSString *logo = [metadataDictionary objectForKey:kLogoKey];
     if (logo) {
-        self.logo = logo;
+        self.thumbnailURLString = logo;
     }
     NSString *big_logo = [metadataDictionary objectForKey:kBigLogoKey];
     if (big_logo) {

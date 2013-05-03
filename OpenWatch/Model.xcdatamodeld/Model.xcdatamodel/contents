@@ -5,7 +5,6 @@
         <attribute name="blurb" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="body" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="html" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="logo" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="questions" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="tasks" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="OWTask" inverseName="investigation" inverseEntity="OWTask" syncable="YES"/>
     </entity>
@@ -69,7 +68,7 @@
         <relationship name="tasks" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="OWTask" inverseName="user" inverseEntity="OWTask" syncable="YES"/>
     </entity>
     <elements>
-        <element name="OWInvestigation" positionX="439" positionY="504" width="128" height="150"/>
+        <element name="OWInvestigation" positionX="439" positionY="504" width="128" height="135"/>
         <element name="OWLocalRecording" positionX="378" positionY="117" width="128" height="73"/>
         <element name="OWManagedRecording" positionX="484" positionY="243" width="128" height="180"/>
         <element name="OWMediaObject" positionX="36" positionY="-39" width="128" height="165"/>
