@@ -202,7 +202,7 @@
     NSString *password = self.passwordField.text;
     account.email = email;
 
-    if ([email rangeOfString:@"@"].location == NSNotFound) {
+    if (email.length == 0 || [email rangeOfString:@"@"].location == NSNotFound) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Login Error" message:@"Please enter a valid email address." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alert show];
         return;

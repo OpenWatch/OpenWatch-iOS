@@ -85,7 +85,7 @@
     
     OWAccount *account = [OWSettingsController sharedInstance].account;
 
-    if (!account.hasCompletedOnboarding) {
+    if (!account.hasCompletedOnboarding && !self.onboardingView) {
         self.onboardingView = [[OWOnboardingView alloc] initWithFrame:self.view.bounds scrollViewYOffset:kActionBarHeight - 2];
         self.onboardingView.delegate = self;
         [self.view addSubview:onboardingView];
