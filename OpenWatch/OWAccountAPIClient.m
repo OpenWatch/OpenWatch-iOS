@@ -79,7 +79,7 @@
                                                    enableForIOS5AndUp:YES];
     urlCache.ignoreMemoryOnlyStoragePolicy = YES;
     [NSURLCache setSharedURLCache:urlCache];
-
+    [self registerHTTPOperationClass:[AFJSONRequestOperation class]];
     // Accept HTTP Header; see http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.1
 	[self setDefaultHeader:@"Accept" value:@"application/json"];
     self.parameterEncoding = AFJSONParameterEncoding;
