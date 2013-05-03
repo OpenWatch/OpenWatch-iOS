@@ -29,7 +29,10 @@
     [[OWAccountAPIClient sharedClient] getInvestigationWithObjectID:self.mediaObjectID success:^(NSManagedObjectID *investigationObjectID) {
         [self refreshFields];
     } failure:^(NSString *reason) {
+        NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
+        OWInvestigation *investigation = (OWInvestigation*)[context existingObjectWithID:self.mediaObjectID error:nil];
         if(!investigation.html){
+            
             [MBProgressHUD hideHUDForView:self.view animated:YES];
             [self.bodyWebView loadHTMLString:@"<b>Unable to fetch Investigation</b>" baseURL:nil];
         }
