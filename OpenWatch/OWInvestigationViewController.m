@@ -8,6 +8,8 @@
 
 #import "OWInvestigationViewController.h"
 #import "OWInvestigation.h"
+#import "MBProgressHUD.h"
+#import "OWAccountAPIClient.h"
 
 @interface OWInvestigationViewController ()
 
@@ -15,6 +17,21 @@
 
 @implementation OWInvestigationViewController
 @synthesize bodyWebView;
+
+- (void) setMediaObjectID:(NSManagedObjectID *)newMediaObjectID {
+    [super setMediaObjectID:newMediaObjectID];
+    [self refreshFields];
+    NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
+    OWInvestigation *investigation = (OWInvestigation*)[context existingObjectWithID:self.mediaObjectID error:nil];
+    if(!investigation.html){
+        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    }
+    [[OWAccountAPIClient sharedClient] getInvestigationWithObjectID:self.mediaObjectID success:^(NSManagedObjectID *investigationObjectID) {
+        [self refreshFields];
+    } failure:^(NSString *reason) {
+        
+    }];
+}
 
 - (void) dealloc {
     if ([bodyWebView isLoading]) {
@@ -54,9 +71,16 @@
     
 }
 
-- (void)displayHTMLString: (NSString *) htmlString
+- (void)refreshFields
 {
-    [self.bodyWebView loadHTMLString:htmlString baseURL:nil];
+    NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
+    OWInvestigation *investigation = (OWInvestigation*)[context existingObjectWithID:self.mediaObjectID error:nil];
+    [self displayHTMLforInvestigation: investigation];
+}
+
+- (void)displayHTMLforInvestigation: (OWInvestigation *) inv
+{
+    [self.bodyWebView loadHTMLString:inv.html baseURL:nil];
 }
 
 @end
