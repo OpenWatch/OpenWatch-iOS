@@ -89,6 +89,8 @@
 		D964E59017333F5600ECF972 /* OWTask.m in Sources */ = {isa = PBXBuildFile; fileRef = D964E58F17333F5600ECF972 /* OWTask.m */; };
 		D964E5BA17333FAF00ECF972 /* _OWTask.m in Sources */ = {isa = PBXBuildFile; fileRef = D964E5B917333F7000ECF972 /* _OWTask.m */; };
 		D964E5BD1733419600ECF972 /* OWInvestigationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D964E5BC1733419600ECF972 /* OWInvestigationTableViewCell.m */; };
+		D964E5C51733547C00ECF972 /* OWOnboardingView.m in Sources */ = {isa = PBXBuildFile; fileRef = D964E5C41733547C00ECF972 /* OWOnboardingView.m */; };
+		D964E5EE17336AC100ECF972 /* ow_space2@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D964E5ED17336AC100ECF972 /* ow_space2@2x.jpg */; };
 		D96677EA16810B2A006F1815 /* OWTallyView.m in Sources */ = {isa = PBXBuildFile; fileRef = D96677E916810B2A006F1815 /* OWTallyView.m */; };
 		D96FA7AB1656F15B00309F08 /* OWAccountAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = D96FA7AA1656F15B00309F08 /* OWAccountAPIClient.m */; };
 		D97EAAA1167911B100A1B038 /* OWMediaObjectTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D97EAAA0167911B100A1B038 /* OWMediaObjectTableViewCell.m */; };
@@ -724,6 +726,9 @@
 		D964E5B917333F7000ECF972 /* _OWTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _OWTask.m; sourceTree = "<group>"; };
 		D964E5BB1733419600ECF972 /* OWInvestigationTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWInvestigationTableViewCell.h; sourceTree = "<group>"; };
 		D964E5BC1733419600ECF972 /* OWInvestigationTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWInvestigationTableViewCell.m; sourceTree = "<group>"; };
+		D964E5C31733547C00ECF972 /* OWOnboardingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWOnboardingView.h; sourceTree = "<group>"; };
+		D964E5C41733547C00ECF972 /* OWOnboardingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWOnboardingView.m; sourceTree = "<group>"; };
+		D964E5ED17336AC100ECF972 /* ow_space2@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "ow_space2@2x.jpg"; sourceTree = "<group>"; };
 		D96677E816810B2A006F1815 /* OWTallyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWTallyView.h; sourceTree = "<group>"; };
 		D96677E916810B2A006F1815 /* OWTallyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWTallyView.m; sourceTree = "<group>"; };
 		D96677EC168124F1006F1815 /* ShareKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ShareKit.xcodeproj; path = ShareKit/ShareKit.xcodeproj; sourceTree = "<group>"; };
@@ -1157,6 +1162,10 @@
 				D991B6B716B0783100223A02 /* OWTagCreationView.m */,
 				D96677E816810B2A006F1815 /* OWTallyView.h */,
 				D96677E916810B2A006F1815 /* OWTallyView.m */,
+				D964E5C31733547C00ECF972 /* OWOnboardingView.h */,
+				D964E5C41733547C00ECF972 /* OWOnboardingView.m */,
+				D91AC029173300A000823179 /* OWActionBarView.h */,
+				D91AC02A173300A000823179 /* OWActionBarView.m */,
 				D94A26DD167A7B4600BD36EF /* OWLabeledButtonView.h */,
 				D94A26DE167A7B4600BD36EF /* OWLabeledButtonView.m */,
 				D9D2E14D1652D7B80000E7C5 /* OWInLineTextEditTableViewCell.h */,
@@ -1504,8 +1513,6 @@
 				D99741A01651DB0B0034ABB0 /* OWSettingsViewController.m */,
 				D91ABFFF1733003100823179 /* OWDashboardViewController.h */,
 				D91AC0001733003100823179 /* OWDashboardViewController.m */,
-				D91AC029173300A000823179 /* OWActionBarView.h */,
-				D91AC02A173300A000823179 /* OWActionBarView.m */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -1558,6 +1565,7 @@
 		D9DFADF716547DE7003C515C /* Media */ = {
 			isa = PBXGroup;
 			children = (
+				D964E5ED17336AC100ECF972 /* ow_space2@2x.jpg */,
 				D91AC03C1733079E00823179 /* ow_space1@2x.jpg */,
 				D91AC02C1733021800823179 /* 66-microphone.png */,
 				D91AC02D1733021800823179 /* 66-microphone@2x.png */,
@@ -2251,6 +2259,7 @@
 				D91AC03A1733021800823179 /* 279-videocamera.png in Resources */,
 				D91AC03B1733021800823179 /* 279-videocamera@2x.png in Resources */,
 				D91AC03D1733079E00823179 /* ow_space1@2x.jpg in Resources */,
+				D964E5EE17336AC100ECF972 /* ow_space2@2x.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2393,6 +2402,7 @@
 				D964E59017333F5600ECF972 /* OWTask.m in Sources */,
 				D964E5BA17333FAF00ECF972 /* _OWTask.m in Sources */,
 				D964E5BD1733419600ECF972 /* OWInvestigationTableViewCell.m in Sources */,
+				D964E5C51733547C00ECF972 /* OWOnboardingView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

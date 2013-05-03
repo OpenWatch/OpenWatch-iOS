@@ -20,6 +20,10 @@
     [button setBackgroundImage:greenButtonImage forState:UIControlStateNormal]
     ;
     [button setBackgroundImage:greenButtonImageHighlight forState:UIControlStateHighlighted];
+    
+    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [button setTitleShadowColor:[UIColor grayColor] forState:UIControlStateNormal];
+    button.titleLabel.shadowOffset = CGSizeMake(0, -1);
     return button;
 }
 

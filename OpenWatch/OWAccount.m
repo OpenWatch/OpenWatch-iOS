@@ -16,6 +16,7 @@
 #define kPrivateUploadTokenKey @"kPrivateUploadTokenKey"
 #define kPasswordKey @"kPasswordKey"
 #define kUsernameKey @"kUsernameKey"
+#define kOnboardingKey @"kOnboardingKey"
 
 @implementation OWAccount
 
@@ -153,6 +154,7 @@
     [defaults removeObjectForKey:kAccountIDKey];
     [defaults removeObjectForKey:kUsernameKey];
     [defaults removeObjectForKey:kEmailKey];
+    [defaults removeObjectForKey:kOnboardingKey];
     BOOL success = [defaults synchronize];
     if (!success) {
         NSLog(@"Error deleting objects from NSUserDefaults");
@@ -160,6 +162,17 @@
     [self setKeychainValue:nil forKey:kPasswordKey];
     [self setKeychainValue:nil forKey:kPublicUploadTokenKey];
     [self setKeychainValue:nil forKey:kPrivateUploadTokenKey];
+}
+
+- (void) setHasCompletedOnboarding:(BOOL)completedOnboarding {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:@(completedOnboarding) forKey:kOnboardingKey];
+    [defaults synchronize];
+}
+
+- (BOOL) hasCompletedOnboarding {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    return [[defaults objectForKey:kOnboardingKey] boolValue];
 }
 
 @end

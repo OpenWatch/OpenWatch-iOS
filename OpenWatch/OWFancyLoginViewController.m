@@ -61,9 +61,6 @@
     self.emailField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     self.emailField.autocorrectionType = UITextAutocorrectionTypeNo;
     [self.startButton setTitle:@"Get Started →" forState:UIControlStateNormal];
-    [self.startButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [self.startButton setTitleShadowColor:[UIColor grayColor] forState:UIControlStateNormal];
-    self.startButton.titleLabel.shadowOffset = CGSizeMake(0, -1);
     [self.startButton addTarget:self action:@selector(startButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     
     

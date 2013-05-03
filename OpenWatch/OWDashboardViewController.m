@@ -17,6 +17,8 @@
 #import "OWFeedViewController.h"
 #import "OWFeedSelectionViewController.h"
 #import "OWInvestigationViewController.h"
+#import <QuartzCore/QuartzCore.h>
+#import "OWSettingsController.h"
 
 #define kActionBarHeight 70.0f
 
@@ -26,7 +28,7 @@
 @end
 
 @implementation OWDashboardViewController
-@synthesize actionBarView, onboardingImageView;
+@synthesize actionBarView, onboardingView;
 
 - (id)init
 {
@@ -34,7 +36,6 @@
     if (self) {
         self.actionBarView = [[OWActionBarView alloc] init];
         self.actionBarView.delegate = self;
-        self.onboardingImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ow_space1.jpg"]];
     }
     return self;
 }
@@ -74,6 +75,17 @@
     self.actionBarView.frame = CGRectMake(0, 0, self.view.frame.size.width, actionBarHeight);
     
     [self fetchObjectsForPageNumber:1];
+    
+    OWAccount *account = [OWSettingsController sharedInstance].account;
+
+    if (!account.hasCompletedOnboarding) {
+        self.onboardingView = [[OWOnboardingView alloc] initWithFrame:self.view.bounds scrollViewYOffset:kActionBarHeight - 2];
+        self.onboardingView.delegate = self;
+        [self.view addSubview:onboardingView];
+        
+        // TODO: stop using UITableViewController. move to UIViewController with content view and table view in it
+        onboardingView.layer.zPosition = 1000;
+    }
 }
 
 - (void) actionBarView:(OWActionBarView *)actionBarView didSelectButtonAtIndex:(NSUInteger)buttonIndex {
@@ -177,6 +189,17 @@
     owc.mediaObjectID = mediaObjectID;
     
     [self.navigationController pushViewController:owc animated:YES];
+}
+
+- (void) onboardingViewDidComplete:(OWOnboardingView *)onboardingView {
+    OWAccount *account = [OWSettingsController sharedInstance].account;
+    account.hasCompletedOnboarding = YES;
+    [UIView animateWithDuration:3.0 animations:^{
+        self.onboardingView.layer.opacity = 0.0f;
+    } completion:^(BOOL finished) {
+        [self.onboardingView removeFromSuperview];
+        self.onboardingView = nil;
+    }];
 }
 
 @end
