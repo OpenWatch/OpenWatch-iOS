@@ -20,6 +20,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "OWSettingsController.h"
 #import "OWFeedViewController.h"
+#import "OWDashboardItem.h"
 
 #define kActionBarHeight 70.0f
 
@@ -29,15 +30,22 @@
 @end
 
 @implementation OWDashboardViewController
-@synthesize actionBarView, onboardingView;
+@synthesize onboardingView, dashboardView;
 
 - (id)init
 {
     self = [super init];
     if (self) {
-        self.actionBarView = [[OWActionBarView alloc] init];
-        self.actionBarView.delegate = self;
-        //self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Feed" style:UIBarButtonItemStyleBordered target:self action:@selector(feedButtonPressed:)];
+        self.dashboardView = [[OWDashboardView alloc] initWithFrame:CGRectZero];
+        self.dashboardView.delegate = self;
+        OWDashboardItem *videoItem = [[OWDashboardItem alloc] initWithTitle:@"Broadcast Video" image:[UIImage imageNamed:@"279-videocamera.png"]];
+        OWDashboardItem *photoItem = [[OWDashboardItem alloc] initWithTitle:@"Take Photo" image:[UIImage imageNamed:@"86-camera.png"]];
+        OWDashboardItem *audioItem = [[OWDashboardItem alloc] initWithTitle:@"Record Audio" image:[UIImage imageNamed:@"66-microphone.png"]];
+        
+        NSArray *dashboardItems = @[videoItem, photoItem, audioItem];
+        dashboardView.dashboardItems = dashboardItems;
+    
+        
     }
     return self;
 }
@@ -50,10 +58,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
-    //[self.view addSubview:actionBarView];
-    //self.tableView.tableHeaderView = actionBarView;
-    //[self.view addSubview:onboardingImageView];
+    [self.view addSubview:dashboardView];
     
     self.view.backgroundColor = [OWUtilities stoneBackgroundPattern];
     
@@ -78,47 +83,22 @@
 - (void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:animated];
-    CGFloat actionBarHeight = kActionBarHeight;
-    self.actionBarView.frame = CGRectMake(0, 0, self.view.frame.size.width, actionBarHeight);
     
-    [self fetchObjectsForPageNumber:1];
+    self.dashboardView.frame = self.view.bounds;
     
     OWAccount *account = [OWSettingsController sharedInstance].account;
 
-    if (!account.hasCompletedOnboarding && !self.onboardingView) {
-        self.onboardingView = [[OWOnboardingView alloc] initWithFrame:self.view.bounds scrollViewYOffset:kActionBarHeight - 2];
+    if ((!account.hasCompletedOnboarding && !self.onboardingView)) {
+        self.onboardingView = [[OWOnboardingView alloc] initWithFrame:self.view.bounds];
         self.onboardingView.delegate = self;
+        UIImage *firstImage = [UIImage imageNamed:@"ow_space1.jpg"];
+        UIImage *secondImage = [UIImage imageNamed:@"ow_space2.jpg"];
+        
+        self.onboardingView.images = @[firstImage, secondImage];
         [self.view addSubview:onboardingView];
-        
-        // TODO: stop using UITableViewController. move to UIViewController with content view and table view in it
-        onboardingView.layer.zPosition = 1000;
     }
 }
 
-- (void) actionBarView:(OWActionBarView *)actionBarView didSelectButtonAtIndex:(NSUInteger)buttonIndex {
-    NSLog(@"ButtonIndex: %d", buttonIndex);
-    if (buttonIndex == 0) { // video 
-        [self recordButtonPressed:nil];
-    } else if (buttonIndex == 1) { //camera
-        
-    } else if (buttonIndex == 2) { // mic
-        
-    }
-}
-
-- (UIView*) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    if (section == 0) {
-        return actionBarView;
-    }
-    return nil;
-}
-
-- (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    if (section == 0) {
-        return kActionBarHeight;
-    }
-    return [super tableView:tableView heightForHeaderInSection:section];
-}
 
 - (void) recordButtonPressed:(id)sender {
     OWCaptureViewController *captureVC = [[OWCaptureViewController alloc] init];
@@ -127,75 +107,10 @@
 }
 
 
-- (void) settingsButtonPressed:(id)sender {
-    OWSettingsViewController *settingsView = [[OWSettingsViewController alloc] init];
-    [self.navigationController pushViewController:settingsView animated:YES];
-}
-
-
-
-- (void) savedButtonPressed:(id)sender {
-    OWRecordingListViewController *recordingListView = [[OWRecordingListViewController alloc] init];
-    [self.navigationController pushViewController:recordingListView animated:YES];
-}
-
-- (void) watchButtonPressed:(id)sender {
-    OWFeedType type = kOWFeedTypeFeed;
-    NSString *feedString = FEATURED_STRING;
-    [self pushFeedVCForFeedName:feedString type:type];
-}
-
-- (void) pushFeedVCForFeedName:(NSString*)feedName type:(OWFeedType)type {
-    OWFeedViewController *feedVC = [[OWFeedViewController alloc] init];
-    [feedVC didSelectFeedWithName:feedName type:type];
-    [self.navigationController pushViewController:feedVC animated:YES];
-}
-
-- (void) localButtonPressed:(id)sender {
-    OWFeedType type = kOWFeedTypeFeed;
-    NSString *feedString = LOCAL_STRING;
-    [self pushFeedVCForFeedName:feedString type:type];
-}
-
 - (void) alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
     if (buttonIndex != alertView.cancelButtonIndex) {
         [[OWShareController sharedInstance] shareFromViewController:self];
     }
-}
-
-- (void) fetchObjectsForPageNumber:(NSUInteger)pageNumber {
-    self.currentPage = pageNumber;
-    [[OWAccountAPIClient sharedClient] fetchMediaObjectsForFeedType:kOWFeedTypeFrontPage feedName:nil page:self.currentPage success:^(NSArray *mediaObjectIDs, NSUInteger totalPages) {
-        self.totalPages = totalPages;
-        BOOL shouldReplaceObjects = NO;
-        if (self.currentPage == kFirstPage) {
-            shouldReplaceObjects = YES;
-        }
-        [self reloadFeed:mediaObjectIDs replaceObjects:shouldReplaceObjects];
-        
-    } failure:^(NSString *reason) {
-        [self failedToLoadFeed:reason];
-    }];
-}
-
-- (void) reloadTableViewDataSource {
-    [super reloadTableViewDataSource];
-    [self fetchObjectsForPageNumber:1];
-}
-
-- (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    if (indexPath.row >= self.objectIDs.count) {
-        return;
-    }
-    NSManagedObjectID *mediaObjectID = [self.objectIDs objectAtIndex:indexPath.row];
-    //NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
-    //OWMediaObject *mediaObject = (OWMediaObject*)[context existingObjectWithID:mediaObjectID error:nil];
-    
-    OWInvestigationViewController *owc = [[OWInvestigationViewController alloc] init];
-    owc.mediaObjectID = mediaObjectID;
-    
-    [self.navigationController pushViewController:owc animated:YES];
 }
 
 - (void) onboardingViewDidComplete:(OWOnboardingView *)onboardingView {
@@ -207,6 +122,10 @@
         [self.onboardingView removeFromSuperview];
         self.onboardingView = nil;
     }];
+}
+
+- (void) dashboardView:(OWDashboardView *)dashboardView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSLog(@"selected (%d, %d)", indexPath.section, indexPath.row);
 }
 
 @end

@@ -191,6 +191,9 @@
 		D9D786FD16766C40006EE6A2 /* popoverBg.png in Resources */ = {isa = PBXBuildFile; fileRef = D9D786EE16766C40006EE6A2 /* popoverBg.png */; };
 		D9D786FE16766C40006EE6A2 /* popoverBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9D786EF16766C40006EE6A2 /* popoverBg@2x.png */; };
 		D9D7870D1677EDB0006EE6A2 /* OWFeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D7870C1677EDB0006EE6A2 /* OWFeedViewController.m */; };
+		D9D8673D17346C89008C8CE6 /* OWDashboardView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D8673C17346C89008C8CE6 /* OWDashboardView.m */; };
+		D9D8676717346D02008C8CE6 /* OWDashboardItem.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D8676617346D02008C8CE6 /* OWDashboardItem.m */; };
+		D9D8676A17346FF7008C8CE6 /* OWDashboardTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D8676917346FF7008C8CE6 /* OWDashboardTableViewCell.m */; };
 		D9DA079C173039E60041B638 /* libfacebook_ios_sdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D9DA0799173039A50041B638 /* libfacebook_ios_sdk.a */; };
 		D9DA079F17304A7E0041B638 /* OWInvestigation.m in Sources */ = {isa = PBXBuildFile; fileRef = D9DA079E17304A7E0041B638 /* OWInvestigation.m */; };
 		D9DA07A217304AA00041B638 /* _OWInvestigation.m in Sources */ = {isa = PBXBuildFile; fileRef = D9DA07A117304A9F0041B638 /* _OWInvestigation.m */; };
@@ -895,6 +898,12 @@
 		D9D786EF16766C40006EE6A2 /* popoverBg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "popoverBg@2x.png"; path = "Submodules/WEPopover/popoverBg@2x.png"; sourceTree = SOURCE_ROOT; };
 		D9D7870B1677EDB0006EE6A2 /* OWFeedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWFeedViewController.h; sourceTree = "<group>"; };
 		D9D7870C1677EDB0006EE6A2 /* OWFeedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWFeedViewController.m; sourceTree = "<group>"; };
+		D9D8673B17346C89008C8CE6 /* OWDashboardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWDashboardView.h; sourceTree = "<group>"; };
+		D9D8673C17346C89008C8CE6 /* OWDashboardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWDashboardView.m; sourceTree = "<group>"; };
+		D9D8676517346D02008C8CE6 /* OWDashboardItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWDashboardItem.h; sourceTree = "<group>"; };
+		D9D8676617346D02008C8CE6 /* OWDashboardItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWDashboardItem.m; sourceTree = "<group>"; };
+		D9D8676817346FF7008C8CE6 /* OWDashboardTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWDashboardTableViewCell.h; sourceTree = "<group>"; };
+		D9D8676917346FF7008C8CE6 /* OWDashboardTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWDashboardTableViewCell.m; sourceTree = "<group>"; };
 		D9DA0793173039A50041B638 /* facebook-ios-sdk.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "facebook-ios-sdk.xcodeproj"; path = "ShareKit/Submodules/facebook-ios-sdk/src/facebook-ios-sdk.xcodeproj"; sourceTree = "<group>"; };
 		D9DA079D17304A7E0041B638 /* OWInvestigation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWInvestigation.h; sourceTree = "<group>"; };
 		D9DA079E17304A7E0041B638 /* OWInvestigation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWInvestigation.m; sourceTree = "<group>"; };
@@ -1511,8 +1520,7 @@
 				D9D2E1871653236E0000E7C5 /* OWCaptureViewController.m */,
 				D997419F1651DB0B0034ABB0 /* OWSettingsViewController.h */,
 				D99741A01651DB0B0034ABB0 /* OWSettingsViewController.m */,
-				D91ABFFF1733003100823179 /* OWDashboardViewController.h */,
-				D91AC0001733003100823179 /* OWDashboardViewController.m */,
+				D9D8676B17347492008C8CE6 /* Dashboard */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -1551,6 +1559,21 @@
 				D9D786DF1676665D006EE6A2 /* OWAutocompletionViewController.m */,
 			);
 			name = SuggestionsList;
+			sourceTree = "<group>";
+		};
+		D9D8676B17347492008C8CE6 /* Dashboard */ = {
+			isa = PBXGroup;
+			children = (
+				D91ABFFF1733003100823179 /* OWDashboardViewController.h */,
+				D91AC0001733003100823179 /* OWDashboardViewController.m */,
+				D9D8676817346FF7008C8CE6 /* OWDashboardTableViewCell.h */,
+				D9D8676917346FF7008C8CE6 /* OWDashboardTableViewCell.m */,
+				D9D8673B17346C89008C8CE6 /* OWDashboardView.h */,
+				D9D8673C17346C89008C8CE6 /* OWDashboardView.m */,
+				D9D8676517346D02008C8CE6 /* OWDashboardItem.h */,
+				D9D8676617346D02008C8CE6 /* OWDashboardItem.m */,
+			);
+			name = Dashboard;
 			sourceTree = "<group>";
 		};
 		D9DA0794173039A50041B638 /* Products */ = {
@@ -2403,6 +2426,9 @@
 				D964E5BA17333FAF00ECF972 /* _OWTask.m in Sources */,
 				D964E5BD1733419600ECF972 /* OWInvestigationTableViewCell.m in Sources */,
 				D964E5C51733547C00ECF972 /* OWOnboardingView.m in Sources */,
+				D9D8673D17346C89008C8CE6 /* OWDashboardView.m in Sources */,
+				D9D8676717346D02008C8CE6 /* OWDashboardItem.m in Sources */,
+				D9D8676A17346FF7008C8CE6 /* OWDashboardTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

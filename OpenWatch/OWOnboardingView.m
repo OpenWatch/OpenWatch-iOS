@@ -12,28 +12,12 @@
 @implementation OWOnboardingView
 @synthesize scrollView, images, displayIndex, continueButton;
 
-- (id) initWithFrame:(CGRect)frame scrollViewYOffset:(CGFloat)offset {
+- (id) initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         // Initialization code
         self.displayIndex = 0;
-        self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(frame.origin.x, frame.origin.y + offset, frame.size.width, frame.size.height)];
+        self.scrollView = [[UIScrollView alloc] initWithFrame:frame];
         self.scrollView.userInteractionEnabled = NO;
-        
-        UIImage *firstImage = [UIImage imageNamed:@"ow_space1.jpg"];
-        UIImage *secondImage = [UIImage imageNamed:@"ow_space2.jpg"];
-        
-        self.images = @[firstImage, secondImage];
-        
-        int i = 0;
-        for (UIImage *image in images) {
-            UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
-            imageView.contentMode = UIViewContentModeTop;
-            imageView.frame = CGRectMake(frame.size.width * i, 0, frame.size.width, frame.size.height);
-            [self.scrollView addSubview:imageView];
-            i++;
-        }
-        
-        self.scrollView.contentSize = CGSizeMake(frame.size.width * i, frame.size.height);
         
         [self addSubview:scrollView];
         
@@ -50,12 +34,22 @@
     return self;
 }
 
-- (id)initWithFrame:(CGRect)frame
-{
-    if (self = [self initWithFrame:frame scrollViewYOffset:0]) {
-        
+- (void) setImages:(NSArray *)newImages {
+    images = newImages;
+    int i = 0;
+    for (UIImage *image in images) {
+        UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
+        imageView.contentMode = UIViewContentModeTop;
+        imageView.frame = CGRectMake(self.frame.size.width * i, 0, self.frame.size.width, self.frame.size.height);
+        [self.scrollView addSubview:imageView];
+        i++;
     }
-    return self;
+    self.scrollView.contentSize = CGSizeMake(self.frame.size.width * i, self.frame.size.height);
+}
+
+- (void) setFrame:(CGRect)frame {
+    [super setFrame:frame];
+    self.scrollView.frame = frame;
 }
 
 - (void) continueButtonPressed:(id)sender {

@@ -25,8 +25,4 @@
 
 @property (nonatomic, weak) id<OWOnboardingViewDelegate> delegate;
 
-- (id)initWithFrame:(CGRect)frame scrollViewYOffset:(CGFloat)offset;
-
-
-
 @end
