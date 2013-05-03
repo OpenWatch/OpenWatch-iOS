@@ -73,18 +73,7 @@
     CGFloat actionBarHeight = kActionBarHeight;
     self.actionBarView.frame = CGRectMake(0, 0, self.view.frame.size.width, actionBarHeight);
     
-    self.currentPage = 1;
-    [[OWAccountAPIClient sharedClient] fetchMediaObjectsForFeedType:kOWFeedTypeFrontPage feedName:nil page:self.currentPage success:^(NSArray *mediaObjectIDs, NSUInteger totalPages) {
-        self.totalPages = totalPages;
-        BOOL shouldReplaceObjects = NO;
-        if (self.currentPage == kFirstPage) {
-            shouldReplaceObjects = YES;
-        }
-        [self reloadFeed:mediaObjectIDs replaceObjects:shouldReplaceObjects];
-        
-    } failure:^(NSString *reason) {
-        [self failedToLoadFeed:reason];
-    }];
+    [self fetchObjectsForPageNumber:1];
 }
 
 - (void) actionBarView:(OWActionBarView *)actionBarView didSelectButtonAtIndex:(NSUInteger)buttonIndex {
@@ -156,7 +145,23 @@
 }
 
 - (void) fetchObjectsForPageNumber:(NSUInteger)pageNumber {
-    
+    self.currentPage = pageNumber;
+    [[OWAccountAPIClient sharedClient] fetchMediaObjectsForFeedType:kOWFeedTypeFrontPage feedName:nil page:self.currentPage success:^(NSArray *mediaObjectIDs, NSUInteger totalPages) {
+        self.totalPages = totalPages;
+        BOOL shouldReplaceObjects = NO;
+        if (self.currentPage == kFirstPage) {
+            shouldReplaceObjects = YES;
+        }
+        [self reloadFeed:mediaObjectIDs replaceObjects:shouldReplaceObjects];
+        
+    } failure:^(NSString *reason) {
+        [self failedToLoadFeed:reason];
+    }];
+}
+
+- (void) reloadTableViewDataSource {
+    [super reloadTableViewDataSource];
+    [self fetchObjectsForPageNumber:1];
 }
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
