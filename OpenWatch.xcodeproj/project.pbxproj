@@ -88,6 +88,7 @@
 		D955371716B32E3C00753C15 /* 275-broadcast@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D955371516B32E3C00753C15 /* 275-broadcast@2x.png */; };
 		D964E59017333F5600ECF972 /* OWTask.m in Sources */ = {isa = PBXBuildFile; fileRef = D964E58F17333F5600ECF972 /* OWTask.m */; };
 		D964E5BA17333FAF00ECF972 /* _OWTask.m in Sources */ = {isa = PBXBuildFile; fileRef = D964E5B917333F7000ECF972 /* _OWTask.m */; };
+		D964E5BD1733419600ECF972 /* OWInvestigationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D964E5BC1733419600ECF972 /* OWInvestigationTableViewCell.m */; };
 		D96677EA16810B2A006F1815 /* OWTallyView.m in Sources */ = {isa = PBXBuildFile; fileRef = D96677E916810B2A006F1815 /* OWTallyView.m */; };
 		D96FA7AB1656F15B00309F08 /* OWAccountAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = D96FA7AA1656F15B00309F08 /* OWAccountAPIClient.m */; };
 		D97EAAA1167911B100A1B038 /* OWMediaObjectTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D97EAAA0167911B100A1B038 /* OWMediaObjectTableViewCell.m */; };
@@ -721,6 +722,8 @@
 		D964E58F17333F5600ECF972 /* OWTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWTask.m; sourceTree = "<group>"; };
 		D964E5B817333F7000ECF972 /* _OWTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _OWTask.h; sourceTree = "<group>"; };
 		D964E5B917333F7000ECF972 /* _OWTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _OWTask.m; sourceTree = "<group>"; };
+		D964E5BB1733419600ECF972 /* OWInvestigationTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWInvestigationTableViewCell.h; sourceTree = "<group>"; };
+		D964E5BC1733419600ECF972 /* OWInvestigationTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWInvestigationTableViewCell.m; sourceTree = "<group>"; };
 		D96677E816810B2A006F1815 /* OWTallyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWTallyView.h; sourceTree = "<group>"; };
 		D96677E916810B2A006F1815 /* OWTallyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWTallyView.m; sourceTree = "<group>"; };
 		D96677EC168124F1006F1815 /* ShareKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ShareKit.xcodeproj; path = ShareKit/ShareKit.xcodeproj; sourceTree = "<group>"; };
@@ -1325,6 +1328,8 @@
 				D9C8A57F16B9A1D2004F9E05 /* OWLocalRecordingTableViewCell.m */,
 				D97EAA9F167911B100A1B038 /* OWMediaObjectTableViewCell.h */,
 				D97EAAA0167911B100A1B038 /* OWMediaObjectTableViewCell.m */,
+				D964E5BB1733419600ECF972 /* OWInvestigationTableViewCell.h */,
+				D964E5BC1733419600ECF972 /* OWInvestigationTableViewCell.m */,
 				D9C8A59F16B9A2EA004F9E05 /* OWFeedTableViewCell.h */,
 				D9C8A5A016B9A2EA004F9E05 /* OWFeedTableViewCell.m */,
 			);
@@ -2387,6 +2392,7 @@
 				D91AC02B173300A000823179 /* OWActionBarView.m in Sources */,
 				D964E59017333F5600ECF972 /* OWTask.m in Sources */,
 				D964E5BA17333FAF00ECF972 /* _OWTask.m in Sources */,
+				D964E5BD1733419600ECF972 /* OWInvestigationTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
