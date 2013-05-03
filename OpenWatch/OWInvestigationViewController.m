@@ -29,6 +29,10 @@
     [[OWAccountAPIClient sharedClient] getInvestigationWithObjectID:self.mediaObjectID success:^(NSManagedObjectID *investigationObjectID) {
         [self refreshFields];
     } failure:^(NSString *reason) {
+        if(!investigation.html){
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
+            [self.bodyWebView loadHTMLString:@"<b>Unable to fetch Investigation</b>" baseURL:nil];
+        }
         
     }];
 }
@@ -44,14 +48,22 @@
 {
     self = [super init];
     if (self) {
+        [self setupWebView];
         // Custom initialization
     }
     return self;
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.bodyWebView.frame = self.view.bounds;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self.view addSubview:bodyWebView];
 	// Do any additional setup after loading the view.
 }
 
@@ -75,6 +87,7 @@
 {
     NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
     OWInvestigation *investigation = (OWInvestigation*)[context existingObjectWithID:self.mediaObjectID error:nil];
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
     [self displayHTMLforInvestigation: investigation];
 }
 
