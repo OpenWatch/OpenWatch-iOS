@@ -9,12 +9,14 @@
 #import "OWDashboardItem.h"
 
 @implementation OWDashboardItem
-@synthesize title, image;
+@synthesize title, image, target, selector;
 
-- (id) initWithTitle:(NSString *)newTitle image:(UIImage *)newImage {
+- (id) initWithTitle:(NSString *)newTitle image:(UIImage *)newImage target:(id)newTarget selector:(SEL)newSelector {
     if (self = [super init]) {
         self.title = newTitle;
         self.image = newImage;
+        self.target = newTarget;
+        self.selector = newSelector;
     }
     return self;
 }

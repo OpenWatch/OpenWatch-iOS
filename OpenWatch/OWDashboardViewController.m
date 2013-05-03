@@ -37,15 +37,18 @@
     self = [super init];
     if (self) {
         self.dashboardView = [[OWDashboardView alloc] initWithFrame:CGRectZero];
-        self.dashboardView.delegate = self;
-        OWDashboardItem *videoItem = [[OWDashboardItem alloc] initWithTitle:@"Broadcast Video" image:[UIImage imageNamed:@"279-videocamera.png"]];
-        OWDashboardItem *photoItem = [[OWDashboardItem alloc] initWithTitle:@"Take Photo" image:[UIImage imageNamed:@"86-camera.png"]];
-        OWDashboardItem *audioItem = [[OWDashboardItem alloc] initWithTitle:@"Record Audio" image:[UIImage imageNamed:@"66-microphone.png"]];
+        OWDashboardItem *videoItem = [[OWDashboardItem alloc] initWithTitle:@"Broadcast Video" image:[UIImage imageNamed:@"279-videocamera.png"] target:self selector:@selector(recordButtonPressed:)];
+        OWDashboardItem *photoItem = [[OWDashboardItem alloc] initWithTitle:@"Take Photo" image:[UIImage imageNamed:@"86-camera.png"] target:self selector:@selector(comingSoon:)];
+        OWDashboardItem *audioItem = [[OWDashboardItem alloc] initWithTitle:@"Record Audio" image:[UIImage imageNamed:@"66-microphone.png"] target:self selector:@selector(comingSoon:)];
         
-        NSArray *dashboardItems = @[videoItem, photoItem, audioItem];
-        dashboardView.dashboardItems = dashboardItems;
-    
+        OWDashboardItem *topStories = [[OWDashboardItem alloc] initWithTitle:@"Top Stories" image:nil target:self selector:@selector(comingSoon:)];
+        OWDashboardItem *yourMedia = [[OWDashboardItem alloc] initWithTitle:@"Your Media" image:nil target:self selector:@selector(comingSoon:)];
+        OWDashboardItem *settings = [[OWDashboardItem alloc] initWithTitle:@"Settings" image:nil target:self selector:@selector(comingSoon:)];
         
+        NSArray *topItems = @[videoItem, photoItem, audioItem];
+        NSArray *bottonItems = @[topStories, yourMedia, settings];
+        NSArray *dashboardItems = @[topItems, bottonItems];
+        dashboardView.dashboardItems = dashboardItems;        
     }
     return self;
 }
@@ -53,6 +56,11 @@
 - (void) feedButtonPressed:(id)sender {
     OWFeedViewController *feedVC = [[OWFeedViewController alloc] init];
     [self.navigationController pushViewController:feedVC animated:YES];
+}
+
+- (void) comingSoon:(id)sender {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Coming soon!" message:@"Sorry I haven't written that part yet. Check back later!" delegate:nil cancelButtonTitle:@"Cool" otherButtonTitles:nil];
+    [alert show];
 }
 
 - (void)viewDidLoad
@@ -122,10 +130,6 @@
         [self.onboardingView removeFromSuperview];
         self.onboardingView = nil;
     }];
-}
-
-- (void) dashboardView:(OWDashboardView *)dashboardView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSLog(@"selected (%d, %d)", indexPath.section, indexPath.row);
 }
 
 @end

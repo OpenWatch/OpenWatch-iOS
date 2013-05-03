@@ -42,16 +42,30 @@ static NSString *cellIdentifier = @"cellIdentifier";
 }
 
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return ((NSArray*)[dashboardItems objectAtIndex:section]).count;
+}
+
+- (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView {
     return dashboardItems.count;
 }
 
 - (UITableViewCell*) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     OWDashboardTableViewCell *dashboardCell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
-    dashboardCell.dashboardItem = [dashboardItems objectAtIndex:indexPath.row];
+    dashboardCell.dashboardItem = [[dashboardItems objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
     return dashboardCell;
 }
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    OWDashboardItem *dashboardItem = [[dashboardItems objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+    
+    if (dashboardItem.target && [dashboardItem.target respondsToSelector:dashboardItem.selector]) {
+        NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:[[dashboardItem.target class] instanceMethodSignatureForSelector:dashboardItem.selector]];
+        invocation.target = dashboardItem.target;
+        invocation.selector = dashboardItem.selector;
+        [invocation setArgument:&dashboardItem atIndex:2];
+        [invocation invoke];
+    }
+    
     if (self.delegate && [self.delegate respondsToSelector:@selector(dashboardView:didSelectRowAtIndexPath:)]) {
         [self.delegate dashboardView:self didSelectRowAtIndexPath:indexPath];
     }

@@ -12,7 +12,9 @@
 
 @property (nonatomic, strong) UIImage *image;
 @property (nonatomic, strong) NSString *title;
+@property (nonatomic) SEL selector;
+@property (nonatomic, weak) id target;
 
-- (id) initWithTitle:(NSString*)newTitle image:(UIImage*)newImage;
+- (id) initWithTitle:(NSString*)newTitle image:(UIImage*)newImage target:(id) newTarget selector:(SEL)newSelector;
 
 @end
