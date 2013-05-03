@@ -15,6 +15,7 @@
 #import "OWRecordingListViewController.h"
 #import "OWStrings.h"
 #import "OWFeedViewController.h"
+#import "OWFeedSelectionViewController.h"
 
 #define kActionBarHeight 70.0f
 
@@ -70,6 +71,19 @@
     [self.navigationController setNavigationBarHidden:NO animated:animated];
     CGFloat actionBarHeight = kActionBarHeight;
     self.actionBarView.frame = CGRectMake(0, 0, self.view.frame.size.width, actionBarHeight);
+    
+    self.currentPage = 1;
+    [[OWAccountAPIClient sharedClient] fetchMediaObjectsForFeedType:kOWFeedTypeFrontPage feedName:nil page:self.currentPage success:^(NSArray *mediaObjectIDs, NSUInteger totalPages) {
+        self.totalPages = totalPages;
+        BOOL shouldReplaceObjects = NO;
+        if (self.currentPage == kFirstPage) {
+            shouldReplaceObjects = YES;
+        }
+        [self reloadFeed:mediaObjectIDs replaceObjects:shouldReplaceObjects];
+        
+    } failure:^(NSString *reason) {
+        [self failedToLoadFeed:reason];
+    }];
 }
 
 - (void) actionBarView:(OWActionBarView *)actionBarView didSelectButtonAtIndex:(NSUInteger)buttonIndex {
@@ -138,6 +152,10 @@
     if (buttonIndex != alertView.cancelButtonIndex) {
         [[OWShareController sharedInstance] shareFromViewController:self];
     }
+}
+
+- (void) fetchObjectsForPageNumber:(NSUInteger)pageNumber {
+    
 }
 
 @end

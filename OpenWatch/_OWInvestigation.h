@@ -20,7 +20,7 @@ extern const struct OWInvestigationRelationships {
 extern const struct OWInvestigationFetchedProperties {
 } OWInvestigationFetchedProperties;
 
-@class NSManagedObject;
+@class OWTask;
 
 
 
@@ -116,8 +116,8 @@ extern const struct OWInvestigationFetchedProperties {
 
 - (void)addTasks:(NSSet*)value_;
 - (void)removeTasks:(NSSet*)value_;
-- (void)addTasksObject:(NSManagedObject*)value_;
-- (void)removeTasksObject:(NSManagedObject*)value_;
+- (void)addTasksObject:(OWTask*)value_;
+- (void)removeTasksObject:(OWTask*)value_;
 
 @end
 

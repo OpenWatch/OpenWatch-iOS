@@ -21,7 +21,7 @@ extern const struct OWUserFetchedProperties {
 
 @class OWMediaObject;
 @class OWTag;
-@class NSManagedObject;
+@class OWTask;
 
 
 
@@ -108,8 +108,8 @@ extern const struct OWUserFetchedProperties {
 
 - (void)addTasks:(NSSet*)value_;
 - (void)removeTasks:(NSSet*)value_;
-- (void)addTasksObject:(NSManagedObject*)value_;
-- (void)removeTasksObject:(NSManagedObject*)value_;
+- (void)addTasksObject:(OWTask*)value_;
+- (void)removeTasksObject:(OWTask*)value_;
 
 @end
 

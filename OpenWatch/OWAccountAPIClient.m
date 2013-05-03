@@ -37,6 +37,7 @@
 #define kTagPath @"tag/"
 #define kFeedPath @"feed/"
 #define kTagsPath @"tags/"
+#define kInvestigationPath @"i/"
 
 #define kTypeKey @"type"
 #define kVideoTypeKey @"video"
@@ -209,30 +210,36 @@
     return [NSString stringWithFormat:@"recordings/%d/", page];
 }
 
-- (NSString*) pathForFeedType:(OWFeedType)feedType feedName:(NSString*)feedName page:(NSUInteger)page {
-    NSString *path = nil;
+- (NSString*) pathForFeedType:(OWFeedType)feedType {
     NSString *prefix = nil;
+    // TODO rewrite the feed and tag to use GET params
     if (feedType == kOWFeedTypeFeed) {
         prefix = kFeedPath;
     } else if (feedType == kOWFeedTypeTag) {
         prefix = kTagPath;
+    } else if (feedType == kOWFeedTypeFrontPage) {
+        prefix = kInvestigationPath;
     }
-    path = [prefix stringByAppendingFormat:@"%@/%d/", feedName, page];
-    return path;
+    return prefix;
 }
 
 
 - (void) fetchMediaObjectsForFeedType:(OWFeedType)feedType feedName:(NSString*)feedName page:(NSUInteger)page success:(void (^)(NSArray *mediaObjectIDs, NSUInteger totalPages))success failure:(void (^)(NSString *reason))failure {
-    NSString *path = [self pathForFeedType:feedType feedName:feedName page:page];
+    NSString *path = [self pathForFeedType:feedType];
     if (!path) {
         failure(@"Path is nil!");
         return;
     }
-    [self getPath:path parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSArray *recordings = [self objectIDsFromMediaObjectsMetadataArray:[responseObject objectForKey:kObjectsKey]];
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    [parameters setObject:@(page) forKey:@"page"];
+    if (feedName) {
+        [parameters setObject:feedName forKey:@"feed_name"];
+    }
+    [self getPath:path parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSArray *mediaObjects = [self objectIDsFromMediaObjectsMetadataArray:[responseObject objectForKey:kObjectsKey]];
         NSDictionary *meta = [responseObject objectForKey:kMetaKey];
         NSUInteger pageCount = [[meta objectForKey:kPageCountKey] unsignedIntegerValue];
-        success(recordings, pageCount);
+        success(mediaObjects, pageCount);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"failure: %@", [error userInfo]);
         failure(@"couldn't fetch objects");
@@ -361,6 +368,10 @@
     
 }
 
+- (void) getInvestigationWithObjectID:(NSManagedObjectID *)objectID success:(void (^)(NSManagedObjectID *recordingObjectID))success failure:(void (^)(NSString *reason))failure {
+    
+}
+
 - (void) getStoryWithObjectID:(NSManagedObjectID *)objectID success:(void (^)(NSManagedObjectID *recordingObjectID))success failure:(void (^)(NSString *reason))failure {
     NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
     OWStory *story = (OWStory*)[context existingObjectWithID:objectID error:nil];
@@ -376,7 +387,7 @@
 }
 
 - (void) fetchMediaObjectsForLocation:(CLLocation*)location page:(NSUInteger)page success:(void (^)(NSArray *mediaObjectIDs, NSUInteger totalPages))success failure:(void (^)(NSString *reason))failure {
-    NSString *path = [self pathForFeedType:kOWFeedTypeFeed feedName:@"local" page:page];
+    NSString *path = [self pathForFeedType:kOWFeedTypeFeed];
     if (!path) {
         failure(@"Path is nil!");
         return;
