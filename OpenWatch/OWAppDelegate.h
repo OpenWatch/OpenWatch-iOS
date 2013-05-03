@@ -18,7 +18,7 @@
 
 @property (nonatomic, strong) OWLocationController *locationController;
 @property (strong, nonatomic) UIWindow *window;
-@property (nonatomic, strong) OWHomeScreenViewController *homeScreen;
+//@property (nonatomic, strong) OWHomeScreenViewController *homeScreen;
 @property (nonatomic, strong) OWDashboardViewController *dashboardViewController;
 @property (nonatomic, strong) UINavigationController *navigationController;
 

@@ -19,6 +19,7 @@
 #import "OWInvestigationViewController.h"
 #import <QuartzCore/QuartzCore.h>
 #import "OWSettingsController.h"
+#import "OWFeedViewController.h"
 
 #define kActionBarHeight 70.0f
 
@@ -36,8 +37,14 @@
     if (self) {
         self.actionBarView = [[OWActionBarView alloc] init];
         self.actionBarView.delegate = self;
+        //self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Feed" style:UIBarButtonItemStyleBordered target:self action:@selector(feedButtonPressed:)];
     }
     return self;
+}
+
+- (void) feedButtonPressed:(id)sender {
+    OWFeedViewController *feedVC = [[OWFeedViewController alloc] init];
+    [self.navigationController pushViewController:feedVC animated:YES];
 }
 
 - (void)viewDidLoad
@@ -52,7 +59,7 @@
     
     
     UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"openwatch.png"]];
-    imageView.frame = CGRectMake(0, 0, 200, 25);
+    imageView.frame = CGRectMake(0, 0, 140, 25);
     imageView.contentMode = UIViewContentModeScaleAspectFit;
     self.navigationItem.titleView = imageView;
     
@@ -194,7 +201,7 @@
 - (void) onboardingViewDidComplete:(OWOnboardingView *)onboardingView {
     OWAccount *account = [OWSettingsController sharedInstance].account;
     account.hasCompletedOnboarding = YES;
-    [UIView animateWithDuration:3.0 animations:^{
+    [UIView animateWithDuration:2.0 animations:^{
         self.onboardingView.layer.opacity = 0.0f;
     } completion:^(BOOL finished) {
         [self.onboardingView removeFromSuperview];

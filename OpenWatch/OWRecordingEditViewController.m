@@ -252,7 +252,7 @@
     
     [self.view endEditing:YES];
     [self dismissViewControllerAnimated:YES completion:^{
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:SHARE_STRING message:SHARE_MESSAGE_STRING delegate:OW_APP_DELEGATE.homeScreen cancelButtonTitle:NO_STRING otherButtonTitles:YES_STRING, nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:SHARE_STRING message:SHARE_MESSAGE_STRING delegate:OW_APP_DELEGATE.dashboardViewController cancelButtonTitle:NO_STRING otherButtonTitles:YES_STRING, nil];
         [OWShareController sharedInstance].mediaObjectID = self.recordingID;
         [alert show];
     }];

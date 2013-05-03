@@ -165,7 +165,7 @@
             UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:recordingInfo];
             [OWUtilities styleNavigationController:nav];
             nav.navigationBar.tintColor = [OWUtilities navigationBarColor];
-            [OW_APP_DELEGATE.homeScreen presentViewController:nav animated:YES completion:nil];
+            [OW_APP_DELEGATE.dashboardViewController presentViewController:nav animated:YES completion:nil];
         }];
 	});
 }

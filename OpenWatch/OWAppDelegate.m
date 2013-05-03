@@ -20,7 +20,7 @@
 
 
 @implementation OWAppDelegate
-@synthesize homeScreen, navigationController, locationController, dashboardViewController;
+@synthesize navigationController, locationController, dashboardViewController;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
