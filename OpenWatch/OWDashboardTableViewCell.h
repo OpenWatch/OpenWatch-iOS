@@ -12,5 +12,6 @@
 @interface OWDashboardTableViewCell : UITableViewCell
 
 @property (nonatomic, strong) OWDashboardItem *dashboardItem;
+@property (nonatomic, strong) UIImageView *iconView;
 
 @end

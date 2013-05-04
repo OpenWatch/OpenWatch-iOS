@@ -37,7 +37,7 @@
     self = [super init];
     if (self) {
         self.dashboardView = [[OWDashboardView alloc] initWithFrame:CGRectZero];
-        OWDashboardItem *videoItem = [[OWDashboardItem alloc] initWithTitle:@"Broadcast Video" image:[UIImage imageNamed:@"279-videocamera.png"] target:self selector:@selector(recordButtonPressed:)];
+        OWDashboardItem *videoItem = [[OWDashboardItem alloc] initWithTitle:@"Broadcast Video" image:[UIImage imageNamed:@"285-facetime.png"] target:self selector:@selector(recordButtonPressed:)];
         OWDashboardItem *photoItem = [[OWDashboardItem alloc] initWithTitle:@"Take Photo" image:[UIImage imageNamed:@"86-camera.png"] target:self selector:@selector(comingSoon:)];
         OWDashboardItem *audioItem = [[OWDashboardItem alloc] initWithTitle:@"Record Audio" image:[UIImage imageNamed:@"66-microphone.png"] target:self selector:@selector(comingSoon:)];
         
@@ -55,8 +55,7 @@
 
 - (void) feedButtonPressed:(id)sender {
     OWFeedViewController *feedVC = [[OWFeedViewController alloc] init];
-    feedVC.title = @"Top Stories";
-    [feedVC didSelectFeedWithName:nil type:kOWFeedTypeFrontPage];
+    [feedVC didSelectFeedWithName:@"Top Stories" type:kOWFeedTypeFrontPage];
     [self.navigationController pushViewController:feedVC animated:YES];
 }
 

@@ -29,8 +29,6 @@
 		D91AC0351733021800823179 /* 66-microphone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D91AC02D1733021800823179 /* 66-microphone@2x.png */; };
 		D91AC0361733021800823179 /* 86-camera.png in Resources */ = {isa = PBXBuildFile; fileRef = D91AC02E1733021800823179 /* 86-camera.png */; };
 		D91AC0371733021800823179 /* 86-camera@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D91AC02F1733021800823179 /* 86-camera@2x.png */; };
-		D91AC0381733021800823179 /* 275-broadcast.png in Resources */ = {isa = PBXBuildFile; fileRef = D91AC0301733021800823179 /* 275-broadcast.png */; };
-		D91AC0391733021800823179 /* 275-broadcast@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D91AC0311733021800823179 /* 275-broadcast@2x.png */; };
 		D91AC03A1733021800823179 /* 279-videocamera.png in Resources */ = {isa = PBXBuildFile; fileRef = D91AC0321733021800823179 /* 279-videocamera.png */; };
 		D91AC03B1733021800823179 /* 279-videocamera@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D91AC0331733021800823179 /* 279-videocamera@2x.png */; };
 		D91AC03D1733079E00823179 /* ow_space1@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D91AC03C1733079E00823179 /* ow_space1@2x.jpg */; };
@@ -2300,8 +2298,6 @@
 				D91AC0351733021800823179 /* 66-microphone@2x.png in Resources */,
 				D91AC0361733021800823179 /* 86-camera.png in Resources */,
 				D91AC0371733021800823179 /* 86-camera@2x.png in Resources */,
-				D91AC0381733021800823179 /* 275-broadcast.png in Resources */,
-				D91AC0391733021800823179 /* 275-broadcast@2x.png in Resources */,
 				D91AC03A1733021800823179 /* 279-videocamera.png in Resources */,
 				D91AC03B1733021800823179 /* 279-videocamera@2x.png in Resources */,
 				D91AC03D1733079E00823179 /* ow_space1@2x.jpg in Resources */,
