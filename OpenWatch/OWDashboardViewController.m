@@ -21,6 +21,7 @@
 #import "OWSettingsController.h"
 #import "OWFeedViewController.h"
 #import "OWDashboardItem.h"
+#import "AVCamViewController.h"
 
 #define kActionBarHeight 70.0f
 
@@ -30,7 +31,7 @@
 @end
 
 @implementation OWDashboardViewController
-@synthesize onboardingView, dashboardView;
+@synthesize onboardingView, dashboardView, imagePicker;
 
 - (id)init
 {
@@ -38,7 +39,7 @@
     if (self) {
         self.dashboardView = [[OWDashboardView alloc] initWithFrame:CGRectZero];
         OWDashboardItem *videoItem = [[OWDashboardItem alloc] initWithTitle:@"Broadcast Video" image:[UIImage imageNamed:@"285-facetime.png"] target:self selector:@selector(recordButtonPressed:)];
-        OWDashboardItem *photoItem = [[OWDashboardItem alloc] initWithTitle:@"Take Photo" image:[UIImage imageNamed:@"86-camera.png"] target:self selector:@selector(comingSoon:)];
+        OWDashboardItem *photoItem = [[OWDashboardItem alloc] initWithTitle:@"Take Photo" image:[UIImage imageNamed:@"86-camera.png"] target:self selector:@selector(photoButtonPressed:)];
         OWDashboardItem *audioItem = [[OWDashboardItem alloc] initWithTitle:@"Record Audio" image:[UIImage imageNamed:@"66-microphone.png"] target:self selector:@selector(comingSoon:)];
         
         OWDashboardItem *topStories = [[OWDashboardItem alloc] initWithTitle:@"Top Stories" image:[UIImage imageNamed:@"28-star.png"] target:self selector:@selector(feedButtonPressed:)];
@@ -52,6 +53,23 @@
     }
     return self;
 }
+
+- (void) photoButtonPressed:(id)sender {
+    if (!self.imagePicker) {
+        self.imagePicker = [[UIImagePickerController alloc] init];
+        self.imagePicker.delegate = self;
+        self.imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+    }
+    BOOL canTakePhoto = [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera];
+    if (canTakePhoto) {
+        [self presentViewController:imagePicker animated:YES completion:nil];
+    } else {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Not Available" message:@"Sorry, this device can't take photos." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alert show];
+    }
+}
+
+
 
 - (void) feedButtonPressed:(id)sender {
     OWFeedViewController *feedVC = [[OWFeedViewController alloc] init];
@@ -139,6 +157,21 @@
     } completion:^(BOOL finished) {
         [self.onboardingView removeFromSuperview];
         self.onboardingView = nil;
+    }];
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    [self.imagePicker dismissViewControllerAnimated:YES completion:^{
+        self.imagePicker = nil;
+    }];
+    UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
+    NSData *jpegData = UIImageJPEGRepresentation(image, 0.85);
+    NSLog(@"length: %d kB", jpegData.length / 1024);
+}
+
+- (void) imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+    [self.imagePicker dismissViewControllerAnimated:YES completion:^{
+        self.imagePicker = nil;
     }];
 }
 

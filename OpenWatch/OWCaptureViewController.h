@@ -17,7 +17,6 @@
 
 
 @property (nonatomic, strong) UIButton *recordButton;
-@property (nonatomic, strong) UIButton *photoButton;
 @property (nonatomic, strong) OWVideoProcessor *videoProcessor;
 @property (nonatomic, strong) UIView *videoPreviewView;
 @property (nonatomic, strong) AVCaptureVideoPreviewLayer *captureVideoPreviewLayer;

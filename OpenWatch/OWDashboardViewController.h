@@ -11,9 +11,10 @@
 #import "OWOnboardingView.h"
 #import "OWDashboardView.h"
 
-@interface OWDashboardViewController : UIViewController < OWOnboardingViewDelegate, OWDashboardViewDelegate>
+@interface OWDashboardViewController : UIViewController < OWOnboardingViewDelegate, OWDashboardViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @property (nonatomic, strong) OWDashboardView *dashboardView;
 @property (nonatomic, strong) OWOnboardingView *onboardingView;
+@property (nonatomic, strong) UIImagePickerController *imagePicker;
 
 @end
