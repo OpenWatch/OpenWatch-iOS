@@ -4,6 +4,7 @@
 #import "_OWPhoto.h"
 
 const struct OWPhotoAttributes OWPhotoAttributes = {
+	.uploaded = @"uploaded",
 };
 
 const struct OWPhotoRelationships OWPhotoRelationships = {
@@ -38,9 +39,40 @@ const struct OWPhotoFetchedProperties OWPhotoFetchedProperties = {
 + (NSSet*)keyPathsForValuesAffectingValueForKey:(NSString*)key {
 	NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
 	
+	if ([key isEqualToString:@"uploadedValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"uploaded"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
 
 	return keyPaths;
 }
+
+
+
+
+@dynamic uploaded;
+
+
+
+- (BOOL)uploadedValue {
+	NSNumber *result = [self uploaded];
+	return [result boolValue];
+}
+
+- (void)setUploadedValue:(BOOL)value_ {
+	[self setUploaded:[NSNumber numberWithBool:value_]];
+}
+
+- (BOOL)primitiveUploadedValue {
+	NSNumber *result = [self primitiveUploaded];
+	return [result boolValue];
+}
+
+- (void)setPrimitiveUploadedValue:(BOOL)value_ {
+	[self setPrimitiveUploaded:[NSNumber numberWithBool:value_]];
+}
+
 
 
 

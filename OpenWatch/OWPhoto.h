@@ -13,8 +13,6 @@
 
 @interface OWPhoto : _OWPhoto
 
-@property (nonatomic, strong) NSNumber *uploaded;
-
 + (OWPhoto*) photoWithImage:(UIImage*)image;
 + (OWPhoto*) photoWithUUID:(NSString*)uuid;
 + (OWPhoto*) photo;

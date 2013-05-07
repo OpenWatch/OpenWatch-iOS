@@ -12,7 +12,6 @@
 #define kPhotoName @"photo.jpeg"
 
 @implementation OWPhoto
-@dynamic uploaded;
 
 - (NSString*) localMediaPath {
     NSString *uuidPath = [OWPhoto pathForUUID:self.uuid];
