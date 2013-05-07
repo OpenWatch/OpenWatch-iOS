@@ -5,6 +5,8 @@
 #import "OWMediaObject.h"
 
 extern const struct OWLocalMediaObjectAttributes {
+	__unsafe_unretained NSString *remoteMediaURLString;
+	__unsafe_unretained NSString *uploaded;
 	__unsafe_unretained NSString *uuid;
 } OWLocalMediaObjectAttributes;
 
@@ -17,6 +19,8 @@ extern const struct OWLocalMediaObjectFetchedProperties {
 
 
 
+
+
 @interface OWLocalMediaObjectID : NSManagedObjectID {}
 @end
 
@@ -25,6 +29,30 @@ extern const struct OWLocalMediaObjectFetchedProperties {
 + (NSString*)entityName;
 + (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;
 - (OWLocalMediaObjectID*)objectID;
+
+
+
+
+
+@property (nonatomic, strong) NSString* remoteMediaURLString;
+
+
+
+//- (BOOL)validateRemoteMediaURLString:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
+@property (nonatomic, strong) NSNumber* uploaded;
+
+
+
+@property BOOL uploadedValue;
+- (BOOL)uploadedValue;
+- (void)setUploadedValue:(BOOL)value_;
+
+//- (BOOL)validateUploaded:(id*)value_ error:(NSError**)error_;
 
 
 
@@ -48,6 +76,21 @@ extern const struct OWLocalMediaObjectFetchedProperties {
 @end
 
 @interface _OWLocalMediaObject (CoreDataGeneratedPrimitiveAccessors)
+
+
+- (NSString*)primitiveRemoteMediaURLString;
+- (void)setPrimitiveRemoteMediaURLString:(NSString*)value;
+
+
+
+
+- (NSNumber*)primitiveUploaded;
+- (void)setPrimitiveUploaded:(NSNumber*)value;
+
+- (BOOL)primitiveUploadedValue;
+- (void)setPrimitiveUploadedValue:(BOOL)value_;
+
+
 
 
 - (NSString*)primitiveUuid;

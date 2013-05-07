@@ -233,9 +233,9 @@
 
     OWManagedRecording *recording = [OWRecordingController recordingForObjectID:self.mediaObjectID];
     
-    if (recording.remoteVideoURL) {
+    if (recording.remoteMediaURLString) {
         [self.moviePlayer setMovieSourceType:MPMovieSourceTypeStreaming]; // for streaming
-        self.moviePlayer.contentURL = [NSURL URLWithString:recording.remoteVideoURL];
+        self.moviePlayer.contentURL = [NSURL URLWithString:recording.remoteMediaURLString];
         [moviePlayer prepareToPlay];
     }
     
@@ -245,7 +245,7 @@
     
     [[OWAccountAPIClient sharedClient] getRecordingWithUUID:recording.uuid success:^(NSManagedObjectID *recordingObjectID) {
         OWManagedRecording *remoteRecording = [OWRecordingController recordingForObjectID:recordingObjectID];
-        self.moviePlayer.contentURL = [NSURL URLWithString:[remoteRecording remoteVideoURL]];
+        self.moviePlayer.contentURL = [NSURL URLWithString:[remoteRecording remoteMediaURLString]];
         [moviePlayer prepareToPlay];
         [self refreshMapParameters];
         [self refreshFields];

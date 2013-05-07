@@ -8,7 +8,6 @@ const struct OWManagedRecordingAttributes OWManagedRecordingAttributes = {
 	.endLatitude = @"endLatitude",
 	.endLongitude = @"endLongitude",
 	.recordingDescription = @"recordingDescription",
-	.remoteVideoURL = @"remoteVideoURL",
 	.startDate = @"startDate",
 	.startLatitude = @"startLatitude",
 	.startLongitude = @"startLongitude",
@@ -133,13 +132,6 @@ const struct OWManagedRecordingFetchedProperties OWManagedRecordingFetchedProper
 
 
 @dynamic recordingDescription;
-
-
-
-
-
-
-@dynamic remoteVideoURL;
 
 
 

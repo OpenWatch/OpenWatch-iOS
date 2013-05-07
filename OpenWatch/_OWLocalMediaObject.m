@@ -4,6 +4,8 @@
 #import "_OWLocalMediaObject.h"
 
 const struct OWLocalMediaObjectAttributes OWLocalMediaObjectAttributes = {
+	.remoteMediaURLString = @"remoteMediaURLString",
+	.uploaded = @"uploaded",
 	.uuid = @"uuid",
 };
 
@@ -39,9 +41,47 @@ const struct OWLocalMediaObjectFetchedProperties OWLocalMediaObjectFetchedProper
 + (NSSet*)keyPathsForValuesAffectingValueForKey:(NSString*)key {
 	NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
 	
+	if ([key isEqualToString:@"uploadedValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"uploaded"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
 
 	return keyPaths;
 }
+
+
+
+
+@dynamic remoteMediaURLString;
+
+
+
+
+
+
+@dynamic uploaded;
+
+
+
+- (BOOL)uploadedValue {
+	NSNumber *result = [self uploaded];
+	return [result boolValue];
+}
+
+- (void)setUploadedValue:(BOOL)value_ {
+	[self setUploaded:[NSNumber numberWithBool:value_]];
+}
+
+- (BOOL)primitiveUploadedValue {
+	NSNumber *result = [self primitiveUploaded];
+	return [result boolValue];
+}
+
+- (void)setPrimitiveUploadedValue:(BOOL)value_ {
+	[self setPrimitiveUploaded:[NSNumber numberWithBool:value_]];
+}
+
 
 
 

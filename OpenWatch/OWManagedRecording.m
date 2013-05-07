@@ -110,7 +110,7 @@
     
     NSString *videoURL = [metadataDictionary objectForKey:@"video_url"];
     if (videoURL) {
-        self.remoteVideoURL = videoURL;
+        self.remoteMediaURLString = videoURL;
     }
     
     NSString *newUUID = [metadataDictionary objectForKey:kUUIDKey];

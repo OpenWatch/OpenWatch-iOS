@@ -5,7 +5,6 @@
 #import "OWLocalMediaObject.h"
 
 extern const struct OWPhotoAttributes {
-	__unsafe_unretained NSString *uploaded;
 } OWPhotoAttributes;
 
 extern const struct OWPhotoRelationships {
@@ -13,7 +12,6 @@ extern const struct OWPhotoRelationships {
 
 extern const struct OWPhotoFetchedProperties {
 } OWPhotoFetchedProperties;
-
 
 
 
@@ -30,20 +28,6 @@ extern const struct OWPhotoFetchedProperties {
 
 
 
-@property (nonatomic, strong) NSNumber* uploaded;
-
-
-
-@property BOOL uploadedValue;
-- (BOOL)uploadedValue;
-- (void)setUploadedValue:(BOOL)value_;
-
-//- (BOOL)validateUploaded:(id*)value_ error:(NSError**)error_;
-
-
-
-
-
 
 @end
 
@@ -52,15 +36,6 @@ extern const struct OWPhotoFetchedProperties {
 @end
 
 @interface _OWPhoto (CoreDataGeneratedPrimitiveAccessors)
-
-
-- (NSNumber*)primitiveUploaded;
-- (void)setPrimitiveUploaded:(NSNumber*)value;
-
-- (BOOL)primitiveUploadedValue;
-- (void)setPrimitiveUploadedValue:(BOOL)value_;
-
-
 
 
 @end

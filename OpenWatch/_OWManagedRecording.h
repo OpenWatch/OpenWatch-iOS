@@ -9,7 +9,6 @@ extern const struct OWManagedRecordingAttributes {
 	__unsafe_unretained NSString *endLatitude;
 	__unsafe_unretained NSString *endLongitude;
 	__unsafe_unretained NSString *recordingDescription;
-	__unsafe_unretained NSString *remoteVideoURL;
 	__unsafe_unretained NSString *startDate;
 	__unsafe_unretained NSString *startLatitude;
 	__unsafe_unretained NSString *startLongitude;
@@ -20,7 +19,6 @@ extern const struct OWManagedRecordingRelationships {
 
 extern const struct OWManagedRecordingFetchedProperties {
 } OWManagedRecordingFetchedProperties;
-
 
 
 
@@ -87,16 +85,6 @@ extern const struct OWManagedRecordingFetchedProperties {
 
 
 //- (BOOL)validateRecordingDescription:(id*)value_ error:(NSError**)error_;
-
-
-
-
-
-@property (nonatomic, strong) NSString* remoteVideoURL;
-
-
-
-//- (BOOL)validateRemoteVideoURL:(id*)value_ error:(NSError**)error_;
 
 
 
@@ -176,12 +164,6 @@ extern const struct OWManagedRecordingFetchedProperties {
 
 - (NSString*)primitiveRecordingDescription;
 - (void)setPrimitiveRecordingDescription:(NSString*)value;
-
-
-
-
-- (NSString*)primitiveRemoteVideoURL;
-- (void)setPrimitiveRemoteVideoURL:(NSString*)value;
 
 
 

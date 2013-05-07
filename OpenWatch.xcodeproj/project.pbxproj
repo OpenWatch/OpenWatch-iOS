@@ -85,6 +85,11 @@
 		D955371616B32E3C00753C15 /* 275-broadcast.png in Resources */ = {isa = PBXBuildFile; fileRef = D955371416B32E3C00753C15 /* 275-broadcast.png */; };
 		D955371716B32E3C00753C15 /* 275-broadcast@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D955371516B32E3C00753C15 /* 275-broadcast@2x.png */; };
 		D963C8281739C157008999F7 /* _OWPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = D963C8271739C157008999F7 /* _OWPhoto.m */; };
+		D963C8521739C698008999F7 /* OWAudioRecordingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D963C8511739C698008999F7 /* OWAudioRecordingViewController.m */; };
+		D963C8551739C7DF008999F7 /* OWAudioController.m in Sources */ = {isa = PBXBuildFile; fileRef = D963C8541739C7DF008999F7 /* OWAudioController.m */; };
+		D963C8581739C856008999F7 /* OWAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = D963C8571739C856008999F7 /* OWAudio.m */; };
+		D963C85B1739C9C7008999F7 /* OWPhotoDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D963C85A1739C9C7008999F7 /* OWPhotoDetailViewController.m */; };
+		D963C85E1739CAB5008999F7 /* _OWAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = D963C85D1739CAB5008999F7 /* _OWAudio.m */; };
 		D964E59017333F5600ECF972 /* OWTask.m in Sources */ = {isa = PBXBuildFile; fileRef = D964E58F17333F5600ECF972 /* OWTask.m */; };
 		D964E5BA17333FAF00ECF972 /* _OWTask.m in Sources */ = {isa = PBXBuildFile; fileRef = D964E5B917333F7000ECF972 /* _OWTask.m */; };
 		D964E5BD1733419600ECF972 /* OWInvestigationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D964E5BC1733419600ECF972 /* OWInvestigationTableViewCell.m */; };
@@ -734,6 +739,16 @@
 		D955371516B32E3C00753C15 /* 275-broadcast@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "275-broadcast@2x.png"; sourceTree = "<group>"; };
 		D963C8261739C157008999F7 /* _OWPhoto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _OWPhoto.h; sourceTree = "<group>"; };
 		D963C8271739C157008999F7 /* _OWPhoto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _OWPhoto.m; sourceTree = "<group>"; };
+		D963C8501739C698008999F7 /* OWAudioRecordingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWAudioRecordingViewController.h; sourceTree = "<group>"; };
+		D963C8511739C698008999F7 /* OWAudioRecordingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWAudioRecordingViewController.m; sourceTree = "<group>"; };
+		D963C8531739C7DF008999F7 /* OWAudioController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWAudioController.h; sourceTree = "<group>"; };
+		D963C8541739C7DF008999F7 /* OWAudioController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWAudioController.m; sourceTree = "<group>"; };
+		D963C8561739C856008999F7 /* OWAudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWAudio.h; sourceTree = "<group>"; };
+		D963C8571739C856008999F7 /* OWAudio.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWAudio.m; sourceTree = "<group>"; };
+		D963C8591739C9C7008999F7 /* OWPhotoDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWPhotoDetailViewController.h; sourceTree = "<group>"; };
+		D963C85A1739C9C7008999F7 /* OWPhotoDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWPhotoDetailViewController.m; sourceTree = "<group>"; };
+		D963C85C1739CAB5008999F7 /* _OWAudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _OWAudio.h; sourceTree = "<group>"; };
+		D963C85D1739CAB5008999F7 /* _OWAudio.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _OWAudio.m; sourceTree = "<group>"; };
 		D964E58E17333F5600ECF972 /* OWTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWTask.h; sourceTree = "<group>"; };
 		D964E58F17333F5600ECF972 /* OWTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWTask.m; sourceTree = "<group>"; };
 		D964E5B817333F7000ECF972 /* _OWTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _OWTask.h; sourceTree = "<group>"; };
@@ -1206,6 +1221,8 @@
 		D98FCB4916A4AA5B0071DF6B /* Generated */ = {
 			isa = PBXGroup;
 			children = (
+				D963C85C1739CAB5008999F7 /* _OWAudio.h */,
+				D963C85D1739CAB5008999F7 /* _OWAudio.m */,
 				D963C8261739C157008999F7 /* _OWPhoto.h */,
 				D963C8271739C157008999F7 /* _OWPhoto.m */,
 				D926A10B173990CD00C89708 /* _OWLocalMediaObject.h */,
@@ -1526,6 +1543,12 @@
 				D9BECEF116B1D3AC009046E1 /* Paginated Tables */,
 				D9E72E55167FB39A00C6CB75 /* OWWelcomeViewController.h */,
 				D9E72E56167FB39A00C6CB75 /* OWWelcomeViewController.m */,
+				D963C8591739C9C7008999F7 /* OWPhotoDetailViewController.h */,
+				D963C85A1739C9C7008999F7 /* OWPhotoDetailViewController.m */,
+				D963C8531739C7DF008999F7 /* OWAudioController.h */,
+				D963C8541739C7DF008999F7 /* OWAudioController.m */,
+				D963C8501739C698008999F7 /* OWAudioRecordingViewController.h */,
+				D963C8511739C698008999F7 /* OWAudioRecordingViewController.m */,
 				D97EAAB9167A540800A1B038 /* OWFeedSelectionViewController.h */,
 				D97EAABA167A540900A1B038 /* OWFeedSelectionViewController.m */,
 				D9E72E58167FF6AC00C6CB75 /* OWRecordingEditViewController.h */,
@@ -1826,6 +1849,8 @@
 				D9EB4C76166D5F600019F8B6 /* OWRecordingSegment.h */,
 				D9EB4C77166D5F600019F8B6 /* OWRecordingSegment.m */,
 				D9EB4C59166D338B0019F8B6 /* Model.xcdatamodeld */,
+				D963C8561739C856008999F7 /* OWAudio.h */,
+				D963C8571739C856008999F7 /* OWAudio.m */,
 				D96D4EDC1739C0CC00FE17E2 /* OWPhoto.h */,
 				D96D4EDD1739C0CC00FE17E2 /* OWPhoto.m */,
 				D926A1051739908D00C89708 /* OWLocalMediaObject.h */,
@@ -2483,6 +2508,11 @@
 				D926A10F173990CD00C89708 /* _OWLocalMediaObject.m in Sources */,
 				D96D4EDE1739C0CC00FE17E2 /* OWPhoto.m in Sources */,
 				D963C8281739C157008999F7 /* _OWPhoto.m in Sources */,
+				D963C8521739C698008999F7 /* OWAudioRecordingViewController.m in Sources */,
+				D963C8551739C7DF008999F7 /* OWAudioController.m in Sources */,
+				D963C8581739C856008999F7 /* OWAudio.m in Sources */,
+				D963C85B1739C9C7008999F7 /* OWPhotoDetailViewController.m in Sources */,
+				D963C85E1739CAB5008999F7 /* _OWAudio.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
