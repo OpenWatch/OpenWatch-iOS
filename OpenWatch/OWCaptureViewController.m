@@ -18,7 +18,7 @@
 @end
 
 @implementation OWCaptureViewController
-@synthesize videoPreviewView, captureVideoPreviewLayer, videoProcessor, recordButton;
+@synthesize videoPreviewView, captureVideoPreviewLayer, videoProcessor, recordButton, photoButton;
 
 - (id) init {
     if (self = [super init]) {
@@ -42,12 +42,25 @@
     //self.recordButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin;
 }
 
+- (void) setupPhotoButton {
+    self.photoButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    self.recordButton.layer.opacity = 0.7;
+    [recordButton setTitle:@"Take Photo" forState:UIControlStateNormal];
+    [self.recordButton addTarget:self action:@selector(photoButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+}
+
+
+- (void) photoButtonPressed:(id)sender {
+    
+}
+
 - (void) loadView {
     [super loadView];
     self.videoPreviewView.frame = self.view.bounds;
     self.videoPreviewView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin;
     [self.view addSubview:videoPreviewView];
-    [self.view addSubview:recordButton];    
+    [self.view addSubview:recordButton];
+    [self.view addSubview:photoButton];
 }
 
 - (void) recordButtonPressed:(id)sender {

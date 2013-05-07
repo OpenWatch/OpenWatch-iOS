@@ -43,3 +43,6 @@
 [submodule "Submodules/BSKeyboardControls"]
 	path = Submodules/BSKeyboardControls
 	url = https://github.com/OpenWatch/BSKeyboardControls.git
+[submodule "Submodules/AVCam"]
+	path = Submodules/AVCam
+	url = git@github.com:OpenWatch/AVCam.git
