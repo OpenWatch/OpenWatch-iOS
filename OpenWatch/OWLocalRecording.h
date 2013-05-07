@@ -15,9 +15,6 @@
 
 @interface OWLocalRecording : _OWLocalRecording <OWLocationControllerDelegate>
 
-+ (NSString*) mediaDirectoryPath;
-+ (NSString*) pathForUUID:(NSString*)uuid;
-
 + (OWLocalRecording*) recordingWithUUID:(NSString*)uuid;
 + (OWLocalRecording*) recording;
 - (void) setUploadState:(OWFileUploadState)uploadState forFileAtURL:(NSURL*)url;

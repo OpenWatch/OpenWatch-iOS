@@ -2,7 +2,7 @@
 // Make changes to OWManagedRecording.h instead.
 
 #import <CoreData/CoreData.h>
-#import "OWMediaObject.h"
+#import "OWLocalMediaObject.h"
 
 extern const struct OWManagedRecordingAttributes {
 	__unsafe_unretained NSString *endDate;
@@ -13,7 +13,6 @@ extern const struct OWManagedRecordingAttributes {
 	__unsafe_unretained NSString *startDate;
 	__unsafe_unretained NSString *startLatitude;
 	__unsafe_unretained NSString *startLongitude;
-	__unsafe_unretained NSString *uuid;
 } OWManagedRecordingAttributes;
 
 extern const struct OWManagedRecordingRelationships {
@@ -32,11 +31,10 @@ extern const struct OWManagedRecordingFetchedProperties {
 
 
 
-
 @interface OWManagedRecordingID : NSManagedObjectID {}
 @end
 
-@interface _OWManagedRecording : OWMediaObject {}
+@interface _OWManagedRecording : OWLocalMediaObject {}
 + (id)insertInManagedObjectContext:(NSManagedObjectContext*)moc_;
 + (NSString*)entityName;
 + (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;
@@ -142,16 +140,6 @@ extern const struct OWManagedRecordingFetchedProperties {
 
 
 
-@property (nonatomic, strong) NSString* uuid;
-
-
-
-//- (BOOL)validateUuid:(id*)value_ error:(NSError**)error_;
-
-
-
-
-
 
 @end
 
@@ -218,12 +206,6 @@ extern const struct OWManagedRecordingFetchedProperties {
 
 - (double)primitiveStartLongitudeValue;
 - (void)setPrimitiveStartLongitudeValue:(double)value_;
-
-
-
-
-- (NSString*)primitiveUuid;
-- (void)setPrimitiveUuid:(NSString*)value;
 
 
 

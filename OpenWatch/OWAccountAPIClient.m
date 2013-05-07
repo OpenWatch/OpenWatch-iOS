@@ -408,8 +408,7 @@
         return;
     }
     NSDictionary *locationDictionary = @{@"latitude": @(location.coordinate.latitude), @"longitude": @(location.coordinate.longitude)};
-    NSDictionary *parameters = @{@"location": locationDictionary};
-    [self postPath:path parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self getPath:path parameters:locationDictionary success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSArray *recordings = [self objectIDsFromMediaObjectsMetadataArray:[responseObject objectForKey:kObjectsKey]];
         NSDictionary *meta = [responseObject objectForKey:kMetaKey];
         NSUInteger pageCount = [[meta objectForKey:kPageCountKey] unsignedIntegerValue];

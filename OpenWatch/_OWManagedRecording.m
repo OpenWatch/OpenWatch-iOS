@@ -12,7 +12,6 @@ const struct OWManagedRecordingAttributes OWManagedRecordingAttributes = {
 	.startDate = @"startDate",
 	.startLatitude = @"startLatitude",
 	.startLongitude = @"startLongitude",
-	.uuid = @"uuid",
 };
 
 const struct OWManagedRecordingRelationships OWManagedRecordingRelationships = {
@@ -201,13 +200,6 @@ const struct OWManagedRecordingFetchedProperties OWManagedRecordingFetchedProper
 - (void)setPrimitiveStartLongitudeValue:(double)value_ {
 	[self setPrimitiveStartLongitude:[NSNumber numberWithDouble:value_]];
 }
-
-
-
-
-
-@dynamic uuid;
-
 
 
 

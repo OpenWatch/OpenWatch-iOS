@@ -39,6 +39,10 @@
 		D926A0D717397D0300C89708 /* AVCamUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = D926A0D217397D0300C89708 /* AVCamUtilities.m */; };
 		D926A0D817397D0300C89708 /* AVCamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D926A0D417397D0300C89708 /* AVCamViewController.m */; };
 		D926A10117397DDA00C89708 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D926A10017397DDA00C89708 /* AssetsLibrary.framework */; };
+		D926A1071739908D00C89708 /* OWLocalMediaObject.m in Sources */ = {isa = PBXBuildFile; fileRef = D926A1061739908D00C89708 /* OWLocalMediaObject.m */; };
+		D926A10A173990AC00C89708 /* OWPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = D926A109173990AC00C89708 /* OWPhoto.m */; };
+		D926A10F173990CD00C89708 /* _OWLocalMediaObject.m in Sources */ = {isa = PBXBuildFile; fileRef = D926A10C173990CD00C89708 /* _OWLocalMediaObject.m */; };
+		D926A110173990CD00C89708 /* _OWPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = D926A10E173990CD00C89708 /* _OWPhoto.m */; };
 		D92B6A7316AF4FD3006605E1 /* EGORefreshTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = D92B6A6916AF4FD3006605E1 /* EGORefreshTableHeaderView.m */; };
 		D92B6A7416AF4FD3006605E1 /* blackArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = D92B6A6B16AF4FD3006605E1 /* blackArrow.png */; };
 		D92B6A7516AF4FD3006605E1 /* blackArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D92B6A6C16AF4FD3006605E1 /* blackArrow@2x.png */; };
@@ -685,6 +689,14 @@
 		D926A0D317397D0300C89708 /* AVCamViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AVCamViewController.h; sourceTree = "<group>"; };
 		D926A0D417397D0300C89708 /* AVCamViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AVCamViewController.m; sourceTree = "<group>"; };
 		D926A10017397DDA00C89708 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		D926A1051739908D00C89708 /* OWLocalMediaObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWLocalMediaObject.h; sourceTree = "<group>"; };
+		D926A1061739908D00C89708 /* OWLocalMediaObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWLocalMediaObject.m; sourceTree = "<group>"; };
+		D926A108173990AC00C89708 /* OWPhoto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWPhoto.h; sourceTree = "<group>"; };
+		D926A109173990AC00C89708 /* OWPhoto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWPhoto.m; sourceTree = "<group>"; };
+		D926A10B173990CD00C89708 /* _OWLocalMediaObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _OWLocalMediaObject.h; sourceTree = "<group>"; };
+		D926A10C173990CD00C89708 /* _OWLocalMediaObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _OWLocalMediaObject.m; sourceTree = "<group>"; };
+		D926A10D173990CD00C89708 /* _OWPhoto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _OWPhoto.h; sourceTree = "<group>"; };
+		D926A10E173990CD00C89708 /* _OWPhoto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _OWPhoto.m; sourceTree = "<group>"; };
 		D92B6A6816AF4FD3006605E1 /* EGORefreshTableHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EGORefreshTableHeaderView.h; sourceTree = "<group>"; };
 		D92B6A6916AF4FD3006605E1 /* EGORefreshTableHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EGORefreshTableHeaderView.m; sourceTree = "<group>"; };
 		D92B6A6B16AF4FD3006605E1 /* blackArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blackArrow.png; sourceTree = "<group>"; };
@@ -1222,6 +1234,10 @@
 		D98FCB4916A4AA5B0071DF6B /* Generated */ = {
 			isa = PBXGroup;
 			children = (
+				D926A10B173990CD00C89708 /* _OWLocalMediaObject.h */,
+				D926A10C173990CD00C89708 /* _OWLocalMediaObject.m */,
+				D926A10D173990CD00C89708 /* _OWPhoto.h */,
+				D926A10E173990CD00C89708 /* _OWPhoto.m */,
 				D9DA07A017304A9F0041B638 /* _OWInvestigation.h */,
 				D9DA07A117304A9F0041B638 /* _OWInvestigation.m */,
 				D98FCB3116A4AA570071DF6B /* _OWLocalRecording.h */,
@@ -1828,6 +1844,8 @@
 		D9EB4C7C166D5F7A0019F8B6 /* Core Data */ = {
 			isa = PBXGroup;
 			children = (
+				D926A108173990AC00C89708 /* OWPhoto.h */,
+				D926A109173990AC00C89708 /* OWPhoto.m */,
 				D98FCB5816A4AE8B0071DF6B /* OWStory.h */,
 				D98FCB5916A4AE8B0071DF6B /* OWStory.m */,
 				D98FCB5216A4AB800071DF6B /* OWTag.h */,
@@ -1839,6 +1857,8 @@
 				D9EB4C76166D5F600019F8B6 /* OWRecordingSegment.h */,
 				D9EB4C77166D5F600019F8B6 /* OWRecordingSegment.m */,
 				D9EB4C59166D338B0019F8B6 /* Model.xcdatamodeld */,
+				D926A1051739908D00C89708 /* OWLocalMediaObject.h */,
+				D926A1061739908D00C89708 /* OWLocalMediaObject.m */,
 				D964E58E17333F5600ECF972 /* OWTask.h */,
 				D964E58F17333F5600ECF972 /* OWTask.m */,
 				D9DA079D17304A7E0041B638 /* OWInvestigation.h */,
@@ -2492,6 +2512,10 @@
 				D926A0D617397D0300C89708 /* AVCamRecorder.m in Sources */,
 				D926A0D717397D0300C89708 /* AVCamUtilities.m in Sources */,
 				D926A0D817397D0300C89708 /* AVCamViewController.m in Sources */,
+				D926A1071739908D00C89708 /* OWLocalMediaObject.m in Sources */,
+				D926A10A173990AC00C89708 /* OWPhoto.m in Sources */,
+				D926A10F173990CD00C89708 /* _OWLocalMediaObject.m in Sources */,
+				D926A110173990CD00C89708 /* _OWPhoto.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

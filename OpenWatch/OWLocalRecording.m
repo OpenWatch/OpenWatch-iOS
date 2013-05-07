@@ -16,55 +16,35 @@
 @implementation OWLocalRecording
 
 
-+ (NSString*) mediaDirectoryPath {
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *basePath = ([paths count] > 0) ? [paths objectAtIndex:0] : nil;
-    NSString *videosPath = [basePath stringByAppendingPathComponent:@"videos"];
-    return videosPath;
-}
-
-+ (NSString *)newUUID
-{
-    CFUUIDRef theUUID = CFUUIDCreate(NULL);
-    CFStringRef string = CFUUIDCreateString(NULL, theUUID);
-    CFRelease(theUUID);
-    return (__bridge_transfer NSString *)string;
-}
-
-+ (NSString*) pathForUUID:(NSString*)uuid {
-    NSString *videosPath = [OWLocalRecording mediaDirectoryPath];
-    NSString *recordingPath = [videosPath stringByAppendingPathComponent:uuid];
-    return recordingPath;
-}
 
 - (NSString*) localRecordingPath {
     return [OWLocalRecording pathForUUID:self.uuid];
 }
 
 + (OWLocalRecording*) recording {
-    NSString *uuid = [OWLocalRecording newUUID];
-    OWLocalRecording* recording = [OWLocalRecording recordingWithUUID:uuid];
-    NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
-    [context MR_saveToPersistentStoreAndWait];
-    return recording;
+    OWLocalMediaObject* recording = [self localMediaObject];
+    if (![recording isKindOfClass:[OWLocalRecording class]]) {
+        return nil;
+    }
+    return (OWLocalRecording*)recording;
+}
+
++ (NSString*) mediaDirectoryPath {
+    return [self mediaDirectoryPathForMediaType:@"videos"];
+}
+
+- (NSString*) localMediaPath {
+    NSString *uuidPath = [self localRecordingPath];
+    NSString *path = [uuidPath stringByAppendingPathComponent:kHQFileName];
+    return path;
 }
 
 + (OWLocalRecording*) recordingWithUUID:(NSString *)uuid {
-    OWLocalRecording *recording = [OWLocalRecording MR_findFirstByAttribute:@"uuid" withValue:uuid];
-    if (!recording) {
-        NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
-        recording = [OWLocalRecording MR_createInContext:context];
-        recording.uuid = uuid;
-        OWUser *user = [[[OWSettingsController sharedInstance] account] user];
-        recording.user = user;
-        NSError *error = nil;
-        BOOL success = [context obtainPermanentIDsForObjects:@[recording] error:&error];
-        if (error || !success) {
-            NSLog(@"Error convert to permanent ID: %@", [error userInfo]);
-        }
-        [context MR_saveToPersistentStoreAndWait];
+    OWLocalMediaObject *mediaObject =[OWLocalMediaObject localMediaObjectWithUUID:uuid];
+    if (![mediaObject isKindOfClass:[OWLocalRecording class]]) {
+        return nil;
     }
-    return recording;
+    return (OWLocalRecording*)mediaObject;
 }
 
 - (void) setUploadState:(OWFileUploadState)uploadState forFileAtURL :(NSURL *)url {

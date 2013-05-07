@@ -21,7 +21,7 @@
 #import "OWSettingsController.h"
 #import "OWFeedViewController.h"
 #import "OWDashboardItem.h"
-#import "AVCamViewController.h"
+#import "OWPhoto.h"
 
 #define kActionBarHeight 70.0f
 
@@ -165,8 +165,8 @@
         self.imagePicker = nil;
     }];
     UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
-    NSData *jpegData = UIImageJPEGRepresentation(image, 0.85);
-    NSLog(@"length: %d kB", jpegData.length / 1024);
+    OWPhoto *photo = [OWPhoto photoWithImage:image];
+    NSLog(@"photo created: %@", photo.description);
 }
 
 - (void) imagePickerControllerDidCancel:(UIImagePickerController *)picker {
