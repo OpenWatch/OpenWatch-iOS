@@ -34,10 +34,6 @@
 		D91AC03D1733079E00823179 /* ow_space1@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D91AC03C1733079E00823179 /* ow_space1@2x.jpg */; };
 		D920584E16812A46004C2F1A /* OWSHKConfigurator.m in Sources */ = {isa = PBXBuildFile; fileRef = D920584D16812A46004C2F1A /* OWSHKConfigurator.m */; };
 		D920585A16813643004C2F1A /* OWShareController.m in Sources */ = {isa = PBXBuildFile; fileRef = D920585916813643004C2F1A /* OWShareController.m */; };
-		D926A0D517397D0300C89708 /* AVCamCaptureManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D926A0CE17397D0300C89708 /* AVCamCaptureManager.m */; };
-		D926A0D617397D0300C89708 /* AVCamRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = D926A0D017397D0300C89708 /* AVCamRecorder.m */; };
-		D926A0D717397D0300C89708 /* AVCamUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = D926A0D217397D0300C89708 /* AVCamUtilities.m */; };
-		D926A0D817397D0300C89708 /* AVCamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D926A0D417397D0300C89708 /* AVCamViewController.m */; };
 		D926A10117397DDA00C89708 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D926A10017397DDA00C89708 /* AssetsLibrary.framework */; };
 		D926A1071739908D00C89708 /* OWLocalMediaObject.m in Sources */ = {isa = PBXBuildFile; fileRef = D926A1061739908D00C89708 /* OWLocalMediaObject.m */; };
 		D926A10F173990CD00C89708 /* _OWLocalMediaObject.m in Sources */ = {isa = PBXBuildFile; fileRef = D926A10C173990CD00C89708 /* _OWLocalMediaObject.m */; };
@@ -680,14 +676,6 @@
 		D920584D16812A46004C2F1A /* OWSHKConfigurator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWSHKConfigurator.m; sourceTree = "<group>"; };
 		D920585816813643004C2F1A /* OWShareController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWShareController.h; sourceTree = "<group>"; };
 		D920585916813643004C2F1A /* OWShareController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWShareController.m; sourceTree = "<group>"; };
-		D926A0CD17397D0300C89708 /* AVCamCaptureManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AVCamCaptureManager.h; sourceTree = "<group>"; };
-		D926A0CE17397D0300C89708 /* AVCamCaptureManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AVCamCaptureManager.m; sourceTree = "<group>"; };
-		D926A0CF17397D0300C89708 /* AVCamRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AVCamRecorder.h; sourceTree = "<group>"; };
-		D926A0D017397D0300C89708 /* AVCamRecorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AVCamRecorder.m; sourceTree = "<group>"; };
-		D926A0D117397D0300C89708 /* AVCamUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AVCamUtilities.h; sourceTree = "<group>"; };
-		D926A0D217397D0300C89708 /* AVCamUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AVCamUtilities.m; sourceTree = "<group>"; };
-		D926A0D317397D0300C89708 /* AVCamViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AVCamViewController.h; sourceTree = "<group>"; };
-		D926A0D417397D0300C89708 /* AVCamViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AVCamViewController.m; sourceTree = "<group>"; };
 		D926A10017397DDA00C89708 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		D926A1051739908D00C89708 /* OWLocalMediaObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWLocalMediaObject.h; sourceTree = "<group>"; };
 		D926A1061739908D00C89708 /* OWLocalMediaObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWLocalMediaObject.m; sourceTree = "<group>"; };
@@ -1076,22 +1064,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		D926A0CC17397D0300C89708 /* AVCam */ = {
-			isa = PBXGroup;
-			children = (
-				D926A0CD17397D0300C89708 /* AVCamCaptureManager.h */,
-				D926A0CE17397D0300C89708 /* AVCamCaptureManager.m */,
-				D926A0CF17397D0300C89708 /* AVCamRecorder.h */,
-				D926A0D017397D0300C89708 /* AVCamRecorder.m */,
-				D926A0D117397D0300C89708 /* AVCamUtilities.h */,
-				D926A0D217397D0300C89708 /* AVCamUtilities.m */,
-				D926A0D317397D0300C89708 /* AVCamViewController.h */,
-				D926A0D417397D0300C89708 /* AVCamViewController.m */,
-			);
-			name = AVCam;
-			path = AVCam/Classes;
-			sourceTree = "<group>";
-		};
 		D92B6A6516AF4FD3006605E1 /* EGOTableViewPullRefresh */ = {
 			isa = PBXGroup;
 			children = (
@@ -1419,7 +1391,6 @@
 		D9D2E1501652EA8A0000E7C5 /* Submodules */ = {
 			isa = PBXGroup;
 			children = (
-				D926A0CC17397D0300C89708 /* AVCam */,
 				D9A6D9CF1731D03400C1488A /* BSKeyboardControls */,
 				D9DA0793173039A50041B638 /* facebook-ios-sdk.xcodeproj */,
 				D92B6AD516AFBA82006605E1 /* DWTagList */,
@@ -2508,10 +2479,6 @@
 				D9D8673D17346C89008C8CE6 /* OWDashboardView.m in Sources */,
 				D9D8676717346D02008C8CE6 /* OWDashboardItem.m in Sources */,
 				D9D8676A17346FF7008C8CE6 /* OWDashboardTableViewCell.m in Sources */,
-				D926A0D517397D0300C89708 /* AVCamCaptureManager.m in Sources */,
-				D926A0D617397D0300C89708 /* AVCamRecorder.m in Sources */,
-				D926A0D717397D0300C89708 /* AVCamUtilities.m in Sources */,
-				D926A0D817397D0300C89708 /* AVCamViewController.m in Sources */,
 				D926A1071739908D00C89708 /* OWLocalMediaObject.m in Sources */,
 				D926A10F173990CD00C89708 /* _OWLocalMediaObject.m in Sources */,
 				D96D4EDE1739C0CC00FE17E2 /* OWPhoto.m in Sources */,
