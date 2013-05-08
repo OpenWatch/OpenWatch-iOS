@@ -243,8 +243,8 @@
     [self refreshFrames];
     [self refreshMapParameters];
     
-    [[OWAccountAPIClient sharedClient] getRecordingWithUUID:recording.uuid success:^(NSManagedObjectID *recordingObjectID) {
-        OWManagedRecording *remoteRecording = [OWRecordingController recordingForObjectID:recordingObjectID];
+    [[OWAccountAPIClient sharedClient] getObjectWithUUID:recording.uuid objectClass:[recording class] success:^(NSManagedObjectID *objectID) {
+        OWManagedRecording *remoteRecording = [OWRecordingController recordingForObjectID:objectID];
         self.moviePlayer.contentURL = [NSURL URLWithString:[remoteRecording remoteMediaURLString]];
         [moviePlayer prepareToPlay];
         [self refreshMapParameters];
@@ -253,6 +253,7 @@
         [TestFlight passCheckpoint:VIEW_RECORDING_ID_CHECKPOINT([remoteRecording.serverID intValue])];
     } failure:^(NSString *reason) {
         NSLog(@"failure to fetch recording details: %@", reason);
+
     }];
 }
 

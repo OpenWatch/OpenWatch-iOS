@@ -11,7 +11,7 @@
 #import "OWStrings.h"
 #import "OWAccountAPIClient.h"
 #import "OWMediaObjectTableViewCell.h"
-#import "OWRecordingEditViewController.h"
+#import "OWLocalMediaEditViewController.h"
 #import "OWSettingsController.h"
 #import "OWLocalRecordingTableViewCell.h"
 #import "OWLocalMediaController.h"
@@ -153,16 +153,9 @@
         return;
     }
     NSManagedObjectID *recordingID = [self.objectIDs objectAtIndex:indexPath.row];
-    OWLocalMediaObject *mediaObject = [OWLocalMediaController localMediaObjectForObjectID:recordingID];
-    if ([mediaObject isKindOfClass:[OWLocalRecording class]]) {
-        OWRecordingEditViewController *recordingEditVC = [[OWRecordingEditViewController alloc] init];
-        recordingEditVC.recordingID = recordingID;
-        [self.navigationController pushViewController:recordingEditVC animated:YES];
-    } else if ([mediaObject isKindOfClass:[OWPhoto class]]) {
-        OWPhotoDetailViewController *photoDetail = [[OWPhotoDetailViewController alloc] init];
-        photoDetail.photo = (OWPhoto*)mediaObject;
-        [self.navigationController pushViewController:photoDetail animated:YES];
-    }
+    OWLocalMediaEditViewController *editVC = [[OWLocalMediaEditViewController alloc] init];
+    editVC.objectID = recordingID;
+    [self.navigationController pushViewController:editVC animated:YES];
 }
 
 - (void) fetchObjectsForPageNumber:(NSUInteger)pageNumber {

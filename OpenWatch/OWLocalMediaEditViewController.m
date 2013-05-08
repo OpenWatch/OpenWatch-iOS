@@ -1,12 +1,12 @@
 //
-//  OWRecordingEditViewController.m
+//  OWLocalMediaEditViewController.m
 //  OpenWatch
 //
 //  Created by Christopher Ballinger on 12/17/12.
 //  Copyright (c) 2012 OpenWatch FPC. All rights reserved.
 //
 
-#import "OWRecordingEditViewController.h"
+#import "OWLocalMediaEditViewController.h"
 #import "OWStrings.h"
 #import "OWCaptureAPIClient.h"
 #import "OWAccountAPIClient.h"
@@ -18,16 +18,18 @@
 #import "OWTag.h"
 #import "MBProgressHUD.h"
 #import "OWSettingsController.h"
+#import "OWLocalMediaController.h"
+#import "OWPhoto.h"
 
 #define TAGS_ROW 0
 #define PADDING 10.0f
 
-@interface OWRecordingEditViewController ()
+@interface OWLocalMediaEditViewController ()
 
 @end
 
-@implementation OWRecordingEditViewController
-@synthesize titleTextField, descriptionTextField, whatHappenedLabel, saveButton, uploadProgressView, recordingID, scrollView, tagEditView, showingAfterCapture;
+@implementation OWLocalMediaEditViewController
+@synthesize titleTextField, whatHappenedLabel, saveButton, uploadProgressView, objectID, scrollView, showingAfterCapture, previewView;
 
 - (void) dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -40,6 +42,7 @@
         [self setupFields];
         [self setupWhatHappenedLabel];
         [self setupProgressView];
+        [self setupPreviewView];
         self.showingAfterCapture = NO;
         [self registerForUploadProgressNotifications];
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:SAVE_STRING style:UIBarButtonItemStyleDone target:self action:@selector(saveButtonPressed:)];
@@ -59,14 +62,8 @@
     return self;
 }
 
-- (void) setupTagEditView {
-    CGFloat width = 320.0f; // HACK
-    CGFloat height = 300.0f; // HACK FIX THIS
-    self.tagEditView = [[OWTagEditView alloc] initWithFrame:CGRectMake(PADDING, 0, width - PADDING*2, height)];
-    self.tagEditView.delegate = self;
-    //self.tagEditView.autoresizesSubviews =
-    self.tagEditView.viewForAutocompletionPopover = self.view;
-    [self.scrollView addSubview:tagEditView];
+- (void) setupPreviewView {
+    self.previewView = [[OWPreviewView alloc] init];
 }
 
 - (void) setupScrollView {
@@ -95,13 +92,18 @@
 
 
 - (void) refreshProgressView {
-    OWManagedRecording *recording = [OWRecordingController recordingForObjectID:self.recordingID];
-    if ([recording isKindOfClass:[OWLocalRecording class]]) {
-        OWLocalRecording *localRecording = (OWLocalRecording*)recording;
+    OWLocalMediaObject *mediaObject = [OWLocalMediaController localMediaObjectForObjectID:self.objectID];
+    if ([mediaObject isKindOfClass:[OWLocalRecording class]]) {
+        OWLocalRecording *localRecording = (OWLocalRecording*)mediaObject;
         float progress = ((float)[localRecording completedFileCount]) / [localRecording totalFileCount];
         [self.uploadProgressView setProgress:progress animated:YES];
-    } else {
-        [self.uploadProgressView setProgress:1.0];
+    } else if ([mediaObject isKindOfClass:[OWPhoto class]]){
+        OWPhoto *photo = (OWPhoto*)mediaObject;
+        if (photo.uploaded) {
+            [self.uploadProgressView setProgress:1.0f animated:YES];
+        } else {
+            [self.uploadProgressView setProgress:0.0f animated:YES];
+        }
     }
 }
 
@@ -112,30 +114,24 @@
     CGFloat titleYOrigin;
     CGFloat itemHeight = 30.0f;
     CGFloat itemWidth = self.view.frame.size.width - padding*2;
-    self.uploadProgressView.frame = CGRectMake(padding, padding, itemWidth, itemHeight);
+    
+    self.previewView.frame = CGRectMake(padding, padding, itemWidth, 200);
+    
+    self.uploadProgressView.frame = CGRectMake(padding, [OWUtilities bottomOfView:previewView], itemWidth, itemHeight);
     
     CGFloat whatHappenedYOrigin = [OWUtilities bottomOfView:uploadProgressView] + padding;
     self.whatHappenedLabel.frame = CGRectMake(padding,whatHappenedYOrigin, itemWidth, itemHeight);
     titleYOrigin = [OWUtilities bottomOfView:whatHappenedLabel] + padding;
     self.titleTextField.frame = CGRectMake(padding, titleYOrigin, itemWidth, itemHeight);
-    CGFloat descriptionYOrigin = [OWUtilities bottomOfView:titleTextField] + padding;
-    self.descriptionTextField.frame = CGRectMake(padding, descriptionYOrigin, itemWidth, 100.0f);
-        contentHeight = [OWUtilities bottomOfView:self.tagEditView] + padding*3;
-    [self refreshTagEditViewFrame];
+    contentHeight = [OWUtilities bottomOfView:self.titleTextField] + padding*3;
     self.scrollView.contentSize = CGSizeMake(self.view.frame.size.width, contentHeight);
     self.scrollView.frame = self.view.bounds;
 }
 
-- (void) refreshTagEditViewFrame {
-    CGFloat itemWidth = self.view.frame.size.width - PADDING*2;
-    CGFloat tagViewHeight = tagEditView.contentSize.height;
-    self.tagEditView.frame = CGRectMake(PADDING, [OWUtilities bottomOfView:descriptionTextField] + PADDING, itemWidth, tagViewHeight);
-}
-
-
-
-- (void) setRecordingID:(NSManagedObjectID *)newRecordingID {
-    recordingID = newRecordingID;
+- (void) setObjectID:(NSManagedObjectID *)newObjectID {
+    objectID = newObjectID;
+    
+    self.previewView.objectID = objectID;
     
     [self refreshFields];
     [self refreshFrames];
@@ -158,25 +154,13 @@
 }
 
 - (void) refreshFields {
-    OWManagedRecording *recording = [OWRecordingController recordingForObjectID:self.recordingID];
-    NSString *title = recording.title;
+    OWLocalMediaObject *mediaObject = [OWLocalMediaController localMediaObjectForObjectID:objectID];
+    NSString *title = mediaObject.title;
     if (title) {
         self.titleTextField.text = title;
     } else {
         self.titleTextField.text = @"";
     }
-    NSString *description = recording.recordingDescription;
-    if (description) {
-        self.descriptionTextField.text = description;
-    } else {
-        self.descriptionTextField.text = @"";
-    }
-    NSSet *tagSet = recording.tags;
-    tagEditView.tags = tagSet;
-}
-
-- (void) tagEditView:(OWTagEditView *)tagEditView sizeDidChange:(CGSize)newSize {
-    self.tagEditView.frame = CGRectMake(self.tagEditView.frame.origin.x, self.tagEditView.frame.origin.y, newSize.width, newSize.height);
 }
 
 - (UITextField*)textFieldWithDefaults {
@@ -199,14 +183,6 @@
     self.titleTextField.placeholder = TITLE_STRING;
     
     [self.scrollView addSubview:titleTextField];
-    
-    if (descriptionTextField) {
-        [descriptionTextField removeFromSuperview];
-    }
-    self.descriptionTextField = [self textFieldWithDefaults];
-    self.descriptionTextField.placeholder = DESCRIPTION_STRING;
-    
-    [self.scrollView addSubview:descriptionTextField];    
 }
 
 
@@ -217,7 +193,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self setupTagEditView];
 	[self.view addSubview:scrollView];
 }
 
@@ -234,26 +209,17 @@
         [alert show];
         return;
     }
-    OWManagedRecording *recording = [OWRecordingController recordingForObjectID:self.recordingID];
+    OWLocalMediaObject *mediaObject = [OWLocalMediaController localMediaObjectForObjectID:self.objectID];
     NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
-    recording.title = self.titleTextField.text;
-    recording.recordingDescription = self.descriptionTextField.text;
-    recording.tags = tagEditView.tags;
-    
-    OWAccount *account = [[OWSettingsController sharedInstance] account];
-    OWUser *user = account.user;
-    NSMutableSet *tagSet = user.tagsSet;
-    [tagSet addObjectsFromArray:[recording.tags allObjects]];
-    user.tags = tagSet;
+    mediaObject.title = self.titleTextField.text;
     [context MR_saveToPersistentStoreAndWait];
     
-    [recording saveMetadata];
-    [[OWAccountAPIClient sharedClient] postRecordingWithUUID:recording.uuid success:nil failure:nil];
+    [[OWAccountAPIClient sharedClient] postObjectWithUUID:mediaObject.uuid objectClass:[mediaObject class] success:nil failure:nil];
     
     [self.view endEditing:YES];
     [self dismissViewControllerAnimated:YES completion:^{
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:SHARE_STRING message:SHARE_MESSAGE_STRING delegate:OW_APP_DELEGATE.dashboardViewController cancelButtonTitle:NO_STRING otherButtonTitles:YES_STRING, nil];
-        [OWShareController sharedInstance].mediaObjectID = self.recordingID;
+        [OWShareController sharedInstance].mediaObjectID = self.objectID;
         [alert show];
     }];
     [self.navigationController popViewControllerAnimated:YES];
@@ -264,16 +230,15 @@
         [self refreshFields];
         return;
     }
-    OWManagedRecording *recording = [OWRecordingController recordingForObjectID:self.recordingID];
-    if (![recording isKindOfClass:[OWLocalRecording class]]) {
-        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        [[OWAccountAPIClient sharedClient] getRecordingWithUUID:recording.uuid success:^(NSManagedObjectID *recordingObjectID) {
-            [self refreshFields];
-            [MBProgressHUD hideHUDForView:self.view animated:YES];
-        } failure:^(NSString *reason) {
-            [MBProgressHUD hideHUDForView:self.view animated:YES];
-        }];
-    }
+    OWLocalMediaObject *mediaObject = [OWLocalMediaController localMediaObjectForObjectID:self.objectID];
+
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [[OWAccountAPIClient sharedClient] getObjectWithUUID:mediaObject.uuid objectClass:mediaObject.class success:^(NSManagedObjectID *objectID) {
+        [self refreshFields];
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+    } failure:^(NSString *reason) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+    }];
 }
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
@@ -284,10 +249,6 @@
 
 - (void) textFieldDidBeginEditing:(UITextField *)textField {
     [self.scrollView setContentOffset:CGPointMake(0, titleTextField.frame.origin.y - PADDING) animated:YES];
-}
-
-- (void) tagEditViewDidBeginEditing:(OWTagEditView *)_tagEditView {
-    [self.scrollView setContentOffset:CGPointMake(0, tagEditView.frame.origin.y - PADDING) animated:YES];
 }
 
 - (void)keyboardWillShow: (NSNotification *) notif{}

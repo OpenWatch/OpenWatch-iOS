@@ -231,7 +231,7 @@
 		D9E72E51167FB10000C6CB75 /* icon-ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E72E50167FB10000C6CB75 /* icon-ipad.png */; };
 		D9E72E53167FB10500C6CB75 /* icon-ipad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E72E52167FB10500C6CB75 /* icon-ipad@2x.png */; };
 		D9E72E57167FB39A00C6CB75 /* OWWelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9E72E56167FB39A00C6CB75 /* OWWelcomeViewController.m */; };
-		D9E72E5A167FF6AE00C6CB75 /* OWRecordingEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9E72E59167FF6AD00C6CB75 /* OWRecordingEditViewController.m */; };
+		D9E72E5A167FF6AE00C6CB75 /* OWLocalMediaEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9E72E59167FF6AD00C6CB75 /* OWLocalMediaEditViewController.m */; };
 		D9EB4C3C166D314C0019F8B6 /* MagicalImportFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = D9EB4C04166D314C0019F8B6 /* MagicalImportFunctions.m */; };
 		D9EB4C3D166D314C0019F8B6 /* NSAttributeDescription+MagicalDataImport.m in Sources */ = {isa = PBXBuildFile; fileRef = D9EB4C06166D314C0019F8B6 /* NSAttributeDescription+MagicalDataImport.m */; };
 		D9EB4C3E166D314C0019F8B6 /* NSEntityDescription+MagicalDataImport.m in Sources */ = {isa = PBXBuildFile; fileRef = D9EB4C08166D314C0019F8B6 /* NSEntityDescription+MagicalDataImport.m */; };
@@ -264,6 +264,7 @@
 		D9EB4C75166D5F500019F8B6 /* OWManagedRecording.m in Sources */ = {isa = PBXBuildFile; fileRef = D9EB4C74166D5F500019F8B6 /* OWManagedRecording.m */; };
 		D9EB4C78166D5F600019F8B6 /* OWRecordingSegment.m in Sources */ = {isa = PBXBuildFile; fileRef = D9EB4C77166D5F600019F8B6 /* OWRecordingSegment.m */; };
 		D9EB4C7F166D67920019F8B6 /* OWUser.m in Sources */ = {isa = PBXBuildFile; fileRef = D9EB4C7E166D67920019F8B6 /* OWUser.m */; };
+		D9FF1A34173B03AF0076D214 /* OWPreviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9FF1A33173B03AF0076D214 /* OWPreviewView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -974,8 +975,8 @@
 		D9E72E52167FB10500C6CB75 /* icon-ipad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-ipad@2x.png"; sourceTree = "<group>"; };
 		D9E72E55167FB39A00C6CB75 /* OWWelcomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWWelcomeViewController.h; sourceTree = "<group>"; };
 		D9E72E56167FB39A00C6CB75 /* OWWelcomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWWelcomeViewController.m; sourceTree = "<group>"; };
-		D9E72E58167FF6AC00C6CB75 /* OWRecordingEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWRecordingEditViewController.h; sourceTree = "<group>"; };
-		D9E72E59167FF6AD00C6CB75 /* OWRecordingEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWRecordingEditViewController.m; sourceTree = "<group>"; };
+		D9E72E58167FF6AC00C6CB75 /* OWLocalMediaEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWLocalMediaEditViewController.h; sourceTree = "<group>"; };
+		D9E72E59167FF6AD00C6CB75 /* OWLocalMediaEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWLocalMediaEditViewController.m; sourceTree = "<group>"; };
 		D9EB4C03166D314C0019F8B6 /* MagicalImportFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MagicalImportFunctions.h; sourceTree = "<group>"; };
 		D9EB4C04166D314C0019F8B6 /* MagicalImportFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MagicalImportFunctions.m; sourceTree = "<group>"; };
 		D9EB4C05166D314C0019F8B6 /* NSAttributeDescription+MagicalDataImport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSAttributeDescription+MagicalDataImport.h"; sourceTree = "<group>"; };
@@ -1040,6 +1041,8 @@
 		D9EB4C77166D5F600019F8B6 /* OWRecordingSegment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWRecordingSegment.m; sourceTree = "<group>"; };
 		D9EB4C7D166D67910019F8B6 /* OWUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWUser.h; sourceTree = "<group>"; };
 		D9EB4C7E166D67920019F8B6 /* OWUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWUser.m; sourceTree = "<group>"; };
+		D9FF1A32173B03AF0076D214 /* OWPreviewView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWPreviewView.h; sourceTree = "<group>"; };
+		D9FF1A33173B03AF0076D214 /* OWPreviewView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWPreviewView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1561,8 +1564,10 @@
 				D963C8511739C698008999F7 /* OWAudioRecordingViewController.m */,
 				D97EAAB9167A540800A1B038 /* OWFeedSelectionViewController.h */,
 				D97EAABA167A540900A1B038 /* OWFeedSelectionViewController.m */,
-				D9E72E58167FF6AC00C6CB75 /* OWRecordingEditViewController.h */,
-				D9E72E59167FF6AD00C6CB75 /* OWRecordingEditViewController.m */,
+				D9FF1A32173B03AF0076D214 /* OWPreviewView.h */,
+				D9FF1A33173B03AF0076D214 /* OWPreviewView.m */,
+				D9E72E58167FF6AC00C6CB75 /* OWLocalMediaEditViewController.h */,
+				D9E72E59167FF6AD00C6CB75 /* OWLocalMediaEditViewController.m */,
 				D95BD80A16B06738002C43A5 /* Media View */,
 				D930851616640C6E008C5D4C /* OWGroupedTableViewController.h */,
 				D930851716640C6E008C5D4C /* OWGroupedTableViewController.m */,
@@ -2470,7 +2475,7 @@
 				D97EAAA1167911B100A1B038 /* OWMediaObjectTableViewCell.m in Sources */,
 				D97EAABB167A540900A1B038 /* OWFeedSelectionViewController.m in Sources */,
 				D9E72E57167FB39A00C6CB75 /* OWWelcomeViewController.m in Sources */,
-				D9E72E5A167FF6AE00C6CB75 /* OWRecordingEditViewController.m in Sources */,
+				D9E72E5A167FF6AE00C6CB75 /* OWLocalMediaEditViewController.m in Sources */,
 				D96677EA16810B2A006F1815 /* OWTallyView.m in Sources */,
 				D920584E16812A46004C2F1A /* OWSHKConfigurator.m in Sources */,
 				D920585A16813643004C2F1A /* OWShareController.m in Sources */,
@@ -2525,6 +2530,7 @@
 				D963C85E1739CAB5008999F7 /* _OWAudio.m in Sources */,
 				D963C8611739E459008999F7 /* OWLocalMediaController.m in Sources */,
 				D963C8641739E516008999F7 /* OWPhotoController.m in Sources */,
+				D9FF1A34173B03AF0076D214 /* OWPreviewView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

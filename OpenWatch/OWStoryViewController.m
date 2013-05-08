@@ -164,7 +164,7 @@
     if (!story.body) {
         [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     }
-    [[OWAccountAPIClient sharedClient] getStoryWithObjectID:self.mediaObjectID success:^(NSManagedObjectID *recordingObjectID) {
+    [[OWAccountAPIClient sharedClient] getObjectWithObjectID:self.mediaObjectID success:^(NSManagedObjectID *objectID) {
         [self refreshFields];
     } failure:^(NSString *reason) {
         

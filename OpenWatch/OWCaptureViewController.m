@@ -9,7 +9,7 @@
 #import "OWCaptureViewController.h"
 #import "OWStrings.h"
 #import "OWCaptureController.h"
-#import "OWRecordingEditViewController.h"
+#import "OWLocalMediaEditViewController.h"
 #import "OWAppDelegate.h"
 #import "OWUtilities.h"
 #import "OWShareController.h"
@@ -159,8 +159,8 @@
         
         [self dismissViewControllerAnimated:YES completion:^{
             //[videoProcessor stopAndTearDownCaptureSession];
-            OWRecordingEditViewController *recordingInfo = [[OWRecordingEditViewController alloc] init];
-            recordingInfo.recordingID = videoProcessor.recordingID;
+            OWLocalMediaEditViewController *recordingInfo = [[OWLocalMediaEditViewController alloc] init];
+            recordingInfo.objectID = videoProcessor.recordingID;
             recordingInfo.showingAfterCapture = YES;
             UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:recordingInfo];
             [OWUtilities styleNavigationController:nav];

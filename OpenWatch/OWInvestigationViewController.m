@@ -26,7 +26,7 @@
     if(!investigation.html){
         [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     }
-    [[OWAccountAPIClient sharedClient] getInvestigationWithObjectID:self.mediaObjectID success:^(NSManagedObjectID *investigationObjectID) {
+    [[OWAccountAPIClient sharedClient] getObjectWithObjectID:investigation.objectID success:^(NSManagedObjectID *objectID) {
         [self refreshFields];
     } failure:^(NSString *reason) {
         NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];

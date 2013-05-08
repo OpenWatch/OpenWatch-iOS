@@ -18,10 +18,13 @@
 #import "OWRecordingController.h"
 #import "SDURLCache.h"
 #import "OWInvestigation.h"
+#import "OWLocalMediaController.h"
 #import "AFImageRequestOperation.h"
+#import "OWPhoto.h"
+#import "OWLocalRecording.h"
+#import "OWAudio.h"
 
 #define kRecordingsKey @"recordings/"
-//#define kRecordingKey @"recording/"
 
 #define kEmailKey @"email_address"
 #define kPasswordKey @"password"
@@ -164,46 +167,56 @@
     }];
 }
 
-- (NSString*)pathForRecordingWithUUID:(NSString*)UUID {
-    return [kRecordingKey stringByAppendingFormat:@"/%@/",UUID];
+- (NSString*) pathForClass:(Class)class uuid:(NSString*)uuid {
+    NSString *prefix = nil;
+    if ([class isEqual:[OWPhoto class]]) {
+        prefix = @"p";
+    } else if ([class isEqual:[OWManagedRecording class]] || [class isEqual:[OWLocalRecording class]]) {
+        prefix = @"v";
+    } else if ([class isEqual:[OWAudio class]]) {
+        prefix = @"a";
+    } else {
+        return nil;
+    }
+    return [NSString stringWithFormat:@"%@/%@/", prefix, uuid];
 }
 
-- (void) getRecordingWithUUID:(NSString*)UUID success:(void (^)(NSManagedObjectID *))success failure:(void (^)(NSString *))failure {
-    NSString *path = [self pathForRecordingWithUUID:UUID];
+- (void) getObjectWithUUID:(NSString*)UUID objectClass:(Class)objectClass success:(void (^)(NSManagedObjectID *objectID))success failure:(void (^)(NSString *reason))failure {
+    
+    NSString *path = [self pathForClass:objectClass uuid:UUID];
     NSLog(@"Fetching %@", path);
     [self getPath:path parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
         NSLog(@"GET Response: %@", operation.responseString);
-        NSDictionary *recordingDict = [responseObject objectForKey:kRecordingKey];
-        if (recordingDict) {
-            NSString *uuid = [recordingDict objectForKey:@"uuid"];
-            OWManagedRecording *managedRecording = [OWManagedRecording MR_findFirstByAttribute:@"uuid" withValue:uuid];
-            if (managedRecording) {
-                [managedRecording loadMetadataFromDictionary:recordingDict];
+        if ([responseObject isKindOfClass:[NSDictionary class]]) {
+            OWLocalMediaObject *mediaObject = [objectClass localMediaObjectWithUUID:UUID];
+            if (mediaObject) {
+                [mediaObject loadMetadataFromDictionary:responseObject];
                 [context MR_saveToPersistentStoreAndWait];
-                success(managedRecording.objectID);
+                success(mediaObject.objectID);
             } else {
                 failure(@"No recording found");
             }
-        } else {
-            failure([NSString stringWithFormat:@"Bad response from server: %@", [responseObject description]]);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         failure([error description]);
     }];
 }
 
-- (void) postRecordingWithUUID:(NSString*)UUID success:(void (^)(void))success failure:(void (^)(NSString *reason))failure {
-    OWManagedRecording *managedRecording = [OWManagedRecording MR_findFirstByAttribute:@"uuid" withValue:UUID];
-    if (!managedRecording) {
-        NSLog(@"Recording %@ not found!", UUID);
+- (void) postObjectWithUUID:(NSString*)UUID objectClass:(Class)objectClass success:(void (^)(void))success failure:(void (^)(NSString *reason))failure {
+    NSString *path = [self pathForClass:objectClass uuid:UUID];
+    
+    
+    OWLocalMediaObject *mediaObject = [objectClass localMediaObjectWithUUID:UUID];
+    if (!mediaObject) {
+        NSLog(@"Object %@ (%@) not found!", UUID, NSStringFromClass(objectClass));
         return;
     }
-    [self postPath:[self pathForRecordingWithUUID:UUID] parameters:managedRecording.metadataDictionary success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self postPath:path parameters:mediaObject.metadataDictionary success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"POST response: %@", [responseObject description]);
         //NSLog(@"POST body: %@", operation.request.HTTPBody);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"fail: %@", operation.responseString);
+        NSLog(@"failed to POST recording: %@ %@", operation.responseString, error.userInfo);
         //failure(@"Failed to POST recording");
     }];
 }

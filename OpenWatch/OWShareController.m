@@ -47,21 +47,13 @@
     
     if ([mediaObject.serverID intValue] != 0) {
         [self share];
-    } else {
-        if ([mediaObject isKindOfClass:[OWManagedRecording class]]) {
-            OWManagedRecording *recording = (OWManagedRecording*)mediaObject;
-            [[OWAccountAPIClient sharedClient] getRecordingWithUUID:recording.uuid success:^(NSManagedObjectID *recordingObjectID) {
-                [self share];
-            } failure:^(NSString *reason) {
-                NSLog(@"Failed to GET recording: %@", reason);
-            }];
-        } else if ([mediaObject isKindOfClass:[OWStory class]]) {
-            [[OWAccountAPIClient sharedClient] getStoryWithObjectID:self.mediaObjectID success:^(NSManagedObjectID *recordingObjectID) {
-                [self share];
-            } failure:^(NSString *reason) {
-                NSLog(@"Failed to GET recording: %@", reason);
-            }];
-        }
+    } else if ([mediaObject isKindOfClass:[OWLocalMediaObject class]]) {
+        OWLocalMediaObject *localMediaObject = (OWLocalMediaObject*)mediaObject;
+        [[OWAccountAPIClient sharedClient] getObjectWithUUID:localMediaObject.uuid objectClass:localMediaObject.class success:^(NSManagedObjectID *objectID) {
+            [self share];
+        } failure:^(NSString *reason) {
+            NSLog(@"Failed to GET object: %@", reason);
+        }];
     }
 }
 
