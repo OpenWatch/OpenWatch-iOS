@@ -11,6 +11,7 @@
 #import "OWRecordingController.h"
 #import "OWSettingsController.h"
 #import "OWUtilities.h"
+#import "OWLocalMediaController.h"
 
 #define kUploadStateStart @"start"
 #define kUploadStateUpload @"upload"
@@ -45,7 +46,7 @@
     [self setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
         if (status == AFNetworkReachabilityStatusReachableViaWiFi || status == AFNetworkReachabilityStatusReachableViaWWAN) {
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-                [[OWRecordingController sharedInstance] scanRecordingsForUnsubmittedData];
+                [OWLocalMediaController scanDirectoryForUnsubmittedData];
             });
         }
     }];
@@ -60,6 +61,12 @@
 - (void) updateMetadataForRecording:(NSManagedObjectID*)recordingObjectID {
     NSString *postPath = [self postPathForRecording:recordingObjectID uploadState:kUploadStateMetadata];
     [self uploadMetadataForRecording:recordingObjectID postPath:postPath];
+}
+
+- (void) uploadFailedFileURLs:(NSArray*)failedFileURLs forRecording:(NSManagedObjectID*)recordingObjectID {
+    for (NSURL *url in failedFileURLs) {
+        [[OWCaptureAPIClient sharedClient] uploadFileURL:url recording:recordingObjectID priority:NSOperationQueuePriorityVeryLow];
+    }
 }
 
 - (void) uploadFileURL:(NSURL*)url recording:(NSManagedObjectID*)recordingObjectID priority:(NSOperationQueuePriority)priority {

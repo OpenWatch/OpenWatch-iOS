@@ -1,12 +1,12 @@
 //
-//  OWRecordingListViewController.m
+//  OWLocalMediaObjectListViewController.m
 //  OpenWatch
 //
 //  Created by Christopher Ballinger on 11/13/12.
 //  Copyright (c) 2012 OpenWatch FPC. All rights reserved.
 //
 
-#import "OWRecordingListViewController.h"
+#import "OWLocalMediaObjectListViewController.h"
 #import "OWLocalRecording.h"
 #import "OWStrings.h"
 #import "OWAccountAPIClient.h"
@@ -14,23 +14,25 @@
 #import "OWRecordingEditViewController.h"
 #import "OWSettingsController.h"
 #import "OWLocalRecordingTableViewCell.h"
+#import "OWLocalMediaController.h"
+#import "OWSettingsController.h"
+#import "OWPhoto.h"
+#import "OWPhotoDetailViewController.h"
 
-@interface OWRecordingListViewController ()
+@interface OWLocalMediaObjectListViewController ()
 
 @end
 
-@implementation OWRecordingListViewController
-@synthesize recordingController, objectIDSet;
+@implementation OWLocalMediaObjectListViewController
+@synthesize objectIDSet;
 
 - (id)init
 {
     self = [super init];
     if (self) {
-        self.recordingController = [OWRecordingController sharedInstance];
         self.title = RECORDINGS_STRING;
         self.navigationItem.rightBarButtonItem = self.editButtonItem;
         self.objectIDSet = [NSMutableSet set];
-        self.cellClass = [OWLocalRecordingTableViewCell class];
     }
     return self;
 }
@@ -52,8 +54,13 @@
 
 - (void) loadOfflineRecordings {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        [self.recordingController scanVideoDirectoryForChanges];
-        NSMutableArray *objectIDs = [NSMutableArray arrayWithArray:[recordingController allLocalRecordings]];
+        [OWLocalMediaController scanDirectoryForChanges];
+        OWSettingsController *settingsController = [OWSettingsController sharedInstance];
+        NSMutableArray *objects = [NSMutableArray arrayWithArray:[OWLocalMediaController allMediaObjectsForUser:settingsController.account.user]];
+        NSMutableArray *objectIDs = [NSMutableArray arrayWithCapacity:objects.count];
+        for (NSManagedObject *object in objects) {
+            [objectIDs addObject:object.objectID];
+        }
         [objectIDs addObjectsFromArray:self.objectIDs];
         [self.objectIDSet addObjectsFromArray:objectIDs];
         [self refreshRecordingsFromSet];
@@ -66,9 +73,9 @@
 - (void) refreshRecordingsFromSet {
     self.objectIDs = [NSMutableArray arrayWithArray:[self.objectIDSet allObjects]];
     [self.objectIDs sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-        OWManagedRecording *rec1 = [OWRecordingController recordingForObjectID:obj1];
-        OWManagedRecording *rec2 = [OWRecordingController recordingForObjectID:obj2];
-        return [rec2.startDate compare:rec1.startDate];
+        OWLocalMediaObject *object1 = [OWLocalMediaController localMediaObjectForObjectID:obj1];
+        OWLocalMediaObject *object2 = [OWLocalMediaController localMediaObjectForObjectID:obj2];
+        return [object1.firstPostedDate compare:object2.firstPostedDate];
     }];
 }
 
@@ -109,10 +116,9 @@
     if (indexPath.row >= self.objectIDs.count) {
         return NO;
     }
-    NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
-    NSManagedObjectID *recordingObjectID = [self.objectIDs objectAtIndex:indexPath.row];
-    NSManagedObject *object = [context existingObjectWithID:recordingObjectID error:nil];
-    if ([object isKindOfClass:[OWLocalRecording class]]) {
+    NSManagedObjectID *objectID = [self.objectIDs objectAtIndex:indexPath.row];
+    OWLocalMediaObject *mediaObject = [OWLocalMediaController localMediaObjectForObjectID:objectID];
+    if ([mediaObject hasLocalData]) {
         return YES;
     }
     return NO;
@@ -133,10 +139,10 @@
     
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         NSManagedObjectID *recordingID = [self.objectIDs objectAtIndex:indexPath.row];
-        OWLocalRecording *recording = [OWRecordingController localRecordingForObjectID:recordingID];
+        OWLocalMediaObject *mediaObject = [OWLocalMediaController localMediaObjectForObjectID:recordingID];
         // Delete the row from the data source
         [self.objectIDs removeObjectAtIndex:indexPath.row];
-        [recordingController removeRecording:recording.objectID];
+        [OWLocalMediaController removeLocalMediaObject:mediaObject.objectID];
         [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
     }
 }
@@ -147,9 +153,16 @@
         return;
     }
     NSManagedObjectID *recordingID = [self.objectIDs objectAtIndex:indexPath.row];
-    OWRecordingEditViewController *recordingEditVC = [[OWRecordingEditViewController alloc] init];
-    recordingEditVC.recordingID = recordingID;
-    [self.navigationController pushViewController:recordingEditVC animated:YES];
+    OWLocalMediaObject *mediaObject = [OWLocalMediaController localMediaObjectForObjectID:recordingID];
+    if ([mediaObject isKindOfClass:[OWLocalRecording class]]) {
+        OWRecordingEditViewController *recordingEditVC = [[OWRecordingEditViewController alloc] init];
+        recordingEditVC.recordingID = recordingID;
+        [self.navigationController pushViewController:recordingEditVC animated:YES];
+    } else if ([mediaObject isKindOfClass:[OWPhoto class]]) {
+        OWPhotoDetailViewController *photoDetail = [[OWPhotoDetailViewController alloc] init];
+        photoDetail.photo = (OWPhoto*)mediaObject;
+        [self.navigationController pushViewController:photoDetail animated:YES];
+    }
 }
 
 - (void) fetchObjectsForPageNumber:(NSUInteger)pageNumber {

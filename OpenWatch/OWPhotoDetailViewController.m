@@ -7,6 +7,7 @@
 //
 
 #import "OWPhotoDetailViewController.h"
+#import "UIImageView+AFNetworking.h"
 
 @interface OWPhotoDetailViewController ()
 
@@ -23,6 +24,16 @@
         self.photoImageView = [[UIImageView alloc] init];
     }
     return self;
+}
+
+- (void) setPhoto:(OWPhoto *)newPhoto {
+    photo = newPhoto;
+    
+    if ([photo localMediaPath].length > 0) {
+        [self.photoImageView setImage:[photo localImage]];
+    } else {
+        [self.photoImageView setImageWithURL:photo.remoteMediaURL];
+    }
 }
 
 - (void)viewDidLoad

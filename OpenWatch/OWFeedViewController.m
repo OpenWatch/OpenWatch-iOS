@@ -39,7 +39,6 @@
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"list.png"] style:UIBarButtonItemStylePlain target:self action:@selector(feedSelectionButtonPressed:)];
         self.feedSelector = [[OWFeedSelectionViewController alloc] init];
         feedSelector.delegate = self;
-        self.cellClass = [OWFeedTableViewCell class];
     }
     return self;
 }

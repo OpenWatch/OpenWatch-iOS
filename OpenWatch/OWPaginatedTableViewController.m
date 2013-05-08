@@ -9,6 +9,10 @@
 #import "OWPaginatedTableViewController.h"
 #import "OWMediaObjectTableViewCell.h"
 #import "OWUtilities.h"
+#import "OWLocalMediaController.h"
+#import "OWPhoto.h"
+#import "OWLocalRecording.h"
+#import "OWInvestigation.h"
 
 #define kLoadingCellTag 31415
 
@@ -22,7 +26,6 @@
 @synthesize currentPage;
 @synthesize totalPages;
 @synthesize objectIDs;
-@synthesize cellClass;
 
 - (id)init
 {
@@ -30,7 +33,11 @@
     if (self) {
         self.tableView.backgroundColor = [OWUtilities stoneBackgroundPattern];
         currentPage = 0;
-        self.cellClass = [OWMediaObjectTableViewCell class];
+        
+        NSArray *objectTypes = @[[OWLocalMediaObject class], [OWLocalRecording class], [OWManagedRecording class], [OWPhoto class], [OWInvestigation class]];
+        for (Class class in objectTypes) {
+            [self.tableView registerClass:[class cellClass] forCellReuseIdentifier:[class cellIdentifier]];
+        }
     }
     return self;
 }
@@ -44,7 +51,10 @@
 		view.delegate = self;
         view.backgroundColor = [UIColor clearColor];
 		[self.tableView addSubview:view];
-		_refreshHeaderView = view;		
+		_refreshHeaderView = view;
+        
+        
+        
 	}
 	[_refreshHeaderView refreshLastUpdatedDate];
 }
@@ -110,13 +120,10 @@
 
 
 - (OWMediaObjectTableViewCell*) mediaObjectCellForIndexPath:(NSIndexPath *)indexPath {
-    static NSString *cellIdentifier = @"MediaObjectCellIdentifier";
-    OWMediaObjectTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    if (!cell) {
-        cell = [[cellClass alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier];
-    }
-    NSManagedObjectID *recordingObjectID = [self.objectIDs objectAtIndex:indexPath.row];
-    cell.mediaObjectID = recordingObjectID;
+    NSManagedObjectID *objectID = [self.objectIDs objectAtIndex:indexPath.row];
+    OWLocalMediaObject *mediaObject = [OWLocalMediaController localMediaObjectForObjectID:objectID];
+    OWMediaObjectTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:[[mediaObject class] cellIdentifier] forIndexPath:indexPath];
+    cell.mediaObjectID = objectID;
     return cell;
 }
 

@@ -62,4 +62,9 @@
     return photo;
 }
 
+- (UIImage*) localImage {
+    //NSData *data = [NSData dataWithContentsOfFile:[self localMediaPath]];
+    return [UIImage imageWithContentsOfFile:[self localMediaPath]];
+}
+
 @end

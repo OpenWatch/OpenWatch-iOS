@@ -1,5 +1,5 @@
 //
-//  OWRecordingListViewController.h
+//  OWLocalMediaObjectListViewController.h
 //  OpenWatch
 //
 //  Created by Christopher Ballinger on 11/13/12.
@@ -11,9 +11,8 @@
 #import "OWRecordingInfoViewController.h"
 #import "OWPaginatedTableViewController.h"
 
-@interface OWRecordingListViewController : OWPaginatedTableViewController <UITableViewDataSource, UITableViewDelegate>
+@interface OWLocalMediaObjectListViewController : OWPaginatedTableViewController <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) NSMutableSet *objectIDSet;
-@property (nonatomic, strong) OWRecordingController *recordingController;
 
 @end

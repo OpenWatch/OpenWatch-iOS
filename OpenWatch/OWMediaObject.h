@@ -18,4 +18,7 @@
 - (NSString*) type;
 - (NSURL*) thumbnailURL;
 
++ (Class) cellClass;
++ (NSString*) cellIdentifier;
+
 @end

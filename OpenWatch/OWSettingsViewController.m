@@ -9,7 +9,7 @@
 #import "OWSettingsViewController.h"
 #import "OWStrings.h"
 #import "OWLoginViewController.h"
-#import "OWRecordingListViewController.h"
+#import "OWLocalMediaObjectListViewController.h"
 #import "OWUtilities.h"
 
 #define ACCOUNT_ROW 0

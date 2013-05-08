@@ -401,6 +401,7 @@
     }];
 }
 
+
 - (void) fetchMediaObjectsForLocation:(CLLocation*)location page:(NSUInteger)page success:(void (^)(NSArray *mediaObjectIDs, NSUInteger totalPages))success failure:(void (^)(NSString *reason))failure {
     NSString *path = [self pathForFeedType:kOWFeedTypeFeed];
     if (!path) {

@@ -19,7 +19,6 @@
 @property (nonatomic) BOOL isReloading;
 @property (nonatomic, strong) EGORefreshTableHeaderView *refreshHeaderView;
 @property (nonatomic, strong) NSMutableArray *objectIDs;
-@property (nonatomic, strong) Class cellClass;
 
 - (void) reloadTableViewDataSource;
 - (void) doneLoadingTableViewData;

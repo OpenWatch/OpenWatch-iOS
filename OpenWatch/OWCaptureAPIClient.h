@@ -19,6 +19,7 @@
 
 - (void) startedRecording:(NSManagedObjectID*)recordingObjectID;
 - (void) uploadFileURL:(NSURL*)url recording:(NSManagedObjectID*)recordingObjectID priority:(NSOperationQueuePriority)priority;
+- (void) uploadFailedFileURLs:(NSArray*)failedFileURLs forRecording:(NSManagedObjectID*)recordingObjectID;
 - (void) finishedRecording:(NSManagedObjectID*)recordingObjectID;
 - (void) updateMetadataForRecording:(NSManagedObjectID*)recordingObjectID;
 

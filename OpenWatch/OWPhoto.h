@@ -17,5 +17,6 @@
 + (OWPhoto*) photoWithUUID:(NSString*)uuid;
 + (OWPhoto*) photo;
 
+- (UIImage*) localImage;
 
 @end

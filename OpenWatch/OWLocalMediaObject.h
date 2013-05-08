@@ -17,9 +17,13 @@
 + (NSString*) mediaDirectoryPathForMediaType:(NSString*)mediaType;
 + (NSString*) pathForUUID:(NSString*)uuid;
 
+
+
 - (NSString*) dataDirectory;
 - (NSString*) localMediaPath;
 - (NSURL*) localMediaURL;
+- (NSURL*) remoteMediaURL;
+- (BOOL) hasLocalData;
 
 + (NSString *)newUUID;
 

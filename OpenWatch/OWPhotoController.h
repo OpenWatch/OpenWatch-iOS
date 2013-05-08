@@ -1,5 +1,5 @@
 //
-//  OWAudioController.h
+//  OWPhotoController.h
 //  OpenWatch
 //
 //  Created by Christopher Ballinger on 5/7/13.
@@ -8,8 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-@interface OWAudioController : NSObject
-
-
+@interface OWPhotoController : NSObject
 
 @end

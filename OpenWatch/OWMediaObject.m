@@ -3,6 +3,7 @@
 #import "OWUser.h"
 #import "OWUtilities.h"
 #import "OWManagedRecording.h"
+#import "OWMediaObjectTableViewCell.h"
 
 @interface OWMediaObject ()
 
@@ -12,6 +13,15 @@
 
 
 @implementation OWMediaObject
+
+
++ (Class) cellClass {
+    return [OWMediaObjectTableViewCell class];
+}
+
++ (NSString*) cellIdentifier {
+    return [NSString stringWithFormat:@"%@Cell", NSStringFromClass([self class])];
+}
 
 // Custom logic goes here.
 - (NSMutableDictionary*) metadataDictionary {

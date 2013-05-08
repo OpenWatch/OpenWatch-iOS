@@ -13,6 +13,7 @@
 
 @implementation OWLocalMediaObject
 
+
 + (NSString*) mediaDirectoryPathForMediaType:(NSString *)mediaType {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *basePath = ([paths count] > 0) ? [paths objectAtIndex:0] : nil;
@@ -76,6 +77,15 @@
 
 - (NSURL*) localMediaURL {
     return [NSURL fileURLWithPath:[self localMediaPath]];
+}
+
+- (NSURL*) remoteMediaURL {
+    return [NSURL URLWithString:self.remoteMediaURLString];
+}
+
+- (BOOL) hasLocalData {
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    return [fileManager fileExistsAtPath:self.localMediaPath];
 }
 
 @end

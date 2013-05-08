@@ -12,7 +12,7 @@
 #import "OWCaptureViewController.h"
 #import "OWAccountAPIClient.h"
 #import "OWSettingsViewController.h"
-#import "OWRecordingListViewController.h"
+#import "OWLocalMediaObjectListViewController.h"
 #import "OWStrings.h"
 #import "OWFeedViewController.h"
 #import "OWFeedSelectionViewController.h"
@@ -84,7 +84,7 @@
 }
 
 - (void) yourMediaPressed:(id)sender {
-    OWRecordingListViewController *recordingListVC = [[OWRecordingListViewController alloc] init];
+    OWLocalMediaObjectListViewController *recordingListVC = [[OWLocalMediaObjectListViewController alloc] init];
     [self.navigationController pushViewController:recordingListVC animated:YES];
 }
 

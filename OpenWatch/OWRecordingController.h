@@ -11,18 +11,12 @@
 
 @interface OWRecordingController : NSObject
 
++ (NSArray*) allManagedRecordings;
++ (NSArray*) allLocalRecordings;
 
-+ (OWRecordingController *)sharedInstance;
-
-- (NSArray*) allManagedRecordings;
-- (NSArray*) allLocalRecordings;
-
-- (void) removeRecording:(NSManagedObjectID*)recordingID;
-
-- (void) scanVideoDirectoryForChanges;
-- (void) scanRecordingsForUnsubmittedData;
 + (OWLocalRecording*) localRecordingForObjectID:(NSManagedObjectID*)objectID;
 + (OWManagedRecording*) recordingForObjectID:(NSManagedObjectID*)objectID;
 + (NSURL*) detailPageURLForRecordingServerID:(int)serverID;
+
 
 @end

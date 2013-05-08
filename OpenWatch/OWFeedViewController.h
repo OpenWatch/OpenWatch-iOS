@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "OWRecordingListViewController.h"
 #import "OWFeedSelectionViewController.h"
 #import "OWPaginatedTableViewController.h"
 #import "OWLocationController.h"
