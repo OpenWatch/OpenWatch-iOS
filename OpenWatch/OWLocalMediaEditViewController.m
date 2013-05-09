@@ -194,6 +194,7 @@
 {
     [super viewDidLoad];
 	[self.view addSubview:scrollView];
+    [self.scrollView addSubview:previewView];
 }
 
 - (BOOL) checkFields {
