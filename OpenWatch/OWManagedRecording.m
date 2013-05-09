@@ -10,6 +10,7 @@
 #import "OWUtilities.h"
 #import "OWTag.h"
 #import "OWUser.h"
+#import "OWLocationController.h"
 
 
 @interface OWManagedRecording()
@@ -41,9 +42,7 @@
 
 - (NSMutableDictionary*) metadataDictionary {
     NSMutableDictionary *newMetadataDictionary = [super metadataDictionary];
-    if (self.uuid) {
-        [newMetadataDictionary setObject:[self.uuid copy] forKey:kUUIDKey];
-    }
+
     NSDateFormatter *dateFormatter = [OWUtilities utcDateFormatter];
     if (self.startDate) {
         [newMetadataDictionary setObject:[dateFormatter stringFromDate:self.startDate] forKey:kRecordingStartDateKey];
@@ -57,31 +56,14 @@
     if (self.recordingDescription) {
         [newMetadataDictionary setObject:[self.recordingDescription copy] forKey:kDescriptionKey];
     }
-    if ([self locationIsValid:self.startLocation]) {
-        NSDictionary *startLocationDictionary = [self locationDictionaryForLocation:self.startLocation];
-        [newMetadataDictionary setObject:startLocationDictionary forKey:kLocationStartKey];
-    }
-    if ([self locationIsValid:self.endLocation]) {
-        NSDictionary *endLocationDictionary = [self locationDictionaryForLocation:self.endLocation];
-        [newMetadataDictionary setObject:endLocationDictionary forKey:kLocationEndKey];
+    if ([OWLocationController locationIsValid:self.startLocation]) {
+        [newMetadataDictionary setObject:self.startLatitude forKey:kLatitudeStartKey];
+        [newMetadataDictionary setObject:self.endLongitude forKey:kLongitudeStartKey];
     }
     
     return newMetadataDictionary;
 }
 
-- (BOOL) locationIsValid:(CLLocation*)location {
-    if (location.coordinate.latitude == 0.0f && location.coordinate.longitude == 0.0f) {
-        return NO;
-    }
-    return YES;
-}
-
-- (NSDictionary*) locationDictionaryForLocation:(CLLocation*)location {
-    NSMutableDictionary *locationDictionary = [NSMutableDictionary dictionaryWithCapacity:2];
-    [locationDictionary setObject:@(location.coordinate.latitude) forKey:kLatitudeKey];
-    [locationDictionary setObject:@(location.coordinate.longitude) forKey:kLongitudeKey];
-    return locationDictionary;
-}
 
 - (NSURL*) urlForWeb {
     NSString *baseURLString = [OWUtilities apiBaseURLString];
@@ -98,12 +80,6 @@
         self.remoteMediaURLString = videoURL;
     }
     
-    NSString *newUUID = [metadataDictionary objectForKey:kUUIDKey];
-    if (newUUID) {
-        self.uuid = newUUID;
-    } else {
-        NSLog(@"uuid not found!");
-    }
     NSString *newDescription = [metadataDictionary objectForKey:kDescriptionKey];
     if (newDescription) {
         self.recordingDescription = newDescription;
@@ -116,20 +92,14 @@
     if (endDateString) {
         self.endDate = [dateFormatter dateFromString:endDateString];
     }
-    NSDictionary *startLocationDictionary = [metadataDictionary objectForKey:kLocationStartKey];
-    if (startLocationDictionary) {
-        self.startLocation = [self locationFromLocationDictionary:startLocationDictionary];
+    NSNumber *startLatitude = [metadataDictionary objectForKey:kLatitudeStartKey];
+    if (startLatitude) {
+        self.startLatitude = startLatitude;
     }
-    NSDictionary *endLocationDictionary = [metadataDictionary objectForKey:kLocationEndKey];
-    if (endLocationDictionary) {
-        self.endLocation = [self locationFromLocationDictionary:endLocationDictionary];
+    NSNumber *startLongitude = [metadataDictionary objectForKey:kLongitudeStartKey];
+    if (startLongitude) {
+        self.startLongitude = startLongitude;
     }
-}
-
-- (CLLocation*)locationFromLocationDictionary:(NSDictionary*)locationDictionary {
-    CLLocationDegrees latitude = [[locationDictionary objectForKey:kLatitudeKey] doubleValue];
-    CLLocationDegrees longitude = [[locationDictionary objectForKey:kLongitudeKey] doubleValue];
-    return [[CLLocation alloc] initWithLatitude:latitude longitude:longitude];
 }
 
 - (NSString*) type {

@@ -19,10 +19,10 @@
 #define kUploadStateKey @"upload_state"
 #define kRecordingStartDateKey @"recording_start"
 #define kRecordingEndDateKey @"recording_end"
-#define kLocationStartKey @"start_location"
-#define kLocationEndKey @"end_location"
-#define kLatitudeKey @"latitude"
-#define kLongitudeKey @"longitude"
+#define kLatitudeStartKey @"start_lat"
+#define kLongitudeStartKey @"start_lon"
+#define kLatitudeEndKey @"end_lat"
+#define kLongitudeEndKey @"end_lon"
 #define kAltitudeKey @"altitude"
 #define kRecordingKey @"recording"
 #define kHorizontalAccuracyKey @"horizontal_accuracy"
@@ -40,8 +40,5 @@
 @interface OWManagedRecording : _OWManagedRecording
 
 @property (nonatomic, strong) CLLocation *startLocation;
-
-- (CLLocation*)locationFromLocationDictionary:(NSDictionary*)locationDictionary;
-- (NSDictionary*) locationDictionaryForLocation:(CLLocation*)location;
 
 @end

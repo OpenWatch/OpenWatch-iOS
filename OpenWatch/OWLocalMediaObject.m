@@ -10,6 +10,7 @@
 #import "OWLocalRecording.h"
 #import "OWPhoto.h"
 #import "OWSettingsController.h"
+#import "OWLocationController.h"
 
 @implementation OWLocalMediaObject
 
@@ -22,6 +23,36 @@
 
 - (CLLocation*) endLocation {
     return [OWLocalMediaObject locationWithLatitude:[self.endLatitude doubleValue] longitude:[self.endLongitude doubleValue]];
+}
+
+- (void) loadMetadataFromDictionary:(NSDictionary*)metadataDictionary {
+    [super loadMetadataFromDictionary:metadataDictionary];
+    NSString *newUUID = [metadataDictionary objectForKey:kUUIDKey];
+    if (newUUID) {
+        self.uuid = newUUID;
+    } else {
+        NSLog(@"uuid not found!");
+    }
+    NSNumber *endLatitude = [metadataDictionary objectForKey:kLatitudeEndKey];
+    if (endLatitude) {
+        self.endLatitude = endLatitude;
+    }
+    NSNumber *endLongitude = [metadataDictionary objectForKey:kLongitudeEndKey];
+    if (endLongitude) {
+        self.endLongitude = endLongitude;
+    }
+}
+
+- (NSMutableDictionary*) metadataDictionary {
+    NSMutableDictionary *newMetadataDictionary = [super metadataDictionary];
+    if (self.uuid) {
+        [newMetadataDictionary setObject:[self.uuid copy] forKey:kUUIDKey];
+    }
+    if ([OWLocationController locationIsValid:self.endLocation]) {
+        [newMetadataDictionary setObject:self.endLatitude forKey:kLatitudeEndKey];
+        [newMetadataDictionary setObject:self.endLongitude forKey:kLongitudeEndKey];
+    }
+    return newMetadataDictionary;
 }
 
 - (void) setEndLocation:(CLLocation *)endLocation {

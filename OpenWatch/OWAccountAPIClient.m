@@ -23,6 +23,7 @@
 #import "OWPhoto.h"
 #import "OWLocalRecording.h"
 #import "OWAudio.h"
+#import "OWCaptureAPIClient.h"
 
 #define kRecordingsKey @"recordings/"
 
@@ -196,6 +197,32 @@
     
     
     OWLocalMediaObject *mediaObject = [objectClass localMediaObjectWithUUID:UUID];
+    
+    if (mediaObject.uploadedValue == NO && [mediaObject isKindOfClass:[OWPhoto class]]) {
+        NSURLRequest *request = [self multipartFormRequestWithMethod:@"POST" path:path parameters:nil constructingBodyWithBlock: ^(id <AFMultipartFormData> formData) {
+            NSError *error = nil;
+            [formData appendPartWithFileURL:mediaObject.localMediaURL name:@"file_data" error:&error];
+            
+            if (error) {
+                NSLog(@"Error appending part file URL: %@%@", [error localizedDescription], [error userInfo]);
+            }
+            
+        }];
+        AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+        [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+            if ([responseObject isKindOfClass:[NSDictionary class]] && [[responseObject objectForKey:@"success"] boolValue]) {
+                NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
+                mediaObject.uploaded = @(YES);
+                [context MR_saveToPersistentStoreAndWait];
+                [[NSNotificationCenter defaultCenter] postNotificationName:kOWCaptureAPIClientBandwidthNotification object:nil];
+            }
+            
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            
+        }];
+        [self enqueueHTTPRequestOperation:operation];
+
+    }
     if (!mediaObject) {
         NSLog(@"Object %@ (%@) not found!", UUID, NSStringFromClass(objectClass));
         return;

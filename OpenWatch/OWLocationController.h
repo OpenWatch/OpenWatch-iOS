@@ -18,6 +18,9 @@
 @property (nonatomic, weak) id<OWLocationControllerDelegate> delegate;
 @property (atomic, strong) CLLocation *currentLocation;
 
++ (BOOL) locationIsValid:(CLLocation*)location;
+
+
 - (void) startWithDelegate:(id<OWLocationControllerDelegate>)newDelegate;
 - (void) stop;
 

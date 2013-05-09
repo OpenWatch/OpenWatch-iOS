@@ -99,7 +99,7 @@
         [self.uploadProgressView setProgress:progress animated:YES];
     } else if ([mediaObject isKindOfClass:[OWPhoto class]]){
         OWPhoto *photo = (OWPhoto*)mediaObject;
-        if (photo.uploaded) {
+        if (photo.uploadedValue) {
             [self.uploadProgressView setProgress:1.0f animated:YES];
         } else {
             [self.uploadProgressView setProgress:0.0f animated:YES];

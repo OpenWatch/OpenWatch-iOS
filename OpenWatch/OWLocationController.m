@@ -33,6 +33,14 @@
     [self updateCurrentLocation:newLocation];
 }
 
++ (BOOL) locationIsValid:(CLLocation*)location {
+    if (location.coordinate.latitude == 0.0f && location.coordinate.longitude == 0.0f) {
+        return NO;
+    }
+    return YES;
+}
+
+
 - (void) locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
     CLLocation *newLocation = [locations lastObject];
     [self updateCurrentLocation:newLocation];
