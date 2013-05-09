@@ -41,6 +41,11 @@
     if (endLongitude) {
         self.endLongitude = endLongitude;
     }
+    
+    NSString *mediaURLString = [[metadataDictionary objectForKey:@"media_url"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    if (mediaURLString) {
+        self.remoteMediaURLString = mediaURLString;
+    }
 }
 
 - (NSMutableDictionary*) metadataDictionary {

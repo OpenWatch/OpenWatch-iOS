@@ -75,11 +75,6 @@
     [super loadMetadataFromDictionary:metadataDictionary];
     NSDateFormatter *dateFormatter = [OWUtilities utcDateFormatter];
     
-    NSString *videoURL = [metadataDictionary objectForKey:@"video_url"];
-    if (videoURL) {
-        self.remoteMediaURLString = videoURL;
-    }
-    
     NSString *newDescription = [metadataDictionary objectForKey:kDescriptionKey];
     if (newDescription) {
         self.recordingDescription = newDescription;

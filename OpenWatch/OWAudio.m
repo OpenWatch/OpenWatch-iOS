@@ -11,4 +11,9 @@
 
 @implementation OWAudio
 
+- (NSString*) type {
+    return @"audio";
+}
+
 @end
+

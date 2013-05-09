@@ -29,6 +29,13 @@
     if (self.title) {
         [newMetadataDictionary setObject:[self.title copy] forKey:kTitleKey];
     }
+    if (self.firstPostedDate) {
+        NSDateFormatter *dateFormatter = [OWUtilities utcDateFormatter];
+        [newMetadataDictionary setObject:[dateFormatter stringFromDate:self.firstPostedDate] forKey:kFirstPostedKey];
+    }
+    if (self.serverID.intValue != 0) {
+        [newMetadataDictionary setObject:self.serverID forKey:@"id"];
+    }
     NSSet *tags = self.tags;
     NSMutableArray *tagsArray = [NSMutableArray arrayWithCapacity:tags.count];
     for (OWTag *tag in tags) {
@@ -96,9 +103,10 @@
     if (clicks) {
         self.clicks = clicks;
     }
-    NSString *thumbnailURL = [[metadataDictionary objectForKey:@"thumbnail_url"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    if (thumbnailURL)
-        self.thumbnailURLString = thumbnailURL;
+    NSString *thumbnailURLString = [[metadataDictionary objectForKey:@"thumbnail_url"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    if (thumbnailURLString) {
+        self.thumbnailURLString = thumbnailURLString;
+    }
 }
 
 // stub methods, implemented in subclasses

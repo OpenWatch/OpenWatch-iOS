@@ -19,7 +19,9 @@
 #import "OWStoryViewController.h"
 #import "OWMediaObjectViewController.h"
 #import "OWFeedTableViewCell.h"
-
+#import "OWPhoto.h"
+#import "OWAudio.h"
+#import "OWPhotoDetailViewController.h"
 
 @interface OWFeedViewController ()
 @end
@@ -160,6 +162,10 @@
     } else if ([mediaObject isKindOfClass:[OWInvestigation class]]) {
         OWInvestigationViewController *investigationVC = [[OWInvestigationViewController alloc] init];
         vc = investigationVC;
+    } else if ([mediaObject isKindOfClass:[OWPhoto class]]) {
+        OWPhotoDetailViewController *photoDetailVC = [[OWPhotoDetailViewController alloc] init];
+        photoDetailVC.photo = (OWPhoto*)mediaObject;
+        vc = photoDetailVC;
     }
     if (vc) {
         vc.mediaObjectID = mediaObjectID;

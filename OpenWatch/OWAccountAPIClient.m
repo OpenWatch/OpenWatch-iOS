@@ -24,6 +24,7 @@
 #import "OWLocalRecording.h"
 #import "OWAudio.h"
 #import "OWCaptureAPIClient.h"
+#import "JSONKit.h"
 
 #define kRecordingsKey @"recordings/"
 
@@ -46,6 +47,8 @@
 
 #define kTypeKey @"type"
 #define kVideoTypeKey @"video"
+#define kPhotoTypeKey @"photo"
+#define kAudioTypeKey @"audio"
 #define kInvestigationTypeKey @"investigation"
 #define kStoryTypeKey @"story"
 #define kUUIDKey @"uuid"
@@ -213,7 +216,9 @@
         path = [self pathForClass:objectClass uuid:UUID];
     }
     
-    [self postPath:path parameters:mediaObject.metadataDictionary success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    NSDictionary *parameters = mediaObject.metadataDictionary;
+    
+    [self postPath:path parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"POST response: %@", [responseObject description]);
         if ([responseObject isKindOfClass:[NSDictionary class]] && [[responseObject objectForKey:@"success"] boolValue]) {
             NSDictionary *object = [responseObject objectForKey:@"object"];
@@ -231,16 +236,30 @@
                 
             }];
             AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+            NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
+            mediaObject.uploaded = @(YES);
+            [context MR_saveToPersistentStoreAndWait];
+
             [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-                if ([responseObject isKindOfClass:[NSDictionary class]] && [[responseObject objectForKey:@"success"] boolValue]) {
+                JSONDecoder *decoder = [JSONDecoder decoder];
+                NSDictionary *dictionary = [decoder objectWithData:operation.responseData];
+                NSLog(@"picture POST response: %@", responseObject);
+                if ([dictionary isKindOfClass:[NSDictionary class]] && [[dictionary objectForKey:@"success"] boolValue]) {
+                    [[NSNotificationCenter defaultCenter] postNotificationName:kOWCaptureAPIClientBandwidthNotification object:nil];
                     NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
                     mediaObject.uploaded = @(YES);
                     [context MR_saveToPersistentStoreAndWait];
-                    [[NSNotificationCenter defaultCenter] postNotificationName:kOWCaptureAPIClientBandwidthNotification object:nil];
+                } else {
+                    NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
+                    mediaObject.uploaded = @(NO);
+                    [context MR_saveToPersistentStoreAndWait];
                 }
                 
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                
+                NSLog(@"Failed to upload photo: %@", error.userInfo);
+                NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
+                mediaObject.uploaded = @(NO);
+                [context MR_saveToPersistentStoreAndWait];
             }];
             [self enqueueHTTPRequestOperation:operation];
             
@@ -318,6 +337,28 @@
         mediaObject = [OWManagedRecording MR_findFirstByAttribute:@"uuid" withValue:uuid];
         if (!mediaObject) {
             mediaObject = [OWManagedRecording MR_createEntity];
+        }
+    } else if ([type isEqualToString:kPhotoTypeKey]) {
+        NSString *uuid = [dictionary objectForKey:kUUIDKey];
+        NSString *serverID = [dictionary objectForKey:kIDKey];
+        if (uuid.length != 0) {
+            mediaObject = [OWPhoto MR_findFirstByAttribute:@"uuid" withValue:uuid];
+        } else {
+            mediaObject = [OWPhoto MR_findFirstByAttribute:@"serverID" withValue:serverID];
+        }
+        if (!mediaObject) {
+            mediaObject = [OWPhoto MR_createEntity];
+        }
+    } else if ([type isEqualToString:kAudioTypeKey]) {
+        NSString *uuid = [dictionary objectForKey:kUUIDKey];
+        NSString *serverID = [dictionary objectForKey:kIDKey];
+        if (uuid.length != 0) {
+            mediaObject = [OWAudio MR_findFirstByAttribute:@"uuid" withValue:uuid];
+        } else {
+            mediaObject = [OWAudio MR_findFirstByAttribute:@"serverID" withValue:serverID];
+        }
+        if (!mediaObject) {
+            mediaObject = [OWAudio MR_createEntity];
         }
     } else if ([type isEqualToString:kStoryTypeKey]) {
         NSString *serverID = [dictionary objectForKey:kIDKey];

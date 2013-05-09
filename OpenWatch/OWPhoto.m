@@ -67,4 +67,8 @@
     return [UIImage imageWithContentsOfFile:[self localMediaPath]];
 }
 
+- (NSString*) type {
+    return @"photo";
+}
+
 @end

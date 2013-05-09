@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "OWMediaObjectViewController.h"
 #import "OWPhoto.h"
 
-@interface OWPhotoDetailViewController : UIViewController
+@interface OWPhotoDetailViewController : OWMediaObjectViewController <UIScrollViewDelegate>
 
 @property (nonatomic, strong) UIScrollView *photoScrollView;
 @property (nonatomic, strong) UIImageView *photoImageView;

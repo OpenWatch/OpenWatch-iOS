@@ -13,6 +13,7 @@
 #import "OWPhoto.h"
 #import "OWLocalRecording.h"
 #import "OWInvestigation.h"
+#import "OWAudio.h"
 
 #define kLoadingCellTag 31415
 
@@ -34,7 +35,7 @@
         self.tableView.backgroundColor = [OWUtilities stoneBackgroundPattern];
         currentPage = 0;
         
-        NSArray *objectTypes = @[[OWLocalMediaObject class], [OWLocalRecording class], [OWManagedRecording class], [OWPhoto class], [OWInvestigation class]];
+        NSArray *objectTypes = @[[OWLocalMediaObject class], [OWLocalRecording class], [OWManagedRecording class], [OWPhoto class], [OWInvestigation class], [OWAudio class]];
         for (Class class in objectTypes) {
             [self.tableView registerClass:[class cellClass] forCellReuseIdentifier:[class cellIdentifier]];
         }
