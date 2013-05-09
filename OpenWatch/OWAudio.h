@@ -12,4 +12,7 @@
 
 @interface OWAudio : _OWAudio
 
++ (OWAudio*) audioWithUUID:(NSString*)uuid;
++ (OWAudio*) audio;
+
 @end

@@ -7,6 +7,8 @@
 //
 
 #import "OWAudioRecordingViewController.h"
+#import <CoreAudio/CoreAudioTypes.h>
+#import <AVFoundation/AVFoundation.h>
 
 @interface OWAudioRecordingViewController ()
 
@@ -34,6 +36,9 @@
 - (void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.timeLabel.frame = CGRectMake(0, 0, 200, 50);
+}
+
+- (void) startNewRecording {
 }
 
 - (void)didReceiveMemoryWarning
