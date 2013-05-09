@@ -167,6 +167,7 @@
 
     UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
     OWPhoto *photo = [OWPhoto photoWithImage:image];
+    photo.firstPostedDate = [NSDate date];
     OWLocationController *locationController = [OWLocationController sharedInstance];
     photo.endLocation = locationController.currentLocation;
     [locationController stop];

@@ -182,7 +182,7 @@
     [self getPath:path parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
         NSLog(@"GET Response: %@", operation.responseString);
-        if ([responseObject isKindOfClass:[NSDictionary class]]) {
+        if ([responseObject isKindOfClass:[NSDictionary class]] && [[responseObject objectForKey:@"success"] boolValue]) {
             OWLocalMediaObject *mediaObject = [objectClass localMediaObjectWithUUID:UUID];
             if (mediaObject) {
                 [mediaObject loadMetadataFromDictionary:responseObject];
@@ -191,6 +191,8 @@
             } else {
                 failure(@"No recording found");
             }
+        } else {
+            failure(@"Success is false!");
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         failure([error description]);
@@ -213,8 +215,13 @@
     
     [self postPath:path parameters:mediaObject.metadataDictionary success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"POST response: %@", [responseObject description]);
+        if ([responseObject isKindOfClass:[NSDictionary class]] && [[responseObject objectForKey:@"success"] boolValue]) {
+            NSDictionary *object = [responseObject objectForKey:@"object"];
+            [mediaObject loadMetadataFromDictionary:object];
+        }
         if (mediaObject.uploadedValue == NO && [mediaObject isKindOfClass:[OWPhoto class]]) {
-            NSURLRequest *request = [self multipartFormRequestWithMethod:@"POST" path:path parameters:nil constructingBodyWithBlock: ^(id <AFMultipartFormData> formData) {
+            NSString *postPath = [self pathForClass:objectClass uuid:UUID];
+            NSURLRequest *request = [self multipartFormRequestWithMethod:@"POST" path:postPath parameters:nil constructingBodyWithBlock: ^(id <AFMultipartFormData> formData) {
                 NSError *error = nil;
                 [formData appendPartWithFileURL:mediaObject.localMediaURL name:@"file_data" error:&error];
                 
