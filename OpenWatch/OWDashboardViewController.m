@@ -23,6 +23,8 @@
 #import "OWDashboardItem.h"
 #import "OWPhoto.h"
 #import "OWLocationController.h"
+#import "OWLocalMediaEditViewController.h"
+#import "OWAppDelegate.h"
 
 #define kActionBarHeight 70.0f
 
@@ -162,14 +164,29 @@
 }
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
-    [self.imagePicker dismissViewControllerAnimated:YES completion:^{
-        self.imagePicker = nil;
-    }];
+
     UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
     OWPhoto *photo = [OWPhoto photoWithImage:image];
     OWLocationController *locationController = [OWLocationController sharedInstance];
+    photo.endLocation = locationController.currentLocation;
     [locationController stop];
+    NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
+    [context MR_saveToPersistentStoreAndWait];
+    
+    [[OWAccountAPIClient sharedClient] postObjectWithUUID:photo.uuid objectClass:photo.class success:nil failure:nil];
 
+    [self.imagePicker dismissViewControllerAnimated:YES completion:^{
+        self.imagePicker = nil;
+        //[videoProcessor stopAndTearDownCaptureSession];
+        OWLocalMediaEditViewController *recordingInfo = [[OWLocalMediaEditViewController alloc] init];
+        recordingInfo.objectID = photo.objectID;
+        recordingInfo.showingAfterCapture = YES;
+        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:recordingInfo];
+        [OWUtilities styleNavigationController:nav];
+        nav.navigationBar.tintColor = [OWUtilities navigationBarColor];
+        [self presentViewController:nav animated:YES completion:nil];
+    }];
+    
     NSLog(@"photo created: %@", photo.description);
 }
 

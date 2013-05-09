@@ -156,18 +156,23 @@
     [self enqueueHTTPRequestOperation:operation];
 }
 
-- (NSString*) pathForClass:(Class)class uuid:(NSString*)uuid {
+- (NSString*) pathForClass:(Class)class {
     NSString *prefix = nil;
     if ([class isEqual:[OWPhoto class]]) {
-        prefix = @"p";
+        prefix = @"p/";
     } else if ([class isEqual:[OWManagedRecording class]] || [class isEqual:[OWLocalRecording class]]) {
-        prefix = @"v";
+        prefix = @"v/";
     } else if ([class isEqual:[OWAudio class]]) {
-        prefix = @"a";
+        prefix = @"a/";
     } else {
         return nil;
     }
-    return [NSString stringWithFormat:@"%@/%@/", prefix, uuid];
+    return prefix;
+}
+
+- (NSString*) pathForClass:(Class)class uuid:(NSString*)uuid {
+    NSString *prefix = [self pathForClass:class];
+    return [NSString stringWithFormat:@"%@%@/", prefix, uuid];
 }
 
 - (void) getObjectWithUUID:(NSString*)UUID objectClass:(Class)objectClass success:(void (^)(NSManagedObjectID *objectID))success failure:(void (^)(NSString *reason))failure {
@@ -193,47 +198,53 @@
 }
 
 - (void) postObjectWithUUID:(NSString*)UUID objectClass:(Class)objectClass success:(void (^)(void))success failure:(void (^)(NSString *reason))failure {
-    NSString *path = [self pathForClass:objectClass uuid:UUID];
-    
-    
     OWLocalMediaObject *mediaObject = [objectClass localMediaObjectWithUUID:UUID];
-    
-    if (mediaObject.uploadedValue == NO && [mediaObject isKindOfClass:[OWPhoto class]]) {
-        NSURLRequest *request = [self multipartFormRequestWithMethod:@"POST" path:path parameters:nil constructingBodyWithBlock: ^(id <AFMultipartFormData> formData) {
-            NSError *error = nil;
-            [formData appendPartWithFileURL:mediaObject.localMediaURL name:@"file_data" error:&error];
-            
-            if (error) {
-                NSLog(@"Error appending part file URL: %@%@", [error localizedDescription], [error userInfo]);
-            }
-            
-        }];
-        AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
-        [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-            if ([responseObject isKindOfClass:[NSDictionary class]] && [[responseObject objectForKey:@"success"] boolValue]) {
-                NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
-                mediaObject.uploaded = @(YES);
-                [context MR_saveToPersistentStoreAndWait];
-                [[NSNotificationCenter defaultCenter] postNotificationName:kOWCaptureAPIClientBandwidthNotification object:nil];
-            }
-            
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            
-        }];
-        [self enqueueHTTPRequestOperation:operation];
-
-    }
     if (!mediaObject) {
         NSLog(@"Object %@ (%@) not found!", UUID, NSStringFromClass(objectClass));
         return;
     }
+
+    NSString *path = nil;
+    if (mediaObject.serverID.intValue == 0) {
+        path = [self pathForClass:objectClass];
+    } else {
+        path = [self pathForClass:objectClass uuid:UUID];
+    }
+    
     [self postPath:path parameters:mediaObject.metadataDictionary success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"POST response: %@", [responseObject description]);
-        //NSLog(@"POST body: %@", operation.request.HTTPBody);
+        if (mediaObject.uploadedValue == NO && [mediaObject isKindOfClass:[OWPhoto class]]) {
+            NSURLRequest *request = [self multipartFormRequestWithMethod:@"POST" path:path parameters:nil constructingBodyWithBlock: ^(id <AFMultipartFormData> formData) {
+                NSError *error = nil;
+                [formData appendPartWithFileURL:mediaObject.localMediaURL name:@"file_data" error:&error];
+                
+                if (error) {
+                    NSLog(@"Error appending part file URL: %@%@", [error localizedDescription], [error userInfo]);
+                }
+                
+            }];
+            AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+            [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+                if ([responseObject isKindOfClass:[NSDictionary class]] && [[responseObject objectForKey:@"success"] boolValue]) {
+                    NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
+                    mediaObject.uploaded = @(YES);
+                    [context MR_saveToPersistentStoreAndWait];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:kOWCaptureAPIClientBandwidthNotification object:nil];
+                }
+                
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                
+            }];
+            [self enqueueHTTPRequestOperation:operation];
+            
+        }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"failed to POST recording: %@ %@", operation.responseString, error.userInfo);
         //failure(@"Failed to POST recording");
     }];
+    
+    
+
 }
 
 - (NSString*) pathForUserRecordingsOnPage:(NSUInteger)page {
