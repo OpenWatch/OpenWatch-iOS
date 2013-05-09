@@ -155,18 +155,6 @@
     [self enqueueHTTPRequestOperation:operation];
 }
 
-- (void) fetchUserRecordingsOnPage:(NSUInteger)page success:(void (^)(NSArray *recordingObjectIDs, NSUInteger totalPages))success failure:(void (^)(NSString *reason))failure {
-    [self getPath:[self pathForUserRecordingsOnPage:page] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSArray *recordings = [self objectIDsFromMediaObjectsMetadataArray:[responseObject objectForKey:kObjectsKey]];
-        NSDictionary *meta = [responseObject objectForKey:kMetaKey];
-        NSUInteger pageCount = [[meta objectForKey:kPageCountKey] unsignedIntegerValue];
-        success(recordings, pageCount);
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"failure: %@", [error userInfo]);
-        failure(@"fart");
-    }];
-}
-
 - (NSString*) pathForClass:(Class)class uuid:(NSString*)uuid {
     NSString *prefix = nil;
     if ([class isEqual:[OWPhoto class]]) {
@@ -230,8 +218,6 @@
     // TODO rewrite the feed and tag to use GET params
     if (feedType == kOWFeedTypeFeed) {
         prefix = kFeedPath;
-    } else if (feedType == kOWFeedTypeTag) {
-        prefix = kTagPath;
     } else if (feedType == kOWFeedTypeFrontPage) {
         prefix = kInvestigationPath;
     }
@@ -248,7 +234,7 @@
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     [parameters setObject:@(page) forKey:@"page"];
     if (feedName) {
-        [parameters setObject:feedName forKey:@"feed_name"];
+        [parameters setObject:feedName forKey:@"type"];
     }
     [self getPath:path parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSArray *mediaObjects = [self objectIDsFromMediaObjectsMetadataArray:[responseObject objectForKey:kObjectsKey]];
@@ -383,37 +369,46 @@
     
 }
 
-- (void) getInvestigationWithObjectID:(NSManagedObjectID *)objectID success:(void (^)(NSManagedObjectID *recordingObjectID))success failure:(void (^)(NSString *reason))failure {
+- (void) getObjectWithObjectID:(NSManagedObjectID *)objectID success:(void (^)(NSManagedObjectID *objectID))success failure:(void (^)(NSString *reason))failure {
     NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
-    OWInvestigation *story = (OWInvestigation*)[context existingObjectWithID:objectID error:nil];
-    NSString *path = [NSString stringWithFormat:@"/api/i/%d/", [story.serverID intValue]];
-    NSDictionary *parameters = @{@"html": @"true"};
+    OWMediaObject *mediaObject = (OWMediaObject*)[context existingObjectWithID:objectID error:nil];
+    NSString *path = [self pathForMediaObject:mediaObject];
+    
+    NSDictionary *parameters = [self parametersForMediaObject:mediaObject];
+    
     [self getPath:path parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if ([responseObject isKindOfClass:[NSDictionary class]]) {
-            [story loadMetadataFromDictionary:responseObject];
+            [mediaObject loadMetadataFromDictionary:responseObject];
             success(objectID);
         } else {
             failure(@"not a dict");
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        failure(@"it failed");
+        NSLog(@"Failed to GET object: %@", error.userInfo);
     }];
 }
 
-- (void) getStoryWithObjectID:(NSManagedObjectID *)objectID success:(void (^)(NSManagedObjectID *recordingObjectID))success failure:(void (^)(NSString *reason))failure {
-    NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
-    OWStory *story = (OWStory*)[context existingObjectWithID:objectID error:nil];
-    NSString *path = [NSString stringWithFormat:@"/api/story/%d/", [story.serverID intValue]];
-
-    [self getPath:path parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSDictionary *storyMetadata = [responseObject objectForKey:@"story"];
-        [story loadMetadataFromDictionary:storyMetadata];
-        success(objectID);
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        failure(@"it failed");
-    }];
+- (NSDictionary*) parametersForMediaObject:(OWMediaObject*)mediaObject {
+    if ([mediaObject isKindOfClass:[OWInvestigation class]]) {
+        NSDictionary *parameters = @{@"html": @"true"};
+        return parameters;
+    }
+    return nil;
 }
 
+- (NSString*) pathForMediaObject:(OWMediaObject*)mediaObject {
+    NSString *type = @"";
+    if ([mediaObject isKindOfClass:[OWPhoto class]]) {
+        type = @"p";
+    } else if ([mediaObject isKindOfClass:[OWInvestigation class]]) {
+        type = @"i";
+    } else if ([mediaObject isKindOfClass:[OWLocalRecording class]] || [mediaObject isKindOfClass:[OWManagedRecording class]]) {
+        type = @"v";
+    } else {
+        return nil;
+    }
+    return [NSString stringWithFormat:@"/api/%@/%d/", type, mediaObject.serverID.intValue];
+}
 
 - (void) fetchMediaObjectsForLocation:(CLLocation*)location page:(NSUInteger)page success:(void (^)(NSArray *mediaObjectIDs, NSUInteger totalPages))success failure:(void (^)(NSString *reason))failure {
     NSString *path = [self pathForFeedType:kOWFeedTypeFeed];

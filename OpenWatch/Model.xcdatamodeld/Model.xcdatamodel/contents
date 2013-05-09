@@ -10,6 +10,8 @@
         <relationship name="tasks" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="OWTask" inverseName="investigation" inverseEntity="OWTask" syncable="YES"/>
     </entity>
     <entity name="OWLocalMediaObject" representedClassName="OWLocalMediaObject" parentEntity="OWMediaObject" syncable="YES">
+        <attribute name="endLatitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="endLongitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="remoteMediaURLString" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="uploaded" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="uuid" optional="YES" attributeType="String" syncable="YES"/>
@@ -20,8 +22,6 @@
     </entity>
     <entity name="OWManagedRecording" representedClassName="OWManagedRecording" parentEntity="OWLocalMediaObject" syncable="YES">
         <attribute name="endDate" optional="YES" attributeType="Date" syncable="YES"/>
-        <attribute name="endLatitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
-        <attribute name="endLongitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="recordingDescription" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="startDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="startLatitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
@@ -73,10 +73,11 @@
         <relationship name="tasks" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="OWTask" inverseName="user" inverseEntity="OWTask" syncable="YES"/>
     </entity>
     <elements>
+        <element name="OWAudio" positionX="160" positionY="192" width="128" height="45"/>
         <element name="OWInvestigation" positionX="439" positionY="504" width="128" height="135"/>
-        <element name="OWLocalMediaObject" positionX="160" positionY="192" width="128" height="90"/>
+        <element name="OWLocalMediaObject" positionX="160" positionY="192" width="128" height="120"/>
         <element name="OWLocalRecording" positionX="378" positionY="117" width="128" height="73"/>
-        <element name="OWManagedRecording" positionX="484" positionY="243" width="128" height="150"/>
+        <element name="OWManagedRecording" positionX="484" positionY="243" width="128" height="120"/>
         <element name="OWMediaObject" positionX="36" positionY="-39" width="128" height="165"/>
         <element name="OWPhoto" positionX="160" positionY="192" width="128" height="45"/>
         <element name="OWRecordingSegment" positionX="99" positionY="234" width="128" height="103"/>
@@ -85,6 +86,5 @@
         <element name="OWTag" positionX="268" positionY="354" width="128" height="105"/>
         <element name="OWTask" positionX="-353" positionY="579" width="128" height="105"/>
         <element name="OWUser" positionX="-54" positionY="360" width="128" height="133"/>
-        <element name="OWAudio" positionX="160" positionY="192" width="128" height="45"/>
     </elements>
 </model>

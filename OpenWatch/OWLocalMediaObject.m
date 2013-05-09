@@ -13,6 +13,24 @@
 
 @implementation OWLocalMediaObject
 
++ (CLLocation*) locationWithLatitude:(double)latitude longitude:(double)longitude {
+    if (latitude == 0.0f && longitude == 0.0f) {
+        return nil;
+    }
+    return [[CLLocation alloc] initWithLatitude:latitude longitude:longitude];
+}
+
+- (CLLocation*) endLocation {
+    return [OWLocalMediaObject locationWithLatitude:[self.endLatitude doubleValue] longitude:[self.endLongitude doubleValue]];
+}
+
+- (void) setEndLocation:(CLLocation *)endLocation {
+    if (!endLocation) {
+        return;
+    }
+    self.endLatitude = @(endLocation.coordinate.latitude);
+    self.endLongitude = @(endLocation.coordinate.longitude);
+}
 
 + (NSString*) mediaDirectoryPathForMediaType:(NSString *)mediaType {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);

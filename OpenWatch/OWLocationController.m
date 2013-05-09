@@ -50,7 +50,10 @@
 
 - (void) startWithDelegate:(id<OWLocationControllerDelegate>)newDelegate {
     self.delegate = newDelegate;
-    if (currentLocation) {
+    if (fabs([[NSDate date] timeIntervalSinceDate:currentLocation.timestamp]) < 60) {
+        self.currentLocation = nil;
+    }
+    if (self.currentLocation) {
         [self updateCurrentLocation:currentLocation];
     }
     [locationManager startUpdatingLocation];

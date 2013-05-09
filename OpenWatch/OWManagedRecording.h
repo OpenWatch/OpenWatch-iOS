@@ -40,7 +40,6 @@
 @interface OWManagedRecording : _OWManagedRecording
 
 @property (nonatomic, strong) CLLocation *startLocation;
-@property (nonatomic, strong) CLLocation *endLocation;
 
 - (CLLocation*)locationFromLocationDictionary:(NSDictionary*)locationDictionary;
 - (NSDictionary*) locationDictionaryForLocation:(CLLocation*)location;

@@ -6,8 +6,6 @@
 
 extern const struct OWManagedRecordingAttributes {
 	__unsafe_unretained NSString *endDate;
-	__unsafe_unretained NSString *endLatitude;
-	__unsafe_unretained NSString *endLongitude;
 	__unsafe_unretained NSString *recordingDescription;
 	__unsafe_unretained NSString *startDate;
 	__unsafe_unretained NSString *startLatitude;
@@ -19,8 +17,6 @@ extern const struct OWManagedRecordingRelationships {
 
 extern const struct OWManagedRecordingFetchedProperties {
 } OWManagedRecordingFetchedProperties;
-
-
 
 
 
@@ -47,34 +43,6 @@ extern const struct OWManagedRecordingFetchedProperties {
 
 
 //- (BOOL)validateEndDate:(id*)value_ error:(NSError**)error_;
-
-
-
-
-
-@property (nonatomic, strong) NSNumber* endLatitude;
-
-
-
-@property double endLatitudeValue;
-- (double)endLatitudeValue;
-- (void)setEndLatitudeValue:(double)value_;
-
-//- (BOOL)validateEndLatitude:(id*)value_ error:(NSError**)error_;
-
-
-
-
-
-@property (nonatomic, strong) NSNumber* endLongitude;
-
-
-
-@property double endLongitudeValue;
-- (double)endLongitudeValue;
-- (void)setEndLongitudeValue:(double)value_;
-
-//- (BOOL)validateEndLongitude:(id*)value_ error:(NSError**)error_;
 
 
 
@@ -140,24 +108,6 @@ extern const struct OWManagedRecordingFetchedProperties {
 
 - (NSDate*)primitiveEndDate;
 - (void)setPrimitiveEndDate:(NSDate*)value;
-
-
-
-
-- (NSNumber*)primitiveEndLatitude;
-- (void)setPrimitiveEndLatitude:(NSNumber*)value;
-
-- (double)primitiveEndLatitudeValue;
-- (void)setPrimitiveEndLatitudeValue:(double)value_;
-
-
-
-
-- (NSNumber*)primitiveEndLongitude;
-- (void)setPrimitiveEndLongitude:(NSNumber*)value;
-
-- (double)primitiveEndLongitudeValue;
-- (void)setPrimitiveEndLongitudeValue:(double)value_;
 
 
 

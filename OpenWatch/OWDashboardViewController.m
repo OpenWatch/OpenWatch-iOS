@@ -22,6 +22,7 @@
 #import "OWFeedViewController.h"
 #import "OWDashboardItem.h"
 #import "OWPhoto.h"
+#import "OWLocationController.h"
 
 #define kActionBarHeight 70.0f
 
@@ -55,6 +56,9 @@
 }
 
 - (void) photoButtonPressed:(id)sender {
+    OWLocationController *locationController = [OWLocationController sharedInstance];
+    [locationController startWithDelegate:nil];
+    
     if (!self.imagePicker) {
         self.imagePicker = [[UIImagePickerController alloc] init];
         self.imagePicker.delegate = self;
@@ -110,9 +114,6 @@
     imageView.frame = CGRectMake(0, 0, 140, 25);
     imageView.contentMode = UIViewContentModeScaleAspectFit;
     self.navigationItem.titleView = imageView;
-    
-    
-    [[OWAccountAPIClient sharedClient] getSubscribedTags];
 }
 
 - (void)didReceiveMemoryWarning
@@ -166,10 +167,15 @@
     }];
     UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
     OWPhoto *photo = [OWPhoto photoWithImage:image];
+    OWLocationController *locationController = [OWLocationController sharedInstance];
+    [locationController stop];
+
     NSLog(@"photo created: %@", photo.description);
 }
 
 - (void) imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+    OWLocationController *locationController = [OWLocationController sharedInstance];
+    [locationController stop];
     [self.imagePicker dismissViewControllerAnimated:YES completion:^{
         self.imagePicker = nil;
     }];

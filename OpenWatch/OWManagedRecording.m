@@ -19,15 +19,10 @@
 
 
 - (CLLocation*) startLocation {
-    return [self locationWithLatitude:[self.startLatitude doubleValue] longitude:[self.startLongitude doubleValue]];
+    return [OWLocalMediaObject locationWithLatitude:[self.startLatitude doubleValue] longitude:[self.startLongitude doubleValue]];
 }
 
-- (CLLocation*) locationWithLatitude:(double)latitude longitude:(double)longitude {
-    if (latitude == 0.0f && longitude == 0.0f) {
-        return nil;
-    }
-    return [[CLLocation alloc] initWithLatitude:latitude longitude:longitude];
-}
+
 
 - (void) setStartLocation:(CLLocation *)startLocation {
     if (!startLocation) {
@@ -42,17 +37,7 @@
     [super saveMetadata];
 }
 
-- (CLLocation*) endLocation {
-    return [self locationWithLatitude:[self.endLatitude doubleValue] longitude:[self.endLongitude doubleValue]];
-}
 
-- (void) setEndLocation:(CLLocation *)endLocation {
-    if (!endLocation) {
-        return;
-    }
-    self.endLatitude = @(endLocation.coordinate.latitude);
-    self.endLongitude = @(endLocation.coordinate.longitude);
-}
 
 - (NSMutableDictionary*) metadataDictionary {
     NSMutableDictionary *newMetadataDictionary = [super metadataDictionary];

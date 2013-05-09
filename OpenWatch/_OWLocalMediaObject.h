@@ -5,6 +5,8 @@
 #import "OWMediaObject.h"
 
 extern const struct OWLocalMediaObjectAttributes {
+	__unsafe_unretained NSString *endLatitude;
+	__unsafe_unretained NSString *endLongitude;
 	__unsafe_unretained NSString *remoteMediaURLString;
 	__unsafe_unretained NSString *uploaded;
 	__unsafe_unretained NSString *uuid;
@@ -21,6 +23,8 @@ extern const struct OWLocalMediaObjectFetchedProperties {
 
 
 
+
+
 @interface OWLocalMediaObjectID : NSManagedObjectID {}
 @end
 
@@ -29,6 +33,34 @@ extern const struct OWLocalMediaObjectFetchedProperties {
 + (NSString*)entityName;
 + (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;
 - (OWLocalMediaObjectID*)objectID;
+
+
+
+
+
+@property (nonatomic, strong) NSNumber* endLatitude;
+
+
+
+@property double endLatitudeValue;
+- (double)endLatitudeValue;
+- (void)setEndLatitudeValue:(double)value_;
+
+//- (BOOL)validateEndLatitude:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
+@property (nonatomic, strong) NSNumber* endLongitude;
+
+
+
+@property double endLongitudeValue;
+- (double)endLongitudeValue;
+- (void)setEndLongitudeValue:(double)value_;
+
+//- (BOOL)validateEndLongitude:(id*)value_ error:(NSError**)error_;
 
 
 
@@ -76,6 +108,24 @@ extern const struct OWLocalMediaObjectFetchedProperties {
 @end
 
 @interface _OWLocalMediaObject (CoreDataGeneratedPrimitiveAccessors)
+
+
+- (NSNumber*)primitiveEndLatitude;
+- (void)setPrimitiveEndLatitude:(NSNumber*)value;
+
+- (double)primitiveEndLatitudeValue;
+- (void)setPrimitiveEndLatitudeValue:(double)value_;
+
+
+
+
+- (NSNumber*)primitiveEndLongitude;
+- (void)setPrimitiveEndLongitude:(NSNumber*)value;
+
+- (double)primitiveEndLongitudeValue;
+- (void)setPrimitiveEndLongitudeValue:(double)value_;
+
+
 
 
 - (NSString*)primitiveRemoteMediaURLString;

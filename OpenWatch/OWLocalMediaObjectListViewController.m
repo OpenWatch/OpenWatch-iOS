@@ -84,13 +84,14 @@
         self.currentPage = kFirstPage;
         [self loadOfflineRecordings];
     }
-    [[OWAccountAPIClient sharedClient] fetchUserRecordingsOnPage:pageNumber success:^(NSArray *recordingObjectIDs, NSUInteger totalPages) {
+    
+    [[OWAccountAPIClient sharedClient] fetchMediaObjectsForFeedType:kOWFeedTypeFeed feedName:@"user" page:pageNumber success:^(NSArray *mediaObjectIDs, NSUInteger totalPages) {
         self.totalPages = totalPages;
         BOOL shouldReplaceObjects = NO;
         if (self.currentPage == kFirstPage) {
             shouldReplaceObjects = YES;
         }
-        [self reloadFeed:recordingObjectIDs replaceObjects:shouldReplaceObjects];
+        [self reloadFeed:mediaObjectIDs replaceObjects:shouldReplaceObjects];
         [self loadOfflineRecordings];
         [self doneLoadingTableViewData];
     } failure:^(NSString *reason) {

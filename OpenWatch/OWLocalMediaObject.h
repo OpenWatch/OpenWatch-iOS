@@ -9,15 +9,16 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 #import "_OWLocalMediaObject.h"
-
+#import <CoreLocation/CoreLocation.h>
 
 @interface OWLocalMediaObject : _OWLocalMediaObject
 
 + (NSString*) mediaDirectoryPath;
 + (NSString*) mediaDirectoryPathForMediaType:(NSString*)mediaType;
 + (NSString*) pathForUUID:(NSString*)uuid;
++ (CLLocation*) locationWithLatitude:(double)latitude longitude:(double)longitude;
 
-
+@property (nonatomic, strong) CLLocation *endLocation;
 
 - (NSString*) dataDirectory;
 - (NSString*) localMediaPath;

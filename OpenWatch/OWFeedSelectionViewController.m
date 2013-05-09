@@ -18,7 +18,6 @@
 @end
 
 #define FEED_SECTION 0
-#define TAG_SECTION 1
 
 @implementation OWFeedSelectionViewController
 @synthesize tagNames, feedNames, selectionTableView, delegate, popOver, popoverSize;
@@ -84,8 +83,6 @@
         case FEED_SECTION:
             return feedNames.count;
             break;
-        case TAG_SECTION:
-            return tagNames.count;
         default:
             return 0;
             break;
@@ -93,7 +90,7 @@
 }
 
 - (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView {
-    return 2;
+    return 1;
 }
 
 - (NSString*) tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
@@ -101,8 +98,6 @@
         case FEED_SECTION:
             return FEEDS_STRING;
             break;
-        case TAG_SECTION:
-            return TAGS_STRING;
         default:
             return @"";
             break;
@@ -123,12 +118,6 @@
                 cell.accessoryType = UITableViewCellAccessoryCheckmark;
             }
             break;
-        case TAG_SECTION:
-            cell.textLabel.text = [tagNames objectAtIndex:indexPath.row];
-            if (delegate.feedType == kOWFeedTypeTag && [cell.textLabel.text isEqualToString:delegate.selectedFeedString]) {
-                cell.accessoryType = UITableViewCellAccessoryCheckmark;
-            }
-            break;
         default:
             break;
     }
@@ -139,9 +128,6 @@
     switch (indexPath.section) {
         case FEED_SECTION:
             [self.delegate didSelectFeedWithName:[feedNames objectAtIndex:indexPath.row] type:kOWFeedTypeFeed];
-            break;
-        case TAG_SECTION:
-            [self.delegate didSelectFeedWithName:[tagNames objectAtIndex:indexPath.row] type:kOWFeedTypeTag];
             break;
         default:
             break;

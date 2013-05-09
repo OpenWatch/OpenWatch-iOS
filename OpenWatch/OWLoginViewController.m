@@ -202,7 +202,6 @@
     OWWelcomeViewController *welcomeVC = [[OWWelcomeViewController alloc] init];
     [self.navigationController pushViewController:welcomeVC animated:YES];
     [TestFlight passCheckpoint:LOGIN_CHECKPOINT];
-    [[OWAccountAPIClient sharedClient] getSubscribedTags];
 }
 
 

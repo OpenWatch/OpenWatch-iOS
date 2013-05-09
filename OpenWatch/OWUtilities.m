@@ -107,8 +107,8 @@
 }
 
 + (NSString*) apiBaseURLString {
-    return @"https://staging.openwatch.net/";
-    //return @"http://192.168.1.27:8000/";
+    //return @"https://staging.openwatch.net/";
+    return @"http://10.0.1.26:8000/";
 }
 
 + (NSString*) captureBaseURLString {

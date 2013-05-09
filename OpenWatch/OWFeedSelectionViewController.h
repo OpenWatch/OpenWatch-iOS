@@ -10,9 +10,8 @@
 #import "WEPopoverController.h"
 
 typedef enum {
-    kOWFeedTypeTag = 0,
     kOWFeedTypeFeed = 1,
-    kOWFeedTypeFrontPage = 2
+    kOWFeedTypeFrontPage = 2,
 } OWFeedType;
 
 @protocol OWFeedSelectionDelegate <NSObject>

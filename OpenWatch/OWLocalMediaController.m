@@ -12,6 +12,8 @@
 #import "OWPhoto.h"
 #import "OWSettingsController.h"
 #import "OWCaptureAPIClient.h"
+#import "OWAudio.h"
+#import "OWLocalRecording.h"
 
 @implementation OWLocalMediaController
 
@@ -33,7 +35,17 @@
 
 + (NSArray*) allMediaObjectsForUser:(OWUser*)user {
     NSSet *objects = user.objects;
-    return [objects allObjects];
+    NSMutableArray *array = [NSMutableArray arrayWithCapacity:objects.count];
+    for (OWMediaObject *object in objects) {
+        if ([object isKindOfClass:[OWPhoto class]]) {
+            [array addObject:object];
+        } else if ([object isKindOfClass:[OWAudio class]]) {
+            [array addObject:object];
+        } else if ([object isKindOfClass:[OWManagedRecording class]]) {
+            [array addObject:object];
+        }
+    }
+    return array;
 }
 
 + (void) scanDirectoryForChanges {

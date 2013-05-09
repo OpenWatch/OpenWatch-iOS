@@ -5,8 +5,6 @@
 
 const struct OWManagedRecordingAttributes OWManagedRecordingAttributes = {
 	.endDate = @"endDate",
-	.endLatitude = @"endLatitude",
-	.endLongitude = @"endLongitude",
 	.recordingDescription = @"recordingDescription",
 	.startDate = @"startDate",
 	.startLatitude = @"startLatitude",
@@ -45,16 +43,6 @@ const struct OWManagedRecordingFetchedProperties OWManagedRecordingFetchedProper
 + (NSSet*)keyPathsForValuesAffectingValueForKey:(NSString*)key {
 	NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
 	
-	if ([key isEqualToString:@"endLatitudeValue"]) {
-		NSSet *affectingKey = [NSSet setWithObject:@"endLatitude"];
-		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
-		return keyPaths;
-	}
-	if ([key isEqualToString:@"endLongitudeValue"]) {
-		NSSet *affectingKey = [NSSet setWithObject:@"endLongitude"];
-		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
-		return keyPaths;
-	}
 	if ([key isEqualToString:@"startLatitudeValue"]) {
 		NSSet *affectingKey = [NSSet setWithObject:@"startLatitude"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
@@ -74,58 +62,6 @@ const struct OWManagedRecordingFetchedProperties OWManagedRecordingFetchedProper
 
 @dynamic endDate;
 
-
-
-
-
-
-@dynamic endLatitude;
-
-
-
-- (double)endLatitudeValue {
-	NSNumber *result = [self endLatitude];
-	return [result doubleValue];
-}
-
-- (void)setEndLatitudeValue:(double)value_ {
-	[self setEndLatitude:[NSNumber numberWithDouble:value_]];
-}
-
-- (double)primitiveEndLatitudeValue {
-	NSNumber *result = [self primitiveEndLatitude];
-	return [result doubleValue];
-}
-
-- (void)setPrimitiveEndLatitudeValue:(double)value_ {
-	[self setPrimitiveEndLatitude:[NSNumber numberWithDouble:value_]];
-}
-
-
-
-
-
-@dynamic endLongitude;
-
-
-
-- (double)endLongitudeValue {
-	NSNumber *result = [self endLongitude];
-	return [result doubleValue];
-}
-
-- (void)setEndLongitudeValue:(double)value_ {
-	[self setEndLongitude:[NSNumber numberWithDouble:value_]];
-}
-
-- (double)primitiveEndLongitudeValue {
-	NSNumber *result = [self primitiveEndLongitude];
-	return [result doubleValue];
-}
-
-- (void)setPrimitiveEndLongitudeValue:(double)value_ {
-	[self setPrimitiveEndLongitude:[NSNumber numberWithDouble:value_]];
-}
 
 
 
