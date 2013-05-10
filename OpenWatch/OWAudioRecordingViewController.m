@@ -16,7 +16,7 @@
 @end
 
 @implementation OWAudioRecordingViewController
-@synthesize timeLabel, audioController, recorder, audio, recordButton, isRecording, cancelButton;
+@synthesize timeLabel, audioController, recorder, audio, recordButton, isRecording, cancelButton, microphoneImageView, recordingIndicatorView;
 
 - (id)init
 {
@@ -29,6 +29,8 @@
         self.isRecording = NO;
         self.cancelButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelButtonPressed:)];
         self.navigationItem.leftBarButtonItem = cancelButton;
+        self.microphoneImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"microphone.png"]];
+        self.recordingIndicatorView = [[OWRecordingActivityIndicatorView alloc] init];
     }
     return self;
 }
@@ -59,6 +61,7 @@
 	// Do any additional setup after loading the view.
     [self.view addSubview:timeLabel];
     [self.view addSubview:recordButton];
+    [self.view addSubview:recordingIndicatorView];
 }
 
 - (void) viewWillAppear:(BOOL)animated {
@@ -66,6 +69,7 @@
     self.timeLabel.frame = CGRectMake(0, 0, 200, 50);
     CGFloat padding = 20.0f;
     self.recordButton.frame = CGRectMake(padding, padding, self.view.frame.size.width - padding*2, 100.0f);
+    self.recordingIndicatorView.frame = CGRectMake(0, 0, 50, 50);
 }
 
 - (void) startNewRecording {
@@ -106,11 +110,13 @@
     // AEPlaythroughChannel, mentioned above, you may not need to receive the input again.
     [audioController addInputReceiver:recorder];
     [audioController addOutputReceiver:recorder];
+    [self.recordingIndicatorView startAnimating];
 }
 
 - (void) finishRecording {
     [audioController removeInputReceiver:recorder];
     [audioController removeOutputReceiver:recorder];
+    [self.recordingIndicatorView stopAnimating];
     [recorder finishRecording];
     self.recorder = nil;
     [audioController stop];

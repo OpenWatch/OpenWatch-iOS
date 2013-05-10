@@ -82,6 +82,9 @@
 		D945D322173C6CAF00D806BD /* README.markdown in Resources */ = {isa = PBXBuildFile; fileRef = D945D317173C6CAF00D806BD /* README.markdown */; };
 		D945D323173C6CAF00D806BD /* TPCircularBuffer+AudioBufferList.c in Sources */ = {isa = PBXBuildFile; fileRef = D945D318173C6CAF00D806BD /* TPCircularBuffer+AudioBufferList.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		D945D324173C6CAF00D806BD /* TPCircularBuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = D945D31A173C6CAF00D806BD /* TPCircularBuffer.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		D945D32B173C91F600D806BD /* microphone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D945D32A173C91F600D806BD /* microphone@2x.png */; };
+		D945D32D173C92AD00D806BD /* red_dot@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D945D32C173C92AD00D806BD /* red_dot@2x.png */; };
+		D945D330173C931F00D806BD /* OWRecordingActivityIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = D945D32F173C931F00D806BD /* OWRecordingActivityIndicatorView.m */; };
 		D94A26EF167A858600BD36EF /* local-big.png in Resources */ = {isa = PBXBuildFile; fileRef = D94A26E7167A858600BD36EF /* local-big.png */; };
 		D94A26F0167A858600BD36EF /* local-big@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D94A26E8167A858600BD36EF /* local-big@2x.png */; };
 		D94A26F1167A858600BD36EF /* saved-big.png in Resources */ = {isa = PBXBuildFile; fileRef = D94A26E9167A858600BD36EF /* saved-big.png */; };
@@ -768,6 +771,10 @@
 		D945D319173C6CAF00D806BD /* TPCircularBuffer+AudioBufferList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TPCircularBuffer+AudioBufferList.h"; sourceTree = "<group>"; };
 		D945D31A173C6CAF00D806BD /* TPCircularBuffer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = TPCircularBuffer.c; sourceTree = "<group>"; };
 		D945D31B173C6CAF00D806BD /* TPCircularBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPCircularBuffer.h; sourceTree = "<group>"; };
+		D945D32A173C91F600D806BD /* microphone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "microphone@2x.png"; sourceTree = "<group>"; };
+		D945D32C173C92AD00D806BD /* red_dot@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "red_dot@2x.png"; sourceTree = "<group>"; };
+		D945D32E173C931F00D806BD /* OWRecordingActivityIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWRecordingActivityIndicatorView.h; sourceTree = "<group>"; };
+		D945D32F173C931F00D806BD /* OWRecordingActivityIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWRecordingActivityIndicatorView.m; sourceTree = "<group>"; };
 		D94A26E7167A858600BD36EF /* local-big.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "local-big.png"; sourceTree = "<group>"; };
 		D94A26E8167A858600BD36EF /* local-big@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "local-big@2x.png"; sourceTree = "<group>"; };
 		D94A26E9167A858600BD36EF /* saved-big.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "saved-big.png"; sourceTree = "<group>"; };
@@ -1301,6 +1308,8 @@
 		D97EAAA3167911B900A1B038 /* Custom Views */ = {
 			isa = PBXGroup;
 			children = (
+				D945D32E173C931F00D806BD /* OWRecordingActivityIndicatorView.h */,
+				D945D32F173C931F00D806BD /* OWRecordingActivityIndicatorView.m */,
 				D9C8A59E16B9A1E0004F9E05 /* Table Cells */,
 				D9BECF9616B22B06009046E1 /* UINavigationBar+DropShadow.h */,
 				D9BECF9716B22B06009046E1 /* UINavigationBar+DropShadow.m */,
@@ -1766,6 +1775,8 @@
 		D9DFADF716547DE7003C515C /* Media */ = {
 			isa = PBXGroup;
 			children = (
+				D945D32C173C92AD00D806BD /* red_dot@2x.png */,
+				D945D32A173C91F600D806BD /* microphone@2x.png */,
 				D964E5ED17336AC100ECF972 /* ow_space2@2x.jpg */,
 				D91AC03C1733079E00823179 /* ow_space1@2x.jpg */,
 				D9D8677C17348089008C8CE6 /* Glyphish */,
@@ -2481,6 +2492,8 @@
 				D9D8677F17348547008C8CE6 /* 28-star.png in Resources */,
 				D9D8678017348547008C8CE6 /* 28-star@2x.png in Resources */,
 				D945D322173C6CAF00D806BD /* README.markdown in Resources */,
+				D945D32B173C91F600D806BD /* microphone@2x.png in Resources */,
+				D945D32D173C92AD00D806BD /* red_dot@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2642,6 +2655,7 @@
 				D945D321173C6CAF00D806BD /* AERecorder.m in Sources */,
 				D945D323173C6CAF00D806BD /* TPCircularBuffer+AudioBufferList.c in Sources */,
 				D945D324173C6CAF00D806BD /* TPCircularBuffer.c in Sources */,
+				D945D330173C931F00D806BD /* OWRecordingActivityIndicatorView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
