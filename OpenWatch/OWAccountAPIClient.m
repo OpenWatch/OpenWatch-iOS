@@ -245,10 +245,10 @@
                 NSDictionary *dictionary = [decoder objectWithData:operation.responseData];
                 NSLog(@"media POST response: %@", operation.responseString);
                 if ([dictionary isKindOfClass:[NSDictionary class]] && [[dictionary objectForKey:@"success"] boolValue]) {
-                    [[NSNotificationCenter defaultCenter] postNotificationName:kOWCaptureAPIClientBandwidthNotification object:nil];
                     NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
                     mediaObject.uploaded = @(YES);
                     [context MR_saveToPersistentStoreAndWait];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:kOWCaptureAPIClientBandwidthNotification object:nil];
                 } else {
                     NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
                     mediaObject.uploaded = @(NO);

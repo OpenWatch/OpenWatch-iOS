@@ -13,13 +13,13 @@
 #import "OWAppDelegate.h"
 #import "OWUtilities.h"
 #import "OWShareController.h"
-
+#import "OWLocalMediaController.h"
 
 @interface OWCaptureViewController ()
 @end
 
 @implementation OWCaptureViewController
-@synthesize videoPreviewView, captureVideoPreviewLayer, videoProcessor, recordButton, recordingIndicator, timerView;
+@synthesize videoPreviewView, captureVideoPreviewLayer, videoProcessor, recordButton, recordingIndicator, timerView, delegate;
 
 - (id) init {
     if (self = [super init]) {
@@ -168,16 +168,11 @@
 			backgroundRecordingID = UIBackgroundTaskInvalid;
 		}
         
-        [self dismissViewControllerAnimated:YES completion:^{
-            //[videoProcessor stopAndTearDownCaptureSession];
-            OWLocalMediaEditViewController *recordingInfo = [[OWLocalMediaEditViewController alloc] init];
-            recordingInfo.objectID = videoProcessor.recordingID;
-            recordingInfo.showingAfterCapture = YES;
-            UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:recordingInfo];
-            [OWUtilities styleNavigationController:nav];
-            nav.navigationBar.tintColor = [OWUtilities navigationBarColor];
-            [OW_APP_DELEGATE.dashboardViewController presentViewController:nav animated:YES completion:nil];
-        }];
+        
+        if (self.delegate && [self.delegate respondsToSelector:@selector(captureViewController:didFinishRecording:)]) {
+            OWLocalRecording *recording = (OWLocalRecording*)[OWLocalMediaController localMediaObjectForObjectID:videoProcessor.recordingID];
+            [self.delegate captureViewController:self didFinishRecording:recording];
+        }
 	});
 }
 

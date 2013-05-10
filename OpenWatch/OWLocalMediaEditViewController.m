@@ -145,6 +145,9 @@
     [self registerForUploadProgressNotifications];
     [TestFlight passCheckpoint:EDIT_METADATA_CHECKPOINT];
     [self checkRecording];
+    if (showingAfterCapture) {
+        [self.navigationItem setHidesBackButton:YES];
+    }
 }
 
 

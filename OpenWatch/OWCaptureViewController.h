@@ -11,12 +11,19 @@
 #import "OWTimerView.h"
 #import "OWRecordingActivityIndicatorView.h"
 
-@class AVCaptureVideoPreviewLayer;
+@class AVCaptureVideoPreviewLayer, OWCaptureViewController;
+
+@protocol OWCaptureDelegate <NSObject>
+@optional
+- (void) captureViewController:(OWCaptureViewController*)captureViewController didFinishRecording:(OWLocalRecording*)recording;
+- (void) captureViewControllerDidCancel:(OWCaptureViewController*)captureViewController;
+@end
 
 @interface OWCaptureViewController : UIViewController <OWVideoProcessorDelegate, UIAlertViewDelegate> {
     UIBackgroundTaskIdentifier backgroundRecordingID;
 }
 
+@property (nonatomic, weak) id<OWCaptureDelegate> delegate;
 @property (nonatomic, strong) OWTimerView *timerView;
 @property (nonatomic, strong) OWRecordingActivityIndicatorView *recordingIndicator;
 

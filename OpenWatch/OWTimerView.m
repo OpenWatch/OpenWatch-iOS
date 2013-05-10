@@ -23,6 +23,7 @@
         self.timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
         self.timeLabel.textAlignment = NSTextAlignmentCenter;
         self.timeLabel.backgroundColor = [UIColor clearColor];
+        self.timeLabel.font = [UIFont boldSystemFontOfSize:18.0f];
         self.timeLabel.text = @"00:00:00";
         [self addSubview:timeLabel];
     }

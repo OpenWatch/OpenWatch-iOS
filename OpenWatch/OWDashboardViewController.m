@@ -34,7 +34,7 @@
 @end
 
 @implementation OWDashboardViewController
-@synthesize onboardingView, dashboardView, imagePicker, audioRecorder;
+@synthesize onboardingView, dashboardView, imagePicker, audioRecorder, editController;
 
 - (id)init
 {
@@ -65,7 +65,22 @@
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:audioRecorder];
     [OWUtilities styleNavigationController:navController];
     [self presentViewController:navController animated:YES completion:^{
+        [self pushEditView];
     }];
+}
+
+- (void) recordButtonPressed:(id)sender {
+    OWCaptureViewController *captureVC = [[OWCaptureViewController alloc] init];
+    captureVC.delegate = self;
+    [self presentViewController:captureVC animated:YES completion:^{
+        [self pushEditView];
+    }];
+}
+
+- (void) pushEditView {
+    self.editController = [[OWLocalMediaEditViewController alloc] init];
+    self.editController.showingAfterCapture = YES;
+    [self.navigationController pushViewController:editController animated:YES];
 }
 
 - (void) photoButtonPressed:(id)sender {
@@ -79,7 +94,9 @@
     }
     BOOL canTakePhoto = [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera];
     if (canTakePhoto) {
-        [self presentViewController:imagePicker animated:YES completion:nil];
+        [self presentViewController:imagePicker animated:YES completion:^{
+            [self pushEditView];
+        }];
     } else {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Not Available" message:@"Sorry, this device can't take photos." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alert show];
@@ -94,11 +111,7 @@
     [self.navigationController pushViewController:feedVC animated:YES];
 }
 
-- (void) recordButtonPressed:(id)sender {
-    OWCaptureViewController *captureVC = [[OWCaptureViewController alloc] init];
-    [self presentViewController:captureVC animated:YES completion:^{
-    }];
-}
+
 
 - (void) yourMediaPressed:(id)sender {
     OWLocalMediaObjectListViewController *recordingListVC = [[OWLocalMediaObjectListViewController alloc] init];
@@ -185,18 +198,12 @@
     NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
     [context MR_saveToPersistentStoreAndWait];
     
+    self.editController.objectID = photo.objectID;
+    
     [[OWAccountAPIClient sharedClient] postObjectWithUUID:photo.uuid objectClass:photo.class success:nil failure:nil];
 
     [self.imagePicker dismissViewControllerAnimated:YES completion:^{
         self.imagePicker = nil;
-        //[videoProcessor stopAndTearDownCaptureSession];
-        OWLocalMediaEditViewController *recordingInfo = [[OWLocalMediaEditViewController alloc] init];
-        recordingInfo.objectID = photo.objectID;
-        recordingInfo.showingAfterCapture = YES;
-        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:recordingInfo];
-        [OWUtilities styleNavigationController:nav];
-        nav.navigationBar.tintColor = [OWUtilities navigationBarColor];
-        [self presentViewController:nav animated:YES completion:nil];
     }];
     
     NSLog(@"photo created: %@", photo.description);
@@ -208,6 +215,7 @@
     [self.imagePicker dismissViewControllerAnimated:YES completion:^{
         self.imagePicker = nil;
     }];
+    [self.navigationController popToRootViewControllerAnimated:NO];
 }
 
 - (void) recordingViewController:(OWAudioRecordingViewController *)recordingViewController didFinishRecording:(OWAudio *)audio {
@@ -219,17 +227,13 @@
     NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
     [context MR_saveToPersistentStoreAndWait];
     
+    self.editController.objectID = audio.objectID;
+
+    
     [[OWAccountAPIClient sharedClient] postObjectWithUUID:audio.uuid objectClass:audio.class success:nil failure:nil];
     
     [self.audioRecorder dismissViewControllerAnimated:YES completion:^{
         self.audioRecorder = nil;
-        OWLocalMediaEditViewController *recordingInfo = [[OWLocalMediaEditViewController alloc] init];
-        recordingInfo.objectID = audio.objectID;
-        recordingInfo.showingAfterCapture = YES;
-        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:recordingInfo];
-        [OWUtilities styleNavigationController:nav];
-        nav.navigationBar.tintColor = [OWUtilities navigationBarColor];
-        [self presentViewController:nav animated:YES completion:nil];
     }];
 }
 
@@ -239,6 +243,19 @@
     [self.audioRecorder dismissViewControllerAnimated:YES completion:^{
         self.audioRecorder = nil;
     }];
+    [self.navigationController popToRootViewControllerAnimated:NO];
+}
+
+- (void) captureViewController:(OWCaptureViewController *)captureViewController didFinishRecording:(OWLocalRecording *)recording {
+    self.editController.objectID = recording.objectID;
+    [captureViewController dismissViewControllerAnimated:YES completion:^{
+         
+     }];
+    
+}
+
+- (void) captureViewControllerDidCancel:(OWCaptureViewController *)captureViewController{
+    [self.navigationController popToRootViewControllerAnimated:NO];
 }
 
 @end
