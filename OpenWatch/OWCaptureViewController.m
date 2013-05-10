@@ -14,11 +14,12 @@
 #import "OWUtilities.h"
 #import "OWShareController.h"
 
+
 @interface OWCaptureViewController ()
 @end
 
 @implementation OWCaptureViewController
-@synthesize videoPreviewView, captureVideoPreviewLayer, videoProcessor, recordButton;
+@synthesize videoPreviewView, captureVideoPreviewLayer, videoProcessor, recordButton, recordingIndicator, timerView;
 
 - (id) init {
     if (self = [super init]) {
@@ -28,6 +29,8 @@
         self.videoPreviewView = [[UIView alloc] init];
         self.title = STREAMING_STRING;
         [self setupRecordButton];
+        self.recordingIndicator = [[OWRecordingActivityIndicatorView alloc] init];
+        self.timerView = [[OWTimerView alloc] init];
     }
     return self;
 }
@@ -48,6 +51,8 @@
     self.videoPreviewView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin;
     [self.view addSubview:videoPreviewView];
     [self.view addSubview:recordButton];
+    [self.view addSubview:recordingIndicator];
+    [self.view addSubview:timerView];
 }
 
 - (void) recordButtonPressed:(id)sender {
@@ -92,6 +97,8 @@
     CGFloat buttonHeight = 45.0f;
     CGFloat padding = 10.0f;
     self.recordButton.frame = CGRectMake(self.view.frame.size.width - buttonWidth - padding, padding, buttonWidth, buttonHeight);
+    self.recordingIndicator.frame = CGRectMake(padding, padding, 35, 35);
+    self.timerView.frame = CGRectMake([OWUtilities rightOfView:recordingIndicator], padding, 100, 35);
     [captureVideoPreviewLayer setFrame:self.view.bounds];
 }
 
@@ -132,6 +139,8 @@
 {
 	dispatch_async(dispatch_get_main_queue(), ^{
 		[[self recordButton] setEnabled:YES];
+        [self.timerView startTimer];
+        [self.recordingIndicator startAnimating];
 	});
 }
 
@@ -149,6 +158,8 @@
 {
 	dispatch_async(dispatch_get_main_queue(), ^{
 		[[self recordButton] setEnabled:YES];
+        [self.timerView stopTimer];
+        [self.recordingIndicator stopAnimating];
 		
 		[UIApplication sharedApplication].idleTimerDisabled = NO;
                 

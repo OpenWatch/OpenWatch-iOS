@@ -11,6 +11,11 @@
 
 #define kAnimationDuration 0.9f
 
+@interface OWRecordingActivityIndicatorView()
+@property (nonatomic) BOOL isAnimating;
+@end
+
+
 @implementation OWRecordingActivityIndicatorView
 @synthesize imageView, isAnimating, animationTimer;
 
@@ -23,6 +28,7 @@
         self.imageView.contentMode = UIViewContentModeScaleAspectFit;
         self.imageView.layer.opacity = 0.0f;
         [self addSubview:imageView];
+        self.isAnimating = NO;
     }
     return self;
 }
@@ -33,33 +39,32 @@
 }
 
 - (void) startAnimating {
-    self.animationTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(animationTimerFired:) userInfo:nil repeats:YES];
-    [UIView animateWithDuration:kAnimationDuration animations:^{
-        self.imageView.layer.opacity = 1.0f;
-    } completion:nil];
+    [self scheduleTimer];
+    self.isAnimating = YES;
+}
+
+- (void) scheduleTimer {
+    self.animationTimer = [NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(animationTimerFired:) userInfo:nil repeats:NO];
 }
 
 - (void) animationTimerFired:(NSTimer*)timer {
-    CGFloat currentOpacity = self.imageView.layer.opacity;
-    CGFloat newOpacity = 0.0f;
-    if (currentOpacity > 0) {
-        newOpacity = 0.0f;
-    } else {
-        newOpacity = 1.0f;
-    }
+    [self.animationTimer invalidate];
+    self.animationTimer = nil;
     [UIView animateWithDuration:kAnimationDuration animations:^{
-        self.imageView.layer.opacity = newOpacity;
-    } completion:nil];
-}
-
-- (BOOL) isAnimating {
-    if (self.animationTimer) {
-        return YES;
-    }
-    return NO;
+        self.imageView.layer.opacity = 1.0f;
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:kAnimationDuration animations:^{
+            self.imageView.layer.opacity = 0.0f;
+        } completion:^(BOOL finished) {
+            if (isAnimating) {
+                [self scheduleTimer];
+            }
+        }];
+    }];
 }
 
 - (void) stopAnimating {
+    self.isAnimating = NO;
     [self.animationTimer invalidate];
     self.animationTimer = nil;
     [UIView animateWithDuration:kAnimationDuration animations:^{
