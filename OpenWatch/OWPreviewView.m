@@ -10,6 +10,7 @@
 #import "OWLocalMediaController.h"
 #import "OWPhoto.h"
 #import "OWLocalRecording.h"
+#import "OWAudio.h"
 
 @implementation OWPreviewView
 @synthesize imageView, moviePlayer, objectID;
@@ -36,7 +37,7 @@
     }
     
     OWLocalMediaObject *mediaObject = [OWLocalMediaController localMediaObjectForObjectID:objectID];
-    
+    NSURL *mediaURL = nil;
     if ([mediaObject isKindOfClass:[OWPhoto class]]) {
         OWPhoto *photo = (OWPhoto*)mediaObject;
         self.imageView = [[UIImageView alloc] initWithFrame:self.frame];
@@ -46,15 +47,24 @@
         [self addSubview:imageView];
     } else if ([mediaObject isKindOfClass:[OWLocalRecording class]]) {
         OWLocalRecording *recording = (OWLocalRecording*)mediaObject;
-        self.moviePlayer = [[MPMoviePlayerController alloc] initWithContentURL:recording.localMediaURL];
-        [self.moviePlayer prepareToPlay];
-        self.moviePlayer.view.frame = self.frame;
-        [self addSubview:moviePlayer.view];
+        mediaURL = recording.localMediaURL;
     } else if ([mediaObject isKindOfClass:[OWManagedRecording class]]) {
         OWManagedRecording *recording = (OWManagedRecording*)mediaObject;
-        self.moviePlayer = [[MPMoviePlayerController alloc] initWithContentURL:recording.remoteMediaURL];
+        mediaURL = recording.remoteMediaURL;
+    } else if ([mediaObject isKindOfClass:[OWAudio class]]) {
+        OWAudio *audio = (OWAudio*)mediaObject;
+        if (audio.localMediaPath.length > 0) {
+            mediaURL = audio.localMediaURL;
+        } else {
+            mediaURL = audio.remoteMediaURL;
+        }
+    }
+    if (mediaURL) {
+        self.moviePlayer = [[MPMoviePlayerController alloc] initWithContentURL:mediaURL];
         [self.moviePlayer prepareToPlay];
         self.moviePlayer.view.frame = self.frame;
+        self.moviePlayer.controlStyle = MPMovieControlStyleEmbedded;
+        self.moviePlayer.shouldAutoplay = NO;
         [self addSubview:moviePlayer.view];
     }
  }

@@ -224,7 +224,7 @@
             NSDictionary *object = [responseObject objectForKey:@"object"];
             [mediaObject loadMetadataFromDictionary:object];
         }
-        if (mediaObject.uploadedValue == NO && [mediaObject isKindOfClass:[OWPhoto class]]) {
+        if (mediaObject.uploadedValue == NO && ([mediaObject isKindOfClass:[OWPhoto class]] || [mediaObject isKindOfClass:[OWAudio class]])) {
             NSString *postPath = [self pathForClass:objectClass uuid:UUID];
             NSURLRequest *request = [self multipartFormRequestWithMethod:@"POST" path:postPath parameters:nil constructingBodyWithBlock: ^(id <AFMultipartFormData> formData) {
                 NSError *error = nil;
@@ -243,7 +243,7 @@
             [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
                 JSONDecoder *decoder = [JSONDecoder decoder];
                 NSDictionary *dictionary = [decoder objectWithData:operation.responseData];
-                NSLog(@"picture POST response: %@", responseObject);
+                NSLog(@"media POST response: %@", operation.responseString);
                 if ([dictionary isKindOfClass:[NSDictionary class]] && [[dictionary objectForKey:@"success"] boolValue]) {
                     [[NSNotificationCenter defaultCenter] postNotificationName:kOWCaptureAPIClientBandwidthNotification object:nil];
                     NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
