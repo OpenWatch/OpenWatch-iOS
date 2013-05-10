@@ -16,13 +16,13 @@
 @end
 
 @implementation OWAudioRecordingViewController
-@synthesize timeLabel, audioController, recorder, audio, recordButton, isRecording, cancelButton, microphoneImageView, recordingIndicatorView;
+@synthesize timerView, audioController, recorder, audio, recordButton, isRecording, cancelButton, microphoneImageView, recordingIndicatorView;
 
 - (id)init
 {
     self = [super init];
     if (self) {
-        self.timeLabel = [[UILabel alloc] init];
+        self.timerView = [[OWTimerView alloc] init];
         self.recordButton = [OWUtilities bigGreenButton];
         [recordButton setTitle:@"Start Recording" forState:UIControlStateNormal];
         [recordButton addTarget:self action:@selector(recordButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
@@ -30,7 +30,9 @@
         self.cancelButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelButtonPressed:)];
         self.navigationItem.leftBarButtonItem = cancelButton;
         self.microphoneImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"microphone.png"]];
+        self.microphoneImageView.contentMode = UIViewContentModeScaleAspectFit;
         self.recordingIndicatorView = [[OWRecordingActivityIndicatorView alloc] init];
+        self.title = @"Record Audio";
     }
     return self;
 }
@@ -59,17 +61,28 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    [self.view addSubview:timeLabel];
+    [self.view addSubview:timerView];
     [self.view addSubview:recordButton];
     [self.view addSubview:recordingIndicatorView];
+    [self.view addSubview:microphoneImageView];
 }
 
 - (void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    self.timeLabel.frame = CGRectMake(0, 0, 200, 50);
     CGFloat padding = 20.0f;
-    self.recordButton.frame = CGRectMake(padding, padding, self.view.frame.size.width - padding*2, 100.0f);
-    self.recordingIndicatorView.frame = CGRectMake(0, 0, 50, 50);
+    CGFloat microphoneSize = 200.0f;
+    CGFloat width = self.view.frame.size.width;
+    //CGFloat height = self.view.frame.size.height;
+    CGFloat microphoneXOrigin = floorf(width/2 - microphoneSize/2);
+    self.microphoneImageView.frame = CGRectMake(microphoneXOrigin, padding, microphoneSize, microphoneSize);
+
+    CGFloat recordingYOrigin = [OWUtilities bottomOfView:microphoneImageView] + 10.0f;
+    CGFloat indicatorHeight = 35.0f;
+    
+    self.recordingIndicatorView.frame = CGRectMake(microphoneXOrigin, recordingYOrigin, floorf(microphoneSize * .25), indicatorHeight);
+    self.timerView.frame = CGRectMake([OWUtilities rightOfView:recordingIndicatorView], recordingYOrigin, floorf(microphoneSize * .75), indicatorHeight);
+    
+    self.recordButton.frame = CGRectMake(microphoneXOrigin, [OWUtilities bottomOfView:timerView] + 10.0f, microphoneSize, 50.0f);
 }
 
 - (void) startNewRecording {
@@ -111,12 +124,14 @@
     [audioController addInputReceiver:recorder];
     [audioController addOutputReceiver:recorder];
     [self.recordingIndicatorView startAnimating];
+    [self.timerView startTimer];
 }
 
 - (void) finishRecording {
     [audioController removeInputReceiver:recorder];
     [audioController removeOutputReceiver:recorder];
     [self.recordingIndicatorView stopAnimating];
+    [self.timerView stopTimer];
     [recorder finishRecording];
     self.recorder = nil;
     [audioController stop];

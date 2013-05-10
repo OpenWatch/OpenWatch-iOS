@@ -63,6 +63,7 @@
     OWLocationController *locationController = [OWLocationController sharedInstance];
     [locationController startWithDelegate:nil];
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:audioRecorder];
+    [OWUtilities styleNavigationController:navController];
     [self presentViewController:navController animated:YES completion:^{
     }];
 }

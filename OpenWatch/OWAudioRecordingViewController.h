@@ -11,6 +11,7 @@
 #import "AERecorder.h"
 #import "OWAudio.h"
 #import "OWRecordingActivityIndicatorView.h"
+#import "OWTimerView.h"
 
 @class OWAudioRecordingViewController;
 
@@ -33,9 +34,8 @@
 
 @property (nonatomic, strong) UIImageView *microphoneImageView;
 @property (nonatomic, strong) OWRecordingActivityIndicatorView *recordingIndicatorView;
+@property (nonatomic, strong) OWTimerView *timerView;
 
-@property (nonatomic, strong) UILabel *timeLabel;
-@property (nonatomic, strong) NSTimer *timer;
 @property (nonatomic, strong) UIButton *recordButton;
 
 @end

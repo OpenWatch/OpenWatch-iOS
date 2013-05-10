@@ -85,6 +85,7 @@
 		D945D32B173C91F600D806BD /* microphone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D945D32A173C91F600D806BD /* microphone@2x.png */; };
 		D945D32D173C92AD00D806BD /* red_dot@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D945D32C173C92AD00D806BD /* red_dot@2x.png */; };
 		D945D330173C931F00D806BD /* OWRecordingActivityIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = D945D32F173C931F00D806BD /* OWRecordingActivityIndicatorView.m */; };
+		D945D333173C9C0200D806BD /* OWTimerView.m in Sources */ = {isa = PBXBuildFile; fileRef = D945D332173C9C0100D806BD /* OWTimerView.m */; };
 		D94A26EF167A858600BD36EF /* local-big.png in Resources */ = {isa = PBXBuildFile; fileRef = D94A26E7167A858600BD36EF /* local-big.png */; };
 		D94A26F0167A858600BD36EF /* local-big@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D94A26E8167A858600BD36EF /* local-big@2x.png */; };
 		D94A26F1167A858600BD36EF /* saved-big.png in Resources */ = {isa = PBXBuildFile; fileRef = D94A26E9167A858600BD36EF /* saved-big.png */; };
@@ -775,6 +776,8 @@
 		D945D32C173C92AD00D806BD /* red_dot@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "red_dot@2x.png"; sourceTree = "<group>"; };
 		D945D32E173C931F00D806BD /* OWRecordingActivityIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWRecordingActivityIndicatorView.h; sourceTree = "<group>"; };
 		D945D32F173C931F00D806BD /* OWRecordingActivityIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWRecordingActivityIndicatorView.m; sourceTree = "<group>"; };
+		D945D331173C9C0100D806BD /* OWTimerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWTimerView.h; sourceTree = "<group>"; };
+		D945D332173C9C0100D806BD /* OWTimerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWTimerView.m; sourceTree = "<group>"; };
 		D94A26E7167A858600BD36EF /* local-big.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "local-big.png"; sourceTree = "<group>"; };
 		D94A26E8167A858600BD36EF /* local-big@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "local-big@2x.png"; sourceTree = "<group>"; };
 		D94A26E9167A858600BD36EF /* saved-big.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "saved-big.png"; sourceTree = "<group>"; };
@@ -1663,6 +1666,8 @@
 				D963C85A1739C9C7008999F7 /* OWPhotoDetailViewController.m */,
 				D963C8501739C698008999F7 /* OWAudioRecordingViewController.h */,
 				D963C8511739C698008999F7 /* OWAudioRecordingViewController.m */,
+				D945D331173C9C0100D806BD /* OWTimerView.h */,
+				D945D332173C9C0100D806BD /* OWTimerView.m */,
 				D97EAAB9167A540800A1B038 /* OWFeedSelectionViewController.h */,
 				D97EAABA167A540900A1B038 /* OWFeedSelectionViewController.m */,
 				D9FF1A32173B03AF0076D214 /* OWPreviewView.h */,
@@ -2656,6 +2661,7 @@
 				D945D323173C6CAF00D806BD /* TPCircularBuffer+AudioBufferList.c in Sources */,
 				D945D324173C6CAF00D806BD /* TPCircularBuffer.c in Sources */,
 				D945D330173C931F00D806BD /* OWRecordingActivityIndicatorView.m in Sources */,
+				D945D333173C9C0200D806BD /* OWTimerView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
