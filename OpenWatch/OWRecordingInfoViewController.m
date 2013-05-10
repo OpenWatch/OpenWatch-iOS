@@ -17,6 +17,8 @@
 #import "UIImageView+AFNetworking.h"
 #import "QuartzCore/CALayer.h"
 #import "OWTag.h"
+#import "OWLocalMediaObject.h"
+#import "OWLocalMediaController.h"
 
 #define PADDING 10.0f
 
@@ -54,8 +56,8 @@
     [self.scrollView addSubview:tagList];
 }
 
-- (void) refreshTagsForRecording:(OWManagedRecording*)recording {
-    NSSet *tagSet = recording.tags;
+- (void) refreshTagsForMediaObject:(OWLocalMediaObject*)mediaObject {
+    NSSet *tagSet = mediaObject.tags;
     NSMutableArray *tagNameArray = [[NSMutableArray alloc] initWithCapacity:tagSet.count];
     NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES];
     NSArray *tagObjectArray = [tagSet sortedArrayUsingDescriptors:@[sortDescriptor]];
@@ -231,11 +233,15 @@
 - (void) setMediaObjectID:(NSManagedObjectID *)newMediaObjectID {
     [super setMediaObjectID:newMediaObjectID];
 
-    OWManagedRecording *recording = [OWRecordingController recordingForObjectID:self.mediaObjectID];
-    
-    if (recording.remoteMediaURLString) {
-        [self.moviePlayer setMovieSourceType:MPMovieSourceTypeStreaming]; // for streaming
-        self.moviePlayer.contentURL = [NSURL URLWithString:recording.remoteMediaURLString];
+    OWLocalMediaObject *mediaObject = [OWLocalMediaController localMediaObjectForObjectID:self.mediaObjectID];
+    NSURL *mediaURL = nil;
+    if (mediaObject.localMediaPath.length > 0) {
+        mediaURL = mediaObject.localMediaURL;
+    } else if (mediaObject.remoteMediaURLString.length > 0) {
+        mediaURL = mediaObject.remoteMediaURL;
+    }
+    if (mediaURL) {
+        self.moviePlayer.contentURL = mediaURL;
         [moviePlayer prepareToPlay];
     }
     
@@ -243,53 +249,30 @@
     [self refreshFrames];
     [self refreshMapParameters];
     
-    [[OWAccountAPIClient sharedClient] getObjectWithUUID:recording.uuid objectClass:[recording class] success:^(NSManagedObjectID *objectID) {
-        OWManagedRecording *remoteRecording = [OWRecordingController recordingForObjectID:objectID];
-        self.moviePlayer.contentURL = [NSURL URLWithString:[remoteRecording remoteMediaURLString]];
+    [[OWAccountAPIClient sharedClient] getObjectWithUUID:mediaObject.uuid objectClass:[mediaObject class] success:^(NSManagedObjectID *objectID) {
+        OWLocalMediaObject *newMediaObject = [OWLocalMediaController localMediaObjectForObjectID:self.mediaObjectID];
+        self.moviePlayer.contentURL = newMediaObject.remoteMediaURL;
         [moviePlayer prepareToPlay];
         [self refreshMapParameters];
         [self refreshFields];
         [self refreshFrames];
-        [TestFlight passCheckpoint:VIEW_RECORDING_ID_CHECKPOINT([remoteRecording.serverID intValue])];
+        [TestFlight passCheckpoint:VIEW_RECORDING_ID_CHECKPOINT([newMediaObject.serverID intValue])];
     } failure:^(NSString *reason) {
         NSLog(@"failure to fetch recording details: %@", reason);
-
     }];
 }
 
 
 - (void) refreshMapParameters {
-    OWManagedRecording *recording = [OWRecordingController recordingForObjectID:self.mediaObjectID];
-    double lat = 0.0f;
-    double lon = 0.0f;
-    CLLocation *start = recording.startLocation;
-    CLLocation *end = recording.endLocation;
-    if (start) {
-        lat = start.coordinate.latitude;
-        lon = start.coordinate.longitude;
-        if (end) {
-            lat = (lat + end.coordinate.latitude) / 2;
-            lon = (lon + end.coordinate.longitude) / 2;
-        }
-    } else if (end) {
-        lat = end.coordinate.latitude;
-        lon = end.coordinate.longitude;
-    }
-
-    if (lat != 0.0f && lon != 0.0f) {
-        self.centerCoordinate = CLLocationCoordinate2DMake(lat, lon);
-    } else {
-        self.centerCoordinate = CLLocationCoordinate2DMake(-255, -255);
+    OWLocalMediaObject *mediaObject = [OWLocalMediaController localMediaObjectForObjectID:self.mediaObjectID];
+    CLLocation *end = mediaObject.endLocation;
+    if (end) {
+        self.centerCoordinate = end.coordinate;
     }
     
     [mapView removeAnnotations:[mapView annotations]];
-    if (recording.startLocation) {
-        OWMapAnnotation *startAnnotation = [[OWMapAnnotation alloc] initWithCoordinate:recording.startLocation.coordinate title:START_STRING subtitle:nil];
-        startAnnotation.isStartLocation = YES;
-        [mapView addAnnotation:startAnnotation];
-    }
-    if (recording.endLocation) {
-        OWMapAnnotation *endAnnotation = [[OWMapAnnotation alloc] initWithCoordinate:recording.endLocation.coordinate title:END_STRING subtitle:nil];
+    if (mediaObject.endLocation) {
+        OWMapAnnotation *endAnnotation = [[OWMapAnnotation alloc] initWithCoordinate:mediaObject.endLocation.coordinate title:END_STRING subtitle:nil];
         [mapView addAnnotation:endAnnotation];
     }
     if (CLLocationCoordinate2DIsValid(centerCoordinate)) {
@@ -305,32 +288,26 @@
 }
 
 - (void) refreshFields {
-    OWManagedRecording *recording = [OWRecordingController recordingForObjectID:self.mediaObjectID];
-    if (!recording) {
+    OWLocalMediaObject *mediaObject = [OWLocalMediaController localMediaObjectForObjectID:self.mediaObjectID];
+    if (!mediaObject) {
         return;
     }
-    NSString *title = recording.title;
+    NSString *title = mediaObject.title;
     if (title) {
         self.titleLabel.text = title;
     } else {
         self.titleLabel.text = @"";
     }
-    NSString *description = recording.recordingDescription;
-    if (description) {
-        self.descriptionTextView.text = description;
-    } else {
-        self.descriptionTextView.text = @"";
-    }
     
-    self.tallyView.actionsLabel.text = [NSString stringWithFormat:@"%d", [recording.clicks intValue]];
-    self.tallyView.viewsLabel.text = [NSString stringWithFormat:@"%d", [recording.views intValue]];
-    self.usernameLabel.text = recording.user.username;
+    self.tallyView.actionsLabel.text = [NSString stringWithFormat:@"%d", [mediaObject.clicks intValue]];
+    self.tallyView.viewsLabel.text = [NSString stringWithFormat:@"%d", [mediaObject.views intValue]];
+    self.usernameLabel.text = mediaObject.user.username;
     
-    [self.profileImageView setImageWithURL:recording.user.thumbnailURL placeholderImage:[UIImage imageNamed:@"thumbnail_placeholder.png"]];
+    [self.profileImageView setImageWithURL:mediaObject.user.thumbnailURL placeholderImage:[UIImage imageNamed:@"thumbnail_placeholder.png"]];
     
-    self.title = recording.title;
+    self.title = mediaObject.title;
     
-    [self refreshTagsForRecording:recording];
+    [self refreshTagsForMediaObject:mediaObject];
 }
 
 

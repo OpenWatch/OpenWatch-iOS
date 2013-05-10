@@ -24,6 +24,10 @@
     return self;
 }
 
+- (void) dealloc {
+    self.moviePlayer = nil;
+}
+
 - (void) setObjectID:(NSManagedObjectID *)newObjectID {
     objectID = newObjectID;
     
@@ -61,10 +65,10 @@
     }
     if (mediaURL) {
         self.moviePlayer = [[MPMoviePlayerController alloc] initWithContentURL:mediaURL];
-        [self.moviePlayer prepareToPlay];
         self.moviePlayer.view.frame = self.frame;
         self.moviePlayer.controlStyle = MPMovieControlStyleEmbedded;
         self.moviePlayer.shouldAutoplay = NO;
+        [self.moviePlayer prepareToPlay];
         [self addSubview:moviePlayer.view];
     }
  }

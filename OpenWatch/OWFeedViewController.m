@@ -166,6 +166,9 @@
         OWPhotoDetailViewController *photoDetailVC = [[OWPhotoDetailViewController alloc] init];
         photoDetailVC.photo = (OWPhoto*)mediaObject;
         vc = photoDetailVC;
+    } else if ([mediaObject isKindOfClass:[OWAudio class]]) {
+        OWRecordingInfoViewController *recordingVC = [[OWRecordingInfoViewController alloc] init];
+        vc = recordingVC;
     }
     if (vc) {
         vc.mediaObjectID = mediaObjectID;
