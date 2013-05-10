@@ -8,7 +8,7 @@
 
 #import "OWAudio.h"
 
-#define kAudioName @"audio.caf"
+#define kAudioName @"audio.m4a"
 
 @implementation OWAudio
 

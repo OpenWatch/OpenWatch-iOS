@@ -34,7 +34,7 @@
 @end
 
 @implementation OWDashboardViewController
-@synthesize onboardingView, dashboardView, imagePicker;
+@synthesize onboardingView, dashboardView, imagePicker, audioRecorder;
 
 - (id)init
 {
@@ -43,7 +43,7 @@
         self.dashboardView = [[OWDashboardView alloc] initWithFrame:CGRectZero];
         OWDashboardItem *videoItem = [[OWDashboardItem alloc] initWithTitle:@"Broadcast Video" image:[UIImage imageNamed:@"285-facetime.png"] target:self selector:@selector(recordButtonPressed:)];
         OWDashboardItem *photoItem = [[OWDashboardItem alloc] initWithTitle:@"Take Photo" image:[UIImage imageNamed:@"86-camera.png"] target:self selector:@selector(photoButtonPressed:)];
-        OWDashboardItem *audioItem = [[OWDashboardItem alloc] initWithTitle:@"Record Audio" image:[UIImage imageNamed:@"66-microphone.png"] target:self selector:@selector(comingSoon:)];
+        OWDashboardItem *audioItem = [[OWDashboardItem alloc] initWithTitle:@"Record Audio" image:[UIImage imageNamed:@"66-microphone.png"] target:self selector:@selector(audioButtonPressed:)];
         
         OWDashboardItem *topStories = [[OWDashboardItem alloc] initWithTitle:@"Top Stories" image:[UIImage imageNamed:@"28-star.png"] target:self selector:@selector(feedButtonPressed:)];
         OWDashboardItem *yourMedia = [[OWDashboardItem alloc] initWithTitle:@"Your Media" image:[UIImage imageNamed:@"160-voicemail-2.png"] target:self selector:@selector(yourMediaPressed:)];
@@ -55,6 +55,16 @@
         dashboardView.dashboardItems = dashboardItems;        
     }
     return self;
+}
+
+- (void) audioButtonPressed:(id)sender {
+    self.audioRecorder = [[OWAudioRecordingViewController alloc] init];
+    audioRecorder.delegate = self;
+    OWLocationController *locationController = [OWLocationController sharedInstance];
+    [locationController startWithDelegate:nil];
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:audioRecorder];
+    [self presentViewController:navController animated:YES completion:^{
+    }];
 }
 
 - (void) photoButtonPressed:(id)sender {
@@ -196,6 +206,37 @@
     [locationController stop];
     [self.imagePicker dismissViewControllerAnimated:YES completion:^{
         self.imagePicker = nil;
+    }];
+}
+
+- (void) recordingViewController:(OWAudioRecordingViewController *)recordingViewController didFinishRecording:(OWAudio *)audio {
+    OWLocationController *locationController = [OWLocationController sharedInstance];
+    [locationController stop];
+    audio.firstPostedDate = [NSDate date];
+    audio.endLocation = locationController.currentLocation;
+    
+    NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
+    [context MR_saveToPersistentStoreAndWait];
+    
+    [[OWAccountAPIClient sharedClient] postObjectWithUUID:audio.uuid objectClass:audio.class success:nil failure:nil];
+    
+    [self.audioRecorder dismissViewControllerAnimated:YES completion:^{
+        self.audioRecorder = nil;
+        OWLocalMediaEditViewController *recordingInfo = [[OWLocalMediaEditViewController alloc] init];
+        recordingInfo.objectID = audio.objectID;
+        recordingInfo.showingAfterCapture = YES;
+        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:recordingInfo];
+        [OWUtilities styleNavigationController:nav];
+        nav.navigationBar.tintColor = [OWUtilities navigationBarColor];
+        [self presentViewController:nav animated:YES completion:nil];
+    }];
+}
+
+- (void) recordingViewControllerDidCancel:(OWAudioRecordingViewController *)recordingViewController {
+    OWLocationController *locationController = [OWLocationController sharedInstance];
+    [locationController stop];
+    [self.audioRecorder dismissViewControllerAnimated:YES completion:^{
+        self.audioRecorder = nil;
     }];
 }
 

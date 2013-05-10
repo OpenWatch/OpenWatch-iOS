@@ -10,11 +10,13 @@
 #import "OWPaginatedTableViewController.h"
 #import "OWOnboardingView.h"
 #import "OWDashboardView.h"
+#import "OWAudioRecordingViewController.h"
 
-@interface OWDashboardViewController : UIViewController < OWOnboardingViewDelegate, OWDashboardViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+@interface OWDashboardViewController : UIViewController < OWOnboardingViewDelegate, OWDashboardViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, OWAudioRecordingDelegate>
 
 @property (nonatomic, strong) OWDashboardView *dashboardView;
 @property (nonatomic, strong) OWOnboardingView *onboardingView;
 @property (nonatomic, strong) UIImagePickerController *imagePicker;
+@property (nonatomic, strong) OWAudioRecordingViewController *audioRecorder;
 
 @end
