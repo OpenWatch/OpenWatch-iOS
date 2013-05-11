@@ -8,9 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "OWPreviewView.h"
+#import "OWCharacterCountdownView.h"
 
 @interface OWLocalMediaEditViewController : UIViewController <UITextFieldDelegate>
 
+@property (nonatomic, strong) OWCharacterCountdownView *characterCountdown;
 @property (nonatomic, strong) OWPreviewView *previewView;
 @property (nonatomic, strong) UITextField *titleTextField;
 @property (nonatomic, strong) UILabel *whatHappenedLabel;

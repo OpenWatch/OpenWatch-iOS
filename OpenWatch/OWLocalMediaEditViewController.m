@@ -29,7 +29,7 @@
 @end
 
 @implementation OWLocalMediaEditViewController
-@synthesize titleTextField, whatHappenedLabel, saveButton, uploadProgressView, objectID, scrollView, showingAfterCapture, previewView;
+@synthesize titleTextField, whatHappenedLabel, saveButton, uploadProgressView, objectID, scrollView, showingAfterCapture, previewView, characterCountdown;
 
 - (void) dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -43,6 +43,7 @@
         [self setupWhatHappenedLabel];
         [self setupProgressView];
         [self setupPreviewView];
+        self.characterCountdown = [[OWCharacterCountdownView alloc] initWithFrame:CGRectZero];
         self.showingAfterCapture = NO;
         [self registerForUploadProgressNotifications];
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:SAVE_STRING style:UIBarButtonItemStyleDone target:self action:@selector(saveButtonPressed:)];
@@ -117,12 +118,13 @@
     
     self.previewView.frame = CGRectMake(padding, padding, itemWidth, 200);
     
-    self.uploadProgressView.frame = CGRectMake(padding, [OWUtilities bottomOfView:previewView], itemWidth, itemHeight);
+    self.uploadProgressView.frame = CGRectMake(padding, [OWUtilities bottomOfView:previewView] + 5, itemWidth, itemHeight);
     
     CGFloat whatHappenedYOrigin = [OWUtilities bottomOfView:uploadProgressView] + padding;
     self.whatHappenedLabel.frame = CGRectMake(padding,whatHappenedYOrigin, itemWidth, itemHeight);
     titleYOrigin = [OWUtilities bottomOfView:whatHappenedLabel] + padding;
     self.titleTextField.frame = CGRectMake(padding, titleYOrigin, itemWidth, itemHeight);
+    self.characterCountdown.frame = CGRectMake(padding, [OWUtilities bottomOfView:titleTextField] + 10, itemWidth, 35);
     contentHeight = [OWUtilities bottomOfView:self.titleTextField] + padding*3;
     self.scrollView.contentSize = CGSizeMake(self.view.frame.size.width, contentHeight);
     self.scrollView.frame = self.view.bounds;
@@ -164,6 +166,7 @@
     } else {
         self.titleTextField.text = @"";
     }
+    [self.characterCountdown updateText:titleTextField.text];
 }
 
 - (UITextField*)textFieldWithDefaults {
@@ -183,7 +186,7 @@
         [titleTextField removeFromSuperview];
     }
     self.titleTextField = [self textFieldWithDefaults];
-    self.titleTextField.placeholder = TITLE_STRING;
+    self.titleTextField.placeholder = @"What happened? #tags #okay";
     
     [self.scrollView addSubview:titleTextField];
 }
@@ -198,6 +201,7 @@
     [super viewDidLoad];
 	[self.view addSubview:scrollView];
     [self.scrollView addSubview:previewView];
+    [self.scrollView addSubview:characterCountdown];
 }
 
 - (BOOL) checkFields {
@@ -254,6 +258,16 @@
 - (void) textFieldDidBeginEditing:(UITextField *)textField {
     [self.scrollView setContentOffset:CGPointMake(0, titleTextField.frame.origin.y - PADDING) animated:YES];
 }
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    NSString *newText = [NSString stringWithFormat:@"%@%@", textField.text, string];
+    BOOL shouldChangeCharacters = [self.characterCountdown updateText:newText];
+    if (!shouldChangeCharacters && string.length == 0) {
+        return YES;
+    }
+    return shouldChangeCharacters;
+}
+
 
 - (void)keyboardWillShow: (NSNotification *) notif{}
 

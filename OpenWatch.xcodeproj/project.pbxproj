@@ -126,6 +126,7 @@
 		D980EC9016B877C400ADD398 /* play_button_dark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D980EC8F16B877C400ADD398 /* play_button_dark@2x.png */; };
 		D980EC9316B87A4100ADD398 /* giant-eye-red.png in Resources */ = {isa = PBXBuildFile; fileRef = D980EC9116B87A4100ADD398 /* giant-eye-red.png */; };
 		D980EC9416B87A4100ADD398 /* play_button_dark.png in Resources */ = {isa = PBXBuildFile; fileRef = D980EC9216B87A4100ADD398 /* play_button_dark.png */; };
+		D98F4884173DC02D00BBE80E /* OWCharacterCountdownView.m in Sources */ = {isa = PBXBuildFile; fileRef = D98F4883173DC02D00BBE80E /* OWCharacterCountdownView.m */; };
 		D98FCB4116A4AA570071DF6B /* _OWLocalRecording.m in Sources */ = {isa = PBXBuildFile; fileRef = D98FCB3216A4AA570071DF6B /* _OWLocalRecording.m */; };
 		D98FCB4216A4AA570071DF6B /* _OWManagedRecording.m in Sources */ = {isa = PBXBuildFile; fileRef = D98FCB3416A4AA570071DF6B /* _OWManagedRecording.m */; };
 		D98FCB4316A4AA570071DF6B /* _OWMediaObject.m in Sources */ = {isa = PBXBuildFile; fileRef = D98FCB3616A4AA570071DF6B /* _OWMediaObject.m */; };
@@ -836,6 +837,8 @@
 		D980EC8F16B877C400ADD398 /* play_button_dark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "play_button_dark@2x.png"; sourceTree = "<group>"; };
 		D980EC9116B87A4100ADD398 /* giant-eye-red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "giant-eye-red.png"; sourceTree = "<group>"; };
 		D980EC9216B87A4100ADD398 /* play_button_dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = play_button_dark.png; sourceTree = "<group>"; };
+		D98F4882173DC02D00BBE80E /* OWCharacterCountdownView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWCharacterCountdownView.h; sourceTree = "<group>"; };
+		D98F4883173DC02D00BBE80E /* OWCharacterCountdownView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWCharacterCountdownView.m; sourceTree = "<group>"; };
 		D98FCB3116A4AA570071DF6B /* _OWLocalRecording.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _OWLocalRecording.h; sourceTree = "<group>"; };
 		D98FCB3216A4AA570071DF6B /* _OWLocalRecording.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _OWLocalRecording.m; sourceTree = "<group>"; };
 		D98FCB3316A4AA570071DF6B /* _OWManagedRecording.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _OWManagedRecording.h; sourceTree = "<group>"; };
@@ -1311,6 +1314,8 @@
 		D97EAAA3167911B900A1B038 /* Custom Views */ = {
 			isa = PBXGroup;
 			children = (
+				D98F4882173DC02D00BBE80E /* OWCharacterCountdownView.h */,
+				D98F4883173DC02D00BBE80E /* OWCharacterCountdownView.m */,
 				D945D32E173C931F00D806BD /* OWRecordingActivityIndicatorView.h */,
 				D945D32F173C931F00D806BD /* OWRecordingActivityIndicatorView.m */,
 				D9C8A59E16B9A1E0004F9E05 /* Table Cells */,
@@ -2662,6 +2667,7 @@
 				D945D324173C6CAF00D806BD /* TPCircularBuffer.c in Sources */,
 				D945D330173C931F00D806BD /* OWRecordingActivityIndicatorView.m in Sources */,
 				D945D333173C9C0200D806BD /* OWTimerView.m in Sources */,
+				D98F4884173DC02D00BBE80E /* OWCharacterCountdownView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
