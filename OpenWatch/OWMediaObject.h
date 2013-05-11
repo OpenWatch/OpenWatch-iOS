@@ -18,6 +18,10 @@
 - (NSString*) type;
 - (NSURL*) thumbnailURL;
 
+- (NSString*) baseAPIPath;
+- (NSString*) fullAPIPath;
+- (NSURL*) shareURL;
+
 + (Class) cellClass;
 + (NSString*) cellIdentifier;
 

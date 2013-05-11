@@ -4,6 +4,10 @@
 #import "OWUtilities.h"
 #import "OWManagedRecording.h"
 #import "OWMediaObjectTableViewCell.h"
+#import "OWPhoto.h"
+#import "OWInvestigation.h"
+#import "OWAudio.h"
+#import "OWLocalRecording.h"
 
 @interface OWMediaObject ()
 
@@ -114,6 +118,57 @@
 - (NSString*) type { return nil; }
 - (NSURL*) thumbnailURL {
     return [NSURL URLWithString:self.thumbnailURLString];
+}
+
+- (NSString*) apiLetter {
+    NSString *type = @"";
+    if ([self isKindOfClass:[OWPhoto class]]) {
+        type = @"p";
+    } else if ([self isKindOfClass:[OWInvestigation class]]) {
+        type = @"i";
+    } else if ([self isKindOfClass:[OWLocalRecording class]] || [self isKindOfClass:[OWManagedRecording class]]) {
+        type = @"v";
+    } else if ([self isKindOfClass:[OWAudio class]]){
+        type = @"a";
+    } else {
+        return nil;
+    }
+    return type;
+}
+
+- (NSString*) relativeShareURLPath {
+    if (self.serverIDValue == 0) {
+        return nil;
+    }
+    NSString *type = [self apiLetter];
+    return [NSString stringWithFormat:@"/%@/%d", type, self.serverIDValue];
+}
+
+- (NSString*) absoluteShareURLString {
+    NSString *relative = [self relativeShareURLPath];
+    NSString *websiteBaseURL = [OWUtilities websiteBaseURLString];
+    if (!relative) {
+        return nil;
+    }
+    return [NSString stringWithFormat:@"%@%@", websiteBaseURL, relative];
+}
+
+- (NSURL*) shareURL {
+    NSString *abs = [self absoluteShareURLString];
+    if (!abs) {
+        return nil;
+    }
+    return [NSURL URLWithString:abs];
+}
+
+- (NSString*) baseAPIPath {
+    NSString *type = [self apiLetter];
+    return [NSString stringWithFormat:@"/api/%@/", type];
+}
+
+- (NSString*) fullAPIPath {
+    NSString *type = [self apiLetter];
+    return [NSString stringWithFormat:@"/api/%@/%d/", type, self.serverID.intValue];
 }
 
 @end

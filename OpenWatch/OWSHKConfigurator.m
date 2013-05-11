@@ -7,6 +7,7 @@
 //
 
 #import "OWSHKConfigurator.h"
+#import "OWUtilities.h"
 
 @implementation OWSHKConfigurator
 
@@ -15,7 +16,7 @@
 }
 
 - (NSString*)appURL {
-	return @"http://openwatch.net";
+	return [OWUtilities websiteBaseURLString];
 }
 
 - (NSString*)facebookAppId {
@@ -23,7 +24,7 @@
 }
 
 - (NSArray*)defaultFavoriteURLSharers {
-    return [NSArray arrayWithObjects:@"SHKTwitter",@"SHKFacebook", @"SHKMail", nil];
+    return [NSArray arrayWithObjects:@"SHKTwitter",@"SHKFacebook", @"SHKMail", @"SHKTextMessage", nil];
 }
 
 @end

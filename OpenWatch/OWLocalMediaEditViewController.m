@@ -222,15 +222,30 @@
     mediaObject.title = self.titleTextField.text;
     [context MR_saveToPersistentStoreAndWait];
     
-    [[OWAccountAPIClient sharedClient] postObjectWithUUID:mediaObject.uuid objectClass:[mediaObject class] success:nil failure:nil];
+    void (^success)(void) = nil;
+    
+    if (mediaObject.serverIDValue == 0) {
+        success = ^{
+            [self finishEditingWithMediaObject:mediaObject];
+        };
+    } else {
+        [self finishEditingWithMediaObject:mediaObject];
+    }
+    
+    
+    
+    [[OWAccountAPIClient sharedClient] postObjectWithUUID:mediaObject.uuid objectClass:[mediaObject class] success:success failure:nil];
     
     [self.view endEditing:YES];
-    [self dismissViewControllerAnimated:YES completion:^{
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:SHARE_STRING message:SHARE_MESSAGE_STRING delegate:OW_APP_DELEGATE.dashboardViewController cancelButtonTitle:NO_STRING otherButtonTitles:YES_STRING, nil];
-        [OWShareController sharedInstance].mediaObjectID = self.objectID;
-        [alert show];
-    }];
+    
+    
     [self.navigationController popViewControllerAnimated:YES];
+}
+     
+- (void) finishEditingWithMediaObject:(OWLocalMediaObject*)mediaObject {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(localMediaEditViewReadyForSharing:object:)]) {
+        [self.delegate localMediaEditViewReadyForSharing:self object:mediaObject];
+    }
 }
 
 - (void) checkRecording {

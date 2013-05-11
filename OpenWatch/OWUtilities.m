@@ -106,6 +106,10 @@
     return [UIColor colorWithRed:greyness green:greyness blue:greyness alpha:1.0f];
 }
 
++ (NSString*) websiteBaseURLString {
+    return @"https://openwatch.net";
+}
+
 + (NSString*) apiBaseURLString {
     return @"https://staging.openwatch.net/";
     //return @"http://10.0.1.26:8000/";

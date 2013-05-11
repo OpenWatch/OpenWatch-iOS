@@ -458,7 +458,7 @@
 - (void) getObjectWithObjectID:(NSManagedObjectID *)objectID success:(void (^)(NSManagedObjectID *objectID))success failure:(void (^)(NSString *reason))failure {
     NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
     OWMediaObject *mediaObject = (OWMediaObject*)[context existingObjectWithID:objectID error:nil];
-    NSString *path = [self pathForMediaObject:mediaObject];
+    NSString *path = [mediaObject fullAPIPath];
     
     NSDictionary *parameters = [self parametersForMediaObject:mediaObject];
     
@@ -480,20 +480,6 @@
         return parameters;
     }
     return nil;
-}
-
-- (NSString*) pathForMediaObject:(OWMediaObject*)mediaObject {
-    NSString *type = @"";
-    if ([mediaObject isKindOfClass:[OWPhoto class]]) {
-        type = @"p";
-    } else if ([mediaObject isKindOfClass:[OWInvestigation class]]) {
-        type = @"i";
-    } else if ([mediaObject isKindOfClass:[OWLocalRecording class]] || [mediaObject isKindOfClass:[OWManagedRecording class]]) {
-        type = @"v";
-    } else {
-        return nil;
-    }
-    return [NSString stringWithFormat:@"/api/%@/%d/", type, mediaObject.serverID.intValue];
 }
 
 - (void) fetchMediaObjectsForLocation:(CLLocation*)location page:(NSUInteger)page success:(void (^)(NSArray *mediaObjectIDs, NSUInteger totalPages))success failure:(void (^)(NSString *reason))failure {

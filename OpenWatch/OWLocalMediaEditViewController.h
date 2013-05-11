@@ -9,9 +9,17 @@
 #import <UIKit/UIKit.h>
 #import "OWPreviewView.h"
 #import "OWCharacterCountdownView.h"
+#import "OWLocalMediaObject.h"
+
+@class OWLocalMediaEditViewController;
+
+@protocol OWLocalMediaEditDelegate <NSObject>
+- (void) localMediaEditViewReadyForSharing:(OWLocalMediaEditViewController*)localMediaEditView object:(OWLocalMediaObject*)object;
+@end
 
 @interface OWLocalMediaEditViewController : UIViewController <UITextFieldDelegate>
 
+@property (nonatomic, weak) id<OWLocalMediaEditDelegate> delegate;
 @property (nonatomic, strong) OWCharacterCountdownView *characterCountdown;
 @property (nonatomic, strong) OWPreviewView *previewView;
 @property (nonatomic, strong) UITextField *titleTextField;

@@ -28,6 +28,7 @@
 + (NSDateFormatter*) humanizedDateFormatter;
 + (NSString*) apiBaseURLString;
 + (NSString*) captureBaseURLString;
++ (NSString*) websiteBaseURLString;
 
 + (CGFloat) bottomOfView:(UIView*)view;
 + (CGFloat) rightOfView:(UIView*)view;

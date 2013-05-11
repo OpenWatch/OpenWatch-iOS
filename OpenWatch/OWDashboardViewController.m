@@ -258,4 +258,9 @@
     [self.navigationController popToRootViewControllerAnimated:NO];
 }
 
+- (void) blah {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:SHARE_STRING message:SHARE_MESSAGE_STRING delegate:OW_APP_DELEGATE.dashboardViewController cancelButtonTitle:NO_STRING otherButtonTitles:YES_STRING, nil];
+    [OWShareController sharedInstance].mediaObjectID = self.objectID;
+}
+
 @end
