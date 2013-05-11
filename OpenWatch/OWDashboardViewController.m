@@ -80,7 +80,15 @@
 - (void) pushEditView {
     self.editController = [[OWLocalMediaEditViewController alloc] init];
     self.editController.showingAfterCapture = YES;
+    self.editController.delegate = self;
     [self.navigationController pushViewController:editController animated:YES];
+}
+
+- (void) localMediaEditViewReadyForSharing:(OWLocalMediaEditViewController *)localMediaEditView object:(OWLocalMediaObject *)object {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:SHARE_STRING message:SHARE_MESSAGE_STRING delegate:OW_APP_DELEGATE.dashboardViewController cancelButtonTitle:NO_STRING otherButtonTitles:YES_STRING, nil];
+    alert.delegate = self;
+    [OWShareController sharedInstance].mediaObjectID = object.objectID;
+    [alert show];
 }
 
 - (void) photoButtonPressed:(id)sender {
@@ -258,9 +266,5 @@
     [self.navigationController popToRootViewControllerAnimated:NO];
 }
 
-- (void) blah {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:SHARE_STRING message:SHARE_MESSAGE_STRING delegate:OW_APP_DELEGATE.dashboardViewController cancelButtonTitle:NO_STRING otherButtonTitles:YES_STRING, nil];
-    [OWShareController sharedInstance].mediaObjectID = self.objectID;
-}
 
 @end
