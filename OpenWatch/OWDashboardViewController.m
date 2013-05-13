@@ -164,13 +164,9 @@
     
     OWAccount *account = [OWSettingsController sharedInstance].account;
 
-    if ((!account.hasCompletedOnboarding && !self.onboardingView)) {
+    if ((!account.hasCompletedOnboarding && !self.onboardingView) || DEBUG) {
         self.onboardingView = [[OWOnboardingView alloc] initWithFrame:self.view.bounds];
         self.onboardingView.delegate = self;
-        UIImage *firstImage = [UIImage imageNamed:@"ow_space1.jpg"];
-        UIImage *secondImage = [UIImage imageNamed:@"ow_space2.jpg"];
-        
-        self.onboardingView.images = @[firstImage, secondImage];
         [self.view addSubview:onboardingView];
     }
 }

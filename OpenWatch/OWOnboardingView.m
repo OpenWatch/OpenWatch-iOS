@@ -10,22 +10,25 @@
 #import "OWUtilities.h"
 
 @implementation OWOnboardingView
-@synthesize scrollView, images, displayIndex, continueButton;
+@synthesize scrollView, images, displayIndex, continueButton, agentSwitch;
 
 - (id) initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         // Initialization code
         self.displayIndex = 0;
         self.scrollView = [[UIScrollView alloc] initWithFrame:frame];
-        self.scrollView.userInteractionEnabled = NO;
+        self.scrollView.scrollEnabled = NO;
         
         [self addSubview:scrollView];
         
+        self.images = @[[UIImage imageNamed:@"onboarding_1.png"], [UIImage imageNamed:@"onboarding_2.png"], [UIImage imageNamed:@"onboarding_3.png"], [UIImage imageNamed:@"onboarding_4.png"]];
+        
         self.continueButton = [OWUtilities bigGreenButton];
         [continueButton setTitle:@"Continue →" forState:UIControlStateNormal];
-        CGFloat xPadding = 20.0f;
-        CGFloat bottomPadding = 100.0f;
-        self.continueButton.frame = CGRectMake(xPadding, frame.size.height - bottomPadding, frame.size.width - xPadding * 2, 50);
+        CGFloat padding = 20.0f;
+        CGFloat buttonHeight = 50.0f;
+        self.continueButton.frame = CGRectMake(padding, frame.size.height - padding - buttonHeight, frame.size.width - padding * 2, buttonHeight);
+        self.continueButton.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
         [self.continueButton addTarget:self action:@selector(continueButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         
         [self addSubview:continueButton];
@@ -39,9 +42,18 @@
     int i = 0;
     for (UIImage *image in images) {
         UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
+        imageView.backgroundColor = [OWUtilities stoneBackgroundPattern];
         imageView.contentMode = UIViewContentModeTop;
         imageView.frame = CGRectMake(self.frame.size.width * i, 0, self.frame.size.width, self.frame.size.height);
-        [self.scrollView addSubview:imageView];
+        imageView.userInteractionEnabled = YES;
+        
+        [self.scrollView addSubview:imageView]; 
+        
+        if (i == 2) { // this is a bad hack
+            self.agentSwitch = [[UISwitch alloc] initWithFrame:CGRectMake(230, 260, 80, 30)];
+            [imageView addSubview:agentSwitch];
+        }
+        
         i++;
     }
     self.scrollView.contentSize = CGSizeMake(self.frame.size.width * i, self.frame.size.height);
@@ -49,7 +61,7 @@
 
 - (void) setFrame:(CGRect)frame {
     [super setFrame:frame];
-    self.scrollView.frame = frame;
+    self.scrollView.frame = CGRectMake(0, 0, frame.size.width, frame.size.height);
 }
 
 - (void) continueButtonPressed:(id)sender {

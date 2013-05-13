@@ -22,6 +22,7 @@
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) NSArray *images;
 @property (nonatomic, strong) UIButton *continueButton;
+@property (nonatomic, strong) UISwitch *agentSwitch;
 
 @property (nonatomic, weak) id<OWOnboardingViewDelegate> delegate;
 
