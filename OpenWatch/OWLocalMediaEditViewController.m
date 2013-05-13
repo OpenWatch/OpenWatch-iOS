@@ -14,7 +14,6 @@
 #import "OWRecordingController.h"
 #import "OWUtilities.h"
 #import "OWAppDelegate.h"
-#import "OWShareController.h"
 #import "OWTag.h"
 #import "MBProgressHUD.h"
 #import "OWSettingsController.h"

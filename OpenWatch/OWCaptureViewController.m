@@ -12,7 +12,6 @@
 #import "OWLocalMediaEditViewController.h"
 #import "OWAppDelegate.h"
 #import "OWUtilities.h"
-#import "OWShareController.h"
 #import "OWLocalMediaController.h"
 
 @interface OWCaptureViewController ()

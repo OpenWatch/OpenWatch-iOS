@@ -71,6 +71,7 @@
     [super viewWillAppear:animated];
     self.photoScrollView.frame = self.view.bounds;
     self.photoImageView.frame = self.view.bounds;
+    self.photoScrollView.contentSize = self.view.bounds.size;
 }
 
 - (void)didReceiveMemoryWarning

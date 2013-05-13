@@ -114,7 +114,6 @@
 }
 
 // stub methods, implemented in subclasses
-- (NSURL*) urlForWeb {return nil;}
 - (NSString*) type { return nil; }
 - (NSURL*) thumbnailURL {
     return [NSURL URLWithString:self.thumbnailURLString];

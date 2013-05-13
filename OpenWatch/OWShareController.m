@@ -2,90 +2,33 @@
 //  OWShareController.m
 //  OpenWatch
 //
-//  Created by Christopher Ballinger on 12/18/12.
-//  Copyright (c) 2012 OpenWatch FPC. All rights reserved.
+//  Created by Christopher Ballinger on 5/13/13.
+//  Copyright (c) 2013 OpenWatch FPC. All rights reserved.
 //
 
 #import "OWShareController.h"
-#import "OWRecordingController.h"
-#import "OWStrings.h"
-#import "SHK.h"
-#import "OWAccountAPIClient.h"
-#import "OWStory.h"
-#import "OWAppDelegate.h"
+#import "TUSafariActivity.h"
 
 @implementation OWShareController
-@synthesize mediaObjectID, viewController;
 
-+ (OWShareController *)sharedInstance {
-    static OWShareController *_sharedClient = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        _sharedClient = [[OWShareController alloc] init];
-    });
-    return _sharedClient;
-}
-
-- (id) init {
-    if (self = [super init]) {
++ (void) shareMediaObject:(OWMediaObject*)mediaObject fromViewController:(UIViewController*)viewController {
+    TUSafariActivity *safariActivity = [[TUSafariActivity alloc] init];
+    NSMutableArray *items = [NSMutableArray arrayWithCapacity:2];
+    if (mediaObject.shareURL) {
+        [items addObject:mediaObject.shareURL];
+        if (mediaObject.title) {
+            [items addObject:mediaObject.title];
+        }
+        UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:items applicationActivities:@[safariActivity]];
+        
+        UIActivityViewControllerCompletionHandler completionHandler = ^(NSString *activityType, BOOL completed) {
+            NSLog(@"activity: %@", activityType);
+        };
+        
+        activityViewController.completionHandler = completionHandler;
+        
+        [viewController presentViewController:activityViewController animated:YES completion:nil];
     }
-    return self;
-}
-
-- (void) shareMediaObjectID:(NSManagedObjectID*)newMediaObjectID fromViewController:(UIViewController*)newViewController {
-    mediaObjectID = newMediaObjectID;
-    [self shareFromViewController:newViewController];
-}
-
-- (void) shareFromViewController:(UIViewController*)newViewController {
-    viewController = newViewController;
-    if (!mediaObjectID) {
-        return;
-    }
-    NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
-    OWMediaObject *mediaObject = (OWMediaObject*)[context existingObjectWithID:self.mediaObjectID error:nil];
-    
-    if ([mediaObject.serverID intValue] != 0) {
-        [self share];
-    } else if ([mediaObject isKindOfClass:[OWLocalMediaObject class]]) {
-        OWLocalMediaObject *localMediaObject = (OWLocalMediaObject*)mediaObject;
-        [[OWAccountAPIClient sharedClient] getObjectWithUUID:localMediaObject.uuid objectClass:localMediaObject.class success:^(NSManagedObjectID *objectID) {
-            [self share];
-        } failure:^(NSString *reason) {
-            NSLog(@"Failed to GET object: %@", reason);
-        }];
-    }
-}
-
-- (void) share {
-    [TestFlight passCheckpoint:SHARE_CHECKPOINT];
-    NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
-    OWMediaObject *mediaObject = (OWMediaObject*)[context existingObjectWithID:self.mediaObjectID error:nil];
-    // Create the item to share (in this example, a url)
-    NSURL *url = [mediaObject urlForWeb];
-    NSString *title = [NSString stringWithFormat:@"%@ - %@", OPENWATCH_STRING, mediaObject.title];
-    SHKItem *item = [SHKItem URL:url title:title contentType:SHKURLContentTypeWebpage];
-    
-    [TestFlight passCheckpoint:SHARE_URL_CHECKPOINT(url.absoluteString)];
-    
-    // Get the ShareKit action sheet
-    SHKActionSheet *actionSheet = [SHKActionSheet actionSheetForItem:item];
-    
-    // ShareKit detects top view controller (the one intended to present ShareKit UI) automatically,
-    // but sometimes it may not find one. To be safe, set it explicitly
-    if (viewController) {
-        [SHK setRootViewController:viewController];
-    }
-    
-    // Display the action sheet
-    if (viewController) {
-        [actionSheet showFromToolbar:viewController.navigationController.toolbar];
-    } else {
-        [actionSheet showFromToolbar:OW_APP_DELEGATE.navigationController.toolbar];
-    }
-    
-    self.viewController = nil;
-    self.mediaObjectID = nil;
 }
 
 @end

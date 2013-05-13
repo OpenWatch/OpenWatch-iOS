@@ -43,12 +43,6 @@
     return newMetadataDictionary;
 }
 
-- (NSURL*) urlForWeb {
-    NSString *baseURLString = [OWUtilities apiBaseURLString];
-    NSString *recordingURLString = [baseURLString stringByAppendingFormat:@"s/%d/%@", [self.serverID intValue], self.slug];
-    return [NSURL URLWithString:recordingURLString];
-}
-
 - (NSString*) type {
     return @"story";
 }

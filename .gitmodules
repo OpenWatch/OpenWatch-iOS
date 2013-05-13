@@ -46,3 +46,6 @@
 [submodule "Submodules/TheAmazingAudioEngine"]
 	path = Submodules/TheAmazingAudioEngine
 	url = https://github.com/TheAmazingAudioEngine/TheAmazingAudioEngine.git
+[submodule "Submodules/TUSafariActivity"]
+	path = Submodules/TUSafariActivity
+	url = https://github.com/davbeck/TUSafariActivity.git

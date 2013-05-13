@@ -7,10 +7,11 @@
 //
 
 #import "OWMediaObjectViewController.h"
-#import "OWShareController.h"
 #import "OWAccountAPIClient.h"
 #import "OWStrings.h"
 #import "OWUtilities.h"
+#import "OWMediaObject.h"
+#import "OWShareController.h"
 
 @interface OWMediaObjectViewController ()
 
@@ -29,7 +30,15 @@
 }
 
 - (void) shareButtonPressed:(id)sender {
-    [[OWShareController sharedInstance] shareMediaObjectID:mediaObjectID fromViewController:self];
+    NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
+    NSError *error = nil;
+    OWMediaObject *mediaObject = (OWMediaObject*)[context existingObjectWithID:self.mediaObjectID error:&error];
+    if (error) {
+        NSLog(@"Error fetching object: %@", error.userInfo);
+    }
+        
+    [OWShareController shareMediaObject:mediaObject fromViewController:self];
+    
     [[OWAccountAPIClient sharedClient] hitMediaObject:self.mediaObjectID hitType:kHitTypeClick];
 }
 

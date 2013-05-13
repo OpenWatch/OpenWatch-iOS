@@ -64,13 +64,6 @@
     return newMetadataDictionary;
 }
 
-
-- (NSURL*) urlForWeb {
-    NSString *baseURLString = [OWUtilities apiBaseURLString];
-    NSString *recordingURLString = [baseURLString stringByAppendingFormat:@"v/%d/", [self.serverID intValue]];
-    return [NSURL URLWithString:recordingURLString];
-}
-
 - (void) loadMetadataFromDictionary:(NSDictionary*)metadataDictionary {
     [super loadMetadataFromDictionary:metadataDictionary];
     NSDateFormatter *dateFormatter = [OWUtilities utcDateFormatter];

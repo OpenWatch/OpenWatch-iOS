@@ -8,7 +8,6 @@
 
 #import "OWDashboardViewController.h"
 #import "OWUtilities.h"
-#import "OWShareController.h"
 #import "OWCaptureViewController.h"
 #import "OWAccountAPIClient.h"
 #import "OWSettingsViewController.h"
@@ -25,6 +24,7 @@
 #import "OWLocationController.h"
 #import "OWLocalMediaEditViewController.h"
 #import "OWAppDelegate.h"
+#import "OWShareController.h"
 
 #define kActionBarHeight 70.0f
 
@@ -85,10 +85,8 @@
 }
 
 - (void) localMediaEditViewReadyForSharing:(OWLocalMediaEditViewController *)localMediaEditView object:(OWLocalMediaObject *)object {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:SHARE_STRING message:SHARE_MESSAGE_STRING delegate:OW_APP_DELEGATE.dashboardViewController cancelButtonTitle:NO_STRING otherButtonTitles:YES_STRING, nil];
-    alert.delegate = self;
-    [OWShareController sharedInstance].mediaObjectID = object.objectID;
-    [alert show];
+    
+    [OWShareController shareMediaObject:object fromViewController:self];
 }
 
 - (void) photoButtonPressed:(id)sender {
@@ -174,13 +172,6 @@
         
         self.onboardingView.images = @[firstImage, secondImage];
         [self.view addSubview:onboardingView];
-    }
-}
-
-
-- (void) alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
-    if (buttonIndex != alertView.cancelButtonIndex) {
-        [[OWShareController sharedInstance] shareFromViewController:self];
     }
 }
 
