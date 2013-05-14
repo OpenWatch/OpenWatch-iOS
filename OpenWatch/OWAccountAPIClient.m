@@ -133,7 +133,6 @@
     account.publicUploadToken = [responseObject objectForKey:kPubTokenKey];
     account.privateUploadToken = [responseObject objectForKey:kPrivTokenKey];
     account.accountID = [responseObject objectForKey:kServerIDKey];
-    account.user.csrfToken = [responseObject objectForKey:kCSRFTokenKey];
 }
 
 - (void) updateUserPushToken:(NSData*)token {

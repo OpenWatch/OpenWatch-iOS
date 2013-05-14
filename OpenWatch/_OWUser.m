@@ -4,7 +4,6 @@
 #import "_OWUser.h"
 
 const struct OWUserAttributes OWUserAttributes = {
-	.csrfToken = @"csrfToken",
 	.thumbnailURLString = @"thumbnailURLString",
 	.username = @"username",
 };
@@ -47,13 +46,6 @@ const struct OWUserFetchedProperties OWUserFetchedProperties = {
 
 	return keyPaths;
 }
-
-
-
-
-@dynamic csrfToken;
-
-
 
 
 

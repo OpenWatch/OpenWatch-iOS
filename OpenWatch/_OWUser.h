@@ -5,7 +5,6 @@
 #import "OWServerObject.h"
 
 extern const struct OWUserAttributes {
-	__unsafe_unretained NSString *csrfToken;
 	__unsafe_unretained NSString *thumbnailURLString;
 	__unsafe_unretained NSString *username;
 } OWUserAttributes;
@@ -26,7 +25,6 @@ extern const struct OWUserFetchedProperties {
 
 
 
-
 @interface OWUserID : NSManagedObjectID {}
 @end
 
@@ -35,16 +33,6 @@ extern const struct OWUserFetchedProperties {
 + (NSString*)entityName;
 + (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;
 - (OWUserID*)objectID;
-
-
-
-
-
-@property (nonatomic, strong) NSString* csrfToken;
-
-
-
-//- (BOOL)validateCsrfToken:(id*)value_ error:(NSError**)error_;
 
 
 
@@ -114,12 +102,6 @@ extern const struct OWUserFetchedProperties {
 @end
 
 @interface _OWUser (CoreDataGeneratedPrimitiveAccessors)
-
-
-- (NSString*)primitiveCsrfToken;
-- (void)setPrimitiveCsrfToken:(NSString*)value;
-
-
 
 
 - (NSString*)primitiveThumbnailURLString;
