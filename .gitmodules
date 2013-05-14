@@ -49,3 +49,6 @@
 [submodule "Submodules/TUSafariActivity"]
 	path = Submodules/TUSafariActivity
 	url = https://github.com/davbeck/TUSafariActivity.git
+[submodule "Submodules/BButton"]
+	path = Submodules/BButton
+	url = https://github.com/jessesquires/BButton.git

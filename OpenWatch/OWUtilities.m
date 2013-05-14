@@ -11,22 +11,6 @@
 
 @implementation OWUtilities
 
-+ (UIButton*) bigGreenButton {
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    UIImage *greenButtonImage = [[UIImage imageNamed:@"greenButton.png"]
-                                 resizableImageWithCapInsets:UIEdgeInsetsMake(18, 18, 18, 18)];
-    UIImage *greenButtonImageHighlight = [[UIImage imageNamed:@"greenButtonHighlight.png"]
-                                          resizableImageWithCapInsets:UIEdgeInsetsMake(18, 18, 18, 18)];
-    [button setBackgroundImage:greenButtonImage forState:UIControlStateNormal]
-    ;
-    [button setBackgroundImage:greenButtonImageHighlight forState:UIControlStateHighlighted];
-    
-    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [button setTitleShadowColor:[UIColor grayColor] forState:UIControlStateNormal];
-    button.titleLabel.shadowOffset = CGSizeMake(0, -1);
-    return button;
-}
-
 + (UIColor*) oldColorWithRed:(CGFloat)red green:(CGFloat)green blue:(CGFloat)blue alpha:(CGFloat)alpha {
     CGFloat max = 255.0f;
     return [UIColor colorWithRed:red/max green:green/max blue:blue/max alpha:alpha];

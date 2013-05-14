@@ -12,6 +12,7 @@
 #import "OWAudio.h"
 #import "OWRecordingActivityIndicatorView.h"
 #import "OWTimerView.h"
+#import "BButton.h"
 
 @class OWAudioRecordingViewController;
 
@@ -36,6 +37,6 @@
 @property (nonatomic, strong) OWRecordingActivityIndicatorView *recordingIndicatorView;
 @property (nonatomic, strong) OWTimerView *timerView;
 
-@property (nonatomic, strong) UIButton *recordButton;
+@property (nonatomic, strong) BButton *recordButton;
 
 @end

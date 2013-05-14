@@ -13,6 +13,7 @@
 #import "OWAccountAPIClient.h"
 #import "OWAppDelegate.h"
 #import "OWCheckpoints.h"
+#import "BButton.h"
 
 #define kOffsetWithPassword 208
 #define kOffset 145
@@ -34,7 +35,7 @@
         self.blurbLabel = [[UILabel alloc] init];
         self.logoView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"openwatch-light.png"]];
         self.scrollView = [[UIScrollView alloc] init];
-        self.startButton = [OWUtilities bigGreenButton];
+        self.startButton = [[BButton alloc] initWithFrame:CGRectZero type:BButtonTypeSuccess];
         self.activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
         self.processingLogin = NO;
     }

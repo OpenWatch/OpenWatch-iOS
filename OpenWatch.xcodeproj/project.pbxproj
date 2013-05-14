@@ -24,6 +24,10 @@
 		30B5C4EC17331AAD00CC0244 /* OWInvestigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30B5C4EB17331AAD00CC0244 /* OWInvestigationViewController.m */; };
 		D907023516682B4400611607 /* OWUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = D907023416682B4400611607 /* OWUtilities.m */; };
 		D907023C1668353800611607 /* OWCaptureController.m in Sources */ = {isa = PBXBuildFile; fileRef = D907023B1668353800611607 /* OWCaptureController.m */; };
+		D909C2D61742B11D005930A7 /* BButton.m in Sources */ = {isa = PBXBuildFile; fileRef = D909C2CF1742B11D005930A7 /* BButton.m */; };
+		D909C2D71742B11D005930A7 /* NSString+FontAwesome.m in Sources */ = {isa = PBXBuildFile; fileRef = D909C2D11742B11D005930A7 /* NSString+FontAwesome.m */; };
+		D909C2D81742B11D005930A7 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D909C2D31742B11D005930A7 /* FontAwesome.ttf */; };
+		D909C2D91742B11D005930A7 /* UIColor+BButton.m in Sources */ = {isa = PBXBuildFile; fileRef = D909C2D51742B11D005930A7 /* UIColor+BButton.m */; };
 		D91AC0011733003100823179 /* OWDashboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D91AC0001733003100823179 /* OWDashboardViewController.m */; };
 		D91AC0341733021800823179 /* 66-microphone.png in Resources */ = {isa = PBXBuildFile; fileRef = D91AC02C1733021800823179 /* 66-microphone.png */; };
 		D91AC0351733021800823179 /* 66-microphone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D91AC02D1733021800823179 /* 66-microphone@2x.png */; };
@@ -148,10 +152,6 @@
 		D997418C1651D42F0034ABB0 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D997418B1651D42F0034ABB0 /* Default-568h@2x.png */; };
 		D997419D1651D8520034ABB0 /* OWLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D997419C1651D8520034ABB0 /* OWLoginViewController.m */; };
 		D99741A11651DB0B0034ABB0 /* OWSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D99741A01651DB0B0034ABB0 /* OWSettingsViewController.m */; };
-		D9A6D99E1731939200C1488A /* greenButton.png in Resources */ = {isa = PBXBuildFile; fileRef = D9A6D99A1731939200C1488A /* greenButton.png */; };
-		D9A6D99F1731939200C1488A /* greenButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9A6D99B1731939200C1488A /* greenButton@2x.png */; };
-		D9A6D9A01731939200C1488A /* greenButtonHighlight.png in Resources */ = {isa = PBXBuildFile; fileRef = D9A6D99C1731939200C1488A /* greenButtonHighlight.png */; };
-		D9A6D9A11731939200C1488A /* greenButtonHighlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9A6D99D1731939200C1488A /* greenButtonHighlight@2x.png */; };
 		D9A6D9D51731D03400C1488A /* BSKeyboardControls.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A6D9D11731D03400C1488A /* BSKeyboardControls.m */; };
 		D9A6D9D61731D03400C1488A /* BSKeyboardControls.strings in Resources */ = {isa = PBXBuildFile; fileRef = D9A6D9D21731D03400C1488A /* BSKeyboardControls.strings */; };
 		D9BECF0016B20E01009046E1 /* navbar.png in Resources */ = {isa = PBXBuildFile; fileRef = D9BECEFE16B20E01009046E1 /* navbar.png */; };
@@ -337,6 +337,13 @@
 		D907023416682B4400611607 /* OWUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWUtilities.m; sourceTree = "<group>"; };
 		D907023A1668353800611607 /* OWCaptureController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWCaptureController.h; sourceTree = "<group>"; };
 		D907023B1668353800611607 /* OWCaptureController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWCaptureController.m; sourceTree = "<group>"; };
+		D909C2CE1742B11D005930A7 /* BButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BButton.h; sourceTree = "<group>"; };
+		D909C2CF1742B11D005930A7 /* BButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BButton.m; sourceTree = "<group>"; };
+		D909C2D01742B11D005930A7 /* NSString+FontAwesome.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+FontAwesome.h"; sourceTree = "<group>"; };
+		D909C2D11742B11D005930A7 /* NSString+FontAwesome.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+FontAwesome.m"; sourceTree = "<group>"; };
+		D909C2D31742B11D005930A7 /* FontAwesome.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome.ttf; sourceTree = "<group>"; };
+		D909C2D41742B11D005930A7 /* UIColor+BButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+BButton.h"; sourceTree = "<group>"; };
+		D909C2D51742B11D005930A7 /* UIColor+BButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+BButton.m"; sourceTree = "<group>"; };
 		D91ABFFF1733003100823179 /* OWDashboardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWDashboardViewController.h; sourceTree = "<group>"; };
 		D91AC0001733003100823179 /* OWDashboardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWDashboardViewController.m; sourceTree = "<group>"; };
 		D91AC02C1733021800823179 /* 66-microphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "66-microphone.png"; sourceTree = "<group>"; };
@@ -525,10 +532,6 @@
 		D997419F1651DB0B0034ABB0 /* OWSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWSettingsViewController.h; sourceTree = "<group>"; };
 		D99741A01651DB0B0034ABB0 /* OWSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWSettingsViewController.m; sourceTree = "<group>"; };
 		D99741A21651DBC50034ABB0 /* OWStrings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OWStrings.h; sourceTree = "<group>"; };
-		D9A6D99A1731939200C1488A /* greenButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = greenButton.png; sourceTree = "<group>"; };
-		D9A6D99B1731939200C1488A /* greenButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "greenButton@2x.png"; sourceTree = "<group>"; };
-		D9A6D99C1731939200C1488A /* greenButtonHighlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = greenButtonHighlight.png; sourceTree = "<group>"; };
-		D9A6D99D1731939200C1488A /* greenButtonHighlight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "greenButtonHighlight@2x.png"; sourceTree = "<group>"; };
 		D9A6D9D01731D03400C1488A /* BSKeyboardControls.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSKeyboardControls.h; sourceTree = "<group>"; };
 		D9A6D9D11731D03400C1488A /* BSKeyboardControls.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSKeyboardControls.m; sourceTree = "<group>"; };
 		D9A6D9D31731D03400C1488A /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/BSKeyboardControls.strings; sourceTree = "<group>"; };
@@ -807,6 +810,29 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D909C2CD1742B11D005930A7 /* BButton */ = {
+			isa = PBXGroup;
+			children = (
+				D909C2CE1742B11D005930A7 /* BButton.h */,
+				D909C2CF1742B11D005930A7 /* BButton.m */,
+				D909C2D01742B11D005930A7 /* NSString+FontAwesome.h */,
+				D909C2D11742B11D005930A7 /* NSString+FontAwesome.m */,
+				D909C2D21742B11D005930A7 /* resources */,
+				D909C2D41742B11D005930A7 /* UIColor+BButton.h */,
+				D909C2D51742B11D005930A7 /* UIColor+BButton.m */,
+			);
+			name = BButton;
+			path = BButton/BButton;
+			sourceTree = "<group>";
+		};
+		D909C2D21742B11D005930A7 /* resources */ = {
+			isa = PBXGroup;
+			children = (
+				D909C2D31742B11D005930A7 /* FontAwesome.ttf */,
+			);
+			path = resources;
+			sourceTree = "<group>";
+		};
 		D92B6A6516AF4FD3006605E1 /* EGOTableViewPullRefresh */ = {
 			isa = PBXGroup;
 			children = (
@@ -1084,17 +1110,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		D9A6D9991731939200C1488A /* buttons */ = {
-			isa = PBXGroup;
-			children = (
-				D9A6D99A1731939200C1488A /* greenButton.png */,
-				D9A6D99B1731939200C1488A /* greenButton@2x.png */,
-				D9A6D99C1731939200C1488A /* greenButtonHighlight.png */,
-				D9A6D99D1731939200C1488A /* greenButtonHighlight@2x.png */,
-			);
-			path = buttons;
-			sourceTree = "<group>";
-		};
 		D9A6D9CF1731D03400C1488A /* BSKeyboardControls */ = {
 			isa = PBXGroup;
 			children = (
@@ -1155,6 +1170,7 @@
 		D9D2E1501652EA8A0000E7C5 /* Submodules */ = {
 			isa = PBXGroup;
 			children = (
+				D909C2CD1742B11D005930A7 /* BButton */,
 				D9E42C301741778B00CA524F /* TUSafariActivity */,
 				D945D302173C6C0F00D806BD /* The Amazing Audio Engine */,
 				D9A6D9CF1731D03400C1488A /* BSKeyboardControls */,
@@ -1406,7 +1422,6 @@
 				D945D32C173C92AD00D806BD /* red_dot@2x.png */,
 				D945D32A173C91F600D806BD /* microphone@2x.png */,
 				D9D8677C17348089008C8CE6 /* Glyphish */,
-				D9A6D9991731939200C1488A /* buttons */,
 				D94A7599170E17F700525289 /* background1.jpg */,
 				D94A759A170E17F700525289 /* background2.jpg */,
 				D980EC9216B87A4100ADD398 /* play_button_dark.png */,
@@ -1796,10 +1811,6 @@
 				D94A759C170E17F700525289 /* background2.jpg in Resources */,
 				D94A75A2170E555900525289 /* openwatch-light.png in Resources */,
 				D94A75A3170E555900525289 /* openwatch-light@2x.png in Resources */,
-				D9A6D99E1731939200C1488A /* greenButton.png in Resources */,
-				D9A6D99F1731939200C1488A /* greenButton@2x.png in Resources */,
-				D9A6D9A01731939200C1488A /* greenButtonHighlight.png in Resources */,
-				D9A6D9A11731939200C1488A /* greenButtonHighlight@2x.png in Resources */,
 				D9A6D9D61731D03400C1488A /* BSKeyboardControls.strings in Resources */,
 				D91AC0341733021800823179 /* 66-microphone.png in Resources */,
 				D91AC0351733021800823179 /* 66-microphone@2x.png in Resources */,
@@ -1829,6 +1840,7 @@
 				D93936C91741A5620070E164 /* onboarding_3@2x.png in Resources */,
 				D93936CA1741A5620070E164 /* onboarding_2@2x.png in Resources */,
 				D93936CB1741A5620070E164 /* onboarding_1@2x.png in Resources */,
+				D909C2D81742B11D005930A7 /* FontAwesome.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1994,6 +2006,9 @@
 				D9E42C08174173A500CA524F /* OWShareController.m in Sources */,
 				D9E42C501741778B00CA524F /* TUSafariActivity.m in Sources */,
 				D93936D61741CC520070E164 /* NSData+Hex.m in Sources */,
+				D909C2D61742B11D005930A7 /* BButton.m in Sources */,
+				D909C2D71742B11D005930A7 /* NSString+FontAwesome.m in Sources */,
+				D909C2D91742B11D005930A7 /* UIColor+BButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

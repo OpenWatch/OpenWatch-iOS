@@ -23,7 +23,7 @@
     self = [super init];
     if (self) {
         self.timerView = [[OWTimerView alloc] init];
-        self.recordButton = [OWUtilities bigGreenButton];
+        self.recordButton = [[BButton alloc] initWithFrame:CGRectZero type:BButtonTypeDanger];
         [recordButton setTitle:@"Start Recording" forState:UIControlStateNormal];
         [recordButton addTarget:self action:@selector(recordButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         self.isRecording = NO;

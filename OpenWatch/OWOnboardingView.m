@@ -9,6 +9,7 @@
 #import "OWOnboardingView.h"
 #import "OWUtilities.h"
 #import "OWLocationController.h"
+#import "BButton.h"
 
 @implementation OWOnboardingView
 @synthesize scrollView, images, displayIndex, continueButton, agentSwitch;
@@ -24,7 +25,7 @@
         
         self.images = @[[UIImage imageNamed:@"onboarding_1.png"], [UIImage imageNamed:@"onboarding_2.png"], [UIImage imageNamed:@"onboarding_3.png"], [UIImage imageNamed:@"onboarding_4.png"]];
         
-        self.continueButton = [OWUtilities bigGreenButton];
+        self.continueButton = [[BButton alloc] initWithFrame:CGRectZero type:BButtonTypeSuccess];
         [continueButton setTitle:@"Continue →" forState:UIControlStateNormal];
         [self.continueButton addTarget:self action:@selector(continueButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         
