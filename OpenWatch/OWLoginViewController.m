@@ -11,8 +11,8 @@
 #import "OWSettingsController.h"
 #import "OWAccountAPIClient.h"
 #import "MBProgressHUD.h"
-#import "OWWelcomeViewController.h"
 #import "OWUtilities.h"
+#import "OWAppDelegate.h"
 
 
 #define PADDING 10.0f
@@ -160,6 +160,16 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+- (void) showHUD {
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    self.loginButton.enabled = NO;
+}
+
+- (void) hideHUD {
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
+    self.loginButton.enabled = YES;
+}
+
 
 - (void)loginButtonPressed:(id)sender {
     BOOL fields = [self checkFields];
@@ -169,8 +179,7 @@
         account.password = self.passwordTextField.text;
         [self.emailTextField resignFirstResponder];
         [self.passwordTextField resignFirstResponder];
-        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-
+        [self showHUD];
         if (loginOrSignupSegmentedControl.selectedSegmentIndex == 0) {
             [[OWAccountAPIClient sharedClient] loginWithAccount:account success:^{
                 [self loginSuccess];
@@ -192,19 +201,17 @@
     NSLog(@"Login failure: %@", reason);
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:ERROR_STRING message:USER_PASS_WRONG_STRING delegate:nil cancelButtonTitle:OK_STRING otherButtonTitles:nil];
     [alert show];
-    [MBProgressHUD hideHUDForView:self.view animated:YES];
+    [self hideHUD];
 }
 
 - (void) loginSuccess {
     NSLog(@"Login Success");
     [self refreshLoginButtons];
-    [MBProgressHUD hideHUDForView:self.view animated:YES];
-    OWWelcomeViewController *welcomeVC = [[OWWelcomeViewController alloc] init];
-    [self.navigationController pushViewController:welcomeVC animated:YES];
+    [self hideHUD];
+    [OW_APP_DELEGATE.dashboardViewController.navigationController popToRootViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
     [TestFlight passCheckpoint:LOGIN_CHECKPOINT];
 }
-
-
 
 - (void)logoutButtonPressed:(id)sender {
     [self.account clearAccountData];

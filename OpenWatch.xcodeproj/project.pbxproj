@@ -266,7 +266,6 @@
 		D9E72E4F167FB0F700C6CB75 /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E72E4E167FB0F700C6CB75 /* icon@2x.png */; };
 		D9E72E51167FB10000C6CB75 /* icon-ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E72E50167FB10000C6CB75 /* icon-ipad.png */; };
 		D9E72E53167FB10500C6CB75 /* icon-ipad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9E72E52167FB10500C6CB75 /* icon-ipad@2x.png */; };
-		D9E72E57167FB39A00C6CB75 /* OWWelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9E72E56167FB39A00C6CB75 /* OWWelcomeViewController.m */; };
 		D9E72E5A167FF6AE00C6CB75 /* OWLocalMediaEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9E72E59167FF6AD00C6CB75 /* OWLocalMediaEditViewController.m */; };
 		D9EB4C3C166D314C0019F8B6 /* MagicalImportFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = D9EB4C04166D314C0019F8B6 /* MagicalImportFunctions.m */; };
 		D9EB4C3D166D314C0019F8B6 /* NSAttributeDescription+MagicalDataImport.m in Sources */ = {isa = PBXBuildFile; fileRef = D9EB4C06166D314C0019F8B6 /* NSAttributeDescription+MagicalDataImport.m */; };
@@ -752,8 +751,6 @@
 		D9E72E4E167FB0F700C6CB75 /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@2x.png"; sourceTree = "<group>"; };
 		D9E72E50167FB10000C6CB75 /* icon-ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-ipad.png"; sourceTree = "<group>"; };
 		D9E72E52167FB10500C6CB75 /* icon-ipad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-ipad@2x.png"; sourceTree = "<group>"; };
-		D9E72E55167FB39A00C6CB75 /* OWWelcomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWWelcomeViewController.h; sourceTree = "<group>"; };
-		D9E72E56167FB39A00C6CB75 /* OWWelcomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWWelcomeViewController.m; sourceTree = "<group>"; };
 		D9E72E58167FF6AC00C6CB75 /* OWLocalMediaEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWLocalMediaEditViewController.h; sourceTree = "<group>"; };
 		D9E72E59167FF6AD00C6CB75 /* OWLocalMediaEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWLocalMediaEditViewController.m; sourceTree = "<group>"; };
 		D9EB4C03166D314C0019F8B6 /* MagicalImportFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MagicalImportFunctions.h; sourceTree = "<group>"; };
@@ -1404,8 +1401,6 @@
 			isa = PBXGroup;
 			children = (
 				D9BECEF116B1D3AC009046E1 /* Paginated Tables */,
-				D9E72E55167FB39A00C6CB75 /* OWWelcomeViewController.h */,
-				D9E72E56167FB39A00C6CB75 /* OWWelcomeViewController.m */,
 				D963C8591739C9C7008999F7 /* OWPhotoDetailViewController.h */,
 				D963C85A1739C9C7008999F7 /* OWPhotoDetailViewController.m */,
 				D963C8501739C698008999F7 /* OWAudioRecordingViewController.h */,
@@ -2069,7 +2064,6 @@
 				D9D7870D1677EDB0006EE6A2 /* OWFeedViewController.m in Sources */,
 				D97EAAA1167911B100A1B038 /* OWMediaObjectTableViewCell.m in Sources */,
 				D97EAABB167A540900A1B038 /* OWFeedSelectionViewController.m in Sources */,
-				D9E72E57167FB39A00C6CB75 /* OWWelcomeViewController.m in Sources */,
 				D9E72E5A167FF6AE00C6CB75 /* OWLocalMediaEditViewController.m in Sources */,
 				D96677EA16810B2A006F1815 /* OWTallyView.m in Sources */,
 				D98FCB4116A4AA570071DF6B /* _OWLocalRecording.m in Sources */,

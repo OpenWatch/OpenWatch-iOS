@@ -173,7 +173,7 @@
     
     OWAccount *account = [OWSettingsController sharedInstance].account;
 
-    if ((!account.hasCompletedOnboarding && !self.onboardingView) || DEBUG) {
+    if (!account.hasCompletedOnboarding && !self.onboardingView) {
         CGRect frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - navigationBarHeightHack);
         self.onboardingView = [[OWOnboardingView alloc] initWithFrame:frame];
         self.onboardingView.delegate = self;
