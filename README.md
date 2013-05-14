@@ -25,6 +25,8 @@ Install [mogenerator](https://github.com/rentzsch/mogenerator). This will regene
 Create `./OpenWatch/OWAPIKeys.h` with the following content:
 
 		#define TESTFLIGHT_APP_TOKEN @"your_testflight_token"
+		#define USERVOICE_API_KEY @"your_uservoice_api_key"
+		#define USERVOICE_API_SECRET @"your_uservoice_api_secret"
 
 Running
 ----------------------
