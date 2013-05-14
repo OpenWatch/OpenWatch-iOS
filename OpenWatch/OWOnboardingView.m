@@ -12,7 +12,7 @@
 #import "BButton.h"
 
 @implementation OWOnboardingView
-@synthesize scrollView, images, displayIndex, continueButton, agentSwitch;
+@synthesize scrollView, images, displayIndex, continueButton, agentSwitch, imageViews;
 
 - (id) initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
@@ -23,7 +23,7 @@
         
         [self addSubview:scrollView];
         
-        self.images = @[[UIImage imageNamed:@"onboarding_1.png"], [UIImage imageNamed:@"onboarding_2.png"], [UIImage imageNamed:@"onboarding_3.png"], [UIImage imageNamed:@"onboarding_4.png"]];
+        self.images = @[[UIImage imageNamed:@"onboarding_1.png"], [UIImage imageNamed:@"onboarding_2.png"], [UIImage imageNamed:@"onboarding_3.png"], [UIImage imageNamed:@"onboarding_4b.png"]];
         
         self.continueButton = [[BButton alloc] initWithFrame:CGRectZero type:BButtonTypeSuccess];
         [continueButton setTitle:@"Continue →" forState:UIControlStateNormal];
@@ -38,15 +38,20 @@
 }
 
 - (void) toggleSecretAgentMode:(id)sender {
+    UIImageView *lastImageView = [imageViews lastObject];
     if (self.agentSwitch.on) {
         [[UIApplication sharedApplication] registerForRemoteNotificationTypes:
          (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
+        lastImageView.image = [UIImage imageNamed:@"onboarding_4a.png"];
+    } else {
+        lastImageView.image = [UIImage imageNamed:@"onboarding_4b.png"];
     }
 }
 
 - (void) setImages:(NSArray *)newImages {
     images = newImages;
     int i = 0;
+    NSMutableArray *newImageViews = [NSMutableArray arrayWithCapacity:images.count];
     for (UIImage *image in images) {
         UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
         imageView.backgroundColor = [OWUtilities stoneBackgroundPattern];
@@ -61,9 +66,10 @@
             [agentSwitch addTarget:self action:@selector(toggleSecretAgentMode:) forControlEvents:UIControlEventValueChanged];
             [imageView addSubview:agentSwitch];
         }
-        
+        [newImageViews addObject:imageView];
         i++;
     }
+    self.imageViews = newImageViews;
     self.scrollView.contentSize = CGSizeMake(self.frame.size.width * i, self.frame.size.height);
 }
 

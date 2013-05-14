@@ -28,6 +28,8 @@
 		D909C2D71742B11D005930A7 /* NSString+FontAwesome.m in Sources */ = {isa = PBXBuildFile; fileRef = D909C2D11742B11D005930A7 /* NSString+FontAwesome.m */; };
 		D909C2D81742B11D005930A7 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D909C2D31742B11D005930A7 /* FontAwesome.ttf */; };
 		D909C2D91742B11D005930A7 /* UIColor+BButton.m in Sources */ = {isa = PBXBuildFile; fileRef = D909C2D51742B11D005930A7 /* UIColor+BButton.m */; };
+		D909C2DD1742BB55005930A7 /* onboarding_4a@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D909C2DB1742BB55005930A7 /* onboarding_4a@2x.png */; };
+		D909C2DE1742BB55005930A7 /* onboarding_4b@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D909C2DC1742BB55005930A7 /* onboarding_4b@2x.png */; };
 		D91AC0011733003100823179 /* OWDashboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D91AC0001733003100823179 /* OWDashboardViewController.m */; };
 		D91AC0341733021800823179 /* 66-microphone.png in Resources */ = {isa = PBXBuildFile; fileRef = D91AC02C1733021800823179 /* 66-microphone.png */; };
 		D91AC0351733021800823179 /* 66-microphone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D91AC02D1733021800823179 /* 66-microphone@2x.png */; };
@@ -64,7 +66,6 @@
 		D930851F166426A9008C5D4C /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D930851E166426A9008C5D4C /* MapKit.framework */; };
 		D93936BF174199140070E164 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D93936BE174199140070E164 /* libxml2.dylib */; };
 		D93936C11741991A0070E164 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D93936C01741991A0070E164 /* ImageIO.framework */; };
-		D93936C81741A5620070E164 /* onboarding_4@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D93936C41741A5620070E164 /* onboarding_4@2x.png */; };
 		D93936C91741A5620070E164 /* onboarding_3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D93936C51741A5620070E164 /* onboarding_3@2x.png */; };
 		D93936CA1741A5620070E164 /* onboarding_2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D93936C61741A5620070E164 /* onboarding_2@2x.png */; };
 		D93936CB1741A5620070E164 /* onboarding_1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D93936C71741A5620070E164 /* onboarding_1@2x.png */; };
@@ -344,6 +345,8 @@
 		D909C2D31742B11D005930A7 /* FontAwesome.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome.ttf; sourceTree = "<group>"; };
 		D909C2D41742B11D005930A7 /* UIColor+BButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+BButton.h"; sourceTree = "<group>"; };
 		D909C2D51742B11D005930A7 /* UIColor+BButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+BButton.m"; sourceTree = "<group>"; };
+		D909C2DB1742BB55005930A7 /* onboarding_4a@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "onboarding_4a@2x.png"; sourceTree = "<group>"; };
+		D909C2DC1742BB55005930A7 /* onboarding_4b@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "onboarding_4b@2x.png"; sourceTree = "<group>"; };
 		D91ABFFF1733003100823179 /* OWDashboardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWDashboardViewController.h; sourceTree = "<group>"; };
 		D91AC0001733003100823179 /* OWDashboardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWDashboardViewController.m; sourceTree = "<group>"; };
 		D91AC02C1733021800823179 /* 66-microphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "66-microphone.png"; sourceTree = "<group>"; };
@@ -392,7 +395,6 @@
 		D930851E166426A9008C5D4C /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		D93936BE174199140070E164 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		D93936C01741991A0070E164 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
-		D93936C41741A5620070E164 /* onboarding_4@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "onboarding_4@2x.png"; sourceTree = "<group>"; };
 		D93936C51741A5620070E164 /* onboarding_3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "onboarding_3@2x.png"; sourceTree = "<group>"; };
 		D93936C61741A5620070E164 /* onboarding_2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "onboarding_2@2x.png"; sourceTree = "<group>"; };
 		D93936C71741A5620070E164 /* onboarding_1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "onboarding_1@2x.png"; sourceTree = "<group>"; };
@@ -1415,7 +1417,8 @@
 		D9DFADF716547DE7003C515C /* Media */ = {
 			isa = PBXGroup;
 			children = (
-				D93936C41741A5620070E164 /* onboarding_4@2x.png */,
+				D909C2DB1742BB55005930A7 /* onboarding_4a@2x.png */,
+				D909C2DC1742BB55005930A7 /* onboarding_4b@2x.png */,
 				D93936C51741A5620070E164 /* onboarding_3@2x.png */,
 				D93936C61741A5620070E164 /* onboarding_2@2x.png */,
 				D93936C71741A5620070E164 /* onboarding_1@2x.png */,
@@ -1836,11 +1839,12 @@
 				D9E42C4D1741778B00CA524F /* Safari@2x.png in Resources */,
 				D9E42C4E1741778B00CA524F /* Safari@2x~ipad.png in Resources */,
 				D9E42C4F1741778B00CA524F /* Safari~ipad.png in Resources */,
-				D93936C81741A5620070E164 /* onboarding_4@2x.png in Resources */,
 				D93936C91741A5620070E164 /* onboarding_3@2x.png in Resources */,
 				D93936CA1741A5620070E164 /* onboarding_2@2x.png in Resources */,
 				D93936CB1741A5620070E164 /* onboarding_1@2x.png in Resources */,
 				D909C2D81742B11D005930A7 /* FontAwesome.ttf in Resources */,
+				D909C2DD1742BB55005930A7 /* onboarding_4a@2x.png in Resources */,
+				D909C2DE1742BB55005930A7 /* onboarding_4b@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

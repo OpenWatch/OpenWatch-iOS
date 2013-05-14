@@ -21,6 +21,7 @@
 @property (nonatomic) NSUInteger displayIndex;
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) NSArray *images;
+@property (nonatomic, strong) NSArray *imageViews;
 @property (nonatomic, strong) UIButton *continueButton;
 @property (nonatomic, strong) UISwitch *agentSwitch;
 
