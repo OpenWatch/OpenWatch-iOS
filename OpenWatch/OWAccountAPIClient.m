@@ -96,7 +96,10 @@
 }
 
 - (void) checkEmailAvailability:(NSString*)email callback:(void (^)(BOOL available))callback {
-    
+    if (!email) {
+        NSLog(@"Email is nil!");
+        return;
+    }
     [self getPath:@"email_available" parameters:@{@"email": email} success:^(AFHTTPRequestOperation *operation, id responseObject) {
         BOOL available = [[responseObject objectForKey:@"available"] boolValue];
         callback(available);

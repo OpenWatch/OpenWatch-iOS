@@ -81,7 +81,7 @@ in the sources themselves (check the Submodules directory for more information):
 
 ----------------------------------------------------------------------------------
 
-The original media assets that we have created (in the Media folder) are provided under the [Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported](http://creativecommons.org/licenses/by-nc-sa/3.0/) license:
+Any original media assets that we have created (in the Media folder) are provided under the [Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported](http://creativecommons.org/licenses/by-nc-sa/3.0/) license:
 
 * Attribution — You must attribute the work in the manner specified by the author or licensor (but not in any way that suggests that they endorse you or your use of the work).
 * Noncommercial — You may not use this work for commercial purposes.
