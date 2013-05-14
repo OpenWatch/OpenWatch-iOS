@@ -26,12 +26,11 @@
         self.images = @[[UIImage imageNamed:@"onboarding_1.png"], [UIImage imageNamed:@"onboarding_2.png"], [UIImage imageNamed:@"onboarding_3.png"], [UIImage imageNamed:@"onboarding_4b.png"]];
         
         self.continueButton = [[BButton alloc] initWithFrame:CGRectZero type:BButtonTypeSuccess];
+        self.continueButton.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
         [continueButton setTitle:@"Continue →" forState:UIControlStateNormal];
         [self.continueButton addTarget:self action:@selector(continueButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-        
+        [self refreshContinueButtonFrame];
         [self addSubview:continueButton];
-        [self setFrame:frame];
-
     }
 
     return self;
@@ -73,12 +72,16 @@
     self.scrollView.contentSize = CGSizeMake(self.frame.size.width * i, self.frame.size.height);
 }
 
+- (void) refreshContinueButtonFrame {
+    CGFloat padding = 20.0f;
+    CGFloat buttonHeight = 50.0f;
+    self.continueButton.frame = CGRectMake(padding, self.frame.size.height - padding - buttonHeight, self.frame.size.width - padding * 2, buttonHeight);
+}
+
 - (void) setFrame:(CGRect)frame {
     [super setFrame:frame];
     self.scrollView.frame = CGRectMake(0, 0, frame.size.width, frame.size.height);
-    CGFloat padding = 20.0f;
-    CGFloat buttonHeight = 50.0f;
-    self.continueButton.frame = CGRectMake(padding, frame.size.height - padding - buttonHeight, frame.size.width - padding * 2, buttonHeight);
+    [self refreshContinueButtonFrame];
 }
 
 - (void) continueButtonPressed:(id)sender {

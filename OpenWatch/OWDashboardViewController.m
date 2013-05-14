@@ -159,15 +159,25 @@
 
 - (void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    
+    CGFloat navigationBarHeightHack = 0.0f;
+    
+    if (self.navigationController.navigationBarHidden) {
+        navigationBarHeightHack = self.navigationController.navigationBar.frame.size.height;
+    }
+    
     [self.navigationController setNavigationBarHidden:NO animated:animated];
+    
     
     self.dashboardView.frame = self.view.bounds;
     
     OWAccount *account = [OWSettingsController sharedInstance].account;
 
     if ((!account.hasCompletedOnboarding && !self.onboardingView) || DEBUG) {
-        self.onboardingView = [[OWOnboardingView alloc] initWithFrame:self.view.bounds];
+        CGRect frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - navigationBarHeightHack);
+        self.onboardingView = [[OWOnboardingView alloc] initWithFrame:frame];
         self.onboardingView.delegate = self;
+        //self.onboardingView.frame = frame;
         [self.view addSubview:onboardingView];
     }
 }
