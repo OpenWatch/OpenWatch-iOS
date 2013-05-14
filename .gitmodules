@@ -52,3 +52,6 @@
 [submodule "Submodules/BButton"]
 	path = Submodules/BButton
 	url = https://github.com/mattlawer/BButton.git
+[submodule "Submodules/UserVoice-SDK"]
+	path = Submodules/UserVoice-SDK
+	url = https://github.com/uservoice/uservoice-iphone-sdk.git
