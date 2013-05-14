@@ -12,5 +12,7 @@
 @interface OWShareController : NSObject
 
 + (void) shareMediaObject:(OWMediaObject*)mediaObject fromViewController:(UIViewController*)viewController;
++ (void) shareURL:(NSURL*)url title:(NSString*)title fromViewController:(UIViewController*)viewController;
+
 
 @end

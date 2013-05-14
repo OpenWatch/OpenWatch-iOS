@@ -11,6 +11,12 @@
 
 @implementation OWShareController
 
++ (void) shareURL:(NSURL*)url title:(NSString*)title fromViewController:(UIViewController*)viewController {
+    UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[title, url] applicationActivities:nil];
+    
+    [viewController presentViewController:activityViewController animated:YES completion:nil];
+}
+
 + (void) shareMediaObject:(OWMediaObject*)mediaObject fromViewController:(UIViewController*)viewController {
     TUSafariActivity *safariActivity = [[TUSafariActivity alloc] init];
     NSMutableArray *items = [NSMutableArray arrayWithCapacity:2];
