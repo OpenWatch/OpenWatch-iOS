@@ -12,6 +12,7 @@
 #import "OWAPIKeys.h"
 #import "OWFancyLoginViewController.h"
 #import "OWSettingsController.h"
+#import "OWAccountAPIClient.h"
 
 
 @implementation OWAppDelegate
@@ -103,6 +104,16 @@
     BrowserViewController *bvc = [[BrowserViewController alloc] initWithUrls:url];
     [self.navigationController pushViewController:bvc animated:YES];
     return YES;
+}
+
+- (void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken
+{
+	[[OWAccountAPIClient sharedClient] updateUserPushToken:deviceToken];
+}
+
+- (void)application:(UIApplication*)application didFailToRegisterForRemoteNotificationsWithError:(NSError*)error
+{
+	NSLog(@"Failed to get push token, error: %@", error);
 }
 
 @end

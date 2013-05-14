@@ -17,6 +17,7 @@
 @property (nonatomic, strong) NSString *privateUploadToken;
 @property (nonatomic, strong) NSString *password;
 @property (nonatomic, strong) NSString *username;
+@property (nonatomic) BOOL secretAgentEnabled;
 @property (nonatomic) BOOL hasCompletedOnboarding;
 
 - (OWUser*) user;

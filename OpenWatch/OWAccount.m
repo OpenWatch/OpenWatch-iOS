@@ -17,6 +17,7 @@
 #define kPasswordKey @"kPasswordKey"
 #define kUsernameKey @"kUsernameKey"
 #define kOnboardingKey @"kOnboardingKey"
+#define kSecretAgentEnabledKey @"kSecretAgentEnabledKey"
 
 @implementation OWAccount
 
@@ -173,6 +174,17 @@
 - (BOOL) hasCompletedOnboarding {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     return [[defaults objectForKey:kOnboardingKey] boolValue];
+}
+
+- (void) setSecretAgentEnabled:(BOOL)secretAgentEnabled {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:@(secretAgentEnabled) forKey:kSecretAgentEnabledKey];
+    [defaults synchronize];
+}
+
+- (BOOL) secretAgentEnabled {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    return [[defaults objectForKey:kSecretAgentEnabledKey] boolValue];
 }
 
 @end

@@ -138,6 +138,7 @@
 {
     [super viewDidLoad];
     [self.view addSubview:dashboardView];
+    [self updateUserAccountInformation];
     
     self.view.backgroundColor = [OWUtilities stoneBackgroundPattern];
     
@@ -171,9 +172,31 @@
     }
 }
 
-- (void) onboardingViewDidComplete:(OWOnboardingView *)onboardingView {
+- (void) updateUserAccountInformation {
+    OWAccount *account = [OWSettingsController sharedInstance].account;
+    [[OWAccountAPIClient sharedClient] updateUserSecretAgentStatus:account.secretAgentEnabled];
+    if (!account.secretAgentEnabled) {
+        return;
+    }
+    [[OWLocationController sharedInstance] startWithDelegate:self];
+    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:
+     (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
+}
+
+- (void) locationUpdated:(CLLocation *)location {
+    OWLocationController *locationController = [OWLocationController sharedInstance];
+    [locationController stop];
+    OWAccount *account = [OWSettingsController sharedInstance].account;
+    if (account.secretAgentEnabled) {
+        [[OWAccountAPIClient sharedClient] updateUserLocation:location];
+    }
+}
+
+- (void) onboardingViewDidComplete:(OWOnboardingView *)ow {
     OWAccount *account = [OWSettingsController sharedInstance].account;
     account.hasCompletedOnboarding = YES;
+    account.secretAgentEnabled = onboardingView.agentSwitch.on;
+    [self updateUserAccountInformation];
     [UIView animateWithDuration:2.0 animations:^{
         self.onboardingView.layer.opacity = 0.0f;
     } completion:^(BOOL finished) {

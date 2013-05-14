@@ -8,6 +8,7 @@
 
 #import "OWOnboardingView.h"
 #import "OWUtilities.h"
+#import "OWLocationController.h"
 
 @implementation OWOnboardingView
 @synthesize scrollView, images, displayIndex, continueButton, agentSwitch;
@@ -25,16 +26,21 @@
         
         self.continueButton = [OWUtilities bigGreenButton];
         [continueButton setTitle:@"Continue →" forState:UIControlStateNormal];
-        CGFloat padding = 20.0f;
-        CGFloat buttonHeight = 50.0f;
-        self.continueButton.frame = CGRectMake(padding, frame.size.height - padding - buttonHeight, frame.size.width - padding * 2, buttonHeight);
-        self.continueButton.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
         [self.continueButton addTarget:self action:@selector(continueButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         
         [self addSubview:continueButton];
+        [self setFrame:frame];
+
     }
 
     return self;
+}
+
+- (void) toggleSecretAgentMode:(id)sender {
+    if (self.agentSwitch.on) {
+        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:
+         (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
+    }
 }
 
 - (void) setImages:(NSArray *)newImages {
@@ -51,6 +57,7 @@
         
         if (i == 2) { // this is a bad hack
             self.agentSwitch = [[UISwitch alloc] initWithFrame:CGRectMake(230, 260, 80, 30)];
+            [agentSwitch addTarget:self action:@selector(toggleSecretAgentMode:) forControlEvents:UIControlEventValueChanged];
             [imageView addSubview:agentSwitch];
         }
         
@@ -62,6 +69,9 @@
 - (void) setFrame:(CGRect)frame {
     [super setFrame:frame];
     self.scrollView.frame = CGRectMake(0, 0, frame.size.width, frame.size.height);
+    CGFloat padding = 20.0f;
+    CGFloat buttonHeight = 50.0f;
+    self.continueButton.frame = CGRectMake(padding, frame.size.height - padding - buttonHeight, frame.size.width - padding * 2, buttonHeight);
 }
 
 - (void) continueButtonPressed:(id)sender {

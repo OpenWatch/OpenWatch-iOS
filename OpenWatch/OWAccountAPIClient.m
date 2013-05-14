@@ -25,6 +25,7 @@
 #import "OWAudio.h"
 #import "OWCaptureAPIClient.h"
 #import "JSONKit.h"
+#import "NSData+Hex.h"
 
 #define kRecordingsKey @"recordings/"
 
@@ -133,6 +134,45 @@
     account.privateUploadToken = [responseObject objectForKey:kPrivTokenKey];
     account.accountID = [responseObject objectForKey:kServerIDKey];
     account.user.csrfToken = [responseObject objectForKey:kCSRFTokenKey];
+}
+
+- (void) updateUserPushToken:(NSData*)token {
+    NSString *tokenString = [token hexadecimalString];
+    [self updateAccountWithDetails:@{@"apple_push_token": tokenString}];
+}
+
+- (void) updateUserLocation:(CLLocation*)location {
+    if (!location) {
+        NSLog(@"Location is nil!");
+        return;
+    }
+    [self updateAccountWithDetails:@{@"latitude": @(location.coordinate.latitude), @"longitude": @(location.coordinate.longitude)}];
+}
+
+- (void) updateUserSecretAgentStatus:(BOOL)secretAgentEnabled {
+    [self updateAccountWithDetails:@{@"agent_applicant": @(secretAgentEnabled)}];
+}
+
+- (void) updateAccountWithDetails:(NSDictionary*)details {
+    OWAccount *account = [OWSettingsController sharedInstance].account;
+    if (!account.isLoggedIn) {
+        NSLog(@"Account not logged in!");
+        return;
+    }
+    
+    NSLog(@"Updating account details: %@", details.description);
+    
+    NSString *path = [NSString stringWithFormat:@"/api/u/%@/", account.accountID];
+    
+    [self postPath:path parameters:details success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"Updated account details: %@", operation.responseString);
+        if ([responseObject isKindOfClass:[NSDictionary class]] && [[responseObject objectForKey:@"success"] boolValue]) {
+            NSLog(@"success!");
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Failed to update account details: %@", error.userInfo);
+    }];
 }
 
 - (void) registerWithAccount:(OWAccount*)account path:(NSString*)path success:(void (^)(void)) success failure:(void (^)(NSString *reason))failure {

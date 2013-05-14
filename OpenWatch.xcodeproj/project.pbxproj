@@ -64,6 +64,7 @@
 		D93936C91741A5620070E164 /* onboarding_3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D93936C51741A5620070E164 /* onboarding_3@2x.png */; };
 		D93936CA1741A5620070E164 /* onboarding_2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D93936C61741A5620070E164 /* onboarding_2@2x.png */; };
 		D93936CB1741A5620070E164 /* onboarding_1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D93936C71741A5620070E164 /* onboarding_1@2x.png */; };
+		D93936D61741CC520070E164 /* NSData+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = D93936D51741CC520070E164 /* NSData+Hex.m */; };
 		D9397BC1165D95940093B3C8 /* OWLocationController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9397BC0165D95940093B3C8 /* OWLocationController.m */; };
 		D94499E116B0D19600A2225A /* OWPastelessTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = D94499E016B0D19600A2225A /* OWPastelessTextField.m */; };
 		D945D2FD173C6AF600D806BD /* libTheAmazingAudioEngine.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D945D2FA173C6ADF00D806BD /* libTheAmazingAudioEngine.a */; };
@@ -388,6 +389,8 @@
 		D93936C51741A5620070E164 /* onboarding_3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "onboarding_3@2x.png"; sourceTree = "<group>"; };
 		D93936C61741A5620070E164 /* onboarding_2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "onboarding_2@2x.png"; sourceTree = "<group>"; };
 		D93936C71741A5620070E164 /* onboarding_1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "onboarding_1@2x.png"; sourceTree = "<group>"; };
+		D93936D41741CC510070E164 /* NSData+Hex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Hex.h"; sourceTree = "<group>"; };
+		D93936D51741CC520070E164 /* NSData+Hex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Hex.m"; sourceTree = "<group>"; };
 		D9397BBF165D95940093B3C8 /* OWLocationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWLocationController.h; sourceTree = "<group>"; };
 		D9397BC0165D95940093B3C8 /* OWLocationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWLocationController.m; sourceTree = "<group>"; };
 		D94499DF16B0D19600A2225A /* OWPastelessTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWPastelessTextField.h; sourceTree = "<group>"; };
@@ -856,6 +859,17 @@
 			path = DWTagList/DWTagList/Classes;
 			sourceTree = "<group>";
 		};
+		D93936D81741CCAE0070E164 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				D907023316682B4400611607 /* OWUtilities.h */,
+				D907023416682B4400611607 /* OWUtilities.m */,
+				D93936D41741CC510070E164 /* NSData+Hex.h */,
+				D93936D51741CC520070E164 /* NSData+Hex.m */,
+			);
+			name = Utilities;
+			sourceTree = "<group>";
+		};
 		D945D2F6173C6ADF00D806BD /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -1047,8 +1061,7 @@
 				D9D2E21D16532B220000E7C5 /* View Controllers */,
 				D99741841651D42F0034ABB0 /* OWAppDelegate.h */,
 				D99741851651D42F0034ABB0 /* OWAppDelegate.m */,
-				D907023316682B4400611607 /* OWUtilities.h */,
-				D907023416682B4400611607 /* OWUtilities.m */,
+				D93936D81741CCAE0070E164 /* Utilities */,
 				D9CEED0D16826AB400B236B5 /* OWAPIKeys.h */,
 				D9CEED1A1682734600B236B5 /* OWCheckpoints.h */,
 				D997417C1651D42F0034ABB0 /* Supporting Files */,
@@ -1980,6 +1993,7 @@
 				D98F4884173DC02D00BBE80E /* OWCharacterCountdownView.m in Sources */,
 				D9E42C08174173A500CA524F /* OWShareController.m in Sources */,
 				D9E42C501741778B00CA524F /* TUSafariActivity.m in Sources */,
+				D93936D61741CC520070E164 /* NSData+Hex.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
