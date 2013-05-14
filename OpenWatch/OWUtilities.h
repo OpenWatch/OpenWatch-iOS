@@ -18,6 +18,8 @@
 + (UIColor*) greyColorWithGreyness:(CGFloat)greyness;
 + (UIColor*) textFieldTextColor;
 
++ (UIImage*) navigationBarBackgroundImage;
+
 + (void) logFrame:(CGRect)frame;
 
 + (void) styleNavigationController:(UINavigationController*)navigationController;

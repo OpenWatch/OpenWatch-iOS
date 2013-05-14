@@ -20,6 +20,10 @@
     return [UIColor colorWithPatternImage:[UIImage imageNamed:@"stone.png"]];
 }
 
++ (UIImage*) navigationBarBackgroundImage {
+    return [UIImage imageNamed:@"navbar.png"];
+}
+
 + (void) applyShadowToView:(UIView *)view {
     view.layer.shadowColor = [UIColor blackColor].CGColor;
     view.layer.shadowOpacity = 1;
@@ -31,7 +35,7 @@
 
 + (void) styleNavigationController:(UINavigationController*)navigationController {
     UINavigationBar *navigationBar = navigationController.navigationBar;
-    UIImage *image = [UIImage imageNamed: @"navbar.png"];
+    UIImage *image = [self navigationBarBackgroundImage];
     [navigationBar setBackgroundImage:image forBarMetrics: UIBarMetricsDefault];
     navigationController.navigationBar.backgroundColor = [UIColor clearColor];
     navigationController.navigationBar.tintColor = [OWUtilities navigationBarColor];

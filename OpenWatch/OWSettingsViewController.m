@@ -11,6 +11,9 @@
 #import "OWLoginViewController.h"
 #import "OWLocalMediaObjectListViewController.h"
 #import "OWUtilities.h"
+#import "UserVoice.h"
+#import "OWAPIKeys.h"
+#import "OWStyleSheet.h"
 
 #define ACCOUNT_ROW 0
 #define FEEDBACK_ROW 1
@@ -56,7 +59,11 @@
         [OWUtilities styleNavigationController:navController];
         [self presentViewController:navController animated:YES completion:nil];
     } else if (indexPath.row == FEEDBACK_ROW) {
-        [TestFlight openFeedbackView];
+        UVConfig *config = [UVConfig configWithSite:@"openwatch.uservoice.com"
+                                             andKey:USERVOICE_API_KEY
+                                          andSecret:USERVOICE_API_SECRET];
+        [UVStyleSheet setStyleSheet:[[OWStyleSheet alloc] init]];
+        [UserVoice presentUserVoiceInterfaceForParentViewController:self andConfig:config];
     }
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }

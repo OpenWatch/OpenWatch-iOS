@@ -30,6 +30,23 @@
 		D909C2D91742B11D005930A7 /* UIColor+BButton.m in Sources */ = {isa = PBXBuildFile; fileRef = D909C2D51742B11D005930A7 /* UIColor+BButton.m */; };
 		D909C2DD1742BB55005930A7 /* onboarding_4a@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D909C2DB1742BB55005930A7 /* onboarding_4a@2x.png */; };
 		D909C2DE1742BB55005930A7 /* onboarding_4b@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D909C2DC1742BB55005930A7 /* onboarding_4b@2x.png */; };
+		D909C2E71742C68D005930A7 /* libUserVoice.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D909C2E41742C675005930A7 /* libUserVoice.a */; };
+		D909C2EA1742CCF8005930A7 /* OWStyleSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = D909C2E91742CCF8005930A7 /* OWStyleSheet.m */; };
+		D909C3021742CEA4005930A7 /* UserVoice.strings in Resources */ = {isa = PBXBuildFile; fileRef = D909C2ED1742CEA4005930A7 /* UserVoice.strings */; };
+		D909C3031742CEA4005930A7 /* uv_article.png in Resources */ = {isa = PBXBuildFile; fileRef = D909C2F31742CEA4005930A7 /* uv_article.png */; };
+		D909C3041742CEA4005930A7 /* uv_article@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D909C2F41742CEA4005930A7 /* uv_article@2x.png */; };
+		D909C3051742CEA4005930A7 /* uv_default_avatar.png in Resources */ = {isa = PBXBuildFile; fileRef = D909C2F51742CEA4005930A7 /* uv_default_avatar.png */; };
+		D909C3061742CEA4005930A7 /* uv_default_avatar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D909C2F61742CEA4005930A7 /* uv_default_avatar@2x.png */; };
+		D909C3071742CEA4005930A7 /* uv_idea.png in Resources */ = {isa = PBXBuildFile; fileRef = D909C2F71742CEA4005930A7 /* uv_idea.png */; };
+		D909C3081742CEA4005930A7 /* uv_idea@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D909C2F81742CEA4005930A7 /* uv_idea@2x.png */; };
+		D909C3091742CEA4005930A7 /* uv_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = D909C2F91742CEA4005930A7 /* uv_logo.png */; };
+		D909C30A1742CEA4005930A7 /* uv_logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D909C2FA1742CEA4005930A7 /* uv_logo@2x.png */; };
+		D909C30B1742CEA4005930A7 /* uv_vote_chicklet.png in Resources */ = {isa = PBXBuildFile; fileRef = D909C2FB1742CEA4005930A7 /* uv_vote_chicklet.png */; };
+		D909C30C1742CEA4005930A7 /* uv_vote_chicklet@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D909C2FC1742CEA4005930A7 /* uv_vote_chicklet@2x.png */; };
+		D909C30D1742CEA4005930A7 /* uv_vote_chicklet_empty.png in Resources */ = {isa = PBXBuildFile; fileRef = D909C2FD1742CEA4005930A7 /* uv_vote_chicklet_empty.png */; };
+		D909C30E1742CEA4005930A7 /* uv_vote_chicklet_empty@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D909C2FE1742CEA4005930A7 /* uv_vote_chicklet_empty@2x.png */; };
+		D909C30F1742CEA4005930A7 /* uv_x.png in Resources */ = {isa = PBXBuildFile; fileRef = D909C2FF1742CEA4005930A7 /* uv_x.png */; };
+		D909C3101742CEA4005930A7 /* uv_x@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D909C3001742CEA4005930A7 /* uv_x@2x.png */; };
 		D91AC0011733003100823179 /* OWDashboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D91AC0001733003100823179 /* OWDashboardViewController.m */; };
 		D91AC0341733021800823179 /* 66-microphone.png in Resources */ = {isa = PBXBuildFile; fileRef = D91AC02C1733021800823179 /* 66-microphone.png */; };
 		D91AC0351733021800823179 /* 66-microphone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D91AC02D1733021800823179 /* 66-microphone@2x.png */; };
@@ -287,6 +304,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		D909C2E31742C675005930A7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D909C2DF1742C675005930A7 /* UserVoice.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D2AAC07E0554694100DB518D;
+			remoteInfo = UserVoice;
+		};
+		D909C2E51742C680005930A7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D909C2DF1742C675005930A7 /* UserVoice.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = D2AAC07D0554694100DB518D;
+			remoteInfo = UserVoice;
+		};
 		D945D2F9173C6ADF00D806BD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D945D2F5173C6ADF00D806BD /* TheAmazingAudioEngine.xcodeproj */;
@@ -347,6 +378,29 @@
 		D909C2D51742B11D005930A7 /* UIColor+BButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+BButton.m"; sourceTree = "<group>"; };
 		D909C2DB1742BB55005930A7 /* onboarding_4a@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "onboarding_4a@2x.png"; sourceTree = "<group>"; };
 		D909C2DC1742BB55005930A7 /* onboarding_4b@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "onboarding_4b@2x.png"; sourceTree = "<group>"; };
+		D909C2DF1742C675005930A7 /* UserVoice.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = UserVoice.xcodeproj; path = "UserVoice-SDK/UserVoice.xcodeproj"; sourceTree = "<group>"; };
+		D909C2E81742CCF8005930A7 /* OWStyleSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWStyleSheet.h; sourceTree = "<group>"; };
+		D909C2E91742CCF8005930A7 /* OWStyleSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWStyleSheet.m; sourceTree = "<group>"; };
+		D909C2EE1742CEA4005930A7 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/UserVoice.strings; sourceTree = "<group>"; };
+		D909C2EF1742CEA4005930A7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/UserVoice.strings; sourceTree = "<group>"; };
+		D909C2F01742CEA4005930A7 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/UserVoice.strings; sourceTree = "<group>"; };
+		D909C2F11742CEA4005930A7 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/UserVoice.strings; sourceTree = "<group>"; };
+		D909C2F21742CEA4005930A7 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/UserVoice.strings; sourceTree = "<group>"; };
+		D909C2F31742CEA4005930A7 /* uv_article.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = uv_article.png; sourceTree = "<group>"; };
+		D909C2F41742CEA4005930A7 /* uv_article@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "uv_article@2x.png"; sourceTree = "<group>"; };
+		D909C2F51742CEA4005930A7 /* uv_default_avatar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = uv_default_avatar.png; sourceTree = "<group>"; };
+		D909C2F61742CEA4005930A7 /* uv_default_avatar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "uv_default_avatar@2x.png"; sourceTree = "<group>"; };
+		D909C2F71742CEA4005930A7 /* uv_idea.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = uv_idea.png; sourceTree = "<group>"; };
+		D909C2F81742CEA4005930A7 /* uv_idea@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "uv_idea@2x.png"; sourceTree = "<group>"; };
+		D909C2F91742CEA4005930A7 /* uv_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = uv_logo.png; sourceTree = "<group>"; };
+		D909C2FA1742CEA4005930A7 /* uv_logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "uv_logo@2x.png"; sourceTree = "<group>"; };
+		D909C2FB1742CEA4005930A7 /* uv_vote_chicklet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = uv_vote_chicklet.png; sourceTree = "<group>"; };
+		D909C2FC1742CEA4005930A7 /* uv_vote_chicklet@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "uv_vote_chicklet@2x.png"; sourceTree = "<group>"; };
+		D909C2FD1742CEA4005930A7 /* uv_vote_chicklet_empty.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = uv_vote_chicklet_empty.png; sourceTree = "<group>"; };
+		D909C2FE1742CEA4005930A7 /* uv_vote_chicklet_empty@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "uv_vote_chicklet_empty@2x.png"; sourceTree = "<group>"; };
+		D909C2FF1742CEA4005930A7 /* uv_x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = uv_x.png; sourceTree = "<group>"; };
+		D909C3001742CEA4005930A7 /* uv_x@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "uv_x@2x.png"; sourceTree = "<group>"; };
+		D909C3011742CEA4005930A7 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/UserVoice.strings"; sourceTree = "<group>"; };
 		D91ABFFF1733003100823179 /* OWDashboardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWDashboardViewController.h; sourceTree = "<group>"; };
 		D91AC0001733003100823179 /* OWDashboardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWDashboardViewController.m; sourceTree = "<group>"; };
 		D91AC02C1733021800823179 /* 66-microphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "66-microphone.png"; sourceTree = "<group>"; };
@@ -775,6 +829,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D909C2E71742C68D005930A7 /* libUserVoice.a in Frameworks */,
 				D9D2E209165329000000E7C5 /* MobileCoreServices.framework in Frameworks */,
 				D93936C11741991A0070E164 /* ImageIO.framework in Frameworks */,
 				D93936BF174199140070E164 /* libxml2.dylib in Frameworks */,
@@ -833,6 +888,46 @@
 				D909C2D31742B11D005930A7 /* FontAwesome.ttf */,
 			);
 			path = resources;
+			sourceTree = "<group>";
+		};
+		D909C2E01742C675005930A7 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D909C2E41742C675005930A7 /* libUserVoice.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D909C2EB1742CE9B005930A7 /* UserVoice */ = {
+			isa = PBXGroup;
+			children = (
+				D909C2EC1742CEA4005930A7 /* Resources */,
+				D909C2DF1742C675005930A7 /* UserVoice.xcodeproj */,
+			);
+			name = UserVoice;
+			sourceTree = "<group>";
+		};
+		D909C2EC1742CEA4005930A7 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				D909C2ED1742CEA4005930A7 /* UserVoice.strings */,
+				D909C2F31742CEA4005930A7 /* uv_article.png */,
+				D909C2F41742CEA4005930A7 /* uv_article@2x.png */,
+				D909C2F51742CEA4005930A7 /* uv_default_avatar.png */,
+				D909C2F61742CEA4005930A7 /* uv_default_avatar@2x.png */,
+				D909C2F71742CEA4005930A7 /* uv_idea.png */,
+				D909C2F81742CEA4005930A7 /* uv_idea@2x.png */,
+				D909C2F91742CEA4005930A7 /* uv_logo.png */,
+				D909C2FA1742CEA4005930A7 /* uv_logo@2x.png */,
+				D909C2FB1742CEA4005930A7 /* uv_vote_chicklet.png */,
+				D909C2FC1742CEA4005930A7 /* uv_vote_chicklet@2x.png */,
+				D909C2FD1742CEA4005930A7 /* uv_vote_chicklet_empty.png */,
+				D909C2FE1742CEA4005930A7 /* uv_vote_chicklet_empty@2x.png */,
+				D909C2FF1742CEA4005930A7 /* uv_x.png */,
+				D909C3001742CEA4005930A7 /* uv_x@2x.png */,
+			);
+			name = Resources;
+			path = "UserVoice-SDK/Resources";
 			sourceTree = "<group>";
 		};
 		D92B6A6516AF4FD3006605E1 /* EGOTableViewPullRefresh */ = {
@@ -966,6 +1061,8 @@
 		D97EAAA3167911B900A1B038 /* Custom Views */ = {
 			isa = PBXGroup;
 			children = (
+				D909C2E81742CCF8005930A7 /* OWStyleSheet.h */,
+				D909C2E91742CCF8005930A7 /* OWStyleSheet.m */,
 				D98F4882173DC02D00BBE80E /* OWCharacterCountdownView.h */,
 				D98F4883173DC02D00BBE80E /* OWCharacterCountdownView.m */,
 				D945D32E173C931F00D806BD /* OWRecordingActivityIndicatorView.h */,
@@ -1172,6 +1269,7 @@
 		D9D2E1501652EA8A0000E7C5 /* Submodules */ = {
 			isa = PBXGroup;
 			children = (
+				D909C2EB1742CE9B005930A7 /* UserVoice */,
 				D909C2CD1742B11D005930A7 /* BButton */,
 				D9E42C301741778B00CA524F /* TUSafariActivity */,
 				D945D302173C6C0F00D806BD /* The Amazing Audio Engine */,
@@ -1660,6 +1758,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				D909C2E61742C680005930A7 /* PBXTargetDependency */,
 				D945D2FC173C6AEB00D806BD /* PBXTargetDependency */,
 				D98FCB4B16A4AABE0071DF6B /* PBXTargetDependency */,
 				D9C0333C16A4E21700B7CFC7 /* PBXTargetDependency */,
@@ -1677,7 +1776,7 @@
 			attributes = {
 				CLASSPREFIX = OW;
 				LastUpgradeCheck = 0460;
-				ORGANIZATIONNAME = "OpenWatch FPC";
+				ORGANIZATIONNAME = "The OpenWatch Corporation, Inc.";
 			};
 			buildConfigurationList = D997416B1651D42E0034ABB0 /* Build configuration list for PBXProject "OpenWatch" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -1704,6 +1803,7 @@
 				sv,
 				vi,
 				zh_CN,
+				"zh-Hant",
 			);
 			mainGroup = D99741661651D42E0034ABB0;
 			productRefGroup = D99741721651D42F0034ABB0 /* Products */;
@@ -1717,6 +1817,10 @@
 					ProductGroup = D945D2F6173C6ADF00D806BD /* Products */;
 					ProjectRef = D945D2F5173C6ADF00D806BD /* TheAmazingAudioEngine.xcodeproj */;
 				},
+				{
+					ProductGroup = D909C2E01742C675005930A7 /* Products */;
+					ProjectRef = D909C2DF1742C675005930A7 /* UserVoice.xcodeproj */;
+				},
 			);
 			projectRoot = "";
 			targets = (
@@ -1727,6 +1831,13 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		D909C2E41742C675005930A7 /* libUserVoice.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libUserVoice.a;
+			remoteRef = D909C2E31742C675005930A7 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		D945D2FA173C6ADF00D806BD /* libTheAmazingAudioEngine.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1845,6 +1956,21 @@
 				D909C2D81742B11D005930A7 /* FontAwesome.ttf in Resources */,
 				D909C2DD1742BB55005930A7 /* onboarding_4a@2x.png in Resources */,
 				D909C2DE1742BB55005930A7 /* onboarding_4b@2x.png in Resources */,
+				D909C3021742CEA4005930A7 /* UserVoice.strings in Resources */,
+				D909C3031742CEA4005930A7 /* uv_article.png in Resources */,
+				D909C3041742CEA4005930A7 /* uv_article@2x.png in Resources */,
+				D909C3051742CEA4005930A7 /* uv_default_avatar.png in Resources */,
+				D909C3061742CEA4005930A7 /* uv_default_avatar@2x.png in Resources */,
+				D909C3071742CEA4005930A7 /* uv_idea.png in Resources */,
+				D909C3081742CEA4005930A7 /* uv_idea@2x.png in Resources */,
+				D909C3091742CEA4005930A7 /* uv_logo.png in Resources */,
+				D909C30A1742CEA4005930A7 /* uv_logo@2x.png in Resources */,
+				D909C30B1742CEA4005930A7 /* uv_vote_chicklet.png in Resources */,
+				D909C30C1742CEA4005930A7 /* uv_vote_chicklet@2x.png in Resources */,
+				D909C30D1742CEA4005930A7 /* uv_vote_chicklet_empty.png in Resources */,
+				D909C30E1742CEA4005930A7 /* uv_vote_chicklet_empty@2x.png in Resources */,
+				D909C30F1742CEA4005930A7 /* uv_x.png in Resources */,
+				D909C3101742CEA4005930A7 /* uv_x@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2013,12 +2139,18 @@
 				D909C2D61742B11D005930A7 /* BButton.m in Sources */,
 				D909C2D71742B11D005930A7 /* NSString+FontAwesome.m in Sources */,
 				D909C2D91742B11D005930A7 /* UIColor+BButton.m in Sources */,
+				D909C2EA1742CCF8005930A7 /* OWStyleSheet.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		D909C2E61742C680005930A7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = UserVoice;
+			targetProxy = D909C2E51742C680005930A7 /* PBXContainerItemProxy */;
+		};
 		D945D2FC173C6AEB00D806BD /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = TheAmazingAudioEngine;
@@ -2037,6 +2169,19 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		D909C2ED1742CEA4005930A7 /* UserVoice.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D909C2EE1742CEA4005930A7 /* de */,
+				D909C2EF1742CEA4005930A7 /* en */,
+				D909C2F01742CEA4005930A7 /* fr */,
+				D909C2F11742CEA4005930A7 /* it */,
+				D909C2F21742CEA4005930A7 /* nl */,
+				D909C3011742CEA4005930A7 /* zh-Hant */,
+			);
+			name = UserVoice.strings;
+			sourceTree = "<group>";
+		};
 		D997417E1651D42F0034ABB0 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
