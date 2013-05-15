@@ -22,6 +22,7 @@
 @property (nonatomic, strong) UITextField *passwordField;
 @property (nonatomic, strong) UILabel *blurbLabel;
 @property (nonatomic, strong) UIButton *startButton;
+@property (nonatomic, strong) UIButton *forgotPasswordButton;
 
 @property (nonatomic, strong) OWKenBurnsView *backgroundImageView;
 @property (nonatomic, strong) UIImageView *logoView;

@@ -23,7 +23,7 @@
 @end
 
 @implementation OWFancyLoginViewController
-@synthesize backgroundImageView, logoView, blurbLabel, emailField, startButton, scrollView, passwordField, activityIndicatorView, processingLogin, keyboardControls;
+@synthesize backgroundImageView, logoView, blurbLabel, emailField, startButton, scrollView, passwordField, activityIndicatorView, processingLogin, keyboardControls, forgotPasswordButton;
 
 
 - (id)init
@@ -38,8 +38,20 @@
         self.startButton = [[BButton alloc] initWithFrame:CGRectZero type:BButtonTypeSuccess];
         self.activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
         self.processingLogin = NO;
+        self.forgotPasswordButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [self.forgotPasswordButton setTitle:@"Forgot password?" forState:UIControlStateNormal];
+        self.forgotPasswordButton.titleLabel.font = [UIFont systemFontOfSize:14.0f];
+        self.forgotPasswordButton.titleLabel.textColor = [UIColor whiteColor];
+        self.forgotPasswordButton.titleLabel.shadowColor = [UIColor blackColor];
+        self.forgotPasswordButton.titleLabel.shadowOffset = CGSizeMake(0, -1);
+        self.forgotPasswordButton.titleLabel.textAlignment = NSTextAlignmentRight;
+        [self.forgotPasswordButton addTarget:self action:@selector(forgotPassword:) forControlEvents:UIControlEventTouchUpInside];
     }
     return self;
+}
+
+- (void) forgotPassword:(id)sender {
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://openwatch.net/accounts/password/reset/"] forceOpenInSafari:YES];
 }
 
 - (void) loadView {
@@ -77,6 +89,7 @@
     [self.scrollView addSubview:blurbLabel];
     [self.scrollView addSubview:emailField];
     [self.scrollView addSubview:startButton];
+    [self.scrollView addSubview:forgotPasswordButton];
     [self.startButton addSubview:activityIndicatorView];
 }
 
@@ -99,8 +112,10 @@
     CGFloat logoWidth = self.view.frame.size.width - xPadding * 2;
     self.logoView.frame = CGRectMake(xPadding, yPadding, logoWidth, 100.0f);
     self.blurbLabel.frame = CGRectMake(xPadding, [OWUtilities bottomOfView:logoView] + 25, logoWidth, 65);
-    self.emailField.frame = CGRectMake(xPadding, [OWUtilities bottomOfView:blurbLabel] + 20, logoWidth, 30);
+    self.emailField.frame = CGRectMake(xPadding, [OWUtilities bottomOfView:blurbLabel] + 20, logoWidth, 27);
     self.startButton.frame = CGRectMake(xPadding, [OWUtilities bottomOfView:emailField] + 20, logoWidth, 50);
+    CGFloat forgotWidth = 120;
+    self.forgotPasswordButton.frame = CGRectMake([OWUtilities rightOfView:startButton] - forgotWidth, [OWUtilities bottomOfView:startButton] + 20, forgotWidth, 30);
     
     self.activityIndicatorView.frame = CGRectMake(floorf(logoWidth * .75), startButton.frame.size.height / 2 - activityIndicatorView.frame.size.height/2, self.activityIndicatorView.frame.size.width, self.activityIndicatorView.frame.size.height);
     

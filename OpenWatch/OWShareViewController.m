@@ -52,7 +52,7 @@
         
         [self.navigationItem setHidesBackButton:YES animated:NO];
         
-        self.skipButton = [[UIBarButtonItem alloc] initWithTitle:@"Skip" style:UIBarButtonItemStyleBordered target:self action:@selector(skipButtonPressed:)];
+        self.skipButton = [[UIBarButtonItem alloc] initWithTitle:@"Finish" style:UIBarButtonItemStyleBordered target:self action:@selector(skipButtonPressed:)];
         self.navigationItem.rightBarButtonItem = skipButton;
         
         [self.view addSubview:shareButton];
