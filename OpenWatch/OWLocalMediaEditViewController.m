@@ -19,6 +19,7 @@
 #import "OWSettingsController.h"
 #import "OWLocalMediaController.h"
 #import "OWPhoto.h"
+#import "OWShareViewController.h"
 
 #define TAGS_ROW 0
 #define PADDING 10.0f
@@ -28,7 +29,7 @@
 @end
 
 @implementation OWLocalMediaEditViewController
-@synthesize titleTextField, whatHappenedLabel, saveButton, uploadProgressView, objectID, scrollView, showingAfterCapture, previewView, characterCountdown;
+@synthesize titleTextField, whatHappenedLabel, saveButton, uploadProgressView, objectID, scrollView, showingAfterCapture, previewView, characterCountdown, uploadStatusLabel;
 
 - (void) dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -42,6 +43,12 @@
         [self setupWhatHappenedLabel];
         [self setupProgressView];
         [self setupPreviewView];
+        
+        self.uploadStatusLabel = [[UILabel alloc] init];
+        self.uploadStatusLabel.text = @"It's online!";
+        [OWUtilities styleLabel:uploadStatusLabel];
+        [self.scrollView addSubview:uploadStatusLabel];
+        
         self.characterCountdown = [[OWCharacterCountdownView alloc] initWithFrame:CGRectZero];
         self.showingAfterCapture = NO;
         [self registerForUploadProgressNotifications];
@@ -73,7 +80,7 @@
 
 - (void) setupWhatHappenedLabel {
     self.whatHappenedLabel = [[UILabel alloc] init];
-    self.whatHappenedLabel.text = WHAT_HAPPENED_STRING;
+    self.whatHappenedLabel.text = @"Caption";
     self.whatHappenedLabel.backgroundColor = [UIColor clearColor];
     self.whatHappenedLabel.font = [UIFont boldSystemFontOfSize:20.0f];
     self.whatHappenedLabel.textColor = [OWUtilities greyTextColor];
@@ -115,7 +122,11 @@
     CGFloat itemHeight = 30.0f;
     CGFloat itemWidth = self.view.frame.size.width - padding*2;
     
-    self.previewView.frame = CGRectMake(padding, padding, itemWidth, 200);
+    CGFloat previewHeight = [OWPreviewView heightForWidth:itemWidth];
+    
+    self.uploadStatusLabel.frame = CGRectMake(padding, padding, itemWidth, 20.0f);
+    
+    self.previewView.frame = CGRectMake(padding, [OWUtilities bottomOfView:uploadStatusLabel] + padding, itemWidth, previewHeight);
     
     self.uploadProgressView.frame = CGRectMake(padding, [OWUtilities bottomOfView:previewView] + 5, itemWidth, itemHeight);
     
@@ -219,31 +230,18 @@
     OWLocalMediaObject *mediaObject = [OWLocalMediaController localMediaObjectForObjectID:self.objectID];
     NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
     mediaObject.title = self.titleTextField.text;
-    [context MR_saveToPersistentStoreAndWait];
+    [context MR_saveToPersistentStoreAndWait];    
     
-    void (^success)(void) = nil;
-    
-    if (mediaObject.serverIDValue == 0) {
-        success = ^{
-            [self finishEditingWithMediaObject:mediaObject];
-        };
-    } else {
-        [self finishEditingWithMediaObject:mediaObject];
-    }
-    
-    
-    
-    [[OWAccountAPIClient sharedClient] postObjectWithUUID:mediaObject.uuid objectClass:[mediaObject class] success:success failure:nil];
+    [[OWAccountAPIClient sharedClient] postObjectWithUUID:mediaObject.uuid objectClass:[mediaObject class] success:nil failure:nil];
     
     [self.view endEditing:YES];
     
-    
-    [self.navigationController popViewControllerAnimated:YES];
-}
-     
-- (void) finishEditingWithMediaObject:(OWLocalMediaObject*)mediaObject {
-    if (self.delegate && [self.delegate respondsToSelector:@selector(localMediaEditViewReadyForSharing:object:)]) {
-        [self.delegate localMediaEditViewReadyForSharing:self object:mediaObject];
+    if (showingAfterCapture) {
+        OWShareViewController *shareView = [[OWShareViewController alloc] init];
+        shareView.mediaObject = mediaObject;
+        [self.navigationController pushViewController:shareView animated:YES];
+    } else {
+        [self.navigationController popViewControllerAnimated:YES];
     }
 }
 

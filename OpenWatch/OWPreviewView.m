@@ -15,6 +15,10 @@
 @implementation OWPreviewView
 @synthesize imageView, moviePlayer, objectID;
 
++ (CGFloat) heightForWidth:(CGFloat)width {
+    return floorf(width * (3.0f/4.0f));
+}
+
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];

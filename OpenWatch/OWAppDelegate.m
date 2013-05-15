@@ -13,6 +13,7 @@
 #import "OWFancyLoginViewController.h"
 #import "OWSettingsController.h"
 #import "OWAccountAPIClient.h"
+#import "OWShareViewController.h"
 
 
 @implementation OWAppDelegate
@@ -46,10 +47,13 @@
         vc = fancy;
     }
     
+    //vc = [[OWShareViewController alloc] init];
+    
     self.navigationController = [[UINavigationController alloc] initWithRootViewController:vc];
-        [[UINavigationBar appearance] setTitleTextAttributes:
+    [[UINavigationBar appearance] setTitleTextAttributes:
      @{UITextAttributeTextColor : [UIColor blackColor], UITextAttributeTextShadowColor: [UIColor whiteColor], UITextAttributeFont: [UIFont systemFontOfSize:0]}];
-    [OWUtilities styleNavigationController:self.navigationController];
+    [[UINavigationBar appearance] setBackgroundImage:[OWUtilities navigationBarBackgroundImage] forBarMetrics:UIBarMetricsDefault];
+    [[UINavigationBar appearance] setTintColor:[OWUtilities navigationBarColor]];
     self.window.rootViewController = navigationController;
     [MagicalRecord setupCoreDataStack];
     [self.window makeKeyAndVisible];

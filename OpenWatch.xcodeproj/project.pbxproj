@@ -47,6 +47,7 @@
 		D909C30E1742CEA4005930A7 /* uv_vote_chicklet_empty@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D909C2FE1742CEA4005930A7 /* uv_vote_chicklet_empty@2x.png */; };
 		D909C30F1742CEA4005930A7 /* uv_x.png in Resources */ = {isa = PBXBuildFile; fileRef = D909C2FF1742CEA4005930A7 /* uv_x.png */; };
 		D909C3101742CEA4005930A7 /* uv_x@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D909C3001742CEA4005930A7 /* uv_x@2x.png */; };
+		D909C3161742FEF6005930A7 /* OWShareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D909C3151742FEF6005930A7 /* OWShareViewController.m */; };
 		D91AC0011733003100823179 /* OWDashboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D91AC0001733003100823179 /* OWDashboardViewController.m */; };
 		D91AC0341733021800823179 /* 66-microphone.png in Resources */ = {isa = PBXBuildFile; fileRef = D91AC02C1733021800823179 /* 66-microphone.png */; };
 		D91AC0351733021800823179 /* 66-microphone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D91AC02D1733021800823179 /* 66-microphone@2x.png */; };
@@ -400,6 +401,8 @@
 		D909C2FF1742CEA4005930A7 /* uv_x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = uv_x.png; sourceTree = "<group>"; };
 		D909C3001742CEA4005930A7 /* uv_x@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "uv_x@2x.png"; sourceTree = "<group>"; };
 		D909C3011742CEA4005930A7 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/UserVoice.strings"; sourceTree = "<group>"; };
+		D909C3141742FEF5005930A7 /* OWShareViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWShareViewController.h; sourceTree = "<group>"; };
+		D909C3151742FEF6005930A7 /* OWShareViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWShareViewController.m; sourceTree = "<group>"; };
 		D91ABFFF1733003100823179 /* OWDashboardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWDashboardViewController.h; sourceTree = "<group>"; };
 		D91AC0001733003100823179 /* OWDashboardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWDashboardViewController.m; sourceTree = "<group>"; };
 		D91AC02C1733021800823179 /* 66-microphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "66-microphone.png"; sourceTree = "<group>"; };
@@ -1426,6 +1429,8 @@
 				D9D2E1871653236E0000E7C5 /* OWCaptureViewController.m */,
 				D997419F1651DB0B0034ABB0 /* OWSettingsViewController.h */,
 				D99741A01651DB0B0034ABB0 /* OWSettingsViewController.m */,
+				D909C3141742FEF5005930A7 /* OWShareViewController.h */,
+				D909C3151742FEF6005930A7 /* OWShareViewController.m */,
 				D9D8676B17347492008C8CE6 /* Dashboard */,
 			);
 			name = "View Controllers";
@@ -2134,6 +2139,7 @@
 				D909C2D71742B11D005930A7 /* NSString+FontAwesome.m in Sources */,
 				D909C2D91742B11D005930A7 /* UIColor+BButton.m in Sources */,
 				D909C2EA1742CCF8005930A7 /* OWStyleSheet.m in Sources */,
+				D909C3161742FEF6005930A7 /* OWShareViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -22,7 +22,6 @@
 
 + (void) logFrame:(CGRect)frame;
 
-+ (void) styleNavigationController:(UINavigationController*)navigationController;
 + (void) styleLabel:(UILabel*) label;
 + (void) applyShadowToView:(UIView*)view;
 

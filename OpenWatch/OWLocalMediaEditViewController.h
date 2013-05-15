@@ -13,17 +13,13 @@
 
 @class OWLocalMediaEditViewController;
 
-@protocol OWLocalMediaEditDelegate <NSObject>
-- (void) localMediaEditViewReadyForSharing:(OWLocalMediaEditViewController*)localMediaEditView object:(OWLocalMediaObject*)object;
-@end
-
 @interface OWLocalMediaEditViewController : UIViewController <UITextFieldDelegate>
 
-@property (nonatomic, weak) id<OWLocalMediaEditDelegate> delegate;
 @property (nonatomic, strong) OWCharacterCountdownView *characterCountdown;
 @property (nonatomic, strong) OWPreviewView *previewView;
 @property (nonatomic, strong) UITextField *titleTextField;
 @property (nonatomic, strong) UILabel *whatHappenedLabel;
+@property (nonatomic, strong) UILabel *uploadStatusLabel;
 @property (nonatomic, strong) UIBarButtonItem *saveButton;
 @property (nonatomic, strong) UIProgressView *uploadProgressView;
 @property (nonatomic, strong) UIScrollView *scrollView;

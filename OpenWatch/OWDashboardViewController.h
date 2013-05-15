@@ -15,7 +15,7 @@
 #import "OWCaptureViewController.h"
 #import "OWLocationController.h"
 
-@interface OWDashboardViewController : UIViewController < OWOnboardingViewDelegate, OWDashboardViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, OWAudioRecordingDelegate, OWCaptureDelegate, OWLocalMediaEditDelegate, OWLocationControllerDelegate>
+@interface OWDashboardViewController : UIViewController < OWOnboardingViewDelegate, OWDashboardViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, OWAudioRecordingDelegate, OWCaptureDelegate, OWLocationControllerDelegate>
 
 @property (nonatomic, strong) OWLocalMediaEditViewController *editController;
 @property (nonatomic, strong) OWDashboardView *dashboardView;

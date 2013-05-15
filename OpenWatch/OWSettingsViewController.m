@@ -59,7 +59,6 @@
     if (indexPath.row == ACCOUNT_ROW) {
         OWLoginViewController *loginView = [[OWLoginViewController alloc] init];
         UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:loginView];
-        [OWUtilities styleNavigationController:navController];
         [self presentViewController:navController animated:YES completion:nil];
     } else if (indexPath.row == FEEDBACK_ROW) {
         UVConfig *config = [UVConfig configWithSite:@"openwatch.uservoice.com"

@@ -63,7 +63,6 @@
     OWLocationController *locationController = [OWLocationController sharedInstance];
     [locationController startWithDelegate:nil];
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:audioRecorder];
-    [OWUtilities styleNavigationController:navController];
     [self presentViewController:navController animated:YES completion:^{
         [self pushEditView];
     }];
@@ -80,13 +79,7 @@
 - (void) pushEditView {
     self.editController = [[OWLocalMediaEditViewController alloc] init];
     self.editController.showingAfterCapture = YES;
-    self.editController.delegate = self;
     [self.navigationController pushViewController:editController animated:YES];
-}
-
-- (void) localMediaEditViewReadyForSharing:(OWLocalMediaEditViewController *)localMediaEditView object:(OWLocalMediaObject *)object {
-    
-    [OWShareController shareMediaObject:object fromViewController:self];
 }
 
 - (void) photoButtonPressed:(id)sender {

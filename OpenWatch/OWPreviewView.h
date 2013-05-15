@@ -11,6 +11,8 @@
 
 @interface OWPreviewView : UIView
 
++ (CGFloat) heightForWidth:(CGFloat)width;
+
 @property (nonatomic, strong) MPMoviePlayerController *moviePlayer;
 @property (nonatomic, strong) UIImageView *imageView;
 @property (nonatomic, strong) NSManagedObjectID *objectID;
