@@ -14,11 +14,15 @@
 		<dict>
 			<key>CFBundleIconFiles</key>
 			<array>
-				<string>icon.png</string>
-				<string>icon@2x.png</string>
+				<string>57.png</string>
+				<string>114.png</string>
 				<string>icon-ipad.png</string>
 				<string>icon-ipad@2x.png</string>
+				<string>icon-iphone.png</string>
+				<string>icon-iphone@2x.png</string>
 			</array>
+			<key>UIPrerenderedIcon</key>
+			<true/>
 		</dict>
 	</dict>
 	<key>CFBundleIdentifier</key>
@@ -55,6 +59,8 @@
 		<string>FontAwesome.ttf</string>
 	</array>
 	<key>UIFileSharingEnabled</key>
+	<true/>
+	<key>UIPrerenderedIcon</key>
 	<true/>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>

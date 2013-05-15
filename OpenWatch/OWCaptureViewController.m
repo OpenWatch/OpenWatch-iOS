@@ -18,7 +18,7 @@
 @end
 
 @implementation OWCaptureViewController
-@synthesize videoPreviewView, captureVideoPreviewLayer, videoProcessor, recordButton, recordingIndicator, timerView, delegate;
+@synthesize videoPreviewView, captureVideoPreviewLayer, videoProcessor, recordButton, recordingIndicator, timerView, delegate, uploadStatusLabel;
 
 - (id) init {
     if (self = [super init]) {
@@ -30,18 +30,22 @@
         [self setupRecordButton];
         self.recordingIndicator = [[OWRecordingActivityIndicatorView alloc] init];
         self.timerView = [[OWTimerView alloc] init];
+        self.uploadStatusLabel = [[UILabel alloc] init];
+        [OWUtilities styleLabel:uploadStatusLabel];
+        self.uploadStatusLabel.text = @"Streaming...";
+        self.uploadStatusLabel.textAlignment = NSTextAlignmentRight;
     }
     return self;
 }
 
 - (void) setupRecordButton {
-    self.recordButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    self.recordButton = [[BButton alloc] initWithFrame:CGRectZero type:BButtonTypeDanger];
     self.recordButton.layer.opacity = 0.7;
     //recordButton.transform = CGAffineTransformMakeRotation(M_PI / 2);
     [recordButton setTitle:RECORD_STRING forState:UIControlStateNormal];
     self.recordButton.tintColor = [OWUtilities doneButtonColor];
     [self.recordButton addTarget:self action:@selector(recordButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    //self.recordButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin;
+    //self.recordButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin;
 }
 
 - (void) loadView {
@@ -52,6 +56,7 @@
     [self.view addSubview:recordButton];
     [self.view addSubview:recordingIndicator];
     [self.view addSubview:timerView];
+    [self.view addSubview:uploadStatusLabel];
 }
 
 - (void) recordButtonPressed:(id)sender {
@@ -95,8 +100,16 @@
     CGFloat buttonWidth = 100.0f;
     CGFloat buttonHeight = 45.0f;
     CGFloat padding = 10.0f;
-    self.recordButton.frame = CGRectMake(self.view.frame.size.width - buttonWidth - padding, padding, buttonWidth, buttonHeight);
+    CGFloat labelWidth = 100.0f;
+    CGFloat labelHeight = 30.0f;
+    
+    CGFloat frameWidth = self.view.frame.size.height;
+    CGFloat frameHeight = self.view.frame.size.width;
+    
+    self.uploadStatusLabel.frame = CGRectMake(frameWidth - labelWidth - padding, padding, labelWidth, labelHeight);
     self.recordingIndicator.frame = CGRectMake(padding, padding, 35, 35);
+    self.recordButton.frame = CGRectMake(frameWidth - buttonWidth - padding, frameHeight - buttonHeight - padding, buttonWidth, buttonHeight);
+
     self.timerView.frame = CGRectMake([OWUtilities rightOfView:recordingIndicator], padding, 100, 35);
     [captureVideoPreviewLayer setFrame:self.view.bounds];
 }
