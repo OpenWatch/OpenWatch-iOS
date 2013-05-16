@@ -165,8 +165,11 @@
         self.passwordField.frame = passwordFrame;
         [UIView animateWithDuration:0.5 animations:^{
             CGRect startButtonFrame = self.startButton.frame;
+            CGRect forgotFrame = self.forgotPasswordButton.frame;
             startButtonFrame.origin.y = [OWUtilities bottomOfView:passwordField] + 20;
             self.startButton.frame = startButtonFrame;
+            forgotFrame.origin.y = [OWUtilities bottomOfView:startButton] + 20;
+            self.forgotPasswordButton.frame = forgotFrame;
             [self.startButton setTitle:@"Login →" forState:UIControlStateNormal];
         } completion:^(BOOL finished) {
             [self.scrollView setContentOffset:CGPointMake(0, kOffsetWithPassword) animated:YES];

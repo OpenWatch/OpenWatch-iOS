@@ -252,6 +252,8 @@
     }
     
     NSDictionary *parameters = mediaObject.metadataDictionary;
+    
+    NSLog(@"POSTing object with parameters: %@", parameters);
 
     
     void (^failureBlock)(AFHTTPRequestOperation*, NSError*) = ^(AFHTTPRequestOperation *operation, NSError *error) {
