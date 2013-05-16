@@ -73,6 +73,11 @@
         self.moviePlayer.controlStyle = MPMovieControlStyleEmbedded;
         self.moviePlayer.shouldAutoplay = NO;
         [self.moviePlayer prepareToPlay];
+        moviePlayer.backgroundView.backgroundColor = [UIColor clearColor];
+        moviePlayer.view.backgroundColor = [UIColor clearColor];
+        for(UIView *aSubView in moviePlayer.view.subviews) {
+            aSubView.backgroundColor = [UIColor clearColor];
+        }
         [self addSubview:moviePlayer.view];
     }
  }
