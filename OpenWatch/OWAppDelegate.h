@@ -10,14 +10,10 @@
 #import "BrowserViewController.h"
 #import "OWLocationController.h"
 #import "OWDashboardViewController.h"
-#import "AEAudioController.h"
 
 #define OW_APP_DELEGATE ((OWAppDelegate*)[UIApplication sharedApplication].delegate)
 
 @interface OWAppDelegate : UIResponder <UIApplicationDelegate, BrowserViewDelegate>
-
-
-@property (nonatomic, strong) AEAudioController *audioController;
 
 @property (nonatomic, strong) OWLocationController *locationController;
 @property (strong, nonatomic) UIWindow *window;

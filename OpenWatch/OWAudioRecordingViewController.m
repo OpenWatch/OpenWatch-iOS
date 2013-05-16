@@ -10,7 +10,6 @@
 #import <CoreAudio/CoreAudioTypes.h>
 #import <AVFoundation/AVFoundation.h>
 #import "OWUtilities.h"
-#import "OWAppDelegate.h"
 
 @interface OWAudioRecordingViewController ()
 
@@ -34,7 +33,6 @@
         self.microphoneImageView.contentMode = UIViewContentModeScaleAspectFit;
         self.recordingIndicatorView = [[OWRecordingActivityIndicatorView alloc] init];
         self.title = @"Record Audio";
-        self.audioController = OW_APP_DELEGATE.audioController;
     }
     return self;
 }
@@ -95,6 +93,11 @@
 }
 
 - (void) startNewRecording {
+    AudioStreamBasicDescription audioDescription = [AEAudioController nonInterleaved16BitStereoAudioDescription];
+    audioDescription.mChannelsPerFrame = 1;
+    self.audioController = [[AEAudioController alloc]
+                            initWithAudioDescription:audioDescription
+                            inputEnabled:YES];
     NSError *error = NULL;
     BOOL result = [audioController start:&error];
     if ( !result ) {
