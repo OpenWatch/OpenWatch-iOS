@@ -96,16 +96,16 @@
 
 - (void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    self.videoPreviewView.frame = self.view.bounds;
+    
+	self.videoPreviewView.frame = self.view.bounds;
     CGFloat buttonWidth = 100.0f;
     CGFloat buttonHeight = 45.0f;
     CGFloat padding = 10.0f;
     CGFloat labelWidth = 100.0f;
     CGFloat labelHeight = 30.0f;
     
-    // What's the deal with this iOS bug
-    CGFloat frameWidth = self.view.frame.size.height;
-    CGFloat frameHeight = self.view.frame.size.width;
+    CGFloat frameWidth = self.view.bounds.size.width;
+    CGFloat frameHeight = self.view.bounds.size.height;
     
     self.uploadStatusLabel.frame = CGRectMake(frameWidth - labelWidth - padding, padding, labelWidth, labelHeight);
     self.recordingIndicator.frame = CGRectMake(padding, padding, 35, 35);
