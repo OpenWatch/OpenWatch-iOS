@@ -30,7 +30,6 @@
 @property (nonatomic, strong) UIBarButtonItem *cancelButton;
 
 @property (nonatomic, strong) AERecorder *recorder;
-@property (nonatomic, strong) AEAudioController *audioController;
 @property (nonatomic, strong) OWAudio *audio;
 
 @property (nonatomic, strong) UIImageView *microphoneImageView;

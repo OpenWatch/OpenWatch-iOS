@@ -10,13 +10,15 @@
 #import <CoreAudio/CoreAudioTypes.h>
 #import <AVFoundation/AVFoundation.h>
 #import "OWUtilities.h"
+#import <AudioToolbox/AudioToolbox.h>
+#import "AESharedAudioController.h"
 
 @interface OWAudioRecordingViewController ()
 
 @end
 
 @implementation OWAudioRecordingViewController
-@synthesize timerView, audioController, recorder, audio, recordButton, isRecording, cancelButton, microphoneImageView, recordingIndicatorView;
+@synthesize timerView, recorder, audio, recordButton, isRecording, cancelButton, microphoneImageView, recordingIndicatorView;
 
 - (id)init
 {
@@ -95,9 +97,11 @@
 - (void) startNewRecording {
     AudioStreamBasicDescription audioDescription = [AEAudioController nonInterleaved16BitStereoAudioDescription];
     audioDescription.mChannelsPerFrame = 1;
-    self.audioController = [[AEAudioController alloc]
+    
+    AEAudioController *audioController = [[AEAudioController alloc]
                             initWithAudioDescription:audioDescription
                             inputEnabled:YES];
+    [AESharedAudioController sharedController].audioController = audioController;
     NSError *error = NULL;
     BOOL result = [audioController start:&error];
     if ( !result ) {
@@ -137,6 +141,7 @@
 }
 
 - (void) finishRecording {
+    AEAudioController *audioController = [AESharedAudioController sharedController].audioController;
     [audioController removeInputReceiver:recorder];
     [audioController removeOutputReceiver:recorder];
     [self.recordingIndicatorView stopAnimating];
@@ -144,7 +149,7 @@
     [recorder finishRecording];
     self.recorder = nil;
     [audioController stop];
-    self.audioController = nil;
+    [AESharedAudioController sharedController].audioController = nil;
     if (self.delegate && [self.delegate respondsToSelector:@selector(recordingViewController:didFinishRecording:)]) {
         [self.delegate recordingViewController:self didFinishRecording:self.audio];
     }

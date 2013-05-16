@@ -25,6 +25,7 @@
         if (mediaObject.title) {
             [items addObject:mediaObject.title];
         }
+        [items addObject:@"via @OpenWatch"];
         UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:items applicationActivities:@[safariActivity]];
         
         UIActivityViewControllerCompletionHandler completionHandler = ^(NSString *activityType, BOOL completed) {

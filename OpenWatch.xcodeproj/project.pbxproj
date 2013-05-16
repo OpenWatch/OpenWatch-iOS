@@ -582,9 +582,6 @@
 		D99741831651D42F0034ABB0 /* OpenWatch-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OpenWatch-Prefix.pch"; sourceTree = "<group>"; };
 		D99741841651D42F0034ABB0 /* OWAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OWAppDelegate.h; sourceTree = "<group>"; };
 		D99741851651D42F0034ABB0 /* OWAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OWAppDelegate.m; sourceTree = "<group>"; };
-		D99741871651D42F0034ABB0 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
-		D99741891651D42F0034ABB0 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
-		D997418B1651D42F0034ABB0 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		D997419B1651D8520034ABB0 /* OWLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWLoginViewController.h; sourceTree = "<group>"; };
 		D997419C1651D8520034ABB0 /* OWLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWLoginViewController.m; sourceTree = "<group>"; };
 		D997419F1651DB0B0034ABB0 /* OWSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWSettingsViewController.h; sourceTree = "<group>"; };
@@ -1214,9 +1211,6 @@
 				D99741A21651DBC50034ABB0 /* OWStrings.h */,
 				D99741811651D42F0034ABB0 /* main.m */,
 				D99741831651D42F0034ABB0 /* OpenWatch-Prefix.pch */,
-				D99741871651D42F0034ABB0 /* Default.png */,
-				D99741891651D42F0034ABB0 /* Default@2x.png */,
-				D997418B1651D42F0034ABB0 /* Default-568h@2x.png */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
