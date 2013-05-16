@@ -16,6 +16,8 @@
 @property (nonatomic) BOOL isFullScreen;
 @property (nonatomic) CGRect previousFrame;
 
+- (void) toggleFullscreen;
+
 + (CGFloat) heightForWidth:(CGFloat)width;
 
 @property (nonatomic, strong) MPMoviePlayerController *moviePlayer;

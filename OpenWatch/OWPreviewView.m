@@ -51,7 +51,7 @@
     NSURL *mediaURL = nil;
     if ([mediaObject isKindOfClass:[OWPhoto class]]) {
         isFullScreen = false;
-        self.gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imgToFullScreen)];
+        self.gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(toggleFullscreen)];
         [self addGestureRecognizer:gestureRecognizer];
         self.gestureRecognizer.delegate = self;
         OWPhoto *photo = (OWPhoto*)mediaObject;
@@ -125,7 +125,7 @@
     return shouldReceiveTouch;
 }
 
--(void)imgToFullScreen{
+-(void)toggleFullscreen {
     if (!isFullScreen) {
         [UIView animateWithDuration:0.5 delay:0 options:0 animations:^{
             //save previous frame

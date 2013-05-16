@@ -29,7 +29,7 @@
 @end
 
 @implementation OWLocalMediaEditViewController
-@synthesize titleTextField, whatHappenedLabel, saveButton, uploadProgressView, objectID, scrollView, showingAfterCapture, previewView, characterCountdown, uploadStatusLabel;
+@synthesize titleTextField, whatHappenedLabel, saveButton, uploadProgressView, objectID, scrollView, showingAfterCapture, previewView, characterCountdown, uploadStatusLabel, previewGestureRecognizer;
 
 - (void) dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -145,6 +145,12 @@
     
     self.previewView.objectID = objectID;
     
+    if (previewView.gestureRecognizer) {
+        self.previewGestureRecognizer = [[UIGestureRecognizer alloc] initWithTarget:self action:@selector(togglePreviewFullscreen)];
+        previewGestureRecognizer.delegate = self;
+        [self.view addGestureRecognizer:previewGestureRecognizer];
+    }
+    
     [self refreshFields];
     [self refreshFrames];
     [self refreshProgressView];
@@ -210,8 +216,8 @@
 {
     [super viewDidLoad];
 	[self.view addSubview:scrollView];
-    [self.scrollView addSubview:previewView];
     [self.scrollView addSubview:characterCountdown];
+    [self.scrollView addSubview:previewView];
 }
 
 - (BOOL) checkFields {
@@ -290,6 +296,25 @@
 
 -(NSUInteger) supportedInterfaceOrientations {
     return UIInterfaceOrientationMaskPortrait;
+}
+
+- (void) togglePreviewFullscreen {
+    // moved to delegate method because this isn't firing for some reason
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)newGestureRecognizer shouldReceiveTouch:(UITouch *)touch;
+{
+    BOOL shouldReceiveTouch = YES;
+    
+    if (newGestureRecognizer == previewGestureRecognizer) {
+        shouldReceiveTouch = (touch.view == self.previewView);
+    }
+    
+    if (shouldReceiveTouch) {
+        [self.previewView toggleFullscreen];
+    }
+    
+    return shouldReceiveTouch;
 }
 
 @end

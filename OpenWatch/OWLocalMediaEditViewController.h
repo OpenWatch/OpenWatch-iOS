@@ -13,7 +13,9 @@
 
 @class OWLocalMediaEditViewController;
 
-@interface OWLocalMediaEditViewController : UIViewController <UITextFieldDelegate>
+@interface OWLocalMediaEditViewController : UIViewController <UITextFieldDelegate, UIGestureRecognizerDelegate>
+
+@property (nonatomic, strong) UIGestureRecognizer *previewGestureRecognizer;
 
 @property (nonatomic, strong) OWCharacterCountdownView *characterCountdown;
 @property (nonatomic, strong) OWPreviewView *previewView;
