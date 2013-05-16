@@ -17,7 +17,7 @@
 
 
 @implementation OWAppDelegate
-@synthesize navigationController, locationController, dashboardViewController;
+@synthesize navigationController, locationController, dashboardViewController, audioController;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -36,6 +36,12 @@
      
     //self.homeScreen = [[OWHomeScreenViewController alloc] init];
     self.dashboardViewController = [[OWDashboardViewController alloc] init];
+    
+    AudioStreamBasicDescription audioDescription = [AEAudioController nonInterleaved16BitStereoAudioDescription];
+    audioDescription.mChannelsPerFrame = 1;
+    self.audioController = [[AEAudioController alloc]
+                            initWithAudioDescription:audioDescription
+                            inputEnabled:YES];
     
     OWSettingsController *settingsController = [OWSettingsController sharedInstance];
     OWAccount *account = settingsController.account;
