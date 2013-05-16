@@ -57,6 +57,13 @@
     }
 }
 
+- (void)loadView {
+	UIView* view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
+	view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+	view.backgroundColor = [OWUtilities stoneBackgroundPattern];
+	self.view = view;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
