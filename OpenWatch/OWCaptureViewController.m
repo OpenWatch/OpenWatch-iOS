@@ -103,6 +103,7 @@
     CGFloat labelWidth = 100.0f;
     CGFloat labelHeight = 30.0f;
     
+    // What's the deal with this iOS bug
     CGFloat frameWidth = self.view.frame.size.height;
     CGFloat frameHeight = self.view.frame.size.width;
     

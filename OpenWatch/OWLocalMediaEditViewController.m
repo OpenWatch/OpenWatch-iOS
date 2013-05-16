@@ -222,11 +222,6 @@
 }
 
 - (void) saveButtonPressed:(id)sender {
-    if (![self checkFields]) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NEEDS_TITLE_STRING message:NEEDS_TITLE_MESSAGE_STRING delegate:nil cancelButtonTitle:OK_STRING otherButtonTitles: nil];
-        [alert show];
-        return;
-    }
     OWLocalMediaObject *mediaObject = [OWLocalMediaController localMediaObjectForObjectID:self.objectID];
     NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
     mediaObject.title = self.titleTextField.text;

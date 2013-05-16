@@ -140,7 +140,7 @@
         NSLog(@"timeSpent: %f fileLength: %lld, %f bits/sec", diff, length, bps);
 
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Failed to POST %@ to %@", url.absoluteString, postPath);
+        NSLog(@"Failed to POST %@ to %@: %@", url.absoluteString, postPath, error.userInfo);
         [recording setUploadState:OWFileUploadStateFailed forFileAtURL:url];
     }];
     

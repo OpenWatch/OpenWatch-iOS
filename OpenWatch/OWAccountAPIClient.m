@@ -227,7 +227,7 @@
     [self getPath:path parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
         NSLog(@"GET Response: %@", operation.responseString);
-        if ([responseObject isKindOfClass:[NSDictionary class]] && [[responseObject objectForKey:@"success"] boolValue]) {
+        if ([responseObject isKindOfClass:[NSDictionary class]]) {
             OWLocalMediaObject *mediaObject = [objectClass localMediaObjectWithUUID:UUID];
             if (mediaObject) {
                 [mediaObject loadMetadataFromDictionary:responseObject];
@@ -250,17 +250,15 @@
         NSLog(@"Object %@ (%@) not found!", UUID, NSStringFromClass(objectClass));
         return;
     }
-
-    NSString *path = nil;
-    if (mediaObject.serverID.intValue == 0) {
-        path = [self pathForClass:objectClass];
-    } else {
-        path = [self pathForClass:objectClass uuid:UUID];
-    }
     
     NSDictionary *parameters = mediaObject.metadataDictionary;
+
     
-    [self postPath:path parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    void (^failureBlock)(AFHTTPRequestOperation*, NSError*) = ^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"failed to POST recording: %@ %@", operation.responseString, error.userInfo);
+    };
+
+    void (^successBlock)(AFHTTPRequestOperation*, id) = ^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"POST response: %@", [responseObject description]);
         if ([responseObject isKindOfClass:[NSDictionary class]] && [[responseObject objectForKey:@"success"] boolValue]) {
             NSDictionary *object = [responseObject objectForKey:@"object"];
@@ -281,8 +279,12 @@
             NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
             mediaObject.uploaded = @(YES);
             [context MR_saveToPersistentStoreAndWait];
-
+            
             [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+                if (!operation.responseData) {
+                    NSLog(@"Where is the response data? :(");
+                    return;
+                }
                 JSONDecoder *decoder = [JSONDecoder decoder];
                 NSDictionary *dictionary = [decoder objectWithData:operation.responseData];
                 NSLog(@"media POST response: %@", operation.responseString);
@@ -306,13 +308,19 @@
             [self enqueueHTTPRequestOperation:operation];
             
         }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"failed to POST recording: %@ %@", operation.responseString, error.userInfo);
-        //failure(@"Failed to POST recording");
-    }];
+    };
     
-    
-
+    NSString *path = nil;
+    if (mediaObject.serverID.intValue == 0) {
+        [self getObjectWithUUID:mediaObject.uuid objectClass:[mediaObject class] success:^(NSManagedObjectID *objectID) {
+            [self postPath:[self pathForClass:objectClass uuid:UUID] parameters:parameters success:successBlock failure:failureBlock];
+        } failure:^(NSString *reason) {
+            [self postPath:[self pathForClass:objectClass] parameters:parameters success:successBlock failure:failureBlock];
+        }];
+    } else {
+        path = [self pathForClass:objectClass uuid:UUID];
+        [self postPath:path parameters:parameters success:successBlock failure:failureBlock];
+    }
 }
 
 - (NSString*) pathForUserRecordingsOnPage:(NSUInteger)page {

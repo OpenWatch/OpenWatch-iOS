@@ -86,8 +86,10 @@
 }
 
 - (void) startNewRecording {
+    AudioStreamBasicDescription audioDescription = [AEAudioController nonInterleaved16BitStereoAudioDescription];
+    audioDescription.mChannelsPerFrame = 1;
     self.audioController = [[AEAudioController alloc]
-                            initWithAudioDescription:[AEAudioController nonInterleaved16BitStereoAudioDescription]
+                            initWithAudioDescription:audioDescription
                             inputEnabled:YES];
     NSError *error = NULL;
     BOOL result = [audioController start:&error];
