@@ -11,9 +11,12 @@
 #import "OWPhoto.h"
 #import "OWLocalRecording.h"
 #import "OWAudio.h"
+#import "UIImageView+AFNetworking.h"
+#import "MBProgressHUD.h"
+#import <QuartzCore/QuartzCore.h>
 
 @implementation OWPreviewView
-@synthesize imageView, moviePlayer, objectID;
+@synthesize imageView, moviePlayer, objectID, isFullScreen, gestureRecognizer, previousFrame;
 
 + (CGFloat) heightForWidth:(CGFloat)width {
     return floorf(width * (3.0f/4.0f));
@@ -47,11 +50,29 @@
     OWLocalMediaObject *mediaObject = [OWLocalMediaController localMediaObjectForObjectID:objectID];
     NSURL *mediaURL = nil;
     if ([mediaObject isKindOfClass:[OWPhoto class]]) {
+        isFullScreen = false;
+        self.gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imgToFullScreen)];
+        [self addGestureRecognizer:gestureRecognizer];
+        self.gestureRecognizer.delegate = self;
         OWPhoto *photo = (OWPhoto*)mediaObject;
         self.imageView = [[UIImageView alloc] initWithFrame:self.frame];
-        self.imageView.image = [photo localImage];
         self.imageView.contentMode = UIViewContentModeScaleAspectFill;
         self.imageView.clipsToBounds = YES;
+        if ([photo localImage]) {
+            self.imageView.image = [photo localImage];
+        } else {
+            NSURLRequest *request = [NSURLRequest requestWithURL:[photo remoteMediaURL]];
+            [MBProgressHUD showHUDAddedTo:self.imageView animated:YES];
+            __weak OWPreviewView* blockSelf = self;
+            [self.imageView setImageWithURLRequest:request placeholderImage:[UIImage imageNamed:@"thumbnail_placeholder.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+                blockSelf.imageView.image = image;
+
+                [MBProgressHUD hideHUDForView:blockSelf.imageView animated:YES];
+            } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
+                [MBProgressHUD hideHUDForView:blockSelf.imageView animated:YES];
+            }];
+        }
+
         [self addSubview:imageView];
     } else if ([mediaObject isKindOfClass:[OWLocalRecording class]]) {
         OWLocalRecording *recording = (OWLocalRecording*)mediaObject;
@@ -90,6 +111,37 @@
     }
     if (self.moviePlayer) {
         self.moviePlayer.view.frame = bounds;
+    }
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)newGestureRecognizer shouldReceiveTouch:(UITouch *)touch;
+{
+    BOOL shouldReceiveTouch = YES;
+    
+    if (newGestureRecognizer == gestureRecognizer) {
+        shouldReceiveTouch = (touch.view == self.imageView);
+    }
+    
+    return shouldReceiveTouch;
+}
+
+-(void)imgToFullScreen{
+    if (!isFullScreen) {
+        [UIView animateWithDuration:0.5 delay:0 options:0 animations:^{
+            //save previous frame
+            self.previousFrame = self.frame;
+            CGRect newFrame = [UIScreen mainScreen].bounds;
+            //newFrame.origin.y -= 37; // wtf???
+            [self setFrame:newFrame];
+        } completion:^(BOOL finished){
+            self.isFullScreen = YES;
+        }];
+    } else {
+        [UIView animateWithDuration:0.5 delay:0 options:0 animations:^{
+            [self setFrame:self.previousFrame];
+        } completion:^(BOOL finished){
+            isFullScreen = NO;
+        }];
     }
 }
 

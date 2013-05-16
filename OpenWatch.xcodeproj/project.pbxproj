@@ -127,7 +127,6 @@
 		D963C8281739C157008999F7 /* _OWPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = D963C8271739C157008999F7 /* _OWPhoto.m */; };
 		D963C8521739C698008999F7 /* OWAudioRecordingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D963C8511739C698008999F7 /* OWAudioRecordingViewController.m */; };
 		D963C8581739C856008999F7 /* OWAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = D963C8571739C856008999F7 /* OWAudio.m */; };
-		D963C85B1739C9C7008999F7 /* OWPhotoDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D963C85A1739C9C7008999F7 /* OWPhotoDetailViewController.m */; };
 		D963C85E1739CAB5008999F7 /* _OWAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = D963C85D1739CAB5008999F7 /* _OWAudio.m */; };
 		D963C8611739E459008999F7 /* OWLocalMediaController.m in Sources */ = {isa = PBXBuildFile; fileRef = D963C8601739E459008999F7 /* OWLocalMediaController.m */; };
 		D964E59017333F5600ECF972 /* OWTask.m in Sources */ = {isa = PBXBuildFile; fileRef = D964E58F17333F5600ECF972 /* OWTask.m */; };
@@ -516,8 +515,6 @@
 		D963C8511739C698008999F7 /* OWAudioRecordingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWAudioRecordingViewController.m; sourceTree = "<group>"; };
 		D963C8561739C856008999F7 /* OWAudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWAudio.h; sourceTree = "<group>"; };
 		D963C8571739C856008999F7 /* OWAudio.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWAudio.m; sourceTree = "<group>"; };
-		D963C8591739C9C7008999F7 /* OWPhotoDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWPhotoDetailViewController.h; sourceTree = "<group>"; };
-		D963C85A1739C9C7008999F7 /* OWPhotoDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWPhotoDetailViewController.m; sourceTree = "<group>"; };
 		D963C85C1739CAB5008999F7 /* _OWAudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _OWAudio.h; sourceTree = "<group>"; };
 		D963C85D1739CAB5008999F7 /* _OWAudio.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _OWAudio.m; sourceTree = "<group>"; };
 		D963C85F1739E459008999F7 /* OWLocalMediaController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWLocalMediaController.h; sourceTree = "<group>"; };
@@ -1418,8 +1415,6 @@
 			isa = PBXGroup;
 			children = (
 				D9BECEF116B1D3AC009046E1 /* Paginated Tables */,
-				D963C8591739C9C7008999F7 /* OWPhotoDetailViewController.h */,
-				D963C85A1739C9C7008999F7 /* OWPhotoDetailViewController.m */,
 				D963C8501739C698008999F7 /* OWAudioRecordingViewController.h */,
 				D963C8511739C698008999F7 /* OWAudioRecordingViewController.m */,
 				D945D331173C9C0100D806BD /* OWTimerView.h */,
@@ -2141,7 +2136,6 @@
 				D963C8281739C157008999F7 /* _OWPhoto.m in Sources */,
 				D963C8521739C698008999F7 /* OWAudioRecordingViewController.m in Sources */,
 				D963C8581739C856008999F7 /* OWAudio.m in Sources */,
-				D963C85B1739C9C7008999F7 /* OWPhotoDetailViewController.m in Sources */,
 				D963C85E1739CAB5008999F7 /* _OWAudio.m in Sources */,
 				D963C8611739E459008999F7 /* OWLocalMediaController.m in Sources */,
 				D9FF1A34173B03AF0076D214 /* OWPreviewView.m in Sources */,

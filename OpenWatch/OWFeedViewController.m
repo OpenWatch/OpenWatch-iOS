@@ -21,7 +21,6 @@
 #import "OWFeedTableViewCell.h"
 #import "OWPhoto.h"
 #import "OWAudio.h"
-#import "OWPhotoDetailViewController.h"
 
 @interface OWFeedViewController ()
 @end
@@ -163,9 +162,8 @@
         OWInvestigationViewController *investigationVC = [[OWInvestigationViewController alloc] init];
         vc = investigationVC;
     } else if ([mediaObject isKindOfClass:[OWPhoto class]]) {
-        OWPhotoDetailViewController *photoDetailVC = [[OWPhotoDetailViewController alloc] init];
-        photoDetailVC.photo = (OWPhoto*)mediaObject;
-        vc = photoDetailVC;
+        OWRecordingInfoViewController *recordingVC = [[OWRecordingInfoViewController alloc] init];
+        vc = recordingVC;
     } else if ([mediaObject isKindOfClass:[OWAudio class]]) {
         OWRecordingInfoViewController *recordingVC = [[OWRecordingInfoViewController alloc] init];
         vc = recordingVC;

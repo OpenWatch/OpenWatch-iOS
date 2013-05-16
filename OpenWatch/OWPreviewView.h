@@ -9,7 +9,12 @@
 #import <UIKit/UIKit.h>
 #import <MediaPlayer/MediaPlayer.h>
 
-@interface OWPreviewView : UIView
+@interface OWPreviewView : UIView <UIGestureRecognizerDelegate>
+
+// Only used for OWPhoto type... should refactor this
+@property (nonatomic, strong) UITapGestureRecognizer *gestureRecognizer;
+@property (nonatomic) BOOL isFullScreen;
+@property (nonatomic) CGRect previousFrame;
 
 + (CGFloat) heightForWidth:(CGFloat)width;
 

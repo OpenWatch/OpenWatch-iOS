@@ -26,25 +26,21 @@
 @end
 
 @implementation OWRecordingInfoViewController
-@synthesize mapView, moviePlayer, centerCoordinate, scrollView;
+@synthesize mapView, previewView, centerCoordinate, scrollView;
 @synthesize titleLabel, segmentedControl;
 @synthesize infoView, descriptionTextView, profileImageView, tallyView;
 @synthesize usernameLabel, tagList;
 @synthesize toolbar;
 
-- (void) dealloc {
-    self.moviePlayer = nil;
-}
-
 - (id) init {
     if (self = [super init]) {
         [self setupScrollView];
         [self setupMapView];
-        [self setupMoviePlayer];
         [self setupSegmentedControl];
         [self setupDescriptionView];
         [self setupInfoView];
         [self setupTagList];
+        [self setupMoviePlayer];
         self.title = INFO_STRING;
     }
     return self;
@@ -111,8 +107,8 @@
 }
 
 - (void) setupMoviePlayer {
-    self.moviePlayer = [[MPMoviePlayerController alloc] init];
-    [self.view addSubview:moviePlayer.view];
+    self.previewView = [[OWPreviewView alloc] initWithFrame:CGRectZero];
+    [self.view addSubview:previewView];
 }
 
 - (void) setupSegmentedControl {
@@ -182,7 +178,7 @@
     CGFloat moviePlayerHeight = 240.0f;
     CGFloat frameWidth = self.view.frame.size.width;
     CGFloat frameHeight = self.view.frame.size.height;
-    moviePlayer.view.frame = CGRectMake(0, moviePlayerYOrigin, frameWidth, moviePlayerHeight);
+    previewView.frame = CGRectMake(0, moviePlayerYOrigin, frameWidth, [OWPreviewView heightForWidth:frameWidth]);
     self.toolbar.frame = CGRectMake(0, moviePlayerHeight, frameWidth , 40.0f);
     CGFloat scrollViewYOrigin = [OWUtilities bottomOfView:toolbar];
     CGFloat scrollViewHeight = frameHeight-scrollViewYOrigin;
@@ -218,16 +214,7 @@
 - (void) viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
     [self resignFirstResponder];
-    [moviePlayer stop];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
-
-
-- (void) viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-
-    [moviePlayer play];
 }
 
 - (void) setMediaObjectID:(NSManagedObjectID *)newMediaObjectID {
@@ -240,10 +227,7 @@
     } else if (mediaObject.remoteMediaURLString.length > 0) {
         mediaURL = mediaObject.remoteMediaURL;
     }
-    if (mediaURL) {
-        self.moviePlayer.contentURL = mediaURL;
-        [moviePlayer prepareToPlay];
-    }
+    self.previewView.objectID = self.mediaObjectID;
     
     [self refreshFields];
     [self refreshFrames];
@@ -251,8 +235,7 @@
     
     [[OWAccountAPIClient sharedClient] getObjectWithUUID:mediaObject.uuid objectClass:[mediaObject class] success:^(NSManagedObjectID *objectID) {
         OWLocalMediaObject *newMediaObject = [OWLocalMediaController localMediaObjectForObjectID:self.mediaObjectID];
-        self.moviePlayer.contentURL = newMediaObject.remoteMediaURL;
-        [moviePlayer prepareToPlay];
+        self.previewView.objectID = objectID;
         [self refreshMapParameters];
         [self refreshFields];
         [self refreshFrames];
@@ -283,7 +266,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self.view addSubview:moviePlayer.view];
     self.scrollView.scrollEnabled = YES;
 }
 

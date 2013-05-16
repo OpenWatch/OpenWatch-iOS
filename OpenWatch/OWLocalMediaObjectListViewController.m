@@ -17,7 +17,6 @@
 #import "OWLocalMediaController.h"
 #import "OWSettingsController.h"
 #import "OWPhoto.h"
-#import "OWPhotoDetailViewController.h"
 
 @interface OWLocalMediaObjectListViewController ()
 

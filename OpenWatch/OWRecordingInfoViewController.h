@@ -14,12 +14,13 @@
 #import "OWTallyView.h"
 #import "OWMediaObjectViewController.h"
 #import "DWTagList.h"
+#import "OWPreviewView.h"
 
 @interface OWRecordingInfoViewController : OWMediaObjectViewController <UITableViewDataSource, UITableViewDelegate, MKMapViewDelegate, UIScrollViewDelegate, DWTagListDelegate>
 
 @property (nonatomic) CLLocationCoordinate2D centerCoordinate;
 @property (nonatomic, strong) MKMapView *mapView;
-@property (nonatomic, strong) MPMoviePlayerController *moviePlayer;
+@property (nonatomic, strong) OWPreviewView *previewView;
 @property (nonatomic, strong) UITextView *descriptionTextView;
 @property (nonatomic, strong) UISegmentedControl *segmentedControl;
 @property (nonatomic, strong) UIToolbar *toolbar;
