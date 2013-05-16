@@ -166,9 +166,6 @@
 		D99741801651D42F0034ABB0 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D997417E1651D42F0034ABB0 /* InfoPlist.strings */; };
 		D99741821651D42F0034ABB0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D99741811651D42F0034ABB0 /* main.m */; };
 		D99741861651D42F0034ABB0 /* OWAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D99741851651D42F0034ABB0 /* OWAppDelegate.m */; };
-		D99741881651D42F0034ABB0 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = D99741871651D42F0034ABB0 /* Default.png */; };
-		D997418A1651D42F0034ABB0 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D99741891651D42F0034ABB0 /* Default@2x.png */; };
-		D997418C1651D42F0034ABB0 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D997418B1651D42F0034ABB0 /* Default-568h@2x.png */; };
 		D997419D1651D8520034ABB0 /* OWLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D997419C1651D8520034ABB0 /* OWLoginViewController.m */; };
 		D99741A11651DB0B0034ABB0 /* OWSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D99741A01651DB0B0034ABB0 /* OWSettingsViewController.m */; };
 		D9A6D9D51731D03400C1488A /* BSKeyboardControls.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A6D9D11731D03400C1488A /* BSKeyboardControls.m */; };
@@ -300,6 +297,9 @@
 		D9EB4C75166D5F500019F8B6 /* OWManagedRecording.m in Sources */ = {isa = PBXBuildFile; fileRef = D9EB4C74166D5F500019F8B6 /* OWManagedRecording.m */; };
 		D9EB4C78166D5F600019F8B6 /* OWRecordingSegment.m in Sources */ = {isa = PBXBuildFile; fileRef = D9EB4C77166D5F600019F8B6 /* OWRecordingSegment.m */; };
 		D9EB4C7F166D67920019F8B6 /* OWUser.m in Sources */ = {isa = PBXBuildFile; fileRef = D9EB4C7E166D67920019F8B6 /* OWUser.m */; };
+		D9FA646517447D91000051B7 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = D9FA646417447D91000051B7 /* Default.png */; };
+		D9FA646717447DA5000051B7 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9FA646617447DA5000051B7 /* Default@2x.png */; };
+		D9FA646917447DAA000051B7 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9FA646817447DAA000051B7 /* Default-568h@2x.png */; };
 		D9FF1A34173B03AF0076D214 /* OWPreviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9FF1A33173B03AF0076D214 /* OWPreviewView.m */; };
 /* End PBXBuildFile section */
 
@@ -824,6 +824,9 @@
 		D9EB4C77166D5F600019F8B6 /* OWRecordingSegment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWRecordingSegment.m; sourceTree = "<group>"; };
 		D9EB4C7D166D67910019F8B6 /* OWUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWUser.h; sourceTree = "<group>"; };
 		D9EB4C7E166D67920019F8B6 /* OWUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWUser.m; sourceTree = "<group>"; };
+		D9FA646417447D91000051B7 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		D9FA646617447DA5000051B7 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		D9FA646817447DAA000051B7 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		D9FF1A32173B03AF0076D214 /* OWPreviewView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWPreviewView.h; sourceTree = "<group>"; };
 		D9FF1A33173B03AF0076D214 /* OWPreviewView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWPreviewView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1126,6 +1129,9 @@
 		D99741661651D42E0034ABB0 = {
 			isa = PBXGroup;
 			children = (
+				D9FA646817447DAA000051B7 /* Default-568h@2x.png */,
+				D9FA646617447DA5000051B7 /* Default@2x.png */,
+				D9FA646417447D91000051B7 /* Default.png */,
 				D9B4E81417442E1A006B3793 /* icon-iphone@2x.png */,
 				D9B4E81217442E16006B3793 /* icon-iphone.png */,
 				D9DFADF716547DE7003C515C /* Media */,
@@ -1875,9 +1881,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D99741801651D42F0034ABB0 /* InfoPlist.strings in Resources */,
-				D99741881651D42F0034ABB0 /* Default.png in Resources */,
-				D997418A1651D42F0034ABB0 /* Default@2x.png in Resources */,
-				D997418C1651D42F0034ABB0 /* Default-568h@2x.png in Resources */,
 				D9DFADFA16547DE7003C515C /* openwatch.png in Resources */,
 				D9DFADFB16547DE7003C515C /* openwatch@2x.png in Resources */,
 				D9D786F116766C40006EE6A2 /* popoverArrowDown.png in Resources */,
@@ -1979,6 +1982,9 @@
 				D9B4E80D17441759006B3793 /* cc@2x.png in Resources */,
 				D9B4E81317442E16006B3793 /* icon-iphone.png in Resources */,
 				D9B4E81517442E1A006B3793 /* icon-iphone@2x.png in Resources */,
+				D9FA646517447D91000051B7 /* Default.png in Resources */,
+				D9FA646717447DA5000051B7 /* Default@2x.png in Resources */,
+				D9FA646917447DAA000051B7 /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
