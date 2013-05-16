@@ -25,7 +25,9 @@ static NSString *cellIdentifier = @"cellIdentifier";
         self.dashboardTableView.dataSource = self;
         self.dashboardTableView.backgroundColor = [UIColor clearColor];
         self.dashboardTableView.backgroundView = nil;
-        self.dashboardTableView.scrollEnabled = NO;
+        //self.dashboardTableView.scrollEnabled = NO;
+        self.dashboardTableView.showsVerticalScrollIndicator = NO;
+        self.dashboardTableView.showsHorizontalScrollIndicator = NO;
         [self addSubview:dashboardTableView];
         [dashboardTableView registerClass:[OWDashboardTableViewCell class] forCellReuseIdentifier:cellIdentifier];
     }
@@ -33,7 +35,7 @@ static NSString *cellIdentifier = @"cellIdentifier";
 }
 
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 60.0f;
+    return 50.0f;
 }
 
 - (void) setFrame:(CGRect)frame {

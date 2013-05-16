@@ -7,6 +7,7 @@
 //
 
 #import "OWDashboardTableViewCell.h"
+#import "OWUtilities.h"
 
 @implementation OWDashboardTableViewCell
 @synthesize dashboardItem;
@@ -14,7 +15,7 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        self.backgroundColor = [UIColor clearColor];
+        self.backgroundColor = [UIColor whiteColor];
         self.backgroundView = nil;
         self.imageView.contentMode = UIViewContentModeCenter;
     }

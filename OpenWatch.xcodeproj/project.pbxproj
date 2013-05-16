@@ -118,6 +118,10 @@
 		D94A759F170E432600525289 /* OWKenBurnsView.m in Sources */ = {isa = PBXBuildFile; fileRef = D94A759E170E432500525289 /* OWKenBurnsView.m */; };
 		D94A75A2170E555900525289 /* openwatch-light.png in Resources */ = {isa = PBXBuildFile; fileRef = D94A75A0170E555800525289 /* openwatch-light.png */; };
 		D94A75A3170E555900525289 /* openwatch-light@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D94A75A1170E555800525289 /* openwatch-light@2x.png */; };
+		D94B838317457BFB008A1142 /* 29-heart.png in Resources */ = {isa = PBXBuildFile; fileRef = D94B838117457BFB008A1142 /* 29-heart.png */; };
+		D94B838417457BFB008A1142 /* 29-heart@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D94B838217457BFB008A1142 /* 29-heart@2x.png */; };
+		D94B838817457D50008A1142 /* 193-location-arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = D94B838617457D50008A1142 /* 193-location-arrow.png */; };
+		D94B838917457D50008A1142 /* 193-location-arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D94B838717457D50008A1142 /* 193-location-arrow@2x.png */; };
 		D955371616B32E3C00753C15 /* 275-broadcast.png in Resources */ = {isa = PBXBuildFile; fileRef = D955371416B32E3C00753C15 /* 275-broadcast.png */; };
 		D955371716B32E3C00753C15 /* 275-broadcast@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D955371516B32E3C00753C15 /* 275-broadcast@2x.png */; };
 		D963C8281739C157008999F7 /* _OWPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = D963C8271739C157008999F7 /* _OWPhoto.m */; };
@@ -500,6 +504,10 @@
 		D94A759E170E432500525289 /* OWKenBurnsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWKenBurnsView.m; sourceTree = "<group>"; };
 		D94A75A0170E555800525289 /* openwatch-light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "openwatch-light.png"; sourceTree = "<group>"; };
 		D94A75A1170E555800525289 /* openwatch-light@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "openwatch-light@2x.png"; sourceTree = "<group>"; };
+		D94B838117457BFB008A1142 /* 29-heart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "29-heart.png"; sourceTree = "<group>"; };
+		D94B838217457BFB008A1142 /* 29-heart@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "29-heart@2x.png"; sourceTree = "<group>"; };
+		D94B838617457D50008A1142 /* 193-location-arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "193-location-arrow.png"; sourceTree = "<group>"; };
+		D94B838717457D50008A1142 /* 193-location-arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "193-location-arrow@2x.png"; sourceTree = "<group>"; };
 		D955371416B32E3C00753C15 /* 275-broadcast.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "275-broadcast.png"; sourceTree = "<group>"; };
 		D955371516B32E3C00753C15 /* 275-broadcast@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "275-broadcast@2x.png"; sourceTree = "<group>"; };
 		D963C8261739C157008999F7 /* _OWPhoto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _OWPhoto.h; sourceTree = "<group>"; };
@@ -1521,6 +1529,10 @@
 		D9DFADF716547DE7003C515C /* Media */ = {
 			isa = PBXGroup;
 			children = (
+				D94B838617457D50008A1142 /* 193-location-arrow.png */,
+				D94B838717457D50008A1142 /* 193-location-arrow@2x.png */,
+				D94B838117457BFB008A1142 /* 29-heart.png */,
+				D94B838217457BFB008A1142 /* 29-heart@2x.png */,
 				D9B4E80C17441759006B3793 /* cc@2x.png */,
 				D9B4E80817440B20006B3793 /* gh@2x.png */,
 				D909C2DB1742BB55005930A7 /* onboarding_4a@2x.png */,
@@ -1979,6 +1991,10 @@
 				D9FA646517447D91000051B7 /* Default.png in Resources */,
 				D9FA646717447DA5000051B7 /* Default@2x.png in Resources */,
 				D9FA646917447DAA000051B7 /* Default-568h@2x.png in Resources */,
+				D94B838317457BFB008A1142 /* 29-heart.png in Resources */,
+				D94B838417457BFB008A1142 /* 29-heart@2x.png in Resources */,
+				D94B838817457D50008A1142 /* 193-location-arrow.png in Resources */,
+				D94B838917457D50008A1142 /* 193-location-arrow@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

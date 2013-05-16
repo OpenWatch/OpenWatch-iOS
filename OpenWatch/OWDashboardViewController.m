@@ -25,6 +25,10 @@
 #import "OWLocalMediaEditViewController.h"
 #import "OWAppDelegate.h"
 #import "OWShareController.h"
+#import "UserVoice.h"
+#import "OWStyleSheet.h"
+#import "OWAPIKeys.h"
+
 
 #define kActionBarHeight 70.0f
 
@@ -46,15 +50,27 @@
         //OWDashboardItem *audioItem = [[OWDashboardItem alloc] initWithTitle:@"Record Audio" image:[UIImage imageNamed:@"66-microphone.png"] target:self selector:@selector(audioButtonPressed:)];
         
         OWDashboardItem *topStories = [[OWDashboardItem alloc] initWithTitle:@"Top Stories" image:[UIImage imageNamed:@"28-star.png"] target:self selector:@selector(feedButtonPressed:)];
+        OWDashboardItem *local = [[OWDashboardItem alloc] initWithTitle:@"Local Feed" image:[UIImage imageNamed:@"193-location-arrow.png"] target:self selector:@selector(localFeedButtonPressed:)];
         OWDashboardItem *yourMedia = [[OWDashboardItem alloc] initWithTitle:@"Your Media" image:[UIImage imageNamed:@"160-voicemail-2.png"] target:self selector:@selector(yourMediaPressed:)];
+        
+        OWDashboardItem *feedback = [[OWDashboardItem alloc] initWithTitle:@"Send Feedback" image:[UIImage imageNamed:@"29-heart.png"] target:self selector:@selector(feedbackButtonPressed:)];
         OWDashboardItem *settings = [[OWDashboardItem alloc] initWithTitle:@"Settings" image:[UIImage imageNamed:@"19-gear.png"] target:self selector:@selector(settingsButtonPressed:)];
         
         NSArray *topItems = @[videoItem, photoItem];
-        NSArray *bottonItems = @[topStories, yourMedia, settings];
-        NSArray *dashboardItems = @[topItems, bottonItems];
+        NSArray *middleItems = @[topStories, local, yourMedia];
+        NSArray *bottonItems = @[feedback, settings];
+        NSArray *dashboardItems = @[topItems, middleItems, bottonItems];
         dashboardView.dashboardItems = dashboardItems;        
     }
     return self;
+}
+
+- (void) feedbackButtonPressed:(id)sender {
+    UVConfig *config = [UVConfig configWithSite:@"openwatch.uservoice.com"
+                                         andKey:USERVOICE_API_KEY
+                                      andSecret:USERVOICE_API_SECRET];
+    [UVStyleSheet setStyleSheet:[[OWStyleSheet alloc] init]];
+    [UserVoice presentUserVoiceInterfaceForParentViewController:self andConfig:config];
 }
 
 - (void) audioButtonPressed:(id)sender {
@@ -109,6 +125,13 @@
     [feedVC didSelectFeedWithName:@"Top Stories" type:kOWFeedTypeFrontPage];
     [self.navigationController pushViewController:feedVC animated:YES];
 }
+
+- (void) localFeedButtonPressed:(id)sender {
+    OWFeedViewController *feedVC = [[OWFeedViewController alloc] init];
+    [feedVC didSelectFeedWithName:@"Local" type:kOWFeedTypeFeed];
+    [self.navigationController pushViewController:feedVC animated:YES];
+}
+
 
 
 
