@@ -23,7 +23,7 @@
 {
 //#define TESTING 1
 //#ifdef TESTING
-    [TestFlight setDeviceIdentifier:[[UIDevice currentDevice] uniqueIdentifier]];
+    //[TestFlight setDeviceIdentifier:[[UIDevice currentDevice] uniqueIdentifier]];
 //#endif
 //#ifndef DEBUG
     [TestFlight takeOff:TESTFLIGHT_APP_TOKEN];

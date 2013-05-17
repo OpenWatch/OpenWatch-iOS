@@ -70,7 +70,6 @@ in the sources themselves (check the Submodules directory for more information):
 * MagicalRecord
 * MBProgressHUD
 * MWFeedParser
-* SDURLCache
 * SSKeychain
 * SuggestionsList
 * TestFlight

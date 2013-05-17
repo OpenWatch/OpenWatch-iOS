@@ -72,7 +72,7 @@
 }
 
 - (UIImage*) placeholderThumbnailImage {
-    return [UIImage imageNamed:@"image_thumbnail.png"];
+    return [UIImage imageNamed:@"image_placeholder.png"];
 }
 
 - (UIImage*) mediaTypeImage {

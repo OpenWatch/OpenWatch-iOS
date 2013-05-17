@@ -189,7 +189,6 @@
 		D9BECF9816B22B06009046E1 /* UINavigationBar+DropShadow.m in Sources */ = {isa = PBXBuildFile; fileRef = D9BECF9716B22B06009046E1 /* UINavigationBar+DropShadow.m */; };
 		D9C0332816A4C26900B7CFC7 /* OWStoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C0332716A4C26900B7CFC7 /* OWStoryViewController.m */; };
 		D9C0332B16A4CAC400B7CFC7 /* OWMediaObjectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C0332A16A4CAC400B7CFC7 /* OWMediaObjectViewController.m */; };
-		D9C0333D16A4E22100B7CFC7 /* libSDURLCache.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D9C0333816A4E1EC00B7CFC7 /* libSDURLCache.a */; };
 		D9C8A58016B9A1D2004F9E05 /* OWLocalRecordingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C8A57F16B9A1D2004F9E05 /* OWLocalRecordingTableViewCell.m */; };
 		D9C8A5A116B9A2EA004F9E05 /* OWFeedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C8A5A016B9A2EA004F9E05 /* OWFeedTableViewCell.m */; };
 		D9CEED151682718600B236B5 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D9CEED101682718600B236B5 /* libTestFlight.a */; };
@@ -348,27 +347,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = D944DA9416A4A8ED00BC8E57;
 			remoteInfo = Mogenerator;
-		};
-		D9C0333716A4E1EC00B7CFC7 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D9C0332F16A4E1EC00B7CFC7 /* SDURLCache.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = D2AAC07E0554694100DB518D;
-			remoteInfo = SDURLCache;
-		};
-		D9C0333916A4E1EC00B7CFC7 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D9C0332F16A4E1EC00B7CFC7 /* SDURLCache.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 53F5591C114F1D5E00A3DA4B;
-			remoteInfo = SDURLCacheTestBundle;
-		};
-		D9C0333B16A4E21700B7CFC7 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D9C0332F16A4E1EC00B7CFC7 /* SDURLCache.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = D2AAC07D0554694100DB518D;
-			remoteInfo = SDURLCache;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -622,7 +600,6 @@
 		D9C0332716A4C26900B7CFC7 /* OWStoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWStoryViewController.m; sourceTree = "<group>"; };
 		D9C0332916A4CAC400B7CFC7 /* OWMediaObjectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWMediaObjectViewController.h; sourceTree = "<group>"; };
 		D9C0332A16A4CAC400B7CFC7 /* OWMediaObjectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWMediaObjectViewController.m; sourceTree = "<group>"; };
-		D9C0332F16A4E1EC00B7CFC7 /* SDURLCache.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SDURLCache.xcodeproj; path = SDURLCache/SDURLCache.xcodeproj; sourceTree = "<group>"; };
 		D9C8A57E16B9A1D2004F9E05 /* OWLocalRecordingTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWLocalRecordingTableViewCell.h; sourceTree = "<group>"; };
 		D9C8A57F16B9A1D2004F9E05 /* OWLocalRecordingTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWLocalRecordingTableViewCell.m; sourceTree = "<group>"; };
 		D9C8A59F16B9A2EA004F9E05 /* OWFeedTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWFeedTableViewCell.h; sourceTree = "<group>"; };
@@ -862,7 +839,6 @@
 				D945D2FD173C6AF600D806BD /* libTheAmazingAudioEngine.a in Frameworks */,
 				D926A10117397DDA00C89708 /* AssetsLibrary.framework in Frameworks */,
 				D92B6A8016AF52B2006605E1 /* QuartzCore.framework in Frameworks */,
-				D9C0333D16A4E22100B7CFC7 /* libSDURLCache.a in Frameworks */,
 				D9CEED19168271C700B236B5 /* libz.dylib in Frameworks */,
 				D92D29E71681267900A9E408 /* Social.framework in Frameworks */,
 				D92D29E51681266B00A9E408 /* libsqlite3.dylib in Frameworks */,
@@ -1253,15 +1229,6 @@
 			name = "Paginated Tables";
 			sourceTree = "<group>";
 		};
-		D9C0333016A4E1EC00B7CFC7 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				D9C0333816A4E1EC00B7CFC7 /* libSDURLCache.a */,
-				D9C0333A16A4E1EC00B7CFC7 /* SDURLCacheTestBundle.octest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		D9C8A59E16B9A1E0004F9E05 /* Table Cells */ = {
 			isa = PBXGroup;
 			children = (
@@ -1298,7 +1265,6 @@
 				D92B6A6516AF4FD3006605E1 /* EGOTableViewPullRefresh */,
 				D9E226FA16A5E33100F06C31 /* BrowserViewController */,
 				D9E226E916A5D9F500F06C31 /* MWFeedParser */,
-				D9C0332F16A4E1EC00B7CFC7 /* SDURLCache.xcodeproj */,
 				D9CEED0E1682718600B236B5 /* TestFlight */,
 				D9D786E016766661006EE6A2 /* SuggestionsList */,
 				D9D786CF16766415006EE6A2 /* WEPopover */,
@@ -1797,7 +1763,6 @@
 				D909C2E61742C680005930A7 /* PBXTargetDependency */,
 				D945D2FC173C6AEB00D806BD /* PBXTargetDependency */,
 				D98FCB4B16A4AABE0071DF6B /* PBXTargetDependency */,
-				D9C0333C16A4E21700B7CFC7 /* PBXTargetDependency */,
 			);
 			name = OpenWatch;
 			productName = OpenWatch;
@@ -1846,10 +1811,6 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = D9C0333016A4E1EC00B7CFC7 /* Products */;
-					ProjectRef = D9C0332F16A4E1EC00B7CFC7 /* SDURLCache.xcodeproj */;
-				},
-				{
 					ProductGroup = D945D2F6173C6ADF00D806BD /* Products */;
 					ProjectRef = D945D2F5173C6ADF00D806BD /* TheAmazingAudioEngine.xcodeproj */;
 				},
@@ -1879,20 +1840,6 @@
 			fileType = archive.ar;
 			path = libTheAmazingAudioEngine.a;
 			remoteRef = D945D2F9173C6ADF00D806BD /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		D9C0333816A4E1EC00B7CFC7 /* libSDURLCache.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libSDURLCache.a;
-			remoteRef = D9C0333716A4E1EC00B7CFC7 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		D9C0333A16A4E1EC00B7CFC7 /* SDURLCacheTestBundle.octest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = SDURLCacheTestBundle.octest;
-			remoteRef = D9C0333916A4E1EC00B7CFC7 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -2206,11 +2153,6 @@
 			isa = PBXTargetDependency;
 			target = D944DA9416A4A8ED00BC8E57 /* Mogenerator */;
 			targetProxy = D98FCB4A16A4AABE0071DF6B /* PBXContainerItemProxy */;
-		};
-		D9C0333C16A4E21700B7CFC7 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = SDURLCache;
-			targetProxy = D9C0333B16A4E21700B7CFC7 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

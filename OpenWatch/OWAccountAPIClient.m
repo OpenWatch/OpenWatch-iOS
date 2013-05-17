@@ -16,7 +16,6 @@
 #import "OWUser.h"
 #import "OWStory.h"
 #import "OWRecordingController.h"
-#import "SDURLCache.h"
 #import "OWInvestigation.h"
 #import "OWLocalMediaController.h"
 #import "AFImageRequestOperation.h"
@@ -81,12 +80,6 @@
     }
     NSString* string = @"binary/octet-stream";
     [AFImageRequestOperation addAcceptableContentTypes: [NSSet setWithObject:string]];
-    SDURLCache *urlCache = [[SDURLCache alloc] initWithMemoryCapacity:1024*1024*10   // 10MB mem cache
-                                                         diskCapacity:1024*1024*100 // 100MB disk cache
-                                                             diskPath:[SDURLCache defaultCachePath]
-                                                   enableForIOS5AndUp:YES];
-    urlCache.ignoreMemoryOnlyStoragePolicy = YES;
-    [NSURLCache setSharedURLCache:urlCache];
     [self registerHTTPOperationClass:[AFJSONRequestOperation class]];
     // Accept HTTP Header; see http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.1
 	[self setDefaultHeader:@"Accept" value:@"application/json"];
