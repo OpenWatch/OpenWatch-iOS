@@ -14,10 +14,6 @@
 		<dict>
 			<key>CFBundleIconFiles</key>
 			<array>
-				<string>57.png</string>
-				<string>114.png</string>
-				<string>icon-ipad.png</string>
-				<string>icon-ipad@2x.png</string>
 				<string>icon-iphone.png</string>
 				<string>icon-iphone@2x.png</string>
 			</array>
