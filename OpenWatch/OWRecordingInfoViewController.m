@@ -285,7 +285,7 @@
     self.tallyView.viewsLabel.text = [NSString stringWithFormat:@"%d", [mediaObject.views intValue]];
     self.usernameLabel.text = mediaObject.user.username;
     
-    [self.profileImageView setImageWithURL:mediaObject.user.thumbnailURL placeholderImage:[UIImage imageNamed:@"thumbnail_placeholder.png"]];
+    [self.profileImageView setImageWithURL:mediaObject.user.thumbnailURL placeholderImage:[UIImage imageNamed:@"user_placeholder.png"]];
     
     self.title = mediaObject.title;
     

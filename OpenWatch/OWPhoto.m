@@ -71,4 +71,12 @@
     return @"photo";
 }
 
+- (UIImage*) placeholderThumbnailImage {
+    return [UIImage imageNamed:@"image_thumbnail.png"];
+}
+
+- (UIImage*) mediaTypeImage {
+    return [UIImage imageNamed:@"42-photos.png"];
+}
+
 @end

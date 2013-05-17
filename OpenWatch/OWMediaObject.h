@@ -24,4 +24,7 @@
 + (Class) cellClass;
 + (NSString*) cellIdentifier;
 
+- (UIImage*) placeholderThumbnailImage;
+- (UIImage*) mediaTypeImage;
+
 @end

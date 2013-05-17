@@ -51,12 +51,12 @@
     CGFloat imageWidth = 100.0f;
     CGFloat imageHeight = imageWidth;
     self.thumbnailImageView = [[UIImageView alloc] initWithFrame:CGRectMake(PADDING, PADDING, imageWidth, imageHeight)];
-    self.thumbnailImageView.contentMode = UIViewContentModeScaleAspectFit;
+    self.thumbnailImageView.contentMode = UIViewContentModeScaleAspectFill;
     self.thumbnailImageView.layer.masksToBounds = YES;
     self.thumbnailImageView.layer.cornerRadius = 5.0;
     self.thumbnailImageView.layer.shouldRasterize = YES;
     self.thumbnailImageView.backgroundColor = [UIColor lightGrayColor];
-    self.loadingIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+    self.loadingIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     self.loadingIndicator.frame = CGRectMake(0, 0, imageWidth, imageHeight);
     
     CGFloat typeWidth = 20.0f;
@@ -91,20 +91,8 @@
         NSLog(@"No thumbnail!");
     }
     
-    UIImage *placeholderImage = nil;
-    if ([mediaObject isKindOfClass:[OWAudio class]]) {
-        placeholderImage = [UIImage imageNamed:@"saved-big.png"];
-    } else if ([mediaObject isKindOfClass:[OWPhoto class]]) {
-        placeholderImage = [UIImage imageNamed:@"image_placeholder.png"];
-    } else if ([mediaObject isKindOfClass:[OWManagedRecording class]]){
-        placeholderImage = [UIImage imageNamed:@"285-facetime.png"];
-    } else if ([mediaObject isKindOfClass:[OWInvestigation class]]){
-        placeholderImage = [UIImage imageNamed:@"166-newspaper.png"];
-    } else {
-        placeholderImage = [UIImage imageNamed:@"thumbnail_placeholder.png"];
-    }
-    
-    self.mediaTypeImageView.image = placeholderImage;
+    UIImage *placeholderImage = [mediaObject placeholderThumbnailImage];
+    self.mediaTypeImageView.image = [mediaObject mediaTypeImage];
     
 
     NSURLRequest *request = [NSURLRequest requestWithURL:mediaObject.thumbnailURL];

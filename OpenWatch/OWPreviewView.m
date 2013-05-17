@@ -64,7 +64,7 @@
             NSURLRequest *request = [NSURLRequest requestWithURL:[photo remoteMediaURL]];
             [MBProgressHUD showHUDAddedTo:self.imageView animated:YES];
             __weak OWPreviewView* blockSelf = self;
-            [self.imageView setImageWithURLRequest:request placeholderImage:[UIImage imageNamed:@"thumbnail_placeholder.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+            [self.imageView setImageWithURLRequest:request placeholderImage:[mediaObject placeholderThumbnailImage] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
                 blockSelf.imageView.image = image;
 
                 [MBProgressHUD hideHUDForView:blockSelf.imageView animated:YES];

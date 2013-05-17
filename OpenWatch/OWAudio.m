@@ -37,5 +37,13 @@
     return @"audio";
 }
 
+- (UIImage*) placeholderThumbnailImage {
+    return [UIImage imageNamed:@"audio_thumbnail.png"];
+}
+
+- (UIImage*) mediaTypeImage {
+    return [UIImage imageNamed:@"160-voicemail-2.png"];
+}
+
 @end
 

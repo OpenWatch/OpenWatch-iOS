@@ -94,5 +94,13 @@
     return @"video";
 }
 
+- (UIImage*) placeholderThumbnailImage {
+    return [UIImage imageNamed:@"video_thumbnail.png"];
+}
+
+- (UIImage*) mediaTypeImage {
+    return [UIImage imageNamed:@"285-facetime.png"];
+}
+
 
 @end

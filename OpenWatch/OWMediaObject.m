@@ -170,4 +170,12 @@
     return [NSString stringWithFormat:@"/api/%@/%d/", type, self.serverID.intValue];
 }
 
+- (UIImage*) placeholderThumbnailImage {
+    return [UIImage imageNamed:@"thumbnail_placeholder.png"];
+}
+
+- (UIImage*) mediaTypeImage {
+    return [UIImage imageNamed:@"thumbnail_placeholder.png"];
+}
+
 @end

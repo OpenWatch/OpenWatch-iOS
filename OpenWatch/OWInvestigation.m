@@ -50,5 +50,12 @@
     return @"investigation";
 }
 
+- (UIImage*) placeholderThumbnailImage {
+    return [UIImage imageNamed:@"investigation_thumbnail.png"];
+}
+
+- (UIImage*) mediaTypeImage {
+    return [UIImage imageNamed:@"166-newspaper.png"];
+}
 
 @end
