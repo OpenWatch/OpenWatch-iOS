@@ -16,7 +16,7 @@
 #import <QuartzCore/QuartzCore.h>
 
 @implementation OWPreviewView
-@synthesize imageView, moviePlayer, objectID, isFullScreen, gestureRecognizer, previousFrame;
+@synthesize imageView, moviePlayer, objectID, isFullScreen, gestureRecognizer, previousFrame, isAnimating;
 
 + (CGFloat) heightForWidth:(CGFloat)width {
     return floorf(width * (3.0f/4.0f));
@@ -126,7 +126,12 @@
 }
 
 -(void)toggleFullscreen {
-    if (!isFullScreen) {
+    if (self.isAnimating) {
+        return;
+    }
+    self.isAnimating = YES;
+    if (!self.isFullScreen) {
+        self.isFullScreen = YES;
         [UIView animateWithDuration:0.5 delay:0 options:0 animations:^{
             //save previous frame
             self.previousFrame = self.frame;
@@ -134,13 +139,14 @@
             //newFrame.origin.y -= 37; // wtf???
             [self setFrame:newFrame];
         } completion:^(BOOL finished){
-            self.isFullScreen = YES;
+            self.isAnimating = NO;
         }];
     } else {
+        isFullScreen = NO;
         [UIView animateWithDuration:0.5 delay:0 options:0 animations:^{
             [self setFrame:self.previousFrame];
         } completion:^(BOOL finished){
-            isFullScreen = NO;
+            self.isAnimating = NO;
         }];
     }
 }

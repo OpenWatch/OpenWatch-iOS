@@ -36,7 +36,7 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     [self addCellInfoWithSection:0 row:ACCOUNT_ROW labelText:ACCOUNT_STRING cellType:kCellTypeNone userInputView:nil];
-    [self addCellInfoWithSection:0 row:SHARE_ROW labelText:@"Share" cellType:kCellTypeNone userInputView:nil];
+    [self addCellInfoWithSection:0 row:SHARE_ROW labelText:@"Share this App!" cellType:kCellTypeNone userInputView:nil];
 }
 
 - (void)didReceiveMemoryWarning

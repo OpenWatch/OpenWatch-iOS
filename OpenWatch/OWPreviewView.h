@@ -14,6 +14,7 @@
 // Only used for OWPhoto type... should refactor this
 @property (nonatomic, strong) UITapGestureRecognizer *gestureRecognizer;
 @property (nonatomic) BOOL isFullScreen;
+@property (nonatomic) BOOL isAnimating;
 @property (nonatomic) CGRect previousFrame;
 
 - (void) toggleFullscreen;
