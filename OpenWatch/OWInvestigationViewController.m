@@ -23,21 +23,26 @@
     [self refreshFields];
     NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
     OWInvestigation *investigation = (OWInvestigation*)[context existingObjectWithID:self.mediaObjectID error:nil];
-    if(!investigation.html){
-        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    }
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [[OWAccountAPIClient sharedClient] getObjectWithObjectID:investigation.objectID success:^(NSManagedObjectID *objectID) {
         [self refreshFields];
     } failure:^(NSString *reason) {
         NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
         OWInvestigation *investigation = (OWInvestigation*)[context existingObjectWithID:self.mediaObjectID error:nil];
-        if(!investigation.html){
-            
-            [MBProgressHUD hideHUDForView:self.view animated:YES];
+        if(!investigation.html){            
             [self.bodyWebView loadHTMLString:@"<b>Unable to fetch Investigation</b>" baseURL:nil];
         }
         
     }];
+}
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView {
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
+}
+
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
+{
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
 }
 
 - (void) dealloc {
@@ -90,8 +95,8 @@
 {
     NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
     OWInvestigation *investigation = (OWInvestigation*)[context existingObjectWithID:self.mediaObjectID error:nil];
-    [MBProgressHUD hideHUDForView:self.view animated:YES];
     [self displayHTMLforInvestigation: investigation];
+    self.title = investigation.title;
 }
 
 - (void)displayHTMLforInvestigation: (OWInvestigation *) inv
