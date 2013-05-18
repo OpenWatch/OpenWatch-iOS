@@ -533,7 +533,7 @@
         failure(@"Path is nil!");
         return;
     }
-    NSDictionary *locationDictionary = @{@"latitude": @(location.coordinate.latitude), @"longitude": @(location.coordinate.longitude), @"page": @(page)};
+    NSDictionary *locationDictionary = @{@"latitude": @(location.coordinate.latitude), @"longitude": @(location.coordinate.longitude), @"page": @(page), @"type": @"local"};
     [self getPath:path parameters:locationDictionary success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSArray *recordings = [self objectIDsFromMediaObjectsMetadataArray:[responseObject objectForKey:kObjectsKey]];
         NSDictionary *meta = [responseObject objectForKey:kMetaKey];
