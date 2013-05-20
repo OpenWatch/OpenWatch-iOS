@@ -17,7 +17,7 @@
 
 
 @implementation OWAppDelegate
-@synthesize navigationController, locationController, dashboardViewController;
+@synthesize navigationController, locationController, dashboardViewController, backgroundTask, backgroundTimer;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -68,20 +68,50 @@
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
-    // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    NSLog(@"Application entered background state.");
+    NSAssert(self.backgroundTask == UIBackgroundTaskInvalid, nil);
+    
+    self.backgroundTask = [application beginBackgroundTaskWithExpirationHandler: ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSLog(@"Background task expired");
+            if (self.backgroundTimer)
+            {
+                [self.backgroundTimer invalidate];
+                self.backgroundTimer = nil;
+            }
+            [application endBackgroundTask:self.backgroundTask];
+            self.backgroundTask = UIBackgroundTaskInvalid;
+        });
+    }];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.backgroundTimer = [NSTimer scheduledTimerWithTimeInterval:10 target:self selector:@selector(timerUpdate:) userInfo:nil repeats:YES];
+    });
 }
-
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
 }
-
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
+    /*
+     Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+     */
     [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookieAcceptPolicy:NSHTTPCookieAcceptPolicyAlways];
 
-    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    
+    NSLog(@"Application became active");
+    
+    if (self.backgroundTimer)
+    {
+        [self.backgroundTimer invalidate];
+        self.backgroundTimer = nil;
+    }
+    if (self.backgroundTask != UIBackgroundTaskInvalid)
+    {
+        [application endBackgroundTask:self.backgroundTask];
+        self.backgroundTask = UIBackgroundTaskInvalid;
+    }
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
@@ -120,6 +150,23 @@
 - (void)application:(UIApplication*)application didFailToRegisterForRemoteNotificationsWithError:(NSError*)error
 {
 	NSLog(@"Failed to get push token, error: %@", error);
+}
+
+- (void) timerUpdate:(NSTimer*)timer {
+    UIApplication *application = [UIApplication sharedApplication];
+    
+    //NSLog(@"Timer update, background time left: %f", application.backgroundTimeRemaining);
+    
+    if ([application backgroundTimeRemaining] < 10)
+    {
+        NSLog(@"10 seconds of background time left... shutting down.");
+        // Clean up here
+        [self.backgroundTimer invalidate];
+        self.backgroundTimer = nil;
+        
+        [application endBackgroundTask:self.backgroundTask];
+        self.backgroundTask = UIBackgroundTaskInvalid;
+    }
 }
 
 @end

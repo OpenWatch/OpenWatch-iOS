@@ -15,6 +15,9 @@
 
 @interface OWAppDelegate : UIResponder <UIApplicationDelegate, BrowserViewDelegate>
 
+@property (nonatomic) UIBackgroundTaskIdentifier backgroundTask;
+@property (nonatomic, retain) NSTimer *backgroundTimer;
+
 @property (nonatomic, strong) OWLocationController *locationController;
 @property (strong, nonatomic) UIWindow *window;
 //@property (nonatomic, strong) OWHomeScreenViewController *homeScreen;
