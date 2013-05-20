@@ -100,13 +100,10 @@
 
 + (NSString*) apiBaseURLString {
     return @"https://openwatch.net/";
-    //return @"http://10.0.1.26:8000/";
-    //return @"http://192.168.43.122:8000/";
 }
 
 + (NSString*) captureBaseURLString {
     return @"https://capture.openwatch.net/";
-    //return @"http://10.0.1.30:5000/";
 }
 
 + (CGFloat) bottomOfView:(UIView *)view {

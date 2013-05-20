@@ -200,6 +200,9 @@
 
 - (void) updateUserAccountInformation {
     OWAccount *account = [OWSettingsController sharedInstance].account;
+    if (!account.isLoggedIn) {
+        return;
+    }
     [[OWAccountAPIClient sharedClient] updateUserSecretAgentStatus:account.secretAgentEnabled];
     if (!account.secretAgentEnabled) {
         return;
