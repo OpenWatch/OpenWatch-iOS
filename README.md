@@ -1,9 +1,18 @@
 OpenWatch for iOS
 =================
+[Download on the App Store](http://itunes.apple.com/us/app/openwatch-social-muckraking/id642680756?ls=1&mt=8)
 
-[OpenWatch](http://openwatch.net) is a new social muckraking network. It's our mission to build a new model of participatory, open-source and actionable journalism. 
+![Screenshot](https://s3.amazonaws.com/openwatch-static/static/assets/img/iphone.png)
 
-With our mobile tools for media creation and our web platform for collaborative investigations, OpenWatch gives everyone in the world the power to create meaningful media. We're building a global army of investigators who can capture media, investigate stories, and challenge corrupt authorities. For everything from chemical weapons in Syria to government corruption in Virginia, from drone assassinations in China to the ritual murder of children in Gabon, OpenWatch is there to give a unique and actionable perspective.
+[OpenWatch](http://openwatch.net) is a global citizen journalism project with the goal of building a more transparent and less corrupt society.
+
+This app will allow you to stream video and photos directly to the web! It's the easiest possible way to get your media online. Use this application to record any events you witness, your encounters with the police, border agents, or other authority figures, or to just record anything you find interesting. Your recordings will appear online to be used in public interest investigations and news stories.
+
+A low quality video stream is sent the OpenWatch.net web server while you're filming, in case your phone is deliberately or accidentally broken while you're filming, and then a high quality version is synced online once you're finished recording, giving you the advantages of a streaming service like uStream, but all of the high-quality video ability of your phone's local video camera.
+
+OpenWatch can also send you alerts and special assignments, so you can become the top reporter for events in your local community. Top contributors may even be offered special missions and paid opportunities.
+
+This is the first version of the application, so please let us know if you find any bugs or have any feedback to give us. OpenWatch is Free and Open Source software.
 
 Downloading the Source
 ----------------------
