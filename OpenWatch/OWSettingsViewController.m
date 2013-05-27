@@ -15,6 +15,8 @@
 
 #define ACCOUNT_ROW 0
 #define SHARE_ROW 1
+#define GITHUB_ROW 2
+#define OPENWATCH_WEB 3
 
 @interface OWSettingsViewController ()
 
@@ -37,6 +39,8 @@
 	// Do any additional setup after loading the view.
     [self addCellInfoWithSection:0 row:ACCOUNT_ROW labelText:ACCOUNT_STRING cellType:kCellTypeNone userInputView:nil];
     [self addCellInfoWithSection:0 row:SHARE_ROW labelText:@"Share this App!" cellType:kCellTypeNone userInputView:nil];
+    [self addCellInfoWithSection:0 row:GITHUB_ROW labelText:@"OpenWatch on GitHub" cellType:kCellTypeNone userInputView:nil];
+    [self addCellInfoWithSection:0 row:OPENWATCH_WEB labelText:@"Visit OpenWatch.net" cellType:kCellTypeNone userInputView:nil];
 }
 
 - (void)didReceiveMemoryWarning
@@ -57,6 +61,10 @@
         [self presentViewController:navController animated:YES completion:nil];
     } else if (indexPath.row == SHARE_ROW) {
         [OWShareController shareURL:[NSURL URLWithString:@"https://itunes.apple.com/us/app/openwatch-social-muckraking/id642680756?ls=1&mt=8"] title:@"Defend your rights! Get the @OpenWatch app!" fromViewController:self];
+    } else if (indexPath.row == GITHUB_ROW) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://github.com/OpenWatch/OpenWatch-iOS"]];
+    } else if (indexPath.row == OPENWATCH_WEB) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://openwatch.net/"]];
     }
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }

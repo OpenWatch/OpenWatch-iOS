@@ -13,6 +13,7 @@
 #import "OWRecordingActivityIndicatorView.h"
 #import "OWTimerView.h"
 #import "BButton.h"
+#import "AEAudioController.h"
 
 @class OWAudioRecordingViewController;
 
@@ -29,6 +30,7 @@
 @property (nonatomic, weak) id<OWAudioRecordingDelegate> delegate;
 @property (nonatomic, strong) UIBarButtonItem *cancelButton;
 
+@property (nonatomic, strong) AEAudioController *audioController;
 @property (nonatomic, strong) AERecorder *recorder;
 @property (nonatomic, strong) OWAudio *audio;
 

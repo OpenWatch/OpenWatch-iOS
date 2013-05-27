@@ -55,7 +55,7 @@
     [[UINavigationBar appearance] setBackgroundImage:[OWUtilities navigationBarBackgroundImage] forBarMetrics:UIBarMetricsDefault];
     [[UINavigationBar appearance] setTintColor:[OWUtilities navigationBarColor]];
     self.window.rootViewController = navigationController;
-    [MagicalRecord setupCoreDataStack];
+    [MagicalRecord setupAutoMigratingCoreDataStack];
     [self.window makeKeyAndVisible];
     return YES;
 }

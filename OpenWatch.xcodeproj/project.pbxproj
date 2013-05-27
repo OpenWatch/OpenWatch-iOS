@@ -661,6 +661,7 @@
 		D9D2E2121653293B0000E7C5 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
 		D9D2E214165329410000E7C5 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		D9D2E21616532A6A0000E7C5 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		D9D5BDB61753DDC4001770FC /* Model 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Model 2.xcdatamodel"; sourceTree = "<group>"; };
 		D9D786D016766415006EE6A2 /* UIBarButtonItem+WEPopover.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+WEPopover.h"; sourceTree = "<group>"; };
 		D9D786D116766415006EE6A2 /* UIBarButtonItem+WEPopover.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+WEPopover.m"; sourceTree = "<group>"; };
 		D9D786D216766415006EE6A2 /* WEPopoverContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WEPopoverContainerView.h; sourceTree = "<group>"; };
@@ -2372,9 +2373,10 @@
 		D9EB4C59166D338B0019F8B6 /* Model.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				D9D5BDB61753DDC4001770FC /* Model 2.xcdatamodel */,
 				D9EB4C5A166D338B0019F8B6 /* Model.xcdatamodel */,
 			);
-			currentVersion = D9EB4C5A166D338B0019F8B6 /* Model.xcdatamodel */;
+			currentVersion = D9D5BDB61753DDC4001770FC /* Model 2.xcdatamodel */;
 			path = Model.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

@@ -42,7 +42,7 @@
 	url = https://github.com/OpenWatch/BSKeyboardControls.git
 [submodule "Submodules/TheAmazingAudioEngine"]
 	path = Submodules/TheAmazingAudioEngine
-	url = git@github.com:OpenWatch/TheAmazingAudioEngine.git
+	url = https://github.com/TheAmazingAudioEngine/TheAmazingAudioEngine.git
 [submodule "Submodules/TUSafariActivity"]
 	path = Submodules/TUSafariActivity
 	url = https://github.com/davbeck/TUSafariActivity.git
