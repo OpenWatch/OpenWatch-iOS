@@ -9,6 +9,7 @@
 #import "OWAccountAPIClient.h"
 #import "AFJSONRequestOperation.h"
 #import "OWManagedRecording.h"
+#import "OWConstants.h"
 #import "OWLocalRecording.h"
 #import "OWUtilities.h"
 #import "OWTag.h"
@@ -185,21 +186,30 @@
         return;
     }
     
-    NSLog(@"Updating account details: %@", details.description);
+    NSLog(@"Updating account details... %@", details.description);
     
     NSString *path = [NSString stringWithFormat:@"/api/u/%@/", account.accountID];
     
     [self postPath:path parameters:details success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"Updated account details: %@", operation.responseString);
-        if ([responseObject isKindOfClass:[NSDictionary class]] && [[responseObject objectForKey:@"success"] boolValue]) {
-            NSLog(@"success!");
+        if ([responseObject isKindOfClass:[NSDictionary class]]) {
+            BOOL success = [[responseObject objectForKey:@"success"] boolValue];
+            NSString *reason = [responseObject objectForKey:@"reason"];
+            NSNumber *code = [responseObject objectForKey:@"code"];
+            if (success) {
+                NSLog(@"success!");
+            } else {
+                NSLog(@"Failed to update account details: %@ %@", code, reason);
+                if (code.integerValue == 428) {
+                    [[NSNotificationCenter defaultCenter] postNotificationName:kAccountPermissionsError object:nil];
+                }
+            }
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Failed to update account details: %@", error.userInfo);
     }];
 }
-
 
 - (void) registerWithAccount:(OWAccount*)account path:(NSString*)path success:(void (^)(void)) success failure:(void (^)(NSString *reason))failure {
     NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithCapacity:2];

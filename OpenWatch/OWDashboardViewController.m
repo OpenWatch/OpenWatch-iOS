@@ -10,6 +10,7 @@
 #import "OWUtilities.h"
 #import "OWCaptureViewController.h"
 #import "OWAccountAPIClient.h"
+#import "OWLoginViewController.h"
 #import "OWSettingsViewController.h"
 #import "OWLocalMediaObjectListViewController.h"
 #import "OWStrings.h"
@@ -28,6 +29,7 @@
 #import "UserVoice.h"
 #import "OWStyleSheet.h"
 #import "OWAPIKeys.h"
+#import "OWConstants.h"
 
 
 #define kActionBarHeight 70.0f
@@ -39,6 +41,10 @@
 
 @implementation OWDashboardViewController
 @synthesize onboardingView, dashboardView, imagePicker, audioRecorder, editController;
+
+- (void) dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 
 - (id)init
 {
@@ -60,9 +66,24 @@
         NSArray *middleItems = @[topStories, local, yourMedia];
         NSArray *bottonItems = @[feedback, settings];
         NSArray *dashboardItems = @[topItems, middleItems, bottonItems];
-        dashboardView.dashboardItems = dashboardItems;        
+        dashboardView.dashboardItems = dashboardItems;
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedAccountPermissionsErrorNotification:) name:kAccountPermissionsError object:nil];
     }
     return self;
+}
+
+- (void) receivedAccountPermissionsErrorNotification:(NSNotification*)notification {
+    NSLog(@"%@ received", kAccountPermissionsError);
+    [TestFlight passCheckpoint:kAccountPermissionsError];
+    [self.navigationController popToRootViewControllerAnimated:YES];
+    OWLoginViewController *loginViewController = [[OWLoginViewController alloc] init];
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:loginViewController];
+    loginViewController.showCancelButton = NO;
+    [self presentViewController:navController animated:YES completion:^{
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Whoops!" message:@"It looks like your session has expired. Please log in again. Sorry!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alert show];
+    }];
 }
 
 - (void) feedbackButtonPressed:(id)sender {

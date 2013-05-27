@@ -24,6 +24,7 @@
 @implementation OWLoginViewController
 @synthesize emailTextField, passwordTextField, loginButton, helpLabel;
 @synthesize headerImageView, account, loginOrSignupSegmentedControl, logoutButton, cancelButton;
+@synthesize showCancelButton;
 
 - (id)init
 {
@@ -34,6 +35,7 @@
         self.account = settingsController.account;
         
         self.cancelButton = [[UIBarButtonItem alloc] initWithTitle:CANCEL_STRING style:UIBarButtonItemStyleBordered target:self action:@selector(cancelButtonPressed:)];
+        self.showCancelButton = YES;
     }
     return self;
 }
@@ -95,7 +97,10 @@
 }
 
 - (void) refreshLoginButtons {
-    if ([account isLoggedIn]) {
+    if (![account isLoggedIn]) {
+        showCancelButton = NO;
+    }
+    if (showCancelButton) {
         self.navigationItem.leftBarButtonItem = cancelButton;
         self.navigationItem.rightBarButtonItem = logoutButton;
         self.emailTextField.enabled = NO;
@@ -130,6 +135,7 @@
     NSString *email = account.email;
     if (email) {
         self.emailTextField.text = email;
+        self.loginOrSignupSegmentedControl.selectedSegmentIndex = 0;
     }
     
     [self addCellInfoWithSection:0 row:0 labelText:EMAIL_STRING cellType:kCellTypeTextField userInputView:self.emailTextField];

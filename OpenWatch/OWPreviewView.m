@@ -27,12 +27,21 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.clipsToBounds = YES;
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moviePlayerLoadStateDidChangeNotification:) name:MPMoviePlayerLoadStateDidChangeNotification object:nil];
     }
     return self;
 }
 
 - (void) dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [self.moviePlayer stop];
     self.moviePlayer = nil;
+}
+
+- (void) moviePlayerLoadStateDidChangeNotification:(NSNotification*)notification {
+    if (moviePlayer.loadState == MPMovieLoadStatePlayable) {
+        [MBProgressHUD hideHUDForView:self animated:YES];
+    }
 }
 
 - (void) setObjectID:(NSManagedObjectID *)newObjectID {
@@ -89,6 +98,7 @@
         }
     }
     if (mediaURL) {
+        [MBProgressHUD showHUDAddedTo:self animated:YES];
         self.moviePlayer = [[MPMoviePlayerController alloc] initWithContentURL:mediaURL];
         self.moviePlayer.view.frame = self.frame;
         self.moviePlayer.controlStyle = MPMovieControlStyleEmbedded;

@@ -12,6 +12,7 @@
 
 @interface OWLoginViewController : OWGroupedTableViewController <UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate>
 
+@property (nonatomic) BOOL showCancelButton;
 
 @property (nonatomic, strong) OWAccount *account;
 
