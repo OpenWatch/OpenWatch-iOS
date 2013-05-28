@@ -12,6 +12,7 @@
 #import "OWUtilities.h"
 #import "OWMediaObject.h"
 #import "OWShareController.h"
+#import <MediaPlayer/MediaPlayer.h>
 
 @interface OWMediaObjectViewController ()
 

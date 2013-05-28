@@ -17,7 +17,7 @@
 
 
 @implementation OWAppDelegate
-@synthesize navigationController, locationController, dashboardViewController, backgroundTask, backgroundTimer;
+@synthesize navigationController, locationController, dashboardViewController, backgroundTask, backgroundTimer, allowRotation;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -28,7 +28,7 @@
 //#ifndef DEBUG
     [TestFlight takeOff:TESTFLIGHT_APP_TOKEN];
 //#endif
-    
+    self.allowRotation = NO;
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     self.window.backgroundColor = [OWUtilities stoneBackgroundPattern];
@@ -47,7 +47,9 @@
         vc = fancy;
     }
     
-    //vc = [[OWShareViewController alloc] init];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moviePlayerWillEnterFullscreenNotification:) name:MPMoviePlayerWillEnterFullscreenNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moviePlayerWillExitFullscreenNotification:) name:MPMoviePlayerWillExitFullscreenNotification object:nil];
+    
     
     self.navigationController = [[UINavigationController alloc] initWithRootViewController:vc];
     [[UINavigationBar appearance] setTitleTextAttributes:
@@ -167,6 +169,22 @@
         [application endBackgroundTask:self.backgroundTask];
         self.backgroundTask = UIBackgroundTaskInvalid;
     }
+}
+
+- (void) moviePlayerWillEnterFullscreenNotification:(NSNotification*)notification {
+    self.allowRotation = YES;
+}
+
+- (void) moviePlayerWillExitFullscreenNotification:(NSNotification*)notification {
+    self.allowRotation = NO;
+}
+
+-(NSUInteger)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window
+{
+    if (self.allowRotation) {
+        return UIInterfaceOrientationMaskPortrait | UIInterfaceOrientationMaskLandscapeLeft | UIInterfaceOrientationMaskLandscapeRight;
+    }
+    return UIInterfaceOrientationMaskPortrait;
 }
 
 @end

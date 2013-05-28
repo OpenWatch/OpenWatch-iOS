@@ -24,4 +24,7 @@
 @property (nonatomic, strong) OWDashboardViewController *dashboardViewController;
 @property (nonatomic, strong) UINavigationController *navigationController;
 
+@property (nonatomic) BOOL allowRotation;
+
+
 @end
