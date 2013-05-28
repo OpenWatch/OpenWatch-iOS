@@ -77,13 +77,19 @@
     NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
     OWMediaObject *mediaObject = (OWMediaObject*)[context existingObjectWithID:mediaObjectID error:nil];
     
-    if (mediaObject.title.length == 0) {
+    NSString *title = mediaObject.title;
+    
+    if (title.length == 0) {
         NSDateFormatter *dateFormatter = [OWUtilities humanizedDateFormatter];
         if (mediaObject.firstPostedDate) {
             self.titleLabel.text = [dateFormatter stringFromDate:mediaObject.firstPostedDate];
+        } else if (mediaObject.modifiedDate) {
+            self.titleLabel.text = [dateFormatter stringFromDate:mediaObject.modifiedDate];
+        } else {
+            self.titleLabel.text = @"Untitled";
         }
     } else {
-        self.titleLabel.text = mediaObject.title;
+        self.titleLabel.text = title;
     }
     
     
