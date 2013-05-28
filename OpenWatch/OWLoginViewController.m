@@ -13,7 +13,7 @@
 #import "MBProgressHUD.h"
 #import "OWUtilities.h"
 #import "OWAppDelegate.h"
-
+#import "OWConstants.h"
 
 #define PADDING 10.0f
 
@@ -24,7 +24,7 @@
 @implementation OWLoginViewController
 @synthesize emailTextField, passwordTextField, loginButton, helpLabel;
 @synthesize headerImageView, account, loginOrSignupSegmentedControl, logoutButton, cancelButton;
-@synthesize showCancelButton;
+@synthesize showCancelButton, forgotPasswordButton;
 
 - (id)init
 {
@@ -36,8 +36,21 @@
         
         self.cancelButton = [[UIBarButtonItem alloc] initWithTitle:CANCEL_STRING style:UIBarButtonItemStyleBordered target:self action:@selector(cancelButtonPressed:)];
         self.showCancelButton = YES;
+        
+        self.forgotPasswordButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [self.forgotPasswordButton setTitle:@"Forgot password?" forState:UIControlStateNormal];
+        self.forgotPasswordButton.titleLabel.font = [UIFont boldSystemFontOfSize:16.0f];
+        self.forgotPasswordButton.titleLabel.textColor = [UIColor darkGrayColor];
+        self.forgotPasswordButton.titleLabel.shadowColor = [UIColor whiteColor];
+        self.forgotPasswordButton.titleLabel.shadowOffset = CGSizeMake(0, 1);
+        self.forgotPasswordButton.titleLabel.textAlignment = NSTextAlignmentCenter;
+        [self.forgotPasswordButton addTarget:self action:@selector(forgotPassword:) forControlEvents:UIControlEventTouchUpInside];
     }
     return self;
+}
+
+- (void) forgotPassword:(id)sender {
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:kPasswordResetURL] forceOpenInSafari:YES];
 }
 
 - (void) viewDidLoad
@@ -50,6 +63,8 @@
     self.loginOrSignupSegmentedControl.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
     self.loginOrSignupSegmentedControl.selectedSegmentIndex = 0;
     [self.scrollView addSubview:loginOrSignupSegmentedControl];
+    [self.scrollView addSubview:forgotPasswordButton];
+
     
     [self setupFields];
 
@@ -92,6 +107,15 @@
     self.loginOrSignupSegmentedControl.selectedSegmentIndex = 1;
     CGFloat loginTableViewYOrigin = loginOrSignupSegmentedControl.frame.size.height + loginOrSignupSegmentedControl.frame.origin.y;
     self.groupedTableView.frame = CGRectMake(0, loginTableViewYOrigin, self.view.frame.size.width, self.view.frame.size.height-loginTableViewYOrigin);
+    
+    CGFloat buttonWidth = 200.0f;
+    CGFloat buttonHeight = 30.0f;
+    self.forgotPasswordButton.frame = CGRectMake(self.view.frame.size.width/2 - buttonWidth / 2, self.view.frame.size.height - buttonHeight - 30, buttonWidth, buttonHeight);
+    
+    self.forgotPasswordButton.titleLabel.textColor = [UIColor lightTextColor];
+    
+    self.forgotPasswordButton.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
+    [self.view bringSubviewToFront:forgotPasswordButton];
     
     [self refreshLoginButtons];
 }

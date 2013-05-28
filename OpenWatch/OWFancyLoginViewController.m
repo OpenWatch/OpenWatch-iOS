@@ -14,6 +14,7 @@
 #import "OWAppDelegate.h"
 #import "OWCheckpoints.h"
 #import "BButton.h"
+#import "OWConstants.h"
 
 #define kOffsetWithPassword 208
 #define kOffset 145
@@ -51,7 +52,7 @@
 }
 
 - (void) forgotPassword:(id)sender {
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://openwatch.net/accounts/password/reset/"] forceOpenInSafari:YES];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:kPasswordResetURL] forceOpenInSafari:YES];
 }
 
 - (void) loadView {

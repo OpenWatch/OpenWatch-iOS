@@ -6,4 +6,6 @@
 //  Copyright (c) 2013 The OpenWatch Corporation, Inc. All rights reserved.
 //
 
+#define kPasswordResetURL @"https://openwatch.net/accounts/password/reset/"
+
 #define kAccountPermissionsError @"kAccountPermissionsError"
