@@ -18,7 +18,6 @@
 #import "OWInvestigationViewController.h"
 #import "OWStoryViewController.h"
 #import "OWMediaObjectViewController.h"
-#import "OWFeedTableViewCell.h"
 #import "OWPhoto.h"
 #import "OWAudio.h"
 

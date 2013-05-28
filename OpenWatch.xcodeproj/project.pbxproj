@@ -138,9 +138,9 @@
 		D963C8611739E459008999F7 /* OWLocalMediaController.m in Sources */ = {isa = PBXBuildFile; fileRef = D963C8601739E459008999F7 /* OWLocalMediaController.m */; };
 		D964E59017333F5600ECF972 /* OWTask.m in Sources */ = {isa = PBXBuildFile; fileRef = D964E58F17333F5600ECF972 /* OWTask.m */; };
 		D964E5BA17333FAF00ECF972 /* _OWTask.m in Sources */ = {isa = PBXBuildFile; fileRef = D964E5B917333F7000ECF972 /* _OWTask.m */; };
-		D964E5BD1733419600ECF972 /* OWInvestigationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D964E5BC1733419600ECF972 /* OWInvestigationTableViewCell.m */; };
 		D964E5C51733547C00ECF972 /* OWOnboardingView.m in Sources */ = {isa = PBXBuildFile; fileRef = D964E5C41733547C00ECF972 /* OWOnboardingView.m */; };
 		D96677EA16810B2A006F1815 /* OWTallyView.m in Sources */ = {isa = PBXBuildFile; fileRef = D96677E916810B2A006F1815 /* OWTallyView.m */; };
+		D967691417556BDE0082FAC5 /* OWMissionListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D967691317556BDE0082FAC5 /* OWMissionListViewController.m */; };
 		D96D4EDE1739C0CC00FE17E2 /* OWPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = D96D4EDD1739C0CC00FE17E2 /* OWPhoto.m */; };
 		D96FA7AB1656F15B00309F08 /* OWAccountAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = D96FA7AA1656F15B00309F08 /* OWAccountAPIClient.m */; };
 		D97EAAA1167911B100A1B038 /* OWMediaObjectTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D97EAAA0167911B100A1B038 /* OWMediaObjectTableViewCell.m */; };
@@ -155,6 +155,11 @@
 		D980EC9016B877C400ADD398 /* play_button_dark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D980EC8F16B877C400ADD398 /* play_button_dark@2x.png */; };
 		D980EC9316B87A4100ADD398 /* giant-eye-red.png in Resources */ = {isa = PBXBuildFile; fileRef = D980EC9116B87A4100ADD398 /* giant-eye-red.png */; };
 		D980EC9416B87A4100ADD398 /* play_button_dark.png in Resources */ = {isa = PBXBuildFile; fileRef = D980EC9216B87A4100ADD398 /* play_button_dark.png */; };
+		D989246D17556E1000F52B9C /* OWMission.m in Sources */ = {isa = PBXBuildFile; fileRef = D989246C17556E1000F52B9C /* OWMission.m */; };
+		D98924721755733F00F52B9C /* OWMissionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D98924711755733F00F52B9C /* OWMissionTableViewCell.m */; };
+		D9892475175574C700F52B9C /* 108-badge.png in Resources */ = {isa = PBXBuildFile; fileRef = D9892473175574C700F52B9C /* 108-badge.png */; };
+		D9892476175574C700F52B9C /* 108-badge@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9892474175574C700F52B9C /* 108-badge@2x.png */; };
+		D9892479175578E500F52B9C /* _OWMission.m in Sources */ = {isa = PBXBuildFile; fileRef = D9892478175578E500F52B9C /* _OWMission.m */; };
 		D98F4884173DC02D00BBE80E /* OWCharacterCountdownView.m in Sources */ = {isa = PBXBuildFile; fileRef = D98F4883173DC02D00BBE80E /* OWCharacterCountdownView.m */; };
 		D98FCB4116A4AA570071DF6B /* _OWLocalRecording.m in Sources */ = {isa = PBXBuildFile; fileRef = D98FCB3216A4AA570071DF6B /* _OWLocalRecording.m */; };
 		D98FCB4216A4AA570071DF6B /* _OWManagedRecording.m in Sources */ = {isa = PBXBuildFile; fileRef = D98FCB3416A4AA570071DF6B /* _OWManagedRecording.m */; };
@@ -190,7 +195,6 @@
 		D9C0332816A4C26900B7CFC7 /* OWStoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C0332716A4C26900B7CFC7 /* OWStoryViewController.m */; };
 		D9C0332B16A4CAC400B7CFC7 /* OWMediaObjectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C0332A16A4CAC400B7CFC7 /* OWMediaObjectViewController.m */; };
 		D9C8A58016B9A1D2004F9E05 /* OWLocalRecordingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C8A57F16B9A1D2004F9E05 /* OWLocalRecordingTableViewCell.m */; };
-		D9C8A5A116B9A2EA004F9E05 /* OWFeedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C8A5A016B9A2EA004F9E05 /* OWFeedTableViewCell.m */; };
 		D9CEED151682718600B236B5 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D9CEED101682718600B236B5 /* libTestFlight.a */; };
 		D9CEED19168271C700B236B5 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D9CEED18168271C700B236B5 /* libz.dylib */; };
 		D9D2E14F1652D7B80000E7C5 /* OWInLineTextEditTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D2E14E1652D7B80000E7C5 /* OWInLineTextEditTableViewCell.m */; };
@@ -515,12 +519,12 @@
 		D964E58F17333F5600ECF972 /* OWTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWTask.m; sourceTree = "<group>"; };
 		D964E5B817333F7000ECF972 /* _OWTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _OWTask.h; sourceTree = "<group>"; };
 		D964E5B917333F7000ECF972 /* _OWTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _OWTask.m; sourceTree = "<group>"; };
-		D964E5BB1733419600ECF972 /* OWInvestigationTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWInvestigationTableViewCell.h; sourceTree = "<group>"; };
-		D964E5BC1733419600ECF972 /* OWInvestigationTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWInvestigationTableViewCell.m; sourceTree = "<group>"; };
 		D964E5C31733547C00ECF972 /* OWOnboardingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWOnboardingView.h; sourceTree = "<group>"; };
 		D964E5C41733547C00ECF972 /* OWOnboardingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWOnboardingView.m; sourceTree = "<group>"; };
 		D96677E816810B2A006F1815 /* OWTallyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWTallyView.h; sourceTree = "<group>"; };
 		D96677E916810B2A006F1815 /* OWTallyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWTallyView.m; sourceTree = "<group>"; };
+		D967691217556BDE0082FAC5 /* OWMissionListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWMissionListViewController.h; sourceTree = "<group>"; };
+		D967691317556BDE0082FAC5 /* OWMissionListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWMissionListViewController.m; sourceTree = "<group>"; };
 		D96D4EDC1739C0CC00FE17E2 /* OWPhoto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWPhoto.h; sourceTree = "<group>"; };
 		D96D4EDD1739C0CC00FE17E2 /* OWPhoto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWPhoto.m; sourceTree = "<group>"; };
 		D96FA7A91656F15B00309F08 /* OWAccountAPIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWAccountAPIClient.h; sourceTree = "<group>"; };
@@ -539,6 +543,14 @@
 		D980EC8F16B877C400ADD398 /* play_button_dark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "play_button_dark@2x.png"; sourceTree = "<group>"; };
 		D980EC9116B87A4100ADD398 /* giant-eye-red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "giant-eye-red.png"; sourceTree = "<group>"; };
 		D980EC9216B87A4100ADD398 /* play_button_dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = play_button_dark.png; sourceTree = "<group>"; };
+		D989246B17556E1000F52B9C /* OWMission.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWMission.h; sourceTree = "<group>"; };
+		D989246C17556E1000F52B9C /* OWMission.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWMission.m; sourceTree = "<group>"; };
+		D98924701755733F00F52B9C /* OWMissionTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWMissionTableViewCell.h; sourceTree = "<group>"; };
+		D98924711755733F00F52B9C /* OWMissionTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWMissionTableViewCell.m; sourceTree = "<group>"; };
+		D9892473175574C700F52B9C /* 108-badge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "108-badge.png"; sourceTree = "<group>"; };
+		D9892474175574C700F52B9C /* 108-badge@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "108-badge@2x.png"; sourceTree = "<group>"; };
+		D9892477175578E500F52B9C /* _OWMission.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _OWMission.h; sourceTree = "<group>"; };
+		D9892478175578E500F52B9C /* _OWMission.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _OWMission.m; sourceTree = "<group>"; };
 		D98F4882173DC02D00BBE80E /* OWCharacterCountdownView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWCharacterCountdownView.h; sourceTree = "<group>"; };
 		D98F4883173DC02D00BBE80E /* OWCharacterCountdownView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWCharacterCountdownView.m; sourceTree = "<group>"; };
 		D98FCB3116A4AA570071DF6B /* _OWLocalRecording.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _OWLocalRecording.h; sourceTree = "<group>"; };
@@ -603,8 +615,6 @@
 		D9C0332A16A4CAC400B7CFC7 /* OWMediaObjectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWMediaObjectViewController.m; sourceTree = "<group>"; };
 		D9C8A57E16B9A1D2004F9E05 /* OWLocalRecordingTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWLocalRecordingTableViewCell.h; sourceTree = "<group>"; };
 		D9C8A57F16B9A1D2004F9E05 /* OWLocalRecordingTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWLocalRecordingTableViewCell.m; sourceTree = "<group>"; };
-		D9C8A59F16B9A2EA004F9E05 /* OWFeedTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWFeedTableViewCell.h; sourceTree = "<group>"; };
-		D9C8A5A016B9A2EA004F9E05 /* OWFeedTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWFeedTableViewCell.m; sourceTree = "<group>"; };
 		D9CEED0D16826AB400B236B5 /* OWAPIKeys.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OWAPIKeys.h; sourceTree = "<group>"; };
 		D9CEED101682718600B236B5 /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
 		D9CEED131682718600B236B5 /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
@@ -1090,6 +1100,8 @@
 		D98FCB4916A4AA5B0071DF6B /* Generated */ = {
 			isa = PBXGroup;
 			children = (
+				D9892477175578E500F52B9C /* _OWMission.h */,
+				D9892478175578E500F52B9C /* _OWMission.m */,
 				D963C85C1739CAB5008999F7 /* _OWAudio.h */,
 				D963C85D1739CAB5008999F7 /* _OWAudio.m */,
 				D963C8261739C157008999F7 /* _OWPhoto.h */,
@@ -1224,6 +1236,8 @@
 			children = (
 				D92B6A7C16AF5209006605E1 /* OWPaginatedTableViewController.h */,
 				D92B6A7D16AF5209006605E1 /* OWPaginatedTableViewController.m */,
+				D967691217556BDE0082FAC5 /* OWMissionListViewController.h */,
+				D967691317556BDE0082FAC5 /* OWMissionListViewController.m */,
 				D9D2E19A165326BB0000E7C5 /* OWLocalMediaObjectListViewController.h */,
 				D9D2E19B165326BB0000E7C5 /* OWLocalMediaObjectListViewController.m */,
 				D9D7870B1677EDB0006EE6A2 /* OWFeedViewController.h */,
@@ -1237,12 +1251,10 @@
 			children = (
 				D9C8A57E16B9A1D2004F9E05 /* OWLocalRecordingTableViewCell.h */,
 				D9C8A57F16B9A1D2004F9E05 /* OWLocalRecordingTableViewCell.m */,
+				D98924701755733F00F52B9C /* OWMissionTableViewCell.h */,
+				D98924711755733F00F52B9C /* OWMissionTableViewCell.m */,
 				D97EAA9F167911B100A1B038 /* OWMediaObjectTableViewCell.h */,
 				D97EAAA0167911B100A1B038 /* OWMediaObjectTableViewCell.m */,
-				D964E5BB1733419600ECF972 /* OWInvestigationTableViewCell.h */,
-				D964E5BC1733419600ECF972 /* OWInvestigationTableViewCell.m */,
-				D9C8A59F16B9A2EA004F9E05 /* OWFeedTableViewCell.h */,
-				D9C8A5A016B9A2EA004F9E05 /* OWFeedTableViewCell.m */,
 			);
 			name = "Table Cells";
 			sourceTree = "<group>";
@@ -1477,6 +1489,8 @@
 		D9D8677C17348089008C8CE6 /* Glyphish */ = {
 			isa = PBXGroup;
 			children = (
+				D9892473175574C700F52B9C /* 108-badge.png */,
+				D9892474175574C700F52B9C /* 108-badge@2x.png */,
 				D94B83921745D201008A1142 /* 42-photos.png */,
 				D94B83931745D201008A1142 /* 42-photos@2x.png */,
 				D9D8677D17348547008C8CE6 /* 28-star.png */,
@@ -1729,6 +1743,8 @@
 				D9EB4C76166D5F600019F8B6 /* OWRecordingSegment.h */,
 				D9EB4C77166D5F600019F8B6 /* OWRecordingSegment.m */,
 				D9EB4C59166D338B0019F8B6 /* Model.xcdatamodeld */,
+				D989246B17556E1000F52B9C /* OWMission.h */,
+				D989246C17556E1000F52B9C /* OWMission.m */,
 				D963C8561739C856008999F7 /* OWAudio.h */,
 				D963C8571739C856008999F7 /* OWAudio.m */,
 				D96D4EDC1739C0CC00FE17E2 /* OWPhoto.h */,
@@ -1763,9 +1779,9 @@
 			buildRules = (
 			);
 			dependencies = (
+				D98FCB4B16A4AABE0071DF6B /* PBXTargetDependency */,
 				D909C2E61742C680005930A7 /* PBXTargetDependency */,
 				D945D2FC173C6AEB00D806BD /* PBXTargetDependency */,
-				D98FCB4B16A4AABE0071DF6B /* PBXTargetDependency */,
 			);
 			name = OpenWatch;
 			productName = OpenWatch;
@@ -1968,6 +1984,8 @@
 				D94B83941745D201008A1142 /* 42-photos.png in Resources */,
 				D94B83951745D201008A1142 /* 42-photos@2x.png in Resources */,
 				D94B83971745D6F2008A1142 /* user_placeholder@2x.png in Resources */,
+				D9892475175574C700F52B9C /* 108-badge.png in Resources */,
+				D9892476175574C700F52B9C /* 108-badge@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1985,7 +2003,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "cd OpenWatch\nmogenerator --template-var arc=true -m Model.xcdatamodeld/Model.xcdatamodel/";
+			shellScript = "cd OpenWatch\nmogenerator --template-var arc=true -m \"Model.xcdatamodeld/Model 2.xcdatamodel/\"";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -2093,7 +2111,6 @@
 				D94499E116B0D19600A2225A /* OWPastelessTextField.m in Sources */,
 				D9BECF9816B22B06009046E1 /* UINavigationBar+DropShadow.m in Sources */,
 				D9C8A58016B9A1D2004F9E05 /* OWLocalRecordingTableViewCell.m in Sources */,
-				D9C8A5A116B9A2EA004F9E05 /* OWFeedTableViewCell.m in Sources */,
 				D94A757B170E137D00525289 /* OWFancyLoginViewController.m in Sources */,
 				D94A759F170E432600525289 /* OWKenBurnsView.m in Sources */,
 				D9DA079F17304A7E0041B638 /* OWInvestigation.m in Sources */,
@@ -2103,7 +2120,6 @@
 				D91AC0011733003100823179 /* OWDashboardViewController.m in Sources */,
 				D964E59017333F5600ECF972 /* OWTask.m in Sources */,
 				D964E5BA17333FAF00ECF972 /* _OWTask.m in Sources */,
-				D964E5BD1733419600ECF972 /* OWInvestigationTableViewCell.m in Sources */,
 				D964E5C51733547C00ECF972 /* OWOnboardingView.m in Sources */,
 				D9D8673D17346C89008C8CE6 /* OWDashboardView.m in Sources */,
 				D9D8676717346D02008C8CE6 /* OWDashboardItem.m in Sources */,
@@ -2136,6 +2152,10 @@
 				D909C2D91742B11D005930A7 /* UIColor+BButton.m in Sources */,
 				D909C2EA1742CCF8005930A7 /* OWStyleSheet.m in Sources */,
 				D909C3161742FEF6005930A7 /* OWShareViewController.m in Sources */,
+				D967691417556BDE0082FAC5 /* OWMissionListViewController.m in Sources */,
+				D989246D17556E1000F52B9C /* OWMission.m in Sources */,
+				D98924721755733F00F52B9C /* OWMissionTableViewCell.m in Sources */,
+				D9892479175578E500F52B9C /* _OWMission.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
