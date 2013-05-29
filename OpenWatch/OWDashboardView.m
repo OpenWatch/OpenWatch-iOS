@@ -9,6 +9,7 @@
 #import "OWDashboardView.h"
 #import "OWDashboardItem.h"
 #import "OWDashboardTableViewCell.h"
+#import "OWBadgedDashboardItem.h"
 
 static NSString *cellIdentifier = @"cellIdentifier";
 
@@ -29,7 +30,8 @@ static NSString *cellIdentifier = @"cellIdentifier";
         self.dashboardTableView.showsVerticalScrollIndicator = NO;
         self.dashboardTableView.showsHorizontalScrollIndicator = NO;
         [self addSubview:dashboardTableView];
-        [dashboardTableView registerClass:[OWDashboardTableViewCell class] forCellReuseIdentifier:cellIdentifier];
+        [dashboardTableView registerClass:[OWDashboardItem cellClass] forCellReuseIdentifier:[OWDashboardItem cellIdentifier]];
+        [dashboardTableView registerClass:[OWBadgedDashboardItem cellClass] forCellReuseIdentifier:[OWBadgedDashboardItem cellIdentifier]];
     }
     return self;
 }
@@ -57,8 +59,9 @@ static NSString *cellIdentifier = @"cellIdentifier";
 }
 
 - (UITableViewCell*) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    OWDashboardTableViewCell *dashboardCell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
-    dashboardCell.dashboardItem = [[dashboardItems objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+    OWDashboardItem *dashboardItem = [[dashboardItems objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+    OWDashboardTableViewCell *dashboardCell = [tableView dequeueReusableCellWithIdentifier:[[dashboardItem class]cellIdentifier] forIndexPath:indexPath];
+    dashboardCell.dashboardItem = dashboardItem;
     return dashboardCell;
 }
 

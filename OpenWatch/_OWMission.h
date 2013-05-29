@@ -5,6 +5,7 @@
 #import "OWMediaObject.h"
 
 extern const struct OWMissionAttributes {
+	__unsafe_unretained NSString *active;
 	__unsafe_unretained NSString *blurb;
 	__unsafe_unretained NSString *bounty;
 	__unsafe_unretained NSString *featured;
@@ -27,6 +28,7 @@ extern const struct OWMissionFetchedProperties {
 
 
 
+
 @interface OWMissionID : NSManagedObjectID {}
 @end
 
@@ -35,6 +37,20 @@ extern const struct OWMissionFetchedProperties {
 + (NSString*)entityName;
 + (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;
 - (OWMissionID*)objectID;
+
+
+
+
+
+@property (nonatomic, strong) NSNumber* active;
+
+
+
+@property BOOL activeValue;
+- (BOOL)activeValue;
+- (void)setActiveValue:(BOOL)value_;
+
+//- (BOOL)validateActive:(id*)value_ error:(NSError**)error_;
 
 
 
@@ -124,6 +140,15 @@ extern const struct OWMissionFetchedProperties {
 @end
 
 @interface _OWMission (CoreDataGeneratedPrimitiveAccessors)
+
+
+- (NSNumber*)primitiveActive;
+- (void)setPrimitiveActive:(NSNumber*)value;
+
+- (BOOL)primitiveActiveValue;
+- (void)setPrimitiveActiveValue:(BOOL)value_;
+
+
 
 
 - (NSString*)primitiveBlurb;

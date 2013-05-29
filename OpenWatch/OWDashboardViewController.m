@@ -32,6 +32,7 @@
 #import "OWConstants.h"
 #import "OWMissionListViewController.h"
 #import "OWMission.h"
+#import "OWBadgedDashboardItem.h"
 
 #define kActionBarHeight 70.0f
 
@@ -63,7 +64,10 @@
         OWDashboardItem *feedback = [[OWDashboardItem alloc] initWithTitle:@"Send Feedback" image:[UIImage imageNamed:@"29-heart.png"] target:self selector:@selector(feedbackButtonPressed:)];
         OWDashboardItem *settings = [[OWDashboardItem alloc] initWithTitle:@"Settings" image:[UIImage imageNamed:@"19-gear.png"] target:self selector:@selector(settingsButtonPressed:)];
         
-        OWDashboardItem *missions = [[OWDashboardItem alloc] initWithTitle:@"Missions" image:[UIImage imageNamed:@"108-badge.png"] target:self selector:@selector(missionsButtonPressed:)];
+        OWBadgedDashboardItem *missions = [[OWBadgedDashboardItem alloc] initWithTitle:@"Missions" image:[UIImage imageNamed:@"108-badge.png"] target:self selector:@selector(missionsButtonPressed:)];
+        [missions registerForNotifications:kMissionCountUpdateNotification];
+        
+        //[[NSNotificationCenter defaultCenter] postNotificationName:kMissionCountUpdateNotification object:nil userInfo:@{[OWBadgedDashboardItem userInfoBadgeTextKey]: @"1234"}];
         
         NSArray *topItems = @[videoItem, photoItem];
         NSArray *middleItems = @[topStories, local, yourMedia];

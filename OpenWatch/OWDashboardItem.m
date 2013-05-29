@@ -7,6 +7,7 @@
 //
 
 #import "OWDashboardItem.h"
+#import "OWDashboardTableViewCell.h"
 
 @implementation OWDashboardItem
 @synthesize title, image, target, selector;
@@ -19,6 +20,14 @@
         self.selector = newSelector;
     }
     return self;
+}
+
++ (NSString*) cellIdentifier {
+    return @"OWDashboardTableViewCell";
+}
+
++ (Class) cellClass {
+    return [OWDashboardTableViewCell class];
 }
 
 @end

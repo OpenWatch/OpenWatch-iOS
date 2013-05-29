@@ -194,6 +194,9 @@
 		D9BECF9816B22B06009046E1 /* UINavigationBar+DropShadow.m in Sources */ = {isa = PBXBuildFile; fileRef = D9BECF9716B22B06009046E1 /* UINavigationBar+DropShadow.m */; };
 		D9C0332816A4C26900B7CFC7 /* OWStoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C0332716A4C26900B7CFC7 /* OWStoryViewController.m */; };
 		D9C0332B16A4CAC400B7CFC7 /* OWMediaObjectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C0332A16A4CAC400B7CFC7 /* OWMediaObjectViewController.m */; };
+		D9C10AA117568DCA00C98EC3 /* JSBadgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C10AA017568DCA00C98EC3 /* JSBadgeView.m */; };
+		D9C10AA417568DF800C98EC3 /* OWBadgedDashboardItem.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C10AA317568DF800C98EC3 /* OWBadgedDashboardItem.m */; };
+		D9C10AA71756924400C98EC3 /* OWBadgedDashboardTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C10AA61756924400C98EC3 /* OWBadgedDashboardTableViewCell.m */; };
 		D9C8A58016B9A1D2004F9E05 /* OWLocalRecordingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C8A57F16B9A1D2004F9E05 /* OWLocalRecordingTableViewCell.m */; };
 		D9CEED151682718600B236B5 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D9CEED101682718600B236B5 /* libTestFlight.a */; };
 		D9CEED19168271C700B236B5 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D9CEED18168271C700B236B5 /* libz.dylib */; };
@@ -613,6 +616,12 @@
 		D9C0332716A4C26900B7CFC7 /* OWStoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWStoryViewController.m; sourceTree = "<group>"; };
 		D9C0332916A4CAC400B7CFC7 /* OWMediaObjectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWMediaObjectViewController.h; sourceTree = "<group>"; };
 		D9C0332A16A4CAC400B7CFC7 /* OWMediaObjectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWMediaObjectViewController.m; sourceTree = "<group>"; };
+		D9C10A9F17568DCA00C98EC3 /* JSBadgeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSBadgeView.h; sourceTree = "<group>"; };
+		D9C10AA017568DCA00C98EC3 /* JSBadgeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSBadgeView.m; sourceTree = "<group>"; };
+		D9C10AA217568DF800C98EC3 /* OWBadgedDashboardItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWBadgedDashboardItem.h; sourceTree = "<group>"; };
+		D9C10AA317568DF800C98EC3 /* OWBadgedDashboardItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWBadgedDashboardItem.m; sourceTree = "<group>"; };
+		D9C10AA51756924400C98EC3 /* OWBadgedDashboardTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWBadgedDashboardTableViewCell.h; sourceTree = "<group>"; };
+		D9C10AA61756924400C98EC3 /* OWBadgedDashboardTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWBadgedDashboardTableViewCell.m; sourceTree = "<group>"; };
 		D9C8A57E16B9A1D2004F9E05 /* OWLocalRecordingTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWLocalRecordingTableViewCell.h; sourceTree = "<group>"; };
 		D9C8A57F16B9A1D2004F9E05 /* OWLocalRecordingTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWLocalRecordingTableViewCell.m; sourceTree = "<group>"; };
 		D9CEED0D16826AB400B236B5 /* OWAPIKeys.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OWAPIKeys.h; sourceTree = "<group>"; };
@@ -1072,6 +1081,10 @@
 		D97EAAA3167911B900A1B038 /* Custom Views */ = {
 			isa = PBXGroup;
 			children = (
+				D9C10AA217568DF800C98EC3 /* OWBadgedDashboardItem.h */,
+				D9C10AA317568DF800C98EC3 /* OWBadgedDashboardItem.m */,
+				D9C10AA51756924400C98EC3 /* OWBadgedDashboardTableViewCell.h */,
+				D9C10AA61756924400C98EC3 /* OWBadgedDashboardTableViewCell.m */,
 				D909C2E81742CCF8005930A7 /* OWStyleSheet.h */,
 				D909C2E91742CCF8005930A7 /* OWStyleSheet.m */,
 				D98F4882173DC02D00BBE80E /* OWCharacterCountdownView.h */,
@@ -1246,6 +1259,16 @@
 			name = "Paginated Tables";
 			sourceTree = "<group>";
 		};
+		D9C10A9E17568DCA00C98EC3 /* JSBadgeView */ = {
+			isa = PBXGroup;
+			children = (
+				D9C10A9F17568DCA00C98EC3 /* JSBadgeView.h */,
+				D9C10AA017568DCA00C98EC3 /* JSBadgeView.m */,
+			);
+			name = JSBadgeView;
+			path = JSBadgeView/JSBadgeView;
+			sourceTree = "<group>";
+		};
 		D9C8A59E16B9A1E0004F9E05 /* Table Cells */ = {
 			isa = PBXGroup;
 			children = (
@@ -1276,6 +1299,7 @@
 				D9E42C301741778B00CA524F /* TUSafariActivity */,
 				D945D302173C6C0F00D806BD /* The Amazing Audio Engine */,
 				D9A6D9CF1731D03400C1488A /* BSKeyboardControls */,
+				D9C10A9E17568DCA00C98EC3 /* JSBadgeView */,
 				D92B6AD516AFBA82006605E1 /* DWTagList */,
 				D92B6A6516AF4FD3006605E1 /* EGOTableViewPullRefresh */,
 				D9E226FA16A5E33100F06C31 /* BrowserViewController */,
@@ -2156,6 +2180,9 @@
 				D989246D17556E1000F52B9C /* OWMission.m in Sources */,
 				D98924721755733F00F52B9C /* OWMissionTableViewCell.m in Sources */,
 				D9892479175578E500F52B9C /* _OWMission.m in Sources */,
+				D9C10AA117568DCA00C98EC3 /* JSBadgeView.m in Sources */,
+				D9C10AA417568DF800C98EC3 /* OWBadgedDashboardItem.m in Sources */,
+				D9C10AA71756924400C98EC3 /* OWBadgedDashboardTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

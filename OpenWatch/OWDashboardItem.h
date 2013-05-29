@@ -17,4 +17,7 @@
 
 - (id) initWithTitle:(NSString*)newTitle image:(UIImage*)newImage target:(id) newTarget selector:(SEL)newSelector;
 
++ (NSString*) cellIdentifier;
++ (Class) cellClass;
+
 @end
