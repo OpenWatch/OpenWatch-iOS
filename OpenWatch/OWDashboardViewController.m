@@ -30,7 +30,8 @@
 #import "OWStyleSheet.h"
 #import "OWAPIKeys.h"
 #import "OWConstants.h"
-
+#import "OWMissionListViewController.h"
+#import "OWMission.h"
 
 #define kActionBarHeight 70.0f
 
@@ -62,10 +63,12 @@
         OWDashboardItem *feedback = [[OWDashboardItem alloc] initWithTitle:@"Send Feedback" image:[UIImage imageNamed:@"29-heart.png"] target:self selector:@selector(feedbackButtonPressed:)];
         OWDashboardItem *settings = [[OWDashboardItem alloc] initWithTitle:@"Settings" image:[UIImage imageNamed:@"19-gear.png"] target:self selector:@selector(settingsButtonPressed:)];
         
+        OWDashboardItem *missions = [[OWDashboardItem alloc] initWithTitle:@"Missions" image:[UIImage imageNamed:@"108-badge.png"] target:self selector:@selector(missionsButtonPressed:)];
+        
         NSArray *topItems = @[videoItem, photoItem];
         NSArray *middleItems = @[topStories, local, yourMedia];
         NSArray *bottonItems = @[feedback, settings];
-        NSArray *dashboardItems = @[topItems, middleItems, bottonItems];
+        NSArray *dashboardItems = @[@[missions], topItems, middleItems, bottonItems];
         dashboardView.dashboardItems = dashboardItems;
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedAccountPermissionsErrorNotification:) name:kAccountPermissionsError object:nil];
@@ -85,6 +88,27 @@
         [alert show];
     }];
 }
+
+
+- (void) missionsButtonPressed:(id)sender {
+    OWMissionListViewController *missionList = [[OWMissionListViewController alloc] init];
+    
+    NSArray *missions = [OWMission MR_findAll];
+    NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
+    
+    if (missions.count == 0) {
+        for (int i = 0; i < 5; i++) {
+            OWMission *mission = [OWMission MR_createInContext:context];
+            mission.title = [NSString stringWithFormat:@"Mission %d", i];
+            mission.blurb = [NSString stringWithFormat:@"This is such a great mission (%d).", i];
+            mission.bounty = @(i+1);
+        }
+        [context MR_saveToPersistentStoreAndWait];
+    }
+    
+    [self.navigationController pushViewController:missionList animated:YES];
+}
+
 
 - (void) feedbackButtonPressed:(id)sender {
     UVConfig *config = [UVConfig configWithSite:@"openwatch.uservoice.com"
@@ -138,7 +162,6 @@
         [alert show];
     }
 }
-
 
 
 - (void) feedButtonPressed:(id)sender {

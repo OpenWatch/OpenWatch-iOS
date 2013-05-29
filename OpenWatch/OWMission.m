@@ -7,9 +7,13 @@
 //
 
 #import "OWMission.h"
-
+#import "OWMissionTableViewCell.h"
 
 @implementation OWMission
+
++ (Class) cellClass {
+    return [OWMissionTableViewCell class];
+}
 
 - (NSString*) type {
     return @"mission";

@@ -24,7 +24,8 @@
     if (self) {
         self.title = @"Missions";
         
-        
+        [self.tableView registerClass:[OWMission cellClass] forCellReuseIdentifier:[OWMission cellIdentifier]];
+
     }
     return self;
 }
@@ -48,6 +49,12 @@
     if (pageNumber <= kFirstPage) {
         self.currentPage = kFirstPage;
     }
+    NSArray *missions = [OWMission MR_findAll];
+    NSMutableArray *objectIDs = [NSMutableArray arrayWithCapacity:missions.count];
+    for (OWMission *mission in missions) {
+        [objectIDs addObject:mission.objectID];
+    }
+    [self reloadFeed:objectIDs replaceObjects:YES];
     /*
     [[OWAccountAPIClient sharedClient] fetchMediaObjectsForFeedType:kOWFeedTypeFeed feedName:@"user" page:pageNumber success:^(NSArray *mediaObjectIDs, NSUInteger totalPages) {
         self.totalPages = totalPages;
