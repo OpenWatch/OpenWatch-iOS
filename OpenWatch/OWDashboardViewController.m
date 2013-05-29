@@ -67,7 +67,6 @@
         OWBadgedDashboardItem *missions = [[OWBadgedDashboardItem alloc] initWithTitle:@"Missions" image:[UIImage imageNamed:@"108-badge.png"] target:self selector:@selector(missionsButtonPressed:)];
         [missions registerForNotifications:kMissionCountUpdateNotification];
         
-        //[[NSNotificationCenter defaultCenter] postNotificationName:kMissionCountUpdateNotification object:nil userInfo:@{[OWBadgedDashboardItem userInfoBadgeTextKey]: @"1234"}];
         
         NSArray *topItems = @[videoItem, photoItem];
         NSArray *middleItems = @[topStories, local, yourMedia];
@@ -78,8 +77,13 @@
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedAccountPermissionsErrorNotification:) name:kAccountPermissionsError object:nil];
         
         self.creationController = OW_APP_DELEGATE.creationController;
+        [self prefetchNewMissions];
     }
     return self;
+}
+
+- (void) prefetchNewMissions {
+    [[OWAccountAPIClient sharedClient] fetchMediaObjectsForFeedType:kOWFeedTypeMissions feedName:nil page:1 success:nil failure:nil];
 }
 
 - (void) receivedAccountPermissionsErrorNotification:(NSNotification*)notification {
@@ -98,27 +102,7 @@
 
 - (void) missionsButtonPressed:(id)sender {
     OWMissionListViewController *missionList = [[OWMissionListViewController alloc] init];
-    
-    NSArray *missions = [OWMission MR_findAll];
-    NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
-    
-    for (OWMission *mission in missions) {
-        mission.primaryTag = @"testmission";
-    }
-    [context MR_saveToPersistentStoreAndWait];
 
-    
-    if (missions.count == 0) {
-        for (int i = 0; i < 5; i++) {
-            OWMission *mission = [OWMission MR_createInContext:context];
-            mission.title = [NSString stringWithFormat:@"Mission %d", i];
-            mission.blurb = [NSString stringWithFormat:@"This is such a great mission (%d).", i];
-            mission.bounty = @(i+1);
-        }
-        
-        [context MR_saveToPersistentStoreAndWait];
-    }
-    
     [self.navigationController pushViewController:missionList animated:YES];
 }
 

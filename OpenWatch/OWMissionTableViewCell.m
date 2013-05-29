@@ -39,7 +39,7 @@
     [super setMediaObjectID:newMediaObjectID];
     NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
     OWMission *mission = (OWMission*)[context existingObjectWithID:newMediaObjectID error:nil];
-    self.bountyLabel.text = [NSString stringWithFormat:@"$%.2f", mission.bountyValue];
+    self.bountyLabel.text = [NSString stringWithFormat:@"$%.2f", mission.usdValue];
     self.titleLabel.text = @"This a big long mission with a long title so you better clip off the end and have stuff missing because its too long!";
 }
 

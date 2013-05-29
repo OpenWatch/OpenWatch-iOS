@@ -85,9 +85,9 @@
     NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
     self.mission = (OWMission*)[context existingObjectWithID:mediaObjectID error:nil];
     self.titleLabel.text = mission.title;
-    self.blurbLabel.text = mission.blurb;
+    self.blurbLabel.text = mission.body;
     [self.imageView setImageWithURL:mission.thumbnailURL placeholderImage:nil];
-    self.bountyLabel.text = [NSString stringWithFormat:@"$%.2f", mission.bountyValue];
+    self.bountyLabel.text = [NSString stringWithFormat:@"$%.2f", mission.usdValue];
     self.title = [NSString stringWithFormat:@"#%@", mission.primaryTag];
 }
 

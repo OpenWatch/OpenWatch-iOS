@@ -10,8 +10,8 @@
 #import <CoreData/CoreData.h>
 #import "_OWMission.h"
 
-
 @interface OWMission : _OWMission
 
+- (NSURL*) mediaURL;
 
 @end

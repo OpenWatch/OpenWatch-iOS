@@ -5,12 +5,15 @@
 
 const struct OWMissionAttributes OWMissionAttributes = {
 	.active = @"active",
-	.blurb = @"blurb",
-	.bounty = @"bounty",
+	.body = @"body",
+	.completed = @"completed",
 	.featured = @"featured",
+	.karma = @"karma",
 	.latitude = @"latitude",
 	.longitude = @"longitude",
+	.mediaURLString = @"mediaURLString",
 	.primaryTag = @"primaryTag",
+	.usd = @"usd",
 };
 
 const struct OWMissionRelationships OWMissionRelationships = {
@@ -50,13 +53,18 @@ const struct OWMissionFetchedProperties OWMissionFetchedProperties = {
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
 		return keyPaths;
 	}
-	if ([key isEqualToString:@"bountyValue"]) {
-		NSSet *affectingKey = [NSSet setWithObject:@"bounty"];
+	if ([key isEqualToString:@"completedValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"completed"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
 		return keyPaths;
 	}
 	if ([key isEqualToString:@"featuredValue"]) {
 		NSSet *affectingKey = [NSSet setWithObject:@"featured"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
+	if ([key isEqualToString:@"karmaValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"karma"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
 		return keyPaths;
 	}
@@ -67,6 +75,11 @@ const struct OWMissionFetchedProperties OWMissionFetchedProperties = {
 	}
 	if ([key isEqualToString:@"longitudeValue"]) {
 		NSSet *affectingKey = [NSSet setWithObject:@"longitude"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
+	if ([key isEqualToString:@"usdValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"usd"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
 		return keyPaths;
 	}
@@ -103,33 +116,33 @@ const struct OWMissionFetchedProperties OWMissionFetchedProperties = {
 
 
 
-@dynamic blurb;
+@dynamic body;
 
 
 
 
 
 
-@dynamic bounty;
+@dynamic completed;
 
 
 
-- (double)bountyValue {
-	NSNumber *result = [self bounty];
-	return [result doubleValue];
+- (BOOL)completedValue {
+	NSNumber *result = [self completed];
+	return [result boolValue];
 }
 
-- (void)setBountyValue:(double)value_ {
-	[self setBounty:[NSNumber numberWithDouble:value_]];
+- (void)setCompletedValue:(BOOL)value_ {
+	[self setCompleted:[NSNumber numberWithBool:value_]];
 }
 
-- (double)primitiveBountyValue {
-	NSNumber *result = [self primitiveBounty];
-	return [result doubleValue];
+- (BOOL)primitiveCompletedValue {
+	NSNumber *result = [self primitiveCompleted];
+	return [result boolValue];
 }
 
-- (void)setPrimitiveBountyValue:(double)value_ {
-	[self setPrimitiveBounty:[NSNumber numberWithDouble:value_]];
+- (void)setPrimitiveCompletedValue:(BOOL)value_ {
+	[self setPrimitiveCompleted:[NSNumber numberWithBool:value_]];
 }
 
 
@@ -156,6 +169,32 @@ const struct OWMissionFetchedProperties OWMissionFetchedProperties = {
 
 - (void)setPrimitiveFeaturedValue:(BOOL)value_ {
 	[self setPrimitiveFeatured:[NSNumber numberWithBool:value_]];
+}
+
+
+
+
+
+@dynamic karma;
+
+
+
+- (double)karmaValue {
+	NSNumber *result = [self karma];
+	return [result doubleValue];
+}
+
+- (void)setKarmaValue:(double)value_ {
+	[self setKarma:[NSNumber numberWithDouble:value_]];
+}
+
+- (double)primitiveKarmaValue {
+	NSNumber *result = [self primitiveKarma];
+	return [result doubleValue];
+}
+
+- (void)setPrimitiveKarmaValue:(double)value_ {
+	[self setPrimitiveKarma:[NSNumber numberWithDouble:value_]];
 }
 
 
@@ -214,8 +253,41 @@ const struct OWMissionFetchedProperties OWMissionFetchedProperties = {
 
 
 
+@dynamic mediaURLString;
+
+
+
+
+
+
 @dynamic primaryTag;
 
+
+
+
+
+
+@dynamic usd;
+
+
+
+- (double)usdValue {
+	NSNumber *result = [self usd];
+	return [result doubleValue];
+}
+
+- (void)setUsdValue:(double)value_ {
+	[self setUsd:[NSNumber numberWithDouble:value_]];
+}
+
+- (double)primitiveUsdValue {
+	NSNumber *result = [self primitiveUsd];
+	return [result doubleValue];
+}
+
+- (void)setPrimitiveUsdValue:(double)value_ {
+	[self setPrimitiveUsd:[NSNumber numberWithDouble:value_]];
+}
 
 
 

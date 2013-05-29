@@ -26,6 +26,8 @@
 #import "OWCaptureAPIClient.h"
 #import "JSONKit.h"
 #import "NSData+Hex.h"
+#import "OWBadgedDashboardItem.h"
+#import "OWMission.h"
 
 #define kRecordingsKey @"recordings/"
 
@@ -369,6 +371,8 @@
         prefix = kFeedPath;
     } else if (feedType == kOWFeedTypeFrontPage) {
         prefix = kInvestigationPath;
+    } else if (feedType == kOWFeedTypeMissions) {
+        prefix = @"mission/";
     }
     return prefix;
 }
@@ -389,6 +393,13 @@
         NSArray *mediaObjects = [self objectIDsFromMediaObjectsMetadataArray:[responseObject objectForKey:kObjectsKey]];
         NSDictionary *meta = [responseObject objectForKey:kMetaKey];
         NSUInteger pageCount = [[meta objectForKey:kPageCountKey] unsignedIntegerValue];
+        NSUInteger objectCount = [[meta objectForKey:@"object_count"] unsignedIntegerValue];
+        
+        if (feedType == kOWFeedTypeMissions && objectCount > 0) {
+            NSString *badgeText = [NSString stringWithFormat:@"%d", objectCount];
+            [[NSNotificationCenter defaultCenter] postNotificationName:kMissionCountUpdateNotification object:nil userInfo:@{[OWBadgedDashboardItem userInfoBadgeTextKey]: badgeText}];
+        }
+        
         success(mediaObjects, pageCount);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"failure: %@", [error userInfo]);
@@ -456,6 +467,12 @@
         mediaObject = [OWInvestigation MR_findFirstByAttribute:@"serverID" withValue:serverID];
         if (!mediaObject) {
             mediaObject = [OWInvestigation MR_createEntity];
+        }
+    } else if ([type isEqualToString:@"mission"]) {
+        NSString *serverID = [dictionary objectForKey:kIDKey];
+        mediaObject = [OWMission MR_findFirstByAttribute:@"serverID" withValue:serverID];
+        if (!mediaObject) {
+            mediaObject = [OWMission MR_createEntity];
         }
     } else {
         return nil;

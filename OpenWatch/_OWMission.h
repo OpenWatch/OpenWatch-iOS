@@ -6,12 +6,15 @@
 
 extern const struct OWMissionAttributes {
 	__unsafe_unretained NSString *active;
-	__unsafe_unretained NSString *blurb;
-	__unsafe_unretained NSString *bounty;
+	__unsafe_unretained NSString *body;
+	__unsafe_unretained NSString *completed;
 	__unsafe_unretained NSString *featured;
+	__unsafe_unretained NSString *karma;
 	__unsafe_unretained NSString *latitude;
 	__unsafe_unretained NSString *longitude;
+	__unsafe_unretained NSString *mediaURLString;
 	__unsafe_unretained NSString *primaryTag;
+	__unsafe_unretained NSString *usd;
 } OWMissionAttributes;
 
 extern const struct OWMissionRelationships {
@@ -19,6 +22,9 @@ extern const struct OWMissionRelationships {
 
 extern const struct OWMissionFetchedProperties {
 } OWMissionFetchedProperties;
+
+
+
 
 
 
@@ -56,25 +62,25 @@ extern const struct OWMissionFetchedProperties {
 
 
 
-@property (nonatomic, strong) NSString* blurb;
+@property (nonatomic, strong) NSString* body;
 
 
 
-//- (BOOL)validateBlurb:(id*)value_ error:(NSError**)error_;
+//- (BOOL)validateBody:(id*)value_ error:(NSError**)error_;
 
 
 
 
 
-@property (nonatomic, strong) NSNumber* bounty;
+@property (nonatomic, strong) NSNumber* completed;
 
 
 
-@property double bountyValue;
-- (double)bountyValue;
-- (void)setBountyValue:(double)value_;
+@property BOOL completedValue;
+- (BOOL)completedValue;
+- (void)setCompletedValue:(BOOL)value_;
 
-//- (BOOL)validateBounty:(id*)value_ error:(NSError**)error_;
+//- (BOOL)validateCompleted:(id*)value_ error:(NSError**)error_;
 
 
 
@@ -89,6 +95,20 @@ extern const struct OWMissionFetchedProperties {
 - (void)setFeaturedValue:(BOOL)value_;
 
 //- (BOOL)validateFeatured:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
+@property (nonatomic, strong) NSNumber* karma;
+
+
+
+@property double karmaValue;
+- (double)karmaValue;
+- (void)setKarmaValue:(double)value_;
+
+//- (BOOL)validateKarma:(id*)value_ error:(NSError**)error_;
 
 
 
@@ -122,11 +142,35 @@ extern const struct OWMissionFetchedProperties {
 
 
 
+@property (nonatomic, strong) NSString* mediaURLString;
+
+
+
+//- (BOOL)validateMediaURLString:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
 @property (nonatomic, strong) NSString* primaryTag;
 
 
 
 //- (BOOL)validatePrimaryTag:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
+@property (nonatomic, strong) NSNumber* usd;
+
+
+
+@property double usdValue;
+- (double)usdValue;
+- (void)setUsdValue:(double)value_;
+
+//- (BOOL)validateUsd:(id*)value_ error:(NSError**)error_;
 
 
 
@@ -151,17 +195,17 @@ extern const struct OWMissionFetchedProperties {
 
 
 
-- (NSString*)primitiveBlurb;
-- (void)setPrimitiveBlurb:(NSString*)value;
+- (NSString*)primitiveBody;
+- (void)setPrimitiveBody:(NSString*)value;
 
 
 
 
-- (NSNumber*)primitiveBounty;
-- (void)setPrimitiveBounty:(NSNumber*)value;
+- (NSNumber*)primitiveCompleted;
+- (void)setPrimitiveCompleted:(NSNumber*)value;
 
-- (double)primitiveBountyValue;
-- (void)setPrimitiveBountyValue:(double)value_;
+- (BOOL)primitiveCompletedValue;
+- (void)setPrimitiveCompletedValue:(BOOL)value_;
 
 
 
@@ -171,6 +215,15 @@ extern const struct OWMissionFetchedProperties {
 
 - (BOOL)primitiveFeaturedValue;
 - (void)setPrimitiveFeaturedValue:(BOOL)value_;
+
+
+
+
+- (NSNumber*)primitiveKarma;
+- (void)setPrimitiveKarma:(NSNumber*)value;
+
+- (double)primitiveKarmaValue;
+- (void)setPrimitiveKarmaValue:(double)value_;
 
 
 
@@ -193,8 +246,23 @@ extern const struct OWMissionFetchedProperties {
 
 
 
+- (NSString*)primitiveMediaURLString;
+- (void)setPrimitiveMediaURLString:(NSString*)value;
+
+
+
+
 - (NSString*)primitivePrimaryTag;
 - (void)setPrimitivePrimaryTag:(NSString*)value;
+
+
+
+
+- (NSNumber*)primitiveUsd;
+- (void)setPrimitiveUsd:(NSNumber*)value;
+
+- (double)primitiveUsdValue;
+- (void)setPrimitiveUsdValue:(double)value_;
 
 
 
