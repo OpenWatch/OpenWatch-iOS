@@ -11,8 +11,6 @@
 #import "OWDashboardTableViewCell.h"
 #import "OWBadgedDashboardItem.h"
 
-static NSString *cellIdentifier = @"cellIdentifier";
-
 @implementation OWDashboardView
 @synthesize dashboardItems, dashboardTableView;
 

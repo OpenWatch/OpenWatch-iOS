@@ -42,7 +42,7 @@
 @end
 
 @implementation OWDashboardViewController
-@synthesize onboardingView, dashboardView, imagePicker, audioRecorder, editController;
+@synthesize onboardingView, dashboardView, creationController;
 
 - (void) dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -76,6 +76,8 @@
         dashboardView.dashboardItems = dashboardItems;
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedAccountPermissionsErrorNotification:) name:kAccountPermissionsError object:nil];
+        
+        self.creationController = [[OWMediaCreationController alloc] init];
     }
     return self;
 }
@@ -123,50 +125,16 @@
 }
 
 - (void) audioButtonPressed:(id)sender {
-    self.audioRecorder = [[OWAudioRecordingViewController alloc] init];
-    audioRecorder.delegate = self;
-    OWLocationController *locationController = [OWLocationController sharedInstance];
-    [locationController startWithDelegate:nil];
-    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:audioRecorder];
-    [self presentViewController:navController animated:YES completion:^{
-        [self pushEditView];
-    }];
+    [self.creationController recordAudioFromViewController:self];
 }
 
 - (void) recordButtonPressed:(id)sender {
-    OWCaptureViewController *captureVC = [[OWCaptureViewController alloc] init];
-    captureVC.delegate = self;
-    [self presentViewController:captureVC animated:YES completion:^{
-        [self pushEditView];
-    }];
-}
-
-- (void) pushEditView {
-    self.editController = [[OWLocalMediaEditViewController alloc] init];
-    self.editController.showingAfterCapture = YES;
-    [self.navigationController pushViewController:editController animated:YES];
+    [self.creationController recordVideoFromViewController:self];
 }
 
 - (void) photoButtonPressed:(id)sender {
-    OWLocationController *locationController = [OWLocationController sharedInstance];
-    [locationController startWithDelegate:nil];
-    
-    if (!self.imagePicker) {
-        self.imagePicker = [[UIImagePickerController alloc] init];
-        self.imagePicker.delegate = self;
-        self.imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
-    }
-    BOOL canTakePhoto = [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera];
-    if (canTakePhoto) {
-        [self presentViewController:imagePicker animated:YES completion:^{
-            [self pushEditView];
-        }];
-    } else {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Not Available" message:@"Sorry, this device can't take photos." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [alert show];
-    }
+    [self.creationController takePhotoFromViewController:self];
 }
-
 
 - (void) feedButtonPressed:(id)sender {
     OWFeedViewController *feedVC = [[OWFeedViewController alloc] init];
@@ -179,9 +147,6 @@
     [feedVC didSelectFeedWithName:@"Local" type:kOWFeedTypeFeed];
     [self.navigationController pushViewController:feedVC animated:YES];
 }
-
-
-
 
 - (void) yourMediaPressed:(id)sender {
     OWLocalMediaObjectListViewController *recordingListVC = [[OWLocalMediaObjectListViewController alloc] init];
@@ -218,8 +183,6 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-
 
 - (void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -282,76 +245,6 @@
     }];
 }
 
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
-
-    UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
-    OWPhoto *photo = [OWPhoto photoWithImage:image];
-    photo.firstPostedDate = [NSDate date];
-    OWLocationController *locationController = [OWLocationController sharedInstance];
-    photo.endLocation = locationController.currentLocation;
-    [locationController stop];
-    NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
-    [context MR_saveToPersistentStoreAndWait];
-    
-    self.editController.objectID = photo.objectID;
-    
-    [[OWAccountAPIClient sharedClient] postObjectWithUUID:photo.uuid objectClass:photo.class success:nil failure:nil];
-
-    [self.imagePicker dismissViewControllerAnimated:YES completion:^{
-        self.imagePicker = nil;
-    }];
-    
-    NSLog(@"photo created: %@", photo.description);
-}
-
-- (void) imagePickerControllerDidCancel:(UIImagePickerController *)picker {
-    OWLocationController *locationController = [OWLocationController sharedInstance];
-    [locationController stop];
-    [self.imagePicker dismissViewControllerAnimated:YES completion:^{
-        self.imagePicker = nil;
-    }];
-    [self.navigationController popToRootViewControllerAnimated:NO];
-}
-
-- (void) recordingViewController:(OWAudioRecordingViewController *)recordingViewController didFinishRecording:(OWAudio *)audio {
-    OWLocationController *locationController = [OWLocationController sharedInstance];
-    [locationController stop];
-    audio.firstPostedDate = [NSDate date];
-    audio.endLocation = locationController.currentLocation;
-    
-    NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
-    [context MR_saveToPersistentStoreAndWait];
-    
-    self.editController.objectID = audio.objectID;
-
-    
-    [[OWAccountAPIClient sharedClient] postObjectWithUUID:audio.uuid objectClass:audio.class success:nil failure:nil];
-    
-    [self.audioRecorder dismissViewControllerAnimated:YES completion:^{
-        self.audioRecorder = nil;
-    }];
-}
-
-- (void) recordingViewControllerDidCancel:(OWAudioRecordingViewController *)recordingViewController {
-    OWLocationController *locationController = [OWLocationController sharedInstance];
-    [locationController stop];
-    [self.audioRecorder dismissViewControllerAnimated:YES completion:^{
-        self.audioRecorder = nil;
-    }];
-    [self.navigationController popToRootViewControllerAnimated:NO];
-}
-
-- (void) captureViewController:(OWCaptureViewController *)captureViewController didFinishRecording:(OWLocalRecording *)recording {
-    self.editController.objectID = recording.objectID;
-    [captureViewController dismissViewControllerAnimated:YES completion:^{
-         
-     }];
-    
-}
-
-- (void) captureViewControllerDidCancel:(OWCaptureViewController *)captureViewController{
-    [self.navigationController popToRootViewControllerAnimated:NO];
-}
 
 
 @end

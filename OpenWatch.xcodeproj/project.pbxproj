@@ -197,6 +197,8 @@
 		D9C10AA117568DCA00C98EC3 /* JSBadgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C10AA017568DCA00C98EC3 /* JSBadgeView.m */; };
 		D9C10AA417568DF800C98EC3 /* OWBadgedDashboardItem.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C10AA317568DF800C98EC3 /* OWBadgedDashboardItem.m */; };
 		D9C10AA71756924400C98EC3 /* OWBadgedDashboardTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C10AA61756924400C98EC3 /* OWBadgedDashboardTableViewCell.m */; };
+		D9C10AAA175699AC00C98EC3 /* OWMissionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C10AA9175699AC00C98EC3 /* OWMissionViewController.m */; };
+		D9C10AAD17569BAA00C98EC3 /* OWMediaCreationController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C10AAC17569BAA00C98EC3 /* OWMediaCreationController.m */; };
 		D9C8A58016B9A1D2004F9E05 /* OWLocalRecordingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C8A57F16B9A1D2004F9E05 /* OWLocalRecordingTableViewCell.m */; };
 		D9CEED151682718600B236B5 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D9CEED101682718600B236B5 /* libTestFlight.a */; };
 		D9CEED19168271C700B236B5 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D9CEED18168271C700B236B5 /* libz.dylib */; };
@@ -622,6 +624,10 @@
 		D9C10AA317568DF800C98EC3 /* OWBadgedDashboardItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWBadgedDashboardItem.m; sourceTree = "<group>"; };
 		D9C10AA51756924400C98EC3 /* OWBadgedDashboardTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWBadgedDashboardTableViewCell.h; sourceTree = "<group>"; };
 		D9C10AA61756924400C98EC3 /* OWBadgedDashboardTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWBadgedDashboardTableViewCell.m; sourceTree = "<group>"; };
+		D9C10AA8175699AC00C98EC3 /* OWMissionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWMissionViewController.h; sourceTree = "<group>"; };
+		D9C10AA9175699AC00C98EC3 /* OWMissionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWMissionViewController.m; sourceTree = "<group>"; };
+		D9C10AAB17569BAA00C98EC3 /* OWMediaCreationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWMediaCreationController.h; sourceTree = "<group>"; };
+		D9C10AAC17569BAA00C98EC3 /* OWMediaCreationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWMediaCreationController.m; sourceTree = "<group>"; };
 		D9C8A57E16B9A1D2004F9E05 /* OWLocalRecordingTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWLocalRecordingTableViewCell.h; sourceTree = "<group>"; };
 		D9C8A57F16B9A1D2004F9E05 /* OWLocalRecordingTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWLocalRecordingTableViewCell.m; sourceTree = "<group>"; };
 		D9CEED0D16826AB400B236B5 /* OWAPIKeys.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OWAPIKeys.h; sourceTree = "<group>"; };
@@ -1428,6 +1434,10 @@
 		D9D2E21D16532B220000E7C5 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				D9C10AA8175699AC00C98EC3 /* OWMissionViewController.h */,
+				D9C10AA9175699AC00C98EC3 /* OWMissionViewController.m */,
+				D9C10AAB17569BAA00C98EC3 /* OWMediaCreationController.h */,
+				D9C10AAC17569BAA00C98EC3 /* OWMediaCreationController.m */,
 				D9BECEF116B1D3AC009046E1 /* Paginated Tables */,
 				D963C8501739C698008999F7 /* OWAudioRecordingViewController.h */,
 				D963C8511739C698008999F7 /* OWAudioRecordingViewController.m */,
@@ -2183,6 +2193,8 @@
 				D9C10AA117568DCA00C98EC3 /* JSBadgeView.m in Sources */,
 				D9C10AA417568DF800C98EC3 /* OWBadgedDashboardItem.m in Sources */,
 				D9C10AA71756924400C98EC3 /* OWBadgedDashboardTableViewCell.m in Sources */,
+				D9C10AAA175699AC00C98EC3 /* OWMissionViewController.m in Sources */,
+				D9C10AAD17569BAA00C98EC3 /* OWMediaCreationController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -11,16 +11,14 @@
 #import "OWOnboardingView.h"
 #import "OWDashboardView.h"
 #import "OWAudioRecordingViewController.h"
-#import "OWLocalMediaEditViewController.h"
 #import "OWCaptureViewController.h"
 #import "OWLocationController.h"
+#import "OWMediaCreationController.h"
 
-@interface OWDashboardViewController : UIViewController < OWOnboardingViewDelegate, OWDashboardViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, OWAudioRecordingDelegate, OWCaptureDelegate, OWLocationControllerDelegate>
+@interface OWDashboardViewController : UIViewController < OWOnboardingViewDelegate, OWDashboardViewDelegate, OWLocationControllerDelegate>
 
-@property (nonatomic, strong) OWLocalMediaEditViewController *editController;
 @property (nonatomic, strong) OWDashboardView *dashboardView;
 @property (nonatomic, strong) OWOnboardingView *onboardingView;
-@property (nonatomic, strong) UIImagePickerController *imagePicker;
-@property (nonatomic, strong) OWAudioRecordingViewController *audioRecorder;
+@property (nonatomic, strong) OWMediaCreationController *creationController;
 
 @end
