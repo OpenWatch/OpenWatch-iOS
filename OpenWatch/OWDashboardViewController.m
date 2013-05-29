@@ -77,7 +77,7 @@
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedAccountPermissionsErrorNotification:) name:kAccountPermissionsError object:nil];
         
-        self.creationController = [[OWMediaCreationController alloc] init];
+        self.creationController = OW_APP_DELEGATE.creationController;
     }
     return self;
 }
@@ -102,6 +102,12 @@
     NSArray *missions = [OWMission MR_findAll];
     NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
     
+    for (OWMission *mission in missions) {
+        mission.primaryTag = @"testmission";
+    }
+    [context MR_saveToPersistentStoreAndWait];
+
+    
     if (missions.count == 0) {
         for (int i = 0; i < 5; i++) {
             OWMission *mission = [OWMission MR_createInContext:context];
@@ -109,6 +115,7 @@
             mission.blurb = [NSString stringWithFormat:@"This is such a great mission (%d).", i];
             mission.bounty = @(i+1);
         }
+        
         [context MR_saveToPersistentStoreAndWait];
     }
     
@@ -125,14 +132,17 @@
 }
 
 - (void) audioButtonPressed:(id)sender {
+    self.creationController.primaryTag = nil;
     [self.creationController recordAudioFromViewController:self];
 }
 
 - (void) recordButtonPressed:(id)sender {
+    self.creationController.primaryTag = nil;
     [self.creationController recordVideoFromViewController:self];
 }
 
 - (void) photoButtonPressed:(id)sender {
+    self.creationController.primaryTag = nil;
     [self.creationController takePhotoFromViewController:self];
 }
 

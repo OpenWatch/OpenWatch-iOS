@@ -20,6 +20,8 @@
 @property (nonatomic, strong) OWAudioRecordingViewController *audioRecorder;
 @property (nonatomic, strong) OWLocalMediaEditViewController *editController;
 
+@property (nonatomic, strong) NSString *primaryTag;
+
 - (void) takePhotoFromViewController:(UIViewController*)viewController;
 - (void) recordAudioFromViewController:(UIViewController*)viewController;
 - (void) recordVideoFromViewController:(UIViewController*)viewController;

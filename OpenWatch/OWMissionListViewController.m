@@ -9,6 +9,7 @@
 #import "OWMissionListViewController.h"
 #import "OWMission.h"
 #import "OWMissionTableViewCell.h"
+#import "OWMissionViewController.h"
 
 @interface OWMissionListViewController ()
 
@@ -84,12 +85,11 @@
     if (indexPath.row >= self.objectIDs.count) {
         return;
     }
-    NSManagedObjectID *recordingID = [self.objectIDs objectAtIndex:indexPath.row];
-    /*
-    OWLocalMediaEditViewController *editVC = [[OWLocalMediaEditViewController alloc] init];
-    editVC.objectID = recordingID;
-    [self.navigationController pushViewController:editVC animated:YES];
-     */
+    NSManagedObjectID *missionID = [self.objectIDs objectAtIndex:indexPath.row];
+    OWMissionViewController *missionVC = [[OWMissionViewController alloc] init];
+    missionVC.mediaObjectID = missionID;
+    [self.navigationController pushViewController:missionVC animated:YES];
+     
 }
 
 - (OWMediaObjectTableViewCell*) mediaObjectCellForIndexPath:(NSIndexPath *)indexPath {

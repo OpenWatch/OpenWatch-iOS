@@ -13,6 +13,7 @@
 
 @implementation OWMediaCreationController
 @synthesize audioRecorder, imagePicker, editController, presentingViewController;
+@synthesize primaryTag;
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     
@@ -56,7 +57,6 @@
     [context MR_saveToPersistentStoreAndWait];
     
     self.editController.objectID = audio.objectID;
-    
     
     [[OWAccountAPIClient sharedClient] postObjectWithUUID:audio.uuid objectClass:audio.class success:nil failure:nil];
     
@@ -109,6 +109,7 @@
 
 - (void) pushEditView {
     self.editController = [[OWLocalMediaEditViewController alloc] init];
+    self.editController.primaryTag = self.primaryTag;
     self.editController.showingAfterCapture = YES;
     [presentingViewController.navigationController pushViewController:editController animated:YES];
 }

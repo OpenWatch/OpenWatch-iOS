@@ -10,6 +10,7 @@
 #import "BrowserViewController.h"
 #import "OWLocationController.h"
 #import "OWDashboardViewController.h"
+#import "OWMediaCreationController.h"
 
 #define OW_APP_DELEGATE ((OWAppDelegate*)[UIApplication sharedApplication].delegate)
 
@@ -21,6 +22,7 @@
 @property (nonatomic, strong) OWLocationController *locationController;
 @property (strong, nonatomic) UIWindow *window;
 @property (nonatomic, strong) OWDashboardViewController *dashboardViewController;
+@property (nonatomic, strong) OWMediaCreationController *creationController;
 @property (nonatomic, strong) UINavigationController *navigationController;
 
 @property (nonatomic) BOOL allowRotation;

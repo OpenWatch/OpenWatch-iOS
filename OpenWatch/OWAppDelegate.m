@@ -17,7 +17,7 @@
 
 
 @implementation OWAppDelegate
-@synthesize navigationController, locationController, dashboardViewController, backgroundTask, backgroundTimer, allowRotation;
+@synthesize navigationController, locationController, dashboardViewController, backgroundTask, backgroundTimer, allowRotation, creationController;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -57,6 +57,7 @@
     [[UINavigationBar appearance] setBackgroundImage:[OWUtilities navigationBarBackgroundImage] forBarMetrics:UIBarMetricsDefault];
     [[UINavigationBar appearance] setTintColor:[OWUtilities navigationBarColor]];
     self.window.rootViewController = navigationController;
+    self.creationController = [[OWMediaCreationController alloc] init];
     [MagicalRecord setupAutoMigratingCoreDataStack];
     [self.window makeKeyAndVisible];
     return YES;

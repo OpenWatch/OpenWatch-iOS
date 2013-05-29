@@ -29,4 +29,6 @@
 @property (nonatomic, strong) NSManagedObjectID *objectID;
 @property (nonatomic) BOOL showingAfterCapture;
 
+@property (nonatomic, strong) NSString *primaryTag;
+
 @end

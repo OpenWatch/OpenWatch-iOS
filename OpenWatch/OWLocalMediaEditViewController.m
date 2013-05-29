@@ -29,7 +29,7 @@
 @end
 
 @implementation OWLocalMediaEditViewController
-@synthesize titleTextField, whatHappenedLabel, saveButton, uploadProgressView, objectID, scrollView, showingAfterCapture, previewView, characterCountdown, uploadStatusLabel, previewGestureRecognizer;
+@synthesize titleTextField, whatHappenedLabel, saveButton, uploadProgressView, objectID, scrollView, showingAfterCapture, previewView, characterCountdown, uploadStatusLabel, previewGestureRecognizer, primaryTag;
 
 - (void) dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -185,6 +185,11 @@
     [self.characterCountdown updateText:titleTextField.text];
 }
 
+- (void) setPrimaryTag:(NSString *)newPrimaryTag {
+    primaryTag = newPrimaryTag;
+    self.characterCountdown.maxCharacters = 250-primaryTag.length;
+}
+
 - (UITextField*)textFieldWithDefaults {
     UITextField *textField = [[UITextField alloc] init];
     textField.delegate = self;
@@ -230,7 +235,27 @@
 - (void) saveButtonPressed:(id)sender {
     OWLocalMediaObject *mediaObject = [OWLocalMediaController localMediaObjectForObjectID:self.objectID];
     NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
-    mediaObject.title = self.titleTextField.text;
+    
+    NSMutableString *finalTitleString = [[NSMutableString alloc] init];
+    NSString *initialTitleString = self.titleTextField.text;
+    int tagLength = primaryTag.length;
+    
+    // define the range you're interested in
+    NSRange stringRange = {0, MIN([initialTitleString length], self.characterCountdown.maxCharacters-tagLength)};
+    
+    // adjust the range to include dependent chars
+    stringRange = [initialTitleString rangeOfComposedCharacterSequencesForRange:stringRange];
+    
+    // Now you can create the short string
+    NSString *shortString = [initialTitleString substringWithRange:stringRange];
+    [finalTitleString appendString:shortString];
+    if (primaryTag) {
+        [finalTitleString appendFormat:@" #%@", primaryTag];
+    }
+    
+    NSString *trimmedText = [finalTitleString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+
+    mediaObject.title = trimmedText;
     [context MR_saveToPersistentStoreAndWait];    
     
     [[OWAccountAPIClient sharedClient] postObjectWithUUID:mediaObject.uuid objectClass:[mediaObject class] success:nil failure:nil];
