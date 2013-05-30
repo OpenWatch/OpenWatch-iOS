@@ -8,6 +8,7 @@
 #import "OWInvestigation.h"
 #import "OWAudio.h"
 #import "OWLocalRecording.h"
+#import "OWMission.h"
 
 @interface OWMediaObject ()
 
@@ -129,6 +130,8 @@
         type = @"v";
     } else if ([self isKindOfClass:[OWAudio class]]){
         type = @"a";
+    } else if ([self isKindOfClass:[OWMission class]]){
+        type = @"mission";
     } else {
         return nil;
     }

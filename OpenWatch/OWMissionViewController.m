@@ -30,10 +30,11 @@
         self.titleLabel.numberOfLines = 2;
         self.titleLabel.font = [UIFont fontWithName:@"Palatino-Bold" size:23.0f];
         self.blurbLabel = [[UILabel alloc] init];
-        self.blurbLabel.font = [UIFont fontWithName:@"Palatino-Roman" size:18.0f];
+        self.blurbLabel.font = [UIFont fontWithName:@"Palatino-Roman" size:20.0f];
         self.blurbLabel.backgroundColor = [UIColor clearColor];
         self.blurbLabel.numberOfLines = 0;
         self.bountyLabel = [[UILabel alloc] init];
+        self.bountyLabel.backgroundColor = [UIColor clearColor];
         self.imageView = [[UIImageView alloc] init];
         self.imageView.contentMode = UIViewContentModeScaleAspectFill;
         self.imageView.clipsToBounds = YES;
@@ -83,11 +84,11 @@
     CGFloat paddedWidth = frameWidth - padding * 2;
 
     self.imageView.frame = CGRectMake(0, 0, frameWidth, 200);
-    self.titleLabel.frame = CGRectMake(padding, [OWUtilities bottomOfView:imageView], paddedWidth, 50);
-    self.userView.frame = CGRectMake(padding, [OWUtilities bottomOfView:titleLabel], paddedWidth, 65);
-    self.blurbLabel.frame = CGRectMake(padding, [OWUtilities bottomOfView:userView], paddedWidth, 100);
-    self.bountyLabel.frame = CGRectMake(padding, [OWUtilities bottomOfView:blurbLabel], 50, 25);
-    self.dashboardView.frame = CGRectMake(0, [OWUtilities bottomOfView:bountyLabel], frameWidth, 120);
+    self.titleLabel.frame = CGRectMake(padding, [OWUtilities bottomOfView:imageView] + padding/2, paddedWidth, 50);
+    self.userView.frame = CGRectMake(padding, [OWUtilities bottomOfView:titleLabel] + padding/2, paddedWidth, 65);
+    self.blurbLabel.frame = CGRectMake(padding, [OWUtilities bottomOfView:userView] + padding/2, paddedWidth, 120);
+    self.bountyLabel.frame = CGRectMake(padding, [OWUtilities bottomOfView:blurbLabel] + padding/2, 50, 25);
+    self.dashboardView.frame = CGRectMake(0, [OWUtilities bottomOfView:bountyLabel] + padding/2, frameWidth, 120);
 
     self.scrollView.frame = self.view.bounds;
     self.scrollView.contentSize = CGSizeMake(self.view.frame.size.width, [OWUtilities bottomOfView:dashboardView]);

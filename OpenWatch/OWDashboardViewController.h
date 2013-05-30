@@ -19,6 +19,5 @@
 
 @property (nonatomic, strong) OWDashboardView *dashboardView;
 @property (nonatomic, strong) OWOnboardingView *onboardingView;
-@property (nonatomic, strong) OWMediaCreationController *creationController;
 
 @end

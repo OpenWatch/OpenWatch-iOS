@@ -42,7 +42,7 @@
 @end
 
 @implementation OWDashboardViewController
-@synthesize onboardingView, dashboardView, creationController;
+@synthesize onboardingView, dashboardView;
 
 - (void) dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -74,9 +74,7 @@
         NSArray *dashboardItems = @[@[missions], topItems, middleItems, bottonItems];
         dashboardView.dashboardItems = dashboardItems;
         
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedAccountPermissionsErrorNotification:) name:kAccountPermissionsError object:nil];
-        
-        self.creationController = OW_APP_DELEGATE.creationController;
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedAccountPermissionsErrorNotification:) name:kAccountPermissionsError object:nil];        
         [self prefetchNewMissions];
     }
     return self;
@@ -116,18 +114,18 @@
 }
 
 - (void) audioButtonPressed:(id)sender {
-    self.creationController.primaryTag = nil;
-    [self.creationController recordAudioFromViewController:self];
+    OW_APP_DELEGATE.creationController.primaryTag = nil;
+    [OW_APP_DELEGATE.creationController recordAudioFromViewController:self];
 }
 
 - (void) recordButtonPressed:(id)sender {
-    self.creationController.primaryTag = nil;
-    [self.creationController recordVideoFromViewController:self];
+    OW_APP_DELEGATE.creationController.primaryTag = nil;
+    [OW_APP_DELEGATE.creationController recordVideoFromViewController:self];
 }
 
 - (void) photoButtonPressed:(id)sender {
-    self.creationController.primaryTag = nil;
-    [self.creationController takePhotoFromViewController:self];
+    OW_APP_DELEGATE.creationController.primaryTag = nil;
+    [OW_APP_DELEGATE.creationController takePhotoFromViewController:self];
 }
 
 - (void) feedButtonPressed:(id)sender {
