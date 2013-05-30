@@ -343,17 +343,9 @@
                     successMediaObject.uploaded = @(YES);
                     [localContext MR_saveToPersistentStoreAndWait];
                     [[NSNotificationCenter defaultCenter] postNotificationName:kOWCaptureAPIClientBandwidthNotification object:nil];
-                } else {
-                    successMediaObject.uploaded = @(NO);
-                    [localContext MR_saveToPersistentStoreAndWait];
                 }
-                
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                 NSLog(@"Failed to upload photo: %@", error.userInfo);
-                NSManagedObjectContext *localContext = [NSManagedObjectContext MR_contextForCurrentThread];
-                OWLocalMediaObject *failedMediaObject = (OWLocalMediaObject*)[localContext existingObjectWithID:mediaObjectID error:nil];
-                failedMediaObject.uploaded = @(NO);
-                [localContext MR_saveToPersistentStoreAndWait];
             }];
             [self enqueueHTTPRequestOperation:operation];
             
