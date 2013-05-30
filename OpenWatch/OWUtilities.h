@@ -34,6 +34,7 @@
 + (CGFloat) bottomOfView:(UIView*)view;
 + (CGFloat) rightOfView:(UIView*)view;
 
++ (CGRect) constrainedFrameForLabel:(UILabel*)label width:(CGFloat)width origin:(CGPoint)origin;
 
 + (WEPopoverContainerViewProperties *)improvedContainerViewProperties;
 

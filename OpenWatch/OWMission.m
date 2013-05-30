@@ -8,6 +8,8 @@
 
 #import "OWMission.h"
 #import "OWMissionTableViewCell.h"
+#import "OWConstants.h"
+#import "OWBadgedDashboardItem.h"
 
 @implementation OWMission
 
@@ -61,6 +63,15 @@
     if (usd) {
         self.usd = usd;
     }
+}
+
++ (void) updateUnreadCount {
+    NSArray *unreadMissions = [OWMission MR_findByAttribute:OWMissionAttributes.viewed withValue:@(NO)];
+    NSString *badgeText = @"";
+    if (unreadMissions.count > 0) {
+        badgeText = [NSString stringWithFormat:@"%d", unreadMissions.count];
+    }
+    [[NSNotificationCenter defaultCenter] postNotificationName:kMissionCountUpdateNotification object:nil userInfo:@{[OWBadgedDashboardItem userInfoBadgeTextKey]: badgeText}];
 }
 
 @end

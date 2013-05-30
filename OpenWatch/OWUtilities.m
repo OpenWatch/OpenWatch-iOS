@@ -157,4 +157,21 @@
     NSLog(@"frame: (%f, %f, %f, %f)", frame.origin.x, frame.origin.y, frame.size.width, frame.size.height);
 }
 
+//http://stackoverflow.com/a/447065/805882
++ (CGRect) constrainedFrameForLabel:(UILabel*)label width:(CGFloat)width origin:(CGPoint)origin {
+    //Calculate the expected size based on the font and linebreak mode of your label
+    // FLT_MAX here simply means no constraint in height
+    CGSize maximumLabelSize = CGSizeMake(width, FLT_MAX);
+    
+    CGSize expectedLabelSize = [label.text sizeWithFont:label.font constrainedToSize:maximumLabelSize lineBreakMode:label.lineBreakMode];
+    
+    //adjust the label the the new height.
+    CGRect newFrame = label.frame;
+    newFrame.size.height = expectedLabelSize.height;
+    newFrame.size.width = width;
+    newFrame.origin.x = origin.x;
+    newFrame.origin.y = origin.y;
+    return newFrame;
+}
+
 @end

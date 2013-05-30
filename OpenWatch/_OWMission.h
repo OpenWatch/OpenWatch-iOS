@@ -15,6 +15,7 @@ extern const struct OWMissionAttributes {
 	__unsafe_unretained NSString *mediaURLString;
 	__unsafe_unretained NSString *primaryTag;
 	__unsafe_unretained NSString *usd;
+	__unsafe_unretained NSString *viewed;
 } OWMissionAttributes;
 
 extern const struct OWMissionRelationships {
@@ -22,6 +23,7 @@ extern const struct OWMissionRelationships {
 
 extern const struct OWMissionFetchedProperties {
 } OWMissionFetchedProperties;
+
 
 
 
@@ -176,6 +178,20 @@ extern const struct OWMissionFetchedProperties {
 
 
 
+@property (nonatomic, strong) NSNumber* viewed;
+
+
+
+@property BOOL viewedValue;
+- (BOOL)viewedValue;
+- (void)setViewedValue:(BOOL)value_;
+
+//- (BOOL)validateViewed:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
 
 @end
 
@@ -263,6 +279,15 @@ extern const struct OWMissionFetchedProperties {
 
 - (double)primitiveUsdValue;
 - (void)setPrimitiveUsdValue:(double)value_;
+
+
+
+
+- (NSNumber*)primitiveViewed;
+- (void)setPrimitiveViewed:(NSNumber*)value;
+
+- (BOOL)primitiveViewedValue;
+- (void)setPrimitiveViewedValue:(BOOL)value_;
 
 
 

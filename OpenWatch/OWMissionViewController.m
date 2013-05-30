@@ -28,7 +28,7 @@
     if (self) {
         self.titleLabel = [[UILabel alloc] init];
         self.titleLabel.backgroundColor = [UIColor clearColor];
-        self.titleLabel.numberOfLines = 2;
+        self.titleLabel.numberOfLines = 0;
         self.titleLabel.font = [UIFont fontWithName:@"Palatino-Bold" size:23.0f];
         self.blurbLabel = [[UILabel alloc] init];
         self.blurbLabel.font = [UIFont fontWithName:@"Palatino-Roman" size:20.0f];
@@ -81,11 +81,15 @@
 
 - (void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [self refreshFrames];
+}
+
+- (void) refreshFrames {
     CGFloat padding = 10.0f;
     CGFloat frameWidth = self.view.frame.size.width;
     CGFloat paddedWidth = frameWidth - padding * 2;
-
-
+    
+    
     self.imageView.frame = CGRectMake(0, 0, frameWidth, 200);
     self.imageContainerView.frame = self.imageView.frame;
     
@@ -94,15 +98,21 @@
     self.bannerView.frame = CGRectMake(frameWidth, self.imageContainerView.frame.size.height - bannerHeight - padding, bannerView.imageView.image.size.width, bannerHeight);
     
     [OWUtilities applyShadowToView:imageContainerView];
-
-    self.titleLabel.frame = CGRectMake(padding, [OWUtilities bottomOfView:imageView] + padding, paddedWidth, 50);
+    
+    CGRect titleLabelFrame = [OWUtilities constrainedFrameForLabel:titleLabel width:paddedWidth origin:CGPointMake(padding, [OWUtilities bottomOfView:imageView] + padding)];
+    self.titleLabel.frame = titleLabelFrame;
+    
     self.userView.frame = CGRectMake(padding, [OWUtilities bottomOfView:titleLabel] + padding, paddedWidth, 65);
-    self.blurbLabel.frame = CGRectMake(padding, [OWUtilities bottomOfView:userView] + padding, paddedWidth, 120);
+    
+    CGRect blurbLabelFrame = [OWUtilities constrainedFrameForLabel:blurbLabel width:paddedWidth origin:CGPointMake(padding, [OWUtilities bottomOfView:userView] + padding)];
+    self.blurbLabel.frame = blurbLabelFrame;
+    
     self.dashboardView.frame = CGRectMake(0, [OWUtilities bottomOfView:blurbLabel] + padding, frameWidth, 120);
-
+    
     self.scrollView.frame = self.view.bounds;
     self.scrollView.contentSize = CGSizeMake(self.view.frame.size.width, [OWUtilities bottomOfView:dashboardView]);
 }
+
 
 - (void) viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
@@ -113,6 +123,12 @@
         self.bannerView.frame = CGRectMake(self.view.frame.size.width - bannerView.imageView.image.size.width, self.imageContainerView.frame.size.height - bannerHeight - padding, bannerView.imageView.image.size.width, bannerHeight);
     } completion:^(BOOL finished) {
         
+    }];
+    
+    self.mission.viewed = @(YES);
+    NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
+    [context MR_saveToPersistentStoreWithCompletion:^(BOOL success, NSError *error) {
+        [OWMission updateUnreadCount];
     }];
 }
 

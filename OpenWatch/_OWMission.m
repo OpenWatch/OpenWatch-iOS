@@ -14,6 +14,7 @@ const struct OWMissionAttributes OWMissionAttributes = {
 	.mediaURLString = @"mediaURLString",
 	.primaryTag = @"primaryTag",
 	.usd = @"usd",
+	.viewed = @"viewed",
 };
 
 const struct OWMissionRelationships OWMissionRelationships = {
@@ -80,6 +81,11 @@ const struct OWMissionFetchedProperties OWMissionFetchedProperties = {
 	}
 	if ([key isEqualToString:@"usdValue"]) {
 		NSSet *affectingKey = [NSSet setWithObject:@"usd"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
+	if ([key isEqualToString:@"viewedValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"viewed"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
 		return keyPaths;
 	}
@@ -287,6 +293,32 @@ const struct OWMissionFetchedProperties OWMissionFetchedProperties = {
 
 - (void)setPrimitiveUsdValue:(double)value_ {
 	[self setPrimitiveUsd:[NSNumber numberWithDouble:value_]];
+}
+
+
+
+
+
+@dynamic viewed;
+
+
+
+- (BOOL)viewedValue {
+	NSNumber *result = [self viewed];
+	return [result boolValue];
+}
+
+- (void)setViewedValue:(BOOL)value_ {
+	[self setViewed:[NSNumber numberWithBool:value_]];
+}
+
+- (BOOL)primitiveViewedValue {
+	NSNumber *result = [self primitiveViewed];
+	return [result boolValue];
+}
+
+- (void)setPrimitiveViewedValue:(BOOL)value_ {
+	[self setPrimitiveViewed:[NSNumber numberWithBool:value_]];
 }
 
 

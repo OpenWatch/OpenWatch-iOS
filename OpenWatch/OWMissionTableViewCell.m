@@ -24,8 +24,7 @@
         CGFloat titleHeight = 76.0f;
 
         self.titleLabel.frame = CGRectMake(titleX, titleY, labelWidth, titleHeight);
-        self.titleLabel.font = [UIFont systemFontOfSize:17.0f];
-        self.bountyLabel = [[UILabel alloc] initWithFrame:CGRectMake(230, 85, 50, 25)];
+        self.bountyLabel = [[UILabel alloc] initWithFrame:CGRectMake(225, 85, 80, 25)];
         self.bountyLabel.backgroundColor = [UIColor clearColor];
         self.titleLabel.numberOfLines = 0;
         
@@ -39,7 +38,18 @@
     [super setMediaObjectID:newMediaObjectID];
     NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
     OWMission *mission = (OWMission*)[context existingObjectWithID:newMediaObjectID error:nil];
-    self.bountyLabel.text = [NSString stringWithFormat:@"$%.2f", mission.usdValue];
+
+    if (mission.viewedValue) {
+        self.titleLabel.font = [UIFont systemFontOfSize:17.0f];
+    } else {
+        self.titleLabel.font = [UIFont boldSystemFontOfSize:17.0f];
+    }
+    
+    if (mission.usdValue > 0) {
+        self.bountyLabel.text = [NSString stringWithFormat:@"$%.2f", mission.usdValue];
+    } else {
+        self.bountyLabel.text = [NSString stringWithFormat:@"%d Karma", (int)mission.karmaValue];
+    }
     self.titleLabel.text = mission.title;
 }
 

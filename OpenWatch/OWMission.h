@@ -13,5 +13,6 @@
 @interface OWMission : _OWMission
 
 - (NSURL*) mediaURL;
++ (void) updateUnreadCount;
 
 @end

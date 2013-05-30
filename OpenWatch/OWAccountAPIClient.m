@@ -401,8 +401,7 @@
         NSUInteger objectCount = [[meta objectForKey:@"object_count"] unsignedIntegerValue];
         
         if (feedType == kOWFeedTypeMissions && objectCount > 0) {
-            NSString *badgeText = [NSString stringWithFormat:@"%d", objectCount];
-            [[NSNotificationCenter defaultCenter] postNotificationName:kMissionCountUpdateNotification object:nil userInfo:@{[OWBadgedDashboardItem userInfoBadgeTextKey]: badgeText}];
+            [OWMission updateUnreadCount];
         }
         if (success) {
             success(mediaObjects, pageCount);
@@ -481,6 +480,8 @@
         mediaObject = [OWMission MR_findFirstByAttribute:@"serverID" withValue:serverID];
         if (!mediaObject) {
             mediaObject = [OWMission MR_createEntity];
+            OWMission *mission = (OWMission*)mediaObject;
+            mission.viewed = @(NO);
         }
     } else {
         return nil;
