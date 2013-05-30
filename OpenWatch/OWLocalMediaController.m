@@ -14,6 +14,7 @@
 #import "OWCaptureAPIClient.h"
 #import "OWAudio.h"
 #import "OWLocalRecording.h"
+#import "OWAccountAPIClient.h"
 
 @implementation OWLocalMediaController
 
@@ -99,6 +100,11 @@
                 if (recording.completedFileCount != recording.totalFileCount) {
                     NSLog(@"Unsubmitted data found for recording: %@", recording.localRecordingPath);
                     [[OWCaptureAPIClient sharedClient] uploadFailedFileURLs:recording.failedFileUploadURLs forRecording:recording.objectID];
+                }
+            } else if ([mediaObject isKindOfClass:[OWPhoto class]]) {
+                OWPhoto *photo = (OWPhoto*)mediaObject;
+                if (!photo.uploadedValue) {
+                    [[OWAccountAPIClient sharedClient] postObjectWithUUID:photo.uuid objectClass:[photo class] success:nil failure:nil];
                 }
             }
 
