@@ -10,6 +10,7 @@
 #import "OWMission.h"
 #import "OWMissionTableViewCell.h"
 #import "OWMissionViewController.h"
+#import "OWAccountAPIClient.h"
 
 @interface OWMissionListViewController ()
 
@@ -50,27 +51,18 @@
     if (pageNumber <= kFirstPage) {
         self.currentPage = kFirstPage;
     }
-    NSArray *missions = [OWMission MR_findAll];
-    NSMutableArray *objectIDs = [NSMutableArray arrayWithCapacity:missions.count];
-    for (OWMission *mission in missions) {
-        [objectIDs addObject:mission.objectID];
-    }
-    [self reloadFeed:objectIDs replaceObjects:YES];
-    /*
-    [[OWAccountAPIClient sharedClient] fetchMediaObjectsForFeedType:kOWFeedTypeFeed feedName:@"user" page:pageNumber success:^(NSArray *mediaObjectIDs, NSUInteger totalPages) {
+
+    [[OWAccountAPIClient sharedClient] fetchMediaObjectsForFeedType:kOWFeedTypeMissions feedName:nil page:pageNumber success:^(NSArray *mediaObjectIDs, NSUInteger totalPages) {
         self.totalPages = totalPages;
         BOOL shouldReplaceObjects = NO;
         if (self.currentPage == kFirstPage) {
             shouldReplaceObjects = YES;
         }
         [self reloadFeed:mediaObjectIDs replaceObjects:shouldReplaceObjects];
-        [self loadOfflineRecordings];
         [self doneLoadingTableViewData];
     } failure:^(NSString *reason) {
-        [self loadOfflineRecordings];
         [self doneLoadingTableViewData];
     }];
-     */
 }
 
 - (void)didReceiveMemoryWarning

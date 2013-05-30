@@ -113,7 +113,7 @@
         return 1;
     }
     
-    if (currentPage == totalPages) {
+    if (currentPage >= totalPages) {
         return self.objectIDs.count;
     }
     return self.objectIDs.count + 1;

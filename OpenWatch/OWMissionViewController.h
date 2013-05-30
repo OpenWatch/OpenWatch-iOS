@@ -9,6 +9,7 @@
 #import "OWMediaObjectViewController.h"
 #import "OWMission.h"
 #import "OWDashboardView.h"
+#import "OWUserView.h"
 
 @interface OWMissionViewController : OWMediaObjectViewController
 
@@ -19,6 +20,7 @@
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UILabel *blurbLabel;
 @property (nonatomic, strong) UILabel *bountyLabel;
+@property (nonatomic, strong) OWUserView *userView;
 
 @property (nonatomic, strong) OWDashboardView *dashboardView;
 

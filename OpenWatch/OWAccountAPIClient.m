@@ -399,11 +399,14 @@
             NSString *badgeText = [NSString stringWithFormat:@"%d", objectCount];
             [[NSNotificationCenter defaultCenter] postNotificationName:kMissionCountUpdateNotification object:nil userInfo:@{[OWBadgedDashboardItem userInfoBadgeTextKey]: badgeText}];
         }
-        
-        success(mediaObjects, pageCount);
+        if (success) {
+            success(mediaObjects, pageCount);
+        }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"failure: %@", [error userInfo]);
-        failure(@"couldn't fetch objects");
+        if (failure) {
+            failure(@"couldn't fetch objects");
+        }
     }];
 
 }

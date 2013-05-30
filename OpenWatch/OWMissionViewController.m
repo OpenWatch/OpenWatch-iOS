@@ -10,23 +10,35 @@
 #import "OWDashboardItem.h"
 #import "OWAppDelegate.h"
 #import "UIImageView+AFNetworking.h"
+#import "MBProgressHUD.h"
+#import "OWUtilities.h"
+
 
 @interface OWMissionViewController ()
 
 @end
 
 @implementation OWMissionViewController
-@synthesize mission, scrollView, imageView, titleLabel, blurbLabel, dashboardView;
+@synthesize mission, scrollView, imageView, titleLabel, blurbLabel, dashboardView, userView, bountyLabel;
 
 - (id)init
 {
     self = [super init];
     if (self) {
         self.titleLabel = [[UILabel alloc] init];
+        self.titleLabel.backgroundColor = [UIColor clearColor];
+        self.titleLabel.numberOfLines = 2;
+        self.titleLabel.font = [UIFont fontWithName:@"Palatino-Bold" size:23.0f];
         self.blurbLabel = [[UILabel alloc] init];
+        self.blurbLabel.font = [UIFont fontWithName:@"Palatino-Roman" size:18.0f];
+        self.blurbLabel.backgroundColor = [UIColor clearColor];
+        self.blurbLabel.numberOfLines = 0;
         self.bountyLabel = [[UILabel alloc] init];
         self.imageView = [[UIImageView alloc] init];
+        self.imageView.contentMode = UIViewContentModeScaleAspectFill;
+        self.imageView.clipsToBounds = YES;
         self.scrollView = [[UIScrollView alloc] init];
+        self.userView = [[OWUserView alloc] initWithFrame:CGRectZero];
         
         self.dashboardView = [[OWDashboardView alloc] initWithFrame:CGRectZero];
         self.dashboardView.dashboardTableView.scrollEnabled = NO;
@@ -35,6 +47,8 @@
         [self.scrollView addSubview:blurbLabel];
         [self.scrollView addSubview:imageView];
         [self.scrollView addSubview:dashboardView];
+        [self.scrollView addSubview:bountyLabel];
+        [self.scrollView addSubview:userView];
         
         OWDashboardItem *videoItem = [[OWDashboardItem alloc] initWithTitle:@"Broadcast Video" image:[UIImage imageNamed:@"285-facetime.png"] target:self selector:@selector(recordButtonPressed:)];
         OWDashboardItem *photoItem = [[OWDashboardItem alloc] initWithTitle:@"Take Photo" image:[UIImage imageNamed:@"86-camera.png"] target:self selector:@selector(photoButtonPressed:)];
@@ -64,14 +78,19 @@
 
 - (void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    CGFloat padding = 10.0f;
+    CGFloat frameWidth = self.view.frame.size.width;
+    CGFloat paddedWidth = frameWidth - padding * 2;
 
-    self.imageView.frame = CGRectMake(0, 0, self.view.frame.size.width, 100);
-    self.titleLabel.frame = CGRectMake(0, 100, 300, 50);
-    self.blurbLabel.frame = CGRectMake(0, 150, 300, 50);
-    self.bountyLabel.frame = CGRectMake(0, 300, 50, 25);
+    self.imageView.frame = CGRectMake(0, 0, frameWidth, 200);
+    self.titleLabel.frame = CGRectMake(padding, [OWUtilities bottomOfView:imageView], paddedWidth, 50);
+    self.userView.frame = CGRectMake(padding, [OWUtilities bottomOfView:titleLabel], paddedWidth, 65);
+    self.blurbLabel.frame = CGRectMake(padding, [OWUtilities bottomOfView:userView], paddedWidth, 100);
+    self.bountyLabel.frame = CGRectMake(padding, [OWUtilities bottomOfView:blurbLabel], 50, 25);
+    self.dashboardView.frame = CGRectMake(0, [OWUtilities bottomOfView:bountyLabel], frameWidth, 120);
+
     self.scrollView.frame = self.view.bounds;
-    self.scrollView.contentSize = CGSizeMake(self.view.frame.size.width, 600);
-    self.dashboardView.frame = CGRectMake(0, 200, self.view.frame.size.width, 120);
+    self.scrollView.contentSize = CGSizeMake(self.view.frame.size.width, [OWUtilities bottomOfView:dashboardView]);
 }
 
 - (void)didReceiveMemoryWarning
@@ -86,9 +105,20 @@
     self.mission = (OWMission*)[context existingObjectWithID:mediaObjectID error:nil];
     self.titleLabel.text = mission.title;
     self.blurbLabel.text = mission.body;
-    [self.imageView setImageWithURL:mission.thumbnailURL placeholderImage:nil];
+    NSURLRequest *request = [NSURLRequest requestWithURL:mission.mediaURL];
+    
+    __weak UIImageView *weakImageView = self.imageView;
+    [MBProgressHUD showHUDAddedTo:self.imageView animated:YES];
+    [self.imageView setImageWithURLRequest:request placeholderImage:nil success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+        weakImageView.image = image;
+        [MBProgressHUD hideAllHUDsForView:weakImageView animated:YES];
+    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
+        NSLog(@"Error loading mission image: %@", error.userInfo);
+        [MBProgressHUD hideAllHUDsForView:weakImageView animated:YES];
+    }];
     self.bountyLabel.text = [NSString stringWithFormat:@"$%.2f", mission.usdValue];
     self.title = [NSString stringWithFormat:@"#%@", mission.primaryTag];
+    self.userView.user = mission.user;
 }
 
 @end
