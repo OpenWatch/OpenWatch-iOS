@@ -22,6 +22,7 @@
         self.textLabel.textColor = [UIColor whiteColor];
         self.textLabel.adjustsFontSizeToFitWidth = YES;
         self.textLabel.text = labelText;
+        self.textLabel.textAlignment = NSTextAlignmentCenter;
         [self addSubview:imageView];
         [self addSubview:textLabel];
     }
@@ -42,7 +43,7 @@
     CGFloat imageHeight = imageView.image.size.height;
     self.imageView.frame = CGRectMake(0, 0, imageWidth, imageHeight);
     CGFloat textLabelX = imageWidth * 0.2;
-    CGFloat textLabelY = imageHeight * 0.1;
+    CGFloat textLabelY = imageHeight;
     self.textLabel.frame = CGRectMake(textLabelX, textLabelY, imageWidth - textLabelX * 2, imageHeight - textLabelY * 2);
 }
 

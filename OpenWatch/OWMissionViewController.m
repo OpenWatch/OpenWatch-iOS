@@ -148,13 +148,13 @@
 
     UIImage *bannerImage = nil;
     NSString *text = nil;
-        if (mission.usdValue > 0) {
-            bannerImage = [UIImage imageNamed:@"side_banner_green.png"];
-            text = [NSString stringWithFormat:@"$%.02f", mission.usdValue];
-        } else {
-            bannerImage = [UIImage imageNamed:@"side_banner_blue.png"];
-            text = [NSString stringWithFormat:@"%d Karma", (int)mission.karmaValue];
-        }
+    if (mission.usdValue > 0) {
+        bannerImage = [UIImage imageNamed:@"side_banner_green.png"];
+        text = [NSString stringWithFormat:@"$%.02f", mission.usdValue];
+    } else {
+        bannerImage = [UIImage imageNamed:@"side_banner_blue.png"];
+        text = [NSString stringWithFormat:@"%d Karma", (int)mission.karmaValue];
+    }
 
     self.bannerView = [[OWBannerView alloc] initWithFrame:CGRectZero bannerImage:bannerImage labelText:text];
     [self.scrollView addSubview:bannerView];
