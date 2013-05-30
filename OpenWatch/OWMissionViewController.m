@@ -19,8 +19,8 @@
 @end
 
 @implementation OWMissionViewController
-@synthesize mission, scrollView, imageView, titleLabel, blurbLabel, dashboardView, userView, bountyLabel;
-@synthesize imageContainerView;
+@synthesize mission, scrollView, imageView, titleLabel, blurbLabel, dashboardView, userView;
+@synthesize imageContainerView, bannerView;
 
 - (id)init
 {
@@ -34,8 +34,6 @@
         self.blurbLabel.font = [UIFont fontWithName:@"Palatino-Roman" size:20.0f];
         self.blurbLabel.backgroundColor = [UIColor clearColor];
         self.blurbLabel.numberOfLines = 0;
-        self.bountyLabel = [[UILabel alloc] init];
-        self.bountyLabel.backgroundColor = [UIColor clearColor];
         self.imageView = [[UIImageView alloc] init];
         self.imageView.contentMode = UIViewContentModeScaleAspectFill;
         self.imageView.clipsToBounds = YES;
@@ -53,7 +51,6 @@
         [self.scrollView addSubview:blurbLabel];
         [self.scrollView addSubview:imageContainerView];
         [self.scrollView addSubview:dashboardView];
-        [self.scrollView addSubview:bountyLabel];
         [self.scrollView addSubview:userView];
         
         OWDashboardItem *videoItem = [[OWDashboardItem alloc] initWithTitle:@"Broadcast Video" image:[UIImage imageNamed:@"285-facetime.png"] target:self selector:@selector(recordButtonPressed:)];
@@ -91,16 +88,32 @@
 
     self.imageView.frame = CGRectMake(0, 0, frameWidth, 200);
     self.imageContainerView.frame = self.imageView.frame;
+    
+    CGFloat bannerHeight = bannerView.imageView.image.size.height;
+    
+    self.bannerView.frame = CGRectMake(frameWidth, self.imageContainerView.frame.size.height - bannerHeight - padding, bannerView.imageView.image.size.width, bannerHeight);
+    
     [OWUtilities applyShadowToView:imageContainerView];
 
     self.titleLabel.frame = CGRectMake(padding, [OWUtilities bottomOfView:imageView] + padding, paddedWidth, 50);
     self.userView.frame = CGRectMake(padding, [OWUtilities bottomOfView:titleLabel] + padding, paddedWidth, 65);
     self.blurbLabel.frame = CGRectMake(padding, [OWUtilities bottomOfView:userView] + padding, paddedWidth, 120);
-    self.bountyLabel.frame = CGRectMake(padding, [OWUtilities bottomOfView:blurbLabel] + padding, 50, 25);
-    self.dashboardView.frame = CGRectMake(0, [OWUtilities bottomOfView:bountyLabel] + padding, frameWidth, 120);
+    self.dashboardView.frame = CGRectMake(0, [OWUtilities bottomOfView:blurbLabel] + padding, frameWidth, 120);
 
     self.scrollView.frame = self.view.bounds;
     self.scrollView.contentSize = CGSizeMake(self.view.frame.size.width, [OWUtilities bottomOfView:dashboardView]);
+}
+
+- (void) viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [UIView animateWithDuration:0.5 animations:^{
+        CGFloat bannerHeight = bannerView.imageView.image.size.height;
+        CGFloat padding = 10.0f;
+                
+        self.bannerView.frame = CGRectMake(self.view.frame.size.width - bannerView.imageView.image.size.width, self.imageContainerView.frame.size.height - bannerHeight - padding, bannerView.imageView.image.size.width, bannerHeight);
+    } completion:^(BOOL finished) {
+        
+    }];
 }
 
 - (void)didReceiveMemoryWarning
@@ -126,9 +139,25 @@
         NSLog(@"Error loading mission image: %@", error.userInfo);
         [MBProgressHUD hideAllHUDsForView:weakImageView animated:YES];
     }];
-    self.bountyLabel.text = [NSString stringWithFormat:@"$%.2f", mission.usdValue];
     self.title = [NSString stringWithFormat:@"#%@", mission.primaryTag];
     self.userView.user = mission.user;
+    
+    if (self.bannerView) {
+        [bannerView removeFromSuperview];
+    }
+
+    UIImage *bannerImage = nil;
+    NSString *text = nil;
+        if (mission.usdValue > 0) {
+            bannerImage = [UIImage imageNamed:@"side_banner_green.png"];
+            text = [NSString stringWithFormat:@"$%.02f", mission.usdValue];
+        } else {
+            bannerImage = [UIImage imageNamed:@"side_banner_blue.png"];
+            text = [NSString stringWithFormat:@"%d Karma", (int)mission.karmaValue];
+        }
+
+    self.bannerView = [[OWBannerView alloc] initWithFrame:CGRectZero bannerImage:bannerImage labelText:text];
+    [self.scrollView addSubview:bannerView];
 }
 
 @end
