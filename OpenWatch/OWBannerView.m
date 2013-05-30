@@ -42,9 +42,9 @@
     CGFloat imageWidth = imageView.image.size.width;
     CGFloat imageHeight = imageView.image.size.height;
     self.imageView.frame = CGRectMake(0, 0, imageWidth, imageHeight);
-    CGFloat textLabelX = imageWidth * 0.2;
-    CGFloat textLabelY = imageHeight;
-    self.textLabel.frame = CGRectMake(textLabelX, textLabelY, imageWidth - textLabelX * 2, imageHeight - textLabelY * 2);
+    CGFloat textLabelX = 15;
+    CGFloat textLabelY = 0;
+    self.textLabel.frame = CGRectMake(textLabelX, textLabelY, imageWidth - textLabelX * 1.5, imageHeight - textLabelY * 2);
 }
 
 @end

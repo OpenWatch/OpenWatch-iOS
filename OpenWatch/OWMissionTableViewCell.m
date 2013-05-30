@@ -24,7 +24,8 @@
         CGFloat titleHeight = 76.0f;
 
         self.titleLabel.frame = CGRectMake(titleX, titleY, labelWidth, titleHeight);
-        self.bountyLabel = [[UILabel alloc] initWithFrame:CGRectMake(225, 85, 80, 25)];
+        self.bountyLabel = [[UILabel alloc] initWithFrame:CGRectMake(185, 85, 100, 25)];
+        self.bountyLabel.textAlignment = NSTextAlignmentRight;
         self.bountyLabel.backgroundColor = [UIColor clearColor];
         self.titleLabel.numberOfLines = 0;
         

@@ -168,7 +168,7 @@
         bannerImage = [UIImage imageNamed:@"side_banner_green.png"];
         text = [NSString stringWithFormat:@"$%.02f", mission.usdValue];
     } else {
-        bannerImage = [UIImage imageNamed:@"side_banner_blue.png"];
+        bannerImage = [UIImage imageNamed:@"side_banner_purple.png"];
         text = [NSString stringWithFormat:@"%d Karma", (int)mission.karmaValue];
     }
 
