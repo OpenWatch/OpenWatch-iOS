@@ -20,6 +20,7 @@
 
 @implementation OWMissionViewController
 @synthesize mission, scrollView, imageView, titleLabel, blurbLabel, dashboardView, userView, bountyLabel;
+@synthesize imageContainerView;
 
 - (id)init
 {
@@ -43,10 +44,14 @@
         
         self.dashboardView = [[OWDashboardView alloc] initWithFrame:CGRectZero];
         self.dashboardView.dashboardTableView.scrollEnabled = NO;
+        self.imageContainerView = [[UIView alloc] init];
+        imageContainerView.clipsToBounds = NO;
+        imageContainerView.layer.masksToBounds = NO;
+        [self.imageContainerView addSubview:imageView];
         [self.view addSubview:scrollView];
         [self.scrollView addSubview:titleLabel];
         [self.scrollView addSubview:blurbLabel];
-        [self.scrollView addSubview:imageView];
+        [self.scrollView addSubview:imageContainerView];
         [self.scrollView addSubview:dashboardView];
         [self.scrollView addSubview:bountyLabel];
         [self.scrollView addSubview:userView];
@@ -83,12 +88,16 @@
     CGFloat frameWidth = self.view.frame.size.width;
     CGFloat paddedWidth = frameWidth - padding * 2;
 
+
     self.imageView.frame = CGRectMake(0, 0, frameWidth, 200);
-    self.titleLabel.frame = CGRectMake(padding, [OWUtilities bottomOfView:imageView] + padding/2, paddedWidth, 50);
-    self.userView.frame = CGRectMake(padding, [OWUtilities bottomOfView:titleLabel] + padding/2, paddedWidth, 65);
-    self.blurbLabel.frame = CGRectMake(padding, [OWUtilities bottomOfView:userView] + padding/2, paddedWidth, 120);
-    self.bountyLabel.frame = CGRectMake(padding, [OWUtilities bottomOfView:blurbLabel] + padding/2, 50, 25);
-    self.dashboardView.frame = CGRectMake(0, [OWUtilities bottomOfView:bountyLabel] + padding/2, frameWidth, 120);
+    self.imageContainerView.frame = self.imageView.frame;
+    [OWUtilities applyShadowToView:imageContainerView];
+
+    self.titleLabel.frame = CGRectMake(padding, [OWUtilities bottomOfView:imageView] + padding, paddedWidth, 50);
+    self.userView.frame = CGRectMake(padding, [OWUtilities bottomOfView:titleLabel] + padding, paddedWidth, 65);
+    self.blurbLabel.frame = CGRectMake(padding, [OWUtilities bottomOfView:userView] + padding, paddedWidth, 120);
+    self.bountyLabel.frame = CGRectMake(padding, [OWUtilities bottomOfView:blurbLabel] + padding, 50, 25);
+    self.dashboardView.frame = CGRectMake(0, [OWUtilities bottomOfView:bountyLabel] + padding, frameWidth, 120);
 
     self.scrollView.frame = self.view.bounds;
     self.scrollView.contentSize = CGSizeMake(self.view.frame.size.width, [OWUtilities bottomOfView:dashboardView]);

@@ -17,6 +17,7 @@
 
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) UIImageView *imageView;
+@property (nonatomic, strong) UIView *imageContainerView;
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UILabel *blurbLabel;
 @property (nonatomic, strong) UILabel *bountyLabel;
