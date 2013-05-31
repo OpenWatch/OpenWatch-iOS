@@ -235,7 +235,6 @@
 		D9D2E2131653293B0000E7C5 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9D2E2121653293B0000E7C5 /* CoreVideo.framework */; };
 		D9D2E215165329410000E7C5 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9D2E214165329410000E7C5 /* CoreLocation.framework */; };
 		D9D2E21716532A6B0000E7C5 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9D2E21616532A6A0000E7C5 /* AVFoundation.framework */; };
-		D9D49E7F175801FD00416C73 /* OWProfileView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D49E7E175801FD00416C73 /* OWProfileView.m */; };
 		D9D49E821758154D00416C73 /* OWProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D49E811758154D00416C73 /* OWProfileViewController.m */; };
 		D9D786D916766415006EE6A2 /* UIBarButtonItem+WEPopover.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D786D116766415006EE6A2 /* UIBarButtonItem+WEPopover.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		D9D786DA16766415006EE6A2 /* WEPopoverContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D786D316766415006EE6A2 /* WEPopoverContainerView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -699,8 +698,6 @@
 		D9D2E2121653293B0000E7C5 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
 		D9D2E214165329410000E7C5 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		D9D2E21616532A6A0000E7C5 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		D9D49E7D175801FD00416C73 /* OWProfileView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWProfileView.h; sourceTree = "<group>"; };
-		D9D49E7E175801FD00416C73 /* OWProfileView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWProfileView.m; sourceTree = "<group>"; };
 		D9D49E801758154D00416C73 /* OWProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWProfileViewController.h; sourceTree = "<group>"; };
 		D9D49E811758154D00416C73 /* OWProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWProfileViewController.m; sourceTree = "<group>"; };
 		D9D5BDB61753DDC4001770FC /* Model 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 2.xcdatamodel"; sourceTree = "<group>"; };
@@ -1130,8 +1127,6 @@
 				D96677E916810B2A006F1815 /* OWTallyView.m */,
 				D964E5C31733547C00ECF972 /* OWOnboardingView.h */,
 				D964E5C41733547C00ECF972 /* OWOnboardingView.m */,
-				D9D49E7D175801FD00416C73 /* OWProfileView.h */,
-				D9D49E7E175801FD00416C73 /* OWProfileView.m */,
 				D9D2E14D1652D7B80000E7C5 /* OWInLineTextEditTableViewCell.h */,
 				D9D2E14E1652D7B80000E7C5 /* OWInLineTextEditTableViewCell.m */,
 			);
@@ -2225,7 +2220,6 @@
 				D9C10AAD17569BAA00C98EC3 /* OWMediaCreationController.m in Sources */,
 				D9C4345A1756D3A000471468 /* OWUserView.m in Sources */,
 				D9C434611756FA6000471468 /* OWBannerView.m in Sources */,
-				D9D49E7F175801FD00416C73 /* OWProfileView.m in Sources */,
 				D9D49E821758154D00416C73 /* OWProfileViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -10,6 +10,7 @@
 #import "OWUtilities.h"
 #import "OWUser.h"
 #import "UIImageView+AFNetworking.h"
+#import <QuartzCore/QuartzCore.h>
 
 @implementation OWUserView
 @synthesize profileImageView, usernameLabel, user;
@@ -19,7 +20,12 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.profileImageView = [[UIImageView alloc] init];
+        self.profileImageView.contentMode = UIViewContentModeScaleAspectFill;
+        profileImageView.layer.cornerRadius = 10;
+        profileImageView.layer.shouldRasterize = YES;
+        profileImageView.clipsToBounds = YES;
         self.usernameLabel = [[UILabel alloc] init];
+        self.usernameLabel.font = [UIFont systemFontOfSize:20.0f];
         self.usernameLabel.backgroundColor = [UIColor clearColor];
         [self setFrame:frame];
         [self addSubview:profileImageView];
