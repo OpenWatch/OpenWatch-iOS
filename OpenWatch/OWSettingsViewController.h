@@ -7,8 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "OWGroupedTableViewController.h"
+#import "OWDashboardView.h"
 
-@interface OWSettingsViewController : OWGroupedTableViewController
+@interface OWSettingsViewController : UIViewController
+
+@property (nonatomic, strong) OWDashboardView *dashboardView;
 
 @end

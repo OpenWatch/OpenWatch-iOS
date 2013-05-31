@@ -4,6 +4,9 @@
 #import "_OWUser.h"
 
 const struct OWUserAttributes OWUserAttributes = {
+	.bio = @"bio",
+	.firstName = @"firstName",
+	.lastName = @"lastName",
 	.thumbnailURLString = @"thumbnailURLString",
 	.username = @"username",
 };
@@ -46,6 +49,27 @@ const struct OWUserFetchedProperties OWUserFetchedProperties = {
 
 	return keyPaths;
 }
+
+
+
+
+@dynamic bio;
+
+
+
+
+
+
+@dynamic firstName;
+
+
+
+
+
+
+@dynamic lastName;
+
+
 
 
 

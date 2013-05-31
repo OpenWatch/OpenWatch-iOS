@@ -5,6 +5,9 @@
 #import "OWServerObject.h"
 
 extern const struct OWUserAttributes {
+	__unsafe_unretained NSString *bio;
+	__unsafe_unretained NSString *firstName;
+	__unsafe_unretained NSString *lastName;
 	__unsafe_unretained NSString *thumbnailURLString;
 	__unsafe_unretained NSString *username;
 } OWUserAttributes;
@@ -25,6 +28,9 @@ extern const struct OWUserFetchedProperties {
 
 
 
+
+
+
 @interface OWUserID : NSManagedObjectID {}
 @end
 
@@ -33,6 +39,36 @@ extern const struct OWUserFetchedProperties {
 + (NSString*)entityName;
 + (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;
 - (OWUserID*)objectID;
+
+
+
+
+
+@property (nonatomic, strong) NSString* bio;
+
+
+
+//- (BOOL)validateBio:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
+@property (nonatomic, strong) NSString* firstName;
+
+
+
+//- (BOOL)validateFirstName:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
+@property (nonatomic, strong) NSString* lastName;
+
+
+
+//- (BOOL)validateLastName:(id*)value_ error:(NSError**)error_;
 
 
 
@@ -102,6 +138,24 @@ extern const struct OWUserFetchedProperties {
 @end
 
 @interface _OWUser (CoreDataGeneratedPrimitiveAccessors)
+
+
+- (NSString*)primitiveBio;
+- (void)setPrimitiveBio:(NSString*)value;
+
+
+
+
+- (NSString*)primitiveFirstName;
+- (void)setPrimitiveFirstName:(NSString*)value;
+
+
+
+
+- (NSString*)primitiveLastName;
+- (void)setPrimitiveLastName:(NSString*)value;
+
+
 
 
 - (NSString*)primitiveThumbnailURLString;

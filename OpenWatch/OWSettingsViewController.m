@@ -12,35 +12,73 @@
 #import "OWLocalMediaObjectListViewController.h"
 #import "OWUtilities.h"
 #import "OWShareController.h"
-
-#define ACCOUNT_ROW 0
-#define SHARE_ROW 1
-#define GITHUB_ROW 2
-#define OPENWATCH_WEB 3
+#import "OWProfileViewController.h"
+#import "OWDashboardItem.h"
+#import "OWSettingsController.h"
 
 @interface OWSettingsViewController ()
 
 @end
 
 @implementation OWSettingsViewController
+@synthesize dashboardView;
 
 - (id)init
 {
     self = [super init];
     if (self) {
         self.title = SETTINGS_STRING;
+        self.dashboardView = [[OWDashboardView alloc] initWithFrame:CGRectZero];
+        
+        
+        
+        OWDashboardItem *accountItem = [[OWDashboardItem alloc] initWithTitle:ACCOUNT_STRING image:nil target:self selector:@selector(accountButtonPressed:)];
+        OWDashboardItem *profileItem = [[OWDashboardItem alloc] initWithTitle:@"Edit Profile" image:nil target:self selector:@selector(editProfilePressed:)];
+        
+        OWDashboardItem *shareItem = [[OWDashboardItem alloc] initWithTitle:@"Share this App!" image:nil target:self selector:@selector(shareButtonPressed:)];
+        
+        OWDashboardItem *githubItem = [[OWDashboardItem alloc] initWithTitle:@"OpenWatch on GitHub" image:nil target:self selector:@selector(githubButtonPressed:)];
+        
+        OWDashboardItem *websiteItem = [[OWDashboardItem alloc] initWithTitle:@"Visit OpenWatch.net" image:nil target:self selector:@selector(websiteButtonPressed:)];
+        
+        NSArray *profileItems = @[accountItem, profileItem];
+        
+        NSArray *shareItems = @[shareItem, githubItem, websiteItem];
+        
+        self.dashboardView.dashboardItems = @[profileItems, shareItems];
     }
     return self;
+}
+
+- (void) editProfilePressed:(id)sender {
+    OWProfileViewController *profile = [[OWProfileViewController alloc] init];
+    profile.user = [OWSettingsController sharedInstance].account.user;
+    [self.navigationController pushViewController:profile animated:YES];
+}
+
+- (void) accountButtonPressed:(id)sender {
+    OWLoginViewController *loginView = [[OWLoginViewController alloc] init];
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:loginView];
+    [self presentViewController:navController animated:YES completion:nil];
+}
+
+- (void) shareButtonPressed:(id)sender {
+    [OWShareController shareURL:[NSURL URLWithString:@"https://itunes.apple.com/us/app/openwatch-social-muckraking/id642680756?ls=1&mt=8"] title:@"Defend your rights! Get the @OpenWatch app!" fromViewController:self];
+}
+
+- (void) githubButtonPressed:(id)sender {
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://github.com/OpenWatch/OpenWatch-iOS"]];
+}
+
+- (void) websiteButtonPressed:(id)sender {
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://openwatch.net/"]];
+
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
-    [self addCellInfoWithSection:0 row:ACCOUNT_ROW labelText:ACCOUNT_STRING cellType:kCellTypeNone userInputView:nil];
-    [self addCellInfoWithSection:0 row:SHARE_ROW labelText:@"Share this App!" cellType:kCellTypeNone userInputView:nil];
-    [self addCellInfoWithSection:0 row:GITHUB_ROW labelText:@"OpenWatch on GitHub" cellType:kCellTypeNone userInputView:nil];
-    [self addCellInfoWithSection:0 row:OPENWATCH_WEB labelText:@"Visit OpenWatch.net" cellType:kCellTypeNone userInputView:nil];
+    [self.view addSubview:dashboardView];
 }
 
 - (void)didReceiveMemoryWarning
@@ -51,22 +89,8 @@
 
 - (void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    self.dashboardView.frame = self.view.bounds;
     [TestFlight passCheckpoint:VIEW_SETTINGS_CHECKPOINT];
-}
-
-- (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.row == ACCOUNT_ROW) {
-        OWLoginViewController *loginView = [[OWLoginViewController alloc] init];
-        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:loginView];
-        [self presentViewController:navController animated:YES completion:nil];
-    } else if (indexPath.row == SHARE_ROW) {
-        [OWShareController shareURL:[NSURL URLWithString:@"https://itunes.apple.com/us/app/openwatch-social-muckraking/id642680756?ls=1&mt=8"] title:@"Defend your rights! Get the @OpenWatch app!" fromViewController:self];
-    } else if (indexPath.row == GITHUB_ROW) {
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://github.com/OpenWatch/OpenWatch-iOS"]];
-    } else if (indexPath.row == OPENWATCH_WEB) {
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://openwatch.net/"]];
-    }
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 @end
