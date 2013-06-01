@@ -11,9 +11,6 @@
 @interface OWMediaObject : _OWMediaObject {}
 // Custom logic goes here.
 
-- (void) saveMetadata;
-- (NSMutableDictionary*) metadataDictionary;
-- (void) loadMetadataFromDictionary:(NSDictionary*)metadataDictionary;
 - (NSString*) type;
 - (NSURL*) thumbnailURL;
 

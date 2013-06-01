@@ -30,7 +30,7 @@
 
 // Custom logic goes here.
 - (NSMutableDictionary*) metadataDictionary {
-    NSMutableDictionary *newMetadataDictionary = [NSMutableDictionary dictionary];
+    NSMutableDictionary *newMetadataDictionary = [super metadataDictionary];
     if (self.title) {
         [newMetadataDictionary setObject:[self.title copy] forKey:kTitleKey];
     }
@@ -38,9 +38,7 @@
         NSDateFormatter *dateFormatter = [OWUtilities utcDateFormatter];
         [newMetadataDictionary setObject:[dateFormatter stringFromDate:self.firstPostedDate] forKey:kFirstPostedKey];
     }
-    if (self.serverID.intValue != 0) {
-        [newMetadataDictionary setObject:self.serverID forKey:@"id"];
-    }
+
     NSSet *tags = self.tags;
     NSMutableArray *tagsArray = [NSMutableArray arrayWithCapacity:tags.count];
     for (OWTag *tag in tags) {
@@ -54,12 +52,10 @@
     return newMetadataDictionary;
 }
 
-- (void) saveMetadata {
-    NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
-    [context MR_saveToPersistentStoreAndWait];
-}
+
 
 - (void) loadMetadataFromDictionary:(NSDictionary*)metadataDictionary {
+    [super loadMetadataFromDictionary:metadataDictionary];
     NSDateFormatter *dateFormatter = [OWUtilities utcDateFormatter];
     NSString *lastEdited = [metadataDictionary objectForKey:kLastEditedKey];
     if (lastEdited) {
@@ -69,10 +65,7 @@
     if (firstPosted) {
         self.firstPostedDate = [dateFormatter dateFromString:firstPosted];
     }
-    NSNumber *serverID = [metadataDictionary objectForKey:@"id"];
-    if (serverID) {
-        self.serverID = serverID;
-    }    
+
     NSString *newTitle = [metadataDictionary objectForKey:kTitleKey];
     if (newTitle) {
         self.title = newTitle;
@@ -89,15 +82,12 @@
     NSDictionary *userDictionary = [metadataDictionary objectForKey:kUserKey];
     if (userDictionary) {
         NSNumber *userID = [userDictionary objectForKey:kIDKey];
-        NSString *username = [userDictionary objectForKey:kUsernameKey];
-        NSString *thumbnail = [userDictionary objectForKey:@"thumbnail_url"];
         OWUser *user = [OWUser MR_findFirstByAttribute:@"serverID" withValue:userID];
         if (!user) {
             user = [OWUser MR_createEntity];
             user.serverID = userID;
         }
-        user.username = username;
-        user.thumbnailURLString = thumbnail;
+        [user loadMetadataFromDictionary:userDictionary];
         self.user = user;
     }
     NSNumber *views = [metadataDictionary objectForKey:@"views"];

@@ -28,6 +28,8 @@
 - (void) updateUserPushToken:(NSData*)token;
 - (void) updateUserLocation:(CLLocation*)location;
 - (void) updateUserSecretAgentStatus:(BOOL)secretAgentEnabled;
+- (void) updateUserPhoto:(UIImage*)photo;
+- (void) updateUserProfile;
 
 - (void) postObjectWithUUID:(NSString*)UUID objectClass:(Class)objectClass success:(void (^)(void))success failure:(void (^)(NSString *reason))failure;
 - (void) getObjectWithUUID:(NSString*)UUID objectClass:(Class)objectClass success:(void (^)(NSManagedObjectID *objectID))success failure:(void (^)(NSString *reason))failure;

@@ -189,6 +189,58 @@
     [self updateAccountWithDetails:@{@"agent_applicant": @(secretAgentEnabled)}];
 }
 
+- (void) updateUserPhoto:(UIImage*)photo {
+    if (!photo) {
+        return;
+    }
+    OWAccount *account = [OWSettingsController sharedInstance].account;
+    if (!account.isLoggedIn) {
+        NSLog(@"Account not logged in!");
+        return;
+    }
+    
+    
+    NSString *path = [NSString stringWithFormat:@"/api/u/%@/", account.accountID];
+    
+    NSURLRequest *request = [self multipartFormRequestWithMethod:@"POST" path:path parameters:nil constructingBodyWithBlock: ^(id <AFMultipartFormData> formData) {
+        if (photo) {
+            NSData *jpegData = UIImageJPEGRepresentation(photo, 0.85);
+            [formData appendPartWithFileData:jpegData name:@"file_data" fileName:@"profile.jpeg" mimeType:@"image/jpeg"];
+        }
+    }];
+    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+    
+    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"Updated account details: %@", operation.responseString);
+        if ([responseObject isKindOfClass:[NSDictionary class]]) {
+            BOOL success = [[responseObject objectForKey:@"success"] boolValue];
+            NSString *reason = [responseObject objectForKey:@"reason"];
+            NSNumber *code = [responseObject objectForKey:@"code"];
+            if (success) {
+                NSLog(@"success!");
+            } else {
+                NSLog(@"Failed to update account photo: %@ %@", code, reason);
+                if (code.integerValue == 428) {
+                    [[NSNotificationCenter defaultCenter] postNotificationName:kAccountPermissionsError object:nil];
+                }
+            }
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Failed to update account photo: %@", error.userInfo);
+        
+    }];
+    [operation start];
+}
+
+- (void) updateUserProfile {
+    OWAccount *account = [OWSettingsController sharedInstance].account;
+    OWUser *user = account.user;
+    
+    NSDictionary *params = user.metadataDictionary;
+    
+    [self updateAccountWithDetails:params];
+}
+
 - (void) updateAccountWithDetails:(NSDictionary*)details {
     OWAccount *account = [OWSettingsController sharedInstance].account;
     if (!account.isLoggedIn) {

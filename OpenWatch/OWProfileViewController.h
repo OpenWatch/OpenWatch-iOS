@@ -28,5 +28,7 @@
 
 @property (nonatomic, strong) UIImagePickerController *imagePicker;
 
+@property (nonatomic, strong) UIImage *updatedProfilePhoto;
+
 
 @end

@@ -10,6 +10,7 @@
 #import "OWUtilities.h"
 #import "OWSettingsController.h"
 #import <QuartzCore/QuartzCore.h>
+#import "OWAccountAPIClient.h"
 
 @interface OWProfileViewController ()
 
@@ -17,6 +18,7 @@
 
 @implementation OWProfileViewController
 @synthesize userView, firstNameField, lastNameField, bioField, user, choosePhotoButton, scrollView, keyboardControls, imagePicker;
+@synthesize updatedProfilePhoto;
 
 - (id)init
 {
@@ -81,6 +83,9 @@
     
     NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
     [context MR_saveToPersistentStoreAndWait];
+    
+    [[OWAccountAPIClient sharedClient] updateUserPhoto:self.updatedProfilePhoto];
+    [[OWAccountAPIClient sharedClient] updateUserProfile];
     
     [self.navigationController popViewControllerAnimated:YES];
 }
@@ -174,6 +179,7 @@
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
+    self.updatedProfilePhoto = image;
     self.userView.profileImageView.image = image;
     [self.imagePicker dismissViewControllerAnimated:YES completion:nil];
 }
