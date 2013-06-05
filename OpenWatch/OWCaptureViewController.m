@@ -32,7 +32,8 @@
         self.timerView = [[OWTimerView alloc] init];
         self.uploadStatusLabel = [[UILabel alloc] init];
         [OWUtilities styleLabel:uploadStatusLabel];
-        self.uploadStatusLabel.text = @"Streaming...";
+        NSString *streaming = [NSString stringWithFormat:@"%@...", STREAMING_STRING];
+        self.uploadStatusLabel.text = streaming;
         self.uploadStatusLabel.textAlignment = NSTextAlignmentRight;
     }
     return self;

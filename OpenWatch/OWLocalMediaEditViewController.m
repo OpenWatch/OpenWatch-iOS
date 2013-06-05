@@ -45,7 +45,7 @@
         [self setupPreviewView];
         
         self.uploadStatusLabel = [[UILabel alloc] init];
-        self.uploadStatusLabel.text = @"It's online!";
+        self.uploadStatusLabel.text = ITS_ONLINE_STRING;
         [OWUtilities styleLabel:uploadStatusLabel];
         [self.scrollView addSubview:uploadStatusLabel];
         
@@ -80,7 +80,7 @@
 
 - (void) setupWhatHappenedLabel {
     self.whatHappenedLabel = [[UILabel alloc] init];
-    self.whatHappenedLabel.text = @"Caption";
+    self.whatHappenedLabel.text = CAPTION_STRING;
     self.whatHappenedLabel.backgroundColor = [UIColor clearColor];
     self.whatHappenedLabel.font = [UIFont boldSystemFontOfSize:20.0f];
     self.whatHappenedLabel.textColor = [OWUtilities greyTextColor];
@@ -207,7 +207,7 @@
         [titleTextField removeFromSuperview];
     }
     self.titleTextField = [self textFieldWithDefaults];
-    self.titleTextField.placeholder = @"What happened? #tags #okay";
+    self.titleTextField.placeholder = WHAT_HAPPENED_LABEL_STRING;
     
     [self.scrollView addSubview:titleTextField];
 }

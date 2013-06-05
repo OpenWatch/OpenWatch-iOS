@@ -11,6 +11,7 @@
 #import "OWSettingsController.h"
 #import <QuartzCore/QuartzCore.h>
 #import "OWAccountAPIClient.h"
+#import "OWStrings.h"
 
 @interface OWProfileViewController ()
 
@@ -30,12 +31,12 @@
         self.userView = [[OWUserView alloc] initWithFrame:CGRectZero];
         self.firstNameField = [[UITextField alloc] init];
         self.firstNameField.delegate = self;
-        self.firstNameField.placeholder = @"First Name";
+        self.firstNameField.placeholder = FIRST_NAME_STRING;
         self.lastNameField = [[UITextField alloc] init];
-        self.lastNameField.placeholder = @"Last Name";
+        self.lastNameField.placeholder = LAST_NAME_STRING;
         self.lastNameField.delegate = self;
         self.bioField = [[UITextField alloc] init];
-        self.bioField.placeholder = @"About Yourself";
+        self.bioField.placeholder = ABOUT_YOURSELF_STRING;
         self.bioField.delegate = self;
         
         NSArray *fields = @[firstNameField, lastNameField, bioField];
@@ -44,12 +45,12 @@
         self.keyboardControls.delegate = self;
         
         self.choosePhotoButton = [[BButton alloc] initWithFrame:CGRectZero type:BButtonTypeDefault];
-        [self.choosePhotoButton setTitle:@"Choose Photo" forState:UIControlStateNormal];
+        [self.choosePhotoButton setTitle:CHOOSE_PHOTO_STRING forState:UIControlStateNormal];
         [choosePhotoButton addAwesomeIcon:FAIconCamera beforeTitle:YES];
 
         [self.choosePhotoButton addTarget:self action:@selector(choosePhotoButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         
-        UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:@"Save" style:UIBarButtonItemStyleDone target:self action:@selector(saveButtonPressed:)];
+        UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:SAVE_STRING style:UIBarButtonItemStyleDone target:self action:@selector(saveButtonPressed:)];
         doneButton.tintColor = [OWUtilities doneButtonColor];
         self.navigationItem.rightBarButtonItem = doneButton;
         
@@ -155,7 +156,7 @@
 }
 
 - (void) choosePhotoButtonPressed:(id)sender {
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Choose Photo" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Take Picture", @"Choose from Camera Roll", nil];
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:CHOOSE_PHOTO_STRING delegate:self cancelButtonTitle:CANCEL_STRING destructiveButtonTitle:nil otherButtonTitles:TAKE_PICTURE_STRING, CHOOSE_FROM_CAMERA_ROLL_STRING, nil];
     [actionSheet showInView:self.view];
 }
 

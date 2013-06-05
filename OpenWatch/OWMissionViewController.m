@@ -12,7 +12,7 @@
 #import "UIImageView+AFNetworking.h"
 #import "MBProgressHUD.h"
 #import "OWUtilities.h"
-
+#import "OWStrings.h"
 
 @interface OWMissionViewController ()
 
@@ -53,8 +53,8 @@
         [self.scrollView addSubview:dashboardView];
         [self.scrollView addSubview:userView];
         
-        OWDashboardItem *videoItem = [[OWDashboardItem alloc] initWithTitle:@"Broadcast Video" image:[UIImage imageNamed:@"285-facetime.png"] target:self selector:@selector(recordButtonPressed:)];
-        OWDashboardItem *photoItem = [[OWDashboardItem alloc] initWithTitle:@"Take Photo" image:[UIImage imageNamed:@"86-camera.png"] target:self selector:@selector(photoButtonPressed:)];
+        OWDashboardItem *videoItem = [[OWDashboardItem alloc] initWithTitle:BROADCAST_VIDEO_STRING image:[UIImage imageNamed:@"285-facetime.png"] target:self selector:@selector(recordButtonPressed:)];
+        OWDashboardItem *photoItem = [[OWDashboardItem alloc] initWithTitle:TAKE_PICTURE_STRING image:[UIImage imageNamed:@"86-camera.png"] target:self selector:@selector(photoButtonPressed:)];
         //OWDashboardItem *audioItem = [[OWDashboardItem alloc] initWithTitle:@"Record Audio" image:[UIImage imageNamed:@"66-microphone.png"] target:self selector:@selector(audioButtonPressed:)];
         NSArray *mediaItems = @[photoItem, videoItem];
         self.dashboardView.dashboardItems = @[mediaItems];

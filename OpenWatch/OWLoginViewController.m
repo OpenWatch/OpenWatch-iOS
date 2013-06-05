@@ -14,6 +14,7 @@
 #import "OWUtilities.h"
 #import "OWAppDelegate.h"
 #import "OWConstants.h"
+#import "OWStrings.h"
 
 #define PADDING 10.0f
 
@@ -38,7 +39,7 @@
         self.showCancelButton = YES;
         
         self.forgotPasswordButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [self.forgotPasswordButton setTitle:@"Forgot password?" forState:UIControlStateNormal];
+        [self.forgotPasswordButton setTitle:FORGOT_PASSWORD_STRING forState:UIControlStateNormal];
         self.forgotPasswordButton.titleLabel.font = [UIFont boldSystemFontOfSize:16.0f];
         self.forgotPasswordButton.titleLabel.textColor = [UIColor darkGrayColor];
         self.forgotPasswordButton.titleLabel.shadowColor = [UIColor whiteColor];

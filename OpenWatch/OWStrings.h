@@ -6,6 +6,44 @@
 //  Copyright (c) 2012 OpenWatch FPC. All rights reserved.
 //
 
+#define EDIT_PROFILE_STRING NSLocalizedString(@"Edit Profile", @"Title for button to edit profile")
+#define SHARE_THIS_APP_STRING NSLocalizedString(@"Share this App!", @"Title for button to share this app")
+#define OPENWATCH_ON_GITHUB_STRING NSLocalizedString(@"OpenWatch on GitHub", @"Button to view source on GitHub")
+#define VISIT_OPENWATCH_WEBSITE_STRING NSLocalizedString(@"Visit OpenWatch.net", @"Title for button to view openwatch.net in Safari")
+#define TWEET_OPENWATCH_STRING NSLocalizedString(@"Defend your rights! Get the @OpenWatch app!", @"Title for sharing the app Twitter")
+
+#define GENERATING_URL_STRING NSLocalizedString(@"Generating URL...", @"Title for label describing that its generating a URL for the media")
+#define CALL_TO_ACTION_SHARE_STRING NSLocalizedString(@"Share media to all of your social networks to increase your impact and demand change!", @"ask users to share this media on their social networks")
+#define FINISH_STRING NSLocalizedString(@"Finish", @"Title for button to finish editing metadata")
+
+#define TOP_STORIES_STRING NSLocalizedString(@"Top Stories", @"title for button for top stories on openwatch")
+#define LOCAL_FEED_STRING NSLocalizedString(@"Local Feed", @"Title for button to view local feed")
+#define YOUR_MEDIA_STRING NSLocalizedString(@"Your Media", @"Title for button to view your local media")
+#define SEND_FEEDBACK_STRING NSLocalizedString(@"Send Feedback", @"Title for button to send feedback about the app")
+
+#define WHOOPS_STRING NSLocalizedString(@"Whoops!", @"A silly error message for the title of an alert")
+
+#define SESSION_EXPIRED_STRING NSLocalizedString(@"It looks like your session has expired. Please log in again. Sorry!", @"Apologizing for their session cookie expiring")
+
+#define FIRST_NAME_STRING NSLocalizedString(@"First Name", @"The user's first name")
+#define LAST_NAME_STRING NSLocalizedString(@"Last Name", @"The user's last name")
+#define ABOUT_YOURSELF_STRING NSLocalizedString(@"About Yourself", @"Placeholder for the user's short biography")
+#define CHOOSE_PHOTO_STRING NSLocalizedString(@"Choose Photo", @"Title for button to choose a new photo")
+#define TAKE_PICTURE_STRING NSLocalizedString(@"Take Picture", @"Title for button to take a new picture")
+#define CHOOSE_FROM_CAMERA_ROLL_STRING NSLocalizedString(@"Choose from Camera Roll", @"Title for button to choose an existing picture from the camera roll")
+#define BROADCAST_VIDEO_STRING NSLocalizedString(@"Broadcast Video", @"Title for button to start streaming video")
+#define MISSIONS_STRING NSLocalizedString(@"Missions", @"Title for Missions view")
+#define START_RECORDING_STRING NSLocalizedString(@"Start Recording", @"Title for button start an audio recording")
+#define RECORD_AUDIO_STRING NSLocalizedString(@"Record Audio", @"Title for view to record audio")
+#define ITS_ONLINE_STRING NSLocalizedString(@"It's online!", @"Text for upload status label")
+#define CAPTION_STRING NSLocalizedString(@"Caption", @"Title for recording description caption label")
+#define WHAT_HAPPENED_LABEL_STRING NSLocalizedString(@"What happened? #tags #okay", @"Placeholder for what happened for a recording, also indicating that hashtags are okay by saying #tags #okay or something similar")
+#define INVESTIGATION_LOAD_ERROR_STRING NSLocalizedString(@"Unable to fetch Investigation", @"Error message for not being able to load an investgation")
+#define FORGOT_PASSWORD_STRING NSLocalizedString(@"Forgot password?", @"Button label for if you forgot your password")
+#define OPENWATCH_WELCOME_STRING NSLocalizedString(@"Welcome to OpenWatch. Enter your email address to get started.", @"Text welcoming you to OW and asking for your email address")
+#define EMAIL_ADDRESS_STRING NSLocalizedString(@"Email Address", @"Title for email address field")
+#define GET_STARTED_STRING NSLocalizedString(@"Get Started", @"Title for the button to get started")
+
 #define OPENWATCH_STRING @"OpenWatch"
 #define REGISTER_STRING NSLocalizedString(@"Register", @"For registering with our service")
 #define SIGNUP_STRING NSLocalizedString(@"Sign Up", @"Shown on button for registering with service")
@@ -19,7 +57,9 @@
 #define ERROR_STRING NSLocalizedString(@"Error!", "Title of error message popup box")
 #define USER_PASS_BLANK_STRING NSLocalizedString(@"You must enter an E-mail and a password to login/register.", @"error message shown when user doesnt fill in a username or password")
 #define USER_PASS_WRONG_STRING NSLocalizedString(@"Incorrect email address or password.", @"Shown when server response indicates login failure")
-
+#define LOGIN_ERROR_STRING NSLocalizedString(@"Login Error", @"Title for error box when there is a login error")
+#define ENTER_VALID_EMAIL_STRING NSLocalizedString(@"Please enter a valid email address.", @"Message box text for when they enter invalid email")
+#define CHECK_CREDENTIALS_STRING NSLocalizedString(@"Please check your username and password and try again.", @"Message when their username and password are wrong")
 
 #define SHARE_STRING NSLocalizedString(@"Share", @"share a recording with others")
 #define SHARE_MESSAGE_STRING NSLocalizedString(@"Share this recording?", @"ask user to share recording")
@@ -33,7 +73,7 @@
 #define CAPTURE_STRING NSLocalizedString(@"Capture", @"Title for view to record video and audio")
 #define RECORDINGS_STRING NSLocalizedString(@"Recordings", @"Title for list of recorded videos")
 #define WHAT_HAPPENED_STRING NSLocalizedString(@"What Happened?", @"Label to ask what events occurred during a recording")
-#define STREAMING_STRING NSLocalizedString(@"Streaming...", @"describing that we're streaming live video from the phone")
+#define STREAMING_STRING NSLocalizedString(@"Streaming", @"describing that we're streaming live video from the phone")
 #define RECORDING_STRING NSLocalizedString(@"Recording", @"Subtitle for a video in the list that is currently being recorded")
 #define RECORD_STRING NSLocalizedString(@"Record", @"Title for button that starts a recording")
 #define BROADCAST_STRING NSLocalizedString(@"Broadcast", @"string for button to create a recording")
@@ -64,7 +104,6 @@
 #define DELETE_TAG_MESSAGE_STRING NSLocalizedString(@"Do you want to delete the \"%@\" tag?", @"ask if they want to delete specific tag name")
 #define NEEDS_TITLE_STRING NSLocalizedString(@"Title Required", @"title for alert box for recording edit view")
 #define NEEDS_TITLE_MESSAGE_STRING NSLocalizedString(@"Please enter a title for your recording.", @"ask user to enter title") 
-#define SEND_FEEDBACK_STRING NSLocalizedString(@"Send Feedback", @"help us improve the app")
 #define WELCOME_TEXTVIEW_STRING NSLocalizedString(@"Welcome, new Watcher!\n\
 \n\
 Thanks for installing OpenWatch!\n\
