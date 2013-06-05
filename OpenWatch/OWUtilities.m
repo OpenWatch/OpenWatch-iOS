@@ -99,8 +99,8 @@
 }
 
 + (NSString*) apiBaseURLString { 
-    return @"http://10.0.1.30:8000/";
-    //return @"https://openwatch.net/";
+    //return @"http://10.0.1.30:8000/";
+    return @"https://openwatch.net/";
 }
 
 + (NSString*) captureBaseURLString {

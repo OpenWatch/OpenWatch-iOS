@@ -72,7 +72,7 @@
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
     NSLog(@"Application entered background state.");
-    NSAssert(self.backgroundTask == UIBackgroundTaskInvalid, nil);
+    //NSAssert(self.backgroundTask == UIBackgroundTaskInvalid, nil);
     
     self.backgroundTask = [application beginBackgroundTaskWithExpirationHandler: ^{
         dispatch_async(dispatch_get_main_queue(), ^{
