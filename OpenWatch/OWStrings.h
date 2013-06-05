@@ -104,17 +104,3 @@
 #define DELETE_TAG_MESSAGE_STRING NSLocalizedString(@"Do you want to delete the \"%@\" tag?", @"ask if they want to delete specific tag name")
 #define NEEDS_TITLE_STRING NSLocalizedString(@"Title Required", @"title for alert box for recording edit view")
 #define NEEDS_TITLE_MESSAGE_STRING NSLocalizedString(@"Please enter a title for your recording.", @"ask user to enter title") 
-#define WELCOME_TEXTVIEW_STRING NSLocalizedString(@"Welcome, new Watcher!\n\
-\n\
-Thanks for installing OpenWatch!\n\
-\n\
-You should use OpenWatch whenever when you are a witness to an interesting event, you are stopped by the police or other authority figures, or when you feel like you are being victimized by criminals or corporate predators.\n\
-\n\
-When you press the 'Record' button, your camera immediately begins streaming video to our servers, which you can later watch online. After you stop recording, please describe your event and tag it so that other useres can find it. Meanwhile, a high-quality version of your recording will be synced online.\n\
-\n\
-You can also use the 'Watch' and 'Local' icons to watch interesting and local content. When you see something that you want to investigate further, go to OpenWatch.net and start a deeper investigation.\n\
-\n\
-If you find any bugs or have any ideas for new features, please let us know by sending feedback (on the Settings page) so we can work on them right away.\n\
-\n\
-Enjoy!\n\
-- Team OpenWatch", @"welcome blurb")
