@@ -1,2 +1,4 @@
 /* Localized versions of Info.plist keys */
 
+/* Location Privacy Description */
+NSLocationUsageDescription = "We use your location to provide additional context to the media you create, and to show you what's happening in your area. If you chose to become a special agent, your location will also be sent when you launch the app.";

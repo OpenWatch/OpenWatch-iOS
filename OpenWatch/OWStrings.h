@@ -6,6 +6,8 @@
 //  Copyright (c) 2012 OpenWatch FPC. All rights reserved.
 //
 
+
+#define CONTINUE_STRING NSLocalizedString(@"Continue", @"button title for continuing to next screen")
 #define EDIT_PROFILE_STRING NSLocalizedString(@"Edit Profile", @"Title for button to edit profile")
 #define SHARE_THIS_APP_STRING NSLocalizedString(@"Share this App!", @"Title for button to share this app")
 #define OPENWATCH_ON_GITHUB_STRING NSLocalizedString(@"OpenWatch on GitHub", @"Button to view source on GitHub")
@@ -103,4 +105,4 @@
 #define EDIT_STRING NSLocalizedString(@"Edit", @"title to edit recording info")
 #define DELETE_TAG_MESSAGE_STRING NSLocalizedString(@"Do you want to delete the \"%@\" tag?", @"ask if they want to delete specific tag name")
 #define NEEDS_TITLE_STRING NSLocalizedString(@"Title Required", @"title for alert box for recording edit view")
-#define NEEDS_TITLE_MESSAGE_STRING NSLocalizedString(@"Please enter a title for your recording.", @"ask user to enter title") 
+#define NEEDS_TITLE_MESSAGE_STRING NSLocalizedString(@"Please enter a title for your recording.", @"ask user to enter title")
