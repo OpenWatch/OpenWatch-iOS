@@ -64,14 +64,13 @@
         OWDashboardItem *feedback = [[OWDashboardItem alloc] initWithTitle:SEND_FEEDBACK_STRING image:[UIImage imageNamed:@"29-heart.png"] target:self selector:@selector(feedbackButtonPressed:)];
         OWDashboardItem *settings = [[OWDashboardItem alloc] initWithTitle:SETTINGS_STRING image:[UIImage imageNamed:@"19-gear.png"] target:self selector:@selector(settingsButtonPressed:)];
         
-        OWBadgedDashboardItem *missions = [[OWBadgedDashboardItem alloc] initWithTitle:MISSIONS_STRING image:[UIImage imageNamed:@"108-badge.png"] target:self selector:@selector(missionsButtonPressed:)];
-        [missions registerForNotifications:kMissionCountUpdateNotification];
-        
+        //OWBadgedDashboardItem *missions = [[OWBadgedDashboardItem alloc] initWithTitle:MISSIONS_STRING image:[UIImage imageNamed:@"108-badge.png"] target:self selector:@selector(missionsButtonPressed:)];
+        //[missions registerForNotifications:kMissionCountUpdateNotification];
         
         NSArray *topItems = @[videoItem, photoItem];
         NSArray *middleItems = @[topStories, local, yourMedia];
         NSArray *bottonItems = @[feedback, settings];
-        NSArray *dashboardItems = @[@[missions], topItems, middleItems, bottonItems];
+        NSArray *dashboardItems = @[topItems, middleItems, bottonItems];
         dashboardView.dashboardItems = dashboardItems;
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedAccountPermissionsErrorNotification:) name:kAccountPermissionsError object:nil];        

@@ -33,7 +33,7 @@
         
         
         OWDashboardItem *accountItem = [[OWDashboardItem alloc] initWithTitle:ACCOUNT_STRING image:nil target:self selector:@selector(accountButtonPressed:)];
-        OWDashboardItem *profileItem = [[OWDashboardItem alloc] initWithTitle:EDIT_PROFILE_STRING image:nil target:self selector:@selector(editProfilePressed:)];
+        //OWDashboardItem *profileItem = [[OWDashboardItem alloc] initWithTitle:EDIT_PROFILE_STRING image:nil target:self selector:@selector(editProfilePressed:)];
         
         OWDashboardItem *shareItem = [[OWDashboardItem alloc] initWithTitle:SHARE_THIS_APP_STRING image:nil target:self selector:@selector(shareButtonPressed:)];
         
@@ -41,7 +41,7 @@
         
         OWDashboardItem *websiteItem = [[OWDashboardItem alloc] initWithTitle:VISIT_OPENWATCH_WEBSITE_STRING image:nil target:self selector:@selector(websiteButtonPressed:)];
         
-        NSArray *profileItems = @[accountItem, profileItem];
+        NSArray *profileItems = @[accountItem];
         
         NSArray *shareItems = @[shareItem, githubItem, websiteItem];
         

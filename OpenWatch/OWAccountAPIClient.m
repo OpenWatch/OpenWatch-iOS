@@ -628,12 +628,19 @@
     [self getPath:path parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if ([responseObject isKindOfClass:[NSDictionary class]]) {
             [mediaObject loadMetadataFromDictionary:responseObject];
-            success(objectID);
+            if (success) {
+                success(objectID);
+            }
         } else {
-            failure(@"not a dict");
+            if (failure) {
+                failure(@"not a dict");
+            }
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Failed to GET object: %@", error.userInfo);
+        if (failure) {
+            failure(@"Failed to GET object");
+        }
     }];
 }
 
