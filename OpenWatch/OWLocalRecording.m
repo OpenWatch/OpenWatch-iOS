@@ -128,7 +128,7 @@
 - (void) locationUpdated:(CLLocation *)location {
     self.startLocation = location;
     [self saveMetadata];
-    [[OWCaptureAPIClient sharedClient] updateMetadataForRecording:self.objectID];
+    [[OWCaptureAPIClient sharedClient] updateMetadataForRecording:self.objectID callback:nil];
 }
 
 - (void) startRecording {
@@ -143,7 +143,7 @@
         }
     }
     [self saveMetadata];
-    [[OWCaptureAPIClient sharedClient] startedRecording:self.objectID];
+    [[OWCaptureAPIClient sharedClient] startedRecording:self.objectID callback:nil];
     dispatch_async(dispatch_get_main_queue(), ^{
         [[OWLocationController sharedInstance] startWithDelegate:self];
     });
@@ -158,8 +158,9 @@
     CLLocation *endLoc = [OWLocationController sharedInstance].currentLocation;
     self.endLocation = endLoc;
     [self saveMetadata];
-    [[OWCaptureAPIClient sharedClient] finishedRecording:self.objectID];
-    [[OWCaptureAPIClient sharedClient] updateMetadataForRecording:self.objectID];
+    [[OWCaptureAPIClient sharedClient] finishedRecording:self.objectID callback:^(BOOL success) {
+        [[OWCaptureAPIClient sharedClient] updateMetadataForRecording:self.objectID callback:nil];
+    }];
 }
 
 - (NSURL*) highQualityURL {

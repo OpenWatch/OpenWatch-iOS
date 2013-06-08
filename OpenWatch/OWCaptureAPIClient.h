@@ -17,10 +17,10 @@
 
 @property (nonatomic, strong) NSMutableDictionary *uploadDictionary;
 
-- (void) startedRecording:(NSManagedObjectID*)recordingObjectID;
+- (void) startedRecording:(NSManagedObjectID*)recordingObjectID callback:(void (^)(BOOL success))callback;
 - (void) uploadFileURL:(NSURL*)url recording:(NSManagedObjectID*)recordingObjectID priority:(NSOperationQueuePriority)priority;
 - (void) uploadFailedFileURLs:(NSArray*)failedFileURLs forRecording:(NSManagedObjectID*)recordingObjectID;
-- (void) finishedRecording:(NSManagedObjectID*)recordingObjectID;
-- (void) updateMetadataForRecording:(NSManagedObjectID*)recordingObjectID;
+- (void) finishedRecording:(NSManagedObjectID*)recordingObjectID callback:(void (^)(BOOL success))callback;
+- (void) updateMetadataForRecording:(NSManagedObjectID*)recordingObjectID callback:(void (^)(BOOL success))callback;
 
 @end

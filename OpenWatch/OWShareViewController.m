@@ -12,6 +12,7 @@
 #import "OWAccountAPIClient.h"
 #import "OWLocalMediaController.h"
 #import "MBProgressHUD.h"
+#import "OWStrings.h"
 
 @interface OWShareViewController ()
 
@@ -25,12 +26,12 @@
     self = [super init];
     if (self) {
         self.titleLabel = [[UILabel alloc] init];
-        self.titleLabel.text = @"It's live online!";
+        self.titleLabel.text = ITS_ONLINE_STRING;
         self.urlLabel = [[UILabel alloc] init];
-        self.urlLabel.text = @"Generating URL...";
+        self.urlLabel.text = GENERATING_URL_STRING;
         
         self.descriptionLabel = [[UILabel alloc] init];
-        self.descriptionLabel.text = @"Share media to all of your social networks to increase your impact and demand change!";
+        self.descriptionLabel.text = CALL_TO_ACTION_SHARE_STRING;
         self.descriptionLabel.numberOfLines = 0;
         self.previewView = [[OWPreviewView alloc] initWithFrame:CGRectZero];
         
@@ -44,15 +45,15 @@
         self.urlLabel.adjustsFontSizeToFitWidth = YES;
         
         self.shareButton = [[BButton alloc] initWithFrame:CGRectZero type:BButtonTypeSuccess icon:nil fontSize:22.0f];
-        [self.shareButton setTitle:@"Share" forState:UIControlStateNormal];
+        [self.shareButton setTitle:SHARE_STRING forState:UIControlStateNormal];
         [self.shareButton addTarget:self action:@selector(shareButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         [self.shareButton addAwesomeIcon:FAIconShare beforeTitle:YES];
-        self.title = @"Share";
+        self.title = SHARE_STRING;
         self.shareButton.enabled = NO;
         
         [self.navigationItem setHidesBackButton:YES animated:NO];
         
-        self.skipButton = [[UIBarButtonItem alloc] initWithTitle:@"Finish" style:UIBarButtonItemStyleBordered target:self action:@selector(skipButtonPressed:)];
+        self.skipButton = [[UIBarButtonItem alloc] initWithTitle:FINISH_STRING style:UIBarButtonItemStyleBordered target:self action:@selector(skipButtonPressed:)];
         self.navigationItem.rightBarButtonItem = skipButton;
         
         [self.view addSubview:shareButton];

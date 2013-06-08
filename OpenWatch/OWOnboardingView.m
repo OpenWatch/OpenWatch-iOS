@@ -10,6 +10,7 @@
 #import "OWUtilities.h"
 #import "OWLocationController.h"
 #import "BButton.h"
+#import "OWStrings.h"
 
 @implementation OWOnboardingView
 @synthesize scrollView, images, displayIndex, continueButton, agentSwitch, imageViews;
@@ -27,7 +28,8 @@
         
         self.continueButton = [[BButton alloc] initWithFrame:CGRectZero type:BButtonTypeSuccess];
         self.continueButton.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
-        [continueButton setTitle:@"Continue →" forState:UIControlStateNormal];
+        NSString *continueString = [NSString stringWithFormat:@"%@ →", CONTINUE_STRING];
+        [continueButton setTitle:continueString forState:UIControlStateNormal];
         [self.continueButton addTarget:self action:@selector(continueButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         [self refreshContinueButtonFrame];
         [self addSubview:continueButton];

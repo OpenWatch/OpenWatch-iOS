@@ -15,6 +15,7 @@
 #import "OWCheckpoints.h"
 #import "BButton.h"
 #import "OWConstants.h"
+#import "OWStrings.h"
 
 #define kOffsetWithPassword 208
 #define kOffset 145
@@ -40,7 +41,7 @@
         self.activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
         self.processingLogin = NO;
         self.forgotPasswordButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [self.forgotPasswordButton setTitle:@"Forgot password?" forState:UIControlStateNormal];
+        [self.forgotPasswordButton setTitle:FORGOT_PASSWORD_STRING forState:UIControlStateNormal];
         self.forgotPasswordButton.titleLabel.font = [UIFont systemFontOfSize:14.0f];
         self.forgotPasswordButton.titleLabel.textColor = [UIColor whiteColor];
         self.forgotPasswordButton.titleLabel.shadowColor = [UIColor blackColor];
@@ -60,21 +61,22 @@
     self.backgroundImageView = [[OWKenBurnsView alloc] initWithFrame:self.view.frame];
     self.activityIndicatorView.layer.opacity = 0.0f;
     self.logoView.contentMode = UIViewContentModeScaleAspectFit;
-    self.blurbLabel.text = @"Welcome to OpenWatch. Enter your email address to get started.";
+    self.blurbLabel.text = OPENWATCH_WELCOME_STRING;
     self.blurbLabel.backgroundColor = [UIColor clearColor];
     self.blurbLabel.textColor = [UIColor whiteColor];
     self.blurbLabel.font = [UIFont boldSystemFontOfSize:17.0f];
     self.blurbLabel.shadowColor = [UIColor blackColor];
     self.blurbLabel.shadowOffset = CGSizeMake(0, -1);
     self.blurbLabel.numberOfLines = 0;
-    self.emailField.placeholder = @"Email Address";
+    self.emailField.placeholder = EMAIL_ADDRESS_STRING;
     self.emailField.returnKeyType = UIReturnKeyGo;
     self.emailField.keyboardType = UIKeyboardTypeEmailAddress;
     self.emailField.borderStyle = UITextBorderStyleRoundedRect;
     self.emailField.clearButtonMode = UITextFieldViewModeWhileEditing;
     self.emailField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     self.emailField.autocorrectionType = UITextAutocorrectionTypeNo;
-    [self.startButton setTitle:@"Get Started →" forState:UIControlStateNormal];
+    NSString *getStarted = [NSString stringWithFormat:@"%@ →", GET_STARTED_STRING];
+    [self.startButton setTitle:getStarted forState:UIControlStateNormal];
     [self.startButton addTarget:self action:@selector(startButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     
     
@@ -154,7 +156,7 @@
         self.passwordField = [[UITextField alloc] init];
         self.keyboardControls.fields = @[emailField, passwordField];
         self.passwordField.delegate = self;
-        self.passwordField.placeholder = @"Password";
+        self.passwordField.placeholder = PASSWORD_STRING;
         self.passwordField.clearButtonMode = UITextFieldViewModeWhileEditing;
         self.passwordField.secureTextEntry = YES;
         self.passwordField.returnKeyType = UIReturnKeyGo;
@@ -171,7 +173,8 @@
             self.startButton.frame = startButtonFrame;
             forgotFrame.origin.y = [OWUtilities bottomOfView:startButton] + 20;
             self.forgotPasswordButton.frame = forgotFrame;
-            [self.startButton setTitle:@"Login →" forState:UIControlStateNormal];
+            NSString *login = [NSString stringWithFormat:@"%@ →", LOGIN_STRING];
+            [self.startButton setTitle:login forState:UIControlStateNormal];
         } completion:^(BOOL finished) {
             [self.scrollView setContentOffset:CGPointMake(0, kOffsetWithPassword) animated:YES];
         }];
@@ -223,7 +226,7 @@
     account.email = email;
 
     if (email.length == 0 || [email rangeOfString:@"@"].location == NSNotFound) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Login Error" message:@"Please enter a valid email address." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LOGIN_ERROR_STRING message:ENTER_VALID_EMAIL_STRING delegate:nil cancelButtonTitle:OK_STRING otherButtonTitles:nil];
         [alert show];
         return;
     }
@@ -236,7 +239,7 @@
             [self setProcessingLogin:NO];
             [self showDashboardScreen];
         } failure:^(NSString *reason) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Login Error" message:@"Please check your username and password and try again." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LOGIN_ERROR_STRING message:CHECK_CREDENTIALS_STRING delegate:nil cancelButtonTitle:OK_STRING otherButtonTitles:nil];
             [alert show];
             [self setProcessingLogin:NO];
         }];

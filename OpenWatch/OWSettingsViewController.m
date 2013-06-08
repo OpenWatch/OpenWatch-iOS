@@ -33,15 +33,15 @@
         
         
         OWDashboardItem *accountItem = [[OWDashboardItem alloc] initWithTitle:ACCOUNT_STRING image:nil target:self selector:@selector(accountButtonPressed:)];
-        OWDashboardItem *profileItem = [[OWDashboardItem alloc] initWithTitle:@"Edit Profile" image:nil target:self selector:@selector(editProfilePressed:)];
+        //OWDashboardItem *profileItem = [[OWDashboardItem alloc] initWithTitle:EDIT_PROFILE_STRING image:nil target:self selector:@selector(editProfilePressed:)];
         
-        OWDashboardItem *shareItem = [[OWDashboardItem alloc] initWithTitle:@"Share this App!" image:nil target:self selector:@selector(shareButtonPressed:)];
+        OWDashboardItem *shareItem = [[OWDashboardItem alloc] initWithTitle:SHARE_THIS_APP_STRING image:nil target:self selector:@selector(shareButtonPressed:)];
         
-        OWDashboardItem *githubItem = [[OWDashboardItem alloc] initWithTitle:@"OpenWatch on GitHub" image:nil target:self selector:@selector(githubButtonPressed:)];
+        OWDashboardItem *githubItem = [[OWDashboardItem alloc] initWithTitle:OPENWATCH_ON_GITHUB_STRING image:nil target:self selector:@selector(githubButtonPressed:)];
         
-        OWDashboardItem *websiteItem = [[OWDashboardItem alloc] initWithTitle:@"Visit OpenWatch.net" image:nil target:self selector:@selector(websiteButtonPressed:)];
+        OWDashboardItem *websiteItem = [[OWDashboardItem alloc] initWithTitle:VISIT_OPENWATCH_WEBSITE_STRING image:nil target:self selector:@selector(websiteButtonPressed:)];
         
-        NSArray *profileItems = @[accountItem, profileItem];
+        NSArray *profileItems = @[accountItem];
         
         NSArray *shareItems = @[shareItem, githubItem, websiteItem];
         
@@ -63,7 +63,7 @@
 }
 
 - (void) shareButtonPressed:(id)sender {
-    [OWShareController shareURL:[NSURL URLWithString:@"https://itunes.apple.com/us/app/openwatch-social-muckraking/id642680756?ls=1&mt=8"] title:@"Defend your rights! Get the @OpenWatch app!" fromViewController:self];
+    [OWShareController shareURL:[NSURL URLWithString:@"https://itunes.apple.com/us/app/openwatch-social-muckraking/id642680756?ls=1&mt=8"] title:TWEET_OPENWATCH_STRING fromViewController:self];
 }
 
 - (void) githubButtonPressed:(id)sender {

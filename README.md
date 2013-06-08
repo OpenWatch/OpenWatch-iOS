@@ -14,6 +14,19 @@ OpenWatch can also send you alerts and special assignments, so you can become th
 
 This is the first version of the application, so please let us know if you find any bugs or have any feedback to give us. OpenWatch is Free and Open Source software.
 
+Localization
+------------
+
+![Translations](https://www.transifex.com/projects/p/openwatch/resource/localizablestrings/chart/image_png)
+
+If you would like to contribute/improve a translation:
+
+ 1. Visit our [Transifex project page](https://www.transifex.net/projects/p/openwatch/) and make an account if you don't have one already.
+ 2. Go to the resources for [Localizable.strings](https://www.transifex.com/projects/p/openwatch/resource/localizablestrings/) to add a new language or improve an existing translation. 
+ 3. [Open an issue on Github](https://github.com/OpenWatch/OpenWatch-iOS/issues) notifying us of your translation.
+ 
+ Thank you!
+
 Downloading the Source
 ----------------------
 When downloading the source make sure to clone the repository with:

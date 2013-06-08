@@ -11,6 +11,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import "OWUtilities.h"
 #import <AudioToolbox/AudioToolbox.h>
+#import "OWStrings.h"
 
 @interface OWAudioRecordingViewController ()
 
@@ -25,7 +26,7 @@
     if (self) {
         self.timerView = [[OWTimerView alloc] init];
         self.recordButton = [[BButton alloc] initWithFrame:CGRectZero type:BButtonTypeDanger];
-        [recordButton setTitle:@"Start Recording" forState:UIControlStateNormal];
+        [recordButton setTitle:START_RECORDING_STRING forState:UIControlStateNormal];
         [recordButton addTarget:self action:@selector(recordButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         self.isRecording = NO;
         self.cancelButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelButtonPressed:)];
@@ -33,7 +34,7 @@
         self.microphoneImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"microphone.png"]];
         self.microphoneImageView.contentMode = UIViewContentModeScaleAspectFit;
         self.recordingIndicatorView = [[OWRecordingActivityIndicatorView alloc] init];
-        self.title = @"Record Audio";
+        self.title = RECORD_AUDIO_STRING;
     }
     return self;
 }
@@ -49,12 +50,12 @@
         [self startNewRecording];
         self.isRecording = YES;
         self.cancelButton.enabled = NO;
-        [recordButton setTitle:@"Stop Recording" forState:UIControlStateNormal];
+        [recordButton setTitle:STOP_RECORDING_STRING forState:UIControlStateNormal];
     } else {
         [self finishRecording];
         self.isRecording = NO;
         //self.cancelButton.enabled = YES;
-        [recordButton setTitle:@"Start Recording" forState:UIControlStateNormal];
+        [recordButton setTitle:START_RECORDING_STRING forState:UIControlStateNormal];
     }
 }
 

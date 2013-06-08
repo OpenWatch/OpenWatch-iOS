@@ -12,6 +12,7 @@
 #import "OWSettingsController.h"
 #import "OWUtilities.h"
 #import "OWLocalMediaController.h"
+#import "OWAccountAPIClient.h"
 
 #define kUploadStateStart @"start"
 #define kUploadStateUpload @"upload"
@@ -49,15 +50,40 @@
     return self;
 }
 
-- (void) updateMetadataForRecording:(NSManagedObjectID*)recordingObjectID {
+- (void) updateMetadataForRecording:(NSManagedObjectID*)recordingObjectID callback:(void (^)(BOOL success))callback {
     NSString *postPath = [self postPathForRecording:recordingObjectID uploadState:kUploadStateMetadata];
-    [self uploadMetadataForRecording:recordingObjectID postPath:postPath];
+    [self uploadMetadataForRecording:recordingObjectID postPath:postPath callback:callback];
 }
 
+
+// This is the worst function of all time
 - (void) uploadFailedFileURLs:(NSArray*)failedFileURLs forRecording:(NSManagedObjectID*)recordingObjectID {
-    for (NSURL *url in failedFileURLs) {
-        [[OWCaptureAPIClient sharedClient] uploadFileURL:url recording:recordingObjectID priority:NSOperationQueuePriorityVeryLow];
-    }
+    OWLocalMediaObject *localObject = [OWLocalMediaController localMediaObjectForObjectID:recordingObjectID];
+    
+    Class objectClass = [localObject class];
+    NSString *uuid = localObject.uuid;
+    
+    [[OWAccountAPIClient sharedClient] getObjectWithUUID:uuid objectClass:objectClass success:^(NSManagedObjectID *objectID) {
+        for (NSURL *url in failedFileURLs) {
+            [[OWCaptureAPIClient sharedClient] uploadFileURL:url recording:recordingObjectID priority:NSOperationQueuePriorityVeryLow];
+        }
+    } failure:^(NSString *reason) {
+        NSLog(@"%@", reason);
+        [[OWCaptureAPIClient sharedClient] startedRecording:recordingObjectID callback:^(BOOL success) {
+            NSLog(@"success: %d", success);
+            [[OWCaptureAPIClient sharedClient] finishedRecording:recordingObjectID callback:^(BOOL success) {
+                NSLog(@"success: %d", success);
+                [[OWCaptureAPIClient sharedClient] updateMetadataForRecording:recordingObjectID callback:^(BOOL success) {
+                    NSLog(@"success: %d", success);
+                    [[OWAccountAPIClient sharedClient] postObjectWithUUID:uuid objectClass:objectClass success:nil failure:nil];
+                    
+                    for (NSURL *url in failedFileURLs) {
+                        [[OWCaptureAPIClient sharedClient] uploadFileURL:url recording:recordingObjectID priority:NSOperationQueuePriorityVeryLow];
+                    }
+                }];
+            }];
+        }];
+    }];
 }
 
 - (void) uploadFileURL:(NSURL*)url recording:(NSManagedObjectID*)recordingObjectID priority:(NSOperationQueuePriority)priority {
@@ -138,27 +164,36 @@
     [self enqueueHTTPRequestOperation:operation]; 
 }
 
-- (void) finishedRecording:(NSManagedObjectID*)recordingObjectID {
+- (void) finishedRecording:(NSManagedObjectID*)recordingObjectID callback:(void (^)(BOOL success))callback {
     NSLog(@"Finishing (POSTing) recording...");
     NSString *postPath = [self postPathForRecording:recordingObjectID uploadState:kUploadStateEnd];
-    [self uploadMetadataForRecording:recordingObjectID postPath:postPath];
+    [self uploadMetadataForRecording:recordingObjectID postPath:postPath callback:callback];
 }
 
-- (void) startedRecording:(NSManagedObjectID*)recordingObjectID {
+- (void) startedRecording:(NSManagedObjectID*)recordingObjectID callback:(void (^)(BOOL success))callback {
     NSString *postPath = [self postPathForRecording:recordingObjectID uploadState:kUploadStateStart];
-    [self uploadMetadataForRecording:recordingObjectID postPath:postPath];
+    [self uploadMetadataForRecording:recordingObjectID postPath:postPath callback:callback];
 }
 
 
 
-- (void) uploadMetadataForRecording:(NSManagedObjectID*)recordingObjectID postPath:(NSString*)postPath  {
+- (void) uploadMetadataForRecording:(NSManagedObjectID*)recordingObjectID postPath:(NSString*)postPath callback:(void (^)(BOOL success))callback  {
     OWLocalRecording *recording = [OWRecordingController localRecordingForObjectID:recordingObjectID];
     NSDictionary *params = recording.metadataDictionary;
     NSLog(@"WTF: %@", [params description]);
     [self postPath:postPath parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"metadata response: %@", [responseObject description]);
+        if ([responseObject isKindOfClass:[NSDictionary class]]) {
+            if (callback) {
+                callback([[responseObject objectForKey:@"success"] boolValue]);
+            }
+        }
+        
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"error pushing metadata: %@%@", [error localizedDescription], [error userInfo]);
+        if (callback) {
+            callback(NO);
+        }
     }];
 }
 

@@ -11,6 +11,7 @@
 #import "OWMissionTableViewCell.h"
 #import "OWMissionViewController.h"
 #import "OWAccountAPIClient.h"
+#import "OWStrings.h"
 
 @interface OWMissionListViewController ()
 
@@ -24,7 +25,7 @@
 {
     self = [super init];
     if (self) {
-        self.title = @"Missions";
+        self.title = MISSIONS_STRING;
         
         [self.tableView registerClass:[OWMission cellClass] forCellReuseIdentifier:[OWMission cellIdentifier]];
 

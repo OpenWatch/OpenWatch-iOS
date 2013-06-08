@@ -10,6 +10,7 @@
 #import "OWInvestigation.h"
 #import "MBProgressHUD.h"
 #import "OWAccountAPIClient.h"
+#import "OWStrings.h"
 
 @interface OWInvestigationViewController ()
 
@@ -29,8 +30,10 @@
     } failure:^(NSString *reason) {
         NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
         OWInvestigation *investigation = (OWInvestigation*)[context existingObjectWithID:self.mediaObjectID error:nil];
-        if(!investigation.html){            
-            [self.bodyWebView loadHTMLString:@"<b>Unable to fetch Investigation</b>" baseURL:nil];
+        if(!investigation.html){
+            
+            NSString *loadError = [NSString stringWithFormat:@"<b>%@</b>", INVESTIGATION_LOAD_ERROR_STRING];
+            [self.bodyWebView loadHTMLString:loadError baseURL:nil];
         }
         
     }];
