@@ -14,7 +14,9 @@
 #import "OWSettingsController.h"
 #import "OWAccountAPIClient.h"
 #import "OWShareViewController.h"
-
+#import "OWMissionListViewController.h"
+#import "OWMissionViewController.h"
+#import "OWMission.h"
 
 @implementation OWAppDelegate
 @synthesize navigationController, locationController, dashboardViewController, backgroundTask, backgroundTimer, allowRotation, creationController;
@@ -157,6 +159,14 @@
 
 - (void) application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
     NSLog(@"Received local notification: %@", notification.userInfo);
+    
+    OWMissionListViewController *missionList = [[OWMissionListViewController alloc] init];
+    OWMissionViewController *missionView = [[OWMissionViewController alloc] init];
+    OWMission *mission = [OWMission MR_findFirstByAttribute:@"serverID" withValue:@(1)];
+    
+    
+    missionView.mediaObjectID = mission.objectID;
+    [self.navigationController setViewControllers:@[dashboardViewController, missionList, missionView]];
 }
 
 - (void) timerUpdate:(NSTimer*)timer {
