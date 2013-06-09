@@ -9,8 +9,11 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 #import "_OWMission.h"
+#import <CoreLocation/CoreLocation.h>
 
 @interface OWMission : _OWMission
+
+- (CLLocationCoordinate2D) coordinate;
 
 - (NSURL*) mediaURL;
 + (void) updateUnreadCount;

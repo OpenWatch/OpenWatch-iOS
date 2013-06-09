@@ -13,6 +13,8 @@
 #import "MBProgressHUD.h"
 #import "OWUtilities.h"
 #import "OWStrings.h"
+#import "OWMapAnnotation.h"
+#import "OWMapViewController.h"
 
 @interface OWMissionViewController ()
 
@@ -56,11 +58,23 @@
         OWDashboardItem *videoItem = [[OWDashboardItem alloc] initWithTitle:BROADCAST_VIDEO_STRING image:[UIImage imageNamed:@"285-facetime.png"] target:self selector:@selector(recordButtonPressed:)];
         OWDashboardItem *photoItem = [[OWDashboardItem alloc] initWithTitle:TAKE_PICTURE_STRING image:[UIImage imageNamed:@"86-camera.png"] target:self selector:@selector(photoButtonPressed:)];
         //OWDashboardItem *audioItem = [[OWDashboardItem alloc] initWithTitle:@"Record Audio" image:[UIImage imageNamed:@"66-microphone.png"] target:self selector:@selector(audioButtonPressed:)];
+        
+        OWDashboardItem *viewOnMap = [[OWDashboardItem alloc] initWithTitle:VIEW_ON_MAP_STRING image:[UIImage imageNamed:@"193-location-arrow.png"] target:self selector:@selector(viewOnMap:)];
+        
+        NSArray *mapArray = @[viewOnMap];
+        
         NSArray *mediaItems = @[photoItem, videoItem];
-        self.dashboardView.dashboardItems = @[mediaItems];
+        self.dashboardView.dashboardItems = @[mapArray, mediaItems];
 
     }
     return self;
+}
+
+- (void) viewOnMap:(id)sender {
+    OWMapAnnotation *annotation = [[OWMapAnnotation alloc] initWithCoordinate:mission.coordinate title:mission.title subtitle:mission.body];
+    OWMapViewController *mapView = [[OWMapViewController alloc] init];
+    mapView.annotation = annotation;
+    [self.navigationController pushViewController:mapView animated:YES];
 }
 
 - (void) recordButtonPressed:(id)sender {
@@ -107,8 +121,8 @@
     CGRect blurbLabelFrame = [OWUtilities constrainedFrameForLabel:blurbLabel width:paddedWidth origin:CGPointMake(padding, [OWUtilities bottomOfView:userView] + padding)];
     self.blurbLabel.frame = blurbLabelFrame;
     
-    self.dashboardView.frame = CGRectMake(0, [OWUtilities bottomOfView:blurbLabel] + padding, frameWidth, 120);
-    
+    self.dashboardView.frame = CGRectMake(0, [OWUtilities bottomOfView:blurbLabel] + padding, frameWidth, self.dashboardView.dashboardTableView.contentSize.height);
+        
     self.scrollView.frame = self.view.bounds;
     self.scrollView.contentSize = CGSizeMake(self.view.frame.size.width, [OWUtilities bottomOfView:dashboardView]);
 }

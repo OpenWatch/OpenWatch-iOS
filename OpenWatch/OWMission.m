@@ -63,6 +63,15 @@
     if (usd) {
         self.usd = usd;
     }
+    
+    NSNumber *latitude = [metadataDictionary objectForKey:@"end_lat"];
+    if (latitude) {
+        self.latitude = latitude;
+    }
+    NSNumber *longitude = [metadataDictionary objectForKey:@"end_lon"];
+    if (longitude) {
+        self.longitude = longitude;
+    }
 }
 
 + (void) updateUnreadCount {
@@ -72,6 +81,10 @@
         badgeText = [NSString stringWithFormat:@"%d", unreadMissions.count];
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:kMissionCountUpdateNotification object:nil userInfo:@{[OWBadgedDashboardItem userInfoBadgeTextKey]: badgeText}];
+}
+
+- (CLLocationCoordinate2D) coordinate {
+    return CLLocationCoordinate2DMake(self.latitudeValue, self.longitudeValue);
 }
 
 @end

@@ -193,6 +193,8 @@
 		D9B6402B1763FD430028CFFB /* ticks.png in Resources */ = {isa = PBXBuildFile; fileRef = D9B640281763FD430028CFFB /* ticks.png */; };
 		D9B6402C1763FD430028CFFB /* ticks@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9B640291763FD430028CFFB /* ticks@2x.png */; };
 		D9B6402D1763FD430028CFFB /* ticks@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9B640291763FD430028CFFB /* ticks@2x.png */; };
+		D9B6404217652A2B0028CFFB /* OWMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9B6404117652A2B0028CFFB /* OWMapViewController.m */; };
+		D9B6404317652A2B0028CFFB /* OWMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9B6404117652A2B0028CFFB /* OWMapViewController.m */; };
 		D9BECF0016B20E01009046E1 /* navbar.png in Resources */ = {isa = PBXBuildFile; fileRef = D9BECEFE16B20E01009046E1 /* navbar.png */; };
 		D9BECF0116B20E01009046E1 /* navbar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9BECEFF16B20E01009046E1 /* navbar@2x.png */; };
 		D9BECF9816B22B06009046E1 /* UINavigationBar+DropShadow.m in Sources */ = {isa = PBXBuildFile; fileRef = D9BECF9716B22B06009046E1 /* UINavigationBar+DropShadow.m */; };
@@ -958,6 +960,8 @@
 		D9B4E81417442E1A006B3793 /* icon-iphone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-iphone@2x.png"; path = "../icon-iphone@2x.png"; sourceTree = "<group>"; };
 		D9B640281763FD430028CFFB /* ticks.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ticks.png; sourceTree = "<group>"; };
 		D9B640291763FD430028CFFB /* ticks@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ticks@2x.png"; sourceTree = "<group>"; };
+		D9B6404017652A2A0028CFFB /* OWMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWMapViewController.h; sourceTree = "<group>"; };
+		D9B6404117652A2B0028CFFB /* OWMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWMapViewController.m; sourceTree = "<group>"; };
 		D9BECEFE16B20E01009046E1 /* navbar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navbar.png; sourceTree = "<group>"; };
 		D9BECEFF16B20E01009046E1 /* navbar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navbar@2x.png"; sourceTree = "<group>"; };
 		D9BECF9616B22B06009046E1 /* UINavigationBar+DropShadow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationBar+DropShadow.h"; sourceTree = "<group>"; };
@@ -1848,6 +1852,8 @@
 		D9D2E21D16532B220000E7C5 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				D9B6404017652A2A0028CFFB /* OWMapViewController.h */,
+				D9B6404117652A2B0028CFFB /* OWMapViewController.m */,
 				D9D49E801758154D00416C73 /* OWProfileViewController.h */,
 				D9D49E811758154D00416C73 /* OWProfileViewController.m */,
 				D9C10AA8175699AC00C98EC3 /* OWMissionViewController.h */,
@@ -2789,6 +2795,7 @@
 				D9C434611756FA6000471468 /* OWBannerView.m in Sources */,
 				D9D49E821758154D00416C73 /* OWProfileViewController.m in Sources */,
 				D9FAE5FB1763F12200CEBEBF /* OWTooltipView.m in Sources */,
+				D9B6404217652A2B0028CFFB /* OWMapViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2949,6 +2956,7 @@
 				D9ECC118175FFCBB00A34DFE /* OWBannerView.m in Sources */,
 				D9ECC119175FFCBB00A34DFE /* OWProfileViewController.m in Sources */,
 				D9FAE5FC1763F12200CEBEBF /* OWTooltipView.m in Sources */,
+				D9B6404317652A2B0028CFFB /* OWMapViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
