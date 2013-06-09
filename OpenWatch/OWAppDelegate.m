@@ -88,7 +88,7 @@
     }];
     
     dispatch_async(dispatch_get_main_queue(), ^{
-        self.backgroundTimer = [NSTimer scheduledTimerWithTimeInterval:10 target:self selector:@selector(timerUpdate:) userInfo:nil repeats:YES];
+        self.backgroundTimer = [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(timerUpdate:) userInfo:nil repeats:YES];
     });
 }
 - (void)applicationWillEnterForeground:(UIApplication *)application
@@ -155,8 +155,20 @@
 	NSLog(@"Failed to get push token, error: %@", error);
 }
 
+- (void) application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
+    NSLog(@"Received local notification: %@", notification.userInfo);
+}
+
 - (void) timerUpdate:(NSTimer*)timer {
     UIApplication *application = [UIApplication sharedApplication];
+    
+    UILocalNotification *localNotif = [[UILocalNotification alloc] init];
+    if (localNotif) {
+        localNotif.alertBody = @"You have been selected for a special mission.";
+        localNotif.alertAction = @"Accept";
+        localNotif.soundName = UILocalNotificationDefaultSoundName;
+        [application presentLocalNotificationNow:localNotif];
+    }
     
     //NSLog(@"Timer update, background time left: %f", application.backgroundTimeRemaining);
     
@@ -171,6 +183,7 @@
         self.backgroundTask = UIBackgroundTaskInvalid;
     }
 }
+
 
 - (void) moviePlayerWillEnterFullscreenNotification:(NSNotification*)notification {
     self.allowRotation = YES;

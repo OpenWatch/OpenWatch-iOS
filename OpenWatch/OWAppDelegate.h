@@ -27,5 +27,4 @@
 
 @property (nonatomic) BOOL allowRotation;
 
-
 @end
