@@ -32,7 +32,7 @@
         
         OWAccount *account = [OWSettingsController sharedInstance].account;
         if (!account.missionsDescriptionDismissed) {
-            self.headerView = [[OWTooltipView alloc] initWithFrame:CGRectZero descriptionText:MISSIONS_DESCRIPTION_STRING];
+            self.headerView = [[OWTooltipView alloc] initWithFrame:CGRectZero descriptionText:MISSIONS_DESCRIPTION_STRING icon:[UIImage imageNamed:@"108-badge.png"]];
             self.headerView.delegate = self;
         }
     }
