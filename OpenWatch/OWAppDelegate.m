@@ -162,7 +162,7 @@
     
     OWMissionListViewController *missionList = [[OWMissionListViewController alloc] init];
     OWMissionViewController *missionView = [[OWMissionViewController alloc] init];
-    OWMission *mission = [OWMission MR_findFirstByAttribute:@"serverID" withValue:@(1)];
+    OWMission *mission = [OWMission MR_findFirstByAttribute:@"serverID" withValue:@(4)];
     
     
     missionView.mediaObjectID = mission.objectID;
