@@ -6,6 +6,7 @@
 //  Copyright (c) 2012 OpenWatch FPC. All rights reserved.
 //
 
+#define MISSIONS_DESCRIPTION_STRING NSLocalizedString(@"Find out about stories the traditional media isn't covering and help uncover the truth!", @"Description for header of missions view")
 
 #define CONTINUE_STRING NSLocalizedString(@"Continue", @"button title for continuing to next screen")
 #define EDIT_PROFILE_STRING NSLocalizedString(@"Edit Profile", @"Title for button to edit profile")

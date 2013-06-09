@@ -7,7 +7,10 @@
 //
 
 #import "OWPaginatedTableViewController.h"
+#import "OWTooltipView.h"
 
-@interface OWMissionListViewController : OWPaginatedTableViewController
+@interface OWMissionListViewController : OWPaginatedTableViewController <OWTooltipViewDelegate>
+
+@property (nonatomic, strong) OWTooltipView *headerView;
 
 @end

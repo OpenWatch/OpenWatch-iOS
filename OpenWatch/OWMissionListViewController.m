@@ -12,14 +12,15 @@
 #import "OWMissionViewController.h"
 #import "OWAccountAPIClient.h"
 #import "OWStrings.h"
+#import "OWSettingsController.h"
+#import "OWUtilities.h"
 
 @interface OWMissionListViewController ()
 
 @end
 
 @implementation OWMissionListViewController
-
-
+@synthesize headerView;
 
 - (id)init
 {
@@ -28,17 +29,29 @@
         self.title = MISSIONS_STRING;
         
         [self.tableView registerClass:[OWMission cellClass] forCellReuseIdentifier:[OWMission cellIdentifier]];
-
+        
+        OWAccount *account = [OWSettingsController sharedInstance].account;
+        if (!account.missionsDescriptionDismissed) {
+            self.headerView = [[OWTooltipView alloc] initWithFrame:CGRectZero descriptionText:MISSIONS_DESCRIPTION_STRING];
+            self.headerView.delegate = self;
+        }
     }
     return self;
 }
 
-- (void) viewDidLoad {
-    [super viewDidLoad];
+
+- (void) tooltipViewDidDismiss:(OWTooltipView *)tooltipView {
+    self.headerView = nil;
+    [self.tableView reloadData];
 }
 
 - (void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    if (headerView) {
+        self.headerView.frame = CGRectMake(0, 0, self.view.frame.size.width, 100);
+        [OWUtilities applyShadowToView:headerView];
+    }
+    
     [TestFlight passCheckpoint:@"Missions"];
     [self reloadTableViewDataSource];
 }
@@ -72,6 +85,19 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (UIView*) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    if (section == 0) {
+        return headerView;
+    }
+    return nil;
+}
+
+- (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    if (section == 0) {
+        return headerView.frame.size.height;
+    }
+    return 0;
+}
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];

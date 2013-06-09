@@ -18,6 +18,7 @@
 #define kUsernameKey @"kUsernameKey"
 #define kOnboardingKey @"kOnboardingKey"
 #define kSecretAgentEnabledKey @"kSecretAgentEnabledKey"
+#define kMissionsDescriptionDismissedKey @"kMissionsDescriptionDismissedKey"
 
 @implementation OWAccount
 
@@ -185,6 +186,17 @@
 - (BOOL) secretAgentEnabled {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     return [[defaults objectForKey:kSecretAgentEnabledKey] boolValue];
+}
+
+- (void) setMissionsDescriptionDismissed:(BOOL)missionsDescriptionDismissed {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:@(missionsDescriptionDismissed) forKey:kMissionsDescriptionDismissedKey];
+    [defaults synchronize];
+}
+
+- (BOOL) missionsDescriptionDismissed {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    return [[defaults objectForKey:kMissionsDescriptionDismissedKey] boolValue];
 }
 
 @end

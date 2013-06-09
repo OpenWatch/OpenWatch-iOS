@@ -19,10 +19,12 @@
 @property (nonatomic, strong) NSString *username;
 @property (nonatomic) BOOL secretAgentEnabled;
 @property (nonatomic) BOOL hasCompletedOnboarding;
+@property (nonatomic) BOOL missionsDescriptionDismissed;
 
 - (OWUser*) user;
 
 - (void) clearAccountData;
 - (BOOL) isLoggedIn;
+
 
 @end

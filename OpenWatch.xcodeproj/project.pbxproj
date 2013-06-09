@@ -189,6 +189,10 @@
 		D9B4E80D17441759006B3793 /* cc@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9B4E80C17441759006B3793 /* cc@2x.png */; };
 		D9B4E81317442E16006B3793 /* icon-iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = D9B4E81217442E16006B3793 /* icon-iphone.png */; };
 		D9B4E81517442E1A006B3793 /* icon-iphone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9B4E81417442E1A006B3793 /* icon-iphone@2x.png */; };
+		D9B6402A1763FD430028CFFB /* ticks.png in Resources */ = {isa = PBXBuildFile; fileRef = D9B640281763FD430028CFFB /* ticks.png */; };
+		D9B6402B1763FD430028CFFB /* ticks.png in Resources */ = {isa = PBXBuildFile; fileRef = D9B640281763FD430028CFFB /* ticks.png */; };
+		D9B6402C1763FD430028CFFB /* ticks@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9B640291763FD430028CFFB /* ticks@2x.png */; };
+		D9B6402D1763FD430028CFFB /* ticks@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9B640291763FD430028CFFB /* ticks@2x.png */; };
 		D9BECF0016B20E01009046E1 /* navbar.png in Resources */ = {isa = PBXBuildFile; fileRef = D9BECEFE16B20E01009046E1 /* navbar.png */; };
 		D9BECF0116B20E01009046E1 /* navbar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9BECEFF16B20E01009046E1 /* navbar@2x.png */; };
 		D9BECF9816B22B06009046E1 /* UINavigationBar+DropShadow.m in Sources */ = {isa = PBXBuildFile; fileRef = D9BECF9716B22B06009046E1 /* UINavigationBar+DropShadow.m */; };
@@ -629,6 +633,16 @@
 		D9FA646517447D91000051B7 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = D9FA646417447D91000051B7 /* Default.png */; };
 		D9FA646717447DA5000051B7 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9FA646617447DA5000051B7 /* Default@2x.png */; };
 		D9FA646917447DAA000051B7 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9FA646817447DAA000051B7 /* Default-568h@2x.png */; };
+		D9FAE5FB1763F12200CEBEBF /* OWTooltipView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9FAE5FA1763F12200CEBEBF /* OWTooltipView.m */; };
+		D9FAE5FC1763F12200CEBEBF /* OWTooltipView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9FAE5FA1763F12200CEBEBF /* OWTooltipView.m */; };
+		D9FAE6011763F47900CEBEBF /* UIBlackCloseButton.png in Resources */ = {isa = PBXBuildFile; fileRef = D9FAE5FD1763F47900CEBEBF /* UIBlackCloseButton.png */; };
+		D9FAE6021763F47900CEBEBF /* UIBlackCloseButton.png in Resources */ = {isa = PBXBuildFile; fileRef = D9FAE5FD1763F47900CEBEBF /* UIBlackCloseButton.png */; };
+		D9FAE6031763F47900CEBEBF /* UIBlackCloseButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9FAE5FE1763F47900CEBEBF /* UIBlackCloseButton@2x.png */; };
+		D9FAE6041763F47900CEBEBF /* UIBlackCloseButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9FAE5FE1763F47900CEBEBF /* UIBlackCloseButton@2x.png */; };
+		D9FAE6051763F47900CEBEBF /* UIBlackCloseButtonPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = D9FAE5FF1763F47900CEBEBF /* UIBlackCloseButtonPressed.png */; };
+		D9FAE6061763F47900CEBEBF /* UIBlackCloseButtonPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = D9FAE5FF1763F47900CEBEBF /* UIBlackCloseButtonPressed.png */; };
+		D9FAE6071763F47900CEBEBF /* UIBlackCloseButtonPressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9FAE6001763F47900CEBEBF /* UIBlackCloseButtonPressed@2x.png */; };
+		D9FAE6081763F47900CEBEBF /* UIBlackCloseButtonPressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9FAE6001763F47900CEBEBF /* UIBlackCloseButtonPressed@2x.png */; };
 		D9FF1A34173B03AF0076D214 /* OWPreviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9FF1A33173B03AF0076D214 /* OWPreviewView.m */; };
 /* End PBXBuildFile section */
 
@@ -942,6 +956,8 @@
 		D9B4E80C17441759006B3793 /* cc@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cc@2x.png"; sourceTree = "<group>"; };
 		D9B4E81217442E16006B3793 /* icon-iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-iphone.png"; path = "../icon-iphone.png"; sourceTree = "<group>"; };
 		D9B4E81417442E1A006B3793 /* icon-iphone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-iphone@2x.png"; path = "../icon-iphone@2x.png"; sourceTree = "<group>"; };
+		D9B640281763FD430028CFFB /* ticks.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ticks.png; sourceTree = "<group>"; };
+		D9B640291763FD430028CFFB /* ticks@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ticks@2x.png"; sourceTree = "<group>"; };
 		D9BECEFE16B20E01009046E1 /* navbar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navbar.png; sourceTree = "<group>"; };
 		D9BECEFF16B20E01009046E1 /* navbar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navbar@2x.png"; sourceTree = "<group>"; };
 		D9BECF9616B22B06009046E1 /* UINavigationBar+DropShadow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationBar+DropShadow.h"; sourceTree = "<group>"; };
@@ -1192,6 +1208,12 @@
 		D9FA646417447D91000051B7 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = ../Default.png; sourceTree = "<group>"; };
 		D9FA646617447DA5000051B7 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x.png"; path = "../Default@2x.png"; sourceTree = "<group>"; };
 		D9FA646817447DAA000051B7 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "../Default-568h@2x.png"; sourceTree = "<group>"; };
+		D9FAE5F91763F12200CEBEBF /* OWTooltipView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWTooltipView.h; sourceTree = "<group>"; };
+		D9FAE5FA1763F12200CEBEBF /* OWTooltipView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWTooltipView.m; sourceTree = "<group>"; };
+		D9FAE5FD1763F47900CEBEBF /* UIBlackCloseButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UIBlackCloseButton.png; sourceTree = "<group>"; };
+		D9FAE5FE1763F47900CEBEBF /* UIBlackCloseButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UIBlackCloseButton@2x.png"; sourceTree = "<group>"; };
+		D9FAE5FF1763F47900CEBEBF /* UIBlackCloseButtonPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UIBlackCloseButtonPressed.png; sourceTree = "<group>"; };
+		D9FAE6001763F47900CEBEBF /* UIBlackCloseButtonPressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UIBlackCloseButtonPressed@2x.png"; sourceTree = "<group>"; };
 		D9FF1A32173B03AF0076D214 /* OWPreviewView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWPreviewView.h; sourceTree = "<group>"; };
 		D9FF1A33173B03AF0076D214 /* OWPreviewView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWPreviewView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1470,6 +1492,8 @@
 		D97EAAA3167911B900A1B038 /* Custom Views */ = {
 			isa = PBXGroup;
 			children = (
+				D9FAE5F91763F12200CEBEBF /* OWTooltipView.h */,
+				D9FAE5FA1763F12200CEBEBF /* OWTooltipView.m */,
 				D9C4345F1756FA5F00471468 /* OWBannerView.h */,
 				D9C434601756FA5F00471468 /* OWBannerView.m */,
 				D9C434581756D3A000471468 /* OWUserView.h */,
@@ -1944,6 +1968,12 @@
 		D9DFADF716547DE7003C515C /* Media */ = {
 			isa = PBXGroup;
 			children = (
+				D9B640281763FD430028CFFB /* ticks.png */,
+				D9B640291763FD430028CFFB /* ticks@2x.png */,
+				D9FAE5FD1763F47900CEBEBF /* UIBlackCloseButton.png */,
+				D9FAE5FE1763F47900CEBEBF /* UIBlackCloseButton@2x.png */,
+				D9FAE5FF1763F47900CEBEBF /* UIBlackCloseButtonPressed.png */,
+				D9FAE6001763F47900CEBEBF /* UIBlackCloseButtonPressed@2x.png */,
 				D9C4345B1756FA3B00471468 /* side_banner_purple@2x.png */,
 				D9C4345C1756FA3C00471468 /* side_banner_green@2x.png */,
 				D94B83961745D6F2008A1142 /* user_placeholder@2x.png */,
@@ -2439,6 +2469,12 @@
 				D9C4345D1756FA3C00471468 /* side_banner_purple@2x.png in Resources */,
 				D9C4345E1756FA3C00471468 /* side_banner_green@2x.png in Resources */,
 				D9ECBF39175FD81400A34DFE /* Localizable.strings in Resources */,
+				D9FAE6011763F47900CEBEBF /* UIBlackCloseButton.png in Resources */,
+				D9FAE6031763F47900CEBEBF /* UIBlackCloseButton@2x.png in Resources */,
+				D9FAE6051763F47900CEBEBF /* UIBlackCloseButtonPressed.png in Resources */,
+				D9FAE6071763F47900CEBEBF /* UIBlackCloseButtonPressed@2x.png in Resources */,
+				D9B6402A1763FD430028CFFB /* ticks.png in Resources */,
+				D9B6402C1763FD430028CFFB /* ticks@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2568,6 +2604,12 @@
 				D9ECC1B2175FFCBB00A34DFE /* side_banner_green@2x.png in Resources */,
 				D9ECC1B3175FFCBB00A34DFE /* Localizable.strings in Resources */,
 				D9ECC1BA175FFD8400A34DFE /* OccupyGezi-Info.plist in Resources */,
+				D9FAE6021763F47900CEBEBF /* UIBlackCloseButton.png in Resources */,
+				D9FAE6041763F47900CEBEBF /* UIBlackCloseButton@2x.png in Resources */,
+				D9FAE6061763F47900CEBEBF /* UIBlackCloseButtonPressed.png in Resources */,
+				D9FAE6081763F47900CEBEBF /* UIBlackCloseButtonPressed@2x.png in Resources */,
+				D9B6402B1763FD430028CFFB /* ticks.png in Resources */,
+				D9B6402D1763FD430028CFFB /* ticks@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2746,6 +2788,7 @@
 				D9C4345A1756D3A000471468 /* OWUserView.m in Sources */,
 				D9C434611756FA6000471468 /* OWBannerView.m in Sources */,
 				D9D49E821758154D00416C73 /* OWProfileViewController.m in Sources */,
+				D9FAE5FB1763F12200CEBEBF /* OWTooltipView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2905,6 +2948,7 @@
 				D9ECC117175FFCBB00A34DFE /* OWUserView.m in Sources */,
 				D9ECC118175FFCBB00A34DFE /* OWBannerView.m in Sources */,
 				D9ECC119175FFCBB00A34DFE /* OWProfileViewController.m in Sources */,
+				D9FAE5FC1763F12200CEBEBF /* OWTooltipView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
