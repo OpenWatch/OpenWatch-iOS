@@ -33,13 +33,13 @@
     } else {
         NSLog(@"uuid not found!");
     }
-    NSNumber *endLatitude = [metadataDictionary objectForKey:kLatitudeEndKey];
-    if (endLatitude) {
-        self.endLatitude = endLatitude;
+    double endLatitude = [[metadataDictionary objectForKey:kLatitudeEndKey] doubleValue];
+    if (endLatitude != 0.0f) {
+        self.endLatitude = @(endLatitude);
     }
-    NSNumber *endLongitude = [metadataDictionary objectForKey:kLongitudeEndKey];
-    if (endLongitude) {
-        self.endLongitude = endLongitude;
+    double endLongitude = [[metadataDictionary objectForKey:kLongitudeEndKey] doubleValue];
+    if (endLongitude != 0.0f) {
+        self.endLongitude = @(endLongitude);
     }
     
     NSString *mediaURLString = [[metadataDictionary objectForKey:@"media_url"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];

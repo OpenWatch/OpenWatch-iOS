@@ -80,13 +80,13 @@
     if (endDateString) {
         self.endDate = [dateFormatter dateFromString:endDateString];
     }
-    NSNumber *startLatitude = [metadataDictionary objectForKey:kLatitudeStartKey];
-    if (startLatitude) {
-        self.startLatitude = startLatitude;
+    double startLatitude = [[metadataDictionary objectForKey:kLatitudeStartKey] doubleValue];
+    if (startLatitude != 0.0f) {
+        self.startLatitude = @(startLatitude);
     }
-    NSNumber *startLongitude = [metadataDictionary objectForKey:kLongitudeStartKey];
-    if (startLongitude) {
-        self.startLongitude = startLongitude;
+    double startLongitude = [[metadataDictionary objectForKey:kLongitudeStartKey] doubleValue];
+    if (startLongitude != 0.0f) {
+        self.startLongitude = @(startLongitude);
     }
 }
 
