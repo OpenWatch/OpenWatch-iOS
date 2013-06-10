@@ -59,12 +59,8 @@
         OWDashboardItem *photoItem = [[OWDashboardItem alloc] initWithTitle:TAKE_PICTURE_STRING image:[UIImage imageNamed:@"86-camera.png"] target:self selector:@selector(photoButtonPressed:)];
         //OWDashboardItem *audioItem = [[OWDashboardItem alloc] initWithTitle:@"Record Audio" image:[UIImage imageNamed:@"66-microphone.png"] target:self selector:@selector(audioButtonPressed:)];
         
-        OWDashboardItem *viewOnMap = [[OWDashboardItem alloc] initWithTitle:VIEW_ON_MAP_STRING image:[UIImage imageNamed:@"193-location-arrow.png"] target:self selector:@selector(viewOnMap:)];
-        
-        NSArray *mapArray = @[viewOnMap];
-        
         NSArray *mediaItems = @[photoItem, videoItem];
-        self.dashboardView.dashboardItems = @[mapArray, mediaItems];
+        self.dashboardView.dashboardItems = @[mediaItems];
 
     }
     return self;
@@ -188,6 +184,15 @@
 
     self.bannerView = [[OWBannerView alloc] initWithFrame:CGRectZero bannerImage:bannerImage labelText:text];
     [self.scrollView addSubview:bannerView];
+    
+    if (mission.coordinate.latitude != 0.0f && mission.coordinate.longitude != 0.0f) {
+        OWDashboardItem *viewOnMap = [[OWDashboardItem alloc] initWithTitle:VIEW_ON_MAP_STRING image:[UIImage imageNamed:@"193-location-arrow.png"] target:self selector:@selector(viewOnMap:)];
+        
+        NSArray *mapArray = @[viewOnMap];
+        NSMutableArray *dashboardItems = [NSMutableArray arrayWithArray:self.dashboardView.dashboardItems];
+        [dashboardItems insertObject:mapArray atIndex:0];
+        self.dashboardView.dashboardItems = dashboardItems;
+    }
 }
 
 @end

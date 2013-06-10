@@ -170,8 +170,9 @@
 }
 
 - (void) timerUpdate:(NSTimer*)timer {
+
     UIApplication *application = [UIApplication sharedApplication];
-    
+    /*
     UILocalNotification *localNotif = [[UILocalNotification alloc] init];
     if (localNotif) {
         localNotif.alertBody = @"You have been selected for a special mission.";
@@ -179,6 +180,7 @@
         localNotif.soundName = UILocalNotificationDefaultSoundName;
         [application presentLocalNotificationNow:localNotif];
     }
+    */
     
     //NSLog(@"Timer update, background time left: %f", application.backgroundTimeRemaining);
     
