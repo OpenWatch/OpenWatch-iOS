@@ -149,7 +149,7 @@
     if (indexPath.row >= self.objectIDs.count) {
         return 45.0f;
     }
-    return 120.0f;
+    return [OWMediaObjectTableViewCell cellHeight];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

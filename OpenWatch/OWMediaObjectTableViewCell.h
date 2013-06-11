@@ -19,4 +19,7 @@
 @property (nonatomic, strong) UIImageView *thumbnailImageView;
 @property (nonatomic, strong) UIImageView *mediaTypeImageView;
 
++ (CGFloat) cellHeight;
++ (CGFloat) cellWidth;
+
 @end
