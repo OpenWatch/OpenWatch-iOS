@@ -100,8 +100,8 @@
                 OWLocalRecording *recording = (OWLocalRecording*)mediaObject;
                 NSUInteger completed = recording.completedFileCount;
                 NSUInteger total = recording.totalFileCount;
-                NSLog(@"Progress for %@ %@: %d / %d, hq(%d)", recording.title, recording.uuid, completed, total, recording.isHighQualityFileUploaded);
-                if (completed < total || recording.hqFileUploadStateValue != OWFileUploadStateCompleted) {
+                NSLog(@"Progress for %@ %@: %d / %d, hq(%d), remoteMediaURL: %@", recording.title, recording.uuid, completed, total, recording.isHighQualityFileUploaded, recording.remoteMediaURLString);
+                if (completed < total || recording.hqFileUploadStateValue != OWFileUploadStateCompleted || recording.remoteMediaURLString.length == 0) {
                     NSLog(@"Unsubmitted data found for recording: %@", recording.localRecordingPath);
                     [[OWCaptureAPIClient sharedClient] uploadFailedFileURLs:recording.failedFileUploadURLs forRecording:recording.objectID];
                 }

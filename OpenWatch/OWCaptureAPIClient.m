@@ -64,18 +64,26 @@
     NSString *uuid = localObject.uuid;
     
     [[OWAccountAPIClient sharedClient] getObjectWithUUID:uuid objectClass:objectClass success:^(NSManagedObjectID *objectID) {
-        for (NSURL *url in failedFileURLs) {
-            [[OWCaptureAPIClient sharedClient] uploadFileURL:url recording:recordingObjectID priority:NSOperationQueuePriorityVeryLow retryCount:kOWCaptureAPIClientDefaultRetryCount];
-        }
+        [[OWCaptureAPIClient sharedClient] finishedRecording:recordingObjectID callback:^(BOOL success) {
+            NSLog(@"[Sync] Simulated Finished Recording for %@, success: %d", uuid, success);
+            for (NSURL *url in failedFileURLs) {
+                [[OWCaptureAPIClient sharedClient] uploadFileURL:url recording:recordingObjectID priority:NSOperationQueuePriorityVeryLow retryCount:kOWCaptureAPIClientDefaultRetryCount];
+            }
+        }];
     } failure:^(NSString *reason) {
-        NSLog(@"%@", reason);
+        NSLog(@"[Sync] Recording %@ not found in Django: %@", uuid, reason);
         [[OWCaptureAPIClient sharedClient] startedRecording:recordingObjectID callback:^(BOOL success) {
-            NSLog(@"success: %d", success);
+            NSLog(@"[Sync] Simulated Started Recording for %@, success: %d", uuid, success);
             [[OWCaptureAPIClient sharedClient] finishedRecording:recordingObjectID callback:^(BOOL success) {
-                NSLog(@"success: %d", success);
+                NSLog(@"[Sync] Simulated Finished Recording for %@, success: %d", uuid, success);
                 [[OWCaptureAPIClient sharedClient] updateMetadataForRecording:recordingObjectID callback:^(BOOL success) {
-                    NSLog(@"success: %d", success);
-                    [[OWAccountAPIClient sharedClient] postObjectWithUUID:uuid objectClass:objectClass success:nil failure:nil];
+                    NSLog(@"[Sync] Simulated Update Metadata for %@, success: %d", uuid, success);
+
+                    [[OWAccountAPIClient sharedClient] postObjectWithUUID:uuid objectClass:objectClass success:^{
+                        NSLog(@"[Sync] Success Django Metadata for %@", uuid);
+                    } failure:^(NSString *reason) {
+                        NSLog(@"[Sync] Failed Django Metadata for %@: %@", uuid, reason);
+                    }];
                     
                     for (NSURL *url in failedFileURLs) {
                         [[OWCaptureAPIClient sharedClient] uploadFileURL:url recording:recordingObjectID priority:NSOperationQueuePriorityVeryLow retryCount:kOWCaptureAPIClientDefaultRetryCount];
@@ -116,9 +124,17 @@
         NSError *error = nil;
         [formData appendPartWithFileURL:url name:@"upload" error:&error];
         if (error) {
-            NSLog(@"Error appending part file URL: %@%@", [error localizedDescription], [error userInfo]);
+            NSLog(@"Error appending part file URL %@: %@%@", url, [error localizedDescription], [error userInfo]);
+            [recording setUploadState:OWFileUploadStateFailed forFileAtURL:url];
+            [self uploadFileURL:url recording:recordingObjectID priority:priority retryCount:retryCount - 1];
         }
     }];
+    if (!request) {
+        NSLog(@"Request for %@ nil!", url.absoluteString);
+        [recording setUploadState:OWFileUploadStateFailed forFileAtURL:url];
+        [self uploadFileURL:url recording:recordingObjectID priority:priority retryCount:retryCount - 1];
+        return;
+    }
     
     __block NSTimeInterval startTime = [[NSDate date] timeIntervalSince1970];
     

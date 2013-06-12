@@ -372,7 +372,7 @@
                 [formData appendPartWithFileURL:localMediaObject.localMediaURL name:@"file_data" error:&error];
                 
                 if (error) {
-                    NSLog(@"Error appending part file URL: %@%@", [error localizedDescription], [error userInfo]);
+                    NSLog(@"Error appending part file URL %@: %@%@", localMediaObject.localMediaURL, [error localizedDescription], [error userInfo]);
                 }
                 
             }];
