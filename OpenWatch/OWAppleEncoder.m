@@ -331,7 +331,7 @@
 - (void) uploadLocalURL:(NSURL*)url {
     OWCaptureAPIClient *captureClient = [OWCaptureAPIClient sharedClient];
     OWLocalRecording *recording = [OWRecordingController localRecordingForObjectID:recordingID];
-    [captureClient uploadFileURL:url recording:recording.objectID priority:NSOperationQueuePriorityNormal];
+    [captureClient uploadFileURL:url recording:recording.objectID priority:NSOperationQueuePriorityNormal retryCount:kOWCaptureAPIClientDefaultRetryCount];
     [recording saveMetadata];
 }
 

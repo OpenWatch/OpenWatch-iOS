@@ -11,6 +11,8 @@
 
 #define kOWCaptureAPIClientBandwidthNotification @"kOWCaptureAPIClientBandwidthNotification"
 
+#define kOWCaptureAPIClientDefaultRetryCount 5
+
 @interface OWCaptureAPIClient : AFHTTPClient
 
 + (OWCaptureAPIClient *)sharedClient;
@@ -18,7 +20,7 @@
 @property (nonatomic, strong) NSMutableDictionary *uploadDictionary;
 
 - (void) startedRecording:(NSManagedObjectID*)recordingObjectID callback:(void (^)(BOOL success))callback;
-- (void) uploadFileURL:(NSURL*)url recording:(NSManagedObjectID*)recordingObjectID priority:(NSOperationQueuePriority)priority;
+- (void) uploadFileURL:(NSURL*)url recording:(NSManagedObjectID*)recordingObjectID priority:(NSOperationQueuePriority)priority retryCount:(NSUInteger)retryCount;
 - (void) uploadFailedFileURLs:(NSArray*)failedFileURLs forRecording:(NSManagedObjectID*)recordingObjectID;
 - (void) finishedRecording:(NSManagedObjectID*)recordingObjectID callback:(void (^)(BOOL success))callback;
 - (void) updateMetadataForRecording:(NSManagedObjectID*)recordingObjectID callback:(void (^)(BOOL success))callback;

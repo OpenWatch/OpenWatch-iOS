@@ -52,7 +52,7 @@
 
 - (void) updateMetadataForRecording:(NSManagedObjectID*)recordingObjectID callback:(void (^)(BOOL success))callback {
     NSString *postPath = [self postPathForRecording:recordingObjectID uploadState:kUploadStateMetadata];
-    [self uploadMetadataForRecording:recordingObjectID postPath:postPath callback:callback];
+    [self uploadMetadataForRecording:recordingObjectID postPath:postPath callback:callback retryCount:kOWCaptureAPIClientDefaultRetryCount];
 }
 
 
@@ -65,7 +65,7 @@
     
     [[OWAccountAPIClient sharedClient] getObjectWithUUID:uuid objectClass:objectClass success:^(NSManagedObjectID *objectID) {
         for (NSURL *url in failedFileURLs) {
-            [[OWCaptureAPIClient sharedClient] uploadFileURL:url recording:recordingObjectID priority:NSOperationQueuePriorityVeryLow];
+            [[OWCaptureAPIClient sharedClient] uploadFileURL:url recording:recordingObjectID priority:NSOperationQueuePriorityVeryLow retryCount:kOWCaptureAPIClientDefaultRetryCount];
         }
     } failure:^(NSString *reason) {
         NSLog(@"%@", reason);
@@ -78,7 +78,7 @@
                     [[OWAccountAPIClient sharedClient] postObjectWithUUID:uuid objectClass:objectClass success:nil failure:nil];
                     
                     for (NSURL *url in failedFileURLs) {
-                        [[OWCaptureAPIClient sharedClient] uploadFileURL:url recording:recordingObjectID priority:NSOperationQueuePriorityVeryLow];
+                        [[OWCaptureAPIClient sharedClient] uploadFileURL:url recording:recordingObjectID priority:NSOperationQueuePriorityVeryLow retryCount:kOWCaptureAPIClientDefaultRetryCount];
                     }
                 }];
             }];
@@ -86,13 +86,20 @@
     }];
 }
 
-- (void) uploadFileURL:(NSURL*)url recording:(NSManagedObjectID*)recordingObjectID priority:(NSOperationQueuePriority)priority {
+- (void) uploadFileURL:(NSURL*)url recording:(NSManagedObjectID*)recordingObjectID priority:(NSOperationQueuePriority)priority retryCount:(NSUInteger)retryCount {
     OWLocalRecording *recording = [OWRecordingController localRecordingForObjectID:recordingObjectID];
-    if (!recording) {
+    
+    NSLog(@"Uploading file (%d): %@", retryCount, url.absoluteString);
+    
+    if (retryCount <= 0) {
+        [recording setUploadState:OWFileUploadStateFailed forFileAtURL:url];
+
+        NSLog(@"Total retry failure to file: %@", url.absoluteString);
         return;
     }
-    if (self.networkReachabilityStatus == AFNetworkReachabilityStatusNotReachable || self.networkReachabilityStatus == AFNetworkReachabilityStatusUnknown) {
-        [recording setUploadState:OWFileUploadStateFailed forFileAtURL:url];
+    
+    if (!recording) {
+        NSLog(@"Recording not found! AHhhhhh!!!");
         return;
     }
     [recording setUploadState:OWFileUploadStateUploading forFileAtURL:url];
@@ -103,62 +110,52 @@
         postPath = [self postPathForRecording:recording.objectID uploadState:kUploadStateUpload];
     }
 
-    NSLog(@"POSTing %@ to %@", url.absoluteString, postPath);
+    NSLog(@"POSTing (%d) %@ to %@", retryCount, url.absoluteString, postPath);
 
-    NSURLRequest *request = [self multipartFormRequestWithMethod:@"POST" path:postPath parameters:nil constructingBodyWithBlock: ^(id <AFMultipartFormData> formData) {
-        //NSURL *fileURL = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"openwatch" ofType:@"png"]];
-        
+    NSURLRequest *request = [self multipartFormRequestWithMethod:@"POST" path:postPath parameters:nil constructingBodyWithBlock: ^(id <AFMultipartFormData> formData) {        
         NSError *error = nil;
         [formData appendPartWithFileURL:url name:@"upload" error:&error];
-
         if (error) {
             NSLog(@"Error appending part file URL: %@%@", [error localizedDescription], [error userInfo]);
         }
-         
     }];
-    
-
     
     __block NSTimeInterval startTime = [[NSDate date] timeIntervalSince1970];
     
-    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
-    //operation.queuePriority = priority;
-    /*
-    [operation setUploadProgressBlock:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
-        
-        dispatch_async(responseQueue, ^{
-            //NSLog(@"%d: %lld/%lld", bytesWritten, totalBytesWritten, totalBytesExpectedToWrite);
-            if (totalBytesWritten >= totalBytesExpectedToWrite) {
-
-            }
-        });
-        
-    }];
-     */
+    AFJSONRequestOperation *operation = [[AFJSONRequestOperation alloc] initWithRequest:request];
     
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        OWLocalRecording *localRecording = [OWRecordingController localRecordingForObjectID:recordingObjectID];
-        NSDate *endDate = [NSDate date];
-        NSTimeInterval endTime = [endDate timeIntervalSince1970];
-        NSTimeInterval diff = endTime - startTime;
-        NSError *error = nil;
-        unsigned long long length = [[[NSFileManager defaultManager] attributesOfItemAtPath:[url path] error:&error] fileSize];
-        if (error) {
-            NSLog(@"Error getting size of URL: %@%@", [error localizedDescription], [error userInfo]);
-            error = nil;
+        NSLog(@"File upload response %@: %@", url.absoluteString, responseObject);
+        BOOL successValue = NO;
+        if ([responseObject isKindOfClass:[NSDictionary class]]) {
+            successValue = [[responseObject objectForKey:@"success"] boolValue];
         }
-        double bps = (length * 8.0) / diff;
-        NSMutableDictionary *userInfo = [NSMutableDictionary dictionaryWithCapacity:2];
-        [userInfo setObject:[NSNumber numberWithDouble:bps] forKey:@"bps"];
-        [userInfo setObject:endDate forKey:@"endDate"];
-        [userInfo setObject:url forKey:@"fileURL"];
-        [[NSNotificationCenter defaultCenter] postNotificationName:kOWCaptureAPIClientBandwidthNotification object:nil userInfo:userInfo];
-        [localRecording setUploadState:OWFileUploadStateCompleted forFileAtURL:url];
-        NSLog(@"timeSpent: %f fileLength: %lld, %f bits/sec", diff, length, bps);
-
+        if (!successValue) {
+            NSLog(@"Success is not true for %@: %@", url.absoluteString, responseObject);
+            [self uploadFileURL:url recording:recordingObjectID priority:priority retryCount:retryCount - 1];
+        } else {
+            OWLocalRecording *localRecording = [OWRecordingController localRecordingForObjectID:recordingObjectID];
+            NSDate *endDate = [NSDate date];
+            NSTimeInterval endTime = [endDate timeIntervalSince1970];
+            NSTimeInterval diff = endTime - startTime;
+            NSError *error = nil;
+            unsigned long long length = [[[NSFileManager defaultManager] attributesOfItemAtPath:[url path] error:&error] fileSize];
+            if (error) {
+                NSLog(@"Error getting size of URL: %@%@", [error localizedDescription], [error userInfo]);
+                error = nil;
+            }
+            double bps = (length * 8.0) / diff;
+            NSMutableDictionary *userInfo = [NSMutableDictionary dictionaryWithCapacity:2];
+            [userInfo setObject:[NSNumber numberWithDouble:bps] forKey:@"bps"];
+            [userInfo setObject:endDate forKey:@"endDate"];
+            [userInfo setObject:url forKey:@"fileURL"];
+            [[NSNotificationCenter defaultCenter] postNotificationName:kOWCaptureAPIClientBandwidthNotification object:nil userInfo:userInfo];
+            [localRecording setUploadState:OWFileUploadStateCompleted forFileAtURL:url];
+            NSLog(@"timeSpent: %f fileLength: %lld, %f bits/sec", diff, length, bps);
+        }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Failed to POST %@ to %@: %@", url.absoluteString, postPath, error.userInfo);
-        [recording setUploadState:OWFileUploadStateFailed forFileAtURL:url];
+        [self uploadFileURL:url recording:recordingObjectID priority:priority retryCount:retryCount - 1];
     }];
     
     [self enqueueHTTPRequestOperation:operation]; 
@@ -167,34 +164,48 @@
 - (void) finishedRecording:(NSManagedObjectID*)recordingObjectID callback:(void (^)(BOOL success))callback {
     NSLog(@"Finishing (POSTing) recording...");
     NSString *postPath = [self postPathForRecording:recordingObjectID uploadState:kUploadStateEnd];
-    [self uploadMetadataForRecording:recordingObjectID postPath:postPath callback:callback];
+    [self uploadMetadataForRecording:recordingObjectID postPath:postPath callback:callback retryCount:kOWCaptureAPIClientDefaultRetryCount];
 }
 
 - (void) startedRecording:(NSManagedObjectID*)recordingObjectID callback:(void (^)(BOOL success))callback {
     NSString *postPath = [self postPathForRecording:recordingObjectID uploadState:kUploadStateStart];
-    [self uploadMetadataForRecording:recordingObjectID postPath:postPath callback:callback];
+    [self uploadMetadataForRecording:recordingObjectID postPath:postPath callback:callback retryCount:kOWCaptureAPIClientDefaultRetryCount];
 }
 
 
 
-- (void) uploadMetadataForRecording:(NSManagedObjectID*)recordingObjectID postPath:(NSString*)postPath callback:(void (^)(BOOL success))callback  {
+- (void) uploadMetadataForRecording:(NSManagedObjectID*)recordingObjectID postPath:(NSString*)postPath callback:(void (^)(BOOL success))callback retryCount:(NSUInteger)retryCount {
     OWLocalRecording *recording = [OWRecordingController localRecordingForObjectID:recordingObjectID];
     NSDictionary *params = recording.metadataDictionary;
-    NSLog(@"WTF: %@", [params description]);
-    [self postPath:postPath parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"metadata response: %@", [responseObject description]);
-        if ([responseObject isKindOfClass:[NSDictionary class]]) {
-            if (callback) {
-                callback([[responseObject objectForKey:@"success"] boolValue]);
-            }
-        }
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"error pushing metadata: %@%@", [error localizedDescription], [error userInfo]);
+    
+    NSLog(@"Updating Metadata (%d): %@", retryCount, postPath);
+    
+    if (retryCount <= 0) {
         if (callback) {
+            NSLog(@"Total failure.");
             callback(NO);
         }
-    }];
+    } else {
+        [self postPath:postPath parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSLog(@"metadata response: %@", [responseObject description]);
+            BOOL successValue = NO;
+            if ([responseObject isKindOfClass:[NSDictionary class]]) {
+                successValue = [[responseObject objectForKey:@"success"] boolValue];
+                if (callback && successValue) {
+                    callback(YES);
+                }
+            }
+            
+            if (!successValue) {
+                [self uploadMetadataForRecording:recordingObjectID postPath:postPath callback:callback retryCount:retryCount - 1];
+            }
+            
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"error pushing metadata: %@%@", [error localizedDescription], [error userInfo]);
+            
+            [self uploadMetadataForRecording:recordingObjectID postPath:postPath callback:callback retryCount:retryCount - 1];
+        }];
+    }
 }
 
 - (NSString*) postPathForRecording:(NSManagedObjectID*)recordingObjectID uploadState:(NSString*)state {
