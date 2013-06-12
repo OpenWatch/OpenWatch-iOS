@@ -129,7 +129,6 @@
     if (!self.startLocation) {
         self.startLocation = location;
         [self saveMetadata];
-        [[OWCaptureAPIClient sharedClient] updateMetadataForRecording:self.objectID callback:nil];
     }
 }
 
