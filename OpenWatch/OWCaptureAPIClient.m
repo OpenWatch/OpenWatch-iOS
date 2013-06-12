@@ -83,7 +83,7 @@
                         NSLog(@"[Sync] Success Django Metadata for %@", uuid);
                     } failure:^(NSString *reason) {
                         NSLog(@"[Sync] Failed Django Metadata for %@: %@", uuid, reason);
-                    }];
+                    } retryCount:kOWAccountAPIClientDefaultRetryCount];
                     
                     for (NSURL *url in failedFileURLs) {
                         [[OWCaptureAPIClient sharedClient] uploadFileURL:url recording:recordingObjectID priority:NSOperationQueuePriorityVeryLow retryCount:kOWCaptureAPIClientDefaultRetryCount];
@@ -91,7 +91,7 @@
                 }];
             }];
         }];
-    }];
+    } retryCount:kOWAccountAPIClientDefaultRetryCount];
 }
 
 - (void) uploadFileURL:(NSURL*)url recording:(NSManagedObjectID*)recordingObjectID priority:(NSOperationQueuePriority)priority retryCount:(NSUInteger)retryCount {

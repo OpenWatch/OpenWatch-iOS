@@ -108,7 +108,7 @@
             } else if ([mediaObject isKindOfClass:[OWPhoto class]]) {
                 OWPhoto *photo = (OWPhoto*)mediaObject;
                 if (!photo.uploadedValue) {
-                    [[OWAccountAPIClient sharedClient] postObjectWithUUID:photo.uuid objectClass:[photo class] success:nil failure:nil];
+                    [[OWAccountAPIClient sharedClient] postObjectWithUUID:photo.uuid objectClass:[photo class] success:nil failure:nil retryCount:kOWCaptureAPIClientDefaultRetryCount];
                 }
             }
 

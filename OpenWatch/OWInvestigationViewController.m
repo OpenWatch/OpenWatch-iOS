@@ -36,7 +36,7 @@
             [self.bodyWebView loadHTMLString:loadError baseURL:nil];
         }
         
-    }];
+    } retryCount:kOWAccountAPIClientDefaultRetryCount];
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {

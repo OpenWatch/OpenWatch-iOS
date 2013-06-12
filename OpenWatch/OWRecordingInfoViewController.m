@@ -242,7 +242,7 @@
         [TestFlight passCheckpoint:VIEW_RECORDING_ID_CHECKPOINT([newMediaObject.serverID intValue])];
     } failure:^(NSString *reason) {
         NSLog(@"failure to fetch recording details: %@", reason);
-    }];
+    } retryCount:kOWAccountAPIClientDefaultRetryCount];
 }
 
 
