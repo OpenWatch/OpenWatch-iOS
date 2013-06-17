@@ -258,7 +258,7 @@
     mediaObject.title = trimmedText;
     [context MR_saveToPersistentStoreAndWait];    
     
-    [[OWAccountAPIClient sharedClient] postObjectWithUUID:mediaObject.uuid objectClass:[mediaObject class] success:nil failure:nil];
+    [[OWAccountAPIClient sharedClient] postObjectWithUUID:mediaObject.uuid objectClass:[mediaObject class] success:nil failure:nil retryCount:kOWAccountAPIClientDefaultRetryCount];
     
     [self.view endEditing:YES];
     
@@ -284,7 +284,7 @@
         [MBProgressHUD hideHUDForView:self.view animated:YES];
     } failure:^(NSString *reason) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
-    }];
+    } retryCount:kOWAccountAPIClientDefaultRetryCount];
 }
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField

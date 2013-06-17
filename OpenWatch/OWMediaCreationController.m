@@ -28,7 +28,7 @@
     
     self.editController.objectID = photo.objectID; // this smells
     
-    [[OWAccountAPIClient sharedClient] postObjectWithUUID:photo.uuid objectClass:photo.class success:nil failure:nil];
+    [[OWAccountAPIClient sharedClient] postObjectWithUUID:photo.uuid objectClass:photo.class success:nil failure:nil retryCount:kOWAccountAPIClientDefaultRetryCount];
     
     [self.imagePicker dismissViewControllerAnimated:YES completion:^{
         self.imagePicker = nil;
@@ -58,7 +58,7 @@
     
     self.editController.objectID = audio.objectID;
     
-    [[OWAccountAPIClient sharedClient] postObjectWithUUID:audio.uuid objectClass:audio.class success:nil failure:nil];
+    [[OWAccountAPIClient sharedClient] postObjectWithUUID:audio.uuid objectClass:audio.class success:nil failure:nil retryCount:kOWAccountAPIClientDefaultRetryCount];
     
     [self.audioRecorder dismissViewControllerAnimated:YES completion:^{
         self.audioRecorder = nil;

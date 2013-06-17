@@ -126,9 +126,10 @@
 
 
 - (void) locationUpdated:(CLLocation *)location {
-    self.startLocation = location;
-    [self saveMetadata];
-    [[OWCaptureAPIClient sharedClient] updateMetadataForRecording:self.objectID callback:nil];
+    if (!self.startLocation) {
+        self.startLocation = location;
+        [self saveMetadata];
+    }
 }
 
 - (void) startRecording {
@@ -171,11 +172,26 @@
 }
 
 - (NSArray*) pathsForSegments {
+    NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
     NSError *error = nil;
     NSArray *contents = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:[self pathForSegmentsDirectory] error:&error];
     if (error) {
         NSLog(@"Error with segments paths: %@", [error userInfo]);
     }
+    for (NSString *fileName in contents) {
+        NSString *filePath = [[self pathForSegmentsDirectory] stringByAppendingPathComponent:fileName];
+        OWRecordingSegment *segment = [OWRecordingSegment MR_findFirstByAttribute:OWRecordingSegmentAttributes.filePath withValue:filePath inContext:context];
+        ;
+        if (!segment) {
+            NSLog(@"Segment not found! Creating segment for %@", filePath);
+            segment = [OWRecordingSegment MR_createEntity];
+            segment.filePath = filePath;
+            segment.fileName = fileName;
+            segment.uploadState = @(OWFileUploadStateFailed);
+            segment.recording = self;
+        }
+    }
+    [context MR_saveToPersistentStoreAndWait];
     return contents;
 }
 
@@ -209,12 +225,12 @@
 }
 
 - (BOOL) isHighQualityFileUploaded {
-    return ([self.hqFileUploadState unsignedIntegerValue] == OWFileUploadStateCompleted);
+    return ((self.remoteMediaURLString.length > 0) && [self.remoteMediaURLString rangeOfString:kHQFileName].location != NSNotFound);
 }
 
 - (NSArray*) failedFileUploadURLs {
     NSSet *failedFileSegments = [self failedFileSegments];
-    NSMutableArray *urls = [NSMutableArray arrayWithCapacity:[failedFileSegments count]];
+    NSMutableArray *urls = [NSMutableArray array];
     for (OWRecordingSegment *segment in failedFileSegments) {
         NSString *path = segment.filePath;
         [urls addObject:[NSURL fileURLWithPath:path]];

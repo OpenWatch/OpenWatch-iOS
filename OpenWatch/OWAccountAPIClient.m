@@ -315,31 +315,45 @@
     return [NSString stringWithFormat:@"%@%@/", prefix, uuid];
 }
 
-- (void) getObjectWithUUID:(NSString*)UUID objectClass:(Class)objectClass success:(void (^)(NSManagedObjectID *objectID))success failure:(void (^)(NSString *reason))failure {
+- (void) getObjectWithUUID:(NSString*)UUID objectClass:(Class)objectClass success:(void (^)(NSManagedObjectID *objectID))success failure:(void (^)(NSString *reason))failure retryCount:(NSUInteger)retryCount {
+
     
     NSString *path = [self pathForClass:objectClass uuid:UUID];
-    NSLog(@"Fetching %@", path);
+    NSLog(@"[Django] GET (%d) %@", retryCount, path);
+
+    if (retryCount <= 0) {
+        NSLog(@"Total failure trying to GET object: %@", path);
+        if (failure) {
+            failure(@"Total failure trying to GET object");
+        }
+        return;
+    }
+    
     [self getPath:path parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
         NSLog(@"GET Response: %@", operation.responseString);
+        BOOL successValue = NO;
         if ([responseObject isKindOfClass:[NSDictionary class]]) {
             OWLocalMediaObject *mediaObject = [objectClass localMediaObjectWithUUID:UUID];
             if (mediaObject) {
                 [mediaObject loadMetadataFromDictionary:responseObject];
                 [context MR_saveToPersistentStoreAndWait];
                 success(mediaObject.objectID);
-            } else {
-                failure(@"No recording found");
+                successValue = YES;
             }
-        } else {
-            failure(@"Success is false!");
+        }
+        if (!successValue) {
+            [self getObjectWithUUID:UUID objectClass:objectClass success:success failure:failure retryCount:retryCount - 1];
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        failure([error description]);
+        NSLog(@"Failed to GET: %@", error.userInfo);
+        [self getObjectWithUUID:UUID objectClass:objectClass success:success failure:failure retryCount:retryCount - 1];
     }];
 }
 
-- (void) postObjectWithUUID:(NSString*)UUID objectClass:(Class)objectClass success:(void (^)(void))success failure:(void (^)(NSString *reason))failure {
+- (void) postObjectWithUUID:(NSString*)UUID objectClass:(Class)objectClass success:(void (^)(void))success failure:(void (^)(NSString *reason))failure retryCount:(NSUInteger)retryCount {
+    
+    
     OWLocalMediaObject *mediaObject = [objectClass localMediaObjectWithUUID:UUID];
     NSManagedObjectID *mediaObjectID = mediaObject.objectID;
     if (!mediaObject) {
@@ -349,11 +363,20 @@
     
     NSDictionary *parameters = mediaObject.metadataDictionary;
     
-    NSLog(@"POSTing object with parameters: %@", parameters);
+    NSLog(@"[Django] POSTing object with parameters (%d): %@", retryCount, parameters);
+    
+    if (retryCount <= 0) {
+        NSLog(@"Total failure trying to POST object: %@", mediaObject);
+        if (failure) {
+            failure(@"Total failure trying to POST object");
+        }
+        return;
+    }
 
     
     void (^failureBlock)(AFHTTPRequestOperation*, NSError*) = ^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"failed to POST recording: %@ %@", operation.responseString, error.userInfo);
+        [self postObjectWithUUID:UUID objectClass:objectClass success:success failure:failure retryCount:retryCount - 1];
     };
 
     void (^successBlock)(AFHTTPRequestOperation*, id) = ^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -372,35 +395,37 @@
                 [formData appendPartWithFileURL:localMediaObject.localMediaURL name:@"file_data" error:&error];
                 
                 if (error) {
-                    NSLog(@"Error appending part file URL: %@%@", [error localizedDescription], [error userInfo]);
+                    NSLog(@"Error appending part file URL %@: %@%@", localMediaObject.localMediaURL, [error localizedDescription], [error userInfo]);
                 }
                 
             }];
-            AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+            AFJSONRequestOperation *operation = [[AFJSONRequestOperation alloc] initWithRequest:request];
             localMediaObject.uploaded = @(YES);
             [context MR_saveToPersistentStoreAndWait];
             
             [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
                 NSManagedObjectContext *localContext = [NSManagedObjectContext MR_contextForCurrentThread];
                 OWLocalMediaObject *successMediaObject = (OWLocalMediaObject*)[localContext existingObjectWithID:mediaObjectID error:nil];
-                
-                if (!operation.responseData) {
-                    NSLog(@"Where is the response data? :(");
-                    return;
-                }
-                JSONDecoder *decoder = [JSONDecoder decoder];
-                NSDictionary *dictionary = [decoder objectWithData:operation.responseData];
+                BOOL successValue = NO;
                 NSLog(@"media POST response: %@", operation.responseString);
-                if ([dictionary isKindOfClass:[NSDictionary class]] && [[dictionary objectForKey:@"success"] boolValue]) {
+                if ([responseObject isKindOfClass:[NSDictionary class]] && [[responseObject objectForKey:@"success"] boolValue]) {
                     successMediaObject.uploaded = @(YES);
+                    successValue = YES;
                     [localContext MR_saveToPersistentStoreAndWait];
                     [[NSNotificationCenter defaultCenter] postNotificationName:kOWCaptureAPIClientBandwidthNotification object:nil];
+                    if (success) {
+                        success();
+                    }
+                }
+                if (!successValue) {
+                    NSLog(@"Success is not true!");
+                    [self postObjectWithUUID:UUID objectClass:objectClass success:success failure:failure retryCount:retryCount - 1];
                 }
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                 NSLog(@"Failed to upload photo: %@", error.userInfo);
+                [self postObjectWithUUID:UUID objectClass:objectClass success:success failure:failure retryCount:retryCount - 1];
             }];
             [self enqueueHTTPRequestOperation:operation];
-            
         }
     };
     
@@ -410,7 +435,7 @@
             [self postPath:[self pathForClass:objectClass uuid:UUID] parameters:parameters success:successBlock failure:failureBlock];
         } failure:^(NSString *reason) {
             [self postPath:[self pathForClass:objectClass] parameters:parameters success:successBlock failure:failureBlock];
-        }];
+        } retryCount:kOWAccountAPIClientDefaultRetryCount];
     } else {
         path = [self pathForClass:objectClass uuid:UUID];
         [self postPath:path parameters:parameters success:successBlock failure:failureBlock];
@@ -618,29 +643,40 @@
     
 }
 
-- (void) getObjectWithObjectID:(NSManagedObjectID *)objectID success:(void (^)(NSManagedObjectID *objectID))success failure:(void (^)(NSString *reason))failure {
+- (void) getObjectWithObjectID:(NSManagedObjectID *)objectID success:(void (^)(NSManagedObjectID *objectID))success failure:(void (^)(NSString *reason))failure retryCount:(NSUInteger)retryCount {
+    
     NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
     OWMediaObject *mediaObject = (OWMediaObject*)[context existingObjectWithID:objectID error:nil];
     NSString *path = [mediaObject fullAPIPath];
     
+    NSLog(@"[Django] GET (%d): %@", retryCount, path);
+    
+    if (retryCount <= 0) {
+        NSLog(@"Total failure trying to GET object: %@ %@", mediaObject, path);
+        if (failure) {
+            failure(@"Total failure trying to GET object");
+        }
+        return;
+    }
+    
     NSDictionary *parameters = [self parametersForMediaObject:mediaObject];
     
     [self getPath:path parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        BOOL successValue = NO;
         if ([responseObject isKindOfClass:[NSDictionary class]]) {
             [mediaObject loadMetadataFromDictionary:responseObject];
+            successValue = YES;
             if (success) {
                 success(objectID);
             }
-        } else {
-            if (failure) {
-                failure(@"not a dict");
-            }
+        }
+        if (!successValue) {
+            NSLog(@"Response for %@ not a dictionary!", path);
+            [self getObjectWithObjectID:objectID success:success failure:failure retryCount:retryCount - 1];
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Failed to GET object: %@", error.userInfo);
-        if (failure) {
-            failure(@"Failed to GET object");
-        }
+        [self getObjectWithObjectID:objectID success:success failure:failure retryCount:retryCount - 1];
     }];
 }
 

@@ -168,7 +168,7 @@
         [self refreshFields];
     } failure:^(NSString *reason) {
         
-    }];
+    } retryCount:kOWAccountAPIClientDefaultRetryCount];
 }
 
 - (BOOL)webView:(UIWebView*)webView shouldStartLoadWithRequest:(NSURLRequest*)request navigationType:(UIWebViewNavigationType)navigationType {

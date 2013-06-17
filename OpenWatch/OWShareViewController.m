@@ -89,7 +89,7 @@
             [MBProgressHUD hideHUDForView:self.view animated:YES];
         } failure:^(NSString *reason) {
             [MBProgressHUD hideHUDForView:self.view animated:YES];
-        }];
+        } retryCount:kOWAccountAPIClientDefaultRetryCount];
     }
     
     self.previewView.objectID = mediaObject.objectID;
