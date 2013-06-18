@@ -23,30 +23,30 @@
 #define PADDING 5.0f
 
 @implementation OWMediaObjectTableViewCell
-@synthesize mediaObjectID, titleLabel, mediaTypeImageView;
+@synthesize mediaObjectID, titleLabel, userView;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         [self setupTitleLabel];
-        [self setupMediaImageView];
+        [self setupUserView];
         self.backgroundView = nil;
     }
     return self;
 }
 
-- (void) setupMediaImageView {
-    CGFloat typeWidth = 20.0f;
-    CGFloat typeHeight = 20.0f;
-    self.mediaTypeImageView = [[UIImageView alloc] initWithFrame:CGRectMake([OWMediaObjectTableViewCell cellWidth] - PADDING - typeWidth, [OWMediaObjectTableViewCell cellHeight] - typeHeight, typeWidth, typeHeight)];
-    self.mediaTypeImageView.contentMode = UIViewContentModeScaleAspectFit;
-    [self.contentView addSubview:mediaTypeImageView];
+- (void) setupUserView {
+    CGFloat width = 200.0f;
+    CGFloat height = 30.0f;
+    self.userView = [[OWUserView alloc] initWithFrame:CGRectMake([OWMediaObjectTableViewCell cellWidth] - PADDING - width, [OWMediaObjectTableViewCell cellHeight] - height, width, height)];
+    self.userView.pictureOrientation = OWUserViewPictureOrientationRight;
+    [self.contentView addSubview:userView];
 
 }
 
 + (CGFloat) cellHeight {
-    return 260.0f;
+    return 300.0f;
 }
 
 + (CGFloat) cellWidth {
@@ -57,11 +57,19 @@
     CGFloat titleLabelXOrigin = PADDING;
     CGFloat titleLabelWidth = [OWMediaObjectTableViewCell cellWidth] / 2;
     CGFloat titleLabelHeight = 25.0f;
-    self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(titleLabelXOrigin, [OWMediaObjectTableViewCell cellHeight] - titleLabelHeight, titleLabelWidth, titleLabelHeight)];
+    self.titleLabel = [[STTweetLabel alloc] initWithFrame:CGRectMake(titleLabelXOrigin, [OWMediaObjectTableViewCell cellHeight] - titleLabelHeight, titleLabelWidth, titleLabelHeight)];
     self.titleLabel.numberOfLines = 1;
     self.titleLabel.backgroundColor = [UIColor clearColor];
     self.titleLabel.font = [UIFont systemFontOfSize:18.0f];
     [self.contentView addSubview:titleLabel];
+    
+    STLinkCallbackBlock callbackBlock = ^(STLinkActionType actionType, NSString *link) {
+        if (actionType == STLinkActionTypeHashtag) {
+            NSLog(@"Hashtag: %@", link);
+
+        }    
+    };
+    self.titleLabel.callbackBlock = callbackBlock;
 }
 
 
@@ -85,8 +93,7 @@
         self.titleLabel.text = title;
     }
     
-    self.mediaTypeImageView.image = [mediaObject mediaTypeImage];
-    
+    self.userView.user = mediaObject.user;
 }
 
 @end

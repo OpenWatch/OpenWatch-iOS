@@ -9,7 +9,15 @@
 #import <UIKit/UIKit.h>
 #import "OWUser.h"
 
+enum {
+    OWUserViewPictureOrientationRight,       // No scaling
+    OWUserViewPictureOrientationLeft
+};
+typedef NSInteger OWUserViewPictureOrientation;
+
 @interface OWUserView : UIView
+
+@property (nonatomic) OWUserViewPictureOrientation pictureOrientation;
 
 @property (nonatomic, strong) UIImageView *profileImageView;
 @property (nonatomic, strong) UILabel *usernameLabel;

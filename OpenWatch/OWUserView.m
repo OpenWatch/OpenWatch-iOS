@@ -13,7 +13,7 @@
 #import <QuartzCore/QuartzCore.h>
 
 @implementation OWUserView
-@synthesize profileImageView, usernameLabel, user;
+@synthesize profileImageView, usernameLabel, user, pictureOrientation;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -27,6 +27,7 @@
         self.usernameLabel = [[UILabel alloc] init];
         self.usernameLabel.font = [UIFont systemFontOfSize:20.0f];
         self.usernameLabel.backgroundColor = [UIColor clearColor];
+        self.pictureOrientation = OWUserViewPictureOrientationLeft;
         [self setFrame:frame];
         [self addSubview:profileImageView];
         [self addSubview:usernameLabel];
@@ -34,13 +35,33 @@
     return self;
 }
 
+- (void) layoutViews {
+    CGRect frame = self.frame;
+
+    if (pictureOrientation == OWUserViewPictureOrientationLeft) {
+        self.profileImageView.frame = CGRectMake(0, 0, frame.size.height, frame.size.height);
+        CGFloat labelWidth = frame.size.width - frame.size.height;
+        self.profileImageView.autoresizingMask = UIViewAutoresizingFlexibleRightMargin;
+        self.usernameLabel.frame = CGRectMake([OWUtilities rightOfView:profileImageView] + 10, 0, labelWidth, frame.size.height);
+        self.usernameLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+    } else {
+        CGFloat profileSize = frame.size.height;
+        self.profileImageView.frame = CGRectMake(frame.size.width - profileSize, 0, profileSize, profileSize);
+        CGFloat labelWidth = frame.size.width - profileSize;
+        self.profileImageView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+        self.usernameLabel.frame = CGRectMake(0, 0, labelWidth, frame.size.height);
+        self.usernameLabel.autoresizingMask = UIViewAutoresizingFlexibleRightMargin;
+    }
+}
+
+- (void) setPictureOrientation:(OWUserViewPictureOrientation)newPictureOrientation {
+    pictureOrientation = newPictureOrientation;
+    [self layoutViews];
+}
+
 - (void) setFrame:(CGRect)frame {
     [super setFrame:frame];
-    self.profileImageView.frame = CGRectMake(0, 0, frame.size.height, frame.size.height);
-    CGFloat labelWidth = frame.size.width - frame.size.height;
-    self.profileImageView.autoresizingMask = UIViewAutoresizingFlexibleRightMargin;
-    self.usernameLabel.frame = CGRectMake([OWUtilities rightOfView:profileImageView] + 10, 0, labelWidth, frame.size.height);
-    self.usernameLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+    [self layoutViews];
 }
 
 - (void) setUser:(OWUser *)newUser {
