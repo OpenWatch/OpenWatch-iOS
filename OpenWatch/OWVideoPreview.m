@@ -12,11 +12,10 @@
 static NSString *const OWVideoPreviewPlayButtonPressedNotification = @"OWVideoPreviewPlayButtonPressedNotification";
 
 @interface OWVideoPreview()
-@property (nonatomic) BOOL preparingToPlay;
 @end
 
 @implementation OWVideoPreview
-@synthesize playButton, thumbnailImageView, moviePlayer, video, loadingIndicator, preparingToPlay;
+@synthesize playButton, thumbnailImageView, moviePlayer, video, loadingIndicator;
 
 - (void) dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -35,6 +34,7 @@ static NSString *const OWVideoPreviewPlayButtonPressedNotification = @"OWVideoPr
         
         self.thumbnailImageView = [[UIImageView alloc] init];
         self.moviePlayer = [[MPMoviePlayerController alloc] init];
+        self.moviePlayer.scalingMode = MPMovieScalingModeAspectFill;
         self.loadingIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
         
         [self.playButton addTarget:self action:@selector(playButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
@@ -61,10 +61,11 @@ static NSString *const OWVideoPreviewPlayButtonPressedNotification = @"OWVideoPr
     OWVideoPreview *preview = notification.object;
     BOOL shouldShowPlayButton = preview != self;
     
-    if (!shouldShowPlayButton) {
-        [loadingIndicator startAnimating];
-    } else {
+    if (shouldShowPlayButton) {
         [loadingIndicator stopAnimating];
+        [self.moviePlayer stop];
+    } else {
+        [loadingIndicator startAnimating];
     }
     
     [self setView:playButton visible:shouldShowPlayButton animated:YES];
@@ -96,9 +97,7 @@ static NSString *const OWVideoPreviewPlayButtonPressedNotification = @"OWVideoPr
     } else {
         self.moviePlayer.contentURL = video.remoteMediaURL;
     }
-    if (!preparingToPlay) {
-        [self.moviePlayer play];
-    }
+    [self.moviePlayer play];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:OWVideoPreviewPlayButtonPressedNotification object:self];
 }
