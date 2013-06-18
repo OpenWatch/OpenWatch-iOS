@@ -12,8 +12,6 @@
 
 @interface OWVideoPreview : UIView
 
-@property (nonatomic) BOOL isPlayingVideo;
-
 @property (nonatomic, strong) UIButton *playButton;
 @property (nonatomic, strong) UIImageView *thumbnailImageView;
 @property (nonatomic, strong) MPMoviePlayerController *moviePlayer;

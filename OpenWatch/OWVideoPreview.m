@@ -9,8 +9,14 @@
 #import "OWVideoPreview.h"
 #import "UIImageView+AFNetworking.h"
 
+static NSString *const OWVideoPreviewPlayButtonPressedNotification = @"OWVideoPreviewPlayButtonPressedNotification";
+
+@interface OWVideoPreview()
+@property (nonatomic) BOOL preparingToPlay;
+@end
+
 @implementation OWVideoPreview
-@synthesize playButton, thumbnailImageView, moviePlayer, video, isPlayingVideo, loadingIndicator;
+@synthesize playButton, thumbnailImageView, moviePlayer, video, loadingIndicator, preparingToPlay;
 
 - (void) dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -41,45 +47,75 @@
         
         [self setFrame:frame];
         
-        //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moviePlayerLoadStateDidChangeNotification:) name:MPMoviePlayerLoadStateDidChangeNotification object:nil];
-
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playButtonPressedNotification:) name:OWVideoPreviewPlayButtonPressedNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(preparedToPlayNotification:) name:MPMediaPlaybackIsPreparedToPlayDidChangeNotification object:moviePlayer];
     }
     return self;
 }
 
-- (void) playButtonPressed:(id)sender {
-    if (isPlayingVideo) {
-        return;
+- (void) preparedToPlayNotification:(NSNotification*)notification {
+    if (self.moviePlayer.isPreparedToPlay) {
+        self.preparingToPlay = NO;
     }
-    isPlayingVideo = YES;
+}
+
+- (void) playButtonPressedNotification:(NSNotification*)notification {
+    OWVideoPreview *preview = notification.object;
+    BOOL visible = preview != self;
+    
+    [self setPlayButtonVisible:visible animated:YES];
+}
+
+- (void) setPlayButtonVisible:(BOOL)visible animated:(BOOL)animated {
+    CGFloat alpha = 0.0f;
+    CGFloat duration = 0.0f;
+    if (visible) {
+        alpha = 1.0f;
+        [self addPlayButtonSubviews];
+    }
+    if (animated) {
+        duration = 2.0f;
+    }
+    [UIView animateWithDuration:duration delay:0 options:UIViewAnimationOptionAllowUserInteraction | UIViewAnimationOptionBeginFromCurrentState animations:^{
+        self.thumbnailImageView.alpha = alpha;
+        self.playButton.alpha = alpha;
+    } completion:^(BOOL finished) {
+        if (finished && !visible) {
+            [self.thumbnailImageView removeFromSuperview];
+            [self.playButton removeFromSuperview];
+        } else if (finished && visible) {
+            [self addPlayButtonSubviews];
+        }
+    }];
+}
+
+- (void) addPlayButtonSubviews {
+    if (!thumbnailImageView.superview) {
+        [self addSubview:thumbnailImageView];
+    }
+    if (!playButton.superview) {
+        [self addSubview:playButton];
+    }
+}
+
+- (void) playButtonPressed:(id)sender {
+    
     if (video.hasLocalData) {
         self.moviePlayer.contentURL = video.localMediaURL;
     } else {
         self.moviePlayer.contentURL = video.remoteMediaURL;
     }
-    [self.moviePlayer prepareToPlay];
+    if (!preparingToPlay) {
+        [self.moviePlayer play];
+    }
     
-    [UIView animateWithDuration:2.0 animations:^{
-        self.thumbnailImageView.alpha = 0.0f;
-        self.playButton.alpha = 0.0f;
-    } completion:^(BOOL finished) {
-        [self.thumbnailImageView removeFromSuperview];
-        [self.playButton removeFromSuperview];
-    }];
+    [[NSNotificationCenter defaultCenter] postNotificationName:OWVideoPreviewPlayButtonPressedNotification object:self];
 }
 
 - (void) setVideo:(OWManagedRecording *)newVideo {
     video = newVideo;
-    isPlayingVideo = NO;
     
-    if (!thumbnailImageView.superview) {
-        self.thumbnailImageView.alpha = 1.0f;
-        [self addSubview:thumbnailImageView];
-    }
-    if (!playButton.superview) {
-        self.playButton.alpha = 1.0f;
-        [self addSubview:playButton];
-    }
+    [self setPlayButtonVisible:YES animated:NO];
     [self.moviePlayer stop];
     
     UIImage *placeholderImage = [video placeholderThumbnailImage];    
