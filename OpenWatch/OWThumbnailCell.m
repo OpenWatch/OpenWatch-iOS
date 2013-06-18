@@ -27,9 +27,9 @@
 }
 
 - (void) setupThumbnailImageView {
-    CGFloat imageWidth = [OWMediaObjectTableViewCell cellWidth] - PADDING * 2;
+    CGFloat imageWidth = [OWMediaObjectTableViewCell cellWidth];
     CGFloat imageHeight = [OWPreviewView heightForWidth:imageWidth];
-    self.thumbnailImageView = [[UIImageView alloc] initWithFrame:CGRectMake(PADDING, PADDING, imageWidth, imageHeight)];
+    self.thumbnailImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, imageWidth, imageHeight)];
     
     self.thumbnailImageView.contentMode = UIViewContentModeScaleAspectFill;
     self.thumbnailImageView.layer.masksToBounds = YES;

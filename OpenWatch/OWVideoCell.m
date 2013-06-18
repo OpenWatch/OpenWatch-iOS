@@ -7,6 +7,7 @@
 //
 
 #import "OWVideoCell.h"
+#import "OWPreviewView.h"
 
 @implementation OWVideoCell
 @synthesize videoPreview;
@@ -22,7 +23,9 @@
 
 
 - (void) setupVideoPreview {
-    CGRect frame = CGRectMake(0, 0, [OWMediaObjectTableViewCell cellWidth], [OWMediaObjectTableViewCell cellHeight]);
+    CGFloat width = [OWMediaObjectTableViewCell cellWidth];
+    CGFloat height = [OWPreviewView heightForWidth:width];
+    CGRect frame = CGRectMake(0, 0, width, height);
     self.videoPreview = [[OWVideoPreview alloc] initWithFrame:frame];
     [self.contentView addSubview:videoPreview];
 }
