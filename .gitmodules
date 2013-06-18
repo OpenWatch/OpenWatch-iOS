@@ -55,3 +55,6 @@
 [submodule "Submodules/JSBadgeView"]
 	path = Submodules/JSBadgeView
 	url = git@github.com:OpenWatch/JSBadgeView.git
+[submodule "Submodules/STTweetLabel"]
+	path = Submodules/STTweetLabel
+	url = https://github.com/SebastienThiebaud/STTweetLabel.git
