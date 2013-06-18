@@ -9,6 +9,7 @@
 #import "OWAudio.h"
 #import "OWLocalRecording.h"
 #import "OWMission.h"
+#import "OWThumbnailCell.h"
 
 @interface OWMediaObject ()
 
@@ -21,7 +22,7 @@
 
 
 + (Class) cellClass {
-    return [OWMediaObjectTableViewCell class];
+    return [OWThumbnailCell class];
 }
 
 + (NSString*) cellIdentifier {

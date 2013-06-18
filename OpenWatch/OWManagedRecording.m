@@ -11,6 +11,7 @@
 #import "OWTag.h"
 #import "OWUser.h"
 #import "OWLocationController.h"
+#import "OWVideoCell.h"
 
 
 @interface OWManagedRecording()
@@ -100,6 +101,11 @@
 
 - (UIImage*) mediaTypeImage {
     return [UIImage imageNamed:@"285-facetime.png"];
+}
+
+
++ (Class) cellClass {
+    return [OWVideoCell class];
 }
 
 

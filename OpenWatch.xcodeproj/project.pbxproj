@@ -82,6 +82,10 @@
 		D930851B166424C1008C5D4C /* OWMapAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = D930851A166424C1008C5D4C /* OWMapAnnotation.m */; };
 		D930851D166426A4008C5D4C /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D930851C166426A4008C5D4C /* MediaPlayer.framework */; };
 		D930851F166426A9008C5D4C /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D930851E166426A9008C5D4C /* MapKit.framework */; };
+		D93101CB176FE138008939C3 /* OWVideoPreview.m in Sources */ = {isa = PBXBuildFile; fileRef = D93101CA176FE138008939C3 /* OWVideoPreview.m */; };
+		D93101CD176FE3A8008939C3 /* play-button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D93101CC176FE3A8008939C3 /* play-button@2x.png */; };
+		D93101D0176FED8A008939C3 /* OWVideoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D93101CF176FED8A008939C3 /* OWVideoCell.m */; };
+		D93101D3176FEE3E008939C3 /* OWThumbnailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D93101D2176FEE3E008939C3 /* OWThumbnailCell.m */; };
 		D93936BF174199140070E164 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D93936BE174199140070E164 /* libxml2.dylib */; };
 		D93936C11741991A0070E164 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D93936C01741991A0070E164 /* ImageIO.framework */; };
 		D93936C91741A5620070E164 /* onboarding_3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D93936C51741A5620070E164 /* onboarding_3@2x.png */; };
@@ -794,6 +798,13 @@
 		D930851A166424C1008C5D4C /* OWMapAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWMapAnnotation.m; sourceTree = "<group>"; };
 		D930851C166426A4008C5D4C /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		D930851E166426A9008C5D4C /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		D93101C9176FE138008939C3 /* OWVideoPreview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWVideoPreview.h; sourceTree = "<group>"; };
+		D93101CA176FE138008939C3 /* OWVideoPreview.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWVideoPreview.m; sourceTree = "<group>"; };
+		D93101CC176FE3A8008939C3 /* play-button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "play-button@2x.png"; sourceTree = "<group>"; };
+		D93101CE176FED8A008939C3 /* OWVideoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWVideoCell.h; sourceTree = "<group>"; };
+		D93101CF176FED8A008939C3 /* OWVideoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWVideoCell.m; sourceTree = "<group>"; };
+		D93101D1176FEE3E008939C3 /* OWThumbnailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWThumbnailCell.h; sourceTree = "<group>"; };
+		D93101D2176FEE3E008939C3 /* OWThumbnailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWThumbnailCell.m; sourceTree = "<group>"; };
 		D93936BE174199140070E164 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		D93936C01741991A0070E164 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		D93936C51741A5620070E164 /* onboarding_3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "onboarding_3@2x.png"; sourceTree = "<group>"; };
@@ -1496,6 +1507,8 @@
 		D97EAAA3167911B900A1B038 /* Custom Views */ = {
 			isa = PBXGroup;
 			children = (
+				D93101C9176FE138008939C3 /* OWVideoPreview.h */,
+				D93101CA176FE138008939C3 /* OWVideoPreview.m */,
 				D9FAE5F91763F12200CEBEBF /* OWTooltipView.h */,
 				D9FAE5FA1763F12200CEBEBF /* OWTooltipView.m */,
 				D9C4345F1756FA5F00471468 /* OWBannerView.h */,
@@ -1700,6 +1713,10 @@
 				D9C8A57F16B9A1D2004F9E05 /* OWLocalRecordingTableViewCell.m */,
 				D98924701755733F00F52B9C /* OWMissionTableViewCell.h */,
 				D98924711755733F00F52B9C /* OWMissionTableViewCell.m */,
+				D93101CE176FED8A008939C3 /* OWVideoCell.h */,
+				D93101CF176FED8A008939C3 /* OWVideoCell.m */,
+				D93101D1176FEE3E008939C3 /* OWThumbnailCell.h */,
+				D93101D2176FEE3E008939C3 /* OWThumbnailCell.m */,
 				D97EAA9F167911B100A1B038 /* OWMediaObjectTableViewCell.h */,
 				D97EAAA0167911B100A1B038 /* OWMediaObjectTableViewCell.m */,
 			);
@@ -1974,6 +1991,7 @@
 		D9DFADF716547DE7003C515C /* Media */ = {
 			isa = PBXGroup;
 			children = (
+				D93101CC176FE3A8008939C3 /* play-button@2x.png */,
 				D9B640281763FD430028CFFB /* ticks.png */,
 				D9B640291763FD430028CFFB /* ticks@2x.png */,
 				D9FAE5FD1763F47900CEBEBF /* UIBlackCloseButton.png */,
@@ -2481,6 +2499,7 @@
 				D9FAE6071763F47900CEBEBF /* UIBlackCloseButtonPressed@2x.png in Resources */,
 				D9B6402A1763FD430028CFFB /* ticks.png in Resources */,
 				D9B6402C1763FD430028CFFB /* ticks@2x.png in Resources */,
+				D93101CD176FE3A8008939C3 /* play-button@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2796,6 +2815,9 @@
 				D9D49E821758154D00416C73 /* OWProfileViewController.m in Sources */,
 				D9FAE5FB1763F12200CEBEBF /* OWTooltipView.m in Sources */,
 				D9B6404217652A2B0028CFFB /* OWMapViewController.m in Sources */,
+				D93101CB176FE138008939C3 /* OWVideoPreview.m in Sources */,
+				D93101D0176FED8A008939C3 /* OWVideoCell.m in Sources */,
+				D93101D3176FEE3E008939C3 /* OWThumbnailCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

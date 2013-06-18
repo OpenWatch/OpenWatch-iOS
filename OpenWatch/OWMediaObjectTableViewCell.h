@@ -13,10 +13,7 @@
 
 @property (nonatomic, strong) NSManagedObjectID *mediaObjectID;
 
-@property (nonatomic, strong) UIActivityIndicatorView *loadingIndicator;
-
 @property (nonatomic, strong) UILabel *titleLabel;
-@property (nonatomic, strong) UIImageView *thumbnailImageView;
 @property (nonatomic, strong) UIImageView *mediaTypeImageView;
 
 + (CGFloat) cellHeight;

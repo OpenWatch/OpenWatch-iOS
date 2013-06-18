@@ -7,8 +7,9 @@
 //
 
 #import "OWMediaObjectTableViewCell.h"
+#import "OWThumbnailCell.h"
 
-@interface OWMissionTableViewCell : OWMediaObjectTableViewCell
+@interface OWMissionTableViewCell : OWThumbnailCell
 
 @property (nonatomic, strong) UILabel *bountyLabel;
 
