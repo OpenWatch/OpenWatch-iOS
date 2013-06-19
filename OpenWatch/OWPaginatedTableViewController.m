@@ -15,6 +15,10 @@
 #import "OWInvestigation.h"
 #import "OWAudio.h"
 #import "OWFeedViewController.h"
+#import "OWStrings.h"
+#import "OWShareController.h"
+#import "OWMapAnnotation.h"
+#import "OWMapViewController.h"
 
 #define kLoadingCellTag 31415
 
@@ -27,7 +31,7 @@
 @synthesize isReloading;
 @synthesize currentPage;
 @synthesize totalPages;
-@synthesize objectIDs;
+@synthesize objectIDs, selectedMediaObject;
 
 - (id)init
 {
@@ -135,6 +139,38 @@
     OWFeedViewController *feed = [[OWFeedViewController alloc] init];
     [feed didSelectFeedWithName:hashTag type:kOWFeedTypeTag];
     [self.navigationController pushViewController:feed animated:YES];
+}
+
+- (void) moreButtonPressedForTableCell:(OWMediaObjectTableViewCell *)cell {
+    NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
+    self.selectedMediaObject = (OWMediaObject*)[context existingObjectWithID:cell.mediaObjectID error:nil];
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:SHARE_STRING, nil];
+    NSUInteger cancelButtonIndex = 1;
+    if ([selectedMediaObject isKindOfClass:[OWLocalMediaObject class]]) {
+        OWLocalMediaObject *local = (OWLocalMediaObject*)selectedMediaObject;
+        CLLocation *endLocation = [local endLocation];
+        if (endLocation) {
+            [actionSheet addButtonWithTitle:VIEW_ON_MAP_STRING];
+            cancelButtonIndex++;
+        }
+    }
+    [actionSheet addButtonWithTitle:CANCEL_STRING];
+    actionSheet.cancelButtonIndex = cancelButtonIndex;
+    
+    [actionSheet showInView:self.view];
+}
+
+- (void) actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 0) { // Share
+        [OWShareController shareMediaObject:self.selectedMediaObject fromViewController:self];
+    } else if (buttonIndex == 1) { // View on Map
+        OWLocalMediaObject *local = (OWLocalMediaObject*)selectedMediaObject;
+        CLLocation *endLocation = [local endLocation];
+        OWMapAnnotation *annotation = [[OWMapAnnotation alloc] initWithCoordinate:endLocation.coordinate title:local.titleOrHumanizedDateString subtitle:nil];
+        OWMapViewController *mapView = [[OWMapViewController alloc] init];
+        mapView.annotation = annotation;
+        [self.navigationController pushViewController:mapView animated:YES];
+    }
 }
 
 

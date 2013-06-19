@@ -14,7 +14,9 @@
 @class OWMediaObjectTableViewCell;
 
 @protocol OWMediaObjectTableViewCellDelegate <NSObject>
+@optional
 - (void) tableCell:(OWMediaObjectTableViewCell*)cell didSelectHashtag:(NSString*)hashTag;
+- (void) moreButtonPressedForTableCell:(OWMediaObjectTableViewCell*)cell;
 @end
 
 @interface OWMediaObjectTableViewCell : UITableViewCell
@@ -25,6 +27,7 @@
 @property (nonatomic, strong) STTweetLabel *titleLabel;
 @property (nonatomic, strong) UILabel *dateLabel;
 @property (nonatomic, strong) OWUserView *userView;
+@property (nonatomic, strong) UIButton *moreButton;
 
 - (void) setupPreviewView;
 

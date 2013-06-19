@@ -194,6 +194,7 @@
 		D9B4E80D17441759006B3793 /* cc@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9B4E80C17441759006B3793 /* cc@2x.png */; };
 		D9B4E81317442E16006B3793 /* icon-iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = D9B4E81217442E16006B3793 /* icon-iphone.png */; };
 		D9B4E81517442E1A006B3793 /* icon-iphone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9B4E81417442E1A006B3793 /* icon-iphone@2x.png */; };
+		D9B55810177257BE000672FB /* dots@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9B5580F177257BE000672FB /* dots@2x.png */; };
 		D9B6402A1763FD430028CFFB /* ticks.png in Resources */ = {isa = PBXBuildFile; fileRef = D9B640281763FD430028CFFB /* ticks.png */; };
 		D9B6402B1763FD430028CFFB /* ticks.png in Resources */ = {isa = PBXBuildFile; fileRef = D9B640281763FD430028CFFB /* ticks.png */; };
 		D9B6402C1763FD430028CFFB /* ticks@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9B640291763FD430028CFFB /* ticks@2x.png */; };
@@ -970,6 +971,7 @@
 		D9B4E80C17441759006B3793 /* cc@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cc@2x.png"; sourceTree = "<group>"; };
 		D9B4E81217442E16006B3793 /* icon-iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-iphone.png"; path = "../icon-iphone.png"; sourceTree = "<group>"; };
 		D9B4E81417442E1A006B3793 /* icon-iphone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-iphone@2x.png"; path = "../icon-iphone@2x.png"; sourceTree = "<group>"; };
+		D9B5580F177257BE000672FB /* dots@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dots@2x.png"; sourceTree = "<group>"; };
 		D9B640281763FD430028CFFB /* ticks.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ticks.png; sourceTree = "<group>"; };
 		D9B640291763FD430028CFFB /* ticks@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ticks@2x.png"; sourceTree = "<group>"; };
 		D9B6404017652A2A0028CFFB /* OWMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWMapViewController.h; sourceTree = "<group>"; };
@@ -1991,6 +1993,7 @@
 		D9DFADF716547DE7003C515C /* Media */ = {
 			isa = PBXGroup;
 			children = (
+				D9B5580F177257BE000672FB /* dots@2x.png */,
 				D93101CC176FE3A8008939C3 /* play-button@2x.png */,
 				D9B640281763FD430028CFFB /* ticks.png */,
 				D9B640291763FD430028CFFB /* ticks@2x.png */,
@@ -2500,6 +2503,7 @@
 				D9B6402A1763FD430028CFFB /* ticks.png in Resources */,
 				D9B6402C1763FD430028CFFB /* ticks@2x.png in Resources */,
 				D93101CD176FE3A8008939C3 /* play-button@2x.png in Resources */,
+				D9B55810177257BE000672FB /* dots@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -25,7 +25,8 @@
         profileImageView.layer.shouldRasterize = YES;
         profileImageView.clipsToBounds = YES;
         self.usernameLabel = [[UILabel alloc] init];
-        self.usernameLabel.font = [UIFont systemFontOfSize:20.0f];
+        self.usernameLabel.font = [UIFont boldSystemFontOfSize:18.0f];
+        self.usernameLabel.textColor = [UIColor redColor];
         self.usernameLabel.adjustsFontSizeToFitWidth = YES;
         self.usernameLabel.backgroundColor = [UIColor clearColor];
         

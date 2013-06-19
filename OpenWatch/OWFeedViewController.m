@@ -38,6 +38,7 @@
         self.title = WATCH_STRING;
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"list.png"] style:UIBarButtonItemStylePlain target:self action:@selector(feedSelectionButtonPressed:)];
         self.feedSelector = [[OWFeedSelectionViewController alloc] init];
+        self.tableView.allowsSelection = NO;
         feedSelector.delegate = self;
     }
     return self;

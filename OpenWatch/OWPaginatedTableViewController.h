@@ -12,13 +12,15 @@
 
 #define kFirstPage 1
 
-@interface OWPaginatedTableViewController : UITableViewController  <EGORefreshTableHeaderDelegate, UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate, OWMediaObjectTableViewCellDelegate>
+@interface OWPaginatedTableViewController : UITableViewController  <EGORefreshTableHeaderDelegate, UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate, OWMediaObjectTableViewCellDelegate, UIActionSheetDelegate>
 
 @property (nonatomic) NSUInteger currentPage;
 @property (nonatomic) NSUInteger totalPages;
 @property (nonatomic) BOOL isReloading;
 @property (nonatomic, strong) EGORefreshTableHeaderView *refreshHeaderView;
 @property (nonatomic, strong) NSMutableArray *objectIDs;
+
+@property (nonatomic, strong) OWMediaObject *selectedMediaObject;
 
 - (void) reloadTableViewDataSource;
 - (void) doneLoadingTableViewData;

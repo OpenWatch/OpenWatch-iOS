@@ -22,10 +22,14 @@
 
 #define PADDING 5.0f
 
-#define USER_HEIGHT 30.0f
+#define USER_HEIGHT 45.0f
+
+#define CONTENT_X_OFFSET 54.0f
+
+#define MORE_BUTTON_HEIGHT 17.0f
 
 @implementation OWMediaObjectTableViewCell
-@synthesize mediaObjectID, titleLabel, userView, previewView, delegate;
+@synthesize mediaObjectID, titleLabel, userView, previewView, delegate, moreButton;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -34,6 +38,7 @@
         [self setupUserView];
         [self setupTitleLabel];
         [self setupPreviewView];
+        [self setupMoreButton];
         self.backgroundView = nil;
     }
     return self;
@@ -48,6 +53,7 @@
     totalHeight += [self previewHeight] + PADDING;
     totalHeight += USER_HEIGHT + PADDING;
     totalHeight += [self heightForTitleLabelWithText:mediaObject.titleOrHumanizedDateString] + PADDING;
+    totalHeight += MORE_BUTTON_HEIGHT + PADDING * 2;
     return totalHeight;
 }
 
@@ -63,14 +69,31 @@
     return [self cellWidth] - PADDING * 2;
 }
 
++ (CGFloat) insetWidth {
+    return [self paddedWidth] - CONTENT_X_OFFSET;
+}
+
 + (CGFloat) heightForTitleLabelWithText:(NSString*)text {
     //Calculate the expected size based on the font and linebreak mode of your label
     // FLT_MAX here simply means no constraint in height
-    CGSize maximumLabelSize = CGSizeMake([self paddedWidth], FLT_MAX);
+    CGSize maximumLabelSize = CGSizeMake([self insetWidth], FLT_MAX);
     
     CGSize expectedLabelSize = [text sizeWithFont:[self titleLabelFont] constrainedToSize:maximumLabelSize lineBreakMode:NSLineBreakByWordWrapping];
     
     return expectedLabelSize.height;
+}
+
+- (void) setupMoreButton {
+    self.moreButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [moreButton setImage:[UIImage imageNamed:@"dots.png"] forState:UIControlStateNormal];
+    [moreButton addTarget:self action:@selector(moreButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [self.contentView addSubview:moreButton];
+}
+
+- (void) moreButtonPressed:(id)sender {
+    if (delegate && [delegate respondsToSelector:@selector(moreButtonPressedForTableCell:)]) {
+        [delegate moreButtonPressedForTableCell:self];
+    }
 }
 
 - (void) setupPreviewView {
@@ -87,12 +110,16 @@
 - (void) refreshFrames {
     CGFloat cellWidth = [OWMediaObjectTableViewCell cellWidth];
     CGFloat paddedWidth = [OWMediaObjectTableViewCell paddedWidth];
+    CGFloat insetWidth = [OWMediaObjectTableViewCell insetWidth];
     CGFloat previewHeight = [OWMediaObjectTableViewCell previewHeight];
     self.previewView.frame = CGRectMake(0, 0, cellWidth, previewHeight);
     self.userView.frame = CGRectMake(PADDING, [OWUtilities bottomOfView:previewView] + PADDING, paddedWidth, USER_HEIGHT);
     
     CGFloat titleLabelHeight = [OWMediaObjectTableViewCell heightForTitleLabelWithText:self.titleLabel.text];
-    self.titleLabel.frame = CGRectMake(PADDING, [OWUtilities bottomOfView:userView] + PADDING, paddedWidth, titleLabelHeight);
+    self.titleLabel.frame = CGRectMake(PADDING + CONTENT_X_OFFSET, [OWUtilities bottomOfView:userView] + PADDING, insetWidth, titleLabelHeight);
+    
+    CGFloat moreButtonWidth = 50.0f;
+    self.moreButton.frame = CGRectMake([OWMediaObjectTableViewCell cellWidth] - moreButtonWidth - PADDING, [OWUtilities bottomOfView:titleLabel] + PADDING, moreButtonWidth, MORE_BUTTON_HEIGHT);
 }
 
 - (void) setupTitleLabel {
