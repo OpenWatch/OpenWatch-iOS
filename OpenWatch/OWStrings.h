@@ -8,6 +8,8 @@
 
 #define VIEW_ON_MAP_STRING NSLocalizedString(@"View on Map", @"Title for button to view something on a map")
 
+#define UNTITLED_STRING NSLocalizedString(@"Untitled", @"Default title for item with no title")
+
 #define MISSIONS_DESCRIPTION_STRING NSLocalizedString(@"Missions are a way for you to get actively involved in uncovering the truth!", @"Description for header of missions view")
 
 #define CONTINUE_STRING NSLocalizedString(@"Continue", @"button title for continuing to next screen")

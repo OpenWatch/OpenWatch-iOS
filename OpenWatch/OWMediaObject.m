@@ -10,6 +10,7 @@
 #import "OWLocalRecording.h"
 #import "OWMission.h"
 #import "OWThumbnailCell.h"
+#import "OWStrings.h"
 
 @interface OWMediaObject ()
 
@@ -170,6 +171,22 @@
 
 - (UIImage*) mediaTypeImage {
     return [UIImage imageNamed:@"thumbnail_placeholder.png"];
+}
+
+- (NSString*) titleOrHumanizedDateString {
+    NSString *title = self.title;
+    
+    if (title.length == 0) {
+        NSDateFormatter *dateFormatter = [OWUtilities humanizedDateFormatter];
+        if (self.firstPostedDate) {
+            title = [dateFormatter stringFromDate:self.firstPostedDate];
+        } else if (self.modifiedDate) {
+            title = [dateFormatter stringFromDate:self.modifiedDate];
+        } else {
+            title = UNTITLED_STRING;
+        }
+    }
+    return title;
 }
 
 @end

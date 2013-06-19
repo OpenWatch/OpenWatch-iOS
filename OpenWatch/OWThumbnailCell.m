@@ -17,13 +17,8 @@
 @implementation OWThumbnailCell
 @synthesize loadingIndicator, thumbnailImageView;
 
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
-{
-    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-    if (self) {
-        [self setupThumbnailImageView];
-    }
-    return self;
+- (void) setupPreviewView {
+    [self setupThumbnailImageView];
 }
 
 - (void) setupThumbnailImageView {

@@ -24,4 +24,6 @@
 - (UIImage*) placeholderThumbnailImage;
 - (UIImage*) mediaTypeImage;
 
+- (NSString*) titleOrHumanizedDateString;
+
 @end

@@ -123,7 +123,8 @@
 
 - (OWMediaObjectTableViewCell*) mediaObjectCellForIndexPath:(NSIndexPath *)indexPath {
     NSManagedObjectID *objectID = [self.objectIDs objectAtIndex:indexPath.row];
-    OWLocalMediaObject *mediaObject = [OWLocalMediaController localMediaObjectForObjectID:objectID];
+    NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
+    OWMediaObject *mediaObject = (OWMediaObject*)[context existingObjectWithID:objectID error:nil];
     OWMediaObjectTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:[[mediaObject class] cellIdentifier] forIndexPath:indexPath];
     cell.mediaObjectID = objectID;
     cell.delegate = self;
@@ -157,7 +158,10 @@
     if (indexPath.row >= self.objectIDs.count) {
         return 45.0f;
     }
-    return [OWMediaObjectTableViewCell cellHeight];
+    NSManagedObjectID *objectID = [self.objectIDs objectAtIndex:indexPath.row];
+    NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
+    OWMediaObject *mediaObject = (OWMediaObject*)[context existingObjectWithID:objectID error:nil];
+    return [OWMediaObjectTableViewCell cellHeightForMediaObject:mediaObject];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

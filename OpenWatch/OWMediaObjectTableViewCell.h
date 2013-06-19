@@ -23,11 +23,18 @@
 
 @property (nonatomic, strong) UIView *previewView;
 @property (nonatomic, strong) STTweetLabel *titleLabel;
+@property (nonatomic, strong) UILabel *dateLabel;
 @property (nonatomic, strong) OWUserView *userView;
+
+- (void) setupPreviewView;
 
 @property (nonatomic, weak) id<OWMediaObjectTableViewCellDelegate> delegate;
 
-+ (CGFloat) cellHeight;
++ (CGFloat) cellHeightForMediaObject:(OWMediaObject*)mediaObject;
 + (CGFloat) cellWidth;
+
++ (CGFloat) previewHeight;
++ (CGFloat) heightForTitleLabelWithText:(NSString*)text;
++ (UIFont*) titleLabelFont;
 
 @end
