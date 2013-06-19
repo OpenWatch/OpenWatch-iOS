@@ -14,6 +14,7 @@
 #import "OWLocalRecording.h"
 #import "OWInvestigation.h"
 #import "OWAudio.h"
+#import "OWFeedViewController.h"
 
 #define kLoadingCellTag 31415
 
@@ -125,7 +126,14 @@
     OWLocalMediaObject *mediaObject = [OWLocalMediaController localMediaObjectForObjectID:objectID];
     OWMediaObjectTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:[[mediaObject class] cellIdentifier] forIndexPath:indexPath];
     cell.mediaObjectID = objectID;
+    cell.delegate = self;
     return cell;
+}
+
+- (void) tableCell:(OWMediaObjectTableViewCell *)cell didSelectHashtag:(NSString *)hashTag {
+    OWFeedViewController *feed = [[OWFeedViewController alloc] init];
+    [feed didSelectFeedWithName:hashTag type:kOWFeedTypeTag];
+    [self.navigationController pushViewController:feed animated:YES];
 }
 
 

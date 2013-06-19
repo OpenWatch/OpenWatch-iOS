@@ -26,7 +26,9 @@
         profileImageView.clipsToBounds = YES;
         self.usernameLabel = [[UILabel alloc] init];
         self.usernameLabel.font = [UIFont systemFontOfSize:20.0f];
+        self.usernameLabel.adjustsFontSizeToFitWidth = YES;
         self.usernameLabel.backgroundColor = [UIColor clearColor];
+        
         self.pictureOrientation = OWUserViewPictureOrientationLeft;
         [self setFrame:frame];
         [self addSubview:profileImageView];

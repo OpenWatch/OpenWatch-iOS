@@ -455,6 +455,8 @@
         prefix = kInvestigationPath;
     } else if (feedType == kOWFeedTypeMissions) {
         prefix = @"mission/";
+    } else if (feedType == kOWFeedTypeTag) {
+        prefix = @"tag/";
     }
     return prefix;
 }
@@ -468,8 +470,12 @@
     }
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     [parameters setObject:@(page) forKey:@"page"];
+    NSString *keyName = @"type";
+    if (feedType == kOWFeedTypeTag) {
+        keyName = @"tag";
+    }
     if (feedName) {
-        [parameters setObject:feedName forKey:@"type"];
+        [parameters setObject:feedName forKey:keyName];
     }
     [self getPath:path parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSArray *mediaObjects = [self objectIDsFromMediaObjectsMetadataArray:[responseObject objectForKey:kObjectsKey]];

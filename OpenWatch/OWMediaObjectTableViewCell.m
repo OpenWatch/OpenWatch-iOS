@@ -23,7 +23,7 @@
 #define PADDING 5.0f
 
 @implementation OWMediaObjectTableViewCell
-@synthesize mediaObjectID, titleLabel, userView;
+@synthesize mediaObjectID, titleLabel, userView, previewView, delegate;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -37,9 +37,10 @@
 }
 
 - (void) setupUserView {
-    CGFloat width = 200.0f;
+    CGFloat xOrigin = [OWUtilities rightOfView:titleLabel] + PADDING;
+    CGFloat width = [OWMediaObjectTableViewCell cellWidth] - xOrigin - PADDING;
     CGFloat height = 30.0f;
-    self.userView = [[OWUserView alloc] initWithFrame:CGRectMake([OWMediaObjectTableViewCell cellWidth] - PADDING - width, [OWMediaObjectTableViewCell cellHeight] - height, width, height)];
+    self.userView = [[OWUserView alloc] initWithFrame:CGRectMake(xOrigin, [OWMediaObjectTableViewCell cellHeight] - height, width, height)];
     self.userView.pictureOrientation = OWUserViewPictureOrientationRight;
     [self.contentView addSubview:userView];
 
@@ -55,18 +56,23 @@
 
 - (void) setupTitleLabel {
     CGFloat titleLabelXOrigin = PADDING;
-    CGFloat titleLabelWidth = [OWMediaObjectTableViewCell cellWidth] / 2;
-    CGFloat titleLabelHeight = 25.0f;
+    CGFloat titleLabelWidth = [OWMediaObjectTableViewCell cellWidth] * 0.6;
+    CGFloat titleLabelHeight = 30.0f;
     self.titleLabel = [[STTweetLabel alloc] initWithFrame:CGRectMake(titleLabelXOrigin, [OWMediaObjectTableViewCell cellHeight] - titleLabelHeight, titleLabelWidth, titleLabelHeight)];
     self.titleLabel.numberOfLines = 1;
     self.titleLabel.backgroundColor = [UIColor clearColor];
-    self.titleLabel.font = [UIFont systemFontOfSize:18.0f];
+    self.titleLabel.font = [UIFont systemFontOfSize:20.0f];
+    self.titleLabel.colorHashtag = [UIColor redColor];
+    self.titleLabel.verticalAlignment = STVerticalAlignmentMiddle;
     [self.contentView addSubview:titleLabel];
     
     STLinkCallbackBlock callbackBlock = ^(STLinkActionType actionType, NSString *link) {
         if (actionType == STLinkActionTypeHashtag) {
             NSLog(@"Hashtag: %@", link);
-
+            NSString *rawTag = [link stringByReplacingOccurrencesOfString:@"#" withString:@""];
+            if (delegate && [delegate respondsToSelector:@selector(tableCell:didSelectHashtag:)]) {
+                [delegate tableCell:self didSelectHashtag:rawTag];
+            }
         }    
     };
     self.titleLabel.callbackBlock = callbackBlock;

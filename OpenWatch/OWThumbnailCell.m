@@ -41,6 +41,8 @@
         
     [self.thumbnailImageView addSubview:loadingIndicator];
     [self.contentView addSubview:thumbnailImageView];
+    
+    self.previewView = thumbnailImageView;
 }
 
 - (void) setMediaObjectID:(NSManagedObjectID *)newMediaObjectID {

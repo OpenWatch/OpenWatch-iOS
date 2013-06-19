@@ -78,7 +78,11 @@
     [TestFlight passCheckpoint:VIEW_FEED_CHECKPOINT(feedName)];
     selectedFeedString = feedName;
     feedType = type;
-    self.title = feedName;
+    if (type == kOWFeedTypeTag) {
+        self.title = [NSString stringWithFormat:@"#%@", feedName];
+    } else {
+        self.title = feedName;
+    }
     
     if ([[feedName lowercaseString] isEqualToString:@"local"]) {
         [self fetchObjectsForLocation:self.lastLocation page:pageNumber];
@@ -172,5 +176,6 @@
         [self.navigationController pushViewController:vc animated:YES];
     }
 }
+
 
 @end

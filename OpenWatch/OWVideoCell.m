@@ -28,6 +28,7 @@
     CGRect frame = CGRectMake(0, 0, width, height);
     self.videoPreview = [[OWVideoPreview alloc] initWithFrame:frame];
     [self.contentView addSubview:videoPreview];
+    self.previewView = videoPreview;
 }
 
 
