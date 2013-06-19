@@ -13,7 +13,7 @@
 #import <QuartzCore/QuartzCore.h>
 
 @implementation OWUserView
-@synthesize profileImageView, usernameLabel, user, pictureOrientation;
+@synthesize profileImageView, usernameLabel, user, verticalAlignment;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -29,8 +29,9 @@
         self.usernameLabel.textColor = [UIColor redColor];
         self.usernameLabel.adjustsFontSizeToFitWidth = YES;
         self.usernameLabel.backgroundColor = [UIColor clearColor];
+        self.usernameLabel.numberOfLines = 1;
         
-        self.pictureOrientation = OWUserViewPictureOrientationLeft;
+        self.verticalAlignment = OWUserViewLabelVerticalAlignmentCenter;
         [self setFrame:frame];
         [self addSubview:profileImageView];
         [self addSubview:usernameLabel];
@@ -41,24 +42,20 @@
 - (void) layoutViews {
     CGRect frame = self.frame;
 
-    if (pictureOrientation == OWUserViewPictureOrientationLeft) {
-        self.profileImageView.frame = CGRectMake(0, 0, frame.size.height, frame.size.height);
-        CGFloat labelWidth = frame.size.width - frame.size.height;
-        self.profileImageView.autoresizingMask = UIViewAutoresizingFlexibleRightMargin;
-        self.usernameLabel.frame = CGRectMake([OWUtilities rightOfView:profileImageView] + 10, 0, labelWidth, frame.size.height);
-        self.usernameLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
-    } else {
-        CGFloat profileSize = frame.size.height;
-        self.profileImageView.frame = CGRectMake(frame.size.width - profileSize, 0, profileSize, profileSize);
-        CGFloat labelWidth = frame.size.width - profileSize;
-        self.profileImageView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
-        self.usernameLabel.frame = CGRectMake(0, 0, labelWidth, frame.size.height);
-        self.usernameLabel.autoresizingMask = UIViewAutoresizingFlexibleRightMargin;
+
+    self.profileImageView.frame = CGRectMake(0, 0, frame.size.height, frame.size.height);
+    CGFloat labelWidth = frame.size.width - frame.size.height;
+    self.profileImageView.autoresizingMask = UIViewAutoresizingFlexibleRightMargin;
+    self.usernameLabel.frame = CGRectMake([OWUtilities rightOfView:profileImageView] + 10, 0, labelWidth, frame.size.height);
+    self.usernameLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+    
+    if (verticalAlignment == OWUserViewLabelVerticalAlignmentTop) {
+        [self.usernameLabel sizeToFit];
     }
 }
 
-- (void) setPictureOrientation:(OWUserViewPictureOrientation)newPictureOrientation {
-    pictureOrientation = newPictureOrientation;
+- (void) setVerticalAlignment:(OWUserViewLabelVerticalAlignment)newVerticalAlignment {
+    verticalAlignment = newVerticalAlignment;
     [self layoutViews];
 }
 
@@ -71,6 +68,7 @@
     user = newUser;
     [self.profileImageView setImageWithURL:user.thumbnailURL placeholderImage:[UIImage imageNamed:@"user_placeholder.png"]];
     self.usernameLabel.text = user.username;
+    [self layoutViews];
 }
 
 

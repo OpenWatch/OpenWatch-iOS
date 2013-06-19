@@ -22,14 +22,16 @@
 
 #define PADDING 5.0f
 
-#define USER_HEIGHT 45.0f
+#define USER_HEIGHT 50.0f
 
-#define CONTENT_X_OFFSET 54.0f
+#define TITLE_LABEL_YOFFSET 30.0f
+
+#define CONTENT_X_OFFSET 61.0f
 
 #define MORE_BUTTON_HEIGHT 17.0f
 
 @implementation OWMediaObjectTableViewCell
-@synthesize mediaObjectID, titleLabel, userView, previewView, delegate, moreButton;
+@synthesize mediaObjectID, titleLabel, userView, previewView, delegate, moreButton, locationLabel, dateLabel;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -39,9 +41,27 @@
         [self setupTitleLabel];
         [self setupPreviewView];
         [self setupMoreButton];
+        [self setupLocationLabel];
+        [self setupDateLabel];
         self.backgroundView = nil;
     }
     return self;
+}
+
+- (void) setupLocationLabel {
+    self.locationLabel = [[UILabel alloc] init];
+    self.locationLabel.backgroundColor = [UIColor clearColor];
+    self.locationLabel.text = @"Waco, TX";
+    [self.contentView addSubview:locationLabel];
+}
+
+
+- (void) setupDateLabel {
+    self.dateLabel = [[UILabel alloc] init];
+    self.dateLabel.backgroundColor = [UIColor clearColor];
+    self.dateLabel.text = @"5d";
+    [self.contentView addSubview:dateLabel];
+    
 }
 
 + (CGFloat) cellWidth {
@@ -51,8 +71,10 @@
 + (CGFloat) cellHeightForMediaObject:(OWMediaObject *)mediaObject {
     CGFloat totalHeight = 0.0f;
     totalHeight += [self previewHeight] + PADDING;
-    totalHeight += USER_HEIGHT + PADDING;
-    totalHeight += [self heightForTitleLabelWithText:mediaObject.titleOrHumanizedDateString] + PADDING;
+    totalHeight += TITLE_LABEL_YOFFSET + PADDING;
+    if (mediaObject.title.length > 0) {
+        totalHeight += [self heightForTitleLabelWithText:mediaObject.title] + PADDING;
+    }
     totalHeight += MORE_BUTTON_HEIGHT + PADDING * 2;
     return totalHeight;
 }
@@ -74,6 +96,9 @@
 }
 
 + (CGFloat) heightForTitleLabelWithText:(NSString*)text {
+    if (text.length == 0) {
+        return 0.0f;
+    }
     //Calculate the expected size based on the font and linebreak mode of your label
     // FLT_MAX here simply means no constraint in height
     CGSize maximumLabelSize = CGSizeMake([self insetWidth], FLT_MAX);
@@ -103,6 +128,7 @@
 
 - (void) setupUserView {
     self.userView = [[OWUserView alloc] initWithFrame:CGRectZero];
+    self.userView.verticalAlignment = OWUserViewLabelVerticalAlignmentTop;
     [self.contentView addSubview:userView];
 
 }
@@ -113,13 +139,26 @@
     CGFloat insetWidth = [OWMediaObjectTableViewCell insetWidth];
     CGFloat previewHeight = [OWMediaObjectTableViewCell previewHeight];
     self.previewView.frame = CGRectMake(0, 0, cellWidth, previewHeight);
-    self.userView.frame = CGRectMake(PADDING, [OWUtilities bottomOfView:previewView] + PADDING, paddedWidth, USER_HEIGHT);
+    CGFloat userViewYOrigin = [OWUtilities bottomOfView:previewView] + PADDING;
+    self.userView.frame = CGRectMake(PADDING, userViewYOrigin, paddedWidth, USER_HEIGHT);
+    CGFloat dateLabelWidth = 50.0f;
+    self.locationLabel.frame = CGRectMake(cellWidth - dateLabelWidth - PADDING, userViewYOrigin, dateLabelWidth, USER_HEIGHT);
+    [locationLabel sizeToFit];
+    
+    CGFloat xOffset = PADDING + CONTENT_X_OFFSET; 
+    CGFloat yOffset = TITLE_LABEL_YOFFSET + [OWUtilities bottomOfView:previewView];
     
     CGFloat titleLabelHeight = [OWMediaObjectTableViewCell heightForTitleLabelWithText:self.titleLabel.text];
-    self.titleLabel.frame = CGRectMake(PADDING + CONTENT_X_OFFSET, [OWUtilities bottomOfView:userView] + PADDING, insetWidth, titleLabelHeight);
+    self.titleLabel.frame = CGRectMake(xOffset, yOffset, insetWidth, titleLabelHeight);
+    
+    
+    CGFloat bottomRowYOrigin = [OWUtilities bottomOfView:titleLabel] + PADDING;
     
     CGFloat moreButtonWidth = 50.0f;
-    self.moreButton.frame = CGRectMake([OWMediaObjectTableViewCell cellWidth] - moreButtonWidth - PADDING, [OWUtilities bottomOfView:titleLabel] + PADDING, moreButtonWidth, MORE_BUTTON_HEIGHT);
+    self.moreButton.frame = CGRectMake([OWMediaObjectTableViewCell cellWidth] - moreButtonWidth - PADDING, bottomRowYOrigin, moreButtonWidth, MORE_BUTTON_HEIGHT);
+    
+    
+    self.dateLabel.frame = CGRectMake(xOffset, bottomRowYOrigin, 200, MORE_BUTTON_HEIGHT);
 }
 
 - (void) setupTitleLabel {
@@ -148,9 +187,7 @@
     NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
     OWMediaObject *mediaObject = (OWMediaObject*)[context existingObjectWithID:mediaObjectID error:nil];
     
-    NSString *title = [mediaObject titleOrHumanizedDateString];
-    
-    self.titleLabel.text = title;
+    self.titleLabel.text = mediaObject.title;
     
     self.userView.user = mediaObject.user;
     

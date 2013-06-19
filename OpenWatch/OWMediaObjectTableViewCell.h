@@ -26,6 +26,7 @@
 @property (nonatomic, strong) UIView *previewView;
 @property (nonatomic, strong) STTweetLabel *titleLabel;
 @property (nonatomic, strong) UILabel *dateLabel;
+@property (nonatomic, strong) UILabel *locationLabel;
 @property (nonatomic, strong) OWUserView *userView;
 @property (nonatomic, strong) UIButton *moreButton;
 

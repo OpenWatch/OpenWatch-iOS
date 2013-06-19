@@ -10,14 +10,15 @@
 #import "OWUser.h"
 
 enum {
-    OWUserViewPictureOrientationRight,       // No scaling
-    OWUserViewPictureOrientationLeft
+    OWUserViewLabelVerticalAlignmentTop,
+    OWUserViewLabelVerticalAlignmentCenter, // default
 };
-typedef NSInteger OWUserViewPictureOrientation;
+typedef NSInteger OWUserViewLabelVerticalAlignment;
+
 
 @interface OWUserView : UIView
 
-@property (nonatomic) OWUserViewPictureOrientation pictureOrientation;
+@property (nonatomic) OWUserViewLabelVerticalAlignment verticalAlignment;
 
 @property (nonatomic, strong) UIImageView *profileImageView;
 @property (nonatomic, strong) UILabel *usernameLabel;

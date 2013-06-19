@@ -161,6 +161,9 @@
 }
 
 - (void) actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == actionSheet.cancelButtonIndex) {
+        return;
+    }
     if (buttonIndex == 0) { // Share
         [OWShareController shareMediaObject:self.selectedMediaObject fromViewController:self];
     } else if (buttonIndex == 1) { // View on Map
