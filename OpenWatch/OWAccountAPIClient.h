@@ -7,8 +7,8 @@
 //
 
 #import "AFHTTPClient.h"
+#import "OWFeedViewController.h"
 #import "OWAccount.h"
-#import "OWFeedSelectionViewController.h"
 #import <CoreLocation/CoreLocation.h>
 
 #define kHitTypeClick @"click"

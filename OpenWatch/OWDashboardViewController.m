@@ -15,7 +15,6 @@
 #import "OWLocalMediaObjectListViewController.h"
 #import "OWStrings.h"
 #import "OWFeedViewController.h"
-#import "OWFeedSelectionViewController.h"
 #import "OWInvestigationViewController.h"
 #import <QuartzCore/QuartzCore.h>
 #import "OWSettingsController.h"
@@ -33,6 +32,7 @@
 #import "OWMissionListViewController.h"
 #import "OWMission.h"
 #import "OWBadgedDashboardItem.h"
+#import "PKRevealController.h"
 
 #define kActionBarHeight 70.0f
 
@@ -53,9 +53,7 @@
     self = [super init];
     if (self) {
         self.dashboardView = [[OWDashboardView alloc] initWithFrame:CGRectZero];
-        OWDashboardItem *videoItem = [[OWDashboardItem alloc] initWithTitle:BROADCAST_VIDEO_STRING image:[UIImage imageNamed:@"285-facetime.png"] target:self selector:@selector(recordButtonPressed:)];
-        OWDashboardItem *photoItem = [[OWDashboardItem alloc] initWithTitle:TAKE_PICTURE_STRING image:[UIImage imageNamed:@"86-camera.png"] target:self selector:@selector(photoButtonPressed:)];
-        //OWDashboardItem *audioItem = [[OWDashboardItem alloc] initWithTitle:@"Record Audio" image:[UIImage imageNamed:@"66-microphone.png"] target:self selector:@selector(audioButtonPressed:)];
+
         
         OWDashboardItem *topStories = [[OWDashboardItem alloc] initWithTitle:TOP_STORIES_STRING image:[UIImage imageNamed:@"28-star.png"] target:self selector:@selector(feedButtonPressed:)];
         OWDashboardItem *local = [[OWDashboardItem alloc] initWithTitle:LOCAL_FEED_STRING image:[UIImage imageNamed:@"193-location-arrow.png"] target:self selector:@selector(localFeedButtonPressed:)];
@@ -68,10 +66,9 @@
         [missions registerForNotifications:kMissionCountUpdateNotification];
         NSArray *missionsArray = @[missions];
         
-        NSArray *topItems = @[videoItem, photoItem];
         NSArray *middleItems = @[topStories, local, yourMedia];
         NSArray *bottonItems = @[feedback, settings];
-        NSArray *dashboardItems = @[missionsArray, topItems, middleItems, bottonItems];
+        NSArray *dashboardItems = @[missionsArray, middleItems, bottonItems];
         dashboardView.dashboardItems = dashboardItems;
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedAccountPermissionsErrorNotification:) name:kAccountPermissionsError object:nil];        
@@ -87,7 +84,7 @@
 - (void) receivedAccountPermissionsErrorNotification:(NSNotification*)notification {
     NSLog(@"%@ received", kAccountPermissionsError);
     [TestFlight passCheckpoint:kAccountPermissionsError];
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    [OW_APP_DELEGATE.navigationController popToRootViewControllerAnimated:YES];
     OWLoginViewController *loginViewController = [[OWLoginViewController alloc] init];
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:loginViewController];
     loginViewController.showCancelButton = NO;
@@ -95,13 +92,6 @@
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:WHOOPS_STRING message:SESSION_EXPIRED_STRING delegate:nil cancelButtonTitle:OK_STRING otherButtonTitles:nil];
         [alert show];
     }];
-}
-
-
-- (void) missionsButtonPressed:(id)sender {
-    OWMissionListViewController *missionList = [[OWMissionListViewController alloc] init];
-
-    [self.navigationController pushViewController:missionList animated:YES];
 }
 
 
@@ -114,47 +104,39 @@
 }
 
 
-- (void) audioButtonPressed:(id)sender {
-    OW_APP_DELEGATE.creationController.primaryTag = nil;
-    //[OW_APP_DELEGATE.creationController recordAudioFromViewController:self];
-}
-
-- (void) recordButtonPressed:(id)sender {
-    OW_APP_DELEGATE.creationController.primaryTag = nil;
-    [OW_APP_DELEGATE.creationController recordVideoFromViewController:self];
-}
-
-- (void) photoButtonPressed:(id)sender {
-    OW_APP_DELEGATE.creationController.primaryTag = nil;
-    [OW_APP_DELEGATE.creationController takePhotoFromViewController:self];
-}
-
 - (void) feedButtonPressed:(id)sender {
     OWFeedViewController *feedVC = [[OWFeedViewController alloc] init];
     [feedVC didSelectFeedWithName:@"Top Stories" type:kOWFeedTypeFrontPage];
-    [self.navigationController pushViewController:feedVC animated:YES];
+    [OW_APP_DELEGATE.navigationController setViewControllers:@[feedVC] animated:NO];
+    [self.revealController showViewController:self.revealController.frontViewController];
+}
+
+- (void) missionsButtonPressed:(id)sender {
+    OWMissionListViewController *missionList = [[OWMissionListViewController alloc] init];
+    [OW_APP_DELEGATE.navigationController setViewControllers:@[missionList] animated:NO];
+    [self.revealController showViewController:self.revealController.frontViewController];
 }
 
 - (void) localFeedButtonPressed:(id)sender {
     OWFeedViewController *feedVC = [[OWFeedViewController alloc] init];
     [feedVC didSelectFeedWithName:@"Local" type:kOWFeedTypeFeed];
-    [self.navigationController pushViewController:feedVC animated:YES];
+    [OW_APP_DELEGATE.navigationController setViewControllers:@[feedVC] animated:NO];
+    [self.revealController showViewController:self.revealController.frontViewController];
 }
 
 - (void) yourMediaPressed:(id)sender {
     OWLocalMediaObjectListViewController *recordingListVC = [[OWLocalMediaObjectListViewController alloc] init];
-    [self.navigationController pushViewController:recordingListVC animated:YES];
+    [OW_APP_DELEGATE.navigationController setViewControllers:@[recordingListVC] animated:NO];
+    [self.revealController showViewController:self.revealController.frontViewController];
 }
 
 - (void) settingsButtonPressed:(id) sender {
     OWSettingsViewController *settingsVC = [[OWSettingsViewController alloc] init];
-    [self.navigationController pushViewController:settingsVC animated:YES];
+    [OW_APP_DELEGATE.navigationController setViewControllers:@[settingsVC] animated:NO];
+    [self.revealController showViewController:self.revealController.frontViewController];
+
 }
 
-- (void) comingSoon:(id)sender {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Coming soon!" message:@"Sorry I haven't written that part yet. Check back later!" delegate:nil cancelButtonTitle:@"Cool" otherButtonTitles:nil];
-    [alert show];
-}
 
 - (void)viewDidLoad
 {

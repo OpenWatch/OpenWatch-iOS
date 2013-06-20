@@ -27,7 +27,6 @@
 @end
 
 @implementation OWFeedViewController
-@synthesize feedSelector;
 @synthesize feedType;
 @synthesize selectedFeedString;
 @synthesize lastLocation;
@@ -37,33 +36,9 @@
     self = [super init];
     if (self) {
         self.objectIDs = [NSMutableArray array];
-        [self setupNavBar];
-        
-        self.feedSelector = [[OWFeedSelectionViewController alloc] init];
         self.tableView.allowsSelection = NO;
-        feedSelector.delegate = self;
     }
     return self;
-}
-
-- (void) setupNavBar {
-    
-    self.title = WATCH_STRING;
-    UIImage *revealImagePortrait = [UIImage imageNamed:@"reveal_menu_icon_portrait"];
-    UIImage *revealImageLandscape = [UIImage imageNamed:@"reveal_menu_icon_landscape"];
-    
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:revealImagePortrait landscapeImagePhone:revealImageLandscape style:UIBarButtonItemStylePlain target:self action:@selector(showLeftView:)];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"285-facetime.png"] style:UIBarButtonItemStylePlain target:self action:@selector(startRecording:)];
-
-    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"openwatch.png"]];
-    imageView.frame = CGRectMake(0, 0, 140, 25);
-    imageView.contentMode = UIViewContentModeScaleAspectFit;
-    self.navigationItem.titleView = imageView;
-}
-
-- (void) startRecording:(id)sender {
-    OW_APP_DELEGATE.creationController.primaryTag = nil;
-    [OW_APP_DELEGATE.creationController recordVideoFromViewController:self];
 }
 
 - (void) locationUpdated:(CLLocation *)location {
@@ -95,7 +70,7 @@
         self.currentPage = kFirstPage;
         self.totalPages = 0;
         [super reloadTableViewDataSource];
-        self.objectIDs = [NSArray array];
+        self.objectIDs = [NSMutableArray array];
         [self.tableView reloadData];
     }
     [TestFlight passCheckpoint:VIEW_FEED_CHECKPOINT(feedName)];
@@ -138,10 +113,6 @@
     [self didSelectFeedWithName:selectedFeedString type:feedType pageNumber:1];
 }
 
--(void)showPopOverListFor:(UIBarButtonItem*)buttonItem{
-    [self.feedSelector presentPopoverFromBarButtonItem:buttonItem];
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -152,10 +123,6 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-- (void) feedSelectionButtonPressed:(id)sender {
-    [self showPopOverListFor:self.navigationItem.rightBarButtonItem];
 }
 
 - (void) viewWillAppear:(BOOL)animated {
@@ -203,13 +170,8 @@
     }
 }
 
-- (void) showLeftView:(id)sender {
-    if (self.navigationController.revealController.focusedController == self.navigationController.revealController.leftViewController) {
-        [self.navigationController.revealController showViewController:self.navigationController.revealController.frontViewController];
-    } else {
-        [self.navigationController.revealController showViewController:self.navigationController.revealController.leftViewController];
-    }
+- (void) tableCell:(OWMediaObjectTableViewCell *)cell didSelectHashtag:(NSString *)hashTag {
+    [self didSelectFeedWithName:hashTag type:kOWFeedTypeTag];
 }
-
 
 @end

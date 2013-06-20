@@ -7,14 +7,24 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "OWFeedSelectionViewController.h"
 #import "OWPaginatedTableViewController.h"
 #import "OWLocationController.h"
 
+typedef enum {
+    kOWFeedTypeNone = 0,
+    kOWFeedTypeFeed = 1,
+    kOWFeedTypeFrontPage = 2,
+    kOWFeedTypeMissions = 3,
+    kOWFeedTypeTag
+} OWFeedType;
 
-@interface OWFeedViewController : OWPaginatedTableViewController <OWFeedSelectionDelegate, OWLocationControllerDelegate>
+
+@interface OWFeedViewController : OWPaginatedTableViewController < OWLocationControllerDelegate>
 
 @property (nonatomic, strong) CLLocation *lastLocation;
-@property (nonatomic, strong) OWFeedSelectionViewController *feedSelector;
+
+- (void) didSelectFeedWithName:(NSString*)feedName type:(OWFeedType)type;
+@property (nonatomic, strong) NSString *selectedFeedString;
+@property (nonatomic) OWFeedType feedType;
 
 @end

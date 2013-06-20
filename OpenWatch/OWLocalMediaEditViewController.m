@@ -207,6 +207,7 @@
         [titleTextField removeFromSuperview];
     }
     self.titleTextField = [self textFieldWithDefaults];
+    self.titleTextField.keyboardType = UIKeyboardTypeTwitter;
     self.titleTextField.placeholder = WHAT_HAPPENED_LABEL_STRING;
     
     [self.scrollView addSubview:titleTextField];

@@ -149,7 +149,6 @@
 		D97EAAA71679354200A1B038 /* eye@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D97EAAA51679354200A1B038 /* eye@2x.png */; };
 		D97EAAAE16795B3000A1B038 /* list.png in Resources */ = {isa = PBXBuildFile; fileRef = D97EAAAC16795B3000A1B038 /* list.png */; };
 		D97EAAAF16795B3000A1B038 /* list@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D97EAAAD16795B3000A1B038 /* list@2x.png */; };
-		D97EAABB167A540900A1B038 /* OWFeedSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D97EAABA167A540900A1B038 /* OWFeedSelectionViewController.m */; };
 		D980EC8516B854E600ADD398 /* stone.png in Resources */ = {isa = PBXBuildFile; fileRef = D980EC8316B854E600ADD398 /* stone.png */; };
 		D980EC8616B854E600ADD398 /* stone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D980EC8416B854E600ADD398 /* stone@2x.png */; };
 		D980EC8B16B86BDD00ADD398 /* giant-eye-red@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D980EC8916B86BDD00ADD398 /* giant-eye-red@2x.png */; };
@@ -405,7 +404,6 @@
 		D9ECC0C6175FFCBB00A34DFE /* OWAutocompletionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D786DF1676665D006EE6A2 /* OWAutocompletionViewController.m */; };
 		D9ECC0C7175FFCBB00A34DFE /* OWFeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D7870C1677EDB0006EE6A2 /* OWFeedViewController.m */; };
 		D9ECC0C8175FFCBB00A34DFE /* OWMediaObjectTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D97EAAA0167911B100A1B038 /* OWMediaObjectTableViewCell.m */; };
-		D9ECC0C9175FFCBB00A34DFE /* OWFeedSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D97EAABA167A540900A1B038 /* OWFeedSelectionViewController.m */; };
 		D9ECC0CA175FFCBB00A34DFE /* OWLocalMediaEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9E72E59167FF6AD00C6CB75 /* OWLocalMediaEditViewController.m */; };
 		D9ECC0CB175FFCBB00A34DFE /* OWTallyView.m in Sources */ = {isa = PBXBuildFile; fileRef = D96677E916810B2A006F1815 /* OWTallyView.m */; };
 		D9ECC0CC175FFCBB00A34DFE /* _OWLocalRecording.m in Sources */ = {isa = PBXBuildFile; fileRef = D98FCB3216A4AA570071DF6B /* _OWLocalRecording.m */; };
@@ -868,8 +866,6 @@
 		D97EAAA51679354200A1B038 /* eye@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "eye@2x.png"; sourceTree = "<group>"; };
 		D97EAAAC16795B3000A1B038 /* list.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = list.png; sourceTree = "<group>"; };
 		D97EAAAD16795B3000A1B038 /* list@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "list@2x.png"; sourceTree = "<group>"; };
-		D97EAAB9167A540800A1B038 /* OWFeedSelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWFeedSelectionViewController.h; sourceTree = "<group>"; };
-		D97EAABA167A540900A1B038 /* OWFeedSelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWFeedSelectionViewController.m; sourceTree = "<group>"; };
 		D980EC8316B854E600ADD398 /* stone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stone.png; sourceTree = "<group>"; };
 		D980EC8416B854E600ADD398 /* stone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "stone@2x.png"; sourceTree = "<group>"; };
 		D980EC8916B86BDD00ADD398 /* giant-eye-red@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "giant-eye-red@2x.png"; sourceTree = "<group>"; };
@@ -1846,8 +1842,6 @@
 				D963C8511739C698008999F7 /* OWAudioRecordingViewController.m */,
 				D945D331173C9C0100D806BD /* OWTimerView.h */,
 				D945D332173C9C0100D806BD /* OWTimerView.m */,
-				D97EAAB9167A540800A1B038 /* OWFeedSelectionViewController.h */,
-				D97EAABA167A540900A1B038 /* OWFeedSelectionViewController.m */,
 				D9FF1A32173B03AF0076D214 /* OWPreviewView.h */,
 				D9FF1A33173B03AF0076D214 /* OWPreviewView.m */,
 				D9E72E58167FF6AC00C6CB75 /* OWLocalMediaEditViewController.h */,
@@ -2689,7 +2683,6 @@
 				D9D786E1167666C1006EE6A2 /* OWAutocompletionViewController.m in Sources */,
 				D9D7870D1677EDB0006EE6A2 /* OWFeedViewController.m in Sources */,
 				D97EAAA1167911B100A1B038 /* OWMediaObjectTableViewCell.m in Sources */,
-				D97EAABB167A540900A1B038 /* OWFeedSelectionViewController.m in Sources */,
 				D9E72E5A167FF6AE00C6CB75 /* OWLocalMediaEditViewController.m in Sources */,
 				D96677EA16810B2A006F1815 /* OWTallyView.m in Sources */,
 				D98FCB4116A4AA570071DF6B /* _OWLocalRecording.m in Sources */,
@@ -2854,7 +2847,6 @@
 				D9ECC0C6175FFCBB00A34DFE /* OWAutocompletionViewController.m in Sources */,
 				D9ECC0C7175FFCBB00A34DFE /* OWFeedViewController.m in Sources */,
 				D9ECC0C8175FFCBB00A34DFE /* OWMediaObjectTableViewCell.m in Sources */,
-				D9ECC0C9175FFCBB00A34DFE /* OWFeedSelectionViewController.m in Sources */,
 				D9ECC0CA175FFCBB00A34DFE /* OWLocalMediaEditViewController.m in Sources */,
 				D9ECC0CB175FFCBB00A34DFE /* OWTallyView.m in Sources */,
 				D9ECC0CC175FFCBB00A34DFE /* _OWLocalRecording.m in Sources */,

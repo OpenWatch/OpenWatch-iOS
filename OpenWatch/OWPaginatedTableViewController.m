@@ -19,6 +19,8 @@
 #import "OWShareController.h"
 #import "OWMapAnnotation.h"
 #import "OWMapViewController.h"
+#import "OWAppDelegate.h"
+#import "PKRevealController.h"
 
 #define kLoadingCellTag 31415
 
@@ -40,12 +42,45 @@
         self.tableView.backgroundColor = [OWUtilities stoneBackgroundPattern];
         currentPage = 0;
         
+        [self setupNavBar];
+
+        
         NSArray *objectTypes = @[[OWLocalMediaObject class], [OWLocalRecording class], [OWManagedRecording class], [OWPhoto class], [OWInvestigation class], [OWAudio class]];
         for (Class class in objectTypes) {
             [self.tableView registerClass:[class cellClass] forCellReuseIdentifier:[class cellIdentifier]];
         }
     }
     return self;
+}
+
+- (void) showLeftView:(id)sender {
+    if (self.navigationController.revealController.focusedController == self.navigationController.revealController.leftViewController) {
+        [self.navigationController.revealController showViewController:self.navigationController.revealController.frontViewController];
+    } else {
+        [self.navigationController.revealController showViewController:self.navigationController.revealController.leftViewController];
+    }
+}
+
+
+- (void) setupNavBar {
+    
+    self.title = WATCH_STRING;
+    UIImage *revealImagePortrait = [UIImage imageNamed:@"reveal_menu_icon_portrait"];
+    UIImage *revealImageLandscape = [UIImage imageNamed:@"reveal_menu_icon_landscape"];
+    
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:revealImagePortrait landscapeImagePhone:revealImageLandscape style:UIBarButtonItemStylePlain target:self action:@selector(showLeftView:)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"285-facetime.png"] style:UIBarButtonItemStylePlain target:self action:@selector(startRecording:)];
+    
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"openwatch.png"]];
+    imageView.frame = CGRectMake(0, 0, 140, 25);
+    imageView.contentMode = UIViewContentModeScaleAspectFit;
+    self.navigationItem.titleView = imageView;
+}
+
+
+- (void) startRecording:(id)sender {
+    OW_APP_DELEGATE.creationController.primaryTag = nil;
+    [OW_APP_DELEGATE.creationController recordVideoFromViewController:self];
 }
 
 - (void)viewDidLoad
