@@ -12,7 +12,7 @@
 #import "OWAccountAPIClient.h"
 
 @implementation OWMediaCreationController
-@synthesize audioRecorder, imagePicker, editController, presentingViewController;
+@synthesize imagePicker, editController, presentingViewController;
 @synthesize primaryTag;
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
@@ -46,7 +46,7 @@
     
     [presentingViewController.navigationController popToRootViewControllerAnimated:NO];
 }
-
+/*
 - (void) recordingViewController:(OWAudioRecordingViewController *)recordingViewController didFinishRecording:(OWAudio *)audio {
     OWLocationController *locationController = [OWLocationController sharedInstance];
     [locationController stop];
@@ -73,6 +73,7 @@
     }];
     [presentingViewController.navigationController popToRootViewControllerAnimated:NO];
 }
+ */
 
 - (void) captureViewController:(OWCaptureViewController *)captureViewController didFinishRecording:(OWLocalRecording *)recording {
     self.editController.objectID = recording.objectID;
@@ -86,6 +87,7 @@
     [presentingViewController.navigationController popToRootViewControllerAnimated:NO];
 }
 
+/*
 - (void) recordAudioFromViewController:(UIViewController *)viewController {
     self.presentingViewController = viewController;
     self.audioRecorder = [[OWAudioRecordingViewController alloc] init];
@@ -97,6 +99,7 @@
         [self pushEditView];
     }];
 }
+ */
 
 - (void) recordVideoFromViewController:(UIViewController *)viewController {
     self.presentingViewController = viewController;

@@ -19,8 +19,9 @@
 
 @protocol OWAudioRecordingDelegate <NSObject>
 @optional
-- (void) recordingViewController:(OWAudioRecordingViewController*)recordingViewController didFinishRecording:(OWAudio*)audio;
+/*- (void) recordingViewController:(OWAudioRecordingViewController*)recordingViewController didFinishRecording:(OWAudio*)audio;
 - (void) recordingViewControllerDidCancel:(OWAudioRecordingViewController*)recordingViewController;
+ */
 @end
 
 @interface OWAudioRecordingViewController : UIViewController

@@ -19,6 +19,7 @@
 #import "OWManagedRecording.h"
 #import "OWInvestigation.h"
 #import "OWPreviewView.h"
+#import "TTTTimeIntervalFormatter.h"
 
 #define PADDING 5.0f
 
@@ -28,7 +29,7 @@
 
 #define CONTENT_X_OFFSET 61.0f
 
-#define MORE_BUTTON_HEIGHT 17.0f
+#define MORE_BUTTON_HEIGHT 19.0f
 
 @implementation OWMediaObjectTableViewCell
 @synthesize mediaObjectID, titleLabel, userView, previewView, delegate, moreButton, locationLabel, dateLabel;
@@ -51,7 +52,6 @@
 - (void) setupLocationLabel {
     self.locationLabel = [[UILabel alloc] init];
     self.locationLabel.backgroundColor = [UIColor clearColor];
-    self.locationLabel.text = @"Waco, TX";
     [self.contentView addSubview:locationLabel];
 }
 
@@ -59,7 +59,6 @@
 - (void) setupDateLabel {
     self.dateLabel = [[UILabel alloc] init];
     self.dateLabel.backgroundColor = [UIColor clearColor];
-    self.dateLabel.text = @"5d";
     [self.contentView addSubview:dateLabel];
     
 }
@@ -73,7 +72,7 @@
     totalHeight += [self previewHeight] + PADDING;
     totalHeight += TITLE_LABEL_YOFFSET + PADDING;
     if (mediaObject.title.length > 0) {
-        totalHeight += [self heightForTitleLabelWithText:mediaObject.title] + PADDING;
+        totalHeight += [self heightForTitleLabelWithText:mediaObject.title];
     }
     totalHeight += MORE_BUTTON_HEIGHT + PADDING * 2;
     return totalHeight;
@@ -187,9 +186,15 @@
     NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
     OWMediaObject *mediaObject = (OWMediaObject*)[context existingObjectWithID:mediaObjectID error:nil];
     
+    TTTTimeIntervalFormatter *timeFormatter = [OWUtilities timeIntervalFormatter];
+    
     self.titleLabel.text = mediaObject.title;
     
+    self.locationLabel.text = @"Waco, TX";
+    self.dateLabel.text = [timeFormatter stringForTimeIntervalFromDate:[NSDate date] toDate:mediaObject.modifiedDate];
+    
     self.userView.user = mediaObject.user;
+    
     
     [self refreshFrames];
 }

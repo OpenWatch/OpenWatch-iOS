@@ -55,3 +55,6 @@
 [submodule "Submodules/STTweetLabel"]
 	path = Submodules/STTweetLabel
 	url = https://github.com/SebastienThiebaud/STTweetLabel.git
+[submodule "Submodules/FormatterKit"]
+	path = Submodules/FormatterKit
+	url = https://github.com/mattt/FormatterKit.git

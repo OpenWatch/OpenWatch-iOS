@@ -113,9 +113,10 @@
     [UserVoice presentUserVoiceInterfaceForParentViewController:self andConfig:config];
 }
 
+
 - (void) audioButtonPressed:(id)sender {
     OW_APP_DELEGATE.creationController.primaryTag = nil;
-    [OW_APP_DELEGATE.creationController recordAudioFromViewController:self];
+    //[OW_APP_DELEGATE.creationController recordAudioFromViewController:self];
 }
 
 - (void) recordButtonPressed:(id)sender {

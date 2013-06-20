@@ -9,21 +9,21 @@
 #import <Foundation/Foundation.h>
 #import "OWCaptureViewController.h"
 #import "OWLocationController.h"
-#import "OWAudioRecordingViewController.h"
+//#import "OWAudioRecordingViewController.h"
 #import "OWLocalMediaEditViewController.h"
 
-@interface OWMediaCreationController : NSObject <OWAudioRecordingDelegate, OWCaptureDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+@interface OWMediaCreationController : NSObject <OWCaptureDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @property (nonatomic, strong) UIViewController *presentingViewController;
 
 @property (nonatomic, strong) UIImagePickerController *imagePicker;
-@property (nonatomic, strong) OWAudioRecordingViewController *audioRecorder;
+//@property (nonatomic, strong) OWAudioRecordingViewController *audioRecorder;
 @property (nonatomic, strong) OWLocalMediaEditViewController *editController;
 
 @property (nonatomic, strong) NSString *primaryTag;
 
 - (void) takePhotoFromViewController:(UIViewController*)viewController;
-- (void) recordAudioFromViewController:(UIViewController*)viewController;
+//- (void) recordAudioFromViewController:(UIViewController*)viewController;
 - (void) recordVideoFromViewController:(UIViewController*)viewController;
 
 @end

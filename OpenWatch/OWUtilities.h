@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "WEPopoverController.h"
+#import "TTTTimeIntervalFormatter.h"
 
 @interface OWUtilities : NSObject
 
@@ -27,6 +28,7 @@
 
 + (NSDateFormatter*) utcDateFormatter;
 + (NSDateFormatter*) humanizedDateFormatter;
++ (TTTTimeIntervalFormatter*) timeIntervalFormatter;
 + (NSString*) apiBaseURLString;
 + (NSString*) captureBaseURLString;
 + (NSString*) websiteBaseURLString;

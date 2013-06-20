@@ -66,6 +66,15 @@
     return utcDateFormatter;
 }
 
++ (TTTTimeIntervalFormatter*) timeIntervalFormatter {
+    static TTTTimeIntervalFormatter *timeFormatter = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        timeFormatter = [[TTTTimeIntervalFormatter alloc] init];
+    });
+    return timeFormatter;
+}
+
 + (void) styleLabel:(UILabel*) label {
     label.textColor = [UIColor darkTextColor];
     label.shadowColor = [UIColor lightGrayColor];

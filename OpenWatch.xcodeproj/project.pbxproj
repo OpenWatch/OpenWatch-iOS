@@ -56,6 +56,13 @@
 		D91AC0371733021800823179 /* 86-camera@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D91AC02F1733021800823179 /* 86-camera@2x.png */; };
 		D91AC03A1733021800823179 /* 279-videocamera.png in Resources */ = {isa = PBXBuildFile; fileRef = D91AC0321733021800823179 /* 279-videocamera.png */; };
 		D91AC03B1733021800823179 /* 279-videocamera@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D91AC0331733021800823179 /* 279-videocamera@2x.png */; };
+		D922B1E017727C6A0072BE0E /* TTTAddressFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = D922B1D317727C6A0072BE0E /* TTTAddressFormatter.m */; };
+		D922B1E117727C6A0072BE0E /* TTTArrayFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = D922B1D517727C6A0072BE0E /* TTTArrayFormatter.m */; };
+		D922B1E217727C6A0072BE0E /* TTTLocationFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = D922B1D717727C6A0072BE0E /* TTTLocationFormatter.m */; };
+		D922B1E317727C6A0072BE0E /* TTTOrdinalNumberFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = D922B1D917727C6A0072BE0E /* TTTOrdinalNumberFormatter.m */; };
+		D922B1E417727C6A0072BE0E /* TTTTimeIntervalFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = D922B1DB17727C6A0072BE0E /* TTTTimeIntervalFormatter.m */; };
+		D922B1E517727C6A0072BE0E /* TTTUnitOfInformationFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = D922B1DD17727C6A0072BE0E /* TTTUnitOfInformationFormatter.m */; };
+		D922B1E617727C6A0072BE0E /* TTTURLRequestFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = D922B1DF17727C6A0072BE0E /* TTTURLRequestFormatter.m */; };
 		D926A10117397DDA00C89708 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D926A10017397DDA00C89708 /* AssetsLibrary.framework */; };
 		D926A1071739908D00C89708 /* OWLocalMediaObject.m in Sources */ = {isa = PBXBuildFile; fileRef = D926A1061739908D00C89708 /* OWLocalMediaObject.m */; };
 		D926A10F173990CD00C89708 /* _OWLocalMediaObject.m in Sources */ = {isa = PBXBuildFile; fileRef = D926A10C173990CD00C89708 /* _OWLocalMediaObject.m */; };
@@ -95,18 +102,8 @@
 		D93936D61741CC520070E164 /* NSData+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = D93936D51741CC520070E164 /* NSData+Hex.m */; };
 		D9397BC1165D95940093B3C8 /* OWLocationController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9397BC0165D95940093B3C8 /* OWLocationController.m */; };
 		D94499E116B0D19600A2225A /* OWPastelessTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = D94499E016B0D19600A2225A /* OWPastelessTextField.m */; };
-		D945D2FD173C6AF600D806BD /* libTheAmazingAudioEngine.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D945D2FA173C6ADF00D806BD /* libTheAmazingAudioEngine.a */; };
 		D945D2FF173C6B2700D806BD /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D945D2FE173C6B2600D806BD /* AudioToolbox.framework */; };
 		D945D301173C6B2A00D806BD /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D945D300173C6B2A00D806BD /* Accelerate.framework */; };
-		D945D31C173C6CAF00D806BD /* AEExpanderFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = D945D30B173C6CAF00D806BD /* AEExpanderFilter.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		D945D31D173C6CAF00D806BD /* AELimiter.m in Sources */ = {isa = PBXBuildFile; fileRef = D945D30D173C6CAF00D806BD /* AELimiter.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		D945D31E173C6CAF00D806BD /* AELimiterFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = D945D30F173C6CAF00D806BD /* AELimiterFilter.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		D945D31F173C6CAF00D806BD /* AEMixerBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = D945D311173C6CAF00D806BD /* AEMixerBuffer.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		D945D320173C6CAF00D806BD /* AEPlaythroughChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = D945D313173C6CAF00D806BD /* AEPlaythroughChannel.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		D945D321173C6CAF00D806BD /* AERecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = D945D315173C6CAF00D806BD /* AERecorder.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		D945D322173C6CAF00D806BD /* README.markdown in Resources */ = {isa = PBXBuildFile; fileRef = D945D317173C6CAF00D806BD /* README.markdown */; };
-		D945D323173C6CAF00D806BD /* TPCircularBuffer+AudioBufferList.c in Sources */ = {isa = PBXBuildFile; fileRef = D945D318173C6CAF00D806BD /* TPCircularBuffer+AudioBufferList.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		D945D324173C6CAF00D806BD /* TPCircularBuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = D945D31A173C6CAF00D806BD /* TPCircularBuffer.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		D945D32B173C91F600D806BD /* microphone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D945D32A173C91F600D806BD /* microphone@2x.png */; };
 		D945D32D173C92AD00D806BD /* red_dot@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D945D32C173C92AD00D806BD /* red_dot@2x.png */; };
 		D945D330173C931F00D806BD /* OWRecordingActivityIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = D945D32F173C931F00D806BD /* OWRecordingActivityIndicatorView.m */; };
@@ -137,7 +134,6 @@
 		D955371616B32E3C00753C15 /* 275-broadcast.png in Resources */ = {isa = PBXBuildFile; fileRef = D955371416B32E3C00753C15 /* 275-broadcast.png */; };
 		D955371716B32E3C00753C15 /* 275-broadcast@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D955371516B32E3C00753C15 /* 275-broadcast@2x.png */; };
 		D963C8281739C157008999F7 /* _OWPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = D963C8271739C157008999F7 /* _OWPhoto.m */; };
-		D963C8521739C698008999F7 /* OWAudioRecordingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D963C8511739C698008999F7 /* OWAudioRecordingViewController.m */; };
 		D963C8581739C856008999F7 /* OWAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = D963C8571739C856008999F7 /* OWAudio.m */; };
 		D963C85E1739CAB5008999F7 /* _OWAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = D963C85D1739CAB5008999F7 /* _OWAudio.m */; };
 		D963C8611739E459008999F7 /* OWLocalMediaController.m in Sources */ = {isa = PBXBuildFile; fileRef = D963C8601739E459008999F7 /* OWLocalMediaController.m */; };
@@ -452,14 +448,6 @@
 		D9ECC0F8175FFCBB00A34DFE /* _OWAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = D963C85D1739CAB5008999F7 /* _OWAudio.m */; };
 		D9ECC0F9175FFCBB00A34DFE /* OWLocalMediaController.m in Sources */ = {isa = PBXBuildFile; fileRef = D963C8601739E459008999F7 /* OWLocalMediaController.m */; };
 		D9ECC0FA175FFCBB00A34DFE /* OWPreviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9FF1A33173B03AF0076D214 /* OWPreviewView.m */; };
-		D9ECC0FB175FFCBB00A34DFE /* AEExpanderFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = D945D30B173C6CAF00D806BD /* AEExpanderFilter.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		D9ECC0FC175FFCBB00A34DFE /* AELimiter.m in Sources */ = {isa = PBXBuildFile; fileRef = D945D30D173C6CAF00D806BD /* AELimiter.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		D9ECC0FD175FFCBB00A34DFE /* AELimiterFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = D945D30F173C6CAF00D806BD /* AELimiterFilter.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		D9ECC0FE175FFCBB00A34DFE /* AEMixerBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = D945D311173C6CAF00D806BD /* AEMixerBuffer.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		D9ECC0FF175FFCBB00A34DFE /* AEPlaythroughChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = D945D313173C6CAF00D806BD /* AEPlaythroughChannel.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		D9ECC100175FFCBB00A34DFE /* AERecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = D945D315173C6CAF00D806BD /* AERecorder.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		D9ECC101175FFCBB00A34DFE /* TPCircularBuffer+AudioBufferList.c in Sources */ = {isa = PBXBuildFile; fileRef = D945D318173C6CAF00D806BD /* TPCircularBuffer+AudioBufferList.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		D9ECC102175FFCBB00A34DFE /* TPCircularBuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = D945D31A173C6CAF00D806BD /* TPCircularBuffer.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		D9ECC103175FFCBB00A34DFE /* OWRecordingActivityIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = D945D32F173C931F00D806BD /* OWRecordingActivityIndicatorView.m */; };
 		D9ECC104175FFCBB00A34DFE /* OWTimerView.m in Sources */ = {isa = PBXBuildFile; fileRef = D945D332173C9C0100D806BD /* OWTimerView.m */; };
 		D9ECC105175FFCBB00A34DFE /* OWCharacterCountdownView.m in Sources */ = {isa = PBXBuildFile; fileRef = D98F4883173DC02D00BBE80E /* OWCharacterCountdownView.m */; };
@@ -490,7 +478,6 @@
 		D9ECC11F175FFCBB00A34DFE /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9E42C5F17417DB800CA524F /* CoreText.framework */; };
 		D9ECC120175FFCBB00A34DFE /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D945D300173C6B2A00D806BD /* Accelerate.framework */; };
 		D9ECC121175FFCBB00A34DFE /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D945D2FE173C6B2600D806BD /* AudioToolbox.framework */; };
-		D9ECC122175FFCBB00A34DFE /* libTheAmazingAudioEngine.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D945D2FA173C6ADF00D806BD /* libTheAmazingAudioEngine.a */; };
 		D9ECC123175FFCBB00A34DFE /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D926A10017397DDA00C89708 /* AssetsLibrary.framework */; };
 		D9ECC124175FFCBB00A34DFE /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D92B6A7F16AF52B2006605E1 /* QuartzCore.framework */; };
 		D9ECC125175FFCBB00A34DFE /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D9CEED18168271C700B236B5 /* libz.dylib */; };
@@ -583,7 +570,6 @@
 		D9ECC17D175FFCBB00A34DFE /* 285-facetime@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9D8677317348083008C8CE6 /* 285-facetime@2x.png */; };
 		D9ECC17E175FFCBB00A34DFE /* 28-star.png in Resources */ = {isa = PBXBuildFile; fileRef = D9D8677D17348547008C8CE6 /* 28-star.png */; };
 		D9ECC17F175FFCBB00A34DFE /* 28-star@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9D8677E17348547008C8CE6 /* 28-star@2x.png */; };
-		D9ECC180175FFCBB00A34DFE /* README.markdown in Resources */ = {isa = PBXBuildFile; fileRef = D945D317173C6CAF00D806BD /* README.markdown */; };
 		D9ECC181175FFCBB00A34DFE /* microphone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D945D32A173C91F600D806BD /* microphone@2x.png */; };
 		D9ECC182175FFCBB00A34DFE /* red_dot@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D945D32C173C92AD00D806BD /* red_dot@2x.png */; };
 		D9ECC183175FFCBB00A34DFE /* TUSafariActivity.strings in Resources */ = {isa = PBXBuildFile; fileRef = D9E42C311741778B00CA524F /* TUSafariActivity.strings */; };
@@ -667,20 +653,6 @@
 			remoteGlobalIDString = D2AAC07D0554694100DB518D;
 			remoteInfo = UserVoice;
 		};
-		D945D2F9173C6ADF00D806BD /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D945D2F5173C6ADF00D806BD /* TheAmazingAudioEngine.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 4C215CEC1523A7D500D36CAD;
-			remoteInfo = TheAmazingAudioEngine;
-		};
-		D945D2FB173C6AEB00D806BD /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D945D2F5173C6ADF00D806BD /* TheAmazingAudioEngine.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 4C215CEB1523A7D500D36CAD;
-			remoteInfo = TheAmazingAudioEngine;
-		};
 		D98FCB4A16A4AABE0071DF6B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D99741681651D42E0034ABB0 /* Project object */;
@@ -701,13 +673,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = D2AAC07D0554694100DB518D;
 			remoteInfo = UserVoice;
-		};
-		D9ECC080175FFCBB00A34DFE /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D945D2F5173C6ADF00D806BD /* TheAmazingAudioEngine.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 4C215CEB1523A7D500D36CAD;
-			remoteInfo = TheAmazingAudioEngine;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -764,6 +729,20 @@
 		D91AC0311733021800823179 /* 275-broadcast@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "275-broadcast@2x.png"; sourceTree = "<group>"; };
 		D91AC0321733021800823179 /* 279-videocamera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "279-videocamera.png"; sourceTree = "<group>"; };
 		D91AC0331733021800823179 /* 279-videocamera@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "279-videocamera@2x.png"; sourceTree = "<group>"; };
+		D922B1D217727C6A0072BE0E /* TTTAddressFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTAddressFormatter.h; sourceTree = "<group>"; };
+		D922B1D317727C6A0072BE0E /* TTTAddressFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTAddressFormatter.m; sourceTree = "<group>"; };
+		D922B1D417727C6A0072BE0E /* TTTArrayFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTArrayFormatter.h; sourceTree = "<group>"; };
+		D922B1D517727C6A0072BE0E /* TTTArrayFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTArrayFormatter.m; sourceTree = "<group>"; };
+		D922B1D617727C6A0072BE0E /* TTTLocationFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTLocationFormatter.h; sourceTree = "<group>"; };
+		D922B1D717727C6A0072BE0E /* TTTLocationFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTLocationFormatter.m; sourceTree = "<group>"; };
+		D922B1D817727C6A0072BE0E /* TTTOrdinalNumberFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTOrdinalNumberFormatter.h; sourceTree = "<group>"; };
+		D922B1D917727C6A0072BE0E /* TTTOrdinalNumberFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTOrdinalNumberFormatter.m; sourceTree = "<group>"; };
+		D922B1DA17727C6A0072BE0E /* TTTTimeIntervalFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTTimeIntervalFormatter.h; sourceTree = "<group>"; };
+		D922B1DB17727C6A0072BE0E /* TTTTimeIntervalFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTTimeIntervalFormatter.m; sourceTree = "<group>"; };
+		D922B1DC17727C6A0072BE0E /* TTTUnitOfInformationFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTUnitOfInformationFormatter.h; sourceTree = "<group>"; };
+		D922B1DD17727C6A0072BE0E /* TTTUnitOfInformationFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTUnitOfInformationFormatter.m; sourceTree = "<group>"; };
+		D922B1DE17727C6A0072BE0E /* TTTURLRequestFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTURLRequestFormatter.h; sourceTree = "<group>"; };
+		D922B1DF17727C6A0072BE0E /* TTTURLRequestFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTURLRequestFormatter.m; sourceTree = "<group>"; };
 		D926A10017397DDA00C89708 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		D926A1051739908D00C89708 /* OWLocalMediaObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWLocalMediaObject.h; sourceTree = "<group>"; };
 		D926A1061739908D00C89708 /* OWLocalMediaObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWLocalMediaObject.m; sourceTree = "<group>"; };
@@ -818,26 +797,8 @@
 		D9397BC0165D95940093B3C8 /* OWLocationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWLocationController.m; sourceTree = "<group>"; };
 		D94499DF16B0D19600A2225A /* OWPastelessTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWPastelessTextField.h; sourceTree = "<group>"; };
 		D94499E016B0D19600A2225A /* OWPastelessTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWPastelessTextField.m; sourceTree = "<group>"; };
-		D945D2F5173C6ADF00D806BD /* TheAmazingAudioEngine.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = TheAmazingAudioEngine.xcodeproj; path = TheAmazingAudioEngine/TheAmazingAudioEngine.xcodeproj; sourceTree = "<group>"; };
 		D945D2FE173C6B2600D806BD /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		D945D300173C6B2A00D806BD /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
-		D945D30A173C6CAF00D806BD /* AEExpanderFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AEExpanderFilter.h; sourceTree = "<group>"; };
-		D945D30B173C6CAF00D806BD /* AEExpanderFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AEExpanderFilter.m; sourceTree = "<group>"; };
-		D945D30C173C6CAF00D806BD /* AELimiter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AELimiter.h; sourceTree = "<group>"; };
-		D945D30D173C6CAF00D806BD /* AELimiter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AELimiter.m; sourceTree = "<group>"; };
-		D945D30E173C6CAF00D806BD /* AELimiterFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AELimiterFilter.h; sourceTree = "<group>"; };
-		D945D30F173C6CAF00D806BD /* AELimiterFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AELimiterFilter.m; sourceTree = "<group>"; };
-		D945D310173C6CAF00D806BD /* AEMixerBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AEMixerBuffer.h; sourceTree = "<group>"; };
-		D945D311173C6CAF00D806BD /* AEMixerBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AEMixerBuffer.m; sourceTree = "<group>"; };
-		D945D312173C6CAF00D806BD /* AEPlaythroughChannel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AEPlaythroughChannel.h; sourceTree = "<group>"; };
-		D945D313173C6CAF00D806BD /* AEPlaythroughChannel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AEPlaythroughChannel.m; sourceTree = "<group>"; };
-		D945D314173C6CAF00D806BD /* AERecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AERecorder.h; sourceTree = "<group>"; };
-		D945D315173C6CAF00D806BD /* AERecorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AERecorder.m; sourceTree = "<group>"; };
-		D945D317173C6CAF00D806BD /* README.markdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.markdown; sourceTree = "<group>"; };
-		D945D318173C6CAF00D806BD /* TPCircularBuffer+AudioBufferList.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "TPCircularBuffer+AudioBufferList.c"; sourceTree = "<group>"; };
-		D945D319173C6CAF00D806BD /* TPCircularBuffer+AudioBufferList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TPCircularBuffer+AudioBufferList.h"; sourceTree = "<group>"; };
-		D945D31A173C6CAF00D806BD /* TPCircularBuffer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = TPCircularBuffer.c; sourceTree = "<group>"; };
-		D945D31B173C6CAF00D806BD /* TPCircularBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPCircularBuffer.h; sourceTree = "<group>"; };
 		D945D32A173C91F600D806BD /* microphone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "microphone@2x.png"; sourceTree = "<group>"; };
 		D945D32C173C92AD00D806BD /* red_dot@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "red_dot@2x.png"; sourceTree = "<group>"; };
 		D945D32E173C931F00D806BD /* OWRecordingActivityIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWRecordingActivityIndicatorView.h; sourceTree = "<group>"; };
@@ -1246,7 +1207,6 @@
 				D9E42C6017417DB800CA524F /* CoreText.framework in Frameworks */,
 				D945D301173C6B2A00D806BD /* Accelerate.framework in Frameworks */,
 				D945D2FF173C6B2700D806BD /* AudioToolbox.framework in Frameworks */,
-				D945D2FD173C6AF600D806BD /* libTheAmazingAudioEngine.a in Frameworks */,
 				D926A10117397DDA00C89708 /* AssetsLibrary.framework in Frameworks */,
 				D92B6A8016AF52B2006605E1 /* QuartzCore.framework in Frameworks */,
 				D9CEED19168271C700B236B5 /* libz.dylib in Frameworks */,
@@ -1284,7 +1244,6 @@
 				D9ECC11F175FFCBB00A34DFE /* CoreText.framework in Frameworks */,
 				D9ECC120175FFCBB00A34DFE /* Accelerate.framework in Frameworks */,
 				D9ECC121175FFCBB00A34DFE /* AudioToolbox.framework in Frameworks */,
-				D9ECC122175FFCBB00A34DFE /* libTheAmazingAudioEngine.a in Frameworks */,
 				D9ECC123175FFCBB00A34DFE /* AssetsLibrary.framework in Frameworks */,
 				D9ECC124175FFCBB00A34DFE /* QuartzCore.framework in Frameworks */,
 				D9ECC125175FFCBB00A34DFE /* libz.dylib in Frameworks */,
@@ -1387,6 +1346,28 @@
 			path = "UserVoice-SDK/Resources";
 			sourceTree = "<group>";
 		};
+		D922B1D117727C6A0072BE0E /* FormatterKit */ = {
+			isa = PBXGroup;
+			children = (
+				D922B1D217727C6A0072BE0E /* TTTAddressFormatter.h */,
+				D922B1D317727C6A0072BE0E /* TTTAddressFormatter.m */,
+				D922B1D417727C6A0072BE0E /* TTTArrayFormatter.h */,
+				D922B1D517727C6A0072BE0E /* TTTArrayFormatter.m */,
+				D922B1D617727C6A0072BE0E /* TTTLocationFormatter.h */,
+				D922B1D717727C6A0072BE0E /* TTTLocationFormatter.m */,
+				D922B1D817727C6A0072BE0E /* TTTOrdinalNumberFormatter.h */,
+				D922B1D917727C6A0072BE0E /* TTTOrdinalNumberFormatter.m */,
+				D922B1DA17727C6A0072BE0E /* TTTTimeIntervalFormatter.h */,
+				D922B1DB17727C6A0072BE0E /* TTTTimeIntervalFormatter.m */,
+				D922B1DC17727C6A0072BE0E /* TTTUnitOfInformationFormatter.h */,
+				D922B1DD17727C6A0072BE0E /* TTTUnitOfInformationFormatter.m */,
+				D922B1DE17727C6A0072BE0E /* TTTURLRequestFormatter.h */,
+				D922B1DF17727C6A0072BE0E /* TTTURLRequestFormatter.m */,
+			);
+			name = FormatterKit;
+			path = FormatterKit/FormatterKit;
+			sourceTree = "<group>";
+		};
 		D92B6A6516AF4FD3006605E1 /* EGOTableViewPullRefresh */ = {
 			isa = PBXGroup;
 			children = (
@@ -1448,56 +1429,6 @@
 				D93936D51741CC520070E164 /* NSData+Hex.m */,
 			);
 			name = Utilities;
-			sourceTree = "<group>";
-		};
-		D945D2F6173C6ADF00D806BD /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				D945D2FA173C6ADF00D806BD /* libTheAmazingAudioEngine.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		D945D302173C6C0F00D806BD /* The Amazing Audio Engine */ = {
-			isa = PBXGroup;
-			children = (
-				D945D309173C6CAF00D806BD /* Modules */,
-				D945D2F5173C6ADF00D806BD /* TheAmazingAudioEngine.xcodeproj */,
-			);
-			name = "The Amazing Audio Engine";
-			sourceTree = "<group>";
-		};
-		D945D309173C6CAF00D806BD /* Modules */ = {
-			isa = PBXGroup;
-			children = (
-				D945D30A173C6CAF00D806BD /* AEExpanderFilter.h */,
-				D945D30B173C6CAF00D806BD /* AEExpanderFilter.m */,
-				D945D30C173C6CAF00D806BD /* AELimiter.h */,
-				D945D30D173C6CAF00D806BD /* AELimiter.m */,
-				D945D30E173C6CAF00D806BD /* AELimiterFilter.h */,
-				D945D30F173C6CAF00D806BD /* AELimiterFilter.m */,
-				D945D310173C6CAF00D806BD /* AEMixerBuffer.h */,
-				D945D311173C6CAF00D806BD /* AEMixerBuffer.m */,
-				D945D312173C6CAF00D806BD /* AEPlaythroughChannel.h */,
-				D945D313173C6CAF00D806BD /* AEPlaythroughChannel.m */,
-				D945D314173C6CAF00D806BD /* AERecorder.h */,
-				D945D315173C6CAF00D806BD /* AERecorder.m */,
-				D945D316173C6CAF00D806BD /* TPCircularBuffer */,
-			);
-			name = Modules;
-			path = TheAmazingAudioEngine/Modules;
-			sourceTree = "<group>";
-		};
-		D945D316173C6CAF00D806BD /* TPCircularBuffer */ = {
-			isa = PBXGroup;
-			children = (
-				D945D317173C6CAF00D806BD /* README.markdown */,
-				D945D318173C6CAF00D806BD /* TPCircularBuffer+AudioBufferList.c */,
-				D945D319173C6CAF00D806BD /* TPCircularBuffer+AudioBufferList.h */,
-				D945D31A173C6CAF00D806BD /* TPCircularBuffer.c */,
-				D945D31B173C6CAF00D806BD /* TPCircularBuffer.h */,
-			);
-			path = TPCircularBuffer;
 			sourceTree = "<group>";
 		};
 		D95BD80A16B06738002C43A5 /* Media View */ = {
@@ -1746,11 +1677,11 @@
 		D9D2E1501652EA8A0000E7C5 /* Submodules */ = {
 			isa = PBXGroup;
 			children = (
+				D922B1D117727C6A0072BE0E /* FormatterKit */,
 				D90722F3177121490055B36D /* STTweetLabel */,
 				D909C2EB1742CE9B005930A7 /* UserVoice */,
 				D909C2CD1742B11D005930A7 /* BButton */,
 				D9E42C301741778B00CA524F /* TUSafariActivity */,
-				D945D302173C6C0F00D806BD /* The Amazing Audio Engine */,
 				D9A6D9CF1731D03400C1488A /* BSKeyboardControls */,
 				D9C10A9E17568DCA00C98EC3 /* JSBadgeView */,
 				D92B6AD516AFBA82006605E1 /* DWTagList */,
@@ -2266,7 +2197,6 @@
 			dependencies = (
 				D98FCB4B16A4AABE0071DF6B /* PBXTargetDependency */,
 				D909C2E61742C680005930A7 /* PBXTargetDependency */,
-				D945D2FC173C6AEB00D806BD /* PBXTargetDependency */,
 			);
 			name = OpenWatch;
 			productName = OpenWatch;
@@ -2286,7 +2216,6 @@
 			dependencies = (
 				D9ECC07B175FFCBB00A34DFE /* PBXTargetDependency */,
 				D9ECC07D175FFCBB00A34DFE /* PBXTargetDependency */,
-				D9ECC07F175FFCBB00A34DFE /* PBXTargetDependency */,
 			);
 			name = OccupyGezi;
 			productName = OpenWatch;
@@ -2336,10 +2265,6 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = D945D2F6173C6ADF00D806BD /* Products */;
-					ProjectRef = D945D2F5173C6ADF00D806BD /* TheAmazingAudioEngine.xcodeproj */;
-				},
-				{
 					ProductGroup = D909C2E01742C675005930A7 /* Products */;
 					ProjectRef = D909C2DF1742C675005930A7 /* UserVoice.xcodeproj */;
 				},
@@ -2359,13 +2284,6 @@
 			fileType = archive.ar;
 			path = libUserVoice.a;
 			remoteRef = D909C2E31742C675005930A7 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		D945D2FA173C6ADF00D806BD /* libTheAmazingAudioEngine.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libTheAmazingAudioEngine.a;
-			remoteRef = D945D2F9173C6ADF00D806BD /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -2444,7 +2362,6 @@
 				D9D8677B17348083008C8CE6 /* 285-facetime@2x.png in Resources */,
 				D9D8677F17348547008C8CE6 /* 28-star.png in Resources */,
 				D9D8678017348547008C8CE6 /* 28-star@2x.png in Resources */,
-				D945D322173C6CAF00D806BD /* README.markdown in Resources */,
 				D945D32B173C91F600D806BD /* microphone@2x.png in Resources */,
 				D945D32D173C92AD00D806BD /* red_dot@2x.png in Resources */,
 				D9E42C4B1741778B00CA524F /* TUSafariActivity.strings in Resources */,
@@ -2580,7 +2497,6 @@
 				D9ECC17D175FFCBB00A34DFE /* 285-facetime@2x.png in Resources */,
 				D9ECC17E175FFCBB00A34DFE /* 28-star.png in Resources */,
 				D9ECC17F175FFCBB00A34DFE /* 28-star@2x.png in Resources */,
-				D9ECC180175FFCBB00A34DFE /* README.markdown in Resources */,
 				D9ECC181175FFCBB00A34DFE /* microphone@2x.png in Resources */,
 				D9ECC182175FFCBB00A34DFE /* red_dot@2x.png in Resources */,
 				D9ECC183175FFCBB00A34DFE /* TUSafariActivity.strings in Resources */,
@@ -2780,19 +2696,10 @@
 				D926A10F173990CD00C89708 /* _OWLocalMediaObject.m in Sources */,
 				D96D4EDE1739C0CC00FE17E2 /* OWPhoto.m in Sources */,
 				D963C8281739C157008999F7 /* _OWPhoto.m in Sources */,
-				D963C8521739C698008999F7 /* OWAudioRecordingViewController.m in Sources */,
 				D963C8581739C856008999F7 /* OWAudio.m in Sources */,
 				D963C85E1739CAB5008999F7 /* _OWAudio.m in Sources */,
 				D963C8611739E459008999F7 /* OWLocalMediaController.m in Sources */,
 				D9FF1A34173B03AF0076D214 /* OWPreviewView.m in Sources */,
-				D945D31C173C6CAF00D806BD /* AEExpanderFilter.m in Sources */,
-				D945D31D173C6CAF00D806BD /* AELimiter.m in Sources */,
-				D945D31E173C6CAF00D806BD /* AELimiterFilter.m in Sources */,
-				D945D31F173C6CAF00D806BD /* AEMixerBuffer.m in Sources */,
-				D945D320173C6CAF00D806BD /* AEPlaythroughChannel.m in Sources */,
-				D945D321173C6CAF00D806BD /* AERecorder.m in Sources */,
-				D945D323173C6CAF00D806BD /* TPCircularBuffer+AudioBufferList.c in Sources */,
-				D945D324173C6CAF00D806BD /* TPCircularBuffer.c in Sources */,
 				D945D330173C931F00D806BD /* OWRecordingActivityIndicatorView.m in Sources */,
 				D945D333173C9C0200D806BD /* OWTimerView.m in Sources */,
 				D98F4884173DC02D00BBE80E /* OWCharacterCountdownView.m in Sources */,
@@ -2822,6 +2729,13 @@
 				D93101D0176FED8A008939C3 /* OWVideoCell.m in Sources */,
 				D93101D3176FEE3E008939C3 /* OWThumbnailCell.m in Sources */,
 				D90722F6177121490055B36D /* STTweetLabel.m in Sources */,
+				D922B1E017727C6A0072BE0E /* TTTAddressFormatter.m in Sources */,
+				D922B1E117727C6A0072BE0E /* TTTArrayFormatter.m in Sources */,
+				D922B1E217727C6A0072BE0E /* TTTLocationFormatter.m in Sources */,
+				D922B1E317727C6A0072BE0E /* TTTOrdinalNumberFormatter.m in Sources */,
+				D922B1E417727C6A0072BE0E /* TTTTimeIntervalFormatter.m in Sources */,
+				D922B1E517727C6A0072BE0E /* TTTUnitOfInformationFormatter.m in Sources */,
+				D922B1E617727C6A0072BE0E /* TTTURLRequestFormatter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2949,14 +2863,6 @@
 				D9ECC0F8175FFCBB00A34DFE /* _OWAudio.m in Sources */,
 				D9ECC0F9175FFCBB00A34DFE /* OWLocalMediaController.m in Sources */,
 				D9ECC0FA175FFCBB00A34DFE /* OWPreviewView.m in Sources */,
-				D9ECC0FB175FFCBB00A34DFE /* AEExpanderFilter.m in Sources */,
-				D9ECC0FC175FFCBB00A34DFE /* AELimiter.m in Sources */,
-				D9ECC0FD175FFCBB00A34DFE /* AELimiterFilter.m in Sources */,
-				D9ECC0FE175FFCBB00A34DFE /* AEMixerBuffer.m in Sources */,
-				D9ECC0FF175FFCBB00A34DFE /* AEPlaythroughChannel.m in Sources */,
-				D9ECC100175FFCBB00A34DFE /* AERecorder.m in Sources */,
-				D9ECC101175FFCBB00A34DFE /* TPCircularBuffer+AudioBufferList.c in Sources */,
-				D9ECC102175FFCBB00A34DFE /* TPCircularBuffer.c in Sources */,
 				D9ECC103175FFCBB00A34DFE /* OWRecordingActivityIndicatorView.m in Sources */,
 				D9ECC104175FFCBB00A34DFE /* OWTimerView.m in Sources */,
 				D9ECC105175FFCBB00A34DFE /* OWCharacterCountdownView.m in Sources */,
@@ -2993,11 +2899,6 @@
 			name = UserVoice;
 			targetProxy = D909C2E51742C680005930A7 /* PBXContainerItemProxy */;
 		};
-		D945D2FC173C6AEB00D806BD /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = TheAmazingAudioEngine;
-			targetProxy = D945D2FB173C6AEB00D806BD /* PBXContainerItemProxy */;
-		};
 		D98FCB4B16A4AABE0071DF6B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = D944DA9416A4A8ED00BC8E57 /* Mogenerator */;
@@ -3012,11 +2913,6 @@
 			isa = PBXTargetDependency;
 			name = UserVoice;
 			targetProxy = D9ECC07E175FFCBB00A34DFE /* PBXContainerItemProxy */;
-		};
-		D9ECC07F175FFCBB00A34DFE /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = TheAmazingAudioEngine;
-			targetProxy = D9ECC080175FFCBB00A34DFE /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
