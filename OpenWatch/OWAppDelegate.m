@@ -17,9 +17,11 @@
 #import "OWMissionListViewController.h"
 #import "OWMissionViewController.h"
 #import "OWMission.h"
+#import "PKRevealController.h"
+
 
 @implementation OWAppDelegate
-@synthesize navigationController, locationController, dashboardViewController, backgroundTask, backgroundTimer, allowRotation, creationController;
+@synthesize locationController, dashboardViewController, backgroundTask, backgroundTimer, allowRotation, creationController, revealController, feedViewController, navigationController;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -29,6 +31,8 @@
 //#endif
 //#ifndef DEBUG
     [TestFlight takeOff:TESTFLIGHT_APP_TOKEN];
+    [MagicalRecord setupAutoMigratingCoreDataStack];
+
 //#endif
     self.allowRotation = NO;
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
@@ -36,31 +40,34 @@
     self.window.backgroundColor = [OWUtilities stoneBackgroundPattern];
     self.locationController = [[OWLocationController alloc] init];
      
-    //self.homeScreen = [[OWHomeScreenViewController alloc] init];
     self.dashboardViewController = [[OWDashboardViewController alloc] init];
-    
-    OWSettingsController *settingsController = [OWSettingsController sharedInstance];
-    OWAccount *account = settingsController.account;
-    UIViewController *vc = nil;
-    if ([account isLoggedIn]) {
-        vc = dashboardViewController;
-    } else {
-        OWFancyLoginViewController *fancy = [[OWFancyLoginViewController alloc] init];
-        vc = fancy;
-    }
+
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moviePlayerWillEnterFullscreenNotification:) name:MPMoviePlayerWillEnterFullscreenNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moviePlayerWillExitFullscreenNotification:) name:MPMoviePlayerWillExitFullscreenNotification object:nil];
     
     
-    self.navigationController = [[UINavigationController alloc] initWithRootViewController:vc];
     [[UINavigationBar appearance] setTitleTextAttributes:
      @{UITextAttributeTextColor : [UIColor blackColor], UITextAttributeTextShadowColor: [UIColor whiteColor], UITextAttributeFont: [UIFont systemFontOfSize:0]}];
     [[UINavigationBar appearance] setBackgroundImage:[OWUtilities navigationBarBackgroundImage] forBarMetrics:UIBarMetricsDefault];
     [[UINavigationBar appearance] setTintColor:[OWUtilities navigationBarColor]];
-    self.window.rootViewController = navigationController;
+    
+    self.feedViewController = [[OWFeedViewController alloc] init];
+    
+    OWSettingsController *settingsController = [OWSettingsController sharedInstance];
+    OWAccount *account = settingsController.account;
+    self.navigationController = [[UINavigationController alloc] init];
+    if ([account isLoggedIn]) {
+        navigationController.viewControllers = @[feedViewController];
+    } else {
+        OWFancyLoginViewController *fancy = [[OWFancyLoginViewController alloc] init];
+        navigationController.viewControllers = @[fancy];
+    }
+    
+    self.revealController = [PKRevealController revealControllerWithFrontViewController:navigationController leftViewController:dashboardViewController options:nil];
+    
+    self.window.rootViewController = revealController;
     self.creationController = [[OWMediaCreationController alloc] init];
-    [MagicalRecord setupAutoMigratingCoreDataStack];
     [self.window makeKeyAndVisible];
     return YES;
 }

@@ -20,6 +20,8 @@
 #import "OWMediaObjectViewController.h"
 #import "OWPhoto.h"
 #import "OWAudio.h"
+#import "PKRevealController.h"
+#import "OWAppDelegate.h"
 
 @interface OWFeedViewController ()
 @end
@@ -35,13 +37,33 @@
     self = [super init];
     if (self) {
         self.objectIDs = [NSMutableArray array];
-        self.title = WATCH_STRING;
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"list.png"] style:UIBarButtonItemStylePlain target:self action:@selector(feedSelectionButtonPressed:)];
+        [self setupNavBar];
+        
         self.feedSelector = [[OWFeedSelectionViewController alloc] init];
         self.tableView.allowsSelection = NO;
         feedSelector.delegate = self;
     }
     return self;
+}
+
+- (void) setupNavBar {
+    
+    self.title = WATCH_STRING;
+    UIImage *revealImagePortrait = [UIImage imageNamed:@"reveal_menu_icon_portrait"];
+    UIImage *revealImageLandscape = [UIImage imageNamed:@"reveal_menu_icon_landscape"];
+    
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:revealImagePortrait landscapeImagePhone:revealImageLandscape style:UIBarButtonItemStylePlain target:self action:@selector(showLeftView:)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"285-facetime.png"] style:UIBarButtonItemStylePlain target:self action:@selector(startRecording:)];
+
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"openwatch.png"]];
+    imageView.frame = CGRectMake(0, 0, 140, 25);
+    imageView.contentMode = UIViewContentModeScaleAspectFit;
+    self.navigationItem.titleView = imageView;
+}
+
+- (void) startRecording:(id)sender {
+    OW_APP_DELEGATE.creationController.primaryTag = nil;
+    [OW_APP_DELEGATE.creationController recordVideoFromViewController:self];
 }
 
 - (void) locationUpdated:(CLLocation *)location {
@@ -139,6 +161,9 @@
 - (void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [TestFlight passCheckpoint:WATCH_CHECKPOINT];
+    if (self.feedType == kOWFeedTypeNone) {
+        [self didSelectFeedWithName:nil type:kOWFeedTypeFrontPage];
+    }
 }
 
 - (void) viewWillDisappear:(BOOL)animated {
@@ -175,6 +200,14 @@
     if (vc) {
         vc.mediaObjectID = mediaObjectID;
         [self.navigationController pushViewController:vc animated:YES];
+    }
+}
+
+- (void) showLeftView:(id)sender {
+    if (self.navigationController.revealController.focusedController == self.navigationController.revealController.leftViewController) {
+        [self.navigationController.revealController showViewController:self.navigationController.revealController.frontViewController];
+    } else {
+        [self.navigationController.revealController showViewController:self.navigationController.revealController.leftViewController];
     }
 }
 

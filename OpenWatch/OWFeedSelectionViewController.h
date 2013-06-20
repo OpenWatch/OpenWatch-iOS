@@ -10,6 +10,7 @@
 #import "WEPopoverController.h"
 
 typedef enum {
+    kOWFeedTypeNone = 0,
     kOWFeedTypeFeed = 1,
     kOWFeedTypeFrontPage = 2,
     kOWFeedTypeMissions = 3,

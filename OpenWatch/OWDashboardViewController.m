@@ -163,12 +163,6 @@
     [self updateUserAccountInformation];
     
     self.view.backgroundColor = [OWUtilities stoneBackgroundPattern];
-    
-    
-    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"openwatch.png"]];
-    imageView.frame = CGRectMake(0, 0, 140, 25);
-    imageView.contentMode = UIViewContentModeScaleAspectFit;
-    self.navigationItem.titleView = imageView;
 }
 
 - (void)didReceiveMemoryWarning

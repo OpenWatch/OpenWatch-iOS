@@ -58,3 +58,6 @@
 [submodule "Submodules/FormatterKit"]
 	path = Submodules/FormatterKit
 	url = https://github.com/mattt/FormatterKit.git
+[submodule "Submodules/PKRevealController"]
+	path = Submodules/PKRevealController
+	url = https://github.com/pkluz/PKRevealController.git

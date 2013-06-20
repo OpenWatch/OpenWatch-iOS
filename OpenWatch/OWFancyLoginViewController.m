@@ -16,6 +16,7 @@
 #import "BButton.h"
 #import "OWConstants.h"
 #import "OWStrings.h"
+#import "OWFeedViewController.h"
 
 #define kOffsetWithPassword 208
 #define kOffset 145
@@ -237,7 +238,7 @@
         account.password = password;
         [[OWAccountAPIClient sharedClient] loginWithAccount:account success:^{
             [self setProcessingLogin:NO];
-            [self showDashboardScreen];
+            [self showHomeScreen];
         } failure:^(NSString *reason) {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LOGIN_ERROR_STRING message:CHECK_CREDENTIALS_STRING delegate:nil cancelButtonTitle:OK_STRING otherButtonTitles:nil];
             [alert show];
@@ -249,7 +250,7 @@
                 [[OWAccountAPIClient sharedClient] quickSignupWithAccount:account callback:^(BOOL success) {
                     [self setProcessingLogin:NO];
                     if (success) {
-                        [self showDashboardScreen];
+                        [self showHomeScreen];
                     }
                 }];
             } else {
@@ -260,9 +261,9 @@
     }
 }
 
-- (void) showDashboardScreen {
-    OWDashboardViewController *dashboardVC = OW_APP_DELEGATE.dashboardViewController;
-    [self.navigationController setViewControllers:@[dashboardVC] animated:YES];
+- (void) showHomeScreen {
+    OWFeedViewController *feedView = OW_APP_DELEGATE.feedViewController;
+    [self.navigationController setViewControllers:@[feedView] animated:YES];
 }
 
 - (void)didReceiveMemoryWarning

@@ -192,8 +192,20 @@
     
     if (mediaObject.metroCode) {
         self.locationLabel.text = mediaObject.metroCode;
+    } else {
+        self.locationLabel.text = nil;
     }
-    self.dateLabel.text = [timeFormatter stringForTimeIntervalFromDate:[NSDate date] toDate:mediaObject.modifiedDate];
+    NSDate *fileDate = nil;
+    if (mediaObject.modifiedDate) {
+        fileDate = mediaObject.modifiedDate;
+    } else if (mediaObject.firstPostedDate) {
+        fileDate = mediaObject.firstPostedDate;
+    }
+    if (fileDate) {
+        self.dateLabel.text = [timeFormatter stringForTimeIntervalFromDate:[NSDate date]  toDate:mediaObject.modifiedDate];
+    } else {
+        self.dateLabel.text = nil;
+    }
     
     self.userView.user = mediaObject.user;
     

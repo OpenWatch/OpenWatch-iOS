@@ -11,10 +11,17 @@
 #import "OWLocationController.h"
 #import "OWDashboardViewController.h"
 #import "OWMediaCreationController.h"
+#import "OWFeedViewController.h"
+
+@class PKRevealController;
+
 
 #define OW_APP_DELEGATE ((OWAppDelegate*)[UIApplication sharedApplication].delegate)
 
 @interface OWAppDelegate : UIResponder <UIApplicationDelegate, BrowserViewDelegate>
+
+@property (nonatomic, strong, readwrite) PKRevealController *revealController;
+@property (nonatomic, strong) OWFeedViewController *feedViewController;
 
 @property (nonatomic) UIBackgroundTaskIdentifier backgroundTask;
 @property (nonatomic, retain) NSTimer *backgroundTimer;
