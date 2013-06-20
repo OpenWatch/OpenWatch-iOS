@@ -7,6 +7,7 @@
 extern const struct OWMediaObjectAttributes {
 	__unsafe_unretained NSString *clicks;
 	__unsafe_unretained NSString *firstPostedDate;
+	__unsafe_unretained NSString *metroCode;
 	__unsafe_unretained NSString *modifiedDate;
 	__unsafe_unretained NSString *thumbnailURLString;
 	__unsafe_unretained NSString *title;
@@ -23,6 +24,7 @@ extern const struct OWMediaObjectFetchedProperties {
 
 @class OWTag;
 @class OWUser;
+
 
 
 
@@ -63,6 +65,16 @@ extern const struct OWMediaObjectFetchedProperties {
 
 
 //- (BOOL)validateFirstPostedDate:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
+@property (nonatomic, strong) NSString* metroCode;
+
+
+
+//- (BOOL)validateMetroCode:(id*)value_ error:(NSError**)error_;
 
 
 
@@ -152,6 +164,12 @@ extern const struct OWMediaObjectFetchedProperties {
 
 - (NSDate*)primitiveFirstPostedDate;
 - (void)setPrimitiveFirstPostedDate:(NSDate*)value;
+
+
+
+
+- (NSString*)primitiveMetroCode;
+- (void)setPrimitiveMetroCode:(NSString*)value;
 
 
 

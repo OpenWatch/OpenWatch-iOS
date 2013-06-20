@@ -6,6 +6,7 @@
 const struct OWMediaObjectAttributes OWMediaObjectAttributes = {
 	.clicks = @"clicks",
 	.firstPostedDate = @"firstPostedDate",
+	.metroCode = @"metroCode",
 	.modifiedDate = @"modifiedDate",
 	.thumbnailURLString = @"thumbnailURLString",
 	.title = @"title",
@@ -90,6 +91,13 @@ const struct OWMediaObjectFetchedProperties OWMediaObjectFetchedProperties = {
 
 
 @dynamic firstPostedDate;
+
+
+
+
+
+
+@dynamic metroCode;
 
 
 

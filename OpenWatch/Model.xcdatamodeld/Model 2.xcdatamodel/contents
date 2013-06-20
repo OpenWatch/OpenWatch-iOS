@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="2061" systemVersion="12D78" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="2061" systemVersion="12E55" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="OWAudio" representedClassName="OWAudio" parentEntity="OWLocalMediaObject" syncable="YES"/>
     <entity name="OWInvestigation" representedClassName="OWInvestigation" parentEntity="OWMediaObject" syncable="YES">
         <attribute name="bigLogo" optional="YES" attributeType="String" syncable="YES"/>
@@ -30,6 +30,7 @@
     <entity name="OWMediaObject" representedClassName="OWMediaObject" isAbstract="YES" parentEntity="OWServerObject" syncable="YES">
         <attribute name="clicks" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="firstPostedDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="metroCode" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="modifiedDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="thumbnailURLString" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
@@ -93,7 +94,7 @@
         <element name="OWLocalMediaObject" positionX="160" positionY="192" width="128" height="120"/>
         <element name="OWLocalRecording" positionX="378" positionY="117" width="128" height="73"/>
         <element name="OWManagedRecording" positionX="484" positionY="243" width="128" height="120"/>
-        <element name="OWMediaObject" positionX="36" positionY="-39" width="128" height="165"/>
+        <element name="OWMediaObject" positionX="36" positionY="-39" width="128" height="180"/>
         <element name="OWMission" positionX="160" positionY="192" width="128" height="210"/>
         <element name="OWPhoto" positionX="160" positionY="192" width="128" height="45"/>
         <element name="OWRecordingSegment" positionX="99" positionY="234" width="128" height="103"/>

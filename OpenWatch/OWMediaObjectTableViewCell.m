@@ -52,6 +52,7 @@
 - (void) setupLocationLabel {
     self.locationLabel = [[UILabel alloc] init];
     self.locationLabel.backgroundColor = [UIColor clearColor];
+    self.locationLabel.textAlignment = NSTextAlignmentRight;
     [self.contentView addSubview:locationLabel];
 }
 
@@ -140,9 +141,8 @@
     self.previewView.frame = CGRectMake(0, 0, cellWidth, previewHeight);
     CGFloat userViewYOrigin = [OWUtilities bottomOfView:previewView] + PADDING;
     self.userView.frame = CGRectMake(PADDING, userViewYOrigin, paddedWidth, USER_HEIGHT);
-    CGFloat dateLabelWidth = 50.0f;
-    self.locationLabel.frame = CGRectMake(cellWidth - dateLabelWidth - PADDING, userViewYOrigin, dateLabelWidth, USER_HEIGHT);
-    [locationLabel sizeToFit];
+    CGFloat locationLabelWidth = 130.0f;
+    self.locationLabel.frame = CGRectMake(cellWidth - locationLabelWidth - PADDING, userViewYOrigin, locationLabelWidth, self.userView.usernameLabel.frame.size.height);
     
     CGFloat xOffset = PADDING + CONTENT_X_OFFSET; 
     CGFloat yOffset = TITLE_LABEL_YOFFSET + [OWUtilities bottomOfView:previewView];
@@ -190,7 +190,9 @@
     
     self.titleLabel.text = mediaObject.title;
     
-    self.locationLabel.text = @"Waco, TX";
+    if (mediaObject.metroCode) {
+        self.locationLabel.text = mediaObject.metroCode;
+    }
     self.dateLabel.text = [timeFormatter stringForTimeIntervalFromDate:[NSDate date] toDate:mediaObject.modifiedDate];
     
     self.userView.user = mediaObject.user;

@@ -67,6 +67,11 @@
     if (firstPosted) {
         self.firstPostedDate = [dateFormatter dateFromString:firstPosted];
     }
+    
+    NSString *metroCode = [metadataDictionary objectForKey:@"metro_code"];
+    if (metroCode) {
+        self.metroCode = metroCode;
+    }
 
     NSString *newTitle = [metadataDictionary objectForKey:kTitleKey];
     if (newTitle) {
