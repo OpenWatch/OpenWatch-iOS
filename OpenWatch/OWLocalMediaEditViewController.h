@@ -10,10 +10,11 @@
 #import "OWPreviewView.h"
 #import "OWCharacterCountdownView.h"
 #import "OWLocalMediaObject.h"
+#import "BSKeyboardControls.h"
 
 @class OWLocalMediaEditViewController;
 
-@interface OWLocalMediaEditViewController : UIViewController <UITextFieldDelegate, UIGestureRecognizerDelegate>
+@interface OWLocalMediaEditViewController : UIViewController <UITextFieldDelegate, UIGestureRecognizerDelegate, BSKeyboardControlsDelegate>
 
 @property (nonatomic, strong) UIGestureRecognizer *previewGestureRecognizer;
 
@@ -30,5 +31,7 @@
 @property (nonatomic) BOOL showingAfterCapture;
 
 @property (nonatomic, strong) NSString *primaryTag;
+
+@property (nonatomic, strong) BSKeyboardControls *keyboardControls;
 
 @end

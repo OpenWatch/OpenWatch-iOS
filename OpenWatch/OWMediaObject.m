@@ -128,7 +128,7 @@
     } else if ([self isKindOfClass:[OWAudio class]]){
         type = @"a";
     } else if ([self isKindOfClass:[OWMission class]]){
-        type = @"mission";
+        type = @"missions";
     } else {
         return nil;
     }

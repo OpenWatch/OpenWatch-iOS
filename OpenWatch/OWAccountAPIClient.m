@@ -684,7 +684,10 @@
     [self getPath:path parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         BOOL successValue = NO;
         if ([responseObject isKindOfClass:[NSDictionary class]]) {
-            [mediaObject loadMetadataFromDictionary:responseObject];
+            NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
+            OWMediaObject *threadObject = (OWMediaObject*)[context existingObjectWithID:objectID error:nil];
+            [threadObject loadMetadataFromDictionary:responseObject];
+            [context MR_saveToPersistentStoreAndWait];
             successValue = YES;
             if (success) {
                 success(objectID);

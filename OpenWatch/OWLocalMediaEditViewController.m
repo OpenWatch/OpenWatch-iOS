@@ -29,7 +29,7 @@
 @end
 
 @implementation OWLocalMediaEditViewController
-@synthesize titleTextField, whatHappenedLabel, saveButton, uploadProgressView, objectID, scrollView, showingAfterCapture, previewView, characterCountdown, uploadStatusLabel, previewGestureRecognizer, primaryTag;
+@synthesize titleTextField, whatHappenedLabel, saveButton, uploadProgressView, objectID, scrollView, showingAfterCapture, previewView, characterCountdown, uploadStatusLabel, previewGestureRecognizer, primaryTag, keyboardControls;
 
 - (void) dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -38,11 +38,15 @@
 - (id) init {
     if (self = [super init]) {
         self.title = EDIT_STRING;
+        self.view.backgroundColor = [OWUtilities stoneBackgroundPattern];
         [self setupScrollView];
         [self setupFields];
         [self setupWhatHappenedLabel];
         [self setupProgressView];
         [self setupPreviewView];
+        
+        self.keyboardControls = [[BSKeyboardControls alloc] initWithFields:@[titleTextField]];
+        self.keyboardControls.delegate = self;
         
         self.uploadStatusLabel = [[UILabel alloc] init];
         self.uploadStatusLabel.text = ITS_ONLINE_STRING;
@@ -71,6 +75,7 @@
 
 - (void) setupPreviewView {
     self.previewView = [[OWPreviewView alloc] init];
+    self.previewView.moviePlayer.shouldAutoplay = YES;
 }
 
 - (void) setupScrollView {
@@ -296,6 +301,7 @@
 
 - (void) textFieldDidBeginEditing:(UITextField *)textField {
     [self.scrollView setContentOffset:CGPointMake(0, titleTextField.frame.origin.y - PADDING) animated:YES];
+    [self.keyboardControls setActiveField:textField];
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
@@ -341,6 +347,11 @@
     }
     
     return shouldReceiveTouch;
+}
+
+- (void)keyboardControlsDonePressed:(BSKeyboardControls *)keyControls
+{
+    [keyControls.activeField resignFirstResponder];
 }
 
 @end

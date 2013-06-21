@@ -56,10 +56,8 @@
         [self.scrollView addSubview:userView];
         
         OWDashboardItem *videoItem = [[OWDashboardItem alloc] initWithTitle:BROADCAST_VIDEO_STRING image:[UIImage imageNamed:@"285-facetime.png"] target:self selector:@selector(recordButtonPressed:)];
-        OWDashboardItem *photoItem = [[OWDashboardItem alloc] initWithTitle:TAKE_PICTURE_STRING image:[UIImage imageNamed:@"86-camera.png"] target:self selector:@selector(photoButtonPressed:)];
-        //OWDashboardItem *audioItem = [[OWDashboardItem alloc] initWithTitle:@"Record Audio" image:[UIImage imageNamed:@"66-microphone.png"] target:self selector:@selector(audioButtonPressed:)];
         
-        NSArray *mediaItems = @[photoItem, videoItem];
+        NSArray *mediaItems = @[videoItem];
         self.dashboardView.dashboardItems = @[mediaItems];
 
     }

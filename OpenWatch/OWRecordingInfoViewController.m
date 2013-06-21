@@ -34,6 +34,7 @@
 
 - (id) init {
     if (self = [super init]) {
+        self.view.backgroundColor = [OWUtilities stoneBackgroundPattern];
         [self setupScrollView];
         [self setupMapView];
         [self setupSegmentedControl];

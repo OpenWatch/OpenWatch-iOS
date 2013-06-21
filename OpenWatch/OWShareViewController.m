@@ -25,6 +25,7 @@
 {
     self = [super init];
     if (self) {
+        self.view.backgroundColor = [OWUtilities stoneBackgroundPattern];
         self.titleLabel = [[UILabel alloc] init];
         self.titleLabel.text = ITS_ONLINE_STRING;
         self.urlLabel = [[UILabel alloc] init];
@@ -34,6 +35,7 @@
         self.descriptionLabel.text = CALL_TO_ACTION_SHARE_STRING;
         self.descriptionLabel.numberOfLines = 0;
         self.previewView = [[OWPreviewView alloc] initWithFrame:CGRectZero];
+        self.previewView.moviePlayer.shouldAutoplay = YES;
         
         [OWUtilities styleLabel:titleLabel];
         [OWUtilities styleLabel:urlLabel];
