@@ -220,6 +220,7 @@
 		D9C467351773D781006711D1 /* 46-movie-2.png in Resources */ = {isa = PBXBuildFile; fileRef = D9C467331773D780006711D1 /* 46-movie-2.png */; };
 		D9C467361773D781006711D1 /* 46-movie-2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9C467341773D780006711D1 /* 46-movie-2@2x.png */; };
 		D9C467381773E186006711D1 /* play_button_nocircle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9C467371773E185006711D1 /* play_button_nocircle@2x.png */; };
+		D9C7910F1774D75B0031D56A /* OWRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C7910E1774D75B0031D56A /* OWRootViewController.m */; };
 		D9C8A58016B9A1D2004F9E05 /* OWLocalRecordingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C8A57F16B9A1D2004F9E05 /* OWLocalRecordingTableViewCell.m */; };
 		D9CEED151682718600B236B5 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D9CEED101682718600B236B5 /* libTestFlight.a */; };
 		D9CEED19168271C700B236B5 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D9CEED18168271C700B236B5 /* libz.dylib */; };
@@ -979,6 +980,8 @@
 		D9C467331773D780006711D1 /* 46-movie-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "46-movie-2.png"; sourceTree = "<group>"; };
 		D9C467341773D780006711D1 /* 46-movie-2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "46-movie-2@2x.png"; sourceTree = "<group>"; };
 		D9C467371773E185006711D1 /* play_button_nocircle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "play_button_nocircle@2x.png"; sourceTree = "<group>"; };
+		D9C7910D1774D75B0031D56A /* OWRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWRootViewController.h; sourceTree = "<group>"; };
+		D9C7910E1774D75B0031D56A /* OWRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWRootViewController.m; sourceTree = "<group>"; };
 		D9C8A57E16B9A1D2004F9E05 /* OWLocalRecordingTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWLocalRecordingTableViewCell.h; sourceTree = "<group>"; };
 		D9C8A57F16B9A1D2004F9E05 /* OWLocalRecordingTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWLocalRecordingTableViewCell.m; sourceTree = "<group>"; };
 		D9CEED0D16826AB400B236B5 /* OWAPIKeys.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OWAPIKeys.h; sourceTree = "<group>"; };
@@ -1835,6 +1838,8 @@
 		D9D2E21D16532B220000E7C5 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				D9C7910D1774D75B0031D56A /* OWRootViewController.h */,
+				D9C7910E1774D75B0031D56A /* OWRootViewController.m */,
 				D9B6404017652A2A0028CFFB /* OWMapViewController.h */,
 				D9B6404117652A2B0028CFFB /* OWMapViewController.m */,
 				D9D49E801758154D00416C73 /* OWProfileViewController.h */,
@@ -2782,6 +2787,7 @@
 				D9C467281773B64F006711D1 /* PKRevealController.m in Sources */,
 				D9C467291773B64F006711D1 /* PKRevealControllerContainerView.m in Sources */,
 				D9C4672A1773B64F006711D1 /* UIViewController+PKRevealController.m in Sources */,
+				D9C7910F1774D75B0031D56A /* OWRootViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -11,27 +11,26 @@
 #import "OWUtilities.h"
 
 @implementation OWMissionTableViewCell
-@synthesize bountyLabel;
+@synthesize bannerView;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-    if (self) {
-
-        CGFloat titleX = 120;
-        CGFloat titleY = 5;
-        CGFloat labelWidth = 190;
-        CGFloat titleHeight = 76.0f;
-
-        self.titleLabel.frame = CGRectMake(titleX, titleY, labelWidth, titleHeight);
-        self.bountyLabel = [[UILabel alloc] initWithFrame:CGRectMake(185, 85, 100, 25)];
-        self.bountyLabel.textAlignment = NSTextAlignmentRight;
-        self.bountyLabel.backgroundColor = [UIColor clearColor];
-        self.titleLabel.numberOfLines = 0;
+    if (self) {        
+        self.bannerView = [[OWBannerView alloc] initWithFrame:CGRectZero bannerImage:[UIImage imageNamed:@"side_banner_green.png"] labelText:nil];
         
-        [self.contentView addSubview:bountyLabel];
+        [self.contentView addSubview:bannerView];
     }
     return self;
+}
+
+- (void) refreshFrames {
+    [super refreshFrames];
+    CGFloat width = self.contentView.frame.size.width;
+    CGFloat height = self.thumbnailImageView.frame.size.height;
+    CGFloat bannerHeight = bannerView.imageView.image.size.height;
+    CGFloat padding = 10.0f;
+    self.bannerView.frame = CGRectMake(width - bannerView.imageView.image.size.width, height - bannerHeight - padding, bannerView.imageView.image.size.width, bannerHeight);
 }
 
 
@@ -46,12 +45,21 @@
         self.titleLabel.font = [UIFont boldSystemFontOfSize:17.0f];
     }
     
+    UIImage *bannerImage = nil;
+    NSString *text = nil;
     if (mission.usdValue > 0) {
-        self.bountyLabel.text = [NSString stringWithFormat:@"$%.2f", mission.usdValue];
+        bannerImage = [UIImage imageNamed:@"side_banner_green.png"];
+        text = [NSString stringWithFormat:@"$%.02f", mission.usdValue];
     } else {
-        self.bountyLabel.text = [NSString stringWithFormat:@"%d Karma", (int)mission.karmaValue];
+        bannerImage = [UIImage imageNamed:@"side_banner_purple.png"];
+        text = [NSString stringWithFormat:@"%d Karma", (int)mission.karmaValue];
     }
+    
+    self.bannerView.textLabel.text = text;
+    self.bannerView.imageView.image = bannerImage;
+
     self.titleLabel.text = mission.title;
+    [self refreshFrames];
 }
 
 @end

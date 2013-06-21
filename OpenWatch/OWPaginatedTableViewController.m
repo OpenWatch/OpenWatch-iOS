@@ -34,68 +34,48 @@
 @synthesize currentPage;
 @synthesize totalPages;
 @synthesize objectIDs, selectedMediaObject;
+@synthesize tableView;
 
 - (id)init
 {
     self = [super init];
     if (self) {
-        self.tableView.backgroundColor = [OWUtilities stoneBackgroundPattern];
-        currentPage = 0;
-        
-        [self setupNavBar];
-
-        
-        NSArray *objectTypes = @[[OWLocalMediaObject class], [OWLocalRecording class], [OWManagedRecording class], [OWPhoto class], [OWInvestigation class], [OWAudio class]];
-        for (Class class in objectTypes) {
-            [self.tableView registerClass:[class cellClass] forCellReuseIdentifier:[class cellIdentifier]];
-        }
     }
     return self;
 }
 
-- (void) showLeftView:(id)sender {
-    if (self.navigationController.revealController.focusedController == self.navigationController.revealController.leftViewController) {
-        [self.navigationController.revealController showViewController:self.navigationController.revealController.frontViewController];
-    } else {
-        [self.navigationController.revealController showViewController:self.navigationController.revealController.leftViewController];
+- (void) loadView {
+    [super loadView];
+    self.tableView = [[UITableView alloc] init];
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    
+    self.tableView.backgroundColor = [OWUtilities stoneBackgroundPattern];
+    currentPage = 0;
+    
+    NSArray *objectTypes = @[[OWLocalMediaObject class], [OWLocalRecording class], [OWManagedRecording class], [OWPhoto class], [OWInvestigation class], [OWAudio class]];
+    for (Class class in objectTypes) {
+        [self.tableView registerClass:[class cellClass] forCellReuseIdentifier:[class cellIdentifier]];
     }
 }
 
-
-- (void) setupNavBar {
-    
-    self.title = WATCH_STRING;
-    UIImage *revealImagePortrait = [UIImage imageNamed:@"reveal_menu_icon_portrait"];
-    UIImage *revealImageLandscape = [UIImage imageNamed:@"reveal_menu_icon_landscape"];
-    
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:revealImagePortrait landscapeImagePhone:revealImageLandscape style:UIBarButtonItemStylePlain target:self action:@selector(showLeftView:)];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"285-facetime.png"] style:UIBarButtonItemStylePlain target:self action:@selector(startRecording:)];
-    
-    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"openwatch.png"]];
-    imageView.frame = CGRectMake(0, 0, 140, 25);
-    imageView.contentMode = UIViewContentModeScaleAspectFit;
-    self.navigationItem.titleView = imageView;
+- (void) viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.tableView.frame = self.view.bounds;
 }
 
-
-- (void) startRecording:(id)sender {
-    OW_APP_DELEGATE.creationController.primaryTag = nil;
-    [OW_APP_DELEGATE.creationController recordVideoFromViewController:self];
-}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self.view addSubview:tableView];
+    self.tableView.frame = self.view.bounds;
 	if (_refreshHeaderView == nil) {
-		
-		EGORefreshTableHeaderView *view = [[EGORefreshTableHeaderView alloc] initWithFrame:CGRectMake(0.0f, 0.0f - self.tableView.bounds.size.height, self.view.frame.size.width, self.tableView.bounds.size.height)];
+        EGORefreshTableHeaderView *view = [[EGORefreshTableHeaderView alloc] initWithFrame:CGRectMake(0.0f, 0.0f - self.tableView.bounds.size.height, self.view.frame.size.width, self.tableView.bounds.size.height)];
 		view.delegate = self;
         view.backgroundColor = [UIColor clearColor];
 		[self.tableView addSubview:view];
-		_refreshHeaderView = view;
-        
-        
-        
+		_refreshHeaderView = view;  
 	}
 	[_refreshHeaderView refreshLastUpdatedDate];
 }

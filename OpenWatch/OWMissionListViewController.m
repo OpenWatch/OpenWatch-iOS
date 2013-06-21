@@ -115,6 +115,8 @@
     NSManagedObjectID *objectID = [self.objectIDs objectAtIndex:indexPath.row];
     OWMissionTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:[OWMission cellIdentifier] forIndexPath:indexPath];
     cell.mediaObjectID = objectID;
+    cell.selectionStyle = UITableViewCellSelectionStyleGray;
+    cell.delegate = self;
     return cell;
 }
 

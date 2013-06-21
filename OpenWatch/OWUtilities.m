@@ -28,7 +28,7 @@
     view.layer.shadowColor = [UIColor blackColor].CGColor;
     view.layer.shadowOpacity = 1;
     view.layer.shadowOffset = CGSizeMake(0,1);
-    CGRect shadowPath = CGRectMake(view.layer.bounds.origin.x - 10, view.layer.bounds.size.height - 6, view.layer.bounds.size.width + 20, 4);
+    CGRect shadowPath = CGRectMake(view.layer.bounds.origin.x, view.layer.bounds.size.height - 6, view.layer.bounds.size.width, 4);
     view.layer.shadowPath = [UIBezierPath bezierPathWithRect:shadowPath].CGPath;
     view.layer.shouldRasterize = YES;
 }
@@ -181,6 +181,17 @@
     newFrame.origin.x = origin.x;
     newFrame.origin.y = origin.y;
     return newFrame;
+}
+
++(UIBarButtonItem *)barItemWithImage:(UIImage *)image target:(id)target action:(SEL)action
+{
+    UIButton* button = [UIButton buttonWithType:UIButtonTypeCustom];
+    button.bounds = CGRectMake(0, 0, 45, 40);
+    [button setImage:image forState:UIControlStateNormal];
+    [button addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
+    
+    UIBarButtonItem* item = [[UIBarButtonItem alloc] initWithCustomView:button];
+    return item;
 }
 
 @end

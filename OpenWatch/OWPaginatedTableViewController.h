@@ -9,11 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "EGORefreshTableHeaderView.h"
 #import "OWMediaObjectTableViewCell.h"
+#import "OWRootViewController.h"
 
 #define kFirstPage 1
 
-@interface OWPaginatedTableViewController : UITableViewController  <EGORefreshTableHeaderDelegate, UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate, OWMediaObjectTableViewCellDelegate, UIActionSheetDelegate>
+@interface OWPaginatedTableViewController : OWRootViewController  <EGORefreshTableHeaderDelegate, UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate, OWMediaObjectTableViewCellDelegate, UIActionSheetDelegate>
 
+@property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic) NSUInteger currentPage;
 @property (nonatomic) NSUInteger totalPages;
 @property (nonatomic) BOOL isReloading;

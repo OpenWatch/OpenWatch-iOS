@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "OWDashboardView.h"
+#import "OWRootViewController.h"
 
-@interface OWSettingsViewController : UIViewController
+@interface OWSettingsViewController : OWRootViewController
 
 @property (nonatomic, strong) OWDashboardView *dashboardView;
 

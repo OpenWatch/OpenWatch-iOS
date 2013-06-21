@@ -87,6 +87,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    self.view.backgroundColor = [OWUtilities stoneBackgroundPattern];
 }
 
 - (void) viewWillAppear:(BOOL)animated {

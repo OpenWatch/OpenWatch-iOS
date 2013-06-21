@@ -31,6 +31,7 @@
 @property (nonatomic, strong) UIButton *moreButton;
 
 - (void) setupPreviewView;
+- (void) refreshFrames;
 
 @property (nonatomic, weak) id<OWMediaObjectTableViewCellDelegate> delegate;
 

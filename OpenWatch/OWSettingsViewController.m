@@ -28,24 +28,29 @@
     self = [super init];
     if (self) {
         self.title = SETTINGS_STRING;
-        self.dashboardView = [[OWDashboardView alloc] initWithFrame:CGRectZero];
-                
-        OWDashboardItem *accountItem = [[OWDashboardItem alloc] initWithTitle:ACCOUNT_STRING image:nil target:self selector:@selector(accountButtonPressed:)];
-        //OWDashboardItem *profileItem = [[OWDashboardItem alloc] initWithTitle:EDIT_PROFILE_STRING image:nil target:self selector:@selector(editProfilePressed:)];
         
-        OWDashboardItem *shareItem = [[OWDashboardItem alloc] initWithTitle:SHARE_THIS_APP_STRING image:nil target:self selector:@selector(shareButtonPressed:)];
-        
-        OWDashboardItem *githubItem = [[OWDashboardItem alloc] initWithTitle:OPENWATCH_ON_GITHUB_STRING image:nil target:self selector:@selector(githubButtonPressed:)];
-        
-        OWDashboardItem *websiteItem = [[OWDashboardItem alloc] initWithTitle:VISIT_OPENWATCH_WEBSITE_STRING image:nil target:self selector:@selector(websiteButtonPressed:)];
-        
-        NSArray *profileItems = @[accountItem];
-        
-        NSArray *shareItems = @[shareItem, githubItem, websiteItem];
-        
-        self.dashboardView.dashboardItems = @[profileItems, shareItems];
     }
     return self;
+}
+
+- (void) loadView {
+    [super loadView];
+    self.dashboardView = [[OWDashboardView alloc] initWithFrame:CGRectZero];
+    
+    OWDashboardItem *accountItem = [[OWDashboardItem alloc] initWithTitle:ACCOUNT_STRING image:nil target:self selector:@selector(accountButtonPressed:)];
+    //OWDashboardItem *profileItem = [[OWDashboardItem alloc] initWithTitle:EDIT_PROFILE_STRING image:nil target:self selector:@selector(editProfilePressed:)];
+    
+    OWDashboardItem *shareItem = [[OWDashboardItem alloc] initWithTitle:SHARE_THIS_APP_STRING image:nil target:self selector:@selector(shareButtonPressed:)];
+    
+    OWDashboardItem *githubItem = [[OWDashboardItem alloc] initWithTitle:OPENWATCH_ON_GITHUB_STRING image:nil target:self selector:@selector(githubButtonPressed:)];
+    
+    OWDashboardItem *websiteItem = [[OWDashboardItem alloc] initWithTitle:VISIT_OPENWATCH_WEBSITE_STRING image:nil target:self selector:@selector(websiteButtonPressed:)];
+    
+    NSArray *profileItems = @[accountItem];
+    
+    NSArray *shareItems = @[shareItem, githubItem, websiteItem];
+    
+    self.dashboardView.dashboardItems = @[profileItems, shareItems];
 }
 
 - (void) editProfilePressed:(id)sender {
@@ -76,8 +81,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.view.backgroundColor = [OWUtilities stoneBackgroundPattern];
     [self.view addSubview:dashboardView];
+    self.view.backgroundColor = [OWUtilities stoneBackgroundPattern];
 }
 
 - (void)didReceiveMemoryWarning
