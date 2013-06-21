@@ -28,7 +28,7 @@ static NSString *const OWVideoPreviewPlayButtonPressedNotification = @"OWVideoPr
     self = [super initWithFrame:frame];
     if (self) {
         self.playButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        UIImage *playImage = [UIImage imageNamed:@"play-button.png"];
+        UIImage *playImage = [UIImage imageNamed:@"play_button_nocircle.png"];
         [playButton setImage:playImage forState:UIControlStateNormal];
         //playButton.imageView.contentMode = UIViewContentModeCenter;
         

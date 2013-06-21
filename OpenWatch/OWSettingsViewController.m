@@ -29,9 +29,7 @@
     if (self) {
         self.title = SETTINGS_STRING;
         self.dashboardView = [[OWDashboardView alloc] initWithFrame:CGRectZero];
-        
-        
-        
+                
         OWDashboardItem *accountItem = [[OWDashboardItem alloc] initWithTitle:ACCOUNT_STRING image:nil target:self selector:@selector(accountButtonPressed:)];
         //OWDashboardItem *profileItem = [[OWDashboardItem alloc] initWithTitle:EDIT_PROFILE_STRING image:nil target:self selector:@selector(editProfilePressed:)];
         
@@ -78,6 +76,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.view.backgroundColor = [OWUtilities stoneBackgroundPattern];
     [self.view addSubview:dashboardView];
 }
 

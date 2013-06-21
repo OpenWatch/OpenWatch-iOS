@@ -36,7 +36,6 @@
     self = [super init];
     if (self) {
         self.objectIDs = [NSMutableArray array];
-        self.tableView.allowsSelection = NO;
     }
     return self;
 }
@@ -149,8 +148,7 @@
     OWMediaObject *mediaObject = (OWMediaObject*)[context existingObjectWithID:mediaObjectID error:nil];
     OWMediaObjectViewController *vc = nil;
     if ([mediaObject isKindOfClass:[OWManagedRecording class]]) {
-        OWRecordingInfoViewController *recordingVC = [[OWRecordingInfoViewController alloc] init];
-        vc = recordingVC;
+        return;
     } else if ([mediaObject isKindOfClass:[OWStory class]]) {
         OWStoryViewController *storyVC = [[OWStoryViewController alloc] init];
         vc = storyVC;

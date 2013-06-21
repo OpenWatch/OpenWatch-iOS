@@ -58,6 +58,7 @@
         OWDashboardItem *topStories = [[OWDashboardItem alloc] initWithTitle:TOP_STORIES_STRING image:[UIImage imageNamed:@"28-star.png"] target:self selector:@selector(feedButtonPressed:)];
         OWDashboardItem *local = [[OWDashboardItem alloc] initWithTitle:LOCAL_FEED_STRING image:[UIImage imageNamed:@"193-location-arrow.png"] target:self selector:@selector(localFeedButtonPressed:)];
         OWDashboardItem *yourMedia = [[OWDashboardItem alloc] initWithTitle:YOUR_MEDIA_STRING image:[UIImage imageNamed:@"160-voicemail-2.png"] target:self selector:@selector(yourMediaPressed:)];
+        OWDashboardItem *rawFeed = [[OWDashboardItem alloc] initWithTitle:@"Raw Feed" image:[UIImage imageNamed:@"46-movie-2.png"] target:self selector:@selector(rawFeedPressed:)];
         
         OWDashboardItem *feedback = [[OWDashboardItem alloc] initWithTitle:SEND_FEEDBACK_STRING image:[UIImage imageNamed:@"29-heart.png"] target:self selector:@selector(feedbackButtonPressed:)];
         OWDashboardItem *settings = [[OWDashboardItem alloc] initWithTitle:SETTINGS_STRING image:[UIImage imageNamed:@"19-gear.png"] target:self selector:@selector(settingsButtonPressed:)];
@@ -66,7 +67,7 @@
         [missions registerForNotifications:kMissionCountUpdateNotification];
         NSArray *missionsArray = @[missions];
         
-        NSArray *middleItems = @[topStories, local, yourMedia];
+        NSArray *middleItems = @[topStories, local, rawFeed, yourMedia];
         NSArray *bottonItems = @[feedback, settings];
         NSArray *dashboardItems = @[missionsArray, middleItems, bottonItems];
         dashboardView.dashboardItems = dashboardItems;
@@ -105,10 +106,7 @@
 
 
 - (void) feedButtonPressed:(id)sender {
-    OWFeedViewController *feedVC = [[OWFeedViewController alloc] init];
-    [feedVC didSelectFeedWithName:@"Top Stories" type:kOWFeedTypeFrontPage];
-    [OW_APP_DELEGATE.navigationController setViewControllers:@[feedVC] animated:NO];
-    [self.revealController showViewController:self.revealController.frontViewController];
+    [self selectFeed:@"Top Stories" type:kOWFeedTypeFrontPage];
 }
 
 - (void) missionsButtonPressed:(id)sender {
@@ -118,10 +116,7 @@
 }
 
 - (void) localFeedButtonPressed:(id)sender {
-    OWFeedViewController *feedVC = [[OWFeedViewController alloc] init];
-    [feedVC didSelectFeedWithName:@"Local" type:kOWFeedTypeFeed];
-    [OW_APP_DELEGATE.navigationController setViewControllers:@[feedVC] animated:NO];
-    [self.revealController showViewController:self.revealController.frontViewController];
+    [self selectFeed:@"Local" type:kOWFeedTypeFeed];
 }
 
 - (void) yourMediaPressed:(id)sender {
@@ -130,12 +125,25 @@
     [self.revealController showViewController:self.revealController.frontViewController];
 }
 
+- (void) selectFeed:(NSString*)feedName type:(OWFeedType)type {
+    OWFeedViewController *feedVC = OW_APP_DELEGATE.feedViewController;
+    [feedVC didSelectFeedWithName:feedName type:type];
+    [OW_APP_DELEGATE.navigationController setViewControllers:@[feedVC] animated:NO];
+    [self.revealController showViewController:self.revealController.frontViewController];
+}
+
+- (void) rawFeedPressed:(id)sender {
+    [self selectFeed:@"Raw" type:kOWFeedTypeFeed];
+}
+
 - (void) settingsButtonPressed:(id) sender {
     OWSettingsViewController *settingsVC = [[OWSettingsViewController alloc] init];
     [OW_APP_DELEGATE.navigationController setViewControllers:@[settingsVC] animated:NO];
     [self.revealController showViewController:self.revealController.frontViewController];
 
 }
+
+
 
 
 - (void)viewDidLoad
@@ -164,8 +172,11 @@
     
     [self.navigationController setNavigationBarHidden:NO animated:animated];
     
-    
-    self.dashboardView.frame = self.view.bounds;
+    CGFloat minWidth = 280.0f;
+    CGFloat maxWidth = 310.0f;
+    [self.revealController setMinimumWidth:minWidth maximumWidth:maxWidth forViewController:self];
+
+    self.dashboardView.frame = CGRectMake(0, 0, minWidth, self.view.frame.size.height);
     
     OWAccount *account = [OWSettingsController sharedInstance].account;
 

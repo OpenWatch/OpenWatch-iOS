@@ -217,6 +217,9 @@
 		D9C467301773BF98006711D1 /* reveal_menu_icon_portrait.png in Resources */ = {isa = PBXBuildFile; fileRef = D9C4672C1773BF98006711D1 /* reveal_menu_icon_portrait.png */; };
 		D9C467311773BF98006711D1 /* reveal_menu_icon_landscape@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9C4672D1773BF98006711D1 /* reveal_menu_icon_landscape@2x.png */; };
 		D9C467321773BF98006711D1 /* reveal_menu_icon_landscape.png in Resources */ = {isa = PBXBuildFile; fileRef = D9C4672E1773BF98006711D1 /* reveal_menu_icon_landscape.png */; };
+		D9C467351773D781006711D1 /* 46-movie-2.png in Resources */ = {isa = PBXBuildFile; fileRef = D9C467331773D780006711D1 /* 46-movie-2.png */; };
+		D9C467361773D781006711D1 /* 46-movie-2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9C467341773D780006711D1 /* 46-movie-2@2x.png */; };
+		D9C467381773E186006711D1 /* play_button_nocircle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9C467371773E185006711D1 /* play_button_nocircle@2x.png */; };
 		D9C8A58016B9A1D2004F9E05 /* OWLocalRecordingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C8A57F16B9A1D2004F9E05 /* OWLocalRecordingTableViewCell.m */; };
 		D9CEED151682718600B236B5 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D9CEED101682718600B236B5 /* libTestFlight.a */; };
 		D9CEED19168271C700B236B5 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D9CEED18168271C700B236B5 /* libz.dylib */; };
@@ -973,6 +976,9 @@
 		D9C4672C1773BF98006711D1 /* reveal_menu_icon_portrait.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = reveal_menu_icon_portrait.png; sourceTree = "<group>"; };
 		D9C4672D1773BF98006711D1 /* reveal_menu_icon_landscape@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "reveal_menu_icon_landscape@2x.png"; sourceTree = "<group>"; };
 		D9C4672E1773BF98006711D1 /* reveal_menu_icon_landscape.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = reveal_menu_icon_landscape.png; sourceTree = "<group>"; };
+		D9C467331773D780006711D1 /* 46-movie-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "46-movie-2.png"; sourceTree = "<group>"; };
+		D9C467341773D780006711D1 /* 46-movie-2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "46-movie-2@2x.png"; sourceTree = "<group>"; };
+		D9C467371773E185006711D1 /* play_button_nocircle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "play_button_nocircle@2x.png"; sourceTree = "<group>"; };
 		D9C8A57E16B9A1D2004F9E05 /* OWLocalRecordingTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWLocalRecordingTableViewCell.h; sourceTree = "<group>"; };
 		D9C8A57F16B9A1D2004F9E05 /* OWLocalRecordingTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWLocalRecordingTableViewCell.m; sourceTree = "<group>"; };
 		D9CEED0D16826AB400B236B5 /* OWAPIKeys.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OWAPIKeys.h; sourceTree = "<group>"; };
@@ -1949,6 +1955,9 @@
 		D9DFADF716547DE7003C515C /* Media */ = {
 			isa = PBXGroup;
 			children = (
+				D9C467371773E185006711D1 /* play_button_nocircle@2x.png */,
+				D9C467331773D780006711D1 /* 46-movie-2.png */,
+				D9C467341773D780006711D1 /* 46-movie-2@2x.png */,
 				D9C4672B1773BF98006711D1 /* reveal_menu_icon_portrait@2x.png */,
 				D9C4672C1773BF98006711D1 /* reveal_menu_icon_portrait.png */,
 				D9C4672D1773BF98006711D1 /* reveal_menu_icon_landscape@2x.png */,
@@ -2454,6 +2463,9 @@
 				D9C467301773BF98006711D1 /* reveal_menu_icon_portrait.png in Resources */,
 				D9C467311773BF98006711D1 /* reveal_menu_icon_landscape@2x.png in Resources */,
 				D9C467321773BF98006711D1 /* reveal_menu_icon_landscape.png in Resources */,
+				D9C467351773D781006711D1 /* 46-movie-2.png in Resources */,
+				D9C467361773D781006711D1 /* 46-movie-2@2x.png in Resources */,
+				D9C467381773E186006711D1 /* play_button_nocircle@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

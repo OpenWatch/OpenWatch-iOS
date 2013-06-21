@@ -11,6 +11,7 @@
 #import "MBProgressHUD.h"
 #import "OWAccountAPIClient.h"
 #import "OWStrings.h"
+#import "OWUtilities.h"
 
 @interface OWInvestigationViewController ()
 
@@ -74,6 +75,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.view.backgroundColor = [OWUtilities stoneBackgroundPattern];
     [self.view addSubview:bodyWebView];
 	// Do any additional setup after loading the view.
 }

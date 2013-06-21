@@ -167,6 +167,11 @@
     OWMediaObjectTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:[[mediaObject class] cellIdentifier] forIndexPath:indexPath];
     cell.mediaObjectID = objectID;
     cell.delegate = self;
+    if ([mediaObject isKindOfClass:[OWManagedRecording class]]) {
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    } else {
+        cell.selectionStyle = UITableViewCellSelectionStyleGray;
+    }
     return cell;
 }
 
