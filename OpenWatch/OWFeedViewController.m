@@ -22,6 +22,7 @@
 #import "OWAudio.h"
 #import "PKRevealController.h"
 #import "OWAppDelegate.h"
+#import "OWSettingsController.h"
 
 @interface OWFeedViewController ()
 @end
@@ -30,6 +31,7 @@
 @synthesize feedType;
 @synthesize selectedFeedString;
 @synthesize lastLocation;
+@synthesize onboardingView;
 
 - (id)init
 {
@@ -115,7 +117,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+    [self updateUserAccountInformation];
 }
 
 - (void)didReceiveMemoryWarning
@@ -129,6 +131,24 @@
     [TestFlight passCheckpoint:WATCH_CHECKPOINT];
     if (self.feedType == kOWFeedTypeNone) {
         [self didSelectFeedWithName:nil type:kOWFeedTypeFrontPage];
+    }
+    
+    CGFloat navigationBarHeightHack = 0.0f;
+    
+    if (self.navigationController.navigationBarHidden) {
+        navigationBarHeightHack = self.navigationController.navigationBar.frame.size.height;
+    }
+    
+    [self.navigationController setNavigationBarHidden:NO animated:animated];
+    
+    OWAccount *account = [OWSettingsController sharedInstance].account;
+    
+    if (!account.hasCompletedOnboarding && !self.onboardingView) {
+        CGRect frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - navigationBarHeightHack);
+        self.onboardingView = [[OWOnboardingView alloc] initWithFrame:frame];
+        self.onboardingView.delegate = self;
+        //self.onboardingView.frame = frame;
+        [self.view addSubview:onboardingView];
     }
 }
 
@@ -170,6 +190,34 @@
 
 - (void) tableCell:(OWMediaObjectTableViewCell *)cell didSelectHashtag:(NSString *)hashTag {
     [self didSelectFeedWithName:hashTag type:kOWFeedTypeTag];
+}
+
+
+- (void) onboardingViewDidComplete:(OWOnboardingView *)ow {
+    OWAccount *account = [OWSettingsController sharedInstance].account;
+    account.hasCompletedOnboarding = YES;
+    account.secretAgentEnabled = onboardingView.agentSwitch.on;
+    [self updateUserAccountInformation];
+    [UIView animateWithDuration:2.0 animations:^{
+        self.onboardingView.layer.opacity = 0.0f;
+    } completion:^(BOOL finished) {
+        [self.onboardingView removeFromSuperview];
+        self.onboardingView = nil;
+    }];
+}
+
+- (void) updateUserAccountInformation {
+    OWAccount *account = [OWSettingsController sharedInstance].account;
+    if (!account.isLoggedIn) {
+        return;
+    }
+    [[OWAccountAPIClient sharedClient] updateUserSecretAgentStatus:account.secretAgentEnabled];
+    if (!account.secretAgentEnabled) {
+        return;
+    }
+    [[OWLocationController sharedInstance] startWithDelegate:self];
+    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:
+     (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
 }
 
 @end

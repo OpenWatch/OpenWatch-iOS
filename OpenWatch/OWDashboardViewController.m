@@ -33,6 +33,8 @@
 #import "OWMission.h"
 #import "OWBadgedDashboardItem.h"
 #import "PKRevealController.h"
+#import "OWTag.h"
+#import "OWTagDashboardItem.h"
 
 #define kActionBarHeight 70.0f
 
@@ -42,7 +44,7 @@
 @end
 
 @implementation OWDashboardViewController
-@synthesize onboardingView, dashboardView;
+@synthesize dashboardView, staticDashboardItems;
 
 - (void) dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -70,6 +72,7 @@
         NSArray *middleItems = @[topStories, local, rawFeed, yourMedia];
         NSArray *bottonItems = @[feedback, settings];
         NSArray *dashboardItems = @[missionsArray, middleItems, bottonItems];
+        self.staticDashboardItems = dashboardItems;
         dashboardView.dashboardItems = dashboardItems;
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedAccountPermissionsErrorNotification:) name:kAccountPermissionsError object:nil];        
@@ -150,7 +153,6 @@
 {
     [super viewDidLoad];
     [self.view addSubview:dashboardView];
-    [self updateUserAccountInformation];
     
     self.view.backgroundColor = [OWUtilities stoneBackgroundPattern];
 }
@@ -164,43 +166,13 @@
 - (void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    CGFloat navigationBarHeightHack = 0.0f;
-    
-    if (self.navigationController.navigationBarHidden) {
-        navigationBarHeightHack = self.navigationController.navigationBar.frame.size.height;
-    }
-    
-    [self.navigationController setNavigationBarHidden:NO animated:animated];
-    
     CGFloat minWidth = 280.0f;
     CGFloat maxWidth = 310.0f;
     [self.revealController setMinimumWidth:minWidth maximumWidth:maxWidth forViewController:self];
 
     self.dashboardView.frame = CGRectMake(0, 0, minWidth, self.view.frame.size.height);
     
-    OWAccount *account = [OWSettingsController sharedInstance].account;
-
-    if (!account.hasCompletedOnboarding && !self.onboardingView) {
-        CGRect frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - navigationBarHeightHack);
-        self.onboardingView = [[OWOnboardingView alloc] initWithFrame:frame];
-        self.onboardingView.delegate = self;
-        //self.onboardingView.frame = frame;
-        [self.view addSubview:onboardingView];
-    }
-}
-
-- (void) updateUserAccountInformation {
-    OWAccount *account = [OWSettingsController sharedInstance].account;
-    if (!account.isLoggedIn) {
-        return;
-    }
-    [[OWAccountAPIClient sharedClient] updateUserSecretAgentStatus:account.secretAgentEnabled];
-    if (!account.secretAgentEnabled) {
-        return;
-    }
-    [[OWLocationController sharedInstance] startWithDelegate:self];
-    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:
-     (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
+    [self refreshTagList];
 }
 
 - (void) locationUpdated:(CLLocation *)location {
@@ -212,19 +184,23 @@
     }
 }
 
-- (void) onboardingViewDidComplete:(OWOnboardingView *)ow {
-    OWAccount *account = [OWSettingsController sharedInstance].account;
-    account.hasCompletedOnboarding = YES;
-    account.secretAgentEnabled = onboardingView.agentSwitch.on;
-    [self updateUserAccountInformation];
-    [UIView animateWithDuration:2.0 animations:^{
-        self.onboardingView.layer.opacity = 0.0f;
-    } completion:^(BOOL finished) {
-        [self.onboardingView removeFromSuperview];
-        self.onboardingView = nil;
-    }];
+- (void) refreshTagList {
+    [[OWAccountAPIClient sharedClient] getSubscribedTagsWithSuccessBlock:^(NSSet *tags) {
+        NSMutableArray *newDashboardItems = [NSMutableArray arrayWithCapacity:tags.count];
+        for (OWTag *tag in tags) {
+            NSString *displayName = [NSString stringWithFormat:@"#%@", tag.name];
+            OWTagDashboardItem *dashboardItem = [[OWTagDashboardItem alloc] initWithTitle:displayName image:nil target:self selector:@selector(didSelectTagWithName:)];
+            dashboardItem.tag = tag;
+            [newDashboardItems addObject:dashboardItem];
+        }
+        NSMutableArray *newDashboard = [NSMutableArray arrayWithArray:staticDashboardItems];
+        [newDashboard addObject:newDashboardItems];
+        self.dashboardView.dashboardItems = newDashboard;
+    } failureBlock:nil];
 }
 
-
+- (void) didSelectTagWithName:(OWTagDashboardItem*)item {
+    [self selectFeed:item.tag.name type:kOWFeedTypeTag];
+}
 
 @end

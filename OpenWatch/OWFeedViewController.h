@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "OWPaginatedTableViewController.h"
 #import "OWLocationController.h"
+#import "OWOnboardingView.h"
 
 typedef enum {
     kOWFeedTypeNone = 0,
@@ -19,9 +20,12 @@ typedef enum {
 } OWFeedType;
 
 
-@interface OWFeedViewController : OWPaginatedTableViewController < OWLocationControllerDelegate>
+@interface OWFeedViewController : OWPaginatedTableViewController < OWLocationControllerDelegate, OWOnboardingViewDelegate>
 
 @property (nonatomic, strong) CLLocation *lastLocation;
+
+@property (nonatomic, strong) OWOnboardingView *onboardingView;
+
 
 - (void) didSelectFeedWithName:(NSString*)feedName type:(OWFeedType)type;
 @property (nonatomic, strong) NSString *selectedFeedString;

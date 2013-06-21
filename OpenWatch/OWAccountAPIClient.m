@@ -136,10 +136,14 @@
     }
     [self getPath:@"email_available" parameters:@{@"email": email} success:^(AFHTTPRequestOperation *operation, id responseObject) {
         BOOL available = [[responseObject objectForKey:@"available"] boolValue];
-        callback(available);
+        if (callback) {
+            callback(available);
+        }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error checking email availability: %@", error.userInfo);
-        callback(NO);
+        if (callback) {
+            callback(NO);
+        }
     }];
 }
 
@@ -150,10 +154,14 @@
             [self processLoginDictionary:responseObject account:account];
         }
         NSLog(@"quickSignup response: %@", responseObject);
-        callback(success);
+        if (callback) {
+            callback(success);
+        }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error signing up for account: %@", error.userInfo);
-        callback(NO);
+        if (callback) {
+            callback(NO);
+        }
     }];
 }
 
@@ -600,7 +608,7 @@
 }
 
 
-- (void) getSubscribedTags {
+- (void) getSubscribedTagsWithSuccessBlock:(void (^)(NSSet *tags))successBlock failureBlock:(void (^)(NSString *reason))failureBlock {
     OWAccount *account = [OWSettingsController sharedInstance].account;
     if (!account.isLoggedIn) {
         return;
@@ -616,8 +624,14 @@
         }
         user.tags = tags;
         [context MR_saveToPersistentStoreAndWait];
+        if (successBlock) {
+            successBlock(tags);
+        }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Failed to load tags: %@", operation.responseString);
+        if (failureBlock) {
+            failureBlock(error.userInfo.description);
+        }
     }];
 
 }

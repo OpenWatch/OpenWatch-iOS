@@ -27,6 +27,8 @@
 - (void) loginWithAccount:(OWAccount*)account success:(void (^)(void)) success failure:(void (^)(NSString *reason))failure;
 - (void) signupWithAccount:(OWAccount*)account success:(void (^)(void)) success failure:(void (^)(NSString *reason))failure;
 
+- (void) getSubscribedTagsWithSuccessBlock:(void (^)(NSSet *tags))successBlock failureBlock:(void (^)(NSString *reason))failureBlock;
+
 - (void) updateUserPushToken:(NSData*)token;
 - (void) updateUserLocation:(CLLocation*)location;
 - (void) updateUserSecretAgentStatus:(BOOL)secretAgentEnabled;
