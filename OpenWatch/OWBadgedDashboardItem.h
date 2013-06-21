@@ -7,15 +7,10 @@
 //
 
 #import "OWDashboardItem.h"
-#import "JSBadgeView.h"
+#import "OWMissionBadgeView.h"
 
 @interface OWBadgedDashboardItem : OWDashboardItem
 
-@property (nonatomic, strong) JSBadgeView *badgeView;
-
-// userInfo: badgeText to change badge text
-- (void) registerForNotifications:(NSString*)notificationName;
-
-+ (NSString*) userInfoBadgeTextKey;
+@property (nonatomic, strong) OWMissionBadgeView *badgeView;
 
 @end

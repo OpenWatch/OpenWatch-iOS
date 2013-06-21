@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "OWMissionBadgeView.h"
 
 @interface OWRootViewController : UIViewController
+
+@property (nonatomic, strong) OWMissionBadgeView *badgeView;
 
 @end

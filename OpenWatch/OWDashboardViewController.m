@@ -66,7 +66,6 @@
         OWDashboardItem *settings = [[OWDashboardItem alloc] initWithTitle:SETTINGS_STRING image:[UIImage imageNamed:@"19-gear.png"] target:self selector:@selector(settingsButtonPressed:)];
         
         OWBadgedDashboardItem *missions = [[OWBadgedDashboardItem alloc] initWithTitle:MISSIONS_STRING image:[UIImage imageNamed:@"108-badge.png"] target:self selector:@selector(missionsButtonPressed:)];
-        [missions registerForNotifications:kMissionCountUpdateNotification];
         NSArray *missionsArray = @[missions];
         
         NSArray *middleItems = @[topStories, local, rawFeed, yourMedia];

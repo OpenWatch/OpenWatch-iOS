@@ -18,7 +18,7 @@
 
 - (id) initWithTitle:(NSString *)newTitle image:(UIImage *)newImage target:(id)newTarget selector:(SEL)newSelector {
     if (self = [super initWithTitle:newTitle image:newImage target:newTarget selector:newSelector]) {
-        self.badgeView = [[JSBadgeView alloc] initWithFrame:CGRectZero];
+        self.badgeView = [[OWMissionBadgeView alloc] initWithFrame:CGRectZero];
     }
     return self;
 }
@@ -31,17 +31,8 @@
     return [OWBadgedDashboardTableViewCell class];
 }
 
-- (void) registerForNotifications:(NSString*)notificationName {
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateBadgeText:) name:notificationName object:nil];
-    
-}
 
-- (void) updateBadgeText:(NSNotification*)notification {
-    self.badgeView.badgeText = [notification.userInfo objectForKey:[OWBadgedDashboardItem userInfoBadgeTextKey]];
-}
 
-+ (NSString*) userInfoBadgeTextKey {
-    return @"badgeText";
-}
+
 
 @end

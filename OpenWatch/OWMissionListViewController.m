@@ -42,6 +42,8 @@
 
 - (void) tooltipViewDidDismiss:(OWTooltipView *)tooltipView {
     self.headerView = nil;
+    OWAccount *account = [OWSettingsController sharedInstance].account;
+    account.missionsDescriptionDismissed = YES;
     [self.tableView reloadData];
 }
 

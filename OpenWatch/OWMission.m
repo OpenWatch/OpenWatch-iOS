@@ -9,7 +9,7 @@
 #import "OWMission.h"
 #import "OWMissionTableViewCell.h"
 #import "OWConstants.h"
-#import "OWBadgedDashboardItem.h"
+#import "OWMissionBadgeView.h"
 
 @implementation OWMission
 
@@ -80,7 +80,7 @@
     if (unreadMissions.count > 0) {
         badgeText = [NSString stringWithFormat:@"%d", unreadMissions.count];
     }
-    [[NSNotificationCenter defaultCenter] postNotificationName:kMissionCountUpdateNotification object:nil userInfo:@{[OWBadgedDashboardItem userInfoBadgeTextKey]: badgeText}];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kMissionCountUpdateNotification object:nil userInfo:@{[OWMissionBadgeView userInfoBadgeTextKey]: badgeText}];
 }
 
 - (CLLocationCoordinate2D) coordinate {

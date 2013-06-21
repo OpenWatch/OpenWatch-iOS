@@ -17,6 +17,7 @@
 @end
 
 @implementation OWRootViewController
+@synthesize badgeView;
 
 - (id)init
 {
@@ -32,8 +33,18 @@
     self.title = WATCH_STRING;
     UIImage *revealImagePortrait = [UIImage imageNamed:@"reveal_menu_icon_portrait"];
     
-    self.navigationItem.leftBarButtonItem =
-    [OWUtilities barItemWithImage:revealImagePortrait target:self action:@selector(showLeftView:)];
+    UIButton* button = [UIButton buttonWithType:UIButtonTypeCustom];
+    button.bounds = CGRectMake(0, 0, 45, 40);
+    [button setImage:revealImagePortrait forState:UIControlStateNormal];
+    [button addTarget:self action:@selector(showLeftView:) forControlEvents:UIControlEventTouchUpInside];
+    self.badgeView = [[OWMissionBadgeView alloc] initWithFrame:CGRectZero];
+    badgeView.frame = CGRectMake(0, 0, 20, 20);
+    self.badgeView.badgePositionAdjustment = CGPointMake(-7, 9);
+    self.badgeView.badgeText = nil;
+    [button addSubview:badgeView];
+    UIBarButtonItem* leftItem = [[UIBarButtonItem alloc] initWithCustomView:button];
+    
+    self.navigationItem.leftBarButtonItem = leftItem;
     self.navigationItem.rightBarButtonItem = [OWUtilities barItemWithImage:[UIImage imageNamed:@"285-facetime.png"] target:self action:@selector(startRecording:)];
     
     UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"openwatch.png"]];
