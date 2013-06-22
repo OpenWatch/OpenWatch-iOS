@@ -76,11 +76,6 @@
     [OW_APP_DELEGATE.creationController recordVideoFromViewController:self];
 }
 
-- (void) photoButtonPressed:(id)sender {
-    OW_APP_DELEGATE.creationController.primaryTag = self.mission.primaryTag;
-    [OW_APP_DELEGATE.creationController takePhotoFromViewController:self];
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];

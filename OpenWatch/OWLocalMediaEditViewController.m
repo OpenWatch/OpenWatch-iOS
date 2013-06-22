@@ -38,7 +38,6 @@
 - (id) init {
     if (self = [super init]) {
         self.title = EDIT_STRING;
-        self.view.backgroundColor = [OWUtilities stoneBackgroundPattern];
         [self setupScrollView];
         [self setupFields];
         [self setupWhatHappenedLabel];
@@ -54,6 +53,7 @@
         [self.scrollView addSubview:uploadStatusLabel];
         
         self.characterCountdown = [[OWCharacterCountdownView alloc] initWithFrame:CGRectZero];
+        [self.scrollView addSubview:characterCountdown];
         self.showingAfterCapture = NO;
         [self registerForUploadProgressNotifications];
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:SAVE_STRING style:UIBarButtonItemStyleDone target:self action:@selector(saveButtonPressed:)];
@@ -76,11 +76,14 @@
 - (void) setupPreviewView {
     self.previewView = [[OWPreviewView alloc] init];
     self.previewView.moviePlayer.shouldAutoplay = YES;
+    [self.scrollView addSubview:previewView];
 }
 
 - (void) setupScrollView {
     self.scrollView = [[UIScrollView alloc] init];
     self.scrollView.delaysContentTouches = NO;
+    self.scrollView.backgroundColor = [OWUtilities stoneBackgroundPattern];
+    [self.view addSubview:scrollView];
 }
 
 - (void) setupWhatHappenedLabel {
@@ -223,13 +226,6 @@
     [self refreshProgressView];
 }
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-	[self.view addSubview:scrollView];
-    [self.scrollView addSubview:characterCountdown];
-    [self.scrollView addSubview:previewView];
-}
 
 - (BOOL) checkFields {
     if (self.titleTextField.text.length > 2) {
