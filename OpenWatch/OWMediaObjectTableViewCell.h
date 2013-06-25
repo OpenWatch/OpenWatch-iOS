@@ -41,5 +41,8 @@
 + (CGFloat) previewHeight;
 + (CGFloat) heightForTitleLabelWithText:(NSString*)text;
 + (UIFont*) titleLabelFont;
++ (CGFloat) paddedWidth;
++ (CGFloat) contentXOffset;
++ (CGFloat) titleLabelYOffset;
 
 @end

@@ -21,7 +21,7 @@
 @end
 
 @implementation OWMissionViewController
-@synthesize mission, scrollView, imageView, titleLabel, blurbLabel, dashboardView, userView;
+@synthesize mission, scrollView, imageView, titleLabel, blurbLabel, dashboardView;
 @synthesize imageContainerView, bannerView;
 
 - (id)init
@@ -40,7 +40,6 @@
         self.imageView.contentMode = UIViewContentModeScaleAspectFill;
         self.imageView.clipsToBounds = YES;
         self.scrollView = [[UIScrollView alloc] init];
-        self.userView = [[OWUserView alloc] initWithFrame:CGRectZero];
         
         self.dashboardView = [[OWDashboardView alloc] initWithFrame:CGRectZero];
         self.dashboardView.dashboardTableView.scrollEnabled = NO;
@@ -53,7 +52,6 @@
         [self.scrollView addSubview:blurbLabel];
         [self.scrollView addSubview:imageContainerView];
         [self.scrollView addSubview:dashboardView];
-        [self.scrollView addSubview:userView];
         
         OWDashboardItem *videoItem = [[OWDashboardItem alloc] initWithTitle:BROADCAST_VIDEO_STRING image:[UIImage imageNamed:@"285-facetime.png"] target:self selector:@selector(recordButtonPressed:)];
         
@@ -105,10 +103,8 @@
     
     CGRect titleLabelFrame = [OWUtilities constrainedFrameForLabel:titleLabel width:paddedWidth origin:CGPointMake(padding, [OWUtilities bottomOfView:imageView] + padding)];
     self.titleLabel.frame = titleLabelFrame;
-    
-    self.userView.frame = CGRectMake(padding, [OWUtilities bottomOfView:titleLabel] + padding, paddedWidth, 65);
-    
-    CGRect blurbLabelFrame = [OWUtilities constrainedFrameForLabel:blurbLabel width:paddedWidth origin:CGPointMake(padding, [OWUtilities bottomOfView:userView] + padding)];
+        
+    CGRect blurbLabelFrame = [OWUtilities constrainedFrameForLabel:blurbLabel width:paddedWidth origin:CGPointMake(padding, [OWUtilities bottomOfView:titleLabel] + padding)];
     self.blurbLabel.frame = blurbLabelFrame;
     
     self.dashboardView.frame = CGRectMake(0, [OWUtilities bottomOfView:blurbLabel] + padding, frameWidth, self.dashboardView.dashboardTableView.contentSize.height);
@@ -160,7 +156,6 @@
         [MBProgressHUD hideAllHUDsForView:weakImageView animated:YES];
     }];
     self.title = [NSString stringWithFormat:@"#%@", mission.primaryTag];
-    self.userView.user = mission.user;
     
     if (self.bannerView) {
         [bannerView removeFromSuperview];

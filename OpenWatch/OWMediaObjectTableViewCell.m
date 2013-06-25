@@ -22,13 +22,7 @@
 #import "TTTTimeIntervalFormatter.h"
 
 #define PADDING 5.0f
-
 #define USER_HEIGHT 50.0f
-
-#define TITLE_LABEL_YOFFSET 30.0f
-
-#define CONTENT_X_OFFSET 61.0f
-
 #define MORE_BUTTON_HEIGHT 19.0f
 
 @implementation OWMediaObjectTableViewCell
@@ -68,14 +62,22 @@
     
 }
 
++ (CGFloat) contentXOffset {
+    return 61.0f;
+}
+
 + (CGFloat) cellWidth {
     return 320.0f;
+}
+
++ (CGFloat) titleLabelYOffset {
+    return 30.0f;
 }
 
 + (CGFloat) cellHeightForMediaObject:(OWMediaObject *)mediaObject {
     CGFloat totalHeight = 0.0f;
     totalHeight += [self previewHeight] + PADDING;
-    totalHeight += TITLE_LABEL_YOFFSET + PADDING;
+    totalHeight += [self titleLabelYOffset] + PADDING;
     if (mediaObject.title.length > 0) {
         totalHeight += [self heightForTitleLabelWithText:mediaObject.title];
     }
@@ -96,7 +98,7 @@
 }
 
 + (CGFloat) insetWidth {
-    return [self paddedWidth] - CONTENT_X_OFFSET;
+    return [self paddedWidth] - [self contentXOffset];
 }
 
 + (CGFloat) heightForTitleLabelWithText:(NSString*)text {
@@ -138,27 +140,27 @@
 }
 
 - (void) refreshFrames {
-    CGFloat cellWidth = [OWMediaObjectTableViewCell cellWidth];
-    CGFloat paddedWidth = [OWMediaObjectTableViewCell paddedWidth];
-    CGFloat insetWidth = [OWMediaObjectTableViewCell insetWidth];
-    CGFloat previewHeight = [OWMediaObjectTableViewCell previewHeight];
+    CGFloat cellWidth = [[self class] cellWidth];
+    CGFloat paddedWidth = [[self class] paddedWidth];
+    CGFloat insetWidth = [[self class] insetWidth];
+    CGFloat previewHeight = [[self class] previewHeight];
     self.previewView.frame = CGRectMake(0, 0, cellWidth, previewHeight);
     CGFloat userViewYOrigin = [OWUtilities bottomOfView:previewView] + PADDING;
     self.userView.frame = CGRectMake(PADDING, userViewYOrigin, paddedWidth, USER_HEIGHT);
     CGFloat locationLabelWidth = 130.0f;
     self.locationLabel.frame = CGRectMake(cellWidth - locationLabelWidth - PADDING, userViewYOrigin, locationLabelWidth, self.userView.usernameLabel.frame.size.height);
     
-    CGFloat xOffset = PADDING + CONTENT_X_OFFSET; 
-    CGFloat yOffset = TITLE_LABEL_YOFFSET + [OWUtilities bottomOfView:previewView];
+    CGFloat xOffset = PADDING + [[self class] contentXOffset];
+    CGFloat yOffset = [[self class] titleLabelYOffset] + [OWUtilities bottomOfView:previewView];
     
-    CGFloat titleLabelHeight = [OWMediaObjectTableViewCell heightForTitleLabelWithText:self.titleLabel.text];
+    CGFloat titleLabelHeight = [[self class] heightForTitleLabelWithText:self.titleLabel.text];
     self.titleLabel.frame = CGRectMake(xOffset, yOffset, insetWidth, titleLabelHeight);
     
     
     CGFloat bottomRowYOrigin = [OWUtilities bottomOfView:titleLabel] + PADDING;
     
     CGFloat moreButtonWidth = 50.0f;
-    self.moreButton.frame = CGRectMake([OWMediaObjectTableViewCell cellWidth] - moreButtonWidth - PADDING, bottomRowYOrigin, moreButtonWidth, MORE_BUTTON_HEIGHT);
+    self.moreButton.frame = CGRectMake([[self class] cellWidth] - moreButtonWidth - PADDING, bottomRowYOrigin, moreButtonWidth, MORE_BUTTON_HEIGHT);
     
     
     self.dateLabel.frame = CGRectMake(xOffset, bottomRowYOrigin, 200, MORE_BUTTON_HEIGHT);

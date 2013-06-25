@@ -122,6 +122,16 @@
     return cell;
 }
 
+- (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row >= self.objectIDs.count) {
+        return 45.0f;
+    }
+    NSManagedObjectID *objectID = [self.objectIDs objectAtIndex:indexPath.row];
+    NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
+    OWMediaObject *mediaObject = (OWMediaObject*)[context existingObjectWithID:objectID error:nil];
+    return [OWMissionTableViewCell cellHeightForMediaObject:mediaObject];
+}
+
 
 - (void) fetchObjectsForPageNumber:(NSUInteger)pageNumber {
     [self didSelectFeedWithPageNumber:pageNumber];

@@ -26,16 +26,13 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-//#define TESTING 1
-//#ifdef TESTING
+#ifndef DEBUG
     [Crittercism enableWithAppID:CRITTERCISM_APP_ID];
     [TestFlight setDeviceIdentifier:[[UIDevice currentDevice] uniqueIdentifier]];
-//#endif
-//#ifndef DEBUG
     [TestFlight takeOff:TESTFLIGHT_APP_TOKEN];
+#endif
     [MagicalRecord setupAutoMigratingCoreDataStack];
 
-//#endif
     self.allowRotation = NO;
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
