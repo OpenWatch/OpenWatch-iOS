@@ -54,7 +54,7 @@ static NSString *const OWVideoPreviewPlayButtonPressedNotification = @"OWVideoPr
 }
 
 - (void) preparedToPlayNotification:(NSNotification*)notification {
-    [self setView:thumbnailImageView visible:!self.moviePlayer.isPreparedToPlay animated:YES];
+    [self setView:thumbnailImageView visible:!self.moviePlayer.isPreparedToPlay animationDuration:2.0f];
 }
 
 - (void) playButtonPressedNotification:(NSNotification*)notification {
@@ -68,20 +68,16 @@ static NSString *const OWVideoPreviewPlayButtonPressedNotification = @"OWVideoPr
         [loadingIndicator startAnimating];
     }
     
-    [self setView:playButton visible:shouldShowPlayButton animated:YES];
+    [self setView:playButton visible:shouldShowPlayButton animationDuration:0.5];
 }
 
-- (void) setView:(UIView*)view visible:(BOOL)visible animated:(BOOL)animated {
+- (void) setView:(UIView*)view visible:(BOOL)visible animationDuration:(NSTimeInterval)animationDuration {
     CGFloat alpha = 0.0f;
-    CGFloat duration = 0.0f;
     if (visible) {
         alpha = 1.0f;
         view.userInteractionEnabled = YES;
     }
-    if (animated) {
-        duration = 2.0f;
-    }
-    [UIView animateWithDuration:duration delay:0 options:UIViewAnimationOptionAllowUserInteraction | UIViewAnimationOptionBeginFromCurrentState animations:^{
+    [UIView animateWithDuration:animationDuration delay:0 options:UIViewAnimationOptionAllowUserInteraction | UIViewAnimationOptionBeginFromCurrentState animations:^{
         view.alpha = alpha;
     } completion:^(BOOL finished) {
         if (finished && !visible) {
@@ -105,8 +101,8 @@ static NSString *const OWVideoPreviewPlayButtonPressedNotification = @"OWVideoPr
 - (void) setVideo:(OWManagedRecording *)newVideo {
     video = newVideo;
     
-    [self setView:playButton visible:YES animated:NO];
-    [self setView:thumbnailImageView visible:YES animated:NO];
+    [self setView:playButton visible:YES animationDuration:0];
+    [self setView:thumbnailImageView visible:YES animationDuration:0];
     [self.moviePlayer stop];
     
     UIImage *placeholderImage = [video placeholderThumbnailImage];    
