@@ -663,6 +663,21 @@
     
 }
 
+- (NSString*) pathForMediaObject:(OWMediaObject*)mediaObject {
+    NSString *path = [self pathForClass:[mediaObject class]];
+    return [NSString stringWithFormat:@"%@/%d/", path, mediaObject.serverIDValue];
+}
+
+- (void) reportMediaObject:(OWMediaObject*)mediaObject {
+    NSString *path = [self pathForMediaObject:mediaObject];
+    NSLog(@"Reporting media object...");
+    [self postPath:path parameters:@{@"flagged": @(YES)} success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"Reported! %@", operation.responseString);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error reporting object: %@", error.userInfo);
+    }];
+}
+
 - (void) getObjectWithObjectID:(NSManagedObjectID *)objectID success:(void (^)(NSManagedObjectID *objectID))success failure:(void (^)(NSString *reason))failure retryCount:(NSUInteger)retryCount {
     
     NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];

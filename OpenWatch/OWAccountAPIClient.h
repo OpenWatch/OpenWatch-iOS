@@ -35,6 +35,8 @@
 - (void) updateUserPhoto:(UIImage*)photo;
 - (void) updateUserProfile;
 
+
+- (void) reportMediaObject:(OWMediaObject*)mediaObject;
 - (void) postObjectWithUUID:(NSString*)UUID objectClass:(Class)objectClass success:(void (^)(void))success failure:(void (^)(NSString *reason))failure retryCount:(NSUInteger)retryCount;
 - (void) getObjectWithUUID:(NSString*)UUID objectClass:(Class)objectClass success:(void (^)(NSManagedObjectID *objectID))success failure:(void (^)(NSString *reason))failure retryCount:(NSUInteger)retryCount;
 - (void) getObjectWithObjectID:(NSManagedObjectID *)objectID success:(void (^)(NSManagedObjectID *objectID))success failure:(void (^)(NSString *reason))failure  retryCount:(NSUInteger)retryCount;

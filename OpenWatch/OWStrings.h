@@ -8,6 +8,11 @@
 
 #define VIEW_ON_MAP_STRING NSLocalizedString(@"View on Map", @"Title for button to view something on a map")
 
+#define CONTENT_REPORTED_STRING NSLocalizedString(@"Content Reported", @"title for alert after reporting content as abusive")
+
+#define REPORT_STRING NSLocalizedString(@"Report", @"report media as abusive or inappropriate")
+#define REPORT_SUCCESS_STRING NSLocalizedString(@"Thank you for alerting us to potentially abusive or inappropriate content.", @"success message when alerting openwatch about inappropriate content")
+
 #define UNTITLED_STRING NSLocalizedString(@"Untitled", @"Default title for item with no title")
 
 #define MISSIONS_DESCRIPTION_STRING NSLocalizedString(@"Missions are a way for you to get actively involved in uncovering the truth!", @"Description for header of missions view")

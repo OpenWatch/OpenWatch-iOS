@@ -10,12 +10,6 @@
 #import "OWMission.h"
 #import "OWUtilities.h"
 
-#define PADDING 5.0f
-#define USER_HEIGHT 50.0f
-#define TITLE_LABEL_YOFFSET 30.0f
-#define CONTENT_X_OFFSET 61.0f
-#define MORE_BUTTON_HEIGHT 19.0f
-
 @implementation OWMissionTableViewCell
 @synthesize bannerView;
 

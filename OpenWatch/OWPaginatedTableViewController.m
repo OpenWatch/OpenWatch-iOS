@@ -21,6 +21,7 @@
 #import "OWMapViewController.h"
 #import "OWAppDelegate.h"
 #import "PKRevealController.h"
+#import "OWAccountAPIClient.h"
 
 #define kLoadingCellTag 31415
 
@@ -164,8 +165,8 @@
 - (void) moreButtonPressedForTableCell:(OWMediaObjectTableViewCell *)cell {
     NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
     self.selectedMediaObject = (OWMediaObject*)[context existingObjectWithID:cell.mediaObjectID error:nil];
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:SHARE_STRING, nil];
-    NSUInteger cancelButtonIndex = 1;
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:nil destructiveButtonTitle:REPORT_STRING otherButtonTitles:SHARE_STRING, nil];
+    NSUInteger cancelButtonIndex = 2;
     if ([selectedMediaObject isKindOfClass:[OWLocalMediaObject class]]) {
         OWLocalMediaObject *local = (OWLocalMediaObject*)selectedMediaObject;
         CLLocation *endLocation = [local endLocation];
@@ -184,9 +185,15 @@
     if (buttonIndex == actionSheet.cancelButtonIndex) {
         return;
     }
-    if (buttonIndex == 0) { // Share
+    if (buttonIndex == actionSheet.destructiveButtonIndex) {
+        OWMediaObject *media = (OWMediaObject*)selectedMediaObject;
+        [[OWAccountAPIClient sharedClient] reportMediaObject:media];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:CONTENT_REPORTED_STRING message:REPORT_SUCCESS_STRING delegate:nil cancelButtonTitle:OK_STRING otherButtonTitles:nil];
+        [alert show];
+    }
+    if (buttonIndex == 1) { // Share
         [OWShareController shareMediaObject:self.selectedMediaObject fromViewController:self];
-    } else if (buttonIndex == 1) { // View on Map
+    } else if (buttonIndex == 2) { // View on Map
         OWLocalMediaObject *local = (OWLocalMediaObject*)selectedMediaObject;
         CLLocation *endLocation = [local endLocation];
         OWMapAnnotation *annotation = [[OWMapAnnotation alloc] initWithCoordinate:endLocation.coordinate title:local.titleOrHumanizedDateString subtitle:nil];
