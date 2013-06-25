@@ -26,11 +26,11 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-#ifndef DEBUG
-    [Crittercism enableWithAppID:CRITTERCISM_APP_ID];
-    [TestFlight setDeviceIdentifier:[[UIDevice currentDevice] uniqueIdentifier]];
+//#ifndef DEBUG
+    //[Crittercism enableWithAppID:CRITTERCISM_APP_ID];
+    //[TestFlight setDeviceIdentifier:[[UIDevice currentDevice] uniqueIdentifier]];
     [TestFlight takeOff:TESTFLIGHT_APP_TOKEN];
-#endif
+//#endif
     [MagicalRecord setupAutoMigratingCoreDataStack];
 
     self.allowRotation = NO;
