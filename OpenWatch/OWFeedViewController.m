@@ -102,6 +102,18 @@
 }
 
 - (void) didSelectFeedWithName:(NSString *)feedName type:(OWFeedType)type {
+    if ([feedName isEqualToString:self.selectedFeedString]) {
+        return;
+    }
+    if (type == kOWFeedTypeFrontPage) {
+        UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"openwatch.png"]];
+        imageView.frame = CGRectMake(0, 0, 140, 25);
+        imageView.contentMode = UIViewContentModeScaleAspectFit;
+        self.navigationItem.titleView = imageView;
+    } else {
+        self.title = feedName;
+        self.navigationItem.titleView = nil;
+    }
     [self didSelectFeedWithName:feedName type:type pageNumber:1];
 }
 

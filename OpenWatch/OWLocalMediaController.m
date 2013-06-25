@@ -98,12 +98,16 @@
             OWLocalMediaObject *mediaObject = [self localMediaObjectForObjectID:mediaObjectID];
             if ([mediaObject isKindOfClass:[OWLocalRecording class]]){
                 OWLocalRecording *recording = (OWLocalRecording*)mediaObject;
+                NSArray *failedURLs = recording.failedFileUploadURLs;
                 NSUInteger completed = recording.completedFileCount;
                 NSUInteger total = recording.totalFileCount;
-                NSLog(@"Progress for %@ %@: %d / %d, hq(%d), remoteMediaURL: %@", recording.title, recording.uuid, completed, total, recording.isHighQualityFileUploaded, recording.remoteMediaURLString);
-                if (completed < total || recording.hqFileUploadStateValue != OWFileUploadStateCompleted || recording.remoteMediaURLString.length == 0) {
+                NSLog(@"Progress for %@ %@: %d / %d, hq(%d), failed(%d), remoteMediaURL: %@", recording.title, recording.uuid, completed, total, recording.isHighQualityFileUploaded, failedURLs.count, recording.remoteMediaURLString);
+                if (failedURLs.count > 0) {
+                    for (NSURL *failedURL in failedURLs) {
+                        NSLog(@"Failed URL: %@", failedURL.absoluteString);
+                    }
                     NSLog(@"Unsubmitted data found for recording: %@", recording.localRecordingPath);
-                    [[OWCaptureAPIClient sharedClient] uploadFailedFileURLs:recording.failedFileUploadURLs forRecording:recording.objectID];
+                    [[OWCaptureAPIClient sharedClient] uploadFailedFileURLs:failedURLs forRecording:recording.objectID];
                 }
             } else if ([mediaObject isKindOfClass:[OWPhoto class]]) {
                 OWPhoto *photo = (OWPhoto*)mediaObject;

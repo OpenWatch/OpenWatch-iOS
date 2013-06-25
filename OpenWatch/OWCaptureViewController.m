@@ -74,6 +74,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [[UIApplication sharedApplication] setStatusBarHidden:YES];
     self.captureVideoPreviewLayer = [AVCaptureVideoPreviewLayer layerWithSession:videoProcessor.captureSession];
     self.captureVideoPreviewLayer.orientation = AVCaptureVideoOrientationLandscapeRight;
     
@@ -95,9 +96,13 @@
     [videoPreviewView.layer addSublayer:captureVideoPreviewLayer];
 }
 
+- (void) viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [[UIApplication sharedApplication] setStatusBarHidden:NO];
+}
+
 - (void) viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    
+    [super viewWillAppear:animated];    
 	self.videoPreviewView.frame = self.view.bounds;
     CGFloat buttonWidth = 100.0f;
     CGFloat buttonHeight = 45.0f;
@@ -114,10 +119,6 @@
 
     self.timerView.frame = CGRectMake([OWUtilities rightOfView:recordingIndicator], padding, 100, 35);
     [captureVideoPreviewLayer setFrame:self.view.bounds];
-}
-
-- (void) viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
 }
 
 - (void) viewDidAppear:(BOOL)animated {

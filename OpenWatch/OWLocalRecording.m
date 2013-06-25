@@ -225,7 +225,8 @@
 }
 
 - (BOOL) isHighQualityFileUploaded {
-    return ((self.remoteMediaURLString.length > 0) && [self.remoteMediaURLString rangeOfString:kHQFileName].location != NSNotFound);
+    OWFileUploadState uploadState = [self uploadStateForFileAtURL:[self highQualityURL]];
+    return uploadState == OWFileUploadStateCompleted;
 }
 
 - (NSArray*) failedFileUploadURLs {

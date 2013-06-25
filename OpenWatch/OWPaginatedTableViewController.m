@@ -191,6 +191,7 @@
         CLLocation *endLocation = [local endLocation];
         OWMapAnnotation *annotation = [[OWMapAnnotation alloc] initWithCoordinate:endLocation.coordinate title:local.titleOrHumanizedDateString subtitle:nil];
         OWMapViewController *mapView = [[OWMapViewController alloc] init];
+        mapView.title = local.metroCode;
         mapView.annotation = annotation;
         [self.navigationController pushViewController:mapView animated:YES];
     }

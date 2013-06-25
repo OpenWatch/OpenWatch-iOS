@@ -252,11 +252,15 @@
 - (void) writeSampleBuffer:(CMSampleBufferRef)sampleBuffer ofType:(NSString *)mediaType
 {
 	if ( assetWriter.status == AVAssetWriterStatusUnknown ) {
-		
         if ([assetWriter startWriting]) {
-			[assetWriter startSessionAtSourceTime:CMSampleBufferGetPresentationTimeStamp(sampleBuffer)];
-            OWLocalRecording *recording = [OWRecordingController localRecordingForObjectID:recordingID];
-            [recording setUploadState:OWFileUploadStateRecording forFileAtURL:assetWriter.outputURL];
+            @try {
+                [assetWriter startSessionAtSourceTime:CMSampleBufferGetPresentationTimeStamp(sampleBuffer)];
+                OWLocalRecording *recording = [OWRecordingController localRecordingForObjectID:recordingID];
+                [recording setUploadState:OWFileUploadStateRecording forFileAtURL:assetWriter.outputURL];
+            }
+            @catch (NSException *exception) {
+                [self handleException:exception];
+            }
 		}
 		else {
 			[self showError:[assetWriter error]];
@@ -298,7 +302,7 @@
 }
 
 - (void) handleException:(NSException *)exception {
-    
+    NSLog(@"Exception caught: %@", exception.description);
 }
 
 - (void) finishEncoding {

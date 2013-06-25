@@ -53,6 +53,8 @@
     self.locationLabel = [[UILabel alloc] init];
     self.locationLabel.backgroundColor = [UIColor clearColor];
     self.locationLabel.textAlignment = NSTextAlignmentRight;
+    self.locationLabel.font =  [UIFont fontWithName:@"HelveticaNeue-Light" size:17.0f];
+    self.locationLabel.textColor = [UIColor lightGrayColor];
     [self.contentView addSubview:locationLabel];
 }
 
@@ -60,6 +62,8 @@
 - (void) setupDateLabel {
     self.dateLabel = [[UILabel alloc] init];
     self.dateLabel.backgroundColor = [UIColor clearColor];
+    self.dateLabel.font =  [UIFont fontWithName:@"HelveticaNeue-Light" size:17.0f];
+    self.dateLabel.textColor = [UIColor lightGrayColor];
     [self.contentView addSubview:dateLabel];
     
 }
@@ -84,7 +88,7 @@
 }
 
 + (UIFont*) titleLabelFont {
-    return [UIFont systemFontOfSize:20.0f];
+    return [UIFont fontWithName:@"HelveticaNeue-Medium" size:20.0f];
 }
 
 + (CGFloat) paddedWidth {

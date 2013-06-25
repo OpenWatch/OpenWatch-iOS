@@ -97,6 +97,14 @@
 - (void) uploadFileURL:(NSURL*)url recording:(NSManagedObjectID*)recordingObjectID priority:(NSOperationQueuePriority)priority retryCount:(NSUInteger)retryCount {
     OWLocalRecording *recording = [OWRecordingController localRecordingForObjectID:recordingObjectID];
     
+    OWFileUploadState uploadState = [recording uploadStateForFileAtURL:url];
+    
+    if (uploadState == OWFileUploadStateCompleted) {
+        NSLog(@"File already uploaded, skipping: %@", url.absoluteString);
+        return;
+    }
+    
+    
     NSLog(@"Uploading file (%d): %@", retryCount, url.absoluteString);
     
     if (retryCount <= 0) {
@@ -143,8 +151,8 @@
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"File upload response %@: %@", url.absoluteString, responseObject);
         BOOL successValue = NO;
-        if ([responseObject isKindOfClass:[NSDictionary class]]) {
-            successValue = [[responseObject objectForKey:@"success"] boolValue];
+        if (operation.hasAcceptableStatusCode) {
+            successValue = YES;
         }
         if (!successValue) {
             NSLog(@"Success is not true for %@: %@", url.absoluteString, responseObject);
@@ -205,7 +213,7 @@
         [self postPath:postPath parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSLog(@"metadata response: %@", [responseObject description]);
             BOOL successValue = NO;
-            if ([responseObject isKindOfClass:[NSDictionary class]]) {
+            if (operation.hasAcceptableStatusCode) {
                 successValue = [[responseObject objectForKey:@"success"] boolValue];
                 if (callback && successValue) {
                     callback(YES);

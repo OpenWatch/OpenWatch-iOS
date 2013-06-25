@@ -176,6 +176,7 @@
 }
 
 - (void) handleException:(NSException *)exception {
+    [super handleException:exception];
     [self segmentRecording:nil];
 }
 

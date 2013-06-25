@@ -12,10 +12,10 @@
 
 typedef enum {
     OWFileUploadStateUnknown = 0,
-    OWFileUploadStateUploading,
-    OWFileUploadStateFailed,
-    OWFileUploadStateCompleted,
-    OWFileUploadStateRecording
+    OWFileUploadStateUploading = 1,
+    OWFileUploadStateFailed = 2,
+    OWFileUploadStateCompleted = 3,
+    OWFileUploadStateRecording = 4
 } OWFileUploadState;
 
 @interface OWRecordingSegment : _OWRecordingSegment
