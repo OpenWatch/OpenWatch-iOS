@@ -18,6 +18,7 @@
 #import "OWMissionViewController.h"
 #import "OWMission.h"
 #import "PKRevealController.h"
+#import "Crittercism.h"
 
 
 @implementation OWAppDelegate
@@ -27,6 +28,7 @@
 {
 //#define TESTING 1
 //#ifdef TESTING
+    [Crittercism enableWithAppID:CRITTERCISM_APP_ID];
     [TestFlight setDeviceIdentifier:[[UIDevice currentDevice] uniqueIdentifier]];
 //#endif
 //#ifndef DEBUG

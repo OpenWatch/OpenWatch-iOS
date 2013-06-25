@@ -61,3 +61,6 @@
 [submodule "Submodules/PKRevealController"]
 	path = Submodules/PKRevealController
 	url = https://github.com/pkluz/PKRevealController.git
+[submodule "Submodules/Crittercism"]
+	path = Submodules/Crittercism
+	url = git@github.com:OpenWatch/Crittercism-SDK.git

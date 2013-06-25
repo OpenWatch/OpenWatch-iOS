@@ -185,6 +185,7 @@
 		D99741A11651DB0B0034ABB0 /* OWSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D99741A01651DB0B0034ABB0 /* OWSettingsViewController.m */; };
 		D9A6D9D51731D03400C1488A /* BSKeyboardControls.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A6D9D11731D03400C1488A /* BSKeyboardControls.m */; };
 		D9A6D9D61731D03400C1488A /* BSKeyboardControls.strings in Resources */ = {isa = PBXBuildFile; fileRef = D9A6D9D21731D03400C1488A /* BSKeyboardControls.strings */; };
+		D9AD11C41779313200DB5705 /* libCrittercism.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D9AD11C21779313200DB5705 /* libCrittercism.a */; };
 		D9B4E80A17440B20006B3793 /* gh@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9B4E80817440B20006B3793 /* gh@2x.png */; };
 		D9B4E80D17441759006B3793 /* cc@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9B4E80C17441759006B3793 /* cc@2x.png */; };
 		D9B4E81317442E16006B3793 /* icon-iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = D9B4E81217442E16006B3793 /* icon-iphone.png */; };
@@ -938,6 +939,11 @@
 		D9A6D9D11731D03400C1488A /* BSKeyboardControls.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSKeyboardControls.m; sourceTree = "<group>"; };
 		D9A6D9D31731D03400C1488A /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/BSKeyboardControls.strings; sourceTree = "<group>"; };
 		D9A6D9D41731D03400C1488A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/BSKeyboardControls.strings; sourceTree = "<group>"; };
+		D9AD11BC17792CE700DB5705 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Localizable.strings; sourceTree = "<group>"; };
+		D9AD11BD17792CEF00DB5705 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		D9AD11C01779313200DB5705 /* Crittercism.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Crittercism.h; sourceTree = "<group>"; };
+		D9AD11C11779313200DB5705 /* CrittercismDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CrittercismDelegate.h; sourceTree = "<group>"; };
+		D9AD11C21779313200DB5705 /* libCrittercism.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libCrittercism.a; sourceTree = "<group>"; };
 		D9B4E80817440B20006B3793 /* gh@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gh@2x.png"; sourceTree = "<group>"; };
 		D9B4E80C17441759006B3793 /* cc@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cc@2x.png"; sourceTree = "<group>"; };
 		D9B4E81217442E16006B3793 /* icon-iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-iphone.png"; path = "../icon-iphone.png"; sourceTree = "<group>"; };
@@ -1261,6 +1267,7 @@
 				D99741781651D42F0034ABB0 /* Foundation.framework in Frameworks */,
 				D997417A1651D42F0034ABB0 /* CoreGraphics.framework in Frameworks */,
 				D9CEED151682718600B236B5 /* libTestFlight.a in Frameworks */,
+				D9AD11C41779313200DB5705 /* libCrittercism.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1652,6 +1659,16 @@
 			path = BSKeyboardControls/BSKeyboardControls;
 			sourceTree = "<group>";
 		};
+		D9AD11BE1779313200DB5705 /* Crittercism */ = {
+			isa = PBXGroup;
+			children = (
+				D9AD11C01779313200DB5705 /* Crittercism.h */,
+				D9AD11C11779313200DB5705 /* CrittercismDelegate.h */,
+				D9AD11C21779313200DB5705 /* libCrittercism.a */,
+			);
+			path = Crittercism;
+			sourceTree = "<group>";
+		};
 		D9BECEF116B1D3AC009046E1 /* Paginated Tables */ = {
 			isa = PBXGroup;
 			children = (
@@ -1720,6 +1737,7 @@
 		D9D2E1501652EA8A0000E7C5 /* Submodules */ = {
 			isa = PBXGroup;
 			children = (
+				D9AD11BE1779313200DB5705 /* Crittercism */,
 				D9C467211773B64F006711D1 /* PKRevealController */,
 				D922B1D117727C6A0072BE0E /* FormatterKit */,
 				D90722F3177121490055B36D /* STTweetLabel */,
@@ -3006,6 +3024,7 @@
 			children = (
 				D997417F1651D42F0034ABB0 /* en */,
 				D9ECC1BB176001CD00A34DFE /* tr */,
+				D9AD11BD17792CEF00DB5705 /* pl */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -3050,6 +3069,7 @@
 			children = (
 				D9ECBF38175FD81400A34DFE /* en */,
 				D9ECBF3A175FF82600A34DFE /* tr */,
+				D9AD11BC17792CE700DB5705 /* pl */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -3136,6 +3156,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Submodules/TestFlight\"",
+					"\"$(SRCROOT)/Submodules/Crittercism\"",
 				);
 				OTHER_LDFLAGS = (
 					"-all_load",
@@ -3163,6 +3184,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Submodules/TestFlight\"",
+					"\"$(SRCROOT)/Submodules/Crittercism\"",
 				);
 				OTHER_LDFLAGS = (
 					"-all_load",
