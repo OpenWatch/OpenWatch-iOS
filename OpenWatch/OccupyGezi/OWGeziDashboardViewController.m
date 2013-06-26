@@ -11,6 +11,7 @@
 #import "OWStrings.h"
 #import "OWTagDashboardItem.h"
 #import "OWFeedViewController.h"
+#import "OWGeziSettingsViewController.h"
 
 @interface OWGeziDashboardViewController ()
 
@@ -36,6 +37,11 @@
 - (void) feedButtonPressed:(id)sender {
     [self selectFeed:@"occupygezi" type:kOWFeedTypeTag];
 }
+
+- (Class) settingsViewClass {
+    return [OWGeziSettingsViewController class];
+}
+
 
 - (void) refreshTagList {
     OWTag *tag = [OWTag tagWithName:@"occupygezi"];

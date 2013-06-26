@@ -142,12 +142,15 @@
 }
 
 - (void) settingsButtonPressed:(id) sender {
-    OWSettingsViewController *settingsVC = [[OWSettingsViewController alloc] init];
+    OWSettingsViewController *settingsVC = [[[self settingsViewClass] alloc] init];
     [OW_APP_DELEGATE.navigationController setViewControllers:@[settingsVC] animated:NO];
     [self.revealController showViewController:self.revealController.frontViewController];
 
 }
 
+- (Class) settingsViewClass {
+    return [OWSettingsViewController class];
+}
 
 
 
