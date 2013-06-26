@@ -28,6 +28,9 @@
 @implementation OWFancyLoginViewController
 @synthesize backgroundImageView, logoView, blurbLabel, emailField, startButton, scrollView, passwordField, activityIndicatorView, processingLogin, keyboardControls, forgotPasswordButton;
 
+- (UIImage*) logoImage {
+    return [UIImage imageNamed:@"openwatch-light.png"];
+}
 
 - (id)init
 {
@@ -36,7 +39,7 @@
         self.emailField = [[UITextField alloc] init];
         self.emailField.delegate = self;
         self.blurbLabel = [[UILabel alloc] init];
-        self.logoView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"openwatch-light.png"]];
+        self.logoView = [[UIImageView alloc] initWithImage:[self logoImage]];
         self.scrollView = [[UIScrollView alloc] init];
         self.startButton = [[BButton alloc] initWithFrame:CGRectZero type:BButtonTypeSuccess];
         self.activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];

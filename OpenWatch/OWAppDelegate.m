@@ -18,8 +18,6 @@
 #import "OWMissionViewController.h"
 #import "OWMission.h"
 #import "PKRevealController.h"
-#import "Crittercism.h"
-
 
 @implementation OWAppDelegate
 @synthesize locationController, dashboardViewController, backgroundTask, backgroundTimer, allowRotation, creationController, revealController, feedViewController, navigationController;
@@ -59,7 +57,7 @@
     if ([account isLoggedIn]) {
         navigationController.viewControllers = @[feedViewController];
     } else {
-        OWFancyLoginViewController *fancy = [[OWFancyLoginViewController alloc] init];
+        OWFancyLoginViewController *fancy = [[[self loginControllerClass] alloc] init];
         navigationController.viewControllers = @[fancy];
     }
     
@@ -69,6 +67,10 @@
     self.creationController = [[OWMediaCreationController alloc] init];
     [self.window makeKeyAndVisible];
     return YES;
+}
+
+- (Class) loginControllerClass {
+    return [OWFancyLoginViewController class];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
