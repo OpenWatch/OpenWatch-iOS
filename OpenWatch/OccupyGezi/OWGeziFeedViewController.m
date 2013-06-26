@@ -39,6 +39,10 @@
         self.title = feedName;
         self.navigationItem.titleView = nil;
     }
+    if (type == kOWFeedTypeFrontPage) {
+        [self didSelectFeedWithName:@"occupygezi" type:kOWFeedTypeTag pageNumber:1];
+        return;
+    }
     [self didSelectFeedWithName:feedName type:type pageNumber:1];
 }
 

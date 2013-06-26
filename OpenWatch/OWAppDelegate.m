@@ -64,9 +64,13 @@
     self.revealController = [PKRevealController revealControllerWithFrontViewController:navigationController leftViewController:dashboardViewController options:nil];
     
     self.window.rootViewController = revealController;
-    self.creationController = [[OWMediaCreationController alloc] init];
+    self.creationController = [[[self mediaCreationClass] alloc] init];
     [self.window makeKeyAndVisible];
     return YES;
+}
+
+- (Class) mediaCreationClass {
+    return [OWMediaCreationController class];
 }
 
 - (Class) feedViewClass {

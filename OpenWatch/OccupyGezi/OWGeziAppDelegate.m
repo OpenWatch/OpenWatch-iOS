@@ -10,8 +10,13 @@
 #import "OWGeziLoginViewController.h"
 #import "OWGeziDashboardViewController.h"
 #import "OWGeziFeedViewController.h"
+#import "OWGeziMediaCreationController.h"
 
 @implementation OWGeziAppDelegate
+
+- (Class) mediaCreationClass {
+    return [OWGeziMediaCreationController class];
+}
 
 - (Class) loginControllerClass {
     return [OWGeziLoginViewController class];

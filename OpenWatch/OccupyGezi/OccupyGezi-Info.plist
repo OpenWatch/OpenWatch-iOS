@@ -14,8 +14,8 @@
 		<dict>
 			<key>CFBundleIconFiles</key>
 			<array>
-				<string>gezi-icon.png</string>
-				<string>gezi-icon@2x.png</string>
+				<string>icon-iphone.png</string>
+				<string>icon-iphone@2x.png</string>
 			</array>
 			<key>UIPrerenderedIcon</key>
 			<true/>
@@ -49,7 +49,7 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSLocationUsageDescription</key>
-	<string>We use your location to provide additional context to the media you create, and to show you what's happening in your area. If you chose to become a special agent, your location will also be sent when you launch the app.</string>
+	<string>We use your location to provide additional context to the media you create, and to show you what&apos;s happening in your area. If you chose to become a special agent, your location will also be sent when you launch the app.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>FontAwesome.ttf</string>
