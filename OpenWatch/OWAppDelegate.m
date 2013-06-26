@@ -54,14 +54,20 @@
     OWSettingsController *settingsController = [OWSettingsController sharedInstance];
     OWAccount *account = settingsController.account;
     self.navigationController = [[UINavigationController alloc] init];
+    BOOL loggedIn = NO;
     if ([account isLoggedIn]) {
         navigationController.viewControllers = @[feedViewController];
+        loggedIn = YES;
     } else {
         OWFancyLoginViewController *fancy = [[[self loginControllerClass] alloc] init];
         navigationController.viewControllers = @[fancy];
     }
     
     self.revealController = [PKRevealController revealControllerWithFrontViewController:navigationController leftViewController:dashboardViewController options:nil];
+    
+    if (!loggedIn) {
+        self.revealController.recognizesPanningOnFrontView = NO;
+    }
     
     self.window.rootViewController = revealController;
     self.creationController = [[[self mediaCreationClass] alloc] init];

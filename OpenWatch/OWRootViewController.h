@@ -14,5 +14,6 @@
 @property (nonatomic, strong) OWMissionBadgeView *badgeView;
 
 - (UIImage*) logoImage;
+- (void) setupNavBar;
 
 @end

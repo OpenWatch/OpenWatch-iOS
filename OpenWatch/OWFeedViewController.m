@@ -163,7 +163,8 @@
         CGRect frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - navigationBarHeightHack);
         self.onboardingView = [[OWOnboardingView alloc] initWithFrame:frame];
         self.onboardingView.delegate = self;
-        //self.onboardingView.frame = frame;
+        self.navigationItem.rightBarButtonItem = nil;
+        self.navigationItem.leftBarButtonItem = nil;
         [self.view addSubview:onboardingView];
     }
 }
@@ -210,6 +211,8 @@
 
 
 - (void) onboardingViewDidComplete:(OWOnboardingView *)ow {
+    OW_APP_DELEGATE.revealController.recognizesPanningOnFrontView = YES;
+    [self setupNavBar];
     OWAccount *account = [OWSettingsController sharedInstance].account;
     account.hasCompletedOnboarding = YES;
     account.secretAgentEnabled = onboardingView.agentSwitch.on;
