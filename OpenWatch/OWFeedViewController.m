@@ -106,7 +106,7 @@
         return;
     }
     if (type == kOWFeedTypeFrontPage) {
-        UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"openwatch.png"]];
+        UIImageView *imageView = [[UIImageView alloc] initWithImage:[self logoImage]];
         imageView.frame = CGRectMake(0, 0, 140, 25);
         imageView.contentMode = UIViewContentModeScaleAspectFit;
         self.navigationItem.titleView = imageView;
@@ -138,12 +138,16 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void) viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    [TestFlight passCheckpoint:WATCH_CHECKPOINT];
+- (void) populateInitialFeed {
     if (self.feedType == kOWFeedTypeNone) {
         [self didSelectFeedWithName:nil type:kOWFeedTypeFrontPage];
     }
+}
+
+- (void) viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [TestFlight passCheckpoint:WATCH_CHECKPOINT];
+    [self populateInitialFeed];
     
     CGFloat navigationBarHeightHack = 0.0f;
     

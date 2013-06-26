@@ -21,18 +21,22 @@
     NSNumber *serverID = [dictionary objectForKey:kIDKey];
     NSString *name = [dictionary objectForKey:kNameKey];
     NSNumber *isFeatured = [dictionary objectForKey:kFeaturedKey];
-    OWTag *tag = [OWTag MR_findFirstByAttribute:@"serverID" withValue:serverID inContext:context];
-    if (!tag) {
-        tag = [OWTag MR_findFirstByAttribute:kNameKey withValue:name inContext:context];
-    }
-    if (!tag) {
-        tag = [OWTag MR_createEntity];
-        tag.name = name;
-        tag.serverID = serverID;
-    }
+    OWTag *tag = [OWTag tagWithName:name];
+    tag.serverID = serverID;
     tag.isFeatured = isFeatured;
     [context obtainPermanentIDsForObjects:@[tag] error:nil];
     [context MR_saveToPersistentStoreAndWait];
+    return tag;
+}
+
++ (OWTag*) tagWithName:(NSString*)name {
+    NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
+    OWTag *tag = [OWTag MR_findFirstByAttribute:@"name" withValue:name inContext:context];
+    if (!tag) {
+        tag = [OWTag MR_createEntity];
+        tag.name = name;
+        [context MR_saveToPersistentStoreAndWait];
+    }
     return tag;
 }
 

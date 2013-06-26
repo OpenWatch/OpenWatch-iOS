@@ -37,7 +37,7 @@
     self.window.backgroundColor = [OWUtilities stoneBackgroundPattern];
     self.locationController = [[OWLocationController alloc] init];
      
-    self.dashboardViewController = [[OWDashboardViewController alloc] init];
+    self.dashboardViewController = [[[self dashboardClass] alloc] init];
 
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moviePlayerWillEnterFullscreenNotification:) name:MPMoviePlayerWillEnterFullscreenNotification object:nil];
@@ -49,7 +49,7 @@
     [[UINavigationBar appearance] setBackgroundImage:[OWUtilities navigationBarBackgroundImage] forBarMetrics:UIBarMetricsDefault];
     [[UINavigationBar appearance] setTintColor:[OWUtilities navigationBarColor]];
     
-    self.feedViewController = [[OWFeedViewController alloc] init];
+    self.feedViewController = [[[self feedViewClass] alloc] init];
     
     OWSettingsController *settingsController = [OWSettingsController sharedInstance];
     OWAccount *account = settingsController.account;
@@ -69,8 +69,16 @@
     return YES;
 }
 
+- (Class) feedViewClass {
+    return [OWFeedViewController class];
+}
+
 - (Class) loginControllerClass {
     return [OWFancyLoginViewController class];
+}
+
+- (Class) dashboardClass {
+    return [OWDashboardViewController class];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application

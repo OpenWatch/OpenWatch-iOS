@@ -8,11 +8,21 @@
 
 #import "OWGeziAppDelegate.h"
 #import "OWGeziLoginViewController.h"
+#import "OWGeziDashboardViewController.h"
+#import "OWGeziFeedViewController.h"
 
 @implementation OWGeziAppDelegate
 
 - (Class) loginControllerClass {
     return [OWGeziLoginViewController class];
+}
+
+- (Class) dashboardClass {
+    return [OWGeziDashboardViewController class];
+}
+
+- (Class) feedViewClass {
+    return [OWGeziFeedViewController class];
 }
 
 @end

@@ -585,6 +585,9 @@
 		D9D33F89177B9273005FEC1F /* OWGeziAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D33F88177B9273005FEC1F /* OWGeziAppDelegate.m */; };
 		D9D33F8B177B928E005FEC1F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D33F8A177B928E005FEC1F /* main.m */; };
 		D9D33F8D177B937A005FEC1F /* occupy_gezi_logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9D33F8C177B937A005FEC1F /* occupy_gezi_logo@2x.png */; };
+		D9D33F92177B9747005FEC1F /* OWGeziDashboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D33F91177B9747005FEC1F /* OWGeziDashboardViewController.m */; };
+		D9D33F95177B9C14005FEC1F /* OWGeziFeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D33F94177B9C14005FEC1F /* OWGeziFeedViewController.m */; };
+		D9D33F97177B9DC4005FEC1F /* occupygezi_nav@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9D33F96177B9DC4005FEC1F /* occupygezi_nav@2x.png */; };
 		D9D49E821758154D00416C73 /* OWProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D49E811758154D00416C73 /* OWProfileViewController.m */; };
 		D9D786D916766415006EE6A2 /* UIBarButtonItem+WEPopover.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D786D116766415006EE6A2 /* UIBarButtonItem+WEPopover.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		D9D786DA16766415006EE6A2 /* WEPopoverContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D786D316766415006EE6A2 /* WEPopoverContainerView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -1094,6 +1097,11 @@
 		D9D33F88177B9273005FEC1F /* OWGeziAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OWGeziAppDelegate.m; path = OccupyGezi/OWGeziAppDelegate.m; sourceTree = "<group>"; };
 		D9D33F8A177B928E005FEC1F /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = OccupyGezi/main.m; sourceTree = "<group>"; };
 		D9D33F8C177B937A005FEC1F /* occupy_gezi_logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "occupy_gezi_logo@2x.png"; path = "../Media/OccupyGezi/occupy_gezi_logo@2x.png"; sourceTree = "<group>"; };
+		D9D33F90177B9746005FEC1F /* OWGeziDashboardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OWGeziDashboardViewController.h; path = OccupyGezi/OWGeziDashboardViewController.h; sourceTree = "<group>"; };
+		D9D33F91177B9747005FEC1F /* OWGeziDashboardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OWGeziDashboardViewController.m; path = OccupyGezi/OWGeziDashboardViewController.m; sourceTree = "<group>"; };
+		D9D33F93177B9C14005FEC1F /* OWGeziFeedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OWGeziFeedViewController.h; path = OccupyGezi/OWGeziFeedViewController.h; sourceTree = "<group>"; };
+		D9D33F94177B9C14005FEC1F /* OWGeziFeedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OWGeziFeedViewController.m; path = OccupyGezi/OWGeziFeedViewController.m; sourceTree = "<group>"; };
+		D9D33F96177B9DC4005FEC1F /* occupygezi_nav@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "occupygezi_nav@2x.png"; path = "Media/OccupyGezi/occupygezi_nav@2x.png"; sourceTree = SOURCE_ROOT; };
 		D9D49E801758154D00416C73 /* OWProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWProfileViewController.h; sourceTree = "<group>"; };
 		D9D49E811758154D00416C73 /* OWProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWProfileViewController.m; sourceTree = "<group>"; };
 		D9D5BDB61753DDC4001770FC /* Model 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 2.xcdatamodel"; sourceTree = "<group>"; };
@@ -1949,6 +1957,10 @@
 			children = (
 				D9D33F8F177B9394005FEC1F /* Media */,
 				D9D33F8A177B928E005FEC1F /* main.m */,
+				D9D33F93177B9C14005FEC1F /* OWGeziFeedViewController.h */,
+				D9D33F94177B9C14005FEC1F /* OWGeziFeedViewController.m */,
+				D9D33F90177B9746005FEC1F /* OWGeziDashboardViewController.h */,
+				D9D33F91177B9747005FEC1F /* OWGeziDashboardViewController.m */,
 				D9D33F87177B9273005FEC1F /* OWGeziAppDelegate.h */,
 				D9D33F88177B9273005FEC1F /* OWGeziAppDelegate.m */,
 				D9D33F83177B919A005FEC1F /* OWGeziLoginViewController.h */,
@@ -1960,6 +1972,7 @@
 		D9D33F8F177B9394005FEC1F /* Media */ = {
 			isa = PBXGroup;
 			children = (
+				D9D33F96177B9DC4005FEC1F /* occupygezi_nav@2x.png */,
 				D9D33F8C177B937A005FEC1F /* occupy_gezi_logo@2x.png */,
 			);
 			name = Media;
@@ -2714,6 +2727,7 @@
 				D9D33F7C177B8AC0005FEC1F /* 285-facetime-red.png in Resources */,
 				D9D33F7D177B8AC0005FEC1F /* 285-facetime-red@2x.png in Resources */,
 				D9D33F8D177B937A005FEC1F /* occupy_gezi_logo@2x.png in Resources */,
+				D9D33F97177B9DC4005FEC1F /* occupygezi_nav@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3069,6 +3083,8 @@
 				D9D33F85177B919A005FEC1F /* OWGeziLoginViewController.m in Sources */,
 				D9D33F89177B9273005FEC1F /* OWGeziAppDelegate.m in Sources */,
 				D9D33F8B177B928E005FEC1F /* main.m in Sources */,
+				D9D33F92177B9747005FEC1F /* OWGeziDashboardViewController.m in Sources */,
+				D9D33F95177B9C14005FEC1F /* OWGeziFeedViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -13,6 +13,7 @@
 #import "OWCaptureViewController.h"
 #import "OWLocationController.h"
 #import "OWMediaCreationController.h"
+#import "OWFeedViewController.h"
 
 @interface OWDashboardViewController : UIViewController < OWDashboardViewDelegate, OWLocationControllerDelegate>
 
@@ -21,5 +22,6 @@
 @property (nonatomic, strong) NSArray *staticDashboardItems;
 
 - (void) refreshTagList;
+- (void) selectFeed:(NSString*)feedName type:(OWFeedType)type;
 
 @end

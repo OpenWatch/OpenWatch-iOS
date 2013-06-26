@@ -50,29 +50,32 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
+- (void) setupStaticDashboardItems {
+    OWDashboardItem *topStories = [[OWDashboardItem alloc] initWithTitle:TOP_STORIES_STRING image:[UIImage imageNamed:@"28-star.png"] target:self selector:@selector(feedButtonPressed:)];
+    OWDashboardItem *local = [[OWDashboardItem alloc] initWithTitle:LOCAL_FEED_STRING image:[UIImage imageNamed:@"193-location-arrow.png"] target:self selector:@selector(localFeedButtonPressed:)];
+    OWDashboardItem *yourMedia = [[OWDashboardItem alloc] initWithTitle:YOUR_MEDIA_STRING image:[UIImage imageNamed:@"160-voicemail-2.png"] target:self selector:@selector(yourMediaPressed:)];
+    OWDashboardItem *rawFeed = [[OWDashboardItem alloc] initWithTitle:@"Raw Feed" image:[UIImage imageNamed:@"46-movie-2.png"] target:self selector:@selector(rawFeedPressed:)];
+    
+    OWDashboardItem *feedback = [[OWDashboardItem alloc] initWithTitle:SEND_FEEDBACK_STRING image:[UIImage imageNamed:@"29-heart.png"] target:self selector:@selector(feedbackButtonPressed:)];
+    OWDashboardItem *settings = [[OWDashboardItem alloc] initWithTitle:SETTINGS_STRING image:[UIImage imageNamed:@"19-gear.png"] target:self selector:@selector(settingsButtonPressed:)];
+    
+    OWBadgedDashboardItem *missions = [[OWBadgedDashboardItem alloc] initWithTitle:MISSIONS_STRING image:[UIImage imageNamed:@"108-badge.png"] target:self selector:@selector(missionsButtonPressed:)];
+    NSArray *missionsArray = @[missions];
+    
+    NSArray *middleItems = @[topStories, local, rawFeed, yourMedia];
+    NSArray *bottonItems = @[feedback, settings];
+    NSArray *dashboardItems = @[missionsArray, middleItems, bottonItems];
+    self.staticDashboardItems = dashboardItems;
+    dashboardView.dashboardItems = dashboardItems;
+}
+
 - (id)init
 {
     self = [super init];
     if (self) {
         self.dashboardView = [[OWDashboardView alloc] initWithFrame:CGRectZero];
 
-        
-        OWDashboardItem *topStories = [[OWDashboardItem alloc] initWithTitle:TOP_STORIES_STRING image:[UIImage imageNamed:@"28-star.png"] target:self selector:@selector(feedButtonPressed:)];
-        OWDashboardItem *local = [[OWDashboardItem alloc] initWithTitle:LOCAL_FEED_STRING image:[UIImage imageNamed:@"193-location-arrow.png"] target:self selector:@selector(localFeedButtonPressed:)];
-        OWDashboardItem *yourMedia = [[OWDashboardItem alloc] initWithTitle:YOUR_MEDIA_STRING image:[UIImage imageNamed:@"160-voicemail-2.png"] target:self selector:@selector(yourMediaPressed:)];
-        OWDashboardItem *rawFeed = [[OWDashboardItem alloc] initWithTitle:@"Raw Feed" image:[UIImage imageNamed:@"46-movie-2.png"] target:self selector:@selector(rawFeedPressed:)];
-        
-        OWDashboardItem *feedback = [[OWDashboardItem alloc] initWithTitle:SEND_FEEDBACK_STRING image:[UIImage imageNamed:@"29-heart.png"] target:self selector:@selector(feedbackButtonPressed:)];
-        OWDashboardItem *settings = [[OWDashboardItem alloc] initWithTitle:SETTINGS_STRING image:[UIImage imageNamed:@"19-gear.png"] target:self selector:@selector(settingsButtonPressed:)];
-        
-        OWBadgedDashboardItem *missions = [[OWBadgedDashboardItem alloc] initWithTitle:MISSIONS_STRING image:[UIImage imageNamed:@"108-badge.png"] target:self selector:@selector(missionsButtonPressed:)];
-        NSArray *missionsArray = @[missions];
-        
-        NSArray *middleItems = @[topStories, local, rawFeed, yourMedia];
-        NSArray *bottonItems = @[feedback, settings];
-        NSArray *dashboardItems = @[missionsArray, middleItems, bottonItems];
-        self.staticDashboardItems = dashboardItems;
-        dashboardView.dashboardItems = dashboardItems;
+        [self setupStaticDashboardItems];
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedAccountPermissionsErrorNotification:) name:kAccountPermissionsError object:nil];        
         [self prefetchNewMissions];

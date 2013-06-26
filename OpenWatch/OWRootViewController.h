@@ -13,4 +13,6 @@
 
 @property (nonatomic, strong) OWMissionBadgeView *badgeView;
 
+- (UIImage*) logoImage;
+
 @end

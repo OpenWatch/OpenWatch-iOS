@@ -47,12 +47,15 @@
     self.navigationItem.leftBarButtonItem = leftItem;
     self.navigationItem.rightBarButtonItem = [OWUtilities barItemWithImage:[UIImage imageNamed:@"285-facetime-red.png"] target:self action:@selector(startRecording:)];
     
-    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"openwatch.png"]];
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:[self logoImage]];
     imageView.frame = CGRectMake(0, 0, 140, 25);
     imageView.contentMode = UIViewContentModeScaleAspectFit;
     self.navigationItem.titleView = imageView;
 }
 
+- (UIImage*) logoImage {
+    return [UIImage imageNamed:@"openwatch.png"];
+}
 
 - (void) showLeftView:(id)sender {
     if (self.navigationController.revealController.focusedController == self.navigationController.revealController.leftViewController) {

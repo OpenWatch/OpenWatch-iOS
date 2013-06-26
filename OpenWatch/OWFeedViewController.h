@@ -28,6 +28,7 @@ typedef enum {
 
 
 - (void) didSelectFeedWithName:(NSString*)feedName type:(OWFeedType)type;
+- (void) didSelectFeedWithName:(NSString *)feedName type:(OWFeedType)type pageNumber:(NSUInteger)pageNumber;
 @property (nonatomic, strong) NSString *selectedFeedString;
 @property (nonatomic) OWFeedType feedType;
 
