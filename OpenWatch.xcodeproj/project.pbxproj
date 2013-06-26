@@ -445,8 +445,6 @@
 		D9D33EF2177B8AC0005FEC1F /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D9CEED101682718600B236B5 /* libTestFlight.a */; };
 		D9D33EF3177B8AC0005FEC1F /* libCrittercism.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D9AD11C21779313200DB5705 /* libCrittercism.a */; };
 		D9D33EF5177B8AC0005FEC1F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D997417E1651D42F0034ABB0 /* InfoPlist.strings */; };
-		D9D33EF6177B8AC0005FEC1F /* openwatch.png in Resources */ = {isa = PBXBuildFile; fileRef = D9DFADF816547DE7003C515C /* openwatch.png */; };
-		D9D33EF7177B8AC0005FEC1F /* openwatch@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9DFADF916547DE7003C515C /* openwatch@2x.png */; };
 		D9D33EF8177B8AC0005FEC1F /* popoverArrowDown.png in Resources */ = {isa = PBXBuildFile; fileRef = D9D786E216766C40006EE6A2 /* popoverArrowDown.png */; };
 		D9D33EF9177B8AC0005FEC1F /* popoverArrowDown@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9D786E316766C40006EE6A2 /* popoverArrowDown@2x.png */; };
 		D9D33EFA177B8AC0005FEC1F /* popoverArrowLeft.png in Resources */ = {isa = PBXBuildFile; fileRef = D9D786E516766C40006EE6A2 /* popoverArrowLeft.png */; };
@@ -494,8 +492,6 @@
 		D9D33F24177B8AC0005FEC1F /* play_button_dark.png in Resources */ = {isa = PBXBuildFile; fileRef = D980EC9216B87A4100ADD398 /* play_button_dark.png */; };
 		D9D33F25177B8AC0005FEC1F /* background1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D94A7599170E17F700525289 /* background1.jpg */; };
 		D9D33F26177B8AC0005FEC1F /* background2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D94A759A170E17F700525289 /* background2.jpg */; };
-		D9D33F27177B8AC0005FEC1F /* openwatch-light.png in Resources */ = {isa = PBXBuildFile; fileRef = D94A75A0170E555800525289 /* openwatch-light.png */; };
-		D9D33F28177B8AC0005FEC1F /* openwatch-light@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D94A75A1170E555800525289 /* openwatch-light@2x.png */; };
 		D9D33F29177B8AC0005FEC1F /* BSKeyboardControls.strings in Resources */ = {isa = PBXBuildFile; fileRef = D9A6D9D21731D03400C1488A /* BSKeyboardControls.strings */; };
 		D9D33F2A177B8AC0005FEC1F /* 66-microphone.png in Resources */ = {isa = PBXBuildFile; fileRef = D91AC02C1733021800823179 /* 66-microphone.png */; };
 		D9D33F2B177B8AC0005FEC1F /* 66-microphone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D91AC02D1733021800823179 /* 66-microphone@2x.png */; };
@@ -545,9 +541,6 @@
 		D9D33F57177B8AC0005FEC1F /* cc@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9B4E80C17441759006B3793 /* cc@2x.png */; };
 		D9D33F58177B8AC0005FEC1F /* icon-iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = D9B4E81217442E16006B3793 /* icon-iphone.png */; };
 		D9D33F59177B8AC0005FEC1F /* icon-iphone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9B4E81417442E1A006B3793 /* icon-iphone@2x.png */; };
-		D9D33F5A177B8AC0005FEC1F /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = D9FA646417447D91000051B7 /* Default.png */; };
-		D9D33F5B177B8AC0005FEC1F /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9FA646617447DA5000051B7 /* Default@2x.png */; };
-		D9D33F5C177B8AC0005FEC1F /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9FA646817447DAA000051B7 /* Default-568h@2x.png */; };
 		D9D33F5D177B8AC0005FEC1F /* 29-heart.png in Resources */ = {isa = PBXBuildFile; fileRef = D94B838117457BFB008A1142 /* 29-heart.png */; };
 		D9D33F5E177B8AC0005FEC1F /* 29-heart@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D94B838217457BFB008A1142 /* 29-heart@2x.png */; };
 		D9D33F5F177B8AC0005FEC1F /* 193-location-arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = D94B838617457D50008A1142 /* 193-location-arrow.png */; };
@@ -588,6 +581,12 @@
 		D9D33F92177B9747005FEC1F /* OWGeziDashboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D33F91177B9747005FEC1F /* OWGeziDashboardViewController.m */; };
 		D9D33F95177B9C14005FEC1F /* OWGeziFeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D33F94177B9C14005FEC1F /* OWGeziFeedViewController.m */; };
 		D9D33F97177B9DC4005FEC1F /* occupygezi_nav@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9D33F96177B9DC4005FEC1F /* occupygezi_nav@2x.png */; };
+		D9D33F99177BA0B9005FEC1F /* gezi-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9D33F98177BA0B9005FEC1F /* gezi-icon@2x.png */; };
+		D9D33FA0177BA3AE005FEC1F /* gezi-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = D9D33F9D177BA3AD005FEC1F /* gezi-icon.png */; };
+		D9D33FA6177BA4C4005FEC1F /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9D33FA3177BA4C4005FEC1F /* Default-568h@2x.png */; };
+		D9D33FA7177BA4C4005FEC1F /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = D9D33FA4177BA4C4005FEC1F /* Default.png */; };
+		D9D33FA8177BA4C4005FEC1F /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9D33FA5177BA4C4005FEC1F /* Default@2x.png */; };
+		D9D33FAA177BA529005FEC1F /* openwatch@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9D33FA9177BA529005FEC1F /* openwatch@2x.png */; };
 		D9D49E821758154D00416C73 /* OWProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D49E811758154D00416C73 /* OWProfileViewController.m */; };
 		D9D786D916766415006EE6A2 /* UIBarButtonItem+WEPopover.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D786D116766415006EE6A2 /* UIBarButtonItem+WEPopover.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		D9D786DA16766415006EE6A2 /* WEPopoverContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D786D316766415006EE6A2 /* WEPopoverContainerView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -1102,6 +1101,12 @@
 		D9D33F93177B9C14005FEC1F /* OWGeziFeedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OWGeziFeedViewController.h; path = OccupyGezi/OWGeziFeedViewController.h; sourceTree = "<group>"; };
 		D9D33F94177B9C14005FEC1F /* OWGeziFeedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OWGeziFeedViewController.m; path = OccupyGezi/OWGeziFeedViewController.m; sourceTree = "<group>"; };
 		D9D33F96177B9DC4005FEC1F /* occupygezi_nav@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "occupygezi_nav@2x.png"; path = "Media/OccupyGezi/occupygezi_nav@2x.png"; sourceTree = SOURCE_ROOT; };
+		D9D33F98177BA0B9005FEC1F /* gezi-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "gezi-icon@2x.png"; path = "Media/OccupyGezi/gezi-icon@2x.png"; sourceTree = SOURCE_ROOT; };
+		D9D33F9D177BA3AD005FEC1F /* gezi-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "gezi-icon.png"; path = "Media/OccupyGezi/gezi-icon.png"; sourceTree = SOURCE_ROOT; };
+		D9D33FA3177BA4C4005FEC1F /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "Media/OccupyGezi/Default-568h@2x.png"; sourceTree = SOURCE_ROOT; };
+		D9D33FA4177BA4C4005FEC1F /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = Media/OccupyGezi/Default.png; sourceTree = SOURCE_ROOT; };
+		D9D33FA5177BA4C4005FEC1F /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x.png"; path = "Media/OccupyGezi/Default@2x.png"; sourceTree = SOURCE_ROOT; };
+		D9D33FA9177BA529005FEC1F /* openwatch@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "openwatch@2x.png"; path = "Media/OccupyGezi/openwatch@2x.png"; sourceTree = SOURCE_ROOT; };
 		D9D49E801758154D00416C73 /* OWProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWProfileViewController.h; sourceTree = "<group>"; };
 		D9D49E811758154D00416C73 /* OWProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWProfileViewController.m; sourceTree = "<group>"; };
 		D9D5BDB61753DDC4001770FC /* Model 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 2.xcdatamodel"; sourceTree = "<group>"; };
@@ -1263,7 +1268,7 @@
 		D9EB4C7E166D67920019F8B6 /* OWUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWUser.m; sourceTree = "<group>"; };
 		D9ECBF38175FD81400A34DFE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D9ECBF3A175FF82600A34DFE /* tr */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Localizable.strings; sourceTree = "<group>"; };
-		D9ECC1B9175FFD8400A34DFE /* OccupyGezi-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "OccupyGezi-Info.plist"; sourceTree = "<group>"; };
+		D9ECC1B9175FFD8400A34DFE /* OccupyGezi-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "OccupyGezi-Info.plist"; path = "OccupyGezi/OccupyGezi-Info.plist"; sourceTree = "<group>"; };
 		D9ECC1BB176001CD00A34DFE /* tr */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D9FA646417447D91000051B7 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = ../Default.png; sourceTree = "<group>"; };
 		D9FA646617447DA5000051B7 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x.png"; path = "../Default@2x.png"; sourceTree = "<group>"; };
@@ -1972,6 +1977,12 @@
 		D9D33F8F177B9394005FEC1F /* Media */ = {
 			isa = PBXGroup;
 			children = (
+				D9D33FA9177BA529005FEC1F /* openwatch@2x.png */,
+				D9D33FA3177BA4C4005FEC1F /* Default-568h@2x.png */,
+				D9D33FA4177BA4C4005FEC1F /* Default.png */,
+				D9D33FA5177BA4C4005FEC1F /* Default@2x.png */,
+				D9D33F9D177BA3AD005FEC1F /* gezi-icon.png */,
+				D9D33F98177BA0B9005FEC1F /* gezi-icon@2x.png */,
 				D9D33F96177B9DC4005FEC1F /* occupygezi_nav@2x.png */,
 				D9D33F8C177B937A005FEC1F /* occupy_gezi_logo@2x.png */,
 			);
@@ -2590,8 +2601,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D9D33EF5177B8AC0005FEC1F /* InfoPlist.strings in Resources */,
-				D9D33EF6177B8AC0005FEC1F /* openwatch.png in Resources */,
-				D9D33EF7177B8AC0005FEC1F /* openwatch@2x.png in Resources */,
 				D9D33EF8177B8AC0005FEC1F /* popoverArrowDown.png in Resources */,
 				D9D33EF9177B8AC0005FEC1F /* popoverArrowDown@2x.png in Resources */,
 				D9D33EFA177B8AC0005FEC1F /* popoverArrowLeft.png in Resources */,
@@ -2639,8 +2648,6 @@
 				D9D33F24177B8AC0005FEC1F /* play_button_dark.png in Resources */,
 				D9D33F25177B8AC0005FEC1F /* background1.jpg in Resources */,
 				D9D33F26177B8AC0005FEC1F /* background2.jpg in Resources */,
-				D9D33F27177B8AC0005FEC1F /* openwatch-light.png in Resources */,
-				D9D33F28177B8AC0005FEC1F /* openwatch-light@2x.png in Resources */,
 				D9D33F29177B8AC0005FEC1F /* BSKeyboardControls.strings in Resources */,
 				D9D33F2A177B8AC0005FEC1F /* 66-microphone.png in Resources */,
 				D9D33F2B177B8AC0005FEC1F /* 66-microphone@2x.png in Resources */,
@@ -2690,9 +2697,6 @@
 				D9D33F57177B8AC0005FEC1F /* cc@2x.png in Resources */,
 				D9D33F58177B8AC0005FEC1F /* icon-iphone.png in Resources */,
 				D9D33F59177B8AC0005FEC1F /* icon-iphone@2x.png in Resources */,
-				D9D33F5A177B8AC0005FEC1F /* Default.png in Resources */,
-				D9D33F5B177B8AC0005FEC1F /* Default@2x.png in Resources */,
-				D9D33F5C177B8AC0005FEC1F /* Default-568h@2x.png in Resources */,
 				D9D33F5D177B8AC0005FEC1F /* 29-heart.png in Resources */,
 				D9D33F5E177B8AC0005FEC1F /* 29-heart@2x.png in Resources */,
 				D9D33F5F177B8AC0005FEC1F /* 193-location-arrow.png in Resources */,
@@ -2728,6 +2732,12 @@
 				D9D33F7D177B8AC0005FEC1F /* 285-facetime-red@2x.png in Resources */,
 				D9D33F8D177B937A005FEC1F /* occupy_gezi_logo@2x.png in Resources */,
 				D9D33F97177B9DC4005FEC1F /* occupygezi_nav@2x.png in Resources */,
+				D9D33F99177BA0B9005FEC1F /* gezi-icon@2x.png in Resources */,
+				D9D33FA0177BA3AE005FEC1F /* gezi-icon.png in Resources */,
+				D9D33FA6177BA4C4005FEC1F /* Default-568h@2x.png in Resources */,
+				D9D33FA7177BA4C4005FEC1F /* Default.png in Resources */,
+				D9D33FA8177BA4C4005FEC1F /* Default@2x.png in Resources */,
+				D9D33FAA177BA529005FEC1F /* openwatch@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

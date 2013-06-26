@@ -14,8 +14,8 @@
 		<dict>
 			<key>CFBundleIconFiles</key>
 			<array>
-				<string>icon-iphone.png</string>
-				<string>icon-iphone@2x.png</string>
+				<string>gezi-icon.png</string>
+				<string>gezi-icon@2x.png</string>
 			</array>
 			<key>UIPrerenderedIcon</key>
 			<true/>
