@@ -110,6 +110,7 @@
         imageView.frame = CGRectMake(0, 0, 140, 25);
         imageView.contentMode = UIViewContentModeScaleAspectFit;
         self.navigationItem.titleView = imageView;
+        [[OWLocationController sharedInstance] stop];
     } else {
         self.title = feedName;
         self.navigationItem.titleView = nil;
