@@ -11,8 +11,13 @@
 #import "OWGeziDashboardViewController.h"
 #import "OWGeziFeedViewController.h"
 #import "OWGeziMediaCreationController.h"
+#import "OWAPIKeys.h"
 
 @implementation OWGeziAppDelegate
+
+- (NSString*) testflightAppToken {
+    return OCCUPYGEZI_TESTFLIGHT_APP_TOKEN;
+}
 
 - (Class) mediaCreationClass {
     return [OWGeziMediaCreationController class];
