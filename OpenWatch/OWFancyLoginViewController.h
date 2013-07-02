@@ -9,9 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "OWKenBurnsView.h"
 #import "BSKeyboardControls.h"
+#import "FacebookSDK.h"
 
 @interface OWFancyLoginViewController : UIViewController <UITextFieldDelegate, BSKeyboardControlsDelegate>
-
 
 @property (nonatomic) BOOL processingLogin;
 

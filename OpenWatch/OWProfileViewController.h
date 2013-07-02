@@ -11,8 +11,9 @@
 #import "BButton.h"
 #import "OWUserView.h"
 #import "BSKeyboardControls.h"
+#import "FacebookSDK.h"
 
-@interface OWProfileViewController : UIViewController <UITextFieldDelegate, BSKeyboardControlsDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate>
+@interface OWProfileViewController : UIViewController <UITextFieldDelegate, BSKeyboardControlsDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, FBLoginViewDelegate, UIAlertViewDelegate>
 
 @property (nonatomic, strong) OWUser *user;
 
@@ -30,5 +31,8 @@
 
 @property (nonatomic, strong) UIImage *updatedProfilePhoto;
 
+@property (strong, nonatomic) IBOutlet FBLoginView *facebookLoginView;
+
+@property (nonatomic, strong) NSString *facebookID;
 
 @end

@@ -8,6 +8,7 @@
 
 #import "OWAccount.h"
 #import "SSKeychain.h"
+#import "FacebookSDK.h"
 
 #define kServiceName @"net.OpenWatch.OpenWatch"
 #define kAccountIDKey @"kAccountIDKey"
@@ -164,6 +165,10 @@
     [self setKeychainValue:nil forKey:kPasswordKey];
     [self setKeychainValue:nil forKey:kPublicUploadTokenKey];
     [self setKeychainValue:nil forKey:kPrivateUploadTokenKey];
+    
+    if ([FBSession.activeSession isOpen]) {
+        [FBSession.activeSession closeAndClearTokenInformation];
+    }
 }
 
 - (void) setHasCompletedOnboarding:(BOOL)completedOnboarding {

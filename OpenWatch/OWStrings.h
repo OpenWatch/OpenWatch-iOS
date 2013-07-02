@@ -6,7 +6,14 @@
 //  Copyright (c) 2012 OpenWatch FPC. All rights reserved.
 //
 
+#define IMPORT_FACEBOOK_TITLE_STRING NSLocalizedString(@"
+
+#define IMPORT_ERROR_STRING NSLocalizedString(@"Import Error", @"Shown when there is error importing data")
+#define IMPORT_FACEBOOK_PHOTO_ERROR_STRING NSLocalizedString(@"There was an error importing your Facebook photo.", @"Shown when user can't import photo from Facebook")
+
 #define VIEW_ON_MAP_STRING NSLocalizedString(@"View on Map", @"Title for button to view something on a map")
+
+#define CONNECT_WITH_FACEBOOK NSLocalizedString(@"Connect with Facebook", @"button to connect with facebook")
 
 #define CONTENT_REPORTED_STRING NSLocalizedString(@"Content Reported", @"title for alert after reporting content as abusive")
 

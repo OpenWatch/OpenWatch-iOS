@@ -131,6 +131,11 @@
 		D94B83941745D201008A1142 /* 42-photos.png in Resources */ = {isa = PBXBuildFile; fileRef = D94B83921745D201008A1142 /* 42-photos.png */; };
 		D94B83951745D201008A1142 /* 42-photos@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D94B83931745D201008A1142 /* 42-photos@2x.png */; };
 		D94B83971745D6F2008A1142 /* user_placeholder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D94B83961745D6F2008A1142 /* user_placeholder@2x.png */; };
+		D954667817823DCA00499FD5 /* libfacebook_ios_sdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D954666E17822BAB00499FD5 /* libfacebook_ios_sdk.a */; };
+		D954667B17823DE800499FD5 /* FacebookSDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D954667917823DE800499FD5 /* FacebookSDKResources.bundle */; };
+		D954667C17823DE800499FD5 /* FBUserSettingsViewResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D954667A17823DE800499FD5 /* FBUserSettingsViewResources.bundle */; };
+		D954668517824FF500499FD5 /* 208-facebook.png in Resources */ = {isa = PBXBuildFile; fileRef = D954668317824FF500499FD5 /* 208-facebook.png */; };
+		D954668617824FF500499FD5 /* 208-facebook@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D954668417824FF500499FD5 /* 208-facebook@2x.png */; };
 		D955371616B32E3C00753C15 /* 275-broadcast.png in Resources */ = {isa = PBXBuildFile; fileRef = D955371416B32E3C00753C15 /* 275-broadcast.png */; };
 		D955371716B32E3C00753C15 /* 275-broadcast@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D955371516B32E3C00753C15 /* 275-broadcast@2x.png */; };
 		D963C8281739C157008999F7 /* _OWPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = D963C8271739C157008999F7 /* _OWPhoto.m */; };
@@ -699,6 +704,34 @@
 			remoteGlobalIDString = D2AAC07D0554694100DB518D;
 			remoteInfo = UserVoice;
 		};
+		D954666D17822BAB00499FD5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D954666517822BAA00499FD5 /* facebook-ios-sdk.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D2AAC07E0554694100DB518D;
+			remoteInfo = "facebook-ios-sdk";
+		};
+		D954666F17822BAB00499FD5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D954666517822BAA00499FD5 /* facebook-ios-sdk.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = B9CBC519152537270036AA71;
+			remoteInfo = FacebookSDKTests;
+		};
+		D954667117822BAB00499FD5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D954666517822BAA00499FD5 /* facebook-ios-sdk.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 85A44B9F16A8CE05007BE80E;
+			remoteInfo = FacebookSDKIntegrationTests;
+		};
+		D954667617823DC400499FD5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D954666517822BAA00499FD5 /* facebook-ios-sdk.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = D2AAC07D0554694100DB518D;
+			remoteInfo = "facebook-ios-sdk";
+		};
 		D98FCB4A16A4AABE0071DF6B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D99741681651D42E0034ABB0 /* Project object */;
@@ -876,6 +909,11 @@
 		D94B83921745D201008A1142 /* 42-photos.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "42-photos.png"; sourceTree = "<group>"; };
 		D94B83931745D201008A1142 /* 42-photos@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "42-photos@2x.png"; sourceTree = "<group>"; };
 		D94B83961745D6F2008A1142 /* user_placeholder@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "user_placeholder@2x.png"; sourceTree = "<group>"; };
+		D954666517822BAA00499FD5 /* facebook-ios-sdk.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "facebook-ios-sdk.xcodeproj"; path = "facebook-ios-sdk/src/facebook-ios-sdk.xcodeproj"; sourceTree = "<group>"; };
+		D954667917823DE800499FD5 /* FacebookSDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = FacebookSDKResources.bundle; path = "facebook-ios-sdk/src/FacebookSDKResources.bundle"; sourceTree = "<group>"; };
+		D954667A17823DE800499FD5 /* FBUserSettingsViewResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = FBUserSettingsViewResources.bundle; path = "facebook-ios-sdk/src/FBUserSettingsViewResources.bundle"; sourceTree = "<group>"; };
+		D954668317824FF500499FD5 /* 208-facebook.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "208-facebook.png"; sourceTree = "<group>"; };
+		D954668417824FF500499FD5 /* 208-facebook@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "208-facebook@2x.png"; sourceTree = "<group>"; };
 		D955371416B32E3C00753C15 /* 275-broadcast.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "275-broadcast.png"; sourceTree = "<group>"; };
 		D955371516B32E3C00753C15 /* 275-broadcast@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "275-broadcast@2x.png"; sourceTree = "<group>"; };
 		D963C8261739C157008999F7 /* _OWPhoto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _OWPhoto.h; sourceTree = "<group>"; };
@@ -1293,6 +1331,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D954667817823DCA00499FD5 /* libfacebook_ios_sdk.a in Frameworks */,
 				D909C2E71742C68D005930A7 /* libUserVoice.a in Frameworks */,
 				D9D2E209165329000000E7C5 /* MobileCoreServices.framework in Frameworks */,
 				D93936C11741991A0070E164 /* ImageIO.framework in Frameworks */,
@@ -1524,6 +1563,26 @@
 				D93936D51741CC520070E164 /* NSData+Hex.m */,
 			);
 			name = Utilities;
+			sourceTree = "<group>";
+		};
+		D954666617822BAA00499FD5 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D954666E17822BAB00499FD5 /* libfacebook_ios_sdk.a */,
+				D954667017822BAB00499FD5 /* FacebookSDKTests.octest */,
+				D954667217822BAB00499FD5 /* FacebookSDKIntegrationTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D954667D17823DEC00499FD5 /* Facebook */ = {
+			isa = PBXGroup;
+			children = (
+				D954667917823DE800499FD5 /* FacebookSDKResources.bundle */,
+				D954667A17823DE800499FD5 /* FBUserSettingsViewResources.bundle */,
+				D954666517822BAA00499FD5 /* facebook-ios-sdk.xcodeproj */,
+			);
+			name = Facebook;
 			sourceTree = "<group>";
 		};
 		D95BD80A16B06738002C43A5 /* Media View */ = {
@@ -1796,6 +1855,7 @@
 		D9D2E1501652EA8A0000E7C5 /* Submodules */ = {
 			isa = PBXGroup;
 			children = (
+				D954667D17823DEC00499FD5 /* Facebook */,
 				D9AD11BE1779313200DB5705 /* Crittercism */,
 				D9C467211773B64F006711D1 /* PKRevealController */,
 				D922B1D117727C6A0072BE0E /* FormatterKit */,
@@ -2092,6 +2152,8 @@
 		D9DFADF716547DE7003C515C /* Media */ = {
 			isa = PBXGroup;
 			children = (
+				D954668317824FF500499FD5 /* 208-facebook.png */,
+				D954668417824FF500499FD5 /* 208-facebook@2x.png */,
 				D9C791191774F4F00031D56A /* 285-facetime-red.png */,
 				D9C7911A1774F4F00031D56A /* 285-facetime-red@2x.png */,
 				D9C467371773E185006711D1 /* play_button_nocircle@2x.png */,
@@ -2359,6 +2421,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				D954667717823DC400499FD5 /* PBXTargetDependency */,
 				D98FCB4B16A4AABE0071DF6B /* PBXTargetDependency */,
 				D909C2E61742C680005930A7 /* PBXTargetDependency */,
 			);
@@ -2429,6 +2492,10 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
+					ProductGroup = D954666617822BAA00499FD5 /* Products */;
+					ProjectRef = D954666517822BAA00499FD5 /* facebook-ios-sdk.xcodeproj */;
+				},
+				{
 					ProductGroup = D909C2E01742C675005930A7 /* Products */;
 					ProjectRef = D909C2DF1742C675005930A7 /* UserVoice.xcodeproj */;
 				},
@@ -2448,6 +2515,27 @@
 			fileType = archive.ar;
 			path = libUserVoice.a;
 			remoteRef = D909C2E31742C675005930A7 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D954666E17822BAB00499FD5 /* libfacebook_ios_sdk.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libfacebook_ios_sdk.a;
+			remoteRef = D954666D17822BAB00499FD5 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D954667017822BAB00499FD5 /* FacebookSDKTests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = FacebookSDKTests.octest;
+			remoteRef = D954666F17822BAB00499FD5 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D954667217822BAB00499FD5 /* FacebookSDKIntegrationTests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = FacebookSDKIntegrationTests.octest;
+			remoteRef = D954667117822BAB00499FD5 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -2594,6 +2682,10 @@
 				D9C467381773E186006711D1 /* play_button_nocircle@2x.png in Resources */,
 				D9C7911B1774F4F00031D56A /* 285-facetime-red.png in Resources */,
 				D9C7911C1774F4F00031D56A /* 285-facetime-red@2x.png in Resources */,
+				D954667B17823DE800499FD5 /* FacebookSDKResources.bundle in Resources */,
+				D954667C17823DE800499FD5 /* FBUserSettingsViewResources.bundle in Resources */,
+				D954668517824FF500499FD5 /* 208-facebook.png in Resources */,
+				D954668617824FF500499FD5 /* 208-facebook@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3106,6 +3198,11 @@
 			isa = PBXTargetDependency;
 			name = UserVoice;
 			targetProxy = D909C2E51742C680005930A7 /* PBXContainerItemProxy */;
+		};
+		D954667717823DC400499FD5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "facebook-ios-sdk";
+			targetProxy = D954667617823DC400499FD5 /* PBXContainerItemProxy */;
 		};
 		D98FCB4B16A4AABE0071DF6B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;

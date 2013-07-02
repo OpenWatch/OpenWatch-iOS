@@ -12,6 +12,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "OWAccountAPIClient.h"
 #import "OWStrings.h"
+#import "AFNetworking.h"
 
 @interface OWProfileViewController ()
 
@@ -19,12 +20,13 @@
 
 @implementation OWProfileViewController
 @synthesize userView, firstNameField, lastNameField, bioField, user, choosePhotoButton, scrollView, keyboardControls, imagePicker;
-@synthesize updatedProfilePhoto;
+@synthesize updatedProfilePhoto, facebookLoginView, facebookID;
 
 - (id)init
 {
     self = [super init];
     if (self) {
+        self.view.backgroundColor = [OWUtilities stoneBackgroundPattern];
         self.scrollView = [[UIScrollView alloc] init];
         [self.view addSubview:scrollView];
         
@@ -54,11 +56,15 @@
         doneButton.tintColor = [OWUtilities doneButtonColor];
         self.navigationItem.rightBarButtonItem = doneButton;
         
+        self.facebookLoginView = [[FBLoginView alloc] initWithReadPermissions:@[@"basic_info"]];
+        self.facebookLoginView.delegate = self;
+        
         [self.scrollView addSubview:userView];
         [self.scrollView addSubview:firstNameField];
         [self.scrollView addSubview:lastNameField];
         [self.scrollView addSubview:bioField];
         [self.scrollView addSubview:choosePhotoButton];
+        [self.scrollView addSubview:facebookLoginView];
     }
     return self;
 }
@@ -107,7 +113,8 @@
     self.firstNameField.frame = CGRectMake(fieldXOrigin, [OWUtilities bottomOfView:choosePhotoButton] + padding, paddedWidth, fieldHeight);
     self.lastNameField.frame = CGRectMake(fieldXOrigin, [OWUtilities bottomOfView:firstNameField] + padding, paddedWidth, fieldHeight);
     self.bioField.frame = CGRectMake(fieldXOrigin, [OWUtilities bottomOfView:lastNameField] + padding, paddedWidth, fieldHeight);
-    self.scrollView.contentSize = CGSizeMake(paddedWidth, [OWUtilities bottomOfView:bioField]);
+    self.facebookLoginView.frame = CGRectMake(padding, [OWUtilities bottomOfView:bioField] + padding, paddedWidth, 45);
+    self.scrollView.contentSize = CGSizeMake(paddedWidth, [OWUtilities bottomOfView:facebookLoginView] + padding);
 }
 
 - (void) setUser:(OWUser *)newUser {
@@ -187,6 +194,120 @@
 
 - (void) imagePickerControllerDidCancel:(UIImagePickerController *)picker {
     [self.imagePicker dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark - FBLoginView delegate
+
+- (void)loginViewFetchedUserInfo:(FBLoginView *)loginView
+                            user:(id<FBGraphUser>)fbUser {
+    NSLog(@"[Facebook]: Logged in user %@", fbUser.description);
+    
+    self.firstNameField.text = [fbUser objectForKey:@"first_name"];
+    self.lastNameField.text = [fbUser objectForKey:@"last_name"];
+    self.facebookID = [fbUser objectForKey:@"id"];
+    
+    if (!self.user.thumbnailURL) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Facebook Import" message:@"Would you like to import your user photo from Facebook?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
+        [alert show];
+    }
+}
+
+- (void)loginViewShowingLoggedInUser:(FBLoginView *)loginView {
+    // Upon login, transition to the main UI by pushing it onto the navigation stack.
+    NSLog(@"[Facebook]: Logged in");
+}
+
+- (void)loginView:(FBLoginView *)loginView
+      handleError:(NSError *)error{
+    NSString *alertMessage, *alertTitle;
+    
+    // Facebook SDK * error handling *
+    // Error handling is an important part of providing a good user experience.
+    // Since this sample uses the FBLoginView, this delegate will respond to
+    // login failures, or other failures that have closed the session (such
+    // as a token becoming invalid). Please see the [- postOpenGraphAction:]
+    // and [- requestPermissionAndPost] on `SCViewController` for further
+    // error handling on other operations.
+    
+    if (error.fberrorShouldNotifyUser) {
+        // If the SDK has a message for the user, surface it. This conveniently
+        // handles cases like password change or iOS6 app slider state.
+        alertTitle = @"Something Went Wrong";
+        alertMessage = error.fberrorUserMessage;
+    } else if (error.fberrorCategory == FBErrorCategoryAuthenticationReopenSession) {
+        // It is important to handle session closures as mentioned. You can inspect
+        // the error for more context but this sample generically notifies the user.
+        alertTitle = @"Session Error";
+        alertMessage = @"Your current session is no longer valid. Please log in again.";
+    } else if (error.fberrorCategory == FBErrorCategoryUserCancelled) {
+        // The user has cancelled a login. You can inspect the error
+        // for more context. For this sample, we will simply ignore it.
+        NSLog(@"user cancelled login");
+    } else {
+        // For simplicity, this sample treats other errors blindly, but you should
+        // refer to https://developers.facebook.com/docs/technical-guides/iossdk/errors/ for more information.
+        alertTitle  = @"Unknown Error";
+        alertMessage = @"Error. Please try again later.";
+        NSLog(@"Unexpected error:%@", error);
+    }
+    
+    if (alertMessage) {
+        [[[UIAlertView alloc] initWithTitle:alertTitle
+                                    message:alertMessage
+                                   delegate:nil
+                          cancelButtonTitle:@"OK"
+                          otherButtonTitles:nil] show];
+    }
+}
+
+- (void)loginViewShowingLoggedOutUser:(FBLoginView *)loginView {
+    // Facebook SDK * login flow *
+    // It is important to always handle session closure because it can happen
+    // externally; for example, if the current session's access token becomes
+    // invalid. For this sample, we simply pop back to the landing page.
+    
+    NSLog(@"[Facebook]: Logged out");
+}
+
+- (void) alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
+    if (alertView.cancelButtonIndex == buttonIndex) {
+        return;
+    }
+        
+    NSString *avatarURLString = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?redirect=false&type=large&return_ssl_resources=1", facebookID];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:avatarURLString]];
+    
+    AFJSONRequestOperation *jsonOperation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+        NSDictionary *data = [JSON objectForKey:@"data"];
+        BOOL isSilhouette = [[data objectForKey:@"is_silhouette"] boolValue];
+        if (!isSilhouette) {
+            NSString *urlString = [data objectForKey:@"url"];
+            NSURL *url = [NSURL URLWithString:urlString];
+            NSURLRequest *imageRequest = [NSURLRequest requestWithURL:url];
+            
+            AFImageRequestOperation *imageRequestOperation = [AFImageRequestOperation imageRequestOperationWithRequest:imageRequest imageProcessingBlock:nil success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+                self.userView.profileImageView.image = image;
+                [[OWAccountAPIClient sharedClient] updateUserPhoto:image];
+            } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
+                [self showFacebookPhotoImportError];
+                NSLog(@"Error getting Facebook profile image: %@", error.userInfo);
+
+            }];
+            [imageRequestOperation start];
+        } else {
+            [self showFacebookPhotoImportError];
+        }
+    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+        [self showFacebookPhotoImportError];
+        NSLog(@"Error Facebook info for profile image: %@", error.userInfo);
+    }];
+    [jsonOperation start];
+
+}
+
+- (void) showFacebookPhotoImportError {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:IMPORT_ERROR_STRING message:IMPORT_FACEBOOK_PHOTO_ERROR_STRING delegate:nil cancelButtonTitle:OK_STRING otherButtonTitles: nil];
+    [alert show];
 }
 
 

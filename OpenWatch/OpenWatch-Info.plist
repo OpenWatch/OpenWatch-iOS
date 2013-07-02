@@ -46,6 +46,8 @@
 	<string>1.1.1</string>
 	<key>FacebookAppID</key>
 	<string>297496017037529</string>
+	<key>FacebookDisplayName</key>
+	<string>OpenWatch</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSLocationUsageDescription</key>
