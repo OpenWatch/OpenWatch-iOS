@@ -6,9 +6,11 @@
 //  Copyright (c) 2012 OpenWatch FPC. All rights reserved.
 //
 
-#define IMPORT_FACEBOOK_TITLE_STRING NSLocalizedString(@"
+#define IMPORT_FACEBOOK_TITLE_STRING NSLocalizedString(@"Facebook Import", @"Title for alert to import facebook data")
+#define IMPORT_FACEBOOK_MESSAGE_STRING NSLocalizedString(@"Would you like to import your user photo from Facebook?", @"Ask user to import their user photo from Facebook")
+#define GENERIC_FACEBOOK_ERROR_STRING NSLocalizedString(@"An unknown Facebook error occurred, please try again later. Sorry!", @"generic apology for a facebook error")
 
-#define IMPORT_ERROR_STRING NSLocalizedString(@"Import Error", @"Shown when there is error importing data")
+#define FACEBOOK_ERROR_STRING NSLocalizedString(@"Facebook Error", @"Shown when there is error importing data")
 #define IMPORT_FACEBOOK_PHOTO_ERROR_STRING NSLocalizedString(@"There was an error importing your Facebook photo.", @"Shown when user can't import photo from Facebook")
 
 #define VIEW_ON_MAP_STRING NSLocalizedString(@"View on Map", @"Title for button to view something on a map")

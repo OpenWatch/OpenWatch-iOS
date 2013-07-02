@@ -207,7 +207,7 @@
     self.facebookID = [fbUser objectForKey:@"id"];
     
     if (!self.user.thumbnailURL) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Facebook Import" message:@"Would you like to import your user photo from Facebook?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:IMPORT_FACEBOOK_TITLE_STRING message:IMPORT_FACEBOOK_MESSAGE_STRING delegate:self cancelButtonTitle:NO_STRING otherButtonTitles:YES_STRING, nil];
         [alert show];
     }
 }
@@ -232,13 +232,13 @@
     if (error.fberrorShouldNotifyUser) {
         // If the SDK has a message for the user, surface it. This conveniently
         // handles cases like password change or iOS6 app slider state.
-        alertTitle = @"Something Went Wrong";
+        alertTitle = FACEBOOK_ERROR_STRING;
         alertMessage = error.fberrorUserMessage;
     } else if (error.fberrorCategory == FBErrorCategoryAuthenticationReopenSession) {
         // It is important to handle session closures as mentioned. You can inspect
         // the error for more context but this sample generically notifies the user.
-        alertTitle = @"Session Error";
-        alertMessage = @"Your current session is no longer valid. Please log in again.";
+        alertTitle = FACEBOOK_ERROR_STRING;
+        alertMessage = SESSION_EXPIRED_STRING;
     } else if (error.fberrorCategory == FBErrorCategoryUserCancelled) {
         // The user has cancelled a login. You can inspect the error
         // for more context. For this sample, we will simply ignore it.
@@ -246,8 +246,8 @@
     } else {
         // For simplicity, this sample treats other errors blindly, but you should
         // refer to https://developers.facebook.com/docs/technical-guides/iossdk/errors/ for more information.
-        alertTitle  = @"Unknown Error";
-        alertMessage = @"Error. Please try again later.";
+        alertTitle  = FACEBOOK_ERROR_STRING;
+        alertMessage = GENERIC_FACEBOOK_ERROR_STRING;
         NSLog(@"Unexpected error:%@", error);
     }
     
@@ -255,7 +255,7 @@
         [[[UIAlertView alloc] initWithTitle:alertTitle
                                     message:alertMessage
                                    delegate:nil
-                          cancelButtonTitle:@"OK"
+                          cancelButtonTitle:OK_STRING
                           otherButtonTitles:nil] show];
     }
 }
@@ -306,7 +306,7 @@
 }
 
 - (void) showFacebookPhotoImportError {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:IMPORT_ERROR_STRING message:IMPORT_FACEBOOK_PHOTO_ERROR_STRING delegate:nil cancelButtonTitle:OK_STRING otherButtonTitles: nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:FACEBOOK_ERROR_STRING message:IMPORT_FACEBOOK_PHOTO_ERROR_STRING delegate:nil cancelButtonTitle:OK_STRING otherButtonTitles: nil];
     [alert show];
 }
 
