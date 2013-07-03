@@ -99,9 +99,9 @@
             if ([mediaObject isKindOfClass:[OWLocalRecording class]]){
                 OWLocalRecording *recording = (OWLocalRecording*)mediaObject;
                 NSArray *failedURLs = recording.failedFileUploadURLs;
-                NSUInteger completed = recording.completedFileCount;
-                NSUInteger total = recording.totalFileCount;
-                NSLog(@"Progress for %@ %@: %d / %d, hq(%d), failed(%d), remoteMediaURL: %@", recording.title, recording.uuid, completed, total, recording.isHighQualityFileUploaded, failedURLs.count, recording.remoteMediaURLString);
+                //NSUInteger completed = recording.completedFileCount;
+                //NSUInteger total = recording.totalFileCount;
+                //NSLog(@"Progress for %@ %@: %d / %d, hq(%d), failed(%d), remoteMediaURL: %@", recording.title, recording.uuid, completed, total, recording.isHighQualityFileUploaded, failedURLs.count, recording.remoteMediaURLString);
                 if (failedURLs.count > 0) {
                     for (NSURL *failedURL in failedURLs) {
                         NSLog(@"Failed URL: %@", failedURL.absoluteString);

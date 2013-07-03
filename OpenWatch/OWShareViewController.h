@@ -25,4 +25,6 @@
 @property (nonatomic, strong) UILabel *descriptionLabel;
 @property (nonatomic, strong) UILabel *urlLabel;
 
+@property (nonatomic) NSUInteger retryCount;
+
 @end
