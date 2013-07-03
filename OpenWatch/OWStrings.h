@@ -6,8 +6,12 @@
 //  Copyright (c) 2012 OpenWatch FPC. All rights reserved.
 //
 
-#define IMPORT_FACEBOOK_TITLE_STRING NSLocalizedString(@"Facebook Import", @"Title for alert to import facebook data")
-#define IMPORT_FACEBOOK_MESSAGE_STRING NSLocalizedString(@"Would you like to import your user photo from Facebook?", @"Ask user to import their user photo from Facebook")
+#define LINK_SOCIAL_MEDIA_ACCOUNTS_STRING NSLocalizedString(@"Link Social Media Accounts", @"text for label to link social media")
+#define TELL_US_ABOUT_YOURSELF_STRING NSLocalizedString(@"Tell us about yourself! What does OpenWatch mean to you?", @"placeholder for 'about me' field")
+
+#define CONNECT_STRING NSLocalizedString(@"Connect", @"Button to link social account")
+#define CONNECTED_STRING NSLocalizedString(@"Connected", @"Button indicating that social account is connected")
+
 #define GENERIC_FACEBOOK_ERROR_STRING NSLocalizedString(@"An unknown Facebook error occurred, please try again later. Sorry!", @"generic apology for a facebook error")
 
 #define FACEBOOK_ERROR_STRING NSLocalizedString(@"Facebook Error", @"Shown when there is error importing data")

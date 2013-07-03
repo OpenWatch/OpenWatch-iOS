@@ -594,6 +594,8 @@
 		D9D33FAD177BA62E005FEC1F /* OWGeziSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D33FAC177BA62E005FEC1F /* OWGeziSettingsViewController.m */; };
 		D9D49E821758154D00416C73 /* OWProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D49E811758154D00416C73 /* OWProfileViewController.m */; };
 		D9D5E67D1784B4EE004AE5F6 /* OWUserProfileView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D5E67C1784B4EE004AE5F6 /* OWUserProfileView.m */; };
+		D9D5E6821784E076004AE5F6 /* SLGlowingTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D5E6811784E076004AE5F6 /* SLGlowingTextField.m */; };
+		D9D5E6861784EC5C004AE5F6 /* SSTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D5E6851784EC5C004AE5F6 /* SSTextView.m */; };
 		D9D786D916766415006EE6A2 /* UIBarButtonItem+WEPopover.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D786D116766415006EE6A2 /* UIBarButtonItem+WEPopover.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		D9D786DA16766415006EE6A2 /* WEPopoverContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D786D316766415006EE6A2 /* WEPopoverContainerView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		D9D786DB16766415006EE6A2 /* WEPopoverController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D786D516766415006EE6A2 /* WEPopoverController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -1160,6 +1162,10 @@
 		D9D5BDB61753DDC4001770FC /* Model 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 2.xcdatamodel"; sourceTree = "<group>"; };
 		D9D5E67B1784B4EE004AE5F6 /* OWUserProfileView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWUserProfileView.h; sourceTree = "<group>"; };
 		D9D5E67C1784B4EE004AE5F6 /* OWUserProfileView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWUserProfileView.m; sourceTree = "<group>"; };
+		D9D5E6801784E076004AE5F6 /* SLGlowingTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SLGlowingTextField.h; path = SLGlowingTextField/SLGlowingTextField.h; sourceTree = "<group>"; };
+		D9D5E6811784E076004AE5F6 /* SLGlowingTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SLGlowingTextField.m; path = SLGlowingTextField/SLGlowingTextField.m; sourceTree = "<group>"; };
+		D9D5E6841784EC5C004AE5F6 /* SSTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SSTextView.h; path = SSToolkit/SSToolkit/SSTextView.h; sourceTree = "<group>"; };
+		D9D5E6851784EC5C004AE5F6 /* SSTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SSTextView.m; path = SSToolkit/SSToolkit/SSTextView.m; sourceTree = "<group>"; };
 		D9D786D016766415006EE6A2 /* UIBarButtonItem+WEPopover.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+WEPopover.h"; sourceTree = "<group>"; };
 		D9D786D116766415006EE6A2 /* UIBarButtonItem+WEPopover.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+WEPopover.m"; sourceTree = "<group>"; };
 		D9D786D216766415006EE6A2 /* WEPopoverContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WEPopoverContainerView.h; sourceTree = "<group>"; };
@@ -1860,6 +1866,8 @@
 		D9D2E1501652EA8A0000E7C5 /* Submodules */ = {
 			isa = PBXGroup;
 			children = (
+				D9D5E6871784EC60004AE5F6 /* SSToolkit */,
+				D9D5E6831784E07A004AE5F6 /* SLGlowingTextField */,
 				D954667D17823DEC00499FD5 /* Facebook */,
 				D9AD11BE1779313200DB5705 /* Crittercism */,
 				D9C467211773B64F006711D1 /* PKRevealController */,
@@ -2066,6 +2074,24 @@
 				D9D33F8C177B937A005FEC1F /* occupy_gezi_logo@2x.png */,
 			);
 			name = Media;
+			sourceTree = "<group>";
+		};
+		D9D5E6831784E07A004AE5F6 /* SLGlowingTextField */ = {
+			isa = PBXGroup;
+			children = (
+				D9D5E6801784E076004AE5F6 /* SLGlowingTextField.h */,
+				D9D5E6811784E076004AE5F6 /* SLGlowingTextField.m */,
+			);
+			name = SLGlowingTextField;
+			sourceTree = "<group>";
+		};
+		D9D5E6871784EC60004AE5F6 /* SSToolkit */ = {
+			isa = PBXGroup;
+			children = (
+				D9D5E6841784EC5C004AE5F6 /* SSTextView.h */,
+				D9D5E6851784EC5C004AE5F6 /* SSTextView.m */,
+			);
+			name = SSToolkit;
 			sourceTree = "<group>";
 		};
 		D9D786CF16766415006EE6A2 /* WEPopover */ = {
@@ -3021,6 +3047,8 @@
 				D9C791151774EAD50031D56A /* OWTagDashboardItem.m in Sources */,
 				D9C791181774F05C0031D56A /* OWMissionBadgeView.m in Sources */,
 				D9D5E67D1784B4EE004AE5F6 /* OWUserProfileView.m in Sources */,
+				D9D5E6821784E076004AE5F6 /* SLGlowingTextField.m in Sources */,
+				D9D5E6861784EC5C004AE5F6 /* SSTextView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

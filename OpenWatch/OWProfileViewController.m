@@ -19,8 +19,9 @@
 @end
 
 @implementation OWProfileViewController
-@synthesize userView, firstNameField, lastNameField, bioField, user, choosePhotoButton, scrollView, keyboardControls, imagePicker;
+@synthesize userView, firstNameField, lastNameField, aboutMeTextView, user, choosePhotoButton, scrollView, keyboardControls, imagePicker;
 @synthesize updatedProfilePhoto, facebookLoginView, facebookID, linkTwitterButton;
+@synthesize firstNameLabel, lastNameLabel, aboutMeLabel, connectAccountsLabel;
 
 - (id)init
 {
@@ -31,17 +32,42 @@
         [self.view addSubview:scrollView];
         
         self.userView = [[OWUserProfileView alloc] initWithFrame:CGRectZero];
-        self.firstNameField = [[UITextField alloc] init];
+        UIFont *editableFont = [UIFont fontWithName:@"HelveticaNeue-Light" size:20.0f];
+        self.firstNameField = [[SLGlowingTextField alloc] init];
         self.firstNameField.delegate = self;
         self.firstNameField.placeholder = FIRST_NAME_STRING;
-        self.lastNameField = [[UITextField alloc] init];
+        self.firstNameLabel.font = editableFont;
+        self.lastNameField = [[SLGlowingTextField alloc] init];
         self.lastNameField.placeholder = LAST_NAME_STRING;
         self.lastNameField.delegate = self;
-        self.bioField = [[UITextField alloc] init];
-        self.bioField.placeholder = ABOUT_YOURSELF_STRING;
-        self.bioField.delegate = self;
+        self.lastNameLabel.font = editableFont;
+        self.aboutMeTextView = [[SSTextView alloc] init];
+        self.aboutMeTextView.backgroundColor = [UIColor clearColor];
+        self.aboutMeTextView.editable = YES;
+        self.aboutMeTextView.delegate = self;
+        self.aboutMeTextView.font = editableFont;
+        self.aboutMeTextView.placeholder = TELL_US_ABOUT_YOURSELF_STRING;
+        self.title = EDIT_PROFILE_STRING;
         
-        NSArray *fields = @[firstNameField, lastNameField, bioField];
+        self.firstNameLabel = [[UILabel alloc] init];
+        self.firstNameLabel.text = FIRST_NAME_STRING;
+        self.lastNameLabel = [[UILabel alloc] init];
+        self.lastNameLabel.text = LAST_NAME_STRING;
+        self.aboutMeLabel = [[UILabel alloc] init];
+        self.aboutMeLabel.text = ABOUT_YOURSELF_STRING;
+        self.connectAccountsLabel = [[UILabel alloc] init];
+        self.connectAccountsLabel.text = LINK_SOCIAL_MEDIA_ACCOUNTS_STRING;
+        
+        NSArray *labels = @[firstNameLabel, lastNameLabel, aboutMeLabel, connectAccountsLabel];
+        
+        for (UILabel *label in labels) {
+            label.backgroundColor = [UIColor clearColor];
+            label.font = [UIFont fontWithName:@"HelveticaNeue-Medium" size:10.0f];
+            label.textColor = [UIColor lightGrayColor];
+            [self.scrollView addSubview:label];
+        }
+        
+        NSArray *fields = @[firstNameField, lastNameField, aboutMeTextView];
         
         self.keyboardControls = [[BSKeyboardControls alloc] initWithFields:fields];
         self.keyboardControls.delegate = self;
@@ -54,13 +80,19 @@
         self.navigationItem.rightBarButtonItem = doneButton;
         
         self.facebookLoginView = [[FBLoginView alloc] initWithReadPermissions:@[@"basic_info"]];
-        self.linkTwitterButton = [[BButton alloc] initWithFrame:CGRectZero type:BButtonTypeTwitter icon:FAIconTwitter fontSize:17.0f];
+        self.linkTwitterButton = [[BButton alloc] initWithFrame:CGRectZero type:BButtonTypeTwitter icon:nil fontSize:17.0f];
+        [linkTwitterButton setTitle:CONNECT_STRING forState:UIControlStateNormal];
+        [linkTwitterButton addAwesomeIcon:FAIconTwitter beforeTitle:YES];
+        
+        [linkTwitterButton addTarget:self action:@selector(linkTwitterPressed:) forControlEvents:UIControlEventTouchUpInside];
+        
+        
         self.facebookLoginView.delegate = self;
         
         [self.scrollView addSubview:userView];
         [self.scrollView addSubview:firstNameField];
         [self.scrollView addSubview:lastNameField];
-        [self.scrollView addSubview:bioField];
+        [self.scrollView addSubview:aboutMeTextView];
         [self.scrollView addSubview:choosePhotoButton];
         [self.scrollView addSubview:facebookLoginView];
         [self.scrollView addSubview:linkTwitterButton];
@@ -68,6 +100,9 @@
     return self;
 }
 
+- (void) linkTwitterPressed:(id)sender {
+    
+}
 
 - (void)viewDidLoad
 {
@@ -85,7 +120,7 @@
 - (void) saveButtonPressed:(id)sender {
     self.user.firstName = self.firstNameField.text;
     self.user.lastName = self.lastNameField.text;
-    self.user.bio = self.bioField.text;
+    self.user.bio = self.aboutMeTextView.text;
     
     NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
     [context MR_saveToPersistentStoreAndWait];
@@ -106,40 +141,38 @@
     
     CGFloat userViewSize = 100.0f;
     self.userView.frame = CGRectMake(padding, padding, userViewSize, userViewSize);
-    self.choosePhotoButton.frame = userView.frame;
+    CGFloat choosePhotoSize = 30.0f;
+    CGFloat buttonInset = 15.0f;
+    self.choosePhotoButton.frame = CGRectMake(0, 0, choosePhotoSize, choosePhotoSize);
+    self.choosePhotoButton.center = CGPointMake(self.userView.frame.origin.x + self.userView.frame.size.width - buttonInset, self.userView.frame.origin.y + self.userView.frame.size.height - buttonInset);
     CGFloat fieldHeight = 30.0f;
     CGFloat fieldXOrigin = [OWUtilities rightOfView:userView] + padding;
     CGFloat fieldWidth = frameWidth - fieldXOrigin - padding;
-    self.firstNameField.frame = CGRectMake(fieldXOrigin, padding, fieldWidth, fieldHeight);
-    self.lastNameField.frame = CGRectMake(fieldXOrigin, [OWUtilities bottomOfView:firstNameField] + padding, fieldWidth, fieldHeight);
-    self.bioField.frame = CGRectMake(padding, [OWUtilities bottomOfView:userView] + padding, paddedWidth, fieldHeight);
-    self.facebookLoginView.frame = CGRectMake(padding, [OWUtilities bottomOfView:bioField] + padding, paddedWidth / 2, 45);
+    CGFloat labelHeight = 13.0f;
+    self.firstNameLabel.frame = CGRectMake(fieldXOrigin, padding, fieldWidth, labelHeight);
+    self.firstNameField.frame = CGRectMake(fieldXOrigin, [OWUtilities bottomOfView:firstNameLabel], fieldWidth, fieldHeight);
+    self.lastNameLabel.frame = CGRectMake(fieldXOrigin, [OWUtilities bottomOfView:firstNameField] + padding, fieldWidth, labelHeight);
+    self.lastNameField.frame = CGRectMake(fieldXOrigin, [OWUtilities bottomOfView:lastNameLabel], fieldWidth, fieldHeight);
+    self.aboutMeLabel.frame = CGRectMake(padding, [OWUtilities bottomOfView:userView] + padding, paddedWidth, labelHeight);
+    self.aboutMeTextView.frame = CGRectMake(padding, [OWUtilities bottomOfView:aboutMeLabel] + padding, paddedWidth, 90.0f);
+    self.connectAccountsLabel.frame = CGRectMake(padding, [OWUtilities bottomOfView:aboutMeTextView] + padding, paddedWidth, labelHeight);
+    CGFloat socialButtonYOrigin = [OWUtilities bottomOfView:connectAccountsLabel] + padding;
+    CGFloat socialButtonWidth = (paddedWidth / 2) - (padding / 2);
+    CGFloat socialButtonHeight = 45.0f;
+    self.facebookLoginView.frame = CGRectMake(padding, socialButtonYOrigin, socialButtonWidth, 45);
+    self.linkTwitterButton.frame = CGRectMake([OWUtilities rightOfView:facebookLoginView] + padding, socialButtonYOrigin, socialButtonWidth, socialButtonHeight);
     self.scrollView.contentSize = CGSizeMake(paddedWidth, [OWUtilities bottomOfView:facebookLoginView] + padding);
 }
 
 - (void) setUser:(OWUser *)newUser {
     user = newUser;
-    self.title = user.username;
-    OWUser *globalUser = [OWSettingsController sharedInstance].account.user;
-    BOOL showField = YES;
-    CGFloat opacity = 1.0f;
-    UITextBorderStyle borderStyle = UITextBorderStyleRoundedRect;
-    if (![globalUser.objectID isEqual:newUser.objectID]) {
-        showField = NO;
-        opacity = 0.0f;
-        borderStyle = UITextBorderStyleNone;
-        [choosePhotoButton removeFromSuperview];
-    }
-    self.firstNameField.enabled = showField;
+    UITextBorderStyle borderStyle = UITextBorderStyleNone;
     self.firstNameField.borderStyle = borderStyle;
-    self.lastNameField.enabled = showField;
     self.lastNameField.borderStyle = borderStyle;
-    self.bioField.enabled = showField;
-    self.bioField.borderStyle = borderStyle;
     
     self.firstNameField.text = user.firstName;
     self.lastNameField.text = user.lastName;
-    self.bioField.text = user.bio;
+    self.aboutMeTextView.text = user.bio;
     
     self.userView.user = user;
 }
@@ -151,7 +184,7 @@
 
 - (void) textFieldDidBeginEditing:(UITextField *)textField {
     [self.scrollView setContentOffset:CGPointMake(0, firstNameField.frame.origin.y - 10) animated:YES];
-    [self.keyboardControls setActiveField:textField];
+    self.keyboardControls.activeField = textField;
 }
 
 - (void) textFieldDidEndEditing:(UITextField *)textField {
@@ -211,8 +244,7 @@
     self.facebookID = [fbUser objectForKey:@"id"];
     
     if (!self.userView.image) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:IMPORT_FACEBOOK_TITLE_STRING message:IMPORT_FACEBOOK_MESSAGE_STRING delegate:self cancelButtonTitle:NO_STRING otherButtonTitles:YES_STRING, nil];
-        [alert show];
+        
     }
 }
 
@@ -273,11 +305,7 @@
     NSLog(@"[Facebook]: Logged out");
 }
 
-- (void) alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
-    if (alertView.cancelButtonIndex == buttonIndex) {
-        return;
-    }
-        
+- (void) importUserAvatarFromFacebook {
     NSString *avatarURLString = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?redirect=false&type=large&return_ssl_resources=1", facebookID];
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:avatarURLString]];
     
@@ -305,7 +333,6 @@
         NSLog(@"Error Facebook info for profile image: %@", error.userInfo);
     }];
     [jsonOperation start];
-
 }
 
 - (void) showFacebookPhotoImportError {
@@ -313,5 +340,13 @@
     [alert show];
 }
 
+- (void)textViewDidBeginEditing:(UITextView *)textView {
+    [self.scrollView setContentOffset:CGPointMake(0, firstNameField.frame.origin.y - 10) animated:YES];
+    self.keyboardControls.activeField = textView;
+}
+
+- (void) textViewDidEndEditing:(UITextView *)textView {
+    [self.scrollView setContentOffset:CGPointZero animated:YES];
+}
 
 @end

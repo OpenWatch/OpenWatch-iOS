@@ -67,3 +67,9 @@
 [submodule "Submodules/facebook-ios-sdk"]
 	path = Submodules/facebook-ios-sdk
 	url = https://github.com/facebook/facebook-ios-sdk.git
+[submodule "Submodules/SLGlowingTextField"]
+	path = Submodules/SLGlowingTextField
+	url = https://github.com/aaronbrethorst/SLGlowingTextField.git
+[submodule "Submodules/SSToolkit"]
+	path = Submodules/SSToolkit
+	url = https://github.com/soffes/sstoolkit.git
