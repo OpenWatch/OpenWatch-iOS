@@ -14,6 +14,8 @@
 #import "MBProgressHUD.h"
 #import "OWStrings.h"
 #import "FacebookSDK.h"
+#import <Accounts/Accounts.h>
+#import <Social/Social.h>
 
 @interface OWShareViewController ()
 
@@ -71,6 +73,61 @@
 }
 
 - (void) shareButtonPressed:(id)sender {
+    ACAccountStore *accountStore = [[ACAccountStore alloc] init];
+    ACAccountType *accountType = [accountStore accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierTwitter];
+    [accountStore requestAccessToAccountsWithType:accountType
+                                     options:nil completion:^(BOOL granted, NSError *error)
+     {
+         if (granted) {
+             NSArray *accounts = [accountStore accountsWithAccountType:accountType];
+             ACAccount *account = nil;
+             for (ACAccount *tempAccount in accounts) {
+                 if ([tempAccount.username isEqualToString:@"chrisballingr"]) {
+                     account = tempAccount;
+                 }
+             }
+             if (account) {                 
+                 NSURL *requestURL = [NSURL URLWithString:@"https://api.twitter.com/1/statuses/update.json"];
+                 
+                 NSMutableDictionary *parameters =
+                 [[NSMutableDictionary alloc] init];
+                 NSString *url = mediaObject.shareURL.absoluteString;
+                 NSString *description = nil;
+                 if (mediaObject.title.length > 0) {
+                     description = mediaObject.title;
+                 } else {
+                     description = @"";
+                 }
+                 NSString *postFix = @"via @OpenWatch";
+                 NSString *status = [NSString stringWithFormat:@"%@ %@ %@", url, description, postFix];
+                 if (url) {
+                     [parameters setObject:status forKey:@"status"];
+                 }
+                                  
+                 SLRequest *postRequest = [SLRequest
+                                           requestForServiceType:SLServiceTypeTwitter
+                                           requestMethod:SLRequestMethodPOST
+                                           URL:requestURL parameters:parameters];
+                 
+                 postRequest.account = account;
+                 
+                 [postRequest performRequestWithHandler:
+                  ^(NSData *responseData, NSHTTPURLResponse
+                    *urlResponse, NSError *error)
+                  {
+                      if (error) {
+                          NSLog(@"Error making tweet: %@", error.userInfo);
+                      }
+                      NSDictionary *data = [NSJSONSerialization
+                                         JSONObjectWithData:responseData
+                                         options:NSJSONReadingMutableLeaves
+                                         error:&error];
+                      NSLog(@"new data: %@", data);
+                  }];
+             }
+         }
+     }];
+    
     if (!FBSession.activeSession.isOpen) {
         [FBSession openActiveSessionWithAllowLoginUI: YES];
     }
@@ -141,7 +198,7 @@
 // Helper method to request publish permissions and post.
 - (void)requestPermissionAndPost {
     [FBSession.activeSession requestNewPublishPermissions:[NSArray arrayWithObject:@"publish_actions"]
-                                          defaultAudience:FBSessionDefaultAudienceEveryone
+                                          defaultAudience:FBSessionDefaultAudienceFriends
                                         completionHandler:^(FBSession *session, NSError *error) {
                                             if (!error) {
                                                 // Now have the permission
