@@ -593,6 +593,7 @@
 		D9D33FAA177BA529005FEC1F /* openwatch@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9D33FA9177BA529005FEC1F /* openwatch@2x.png */; };
 		D9D33FAD177BA62E005FEC1F /* OWGeziSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D33FAC177BA62E005FEC1F /* OWGeziSettingsViewController.m */; };
 		D9D49E821758154D00416C73 /* OWProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D49E811758154D00416C73 /* OWProfileViewController.m */; };
+		D9D5E67D1784B4EE004AE5F6 /* OWUserProfileView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D5E67C1784B4EE004AE5F6 /* OWUserProfileView.m */; };
 		D9D786D916766415006EE6A2 /* UIBarButtonItem+WEPopover.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D786D116766415006EE6A2 /* UIBarButtonItem+WEPopover.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		D9D786DA16766415006EE6A2 /* WEPopoverContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D786D316766415006EE6A2 /* WEPopoverContainerView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		D9D786DB16766415006EE6A2 /* WEPopoverController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D786D516766415006EE6A2 /* WEPopoverController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -1157,6 +1158,8 @@
 		D9D49E801758154D00416C73 /* OWProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWProfileViewController.h; sourceTree = "<group>"; };
 		D9D49E811758154D00416C73 /* OWProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWProfileViewController.m; sourceTree = "<group>"; };
 		D9D5BDB61753DDC4001770FC /* Model 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 2.xcdatamodel"; sourceTree = "<group>"; };
+		D9D5E67B1784B4EE004AE5F6 /* OWUserProfileView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWUserProfileView.h; sourceTree = "<group>"; };
+		D9D5E67C1784B4EE004AE5F6 /* OWUserProfileView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWUserProfileView.m; sourceTree = "<group>"; };
 		D9D786D016766415006EE6A2 /* UIBarButtonItem+WEPopover.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+WEPopover.h"; sourceTree = "<group>"; };
 		D9D786D116766415006EE6A2 /* UIBarButtonItem+WEPopover.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+WEPopover.m"; sourceTree = "<group>"; };
 		D9D786D216766415006EE6A2 /* WEPopoverContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WEPopoverContainerView.h; sourceTree = "<group>"; };
@@ -1603,6 +1606,8 @@
 		D97EAAA3167911B900A1B038 /* Custom Views */ = {
 			isa = PBXGroup;
 			children = (
+				D9D5E67B1784B4EE004AE5F6 /* OWUserProfileView.h */,
+				D9D5E67C1784B4EE004AE5F6 /* OWUserProfileView.m */,
 				D93101C9176FE138008939C3 /* OWVideoPreview.h */,
 				D93101CA176FE138008939C3 /* OWVideoPreview.m */,
 				D9FAE5F91763F12200CEBEBF /* OWTooltipView.h */,
@@ -3015,6 +3020,7 @@
 				D9C7910F1774D75B0031D56A /* OWRootViewController.m in Sources */,
 				D9C791151774EAD50031D56A /* OWTagDashboardItem.m in Sources */,
 				D9C791181774F05C0031D56A /* OWMissionBadgeView.m in Sources */,
+				D9D5E67D1784B4EE004AE5F6 /* OWUserProfileView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

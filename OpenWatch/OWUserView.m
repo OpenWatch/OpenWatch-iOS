@@ -9,8 +9,6 @@
 #import "OWUserView.h"
 #import "OWUtilities.h"
 #import "OWUser.h"
-#import "UIImageView+AFNetworking.h"
-#import <QuartzCore/QuartzCore.h>
 
 @implementation OWUserView
 @synthesize profileImageView, usernameLabel, user, verticalAlignment;
@@ -19,11 +17,7 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        self.profileImageView = [[UIImageView alloc] init];
-        self.profileImageView.contentMode = UIViewContentModeScaleAspectFill;
-        profileImageView.layer.cornerRadius = 10;
-        profileImageView.layer.shouldRasterize = YES;
-        profileImageView.clipsToBounds = YES;
+        self.profileImageView = [[OWUserProfileView alloc] initWithFrame:CGRectZero];
         self.usernameLabel = [[UILabel alloc] init];
         self.usernameLabel.font = [UIFont boldSystemFontOfSize:18.0f];
         self.usernameLabel.textColor = [UIColor redColor];
@@ -66,7 +60,7 @@
 
 - (void) setUser:(OWUser *)newUser {
     user = newUser;
-    [self.profileImageView setImageWithURL:user.thumbnailURL placeholderImage:[UIImage imageNamed:@"user_placeholder.png"]];
+    self.profileImageView.user = user;
     self.usernameLabel.text = user.username;
     [self layoutViews];
 }

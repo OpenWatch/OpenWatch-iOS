@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "OWUser.h"
 #import "BButton.h"
-#import "OWUserView.h"
+#import "OWUserProfileView.h"
 #import "BSKeyboardControls.h"
 #import "FacebookSDK.h"
 
@@ -19,11 +19,11 @@
 
 @property (nonatomic, strong) UIScrollView *scrollView;
 
-@property (nonatomic, strong) OWUserView *userView;
+@property (nonatomic, strong) OWUserProfileView *userView;
 @property (nonatomic, strong) UITextField *firstNameField;
 @property (nonatomic, strong) UITextField *lastNameField;
 @property (nonatomic, strong) UITextField *bioField;
-@property (nonatomic, strong) BButton *choosePhotoButton;
+@property (nonatomic, strong) UIButton *choosePhotoButton;
 
 @property (nonatomic, strong) BSKeyboardControls *keyboardControls;
 
@@ -31,7 +31,8 @@
 
 @property (nonatomic, strong) UIImage *updatedProfilePhoto;
 
-@property (strong, nonatomic) IBOutlet FBLoginView *facebookLoginView;
+@property (nonatomic, strong) FBLoginView *facebookLoginView;
+@property (nonatomic, strong) BButton *linkTwitterButton;
 
 @property (nonatomic, strong) NSString *facebookID;
 

@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "OWUser.h"
+#import "OWUserProfileView.h"
 
 enum {
     OWUserViewLabelVerticalAlignmentTop,
@@ -20,9 +21,10 @@ typedef NSInteger OWUserViewLabelVerticalAlignment;
 
 @property (nonatomic) OWUserViewLabelVerticalAlignment verticalAlignment;
 
-@property (nonatomic, strong) UIImageView *profileImageView;
+@property (nonatomic, strong) OWUserProfileView *profileImageView;
 @property (nonatomic, strong) UILabel *usernameLabel;
 
 @property (nonatomic, strong) OWUser *user;
+
 
 @end

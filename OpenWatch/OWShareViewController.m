@@ -113,8 +113,7 @@
                  
                  [postRequest performRequestWithHandler:
                   ^(NSData *responseData, NSHTTPURLResponse
-                    *urlResponse, NSError *error)
-                  {
+                    *urlResponse, NSError *error) {
                       if (error) {
                           NSLog(@"Error making tweet: %@", error.userInfo);
                       }
@@ -129,15 +128,24 @@
      }];
     
     if (!FBSession.activeSession.isOpen) {
+        [FBSession openActiveSessionWithPublishPermissions:@[@"publish_actions"] defaultAudience:FBSessionDefaultAudienceFriends allowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
+            [self attemptFacebookPost];
+        }];
         [FBSession openActiveSessionWithAllowLoginUI: YES];
+    } else {
+        [self attemptFacebookPost];
     }
+
+        
+    //[OWShareController shareMediaObject:self.mediaObject fromViewController:self];
+}
+
+- (void) attemptFacebookPost {
     if ([FBSession.activeSession.permissions indexOfObject:@"publish_actions"] == NSNotFound) {
         [self requestPermissionAndPost];
     } else {
         [self postOpenGraphAction];
     }
-        
-    //[OWShareController shareMediaObject:self.mediaObject fromViewController:self];
 }
 
 - (void) skipButtonPressed:(id)sender {

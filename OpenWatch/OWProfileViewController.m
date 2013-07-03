@@ -20,7 +20,7 @@
 
 @implementation OWProfileViewController
 @synthesize userView, firstNameField, lastNameField, bioField, user, choosePhotoButton, scrollView, keyboardControls, imagePicker;
-@synthesize updatedProfilePhoto, facebookLoginView, facebookID;
+@synthesize updatedProfilePhoto, facebookLoginView, facebookID, linkTwitterButton;
 
 - (id)init
 {
@@ -30,7 +30,7 @@
         self.scrollView = [[UIScrollView alloc] init];
         [self.view addSubview:scrollView];
         
-        self.userView = [[OWUserView alloc] initWithFrame:CGRectZero];
+        self.userView = [[OWUserProfileView alloc] initWithFrame:CGRectZero];
         self.firstNameField = [[UITextField alloc] init];
         self.firstNameField.delegate = self;
         self.firstNameField.placeholder = FIRST_NAME_STRING;
@@ -46,10 +46,7 @@
         self.keyboardControls = [[BSKeyboardControls alloc] initWithFields:fields];
         self.keyboardControls.delegate = self;
         
-        self.choosePhotoButton = [[BButton alloc] initWithFrame:CGRectZero type:BButtonTypeDefault];
-        [self.choosePhotoButton setTitle:CHOOSE_PHOTO_STRING forState:UIControlStateNormal];
-        [choosePhotoButton addAwesomeIcon:FAIconCamera beforeTitle:YES];
-
+        self.choosePhotoButton = [UIButton buttonWithType:UIButtonTypeContactAdd];
         [self.choosePhotoButton addTarget:self action:@selector(choosePhotoButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         
         UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:SAVE_STRING style:UIBarButtonItemStyleDone target:self action:@selector(saveButtonPressed:)];
@@ -57,6 +54,7 @@
         self.navigationItem.rightBarButtonItem = doneButton;
         
         self.facebookLoginView = [[FBLoginView alloc] initWithReadPermissions:@[@"basic_info"]];
+        self.linkTwitterButton = [[BButton alloc] initWithFrame:CGRectZero type:BButtonTypeTwitter icon:FAIconTwitter fontSize:17.0f];
         self.facebookLoginView.delegate = self;
         
         [self.scrollView addSubview:userView];
@@ -65,6 +63,7 @@
         [self.scrollView addSubview:bioField];
         [self.scrollView addSubview:choosePhotoButton];
         [self.scrollView addSubview:facebookLoginView];
+        [self.scrollView addSubview:linkTwitterButton];
     }
     return self;
 }
@@ -105,15 +104,16 @@
     CGFloat frameWidth = self.view.frame.size.width;
     CGFloat paddedWidth = frameWidth - padding * 2;
     
-    CGFloat userViewHeight = 100.0f;
-    self.userView.frame = CGRectMake(padding, padding, paddedWidth, userViewHeight);
-    self.choosePhotoButton.frame = CGRectMake(padding, [OWUtilities bottomOfView:userView] + padding, paddedWidth, 40);
+    CGFloat userViewSize = 100.0f;
+    self.userView.frame = CGRectMake(padding, padding, userViewSize, userViewSize);
+    self.choosePhotoButton.frame = userView.frame;
     CGFloat fieldHeight = 30.0f;
-    CGFloat fieldXOrigin = padding;
-    self.firstNameField.frame = CGRectMake(fieldXOrigin, [OWUtilities bottomOfView:choosePhotoButton] + padding, paddedWidth, fieldHeight);
-    self.lastNameField.frame = CGRectMake(fieldXOrigin, [OWUtilities bottomOfView:firstNameField] + padding, paddedWidth, fieldHeight);
-    self.bioField.frame = CGRectMake(fieldXOrigin, [OWUtilities bottomOfView:lastNameField] + padding, paddedWidth, fieldHeight);
-    self.facebookLoginView.frame = CGRectMake(padding, [OWUtilities bottomOfView:bioField] + padding, paddedWidth, 45);
+    CGFloat fieldXOrigin = [OWUtilities rightOfView:userView] + padding;
+    CGFloat fieldWidth = frameWidth - fieldXOrigin - padding;
+    self.firstNameField.frame = CGRectMake(fieldXOrigin, padding, fieldWidth, fieldHeight);
+    self.lastNameField.frame = CGRectMake(fieldXOrigin, [OWUtilities bottomOfView:firstNameField] + padding, fieldWidth, fieldHeight);
+    self.bioField.frame = CGRectMake(padding, [OWUtilities bottomOfView:userView] + padding, paddedWidth, fieldHeight);
+    self.facebookLoginView.frame = CGRectMake(padding, [OWUtilities bottomOfView:bioField] + padding, paddedWidth / 2, 45);
     self.scrollView.contentSize = CGSizeMake(paddedWidth, [OWUtilities bottomOfView:facebookLoginView] + padding);
 }
 
@@ -188,7 +188,7 @@
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
     self.updatedProfilePhoto = image;
-    self.userView.profileImageView.image = image;
+    self.userView.image = image;
     [self.imagePicker dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -202,11 +202,15 @@
                             user:(id<FBGraphUser>)fbUser {
     NSLog(@"[Facebook]: Logged in user %@", fbUser.description);
     
-    self.firstNameField.text = [fbUser objectForKey:@"first_name"];
-    self.lastNameField.text = [fbUser objectForKey:@"last_name"];
+    if (self.firstNameField.text.length == 0) {
+        self.firstNameField.text = [fbUser objectForKey:@"first_name"];
+    }
+    if (self.lastNameField.text.length == 0) {
+        self.lastNameField.text = [fbUser objectForKey:@"last_name"];
+    }
     self.facebookID = [fbUser objectForKey:@"id"];
     
-    if (!self.user.thumbnailURL) {
+    if (!self.userView.image) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:IMPORT_FACEBOOK_TITLE_STRING message:IMPORT_FACEBOOK_MESSAGE_STRING delegate:self cancelButtonTitle:NO_STRING otherButtonTitles:YES_STRING, nil];
         [alert show];
     }
@@ -286,12 +290,11 @@
             NSURLRequest *imageRequest = [NSURLRequest requestWithURL:url];
             
             AFImageRequestOperation *imageRequestOperation = [AFImageRequestOperation imageRequestOperationWithRequest:imageRequest imageProcessingBlock:nil success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
-                self.userView.profileImageView.image = image;
+                self.userView.image = image;
                 [[OWAccountAPIClient sharedClient] updateUserPhoto:image];
             } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
                 [self showFacebookPhotoImportError];
                 NSLog(@"Error getting Facebook profile image: %@", error.userInfo);
-
             }];
             [imageRequestOperation start];
         } else {
