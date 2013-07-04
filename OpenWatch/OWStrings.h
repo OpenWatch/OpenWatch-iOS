@@ -7,7 +7,7 @@
 //
 
 #define LINK_SOCIAL_MEDIA_ACCOUNTS_STRING NSLocalizedString(@"Link Social Media Accounts", @"text for label to link social media")
-#define TELL_US_ABOUT_YOURSELF_STRING NSLocalizedString(@"Tell us about yourself! What does OpenWatch mean to you?", @"placeholder for 'about me' field")
+#define TELL_US_ABOUT_YOURSELF_STRING NSLocalizedString(@"Tell us about yourself!", @"placeholder for 'about me' field")
 
 #define CONNECT_STRING NSLocalizedString(@"Connect", @"Button to link social account")
 #define CONNECTED_STRING NSLocalizedString(@"Connected", @"Button indicating that social account is connected")

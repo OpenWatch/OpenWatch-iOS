@@ -36,17 +36,20 @@
         self.firstNameField = [[SLGlowingTextField alloc] init];
         self.firstNameField.delegate = self;
         self.firstNameField.placeholder = FIRST_NAME_STRING;
-        self.firstNameLabel.font = editableFont;
+        self.firstNameField.font = editableFont;
+        self.firstNameField.clearButtonMode = UITextFieldViewModeWhileEditing;
         self.lastNameField = [[SLGlowingTextField alloc] init];
         self.lastNameField.placeholder = LAST_NAME_STRING;
         self.lastNameField.delegate = self;
-        self.lastNameLabel.font = editableFont;
+        self.lastNameField.font = editableFont;
+        self.lastNameField.clearButtonMode = UITextFieldViewModeWhileEditing;
         self.aboutMeTextView = [[SSTextView alloc] init];
         self.aboutMeTextView.backgroundColor = [UIColor clearColor];
         self.aboutMeTextView.editable = YES;
         self.aboutMeTextView.delegate = self;
         self.aboutMeTextView.font = editableFont;
         self.aboutMeTextView.placeholder = TELL_US_ABOUT_YOURSELF_STRING;
+        self.aboutMeTextView.placeholderTextColor = [OWUtilities greyColorWithGreyness:0.5];
         self.title = EDIT_PROFILE_STRING;
         
         self.firstNameLabel = [[UILabel alloc] init];
@@ -183,7 +186,7 @@
 }
 
 - (void) textFieldDidBeginEditing:(UITextField *)textField {
-    [self.scrollView setContentOffset:CGPointMake(0, firstNameField.frame.origin.y - 10) animated:YES];
+    [self.scrollView setContentOffset:CGPointZero animated:YES];
     self.keyboardControls.activeField = textField;
 }
 
@@ -341,7 +344,7 @@
 }
 
 - (void)textViewDidBeginEditing:(UITextView *)textView {
-    [self.scrollView setContentOffset:CGPointMake(0, firstNameField.frame.origin.y - 10) animated:YES];
+    [self.scrollView setContentOffset:CGPointMake(0, aboutMeLabel.frame.origin.y - 10) animated:YES];
     self.keyboardControls.activeField = textView;
 }
 
