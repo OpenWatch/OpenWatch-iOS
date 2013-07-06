@@ -20,11 +20,14 @@
 #define kOnboardingKey @"kOnboardingKey"
 #define kSecretAgentEnabledKey @"kSecretAgentEnabledKey"
 #define kMissionsDescriptionDismissedKey @"kMissionsDescriptionDismissedKey"
+#define kTwitterAccountKey @"kTwitterAccountKey"
 
 @implementation OWAccount
+@synthesize accountStore;
 
 - (id) init {
     if (self = [super init]) {
+        self.accountStore = [[ACAccountStore alloc] init];
         if ([self email] == nil && [self publicUploadToken] != nil) {
             [self clearAccountData];
         }
@@ -112,16 +115,30 @@
     [self setKeychainValue:publicUploadToken forKey:kPublicUploadTokenKey];
 }
 
-- (void) setPreferencesValue:(NSObject*)value forKey:(NSString*)key {
-    if (!value) {
-        NSLog(@"Preference value is nil!");
-        return;
-    }
+- (ACAccount*) twitterAccount {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:value forKey:key];
+    NSString *accountIdentifier = [defaults objectForKey:kTwitterAccountKey];
+    if (!accountIdentifier) {
+        return nil;
+    }
+    return [accountStore accountWithIdentifier:accountIdentifier];
+}
+
+- (void) setTwitterAccount:(ACAccount *)twitterAccount {
+    [self setPreferencesValue:twitterAccount.identifier forKey:kTwitterAccountKey];
+}
+
+- (void) setPreferencesValue:(NSObject*)value forKey:(NSString*)key {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    if (!value) {
+        [defaults removeObjectForKey:key];
+    } else {
+        [defaults setObject:value forKey:key];
+    }
+    
     BOOL success = [defaults synchronize];
     if (!success) {
-        NSLog(@"Preference value could not be written to disk!");
+        NSLog(@"Preference value for %@ could not be written to disk!", key);
     }
 }
 
@@ -158,6 +175,7 @@
     [defaults removeObjectForKey:kUsernameKey];
     [defaults removeObjectForKey:kEmailKey];
     [defaults removeObjectForKey:kOnboardingKey];
+    [defaults removeObjectForKey:kTwitterAccountKey];
     BOOL success = [defaults synchronize];
     if (!success) {
         NSLog(@"Error deleting objects from NSUserDefaults");

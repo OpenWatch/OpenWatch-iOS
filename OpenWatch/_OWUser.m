@@ -5,9 +5,11 @@
 
 const struct OWUserAttributes OWUserAttributes = {
 	.bio = @"bio",
+	.facebook = @"facebook",
 	.firstName = @"firstName",
 	.lastName = @"lastName",
 	.thumbnailURLString = @"thumbnailURLString",
+	.twitter = @"twitter",
 	.username = @"username",
 };
 
@@ -60,6 +62,13 @@ const struct OWUserFetchedProperties OWUserFetchedProperties = {
 
 
 
+@dynamic facebook;
+
+
+
+
+
+
 @dynamic firstName;
 
 
@@ -75,6 +84,13 @@ const struct OWUserFetchedProperties OWUserFetchedProperties = {
 
 
 @dynamic thumbnailURLString;
+
+
+
+
+
+
+@dynamic twitter;
 
 
 

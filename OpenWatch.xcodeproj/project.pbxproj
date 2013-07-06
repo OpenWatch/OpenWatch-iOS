@@ -108,6 +108,10 @@
 		D945D32D173C92AD00D806BD /* red_dot@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D945D32C173C92AD00D806BD /* red_dot@2x.png */; };
 		D945D330173C931F00D806BD /* OWRecordingActivityIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = D945D32F173C931F00D806BD /* OWRecordingActivityIndicatorView.m */; };
 		D945D333173C9C0200D806BD /* OWTimerView.m in Sources */ = {isa = PBXBuildFile; fileRef = D945D332173C9C0100D806BD /* OWTimerView.m */; };
+		D94972C51787605400DC5FF5 /* OWTwitterAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D94972C41787605400DC5FF5 /* OWTwitterAccountViewController.m */; };
+		D94972CA1787664E00DC5FF5 /* 210-twitterbird.png in Resources */ = {isa = PBXBuildFile; fileRef = D94972C81787664E00DC5FF5 /* 210-twitterbird.png */; };
+		D94972CB1787664E00DC5FF5 /* 210-twitterbird@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D94972C91787664E00DC5FF5 /* 210-twitterbird@2x.png */; };
+		D94972CE178789F000DC5FF5 /* OWSocialController.m in Sources */ = {isa = PBXBuildFile; fileRef = D94972CD178789F000DC5FF5 /* OWSocialController.m */; };
 		D94A26EF167A858600BD36EF /* local-big.png in Resources */ = {isa = PBXBuildFile; fileRef = D94A26E7167A858600BD36EF /* local-big.png */; };
 		D94A26F0167A858600BD36EF /* local-big@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D94A26E8167A858600BD36EF /* local-big@2x.png */; };
 		D94A26F1167A858600BD36EF /* saved-big.png in Resources */ = {isa = PBXBuildFile; fileRef = D94A26E9167A858600BD36EF /* saved-big.png */; };
@@ -887,6 +891,13 @@
 		D945D32F173C931F00D806BD /* OWRecordingActivityIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWRecordingActivityIndicatorView.m; sourceTree = "<group>"; };
 		D945D331173C9C0100D806BD /* OWTimerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWTimerView.h; sourceTree = "<group>"; };
 		D945D332173C9C0100D806BD /* OWTimerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWTimerView.m; sourceTree = "<group>"; };
+		D94972C31787605400DC5FF5 /* OWTwitterAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWTwitterAccountViewController.h; sourceTree = "<group>"; };
+		D94972C41787605400DC5FF5 /* OWTwitterAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWTwitterAccountViewController.m; sourceTree = "<group>"; };
+		D94972C81787664E00DC5FF5 /* 210-twitterbird.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "210-twitterbird.png"; sourceTree = "<group>"; };
+		D94972C91787664E00DC5FF5 /* 210-twitterbird@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "210-twitterbird@2x.png"; sourceTree = "<group>"; };
+		D94972CC178789F000DC5FF5 /* OWSocialController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWSocialController.h; sourceTree = "<group>"; };
+		D94972CD178789F000DC5FF5 /* OWSocialController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWSocialController.m; sourceTree = "<group>"; };
+		D94972CF17878FEC00DC5FF5 /* Model 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Model 3.xcdatamodel"; sourceTree = "<group>"; };
 		D94A26E7167A858600BD36EF /* local-big.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "local-big.png"; sourceTree = "<group>"; };
 		D94A26E8167A858600BD36EF /* local-big@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "local-big@2x.png"; sourceTree = "<group>"; };
 		D94A26E9167A858600BD36EF /* saved-big.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "saved-big.png"; sourceTree = "<group>"; };
@@ -1989,6 +2000,8 @@
 				D9397BC0165D95940093B3C8 /* OWLocationController.m */,
 				D907023A1668353800611607 /* OWCaptureController.h */,
 				D907023B1668353800611607 /* OWCaptureController.m */,
+				D94972CC178789F000DC5FF5 /* OWSocialController.h */,
+				D94972CD178789F000DC5FF5 /* OWSocialController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -1996,6 +2009,8 @@
 		D9D2E21D16532B220000E7C5 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				D94972C31787605400DC5FF5 /* OWTwitterAccountViewController.h */,
+				D94972C41787605400DC5FF5 /* OWTwitterAccountViewController.m */,
 				D9C7910D1774D75B0031D56A /* OWRootViewController.h */,
 				D9C7910E1774D75B0031D56A /* OWRootViewController.m */,
 				D9B6404017652A2A0028CFFB /* OWMapViewController.h */,
@@ -2183,6 +2198,8 @@
 		D9DFADF716547DE7003C515C /* Media */ = {
 			isa = PBXGroup;
 			children = (
+				D94972C81787664E00DC5FF5 /* 210-twitterbird.png */,
+				D94972C91787664E00DC5FF5 /* 210-twitterbird@2x.png */,
 				D954668317824FF500499FD5 /* 208-facebook.png */,
 				D954668417824FF500499FD5 /* 208-facebook@2x.png */,
 				D9C791191774F4F00031D56A /* 285-facetime-red.png */,
@@ -2717,6 +2734,8 @@
 				D954667C17823DE800499FD5 /* FBUserSettingsViewResources.bundle in Resources */,
 				D954668517824FF500499FD5 /* 208-facebook.png in Resources */,
 				D954668617824FF500499FD5 /* 208-facebook@2x.png in Resources */,
+				D94972CA1787664E00DC5FF5 /* 210-twitterbird.png in Resources */,
+				D94972CB1787664E00DC5FF5 /* 210-twitterbird@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3049,6 +3068,8 @@
 				D9D5E67D1784B4EE004AE5F6 /* OWUserProfileView.m in Sources */,
 				D9D5E6821784E076004AE5F6 /* SLGlowingTextField.m in Sources */,
 				D9D5E6861784EC5C004AE5F6 /* SSTextView.m in Sources */,
+				D94972C51787605400DC5FF5 /* OWTwitterAccountViewController.m in Sources */,
+				D94972CE178789F000DC5FF5 /* OWSocialController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3550,10 +3571,11 @@
 		D9EB4C59166D338B0019F8B6 /* Model.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				D94972CF17878FEC00DC5FF5 /* Model 3.xcdatamodel */,
 				D9D5BDB61753DDC4001770FC /* Model 2.xcdatamodel */,
 				D9EB4C5A166D338B0019F8B6 /* Model.xcdatamodel */,
 			);
-			currentVersion = D9D5BDB61753DDC4001770FC /* Model 2.xcdatamodel */;
+			currentVersion = D94972CF17878FEC00DC5FF5 /* Model 3.xcdatamodel */;
 			path = Model.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

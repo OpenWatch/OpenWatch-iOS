@@ -6,9 +6,11 @@
 
 extern const struct OWUserAttributes {
 	__unsafe_unretained NSString *bio;
+	__unsafe_unretained NSString *facebook;
 	__unsafe_unretained NSString *firstName;
 	__unsafe_unretained NSString *lastName;
 	__unsafe_unretained NSString *thumbnailURLString;
+	__unsafe_unretained NSString *twitter;
 	__unsafe_unretained NSString *username;
 } OWUserAttributes;
 
@@ -24,6 +26,8 @@ extern const struct OWUserFetchedProperties {
 @class OWMediaObject;
 @class OWTag;
 @class OWTask;
+
+
 
 
 
@@ -54,6 +58,16 @@ extern const struct OWUserFetchedProperties {
 
 
 
+@property (nonatomic, strong) NSString* facebook;
+
+
+
+//- (BOOL)validateFacebook:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
 @property (nonatomic, strong) NSString* firstName;
 
 
@@ -79,6 +93,16 @@ extern const struct OWUserFetchedProperties {
 
 
 //- (BOOL)validateThumbnailURLString:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
+@property (nonatomic, strong) NSString* twitter;
+
+
+
+//- (BOOL)validateTwitter:(id*)value_ error:(NSError**)error_;
 
 
 
@@ -146,6 +170,12 @@ extern const struct OWUserFetchedProperties {
 
 
 
+- (NSString*)primitiveFacebook;
+- (void)setPrimitiveFacebook:(NSString*)value;
+
+
+
+
 - (NSString*)primitiveFirstName;
 - (void)setPrimitiveFirstName:(NSString*)value;
 
@@ -160,6 +190,12 @@ extern const struct OWUserFetchedProperties {
 
 - (NSString*)primitiveThumbnailURLString;
 - (void)setPrimitiveThumbnailURLString:(NSString*)value;
+
+
+
+
+- (NSString*)primitiveTwitter;
+- (void)setPrimitiveTwitter:(NSString*)value;
 
 
 

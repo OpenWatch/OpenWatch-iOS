@@ -34,7 +34,8 @@
 - (void) updateUserSecretAgentStatus:(BOOL)secretAgentEnabled;
 - (void) updateUserPhoto:(UIImage*)photo;
 - (void) updateUserProfile;
-
+- (void) updateUserTwitterAccount;
+- (void) updateUserFacebookAccount;
 
 - (void) reportMediaObject:(OWMediaObject*)mediaObject;
 - (void) postObjectWithUUID:(NSString*)UUID objectClass:(Class)objectClass success:(void (^)(void))success failure:(void (^)(NSString *reason))failure retryCount:(NSUInteger)retryCount;

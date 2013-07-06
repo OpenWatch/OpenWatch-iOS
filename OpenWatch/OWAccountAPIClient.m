@@ -249,6 +249,28 @@
     [self updateAccountWithDetails:params];
 }
 
+- (void) updateUserTwitterAccount {
+    OWAccount *account = [OWSettingsController sharedInstance].account;
+    OWUser *user = account.user;
+    NSString *twitter = user.twitter;
+    if (twitter) {
+        [self updateAccountWithDetails:@{@"twitter": twitter}];
+    } else {
+        [self updateAccountWithDetails:@{@"twitter": @(NO)}];
+    }
+}
+
+- (void) updateUserFacebookAccount {
+    OWAccount *account = [OWSettingsController sharedInstance].account;
+    OWUser *user = account.user;
+    NSString *facebook = user.facebook;
+    if (facebook) {
+        [self updateAccountWithDetails:@{@"facebook": facebook}];
+    } else {
+        [self updateAccountWithDetails:@{@"facebook": @(NO)}];
+    }
+}
+
 - (void) updateAccountWithDetails:(NSDictionary*)details {
     OWAccount *account = [OWSettingsController sharedInstance].account;
     if (!account.isLoggedIn) {

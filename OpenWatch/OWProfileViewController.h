@@ -14,8 +14,9 @@
 #import "FacebookSDK.h"
 #import "SLGlowingTextField.h"
 #import "SSTextView.h"
+#import "OWTwitterAccountViewController.h"
 
-@interface OWProfileViewController : UIViewController <UITextFieldDelegate, BSKeyboardControlsDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, FBLoginViewDelegate, UIAlertViewDelegate, UITextViewDelegate>
+@interface OWProfileViewController : UIViewController <UITextFieldDelegate, BSKeyboardControlsDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, FBLoginViewDelegate, UIAlertViewDelegate, UITextViewDelegate, OWTwitterAccountSelectionDelegate>
 
 @property (nonatomic, strong) OWUser *user;
 

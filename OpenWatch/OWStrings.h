@@ -6,6 +6,15 @@
 //  Copyright (c) 2012 OpenWatch FPC. All rights reserved.
 //
 
+#define LOGGED_IN_AS_STRING NSLocalizedString(@"Logged in as: %@", @"logged in account for twitter")
+#define LOADING_FROM_TWITTER_STRING NSLocalizedString(@"Loading from Twitter...", @"message to let user know something is loading from Twitter")
+
+#define ERROR_LINKING_ACCOUNT_STRING NSLocalizedString(@"Error Linking Account", @"title for alert for account linking error")
+#define ERROR_LINKING_TWITTER_MESSAGE_STRING NSLocalizedString(@"Please open the iOS Settings app -> Privacy -> Twitter and enable OpenWatch in order to begin linking your account.", @"error message when you dont grant access to twitter accounts but are trying to link your account anyway")
+#define NO_TWITTER_ACCOUNTS_ERROR_STRING NSLocalizedString(@"No Twitter accounts available. Please open the iOS Settings app to add a Twitter account and try again.", @"error shown when user has no system level twitter accounts")
+
+#define CHOOSE_ACCOUNT_STRING NSLocalizedString(@"Choose Account", @"tell user to choose a twitter account")
+
 #define LINK_SOCIAL_MEDIA_ACCOUNTS_STRING NSLocalizedString(@"Link Social Media Accounts", @"text for label to link social media")
 #define TELL_US_ABOUT_YOURSELF_STRING NSLocalizedString(@"Tell us about yourself!", @"placeholder for 'about me' field")
 

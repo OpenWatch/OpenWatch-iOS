@@ -13,6 +13,10 @@
 #import "OWAccountAPIClient.h"
 #import "OWStrings.h"
 #import "AFNetworking.h"
+#import "OWSocialController.h"
+
+#define USER_PHOTO_ACTIONSHEET_TAG 1
+#define TWITTER_DISCONNECT_ACTIONSHEET_TAG 2
 
 @interface OWProfileViewController ()
 
@@ -84,7 +88,12 @@
         
         self.facebookLoginView = [[FBLoginView alloc] initWithReadPermissions:@[@"basic_info"]];
         self.linkTwitterButton = [[BButton alloc] initWithFrame:CGRectZero type:BButtonTypeTwitter icon:nil fontSize:17.0f];
-        [linkTwitterButton setTitle:CONNECT_STRING forState:UIControlStateNormal];
+        ACAccount *twitterAccount = [[OWSettingsController sharedInstance] account].twitterAccount;
+        if (twitterAccount) {
+            [linkTwitterButton setTitle:CONNECTED_STRING forState:UIControlStateNormal];
+        } else {
+            [linkTwitterButton setTitle:CONNECT_STRING forState:UIControlStateNormal];
+        }
         [linkTwitterButton addAwesomeIcon:FAIconTwitter beforeTitle:YES];
         
         [linkTwitterButton addTarget:self action:@selector(linkTwitterPressed:) forControlEvents:UIControlEventTouchUpInside];
@@ -104,7 +113,85 @@
 }
 
 - (void) linkTwitterPressed:(id)sender {
+    ACAccount *existingAccount = [OWSettingsController sharedInstance].account.twitterAccount;
     
+    if (existingAccount) {
+        NSString *title = [NSString stringWithFormat:LOGGED_IN_AS_STRING, existingAccount.username];
+        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:title delegate:self cancelButtonTitle:CANCEL_STRING destructiveButtonTitle:LOGOUT_STRING otherButtonTitles:nil];
+        actionSheet.tag = TWITTER_DISCONNECT_ACTIONSHEET_TAG;
+        [actionSheet showInView:self.view];
+        return;
+    }
+    
+    
+    ACAccountStore *accountStore = [OWSettingsController sharedInstance].account.accountStore;
+    ACAccountType *accountType = [accountStore accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierTwitter];
+    [accountStore requestAccessToAccountsWithType:accountType
+                                          options:nil completion:^(BOOL granted, NSError *error)
+     {
+         dispatch_async(dispatch_get_main_queue(), ^{
+             if (error) {
+                 NSString *message;
+                 if (error.code == 6) {
+                     message = NO_TWITTER_ACCOUNTS_ERROR_STRING;
+                 } else if (error.code == 7) {
+                     message = ERROR_LINKING_TWITTER_MESSAGE_STRING;
+                 } else {
+                     message = error.localizedDescription;
+                 }
+                 NSLog(@"Error linking account: %@", error.userInfo);
+                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:ERROR_LINKING_ACCOUNT_STRING message:message delegate:nil cancelButtonTitle:OK_STRING otherButtonTitles:nil];
+                 [alert show];
+                 return;
+             }
+             if (granted) {
+                 NSArray *accounts = [accountStore accountsWithAccountType:accountType];
+                 ACAccount *account = nil;
+                 if (accounts.count == 1) {
+                     account = [accounts objectAtIndex:0];
+                     [self twitterAccountSelected:account accountSelector:nil];
+                 } else {
+                     OWTwitterAccountViewController *twitterAccountController = [[OWTwitterAccountViewController alloc] initWithAccounts:accounts delegate:self];
+                     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:twitterAccountController];
+                     [self presentViewController:nav
+                                        animated:YES completion:nil];
+                 }
+             }
+         });
+     }];
+}
+
+- (void) twitterAccountSelected:(ACAccount *)account accountSelector:(OWTwitterAccountViewController *)accountSelector {
+    [accountSelector dismissViewControllerAnimated:YES completion:nil];
+    [[OWSettingsController sharedInstance] account].twitterAccount = account;
+    
+    NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
+    user.twitter = account.username;
+    [context MR_saveToPersistentStoreAndWait];
+    [[OWAccountAPIClient sharedClient] updateUserTwitterAccount];
+    
+    if (aboutMeTextView.text.length == 0) {
+        self.aboutMeTextView.placeholder = LOADING_FROM_TWITTER_STRING;
+        __weak __typeof(&*self)weakSelf = self;
+
+        [OWSocialController profileForTwitterAccount:account callbackBlock:^(NSDictionary *profile, NSError *error) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (error) {
+                    NSLog(@"Error fetching profile: %@", error.userInfo);
+                    weakSelf.aboutMeTextView.placeholder = TELL_US_ABOUT_YOURSELF_STRING;
+                } else {
+                    weakSelf.aboutMeTextView.text = [profile objectForKey:@"description"];
+                }
+            });
+        }];
+    }
+    
+    [linkTwitterButton setTitle:CONNECTED_STRING forState:UIControlStateNormal];
+    [linkTwitterButton addAwesomeIcon:FAIconTwitter beforeTitle:YES];
+}
+
+- (void) twitterAccountSelectionCanceled:(OWTwitterAccountViewController *)accountSelector {
+    [accountSelector dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)viewDidLoad
@@ -207,17 +294,29 @@
     if (buttonIndex == actionSheet.cancelButtonIndex) {
         return;
     }
-    UIImagePickerControllerSourceType sourceType = UIImagePickerControllerSourceTypeCamera;
-    if (!self.imagePicker) {
-        self.imagePicker = [[UIImagePickerController alloc] init];
-        self.imagePicker.delegate = self;
-    }
-    if (buttonIndex == 1) {
-        sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
-    }
-    if ([UIImagePickerController isSourceTypeAvailable:sourceType]) {
-        self.imagePicker.sourceType = sourceType;
-        [self presentViewController:imagePicker animated:YES completion:nil];
+    if (actionSheet.tag == USER_PHOTO_ACTIONSHEET_TAG) {
+        UIImagePickerControllerSourceType sourceType = UIImagePickerControllerSourceTypeCamera;
+        if (!self.imagePicker) {
+            self.imagePicker = [[UIImagePickerController alloc] init];
+            self.imagePicker.delegate = self;
+        }
+        if (buttonIndex == 1) {
+            sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
+        }
+        if ([UIImagePickerController isSourceTypeAvailable:sourceType]) {
+            self.imagePicker.sourceType = sourceType;
+            [self presentViewController:imagePicker animated:YES completion:nil];
+        }
+    } else if (actionSheet.tag == TWITTER_DISCONNECT_ACTIONSHEET_TAG) {
+        [OWSettingsController sharedInstance].account.twitterAccount = nil;
+        
+        NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
+        user.twitter = nil;
+        [context MR_saveToPersistentStoreAndWait];
+        [[OWAccountAPIClient sharedClient] updateUserTwitterAccount];
+        
+        [linkTwitterButton setTitle:CONNECT_STRING forState:UIControlStateNormal];
+        [linkTwitterButton addAwesomeIcon:FAIconTwitter beforeTitle:YES];
     }
 }
 
@@ -246,8 +345,14 @@
     }
     self.facebookID = [fbUser objectForKey:@"id"];
     
+    NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
+    NSLog(@"[Facebook]: Logged out");
+    user.facebook = facebookID;
+    [context MR_saveToPersistentStoreAndWait];
+    [[OWAccountAPIClient sharedClient] updateUserFacebookAccount];
+    
     if (!self.userView.image) {
-        
+        [self importUserAvatarFromFacebook];
     }
 }
 
@@ -304,8 +409,11 @@
     // It is important to always handle session closure because it can happen
     // externally; for example, if the current session's access token becomes
     // invalid. For this sample, we simply pop back to the landing page.
-    
+    NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
     NSLog(@"[Facebook]: Logged out");
+    user.facebook = nil;
+    [context MR_saveToPersistentStoreAndWait];
+    [[OWAccountAPIClient sharedClient] updateUserFacebookAccount];
 }
 
 - (void) importUserAvatarFromFacebook {
