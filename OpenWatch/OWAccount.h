@@ -12,7 +12,6 @@
 
 @interface OWAccount : NSObject
 
-@property (nonatomic, strong) ACAccountStore *accountStore;
 
 @property (nonatomic, strong) NSNumber *accountID;
 @property (nonatomic, strong) NSString *email;

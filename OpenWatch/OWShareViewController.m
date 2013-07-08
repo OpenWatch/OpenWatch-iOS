@@ -17,6 +17,7 @@
 #import <Accounts/Accounts.h>
 #import <Social/Social.h>
 #import "OWSettingsController.h"
+#import "OWSocialController.h"
 
 @interface OWShareViewController ()
 
@@ -74,7 +75,7 @@
 }
 
 - (void) shareButtonPressed:(id)sender {
-    ACAccountStore *accountStore = [OWSettingsController sharedInstance].account.accountStore;
+    ACAccountStore *accountStore = [OWSocialController sharedInstance].accountStore;
     ACAccountType *accountType = [accountStore accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierTwitter];
     [accountStore requestAccessToAccountsWithType:accountType
                                      options:nil completion:^(BOOL granted, NSError *error)

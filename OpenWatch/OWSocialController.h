@@ -9,9 +9,16 @@
 #import <Foundation/Foundation.h>
 #import <Accounts/Accounts.h>
 #import <Social/Social.h>
+#import "OWTwitterAccountViewController.h"
 
 @interface OWSocialController : NSObject
 
-+ (void) profileForTwitterAccount:(ACAccount*)account callbackBlock:(void (^)(NSDictionary *profile, NSError *error))callbackBlock;
+@property (nonatomic, strong) ACAccountStore *accountStore;
+
++ (OWSocialController *)sharedInstance;
+
+- (void) profileForTwitterAccount:(ACAccount*)account callbackBlock:(void (^)(NSDictionary *profile, NSError *error))callbackBlock;
+
+- (void) linkTwitterAccountFromViewController:(UIViewController*)viewController callbackBlock:(OWTwitterAccountSelectionCallback)callbackBlock;
 
 @end

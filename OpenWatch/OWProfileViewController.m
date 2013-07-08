@@ -123,75 +123,35 @@
         return;
     }
     
-    
-    ACAccountStore *accountStore = [OWSettingsController sharedInstance].account.accountStore;
-    ACAccountType *accountType = [accountStore accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierTwitter];
-    [accountStore requestAccessToAccountsWithType:accountType
-                                          options:nil completion:^(BOOL granted, NSError *error)
-     {
-         dispatch_async(dispatch_get_main_queue(), ^{
-             if (error) {
-                 NSString *message;
-                 if (error.code == 6) {
-                     message = NO_TWITTER_ACCOUNTS_ERROR_STRING;
-                 } else if (error.code == 7) {
-                     message = ERROR_LINKING_TWITTER_MESSAGE_STRING;
-                 } else {
-                     message = error.localizedDescription;
-                 }
-                 NSLog(@"Error linking account: %@", error.userInfo);
-                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:ERROR_LINKING_ACCOUNT_STRING message:message delegate:nil cancelButtonTitle:OK_STRING otherButtonTitles:nil];
-                 [alert show];
-                 return;
-             }
-             if (granted) {
-                 NSArray *accounts = [accountStore accountsWithAccountType:accountType];
-                 ACAccount *account = nil;
-                 if (accounts.count == 1) {
-                     account = [accounts objectAtIndex:0];
-                     [self twitterAccountSelected:account accountSelector:nil];
-                 } else {
-                     OWTwitterAccountViewController *twitterAccountController = [[OWTwitterAccountViewController alloc] initWithAccounts:accounts delegate:self];
-                     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:twitterAccountController];
-                     [self presentViewController:nav
-                                        animated:YES completion:nil];
-                 }
-             }
-         });
-     }];
-}
-
-- (void) twitterAccountSelected:(ACAccount *)account accountSelector:(OWTwitterAccountViewController *)accountSelector {
-    [accountSelector dismissViewControllerAnimated:YES completion:nil];
-    [[OWSettingsController sharedInstance] account].twitterAccount = account;
-    
-    NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
-    user.twitter = account.username;
-    [context MR_saveToPersistentStoreAndWait];
-    [[OWAccountAPIClient sharedClient] updateUserTwitterAccount];
-    
-    if (aboutMeTextView.text.length == 0) {
-        self.aboutMeTextView.placeholder = LOADING_FROM_TWITTER_STRING;
-        __weak __typeof(&*self)weakSelf = self;
-
-        [OWSocialController profileForTwitterAccount:account callbackBlock:^(NSDictionary *profile, NSError *error) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                if (error) {
-                    NSLog(@"Error fetching profile: %@", error.userInfo);
-                    weakSelf.aboutMeTextView.placeholder = TELL_US_ABOUT_YOURSELF_STRING;
-                } else {
-                    weakSelf.aboutMeTextView.text = [profile objectForKey:@"description"];
-                }
-            });
-        }];
-    }
-    
-    [linkTwitterButton setTitle:CONNECTED_STRING forState:UIControlStateNormal];
-    [linkTwitterButton addAwesomeIcon:FAIconTwitter beforeTitle:YES];
-}
-
-- (void) twitterAccountSelectionCanceled:(OWTwitterAccountViewController *)accountSelector {
-    [accountSelector dismissViewControllerAnimated:YES completion:nil];
+    __weak __typeof(&*self)weakSelf = self;
+    [[OWSocialController sharedInstance] linkTwitterAccountFromViewController:self callbackBlock:^(ACAccount *selectedAccount, NSError *error) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [[OWSettingsController sharedInstance] account].twitterAccount = selectedAccount;
+            
+            NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
+            [[OWSettingsController sharedInstance] account].user.twitter = selectedAccount.username;
+            [context MR_saveToPersistentStoreAndWait];
+            [[OWAccountAPIClient sharedClient] updateUserTwitterAccount];
+            
+            if (weakSelf.aboutMeTextView.text.length == 0) {
+                weakSelf.aboutMeTextView.placeholder = LOADING_FROM_TWITTER_STRING;
+                
+                [[OWSocialController sharedInstance] profileForTwitterAccount:selectedAccount callbackBlock:^(NSDictionary *profile, NSError *error) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        if (error) {
+                            NSLog(@"Error fetching profile: %@", error.userInfo);
+                            weakSelf.aboutMeTextView.placeholder = TELL_US_ABOUT_YOURSELF_STRING;
+                        } else {
+                            weakSelf.aboutMeTextView.text = [profile objectForKey:@"description"];
+                        }
+                    });
+                }];
+            }
+            
+            [weakSelf.linkTwitterButton setTitle:CONNECTED_STRING forState:UIControlStateNormal];
+            [weakSelf.linkTwitterButton addAwesomeIcon:FAIconTwitter beforeTitle:YES];
+        });
+    }];
 }
 
 - (void)viewDidLoad

@@ -11,12 +11,8 @@
 
 @class OWTwitterAccountViewController;
 
-@protocol OWTwitterAccountSelectionDelegate <NSObject>
+typedef void(^OWTwitterAccountSelectionCallback)(ACAccount *selectedAccount, NSError *error);
 
-- (void) twitterAccountSelected:(ACAccount*)account accountSelector:(OWTwitterAccountViewController*)accountSelector;
-- (void) twitterAccountSelectionCanceled:(OWTwitterAccountViewController*)accountSelector;
-
-@end
 
 @interface OWTwitterAccountViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
@@ -24,8 +20,8 @@
 @property (nonatomic, strong) NSArray *accounts;
 @property (nonatomic, strong) NSMutableDictionary *profileImages;
 @property (nonatomic, strong) ACAccount *selectedAccount;
-@property (nonatomic, weak) id<OWTwitterAccountSelectionDelegate> delegate;
+@property (nonatomic, copy) OWTwitterAccountSelectionCallback callbackBlock;
 
-- (id) initWithAccounts:(NSArray*)accounts delegate:(id<OWTwitterAccountSelectionDelegate>) delegate;
+- (id) initWithAccounts:(NSArray*)accounts callbackBlock:(OWTwitterAccountSelectionCallback)callbackBlock;
 
 @end

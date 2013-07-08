@@ -9,6 +9,7 @@
 #import "OWAccount.h"
 #import "SSKeychain.h"
 #import "FacebookSDK.h"
+#import "OWSocialController.h"
 
 #define kServiceName @"net.OpenWatch.OpenWatch"
 #define kAccountIDKey @"kAccountIDKey"
@@ -23,11 +24,9 @@
 #define kTwitterAccountKey @"kTwitterAccountKey"
 
 @implementation OWAccount
-@synthesize accountStore;
 
 - (id) init {
     if (self = [super init]) {
-        self.accountStore = [[ACAccountStore alloc] init];
         if ([self email] == nil && [self publicUploadToken] != nil) {
             [self clearAccountData];
         }
@@ -121,7 +120,7 @@
     if (!accountIdentifier) {
         return nil;
     }
-    return [accountStore accountWithIdentifier:accountIdentifier];
+    return [[OWSocialController sharedInstance].accountStore accountWithIdentifier:accountIdentifier];
 }
 
 - (void) setTwitterAccount:(ACAccount *)twitterAccount {

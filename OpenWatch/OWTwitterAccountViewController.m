@@ -21,12 +21,12 @@ static NSString *cellIdentifier = @"CellIdentifier";
 @end
 
 @implementation OWTwitterAccountViewController
-@synthesize accountsTableView, accounts, delegate, profileImages;
+@synthesize accountsTableView, accounts, profileImages, callbackBlock;
 
-- (id) initWithAccounts:(NSArray*)newAccounts delegate:(id<OWTwitterAccountSelectionDelegate>)newDelegate {
+- (id) initWithAccounts:(NSArray*)newAccounts callbackBlock:(OWTwitterAccountSelectionCallback)newCallbackBlock {
     if (self = [super init]) {
         self.view.backgroundColor = [OWUtilities stoneBackgroundPattern];
-        self.delegate = newDelegate;
+        self.callbackBlock = newCallbackBlock;
         self.accounts = newAccounts;
         self.accountsTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
         self.accountsTableView.delegate = self;
@@ -52,9 +52,10 @@ static NSString *cellIdentifier = @"CellIdentifier";
 }
 
 - (void) doneButtonPressed:(id)sender {
-    if (self.delegate && [self.delegate respondsToSelector:@selector(twitterAccountSelected:accountSelector:)]) {
-        [self.delegate twitterAccountSelected:self.selectedAccount accountSelector:self];
+    if (callbackBlock) {
+        callbackBlock(self.selectedAccount, nil);
     }
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -83,7 +84,7 @@ static NSString *cellIdentifier = @"CellIdentifier";
 }
 
 - (void) setImageForCell:(UITableViewCell*)cell account:(ACAccount*)account {
-    [OWSocialController profileForTwitterAccount:account callbackBlock:^(NSDictionary *profile, NSError *error) {
+    [[OWSocialController sharedInstance] profileForTwitterAccount:account callbackBlock:^(NSDictionary *profile, NSError *error) {
         dispatch_async(dispatch_get_main_queue(), ^{
             if (error) {
                 NSLog(@"Error setting profile image: %@", error.userInfo);
@@ -115,9 +116,11 @@ static NSString *cellIdentifier = @"CellIdentifier";
 
 
 - (void) cancelButtonPressed:(id)sender {
-    if (self.delegate && [self.delegate respondsToSelector:@selector(twitterAccountSelectionCanceled:)]) {
-        [self.delegate twitterAccountSelectionCanceled:self];
+    NSError *error = [NSError errorWithDomain:@"OWTwitterAccountSelectionError" code:100 userInfo:@{NSLocalizedDescriptionKey: @"User canceled account creation."}];
+    if (callbackBlock) {
+        callbackBlock(nil, error);
     }
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 

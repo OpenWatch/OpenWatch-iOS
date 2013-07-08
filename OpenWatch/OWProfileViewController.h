@@ -16,7 +16,7 @@
 #import "SSTextView.h"
 #import "OWTwitterAccountViewController.h"
 
-@interface OWProfileViewController : UIViewController <UITextFieldDelegate, BSKeyboardControlsDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, FBLoginViewDelegate, UIAlertViewDelegate, UITextViewDelegate, OWTwitterAccountSelectionDelegate>
+@interface OWProfileViewController : UIViewController <UITextFieldDelegate, BSKeyboardControlsDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, FBLoginViewDelegate, UIAlertViewDelegate, UITextViewDelegate>
 
 @property (nonatomic, strong) OWUser *user;
 
