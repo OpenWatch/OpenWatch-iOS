@@ -74,6 +74,10 @@
     }
     
     self.window.rootViewController = revealController;
+    
+    // testing the view
+    self.window.rootViewController = [[OWLocalMediaEditViewController alloc] init];
+    
     self.creationController = [[[self mediaCreationClass] alloc] init];
     [self.window makeKeyAndVisible];
     return YES;

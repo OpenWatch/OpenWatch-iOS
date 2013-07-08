@@ -124,7 +124,7 @@
     }
     
     __weak __typeof(&*self)weakSelf = self;
-    [[OWSocialController sharedInstance] linkTwitterAccountFromViewController:self callbackBlock:^(ACAccount *selectedAccount, NSError *error) {
+    [[OWSocialController sharedInstance] fetchTwitterAccountForViewController:self callbackBlock:^(ACAccount *selectedAccount, NSError *error) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [[OWSettingsController sharedInstance] account].twitterAccount = selectedAccount;
             

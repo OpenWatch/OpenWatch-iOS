@@ -20,19 +20,64 @@
 #import "OWLocalMediaController.h"
 #import "OWPhoto.h"
 #import "OWShareViewController.h"
+#import "OWSocialController.h"
+#import "OWSocialTableItem.h"
 
 #define TAGS_ROW 0
 #define PADDING 10.0f
+
+static NSString *cellIdentifier = @"CellIdentifier";
 
 @interface OWLocalMediaEditViewController ()
 
 @end
 
 @implementation OWLocalMediaEditViewController
-@synthesize titleTextField, whatHappenedLabel, saveButton, uploadProgressView, objectID, scrollView, showingAfterCapture, previewView, characterCountdown, uploadStatusLabel, previewGestureRecognizer, primaryTag, keyboardControls;
+@synthesize titleTextField, whatHappenedLabel, saveButton, objectID, scrollView, showingAfterCapture, previewView, characterCountdown, previewGestureRecognizer, primaryTag, keyboardControls, socialTableView, facebookSwitch, twitterSwitch, openwatchSwitch;
 
 - (void) dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void) setupSocialSwitches {
+    self.facebookSwitch = [[UISwitch alloc] init];
+    [self.facebookSwitch addTarget:self action:@selector(toggleFacebookSwitch:) forControlEvents:UIControlEventValueChanged];
+    OWSocialTableItem *facebookItem = [[OWSocialTableItem alloc] initWithSwitch:facebookSwitch image:[UIImage imageNamed:@"208-facebook.png"] text:POST_TO_FACEBOOK_STRING];
+    
+    self.twitterSwitch = [[UISwitch alloc] init];
+    [self.twitterSwitch addTarget:self action:@selector(toggleTwitterSwitch:) forControlEvents:UIControlEventValueChanged];
+    OWSocialTableItem *twitterItem = [[OWSocialTableItem alloc] initWithSwitch:twitterSwitch image:[UIImage imageNamed:@"210-twitterbird.png"] text:POST_TO_TWITTER_STRING];
+
+    self.openwatchSwitch = [[UISwitch alloc] init];
+    OWSocialTableItem *openWatchItem = [[OWSocialTableItem alloc] initWithSwitch:openwatchSwitch image:nil text:POST_TO_OPENWATCH_STRING];
+    
+    self.socialItems = @[openWatchItem, facebookItem, twitterItem];
+}
+
+- (void) toggleFacebookSwitch:(id)sender {
+    
+}
+
+- (void) toggleTwitterSwitch:(id)sender {
+    if (self.twitterSwitch.on) {
+        [[OWSocialController sharedInstance] fetchTwitterAccountForViewController:self callbackBlock:^(ACAccount *selectedAccount, NSError *error) {
+            if (error) {
+                [self.twitterSwitch setOn:NO animated:YES];
+            } else {
+                NSLog(@"Twitter account selected: %@", selectedAccount);
+            }
+        }];
+    }
+}
+
+- (void) setupSocialTable {
+    self.socialTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
+    self.socialTableView.dataSource = self;
+    self.socialTableView.scrollEnabled = NO;
+    self.socialTableView.backgroundColor = [UIColor clearColor];
+    self.socialTableView.backgroundView = nil;
+    [self.socialTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:cellIdentifier];
+    [self.scrollView addSubview:socialTableView];
 }
 
 - (id) init {
@@ -41,16 +86,12 @@
         [self setupScrollView];
         [self setupFields];
         [self setupWhatHappenedLabel];
-        [self setupProgressView];
         [self setupPreviewView];
+        [self setupSocialSwitches];
+        [self setupSocialTable];
         
         self.keyboardControls = [[BSKeyboardControls alloc] initWithFields:@[titleTextField]];
         self.keyboardControls.delegate = self;
-        
-        self.uploadStatusLabel = [[UILabel alloc] init];
-        self.uploadStatusLabel.text = ITS_ONLINE_STRING;
-        [OWUtilities styleLabel:uploadStatusLabel];
-        [self.scrollView addSubview:uploadStatusLabel];
         
         self.characterCountdown = [[OWCharacterCountdownView alloc] initWithFrame:CGRectZero];
         [self.scrollView addSubview:characterCountdown];
@@ -97,53 +138,28 @@
     [self.scrollView addSubview:whatHappenedLabel];
 }
 
-- (void) setupProgressView {
-    if (uploadProgressView) {
-        [uploadProgressView removeFromSuperview];
-    }
-    self.uploadProgressView = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleDefault];
-    [self.scrollView addSubview:uploadProgressView];
-}
-
-
-- (void) refreshProgressView {
-    OWLocalMediaObject *mediaObject = [OWLocalMediaController localMediaObjectForObjectID:self.objectID];
-    if ([mediaObject isKindOfClass:[OWLocalRecording class]]) {
-        OWLocalRecording *localRecording = (OWLocalRecording*)mediaObject;
-        float progress = ((float)[localRecording completedFileCount]) / [localRecording totalFileCount];
-        [self.uploadProgressView setProgress:progress animated:YES];
-    } else if ([mediaObject isKindOfClass:[OWPhoto class]]){
-        OWPhoto *photo = (OWPhoto*)mediaObject;
-        if (photo.uploadedValue) {
-            [self.uploadProgressView setProgress:1.0f animated:YES];
-        } else {
-            [self.uploadProgressView setProgress:0.0f animated:YES];
-        }
-    }
-}
-
 - (void) refreshFrames {
     CGFloat padding = PADDING;
     CGFloat contentHeight = 0.0f;
     
     CGFloat titleYOrigin;
     CGFloat itemHeight = 30.0f;
-    CGFloat itemWidth = self.view.frame.size.width - padding*2;
+    CGFloat frameWidth = self.view.frame.size.width;
+    CGFloat itemWidth = frameWidth - padding*2;
     
     CGFloat previewHeight = [OWPreviewView heightForWidth:itemWidth];
-    
-    self.uploadStatusLabel.frame = CGRectMake(padding, padding, itemWidth, 20.0f);
-    
-    self.previewView.frame = CGRectMake(padding, [OWUtilities bottomOfView:uploadStatusLabel] + padding, itemWidth, previewHeight);
-    
-    self.uploadProgressView.frame = CGRectMake(padding, [OWUtilities bottomOfView:previewView] + 5, itemWidth, itemHeight);
-    
-    CGFloat whatHappenedYOrigin = [OWUtilities bottomOfView:uploadProgressView] + padding;
+        
+    self.previewView.frame = CGRectMake(padding, padding, itemWidth, previewHeight);
+        
+    CGFloat whatHappenedYOrigin = [OWUtilities bottomOfView:previewView] + padding;
     self.whatHappenedLabel.frame = CGRectMake(padding,whatHappenedYOrigin, itemWidth, itemHeight);
     titleYOrigin = [OWUtilities bottomOfView:whatHappenedLabel] + padding;
     self.titleTextField.frame = CGRectMake(padding, titleYOrigin, itemWidth, itemHeight);
     self.characterCountdown.frame = CGRectMake(padding, [OWUtilities bottomOfView:titleTextField] + 10, itemWidth, 35);
-    contentHeight = [OWUtilities bottomOfView:self.titleTextField] + padding*3;
+    
+    self.socialTableView.frame = CGRectMake(0, [OWUtilities bottomOfView:self.titleTextField], frameWidth, 155);
+    
+    contentHeight = [OWUtilities bottomOfView:self.socialTableView] + padding*3;
     self.scrollView.contentSize = CGSizeMake(self.view.frame.size.width, contentHeight);
     self.scrollView.frame = self.view.bounds;
 }
@@ -161,7 +177,6 @@
     
     [self refreshFields];
     [self refreshFrames];
-    [self refreshProgressView];
     [self registerForUploadProgressNotifications];
 }
 
@@ -220,12 +235,6 @@
     
     [self.scrollView addSubview:titleTextField];
 }
-
-
-- (void) receivedUploadProgressNotification:(NSNotification*)notification {
-    [self refreshProgressView];
-}
-
 
 - (BOOL) checkFields {
     if (self.titleTextField.text.length > 2) {
@@ -348,6 +357,19 @@
 - (void)keyboardControlsDonePressed:(BSKeyboardControls *)keyControls
 {
     [keyControls.activeField resignFirstResponder];
+}
+
+- (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return self.socialItems.count;
+}
+
+- (UITableViewCell*) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    OWSocialTableItem *socialItem = [self.socialItems objectAtIndex:indexPath.row];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
+    cell.textLabel.text = socialItem.text;
+    cell.imageView.image = socialItem.image;
+    cell.accessoryView = socialItem.socialSwitch;
+    return cell;
 }
 
 @end

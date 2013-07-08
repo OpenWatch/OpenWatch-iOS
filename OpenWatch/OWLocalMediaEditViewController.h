@@ -14,7 +14,7 @@
 
 @class OWLocalMediaEditViewController;
 
-@interface OWLocalMediaEditViewController : UIViewController <UITextFieldDelegate, UIGestureRecognizerDelegate, BSKeyboardControlsDelegate>
+@interface OWLocalMediaEditViewController : UIViewController <UITextFieldDelegate, UIGestureRecognizerDelegate, BSKeyboardControlsDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) UIGestureRecognizer *previewGestureRecognizer;
 
@@ -22,16 +22,20 @@
 @property (nonatomic, strong) OWPreviewView *previewView;
 @property (nonatomic, strong) UITextField *titleTextField;
 @property (nonatomic, strong) UILabel *whatHappenedLabel;
-@property (nonatomic, strong) UILabel *uploadStatusLabel;
+
+
+@property (nonatomic, strong) UITableView *socialTableView;
+@property (nonatomic, strong) NSArray *socialItems;
+@property (nonatomic, strong) UISwitch *facebookSwitch;
+@property (nonatomic, strong) UISwitch *twitterSwitch;
+@property (nonatomic, strong) UISwitch *openwatchSwitch;
+
 @property (nonatomic, strong) UIBarButtonItem *saveButton;
-@property (nonatomic, strong) UIProgressView *uploadProgressView;
 @property (nonatomic, strong) UIScrollView *scrollView;
 
 @property (nonatomic, strong) NSManagedObjectID *objectID;
 @property (nonatomic) BOOL showingAfterCapture;
-
 @property (nonatomic, strong) NSString *primaryTag;
-
 @property (nonatomic, strong) BSKeyboardControls *keyboardControls;
 
 @end

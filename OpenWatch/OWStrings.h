@@ -6,6 +6,10 @@
 //  Copyright (c) 2012 OpenWatch FPC. All rights reserved.
 //
 
+#define POST_TO_OPENWATCH_STRING NSLocalizedString(@"Post to OpenWatch", @"post to openwatch toggle switch")
+#define POST_TO_FACEBOOK_STRING NSLocalizedString(@"Post to Facebook", @"name for toggle switch to post to facebook")
+#define POST_TO_TWITTER_STRING NSLocalizedString(@"Post to Twitter" ,@"name for toggle switch to post to twitter")
+
 #define LOGGED_IN_AS_STRING NSLocalizedString(@"Logged in as: %@", @"logged in account for twitter")
 #define LOADING_FROM_TWITTER_STRING NSLocalizedString(@"Loading from Twitter...", @"message to let user know something is loading from Twitter")
 
