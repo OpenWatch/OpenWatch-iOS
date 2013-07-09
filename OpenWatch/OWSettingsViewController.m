@@ -11,7 +11,7 @@
 #import "OWLoginViewController.h"
 #import "OWLocalMediaObjectListViewController.h"
 #import "OWUtilities.h"
-#import "OWShareController.h"
+#import "OWSocialController.h"
 #import "OWProfileViewController.h"
 #import "OWDashboardItem.h"
 #import "OWSettingsController.h"
@@ -66,7 +66,7 @@
 }
 
 - (void) shareButtonPressed:(id)sender {
-    [OWShareController shareURL:[NSURL URLWithString:@"https://itunes.apple.com/us/app/openwatch-social-muckraking/id642680756?ls=1&mt=8"] title:TWEET_OPENWATCH_STRING fromViewController:self];
+    [OWSocialController shareURL:[NSURL URLWithString:@"https://itunes.apple.com/us/app/openwatch-social-muckraking/id642680756?ls=1&mt=8"] title:TWEET_OPENWATCH_STRING fromViewController:self];
 }
 
 - (void) githubButtonPressed:(id)sender {

@@ -10,9 +10,38 @@
 #import "OWStrings.h"
 #import "OWSettingsController.h"
 #import "OWAccountAPIClient.h"
+#import "TUSafariActivity.h"
 
 @implementation OWSocialController
 @synthesize accountStore;
+
++ (void) shareURL:(NSURL*)url title:(NSString*)title fromViewController:(UIViewController*)viewController {
+    UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[title, url] applicationActivities:nil];
+    
+    [viewController presentViewController:activityViewController animated:YES completion:nil];
+}
+
++ (void) shareMediaObject:(OWMediaObject*)mediaObject fromViewController:(UIViewController*)viewController {
+    TUSafariActivity *safariActivity = [[TUSafariActivity alloc] init];
+    NSMutableArray *items = [NSMutableArray arrayWithCapacity:2];
+    if (mediaObject.shareURL) {
+        [items addObject:mediaObject.shareURL];
+        if (mediaObject.title) {
+            [items addObject:mediaObject.title];
+        }
+        [items addObject:@"via @OpenWatch"];
+        UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:items applicationActivities:@[safariActivity]];
+        
+        UIActivityViewControllerCompletionHandler completionHandler = ^(NSString *activityType, BOOL completed) {
+            NSLog(@"activity: %@", activityType);
+        };
+        
+        activityViewController.completionHandler = completionHandler;
+        
+        [viewController presentViewController:activityViewController animated:YES completion:nil];
+    }
+}
+
 
 - (id) init {
     if (self = [super init]) {
@@ -95,6 +124,54 @@
                  }
              }
          });
+     }];
+}
+
+- (void) updateTwitterStatusFromMediaObject:(OWMediaObject*)mediaObject forAccount:(ACAccount*)account callbackBlock:(void (^)(NSDictionary* responseData, NSError *error))callbackBlock {
+    NSString *url = mediaObject.shareURL.absoluteString;
+    NSString *description = nil;
+    if (mediaObject.title.length > 0) {
+        description = mediaObject.title;
+    } else {
+        description = @"";
+    }
+    NSString *postFix = @"via @OpenWatch";
+    NSString *status = [NSString stringWithFormat:@"%@ %@ %@", url, description, postFix];
+    [self updateTwitterStatus:status forAccount:account callbackBlock:callbackBlock];
+}
+
+- (void) updateTwitterStatus:(NSString*)status forAccount:(ACAccount*)account callbackBlock:(void (^)(NSDictionary* responseData, NSError *error))callbackBlock {
+    NSURL *requestURL = [NSURL URLWithString:@"https://api.twitter.com/1.1/statuses/update.json"];
+    
+    NSMutableDictionary *parameters =
+    [[NSMutableDictionary alloc] init];
+    if (status) {
+        [parameters setObject:status forKey:@"status"];
+    }
+    
+    SLRequest *postRequest = [SLRequest
+                              requestForServiceType:SLServiceTypeTwitter
+                              requestMethod:SLRequestMethodPOST
+                              URL:requestURL parameters:parameters];
+    
+    postRequest.account = account;
+    
+    [postRequest performRequestWithHandler:
+     ^(NSData *responseData, NSHTTPURLResponse
+       *urlResponse, NSError *error) {
+         if (callbackBlock) {
+             if (error) {
+                 callbackBlock(nil, error);
+             }
+             NSDictionary *data = [NSJSONSerialization
+                                   JSONObjectWithData:responseData
+                                   options:NSJSONReadingMutableLeaves
+                                   error:&error];
+             if (error) {
+                 callbackBlock(nil, error);
+             }
+             callbackBlock(data, nil);
+         }
      }];
 }
 

@@ -22,6 +22,7 @@
 #import "OWSocialController.h"
 #import "OWSocialTableItem.h"
 #import "OWEditableMediaCell.h"
+#import "FacebookSDK.h"
 
 #define TAGS_ROW 0
 #define PADDING 10.0f
@@ -35,7 +36,7 @@ static NSString *editableCellIdentifier = @"EditableCellIdentifier";
 @end
 
 @implementation OWLocalMediaEditViewController
-@synthesize titleTextView, doneButton, objectID, showingAfterCapture, primaryTag, keyboardControls, socialTableView, facebookSwitch, twitterSwitch, openwatchSwitch, previewView;
+@synthesize titleTextView, doneButton, objectID, showingAfterCapture, primaryTag, keyboardControls, socialTableView, facebookSwitch, twitterSwitch, openwatchSwitch, previewView, twitterAccount, facebookRetryCount;
 
 - (void) dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -57,17 +58,131 @@ static NSString *editableCellIdentifier = @"EditableCellIdentifier";
 }
 
 - (void) toggleFacebookSwitch:(id)sender {
+    if (self.facebookSwitch.on && !FBSession.activeSession.isOpen) {
+        [FBSession openActiveSessionWithPublishPermissions:@[@"publish_actions"] defaultAudience:FBSessionDefaultAudienceFriends allowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
+            if (error) {
+                if (error.fberrorCategory != FBErrorCategoryUserCancelled) {
+                    [self presentAlertForError:error];
+                }
+                NSLog(@"Error opening Facebook session: %@", error.userInfo);
+                [self.facebookSwitch setOn:NO animated:YES];
+            } else {
+                NSLog(@"Facebook session opened successfully: %@", session.description);
+            }
+        }];
+    }
+}
+
+// Helper method to request publish permissions and post.
+- (void)requestPermissionAndPost {
+    [FBSession.activeSession requestNewPublishPermissions:[NSArray arrayWithObject:@"publish_actions"]
+                                          defaultAudience:FBSessionDefaultAudienceFriends
+                                        completionHandler:^(FBSession *session, NSError *error) {
+                                            if (!error) {
+                                                // Now have the permission
+                                                [self postOpenGraphAction];
+                                            } else {
+                                                // Facebook SDK * error handling *
+                                                // if the operation is not user cancelled
+                                                [self handlePostOpenGraphActionError:error];
+                                            }
+                                        }];
+}
+
+- (void)postOpenGraphAction {
+    OWLocalMediaObject *mediaObject = [OWLocalMediaController localMediaObjectForObjectID:objectID];
+    NSString *url = mediaObject.shareURL.absoluteString;
     
+    NSMutableDictionary<FBGraphObject> *action = [FBGraphObject graphObject];
+    action[@"other"] = url;
+    action[@"type"] = @"video.other";
+    action[@"fb:explicitly_shared"] = @"true";
+    
+    [FBRequestConnection startForPostWithGraphPath:@"me/openwatch:post_a_video"
+                                       graphObject:action
+                                 completionHandler:^(FBRequestConnection *connection,
+                                                     id result,
+                                                     NSError *error) {
+                                     if (error) {
+                                         [self handlePostOpenGraphActionError:error];
+                                     } else {
+                                         NSLog(@"Successfully posted Facebook update: %@", result);
+                                     }
+                                 }];
+}
+
+
+- (void)handlePostOpenGraphActionError:(NSError *) error{
+    // Facebook SDK * error handling *
+    // Some Graph API errors are retriable. For this sample, we will have a simple
+    // retry policy of one additional attempt. Please refer to
+    // https://developers.facebook.com/docs/reference/api/errors/ for more information.
+    facebookRetryCount++;
+    if (error.fberrorCategory == FBErrorCategoryRetry ||
+        error.fberrorCategory == FBErrorCategoryThrottling) {
+        // We also retry on a throttling error message. A more sophisticated app
+        // should consider a back-off period.
+        if (facebookRetryCount < 2) {
+            NSLog(@"Retrying open graph post");
+            [self postOpenGraphAction];
+            return;
+        } else {
+            NSLog(@"Retry count exceeded.");
+        }
+    }
+    
+    // Facebook SDK * pro-tip *
+    // Users can revoke post permissions on your app externally so it
+    // can be worthwhile to request for permissions again at the point
+    // that they are needed. This sample assumes a simple policy
+    // of re-requesting permissions.
+    if (error.fberrorCategory == FBErrorCategoryPermissions) {
+        NSLog(@"Re-requesting permissions");
+        [self requestPermissionAndPost];
+        return;
+    }
+    
+    // Facebook SDK * error handling *
+    [self presentAlertForError:error];
+}
+
+- (void) attemptFacebookPost {
+    if ([FBSession.activeSession.permissions indexOfObject:@"publish_actions"] == NSNotFound) {
+        [self requestPermissionAndPost];
+    } else {
+        [self postOpenGraphAction];
+    }
+}
+
+
+- (void) presentAlertForError:(NSError *)error {
+    // Facebook SDK * error handling *
+    // Error handling is an important part of providing a good user experience.
+    // When fberrorShouldNotifyUser is YES, a fberrorUserMessage can be
+    // presented as a user-ready message
+    if (error.fberrorShouldNotifyUser) {
+        // The SDK has a message for the user, surface it.
+        [[[UIAlertView alloc] initWithTitle:FACEBOOK_ERROR_STRING
+                                    message:error.fberrorUserMessage
+                                   delegate:nil
+                          cancelButtonTitle:OK_STRING
+                          otherButtonTitles:nil] show];
+    } else {
+        NSLog(@"unexpected facebook error:%@", error);
+    }
 }
 
 - (void) toggleTwitterSwitch:(id)sender {
-    if (self.twitterSwitch.on) {
+    if (self.twitterSwitch.on && !self.twitterAccount) {
         [[OWSocialController sharedInstance] fetchTwitterAccountForViewController:self callbackBlock:^(ACAccount *selectedAccount, NSError *error) {
-            if (error) {
-                [self.twitterSwitch setOn:NO animated:YES];
-            } else {
-                NSLog(@"Twitter account selected: %@", selectedAccount);
-            }
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (error) {
+                    [self.twitterSwitch setOn:NO animated:YES];
+                } else {
+                    self.twitterAccount = selectedAccount;
+                    NSLog(@"Twitter account selected: %@", selectedAccount);
+                }
+            });
         }];
     }
 }
@@ -174,8 +289,21 @@ static NSString *editableCellIdentifier = @"EditableCellIdentifier";
 
     mediaObject.title = trimmedText;
     [context MR_saveToPersistentStoreAndWait];    
-    
-    [[OWAccountAPIClient sharedClient] postObjectWithUUID:mediaObject.uuid objectClass:[mediaObject class] success:nil failure:nil retryCount:kOWAccountAPIClientDefaultRetryCount];
+        
+    [[OWAccountAPIClient sharedClient] postObjectWithUUID:mediaObject.uuid objectClass:[mediaObject class] success:^{
+        if (self.twitterSwitch.on && self.twitterAccount) {
+            [[OWSocialController sharedInstance] updateTwitterStatusFromMediaObject:mediaObject forAccount:twitterAccount callbackBlock:^(NSDictionary *responseData, NSError *error) {
+                if (error) {
+                    NSLog(@"Error updating Twitter status: %@", error.userInfo);
+                } else {
+                    NSLog(@"Twitter status updated: %@", responseData);
+                }
+            }];
+        }
+        if (self.facebookSwitch.on) {
+            [self attemptFacebookPost];
+        }
+    } failure:nil retryCount:kOWAccountAPIClientDefaultRetryCount];
     
     [self.view endEditing:YES];
     

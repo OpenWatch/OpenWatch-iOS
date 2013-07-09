@@ -16,7 +16,7 @@
 #import "OWAudio.h"
 #import "OWFeedViewController.h"
 #import "OWStrings.h"
-#import "OWShareController.h"
+#import "OWSocialController.h"
 #import "OWMapAnnotation.h"
 #import "OWMapViewController.h"
 #import "OWAppDelegate.h"
@@ -192,7 +192,7 @@
         [alert show];
     }
     if (buttonIndex == 1) { // Share
-        [OWShareController shareMediaObject:self.selectedMediaObject fromViewController:self];
+        [OWSocialController shareMediaObject:self.selectedMediaObject fromViewController:self];
     } else if (buttonIndex == 2) { // View on Map
         OWLocalMediaObject *local = (OWLocalMediaObject*)selectedMediaObject;
         CLLocation *endLocation = [local endLocation];

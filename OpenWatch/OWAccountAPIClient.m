@@ -417,6 +417,9 @@
         if ([responseObject isKindOfClass:[NSDictionary class]] && [[responseObject objectForKey:@"success"] boolValue]) {
             NSDictionary *object = [responseObject objectForKey:@"object"];
             [localMediaObject loadMetadataFromDictionary:object];
+            if (success) {
+                success();
+            }
         }
         if (localMediaObject.uploadedValue == NO && ([localMediaObject isKindOfClass:[OWPhoto class]] || [localMediaObject isKindOfClass:[OWAudio class]])) {
             NSString *postPath = [self pathForClass:objectClass uuid:UUID];

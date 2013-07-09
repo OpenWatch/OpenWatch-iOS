@@ -45,13 +45,15 @@
 
 - (void) setUser:(OWUser *)newUser {
     user = newUser;
+    UIImage *placeholder = [UIImage imageNamed:@"user_placeholder.png"];
     if (!user.thumbnailURL) {
+        self.imageView.image = placeholder;
         return;
     }
     NSURLRequest *request = [NSURLRequest requestWithURL:user.thumbnailURL];
     __weak __typeof(&*self)weakSelf = self;
 
-    [self.imageView setImageWithURLRequest:request placeholderImage:[UIImage imageNamed:@"user_placeholder.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *localImage) {
+    [self.imageView setImageWithURLRequest:request placeholderImage:placeholder success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *localImage) {
         weakSelf.image = localImage;
         weakSelf.imageView.image = localImage;
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {

@@ -13,7 +13,6 @@
 #import "OWFancyLoginViewController.h"
 #import "OWSettingsController.h"
 #import "OWAccountAPIClient.h"
-#import "OWShareViewController.h"
 #import "OWMissionListViewController.h"
 #import "OWMissionViewController.h"
 #import "OWMission.h"

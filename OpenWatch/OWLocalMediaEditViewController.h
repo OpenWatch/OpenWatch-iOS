@@ -13,10 +13,14 @@
 #import "BSKeyboardControls.h"
 #import "SSTextView.h"
 #import "BButton.h"
+#import <Accounts/Accounts.h>
 
 @class OWLocalMediaEditViewController;
 
 @interface OWLocalMediaEditViewController : UIViewController <UITextViewDelegate, UIGestureRecognizerDelegate, BSKeyboardControlsDelegate, UITableViewDataSource, UITableViewDelegate>
+
+@property (nonatomic, strong) ACAccount *twitterAccount;
+@property (nonatomic) NSUInteger facebookRetryCount;
 
 @property (nonatomic, strong) SSTextView *titleTextView;
 @property (nonatomic, strong) OWPreviewView *previewView;

@@ -24,7 +24,7 @@
 #import "OWLocationController.h"
 #import "OWLocalMediaEditViewController.h"
 #import "OWAppDelegate.h"
-#import "OWShareController.h"
+#import "OWSocialController.h"
 #import "UserVoice.h"
 #import "OWStyleSheet.h"
 #import "OWAPIKeys.h"

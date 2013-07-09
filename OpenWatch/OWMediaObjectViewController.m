@@ -11,7 +11,7 @@
 #import "OWStrings.h"
 #import "OWUtilities.h"
 #import "OWMediaObject.h"
-#import "OWShareController.h"
+#import "OWSocialController.h"
 #import <MediaPlayer/MediaPlayer.h>
 
 @interface OWMediaObjectViewController ()
@@ -38,7 +38,7 @@
         NSLog(@"Error fetching object: %@", error.userInfo);
     }
         
-    [OWShareController shareMediaObject:mediaObject fromViewController:self];
+    [OWSocialController shareMediaObject:mediaObject fromViewController:self];
     
     [[OWAccountAPIClient sharedClient] hitMediaObject:self.mediaObjectID hitType:kHitTypeClick];
 }
