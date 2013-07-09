@@ -101,14 +101,10 @@
         self.moviePlayer = [[MPMoviePlayerController alloc] initWithContentURL:mediaURL];
         self.moviePlayer.view.frame = self.frame;
         self.moviePlayer.controlStyle = MPMovieControlStyleEmbedded;
+        self.moviePlayer.repeatMode = MPMovieRepeatModeOne;
         self.moviePlayer.shouldAutoplay = YES;
         self.moviePlayer.scalingMode = MPMovieScalingModeAspectFill;
         [self.moviePlayer play];
-        moviePlayer.backgroundView.backgroundColor = [UIColor clearColor];
-        moviePlayer.view.backgroundColor = [UIColor clearColor];
-        for(UIView *aSubView in moviePlayer.view.subviews) {
-            aSubView.backgroundColor = [UIColor clearColor];
-        }
         [self addSubview:moviePlayer.view];
     }
  }
