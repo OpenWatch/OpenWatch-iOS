@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "OWKenBurnsView.h"
 #import "BSKeyboardControls.h"
-#import "FacebookSDK.h"
+#import "SLGlowingTextField.h"
 
 @interface OWFancyLoginViewController : UIViewController <UITextFieldDelegate, BSKeyboardControlsDelegate>
 
@@ -18,8 +18,8 @@
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) UIActivityIndicatorView *activityIndicatorView;
 
-@property (nonatomic, strong) UITextField *emailField;
-@property (nonatomic, strong) UITextField *passwordField;
+@property (nonatomic, strong) SLGlowingTextField *emailField;
+@property (nonatomic, strong) SLGlowingTextField *passwordField;
 @property (nonatomic, strong) UILabel *blurbLabel;
 @property (nonatomic, strong) UIButton *startButton;
 @property (nonatomic, strong) UIButton *forgotPasswordButton;

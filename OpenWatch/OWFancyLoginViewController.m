@@ -36,7 +36,7 @@
 {
     self = [super init];
     if (self) {
-        self.emailField = [[UITextField alloc] init];
+        self.emailField = [[SLGlowingTextField alloc] init];
         self.emailField.delegate = self;
         self.blurbLabel = [[UILabel alloc] init];
         self.logoView = [[UIImageView alloc] initWithImage:[self logoImage]];
@@ -157,7 +157,7 @@
 
 - (void) showPasswordField {
     if (!self.passwordField) {
-        self.passwordField = [[UITextField alloc] init];
+        self.passwordField = [[SLGlowingTextField alloc] init];
         self.keyboardControls.fields = @[emailField, passwordField];
         self.passwordField.delegate = self;
         self.passwordField.placeholder = PASSWORD_STRING;

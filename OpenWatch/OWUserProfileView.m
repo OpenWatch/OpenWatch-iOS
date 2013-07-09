@@ -45,6 +45,9 @@
 
 - (void) setUser:(OWUser *)newUser {
     user = newUser;
+    if (!user.thumbnailURL) {
+        return;
+    }
     NSURLRequest *request = [NSURLRequest requestWithURL:user.thumbnailURL];
     __weak __typeof(&*self)weakSelf = self;
 
