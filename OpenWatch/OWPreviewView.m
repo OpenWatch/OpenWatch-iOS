@@ -98,12 +98,12 @@
         }
     }
     if (mediaURL) {
-        [MBProgressHUD showHUDAddedTo:self animated:YES];
         self.moviePlayer = [[MPMoviePlayerController alloc] initWithContentURL:mediaURL];
         self.moviePlayer.view.frame = self.frame;
         self.moviePlayer.controlStyle = MPMovieControlStyleEmbedded;
-        self.moviePlayer.shouldAutoplay = NO;
-        [self.moviePlayer prepareToPlay];
+        self.moviePlayer.shouldAutoplay = YES;
+        self.moviePlayer.scalingMode = MPMovieScalingModeAspectFill;
+        [self.moviePlayer play];
         moviePlayer.backgroundView.backgroundColor = [UIColor clearColor];
         moviePlayer.view.backgroundColor = [UIColor clearColor];
         for(UIView *aSubView in moviePlayer.view.subviews) {

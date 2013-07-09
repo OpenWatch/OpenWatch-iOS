@@ -11,18 +11,15 @@
 #import "OWCharacterCountdownView.h"
 #import "OWLocalMediaObject.h"
 #import "BSKeyboardControls.h"
+#import "SSTextView.h"
+#import "BButton.h"
 
 @class OWLocalMediaEditViewController;
 
-@interface OWLocalMediaEditViewController : UIViewController <UITextFieldDelegate, UIGestureRecognizerDelegate, BSKeyboardControlsDelegate, UITableViewDataSource>
+@interface OWLocalMediaEditViewController : UIViewController <UITextViewDelegate, UIGestureRecognizerDelegate, BSKeyboardControlsDelegate, UITableViewDataSource, UITableViewDelegate>
 
-@property (nonatomic, strong) UIGestureRecognizer *previewGestureRecognizer;
-
-@property (nonatomic, strong) OWCharacterCountdownView *characterCountdown;
+@property (nonatomic, strong) SSTextView *titleTextView;
 @property (nonatomic, strong) OWPreviewView *previewView;
-@property (nonatomic, strong) UITextField *titleTextField;
-@property (nonatomic, strong) UILabel *whatHappenedLabel;
-
 
 @property (nonatomic, strong) UITableView *socialTableView;
 @property (nonatomic, strong) NSArray *socialItems;
@@ -30,8 +27,7 @@
 @property (nonatomic, strong) UISwitch *twitterSwitch;
 @property (nonatomic, strong) UISwitch *openwatchSwitch;
 
-@property (nonatomic, strong) UIBarButtonItem *saveButton;
-@property (nonatomic, strong) UIScrollView *scrollView;
+@property (nonatomic, strong) BButton *doneButton;
 
 @property (nonatomic, strong) NSManagedObjectID *objectID;
 @property (nonatomic) BOOL showingAfterCapture;

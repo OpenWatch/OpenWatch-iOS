@@ -143,6 +143,7 @@
 		D955371616B32E3C00753C15 /* 275-broadcast.png in Resources */ = {isa = PBXBuildFile; fileRef = D955371416B32E3C00753C15 /* 275-broadcast.png */; };
 		D955371716B32E3C00753C15 /* 275-broadcast@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D955371516B32E3C00753C15 /* 275-broadcast@2x.png */; };
 		D95F3970178B5E9E00B7FC32 /* OWSocialTableItem.m in Sources */ = {isa = PBXBuildFile; fileRef = D95F396F178B5E9E00B7FC32 /* OWSocialTableItem.m */; };
+		D95F3975178B6CFE00B7FC32 /* OWEditableMediaCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D95F3974178B6CFD00B7FC32 /* OWEditableMediaCell.m */; };
 		D963C8281739C157008999F7 /* _OWPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = D963C8271739C157008999F7 /* _OWPhoto.m */; };
 		D963C8581739C856008999F7 /* OWAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = D963C8571739C856008999F7 /* OWAudio.m */; };
 		D963C85E1739CAB5008999F7 /* _OWAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = D963C85D1739CAB5008999F7 /* _OWAudio.m */; };
@@ -933,6 +934,8 @@
 		D955371516B32E3C00753C15 /* 275-broadcast@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "275-broadcast@2x.png"; sourceTree = "<group>"; };
 		D95F396E178B5E9E00B7FC32 /* OWSocialTableItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWSocialTableItem.h; sourceTree = "<group>"; };
 		D95F396F178B5E9E00B7FC32 /* OWSocialTableItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWSocialTableItem.m; sourceTree = "<group>"; };
+		D95F3973178B6CFD00B7FC32 /* OWEditableMediaCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWEditableMediaCell.h; sourceTree = "<group>"; };
+		D95F3974178B6CFD00B7FC32 /* OWEditableMediaCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWEditableMediaCell.m; sourceTree = "<group>"; };
 		D963C8261739C157008999F7 /* _OWPhoto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _OWPhoto.h; sourceTree = "<group>"; };
 		D963C8271739C157008999F7 /* _OWPhoto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _OWPhoto.m; sourceTree = "<group>"; };
 		D963C8501739C698008999F7 /* OWAudioRecordingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWAudioRecordingViewController.h; sourceTree = "<group>"; };
@@ -2033,6 +2036,8 @@
 				D9FF1A33173B03AF0076D214 /* OWPreviewView.m */,
 				D95F396E178B5E9E00B7FC32 /* OWSocialTableItem.h */,
 				D95F396F178B5E9E00B7FC32 /* OWSocialTableItem.m */,
+				D95F3973178B6CFD00B7FC32 /* OWEditableMediaCell.h */,
+				D95F3974178B6CFD00B7FC32 /* OWEditableMediaCell.m */,
 				D9E72E58167FF6AC00C6CB75 /* OWLocalMediaEditViewController.h */,
 				D9E72E59167FF6AD00C6CB75 /* OWLocalMediaEditViewController.m */,
 				D95BD80A16B06738002C43A5 /* Media View */,
@@ -3076,6 +3081,7 @@
 				D94972C51787605400DC5FF5 /* OWTwitterAccountViewController.m in Sources */,
 				D94972CE178789F000DC5FF5 /* OWSocialController.m in Sources */,
 				D95F3970178B5E9E00B7FC32 /* OWSocialTableItem.m in Sources */,
+				D95F3975178B6CFE00B7FC32 /* OWEditableMediaCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
