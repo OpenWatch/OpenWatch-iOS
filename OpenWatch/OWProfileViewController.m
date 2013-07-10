@@ -88,7 +88,7 @@
         
         self.facebookLoginView = [[FBLoginView alloc] initWithReadPermissions:@[@"basic_info"]];
         self.linkTwitterButton = [[BButton alloc] initWithFrame:CGRectZero type:BButtonTypeTwitter icon:nil fontSize:17.0f];
-        ACAccount *twitterAccount = [[OWSettingsController sharedInstance] account].twitterAccount;
+        ACAccount *twitterAccount = [OWSocialController sharedInstance].twitterAccount;
         if (twitterAccount) {
             [linkTwitterButton setTitle:CONNECTED_STRING forState:UIControlStateNormal];
         } else {
@@ -113,7 +113,7 @@
 }
 
 - (void) linkTwitterPressed:(id)sender {
-    ACAccount *existingAccount = [OWSettingsController sharedInstance].account.twitterAccount;
+    ACAccount *existingAccount = [OWSocialController sharedInstance].twitterAccount;
     
     if (existingAccount) {
         NSString *title = [NSString stringWithFormat:LOGGED_IN_AS_STRING, existingAccount.username];
@@ -125,9 +125,7 @@
     
     __weak __typeof(&*self)weakSelf = self;
     [[OWSocialController sharedInstance] fetchTwitterAccountForViewController:self callbackBlock:^(ACAccount *selectedAccount, NSError *error) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [[OWSettingsController sharedInstance] account].twitterAccount = selectedAccount;
-            
+        dispatch_async(dispatch_get_main_queue(), ^{            
             NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
             [[OWSettingsController sharedInstance] account].user.twitter = selectedAccount.username;
             [context MR_saveToPersistentStoreAndWait];
@@ -268,8 +266,7 @@
             [self presentViewController:imagePicker animated:YES completion:nil];
         }
     } else if (actionSheet.tag == TWITTER_DISCONNECT_ACTIONSHEET_TAG) {
-        [OWSettingsController sharedInstance].account.twitterAccount = nil;
-        
+        [[OWSocialController sharedInstance] clearTwitterAccount];
         NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
         user.twitter = nil;
         [context MR_saveToPersistentStoreAndWait];

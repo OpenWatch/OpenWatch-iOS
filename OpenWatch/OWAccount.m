@@ -116,15 +116,11 @@
 
 - (ACAccount*) twitterAccount {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSString *accountIdentifier = [defaults objectForKey:kTwitterAccountKey];
-    if (!accountIdentifier) {
-        return nil;
-    }
-    return [[OWSocialController sharedInstance].accountStore accountWithIdentifier:accountIdentifier];
+    return [defaults objectForKey:kTwitterAccountKey];
 }
 
-- (void) setTwitterAccount:(ACAccount *)twitterAccount {
-    [self setPreferencesValue:twitterAccount.identifier forKey:kTwitterAccountKey];
+- (void) setTwitterAccountIdentifier:(NSString *)twitterAccountIdentifier {
+    [self setPreferencesValue:twitterAccountIdentifier forKey:kTwitterAccountKey];
 }
 
 - (void) setPreferencesValue:(NSObject*)value forKey:(NSString*)key {

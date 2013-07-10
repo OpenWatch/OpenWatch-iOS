@@ -22,6 +22,6 @@
 @property (nonatomic, strong) NSArray *staticDashboardItems;
 
 - (void) refreshTagList;
-- (void) selectFeed:(NSString*)feedName type:(OWFeedType)type;
+- (void) selectFeed:(NSString*)feedName displayName:(NSString*)displayName type:(OWFeedType)type;
 
 @end

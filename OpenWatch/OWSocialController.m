@@ -13,9 +13,16 @@
 #import "TUSafariActivity.h"
 #import "FacebookSDK.h"
 
+@interface OWSocialController()
+@property (nonatomic, strong) ACAccount *twitterAccount;
+@end
 
 @implementation OWSocialController
 @synthesize accountStore, facebookRetryCount, twitterAccount;
+
+- (BOOL) twitterSessionReady {
+    return self.twitterAccount != nil;
+}
 
 + (void) shareURL:(NSURL*)url title:(NSString*)title fromViewController:(UIViewController*)viewController {
     UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[title, url] applicationActivities:nil];
@@ -44,10 +51,16 @@
     }
 }
 
+- (void) clearTwitterAccount {
+    self.twitterAccount = nil;
+    [OWSettingsController sharedInstance].account.twitterAccountIdentifier = nil;
+}
 
 - (id) init {
     if (self = [super init]) {
         self.accountStore = [[ACAccountStore alloc] init];
+        NSString *identifier = [OWSettingsController sharedInstance].account.twitterAccountIdentifier;
+        self.twitterAccount = [accountStore accountWithIdentifier:identifier];
     }
     return self;
 }
@@ -89,23 +102,10 @@
     }];
 }
 
-- (void) setTwitterAccount:(ACAccount *)newTwitterAccount {
-    twitterAccount = newTwitterAccount;
-    OWAccount *account = [OWSettingsController sharedInstance].account;
-    account.twitterAccount = twitterAccount;
-}
-
-
 - (void) fetchTwitterAccountForViewController:(UIViewController*)viewController callbackBlock:(OWTwitterAccountSelectionCallback)callbackBlock {
     if (self.twitterAccount) {
         callbackBlock(twitterAccount,nil);
         return;
-    }
-    OWAccount *account = [OWSettingsController sharedInstance].account;
-    ACAccount *existingTwitterAccount = account.twitterAccount;
-    if (existingTwitterAccount) {
-        self.twitterAccount = existingTwitterAccount;
-        callbackBlock(twitterAccount, nil);
     }
     
     ACAccountType *accountType = [accountStore accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierTwitter];
@@ -133,6 +133,7 @@
                  if (accounts.count == 1) {
                      account = [accounts objectAtIndex:0];
                      self.twitterAccount = account;
+                     [OWSettingsController sharedInstance].account.twitterAccountIdentifier = account.identifier;
                      if (callbackBlock) {
                          callbackBlock(account, nil);
                      }
@@ -140,6 +141,7 @@
                      OWTwitterAccountViewController *twitterAccountController = [[OWTwitterAccountViewController alloc] initWithAccounts:accounts callbackBlock:^(ACAccount *selectedAccount, NSError *error) {
                          if (selectedAccount) {
                              self.twitterAccount = selectedAccount;
+                             [OWSettingsController sharedInstance].account.twitterAccountIdentifier = account.identifier;
                          }
                          if (callbackBlock) {
                              callbackBlock(selectedAccount, error);
@@ -203,11 +205,15 @@
 }
 
 - (void) updateFacebookStatusFromMediaObject:(OWMediaObject*)mediaObject callbackBlock:(void (^)(id result, NSError *error))callbackBlock {
-    if ([FBSession.activeSession.permissions indexOfObject:@"publish_actions"] == NSNotFound) {
+    if (![self facebookSessionReady]) {
         [self requestPermissionAndPostMediaObject:mediaObject callbackBlock:callbackBlock];
     } else {
         [self postOpenGraphActionWithMediaObject:mediaObject callbackBlock:callbackBlock];
     }
+}
+
+- (BOOL) facebookSessionReady {
+    return [FBSession.activeSession.permissions indexOfObject:@"publish_actions"] != NSNotFound;
 }
 
 

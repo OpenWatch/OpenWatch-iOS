@@ -54,7 +54,8 @@
     OWDashboardItem *topStories = [[OWDashboardItem alloc] initWithTitle:TOP_STORIES_STRING image:[UIImage imageNamed:@"28-star.png"] target:self selector:@selector(feedButtonPressed:)];
     OWDashboardItem *local = [[OWDashboardItem alloc] initWithTitle:LOCAL_FEED_STRING image:[UIImage imageNamed:@"193-location-arrow.png"] target:self selector:@selector(localFeedButtonPressed:)];
     OWDashboardItem *yourMedia = [[OWDashboardItem alloc] initWithTitle:YOUR_MEDIA_STRING image:[UIImage imageNamed:@"160-voicemail-2.png"] target:self selector:@selector(yourMediaPressed:)];
-    OWDashboardItem *rawFeed = [[OWDashboardItem alloc] initWithTitle:@"Raw Feed" image:[UIImage imageNamed:@"46-movie-2.png"] target:self selector:@selector(rawFeedPressed:)];
+    OWDashboardItem *globalFeed = [[OWDashboardItem alloc] initWithTitle:GLOBAL_FEED_STRING image:[UIImage imageNamed:@"globe.png"] target:self selector:@selector(globalFeedPressed:)];
+    OWDashboardItem *topVideos = [[OWDashboardItem alloc] initWithTitle:TOP_VIDEOS_STRING image:[UIImage imageNamed:@"46-movie-2.png"] target:self selector:@selector(topVideosPressed:)];
     
     OWDashboardItem *feedback = [[OWDashboardItem alloc] initWithTitle:SEND_FEEDBACK_STRING image:[UIImage imageNamed:@"29-heart.png"] target:self selector:@selector(feedbackButtonPressed:)];
     OWDashboardItem *settings = [[OWDashboardItem alloc] initWithTitle:SETTINGS_STRING image:[UIImage imageNamed:@"19-gear.png"] target:self selector:@selector(settingsButtonPressed:)];
@@ -62,7 +63,7 @@
     OWBadgedDashboardItem *missions = [[OWBadgedDashboardItem alloc] initWithTitle:MISSIONS_STRING image:[UIImage imageNamed:@"108-badge.png"] target:self selector:@selector(missionsButtonPressed:)];
     NSArray *missionsArray = @[missions];
     
-    NSArray *middleItems = @[topStories, local, rawFeed, yourMedia];
+    NSArray *middleItems = @[topStories, topVideos, local, globalFeed, yourMedia];
     NSArray *bottonItems = @[feedback, settings];
     NSArray *dashboardItems = @[missionsArray, middleItems, bottonItems];
     self.staticDashboardItems = dashboardItems;
@@ -111,7 +112,7 @@
 
 
 - (void) feedButtonPressed:(id)sender {
-    [self selectFeed:@"Top Stories" type:kOWFeedTypeFrontPage];
+    [self selectFeed:@"Top Stories" displayName:TOP_STORIES_STRING type:kOWFeedTypeFrontPage];
 }
 
 - (void) missionsButtonPressed:(id)sender {
@@ -121,7 +122,7 @@
 }
 
 - (void) localFeedButtonPressed:(id)sender {
-    [self selectFeed:@"Local" type:kOWFeedTypeFeed];
+    [self selectFeed:@"local" displayName:LOCAL_FEED_STRING type:kOWFeedTypeFeed];
 }
 
 - (void) yourMediaPressed:(id)sender {
@@ -130,15 +131,19 @@
     [self.revealController showViewController:self.revealController.frontViewController];
 }
 
-- (void) selectFeed:(NSString*)feedName type:(OWFeedType)type {
+- (void) selectFeed:(NSString*)feedName displayName:(NSString*)displayName type:(OWFeedType)type {
     OWFeedViewController *feedVC = OW_APP_DELEGATE.feedViewController;
-    [feedVC didSelectFeedWithName:feedName type:type];
+    [feedVC didSelectFeedWithName:feedName displayName:displayName type:type];
     [OW_APP_DELEGATE.navigationController setViewControllers:@[feedVC] animated:NO];
     [self.revealController showViewController:self.revealController.frontViewController];
 }
 
-- (void) rawFeedPressed:(id)sender {
-    [self selectFeed:@"Raw" type:kOWFeedTypeFeed];
+- (void) globalFeedPressed:(id)sender {
+    [self selectFeed:@"raw" displayName:GLOBAL_FEED_STRING type:kOWFeedTypeFeed];
+}
+
+- (void) topVideosPressed:(id)sender {
+    [self selectFeed:@"featured_media" displayName:TOP_VIDEOS_STRING type:kOWFeedTypeFeed];
 }
 
 - (void) settingsButtonPressed:(id) sender {
@@ -205,7 +210,7 @@
 }
 
 - (void) didSelectTagWithName:(OWTagDashboardItem*)item {
-    [self selectFeed:item.tag.name type:kOWFeedTypeTag];
+    [self selectFeed:item.tag.name displayName:item.tag.name type:kOWFeedTypeTag];
 }
 
 @end

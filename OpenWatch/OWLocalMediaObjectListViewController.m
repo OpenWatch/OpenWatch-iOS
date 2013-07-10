@@ -19,11 +19,11 @@
 #import "OWPhoto.h"
 
 @interface OWLocalMediaObjectListViewController ()
-
+@property (nonatomic) dispatch_queue_t queue;
 @end
 
 @implementation OWLocalMediaObjectListViewController
-@synthesize objectIDSet;
+@synthesize objectIDSet, queue;
 
 - (id)init
 {
@@ -32,6 +32,7 @@
         self.title = RECORDINGS_STRING;
         self.navigationItem.rightBarButtonItem = self.editButtonItem;
         self.objectIDSet = [NSMutableSet set];
+        self.queue = dispatch_queue_create("Local Media Queue", 0);
     }
     return self;
 }
@@ -52,7 +53,7 @@
 }
 
 - (void) loadOfflineRecordings {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    dispatch_async(queue, ^{
         [OWLocalMediaController scanDirectoryForChanges];
         OWSettingsController *settingsController = [OWSettingsController sharedInstance];
         NSMutableArray *objects = [NSMutableArray arrayWithArray:[OWLocalMediaController allMediaObjectsForUser:settingsController.account.user]];

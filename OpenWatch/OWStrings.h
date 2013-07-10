@@ -6,6 +6,9 @@
 //  Copyright (c) 2012 OpenWatch FPC. All rights reserved.
 //
 
+#define GLOBAL_FEED_STRING NSLocalizedString(@"Global Feed", @"title for feed containing all recordings from aroudn the world")
+#define TOP_VIDEOS_STRING NSLocalizedString(@"Top Videos", @"title for feed with top featured videos")
+
 #define DONE_STRING NSLocalizedString(@"Done", @"string for done button")
 #define POST_TO_OPENWATCH_STRING NSLocalizedString(@"Post to OpenWatch", @"post to openwatch toggle switch")
 #define POST_TO_FACEBOOK_STRING NSLocalizedString(@"Post to Facebook", @"name for toggle switch to post to facebook")

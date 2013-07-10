@@ -27,9 +27,10 @@ typedef enum {
 @property (nonatomic, strong) OWOnboardingView *onboardingView;
 
 
-- (void) didSelectFeedWithName:(NSString*)feedName type:(OWFeedType)type;
-- (void) didSelectFeedWithName:(NSString *)feedName type:(OWFeedType)type pageNumber:(NSUInteger)pageNumber;
+- (void) didSelectFeedWithName:(NSString *)feedName displayName:(NSString*)displayName type:(OWFeedType)type;
+- (void) didSelectFeedWithName:(NSString *)feedName displayName:(NSString*)displayName type:(OWFeedType)type pageNumber:(NSUInteger)pageNumber;
 @property (nonatomic, strong) NSString *selectedFeedString;
+@property (nonatomic, strong) NSString *displayName;
 @property (nonatomic) OWFeedType feedType;
 
 @end

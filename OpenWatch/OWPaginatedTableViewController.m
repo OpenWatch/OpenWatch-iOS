@@ -158,7 +158,7 @@
 
 - (void) tableCell:(OWMediaObjectTableViewCell *)cell didSelectHashtag:(NSString *)hashTag {
     OWFeedViewController *feed = [[OWFeedViewController alloc] init];
-    [feed didSelectFeedWithName:hashTag type:kOWFeedTypeTag];
+    [feed didSelectFeedWithName:hashTag displayName:hashTag type:kOWFeedTypeTag];
     [self.navigationController pushViewController:feed animated:YES];
 }
 

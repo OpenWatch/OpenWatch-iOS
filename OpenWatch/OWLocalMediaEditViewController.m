@@ -45,24 +45,42 @@ static NSString *editableCellIdentifier = @"EditableCellIdentifier";
 - (void) setupSocialSwitches {
     self.facebookSwitch = [[UISwitch alloc] init];
     [self.facebookSwitch addTarget:self action:@selector(toggleFacebookSwitch:) forControlEvents:UIControlEventValueChanged];
-    OWSocialTableItem *facebookItem = [[OWSocialTableItem alloc] initWithSwitch:facebookSwitch image:[UIImage imageNamed:@"208-facebook.png"] text:POST_TO_FACEBOOK_STRING];
+
+    OWSocialTableItem *facebookItem = [[OWSocialTableItem alloc] initWithSwitch:facebookSwitch image:[UIImage imageNamed:@"fb.png"] text:POST_TO_FACEBOOK_STRING];
     
     self.twitterSwitch = [[UISwitch alloc] init];
     [self.twitterSwitch addTarget:self action:@selector(toggleTwitterSwitch:) forControlEvents:UIControlEventValueChanged];
-    OWSocialTableItem *twitterItem = [[OWSocialTableItem alloc] initWithSwitch:twitterSwitch image:[UIImage imageNamed:@"210-twitterbird.png"] text:POST_TO_TWITTER_STRING];
+
+    OWSocialTableItem *twitterItem = [[OWSocialTableItem alloc] initWithSwitch:twitterSwitch image:[UIImage imageNamed:@"twitter.png"] text:POST_TO_TWITTER_STRING];
 
     self.openwatchSwitch = [[UISwitch alloc] init];
-    OWSocialTableItem *openWatchItem = [[OWSocialTableItem alloc] initWithSwitch:openwatchSwitch image:nil text:POST_TO_OPENWATCH_STRING];
+    OWSocialTableItem *openWatchItem = [[OWSocialTableItem alloc] initWithSwitch:openwatchSwitch image:[UIImage imageNamed:@"openwatch-eye.png"] text:POST_TO_OPENWATCH_STRING];
+    [openwatchSwitch addTarget:self action:@selector(togglePostToOpenwatchSwitch:) forControlEvents:UIControlEventValueChanged];
+    openwatchSwitch.on = YES;
     
     self.socialItems = @[openWatchItem, facebookItem, twitterItem];
 }
 
+
+- (void) togglePostToOpenwatchSwitch:(id)sender {
+    if (openwatchSwitch.on) {
+        self.twitterSwitch.enabled = YES;
+        self.facebookSwitch.enabled = YES;
+    } else {
+        self.twitterSwitch.enabled = NO;
+        self.facebookSwitch.enabled = NO;
+        [self.twitterSwitch setOn:NO animated:YES];
+        [self.facebookSwitch setOn:NO animated:YES];
+    }
+}
+
 - (void) toggleFacebookSwitch:(id)sender {
-    if (self.facebookSwitch.on && !FBSession.activeSession.isOpen) {
+    if (self.facebookSwitch.on && ![OWSocialController sharedInstance].facebookSessionReady) {
         [[OWSocialController sharedInstance] requestFacebookPermisisonsWithCallback:^(BOOL success, NSError *error) {
             if (success) {
                 NSLog(@"Facebook session opened successfully");
             } else {
+                NSLog(@"Error getting Facebook permissions: %@", error.userInfo);
                 [self.facebookSwitch setOn:NO animated:YES];
             }
         }];
@@ -70,11 +88,12 @@ static NSString *editableCellIdentifier = @"EditableCellIdentifier";
 }
 
 - (void) toggleTwitterSwitch:(id)sender {
-    if (self.twitterSwitch.on && ![OWSocialController sharedInstance].twitterAccount) {
+    if (self.twitterSwitch.on && ![OWSocialController sharedInstance].twitterSessionReady) {
         [[OWSocialController sharedInstance] fetchTwitterAccountForViewController:self callbackBlock:^(ACAccount *selectedAccount, NSError *error) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (error) {
                     [self.twitterSwitch setOn:NO animated:YES];
+                    NSLog(@"Error getting Twitter account: %@", error.userInfo);
                 } else {
                     NSLog(@"Twitter account selected: %@", selectedAccount);
                 }
@@ -98,7 +117,7 @@ static NSString *editableCellIdentifier = @"EditableCellIdentifier";
 - (id) init {
     if (self = [super init]) {
         self.view.backgroundColor = [OWUtilities stoneBackgroundPattern];
-        self.title = EDIT_STRING;
+        self.title = SHARE_STRING;
         [self setupFields];
         [self setupSocialSwitches];
         [self setupSocialTable];

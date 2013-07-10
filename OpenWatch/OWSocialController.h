@@ -17,10 +17,14 @@
 @interface OWSocialController : NSObject
 
 @property (nonatomic, strong) ACAccountStore *accountStore;
-@property (nonatomic, strong) ACAccount *twitterAccount;
 @property (nonatomic) NSUInteger facebookRetryCount;
 
 + (OWSocialController *)sharedInstance;
+
+- (ACAccount*) twitterAccount;
+- (void) clearTwitterAccount;
+- (BOOL) facebookSessionReady;
+- (BOOL) twitterSessionReady;
 
 + (void) shareMediaObject:(OWMediaObject*)mediaObject fromViewController:(UIViewController*)viewController;
 + (void) shareURL:(NSURL*)url title:(NSString*)title fromViewController:(UIViewController*)viewController;
@@ -33,5 +37,7 @@
 
 - (void) updateFacebookStatusFromMediaObject:(OWMediaObject*)mediaObject callbackBlock:(void (^)(id result, NSError *error))callbackBlock;
 - (void) requestFacebookPermisisonsWithCallback:(void (^)(BOOL success, NSError *error))callbackBlock;
+
+
 
 @end

@@ -19,7 +19,7 @@
 @property (nonatomic, strong) NSString *privateUploadToken;
 @property (nonatomic, strong) NSString *password;
 @property (nonatomic, strong) NSString *username;
-@property (nonatomic, strong) ACAccount* twitterAccount;
+@property (nonatomic, strong) NSString* twitterAccountIdentifier;
 @property (nonatomic) BOOL secretAgentEnabled;
 @property (nonatomic) BOOL hasCompletedOnboarding;
 @property (nonatomic) BOOL missionsDescriptionDismissed;

@@ -66,7 +66,7 @@
     }];
 }
 
-- (void) didSelectFeedWithName:(NSString *)feedName type:(OWFeedType)type pageNumber:(NSUInteger)pageNumber {
+- (void) didSelectFeedWithName:(NSString *)feedName displayName:(NSString*)displayName type:(OWFeedType)type pageNumber:(NSUInteger)pageNumber {
     if (pageNumber <= kFirstPage) {
         self.currentPage = kFirstPage;
         self.totalPages = 0;
@@ -76,11 +76,12 @@
     }
     [TestFlight passCheckpoint:VIEW_FEED_CHECKPOINT(feedName)];
     selectedFeedString = feedName;
+    self.displayName = displayName;
     feedType = type;
     if (type == kOWFeedTypeTag) {
         self.title = [NSString stringWithFormat:@"#%@", feedName];
     } else {
-        self.title = feedName;
+        self.title = displayName;
     }
     
     if ([[feedName lowercaseString] isEqualToString:@"local"]) {
@@ -101,7 +102,7 @@
     }];
 }
 
-- (void) didSelectFeedWithName:(NSString *)feedName type:(OWFeedType)type {
+- (void) didSelectFeedWithName:(NSString *)feedName displayName:(NSString*)displayName type:(OWFeedType)type {
     if ([feedName isEqualToString:self.selectedFeedString]) {
         return;
     }
@@ -112,19 +113,19 @@
         self.navigationItem.titleView = imageView;
         [[OWLocationController sharedInstance] stop];
     } else {
-        self.title = feedName;
+        self.title = displayName;
         self.navigationItem.titleView = nil;
     }
-    [self didSelectFeedWithName:feedName type:type pageNumber:1];
+    [self didSelectFeedWithName:feedName displayName:displayName type:type pageNumber:1];
 }
 
 - (void) fetchObjectsForPageNumber:(NSUInteger)pageNumber {
-    [self didSelectFeedWithName:selectedFeedString type:feedType pageNumber:pageNumber];
+    [self didSelectFeedWithName:selectedFeedString displayName:self.displayName type:feedType pageNumber:pageNumber];
 }
 
 - (void) reloadTableViewDataSource {
     [super reloadTableViewDataSource];
-    [self didSelectFeedWithName:selectedFeedString type:feedType pageNumber:1];
+    [self didSelectFeedWithName:selectedFeedString displayName:self.displayName type:feedType pageNumber:1];
 }
 
 - (void)viewDidLoad
@@ -141,7 +142,7 @@
 
 - (void) populateInitialFeed {
     if (self.feedType == kOWFeedTypeNone) {
-        [self didSelectFeedWithName:nil type:kOWFeedTypeFrontPage];
+        [self didSelectFeedWithName:nil displayName:nil type:kOWFeedTypeFrontPage];
     }
 }
 
@@ -207,7 +208,7 @@
 }
 
 - (void) tableCell:(OWMediaObjectTableViewCell *)cell didSelectHashtag:(NSString *)hashTag {
-    [self didSelectFeedWithName:hashTag type:kOWFeedTypeTag];
+    [self didSelectFeedWithName:hashTag displayName:hashTag type:kOWFeedTypeTag];
 }
 
 
