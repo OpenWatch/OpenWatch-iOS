@@ -10,12 +10,15 @@
 #import <Accounts/Accounts.h>
 #import <Social/Social.h>
 #import "OWTwitterAccountViewController.h"
+#import "FacebookSDK.h"
 
 @class OWMediaObject;
 
 @interface OWSocialController : NSObject
 
 @property (nonatomic, strong) ACAccountStore *accountStore;
+@property (nonatomic, strong) ACAccount *twitterAccount;
+@property (nonatomic) NSUInteger facebookRetryCount;
 
 + (OWSocialController *)sharedInstance;
 
@@ -28,5 +31,7 @@
 - (void) updateTwitterStatus:(NSString*)status forAccount:(ACAccount*)account callbackBlock:(void (^)(NSDictionary* responseData, NSError *error))callbackBlock;
 - (void) updateTwitterStatusFromMediaObject:(OWMediaObject*)mediaObject forAccount:(ACAccount*)account callbackBlock:(void (^)(NSDictionary* responseData, NSError *error))callbackBlock;
 
+- (void) updateFacebookStatusFromMediaObject:(OWMediaObject*)mediaObject callbackBlock:(void (^)(id result, NSError *error))callbackBlock;
+- (void) requestFacebookPermisisonsWithCallback:(void (^)(BOOL success, NSError *error))callbackBlock;
 
 @end

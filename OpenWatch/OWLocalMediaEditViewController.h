@@ -19,8 +19,6 @@
 
 @interface OWLocalMediaEditViewController : UIViewController <UITextViewDelegate, UIGestureRecognizerDelegate, BSKeyboardControlsDelegate, UITableViewDataSource, UITableViewDelegate>
 
-@property (nonatomic, strong) ACAccount *twitterAccount;
-@property (nonatomic) NSUInteger facebookRetryCount;
 
 @property (nonatomic, strong) SSTextView *titleTextView;
 @property (nonatomic, strong) OWPreviewView *previewView;

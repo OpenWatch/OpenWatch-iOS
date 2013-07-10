@@ -11,9 +11,11 @@
 #import "OWSettingsController.h"
 #import "OWAccountAPIClient.h"
 #import "TUSafariActivity.h"
+#import "FacebookSDK.h"
+
 
 @implementation OWSocialController
-@synthesize accountStore;
+@synthesize accountStore, facebookRetryCount, twitterAccount;
 
 + (void) shareURL:(NSURL*)url title:(NSString*)title fromViewController:(UIViewController*)viewController {
     UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[title, url] applicationActivities:nil];
@@ -87,8 +89,25 @@
     }];
 }
 
+- (void) setTwitterAccount:(ACAccount *)newTwitterAccount {
+    twitterAccount = newTwitterAccount;
+    OWAccount *account = [OWSettingsController sharedInstance].account;
+    account.twitterAccount = twitterAccount;
+}
+
 
 - (void) fetchTwitterAccountForViewController:(UIViewController*)viewController callbackBlock:(OWTwitterAccountSelectionCallback)callbackBlock {
+    if (self.twitterAccount) {
+        callbackBlock(twitterAccount,nil);
+        return;
+    }
+    OWAccount *account = [OWSettingsController sharedInstance].account;
+    ACAccount *existingTwitterAccount = account.twitterAccount;
+    if (existingTwitterAccount) {
+        self.twitterAccount = existingTwitterAccount;
+        callbackBlock(twitterAccount, nil);
+    }
+    
     ACAccountType *accountType = [accountStore accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierTwitter];
     [accountStore requestAccessToAccountsWithType:accountType
                                           options:nil completion:^(BOOL granted, NSError *error)
@@ -113,11 +132,19 @@
                  ACAccount *account = nil;
                  if (accounts.count == 1) {
                      account = [accounts objectAtIndex:0];
+                     self.twitterAccount = account;
                      if (callbackBlock) {
                          callbackBlock(account, nil);
                      }
                  } else {
-                     OWTwitterAccountViewController *twitterAccountController = [[OWTwitterAccountViewController alloc] initWithAccounts:accounts callbackBlock:callbackBlock];
+                     OWTwitterAccountViewController *twitterAccountController = [[OWTwitterAccountViewController alloc] initWithAccounts:accounts callbackBlock:^(ACAccount *selectedAccount, NSError *error) {
+                         if (selectedAccount) {
+                             self.twitterAccount = selectedAccount;
+                         }
+                         if (callbackBlock) {
+                             callbackBlock(selectedAccount, error);
+                         }
+                     }];
                      UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:twitterAccountController];
                      [viewController presentViewController:nav
                                         animated:YES completion:nil];
@@ -174,5 +201,135 @@
          }
      }];
 }
+
+- (void) updateFacebookStatusFromMediaObject:(OWMediaObject*)mediaObject callbackBlock:(void (^)(id result, NSError *error))callbackBlock {
+    if ([FBSession.activeSession.permissions indexOfObject:@"publish_actions"] == NSNotFound) {
+        [self requestPermissionAndPostMediaObject:mediaObject callbackBlock:callbackBlock];
+    } else {
+        [self postOpenGraphActionWithMediaObject:mediaObject callbackBlock:callbackBlock];
+    }
+}
+
+
+// Helper method to request publish permissions and post.
+- (void)requestPermissionAndPostMediaObject:(OWMediaObject*)mediaObject callbackBlock:(void (^)(id result, NSError *error))callbackBlock {
+    [FBSession.activeSession requestNewPublishPermissions:[NSArray arrayWithObject:@"publish_actions"]
+                                          defaultAudience:FBSessionDefaultAudienceFriends
+                                        completionHandler:^(FBSession *session, NSError *error) {
+                                            if (!error) {
+                                                // Now have the permission
+                                                [self postOpenGraphActionWithMediaObject:mediaObject callbackBlock:callbackBlock];
+                                            } else {
+                                                if (callbackBlock) {
+                                                    callbackBlock(nil, error);
+                                                }
+                                                // Facebook SDK * error handling *
+                                                // if the operation is not user cancelled
+                                                [self handlePostOpenGraphActionError:error mediaObject:mediaObject callbackBlock:callbackBlock];
+                                            }
+                                        }];
+}
+
+- (void)postOpenGraphActionWithMediaObject:(OWMediaObject*)mediaObject callbackBlock:(void (^)(id result, NSError *error))callbackBlock {
+    NSError *error = nil;
+    NSManagedObjectContext *localContext = [NSManagedObjectContext MR_contextForCurrentThread];
+    OWMediaObject *localMediaObject = (OWMediaObject*)[localContext existingObjectWithID:mediaObject.objectID error:&error];
+    if (error) {
+        callbackBlock(nil, error);
+        return;
+    }
+    
+    NSString *url = localMediaObject.shareURL.absoluteString;
+    
+    NSMutableDictionary<FBGraphObject> *action = [FBGraphObject graphObject];
+    action[@"other"] = url;
+    action[@"type"] = @"video.other";
+    action[@"fb:explicitly_shared"] = @"true";
+    
+    [FBRequestConnection startForPostWithGraphPath:@"me/openwatch:post_a_video"
+                                       graphObject:action
+                                 completionHandler:^(FBRequestConnection *connection,
+                                                     id result,
+                                                     NSError *error) {
+                                     if (error) {
+                                         if (callbackBlock) {
+                                             callbackBlock(nil, error);
+                                         }
+                                         [self handlePostOpenGraphActionError:error mediaObject:mediaObject callbackBlock:callbackBlock];
+                                     } else {
+                                         callbackBlock(result, nil);
+                                     }
+                                 }];
+}
+
+
+- (void)handlePostOpenGraphActionError:(NSError *) error mediaObject:(OWMediaObject*)mediaObject callbackBlock:(void (^)(id result, NSError *error))callbackBlock {
+    // Facebook SDK * error handling *
+    // Some Graph API errors are retriable. For this sample, we will have a simple
+    // retry policy of one additional attempt. Please refer to
+    // https://developers.facebook.com/docs/reference/api/errors/ for more information.
+    facebookRetryCount++;
+    if (error.fberrorCategory == FBErrorCategoryRetry ||
+        error.fberrorCategory == FBErrorCategoryThrottling) {
+        // We also retry on a throttling error message. A more sophisticated app
+        // should consider a back-off period.
+        if (facebookRetryCount < 2) {
+            NSLog(@"Retrying open graph post");
+            [self postOpenGraphActionWithMediaObject:mediaObject callbackBlock:callbackBlock];
+            return;
+        } else {
+            NSLog(@"Retry count exceeded.");
+        }
+    }
+    
+    // Facebook SDK * pro-tip *
+    // Users can revoke post permissions on your app externally so it
+    // can be worthwhile to request for permissions again at the point
+    // that they are needed. This sample assumes a simple policy
+    // of re-requesting permissions.
+    if (error.fberrorCategory == FBErrorCategoryPermissions) {
+        NSLog(@"Re-requesting permissions");
+        [self requestPermissionAndPostMediaObject:mediaObject callbackBlock:callbackBlock];
+        return;
+    }
+    
+    // Facebook SDK * error handling *
+    [self presentAlertForError:error];
+}
+
+- (void) presentAlertForError:(NSError *)error {
+    // Facebook SDK * error handling *
+    // Error handling is an important part of providing a good user experience.
+    // When fberrorShouldNotifyUser is YES, a fberrorUserMessage can be
+    // presented as a user-ready message
+    if (error.fberrorShouldNotifyUser) {
+        // The SDK has a message for the user, surface it.
+        [[[UIAlertView alloc] initWithTitle:FACEBOOK_ERROR_STRING
+                                    message:error.fberrorUserMessage
+                                   delegate:nil
+                          cancelButtonTitle:OK_STRING
+                          otherButtonTitles:nil] show];
+    } else {
+        NSLog(@"unexpected facebook error:%@", error);
+    }
+}
+
+- (void) requestFacebookPermisisonsWithCallback:(void (^)(BOOL success, NSError *error))callbackBlock {
+    [FBSession openActiveSessionWithPublishPermissions:@[@"publish_actions"] defaultAudience:FBSessionDefaultAudienceFriends allowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
+        if (error) {
+            if (error.fberrorCategory != FBErrorCategoryUserCancelled) {
+                [self presentAlertForError:error];
+            }
+            if (callbackBlock) {
+                callbackBlock(NO, error);
+            }
+        } else {
+            if (callbackBlock) {
+                callbackBlock(YES, nil);
+            }
+        }
+    }];
+}
+
 
 @end
