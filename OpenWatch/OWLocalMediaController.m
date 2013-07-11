@@ -18,6 +18,16 @@
 
 @implementation OWLocalMediaController
 
++ (dispatch_queue_t) backgroundQueue {
+    static dispatch_queue_t backgroundQueue = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        backgroundQueue = dispatch_queue_create("Media Scanner", 0);
+    });
+    
+    return backgroundQueue;
+}
+
 + (NSArray*) mediaObjectsForClass:(Class)class {
     OWSettingsController *settingsController = [OWSettingsController sharedInstance];
     
@@ -90,34 +100,36 @@
 }
 
 + (void) scanDirectoryForUnsubmittedData {
-    NSArray *mediaClasses = @[[OWLocalRecording class], [OWPhoto class]];
-    
-    for (Class class in mediaClasses) {
-        NSArray *mediaObjectIDs = [self mediaObjectsForClass:class];
-        for (NSManagedObjectID *mediaObjectID in mediaObjectIDs) {
-            OWLocalMediaObject *mediaObject = [self localMediaObjectForObjectID:mediaObjectID];
-            if ([mediaObject isKindOfClass:[OWLocalRecording class]]){
-                OWLocalRecording *recording = (OWLocalRecording*)mediaObject;
-                NSArray *failedURLs = recording.failedFileUploadURLs;
-                //NSUInteger completed = recording.completedFileCount;
-                //NSUInteger total = recording.totalFileCount;
-                //NSLog(@"Progress for %@ %@: %d / %d, hq(%d), failed(%d), remoteMediaURL: %@", recording.title, recording.uuid, completed, total, recording.isHighQualityFileUploaded, failedURLs.count, recording.remoteMediaURLString);
-                if (failedURLs.count > 0) {
-                    for (NSURL *failedURL in failedURLs) {
-                        NSLog(@"Failed URL: %@", failedURL.absoluteString);
+    dispatch_async([OWLocalMediaController backgroundQueue], ^{
+        NSArray *mediaClasses = @[[OWLocalRecording class], [OWPhoto class]];
+        
+        for (Class class in mediaClasses) {
+            NSArray *mediaObjectIDs = [self mediaObjectsForClass:class];
+            for (NSManagedObjectID *mediaObjectID in mediaObjectIDs) {
+                OWLocalMediaObject *mediaObject = [self localMediaObjectForObjectID:mediaObjectID];
+                if ([mediaObject isKindOfClass:[OWLocalRecording class]]){
+                    OWLocalRecording *recording = (OWLocalRecording*)mediaObject;
+                    NSArray *failedURLs = recording.failedFileUploadURLs;
+                    //NSUInteger completed = recording.completedFileCount;
+                    //NSUInteger total = recording.totalFileCount;
+                    //NSLog(@"Progress for %@ %@: %d / %d, hq(%d), failed(%d), remoteMediaURL: %@", recording.title, recording.uuid, completed, total, recording.isHighQualityFileUploaded, failedURLs.count, recording.remoteMediaURLString);
+                    if (failedURLs.count > 0) {
+                        for (NSURL *failedURL in failedURLs) {
+                            NSLog(@"Failed URL: %@", failedURL.absoluteString);
+                        }
+                        NSLog(@"Unsubmitted data found for recording: %@", recording.localRecordingPath);
+                        [[OWCaptureAPIClient sharedClient] uploadFailedFileURLs:failedURLs forRecording:recording.objectID];
                     }
-                    NSLog(@"Unsubmitted data found for recording: %@", recording.localRecordingPath);
-                    [[OWCaptureAPIClient sharedClient] uploadFailedFileURLs:failedURLs forRecording:recording.objectID];
+                } else if ([mediaObject isKindOfClass:[OWPhoto class]]) {
+                    OWPhoto *photo = (OWPhoto*)mediaObject;
+                    if (!photo.uploadedValue) {
+                        [[OWAccountAPIClient sharedClient] postObjectWithUUID:photo.uuid objectClass:[photo class] success:nil failure:nil retryCount:kOWCaptureAPIClientDefaultRetryCount];
+                    }
                 }
-            } else if ([mediaObject isKindOfClass:[OWPhoto class]]) {
-                OWPhoto *photo = (OWPhoto*)mediaObject;
-                if (!photo.uploadedValue) {
-                    [[OWAccountAPIClient sharedClient] postObjectWithUUID:photo.uuid objectClass:[photo class] success:nil failure:nil retryCount:kOWCaptureAPIClientDefaultRetryCount];
-                }
+                
             }
-
         }
-    }
+    });
 }
 
 + (OWLocalMediaObject*) localMediaObjectForObjectID:(NSManagedObjectID*)objectID {

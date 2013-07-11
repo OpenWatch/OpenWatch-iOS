@@ -90,9 +90,7 @@
     
     [self setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
         if (status == AFNetworkReachabilityStatusReachableViaWiFi || status == AFNetworkReachabilityStatusReachableViaWWAN) {
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-                [OWLocalMediaController scanDirectoryForUnsubmittedData];
-            });
+            [OWLocalMediaController scanDirectoryForUnsubmittedData];
         }
     }];
     

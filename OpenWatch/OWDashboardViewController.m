@@ -55,7 +55,7 @@
     OWDashboardItem *local = [[OWDashboardItem alloc] initWithTitle:LOCAL_FEED_STRING image:[UIImage imageNamed:@"193-location-arrow.png"] target:self selector:@selector(localFeedButtonPressed:)];
     OWDashboardItem *yourMedia = [[OWDashboardItem alloc] initWithTitle:YOUR_MEDIA_STRING image:[UIImage imageNamed:@"160-voicemail-2.png"] target:self selector:@selector(yourMediaPressed:)];
     OWDashboardItem *globalFeed = [[OWDashboardItem alloc] initWithTitle:GLOBAL_FEED_STRING image:[UIImage imageNamed:@"globe.png"] target:self selector:@selector(globalFeedPressed:)];
-    OWDashboardItem *topVideos = [[OWDashboardItem alloc] initWithTitle:TOP_VIDEOS_STRING image:[UIImage imageNamed:@"46-movie-2.png"] target:self selector:@selector(topVideosPressed:)];
+    OWDashboardItem *topVideos = [[OWDashboardItem alloc] initWithTitle:TOP_VIDEOS_STRING image:[UIImage imageNamed:@"280-clapboard.png"] target:self selector:@selector(topVideosPressed:)];
     
     OWDashboardItem *feedback = [[OWDashboardItem alloc] initWithTitle:SEND_FEEDBACK_STRING image:[UIImage imageNamed:@"29-heart.png"] target:self selector:@selector(feedbackButtonPressed:)];
     OWDashboardItem *settings = [[OWDashboardItem alloc] initWithTitle:SETTINGS_STRING image:[UIImage imageNamed:@"19-gear.png"] target:self selector:@selector(settingsButtonPressed:)];

@@ -56,20 +56,50 @@
 }
 
 
+- (BOOL) checkForUploadedSegments:(OWLocalRecording*)recording {
+    NSManagedObjectContext *localContext = [NSManagedObjectContext MR_contextForCurrentThread];
+    BOOL lowQualitySynced = [recording.remoteMediaURLString rangeOfString:@"full.mp4"].location != NSNotFound;
+    BOOL hqSynced = [recording.remoteMediaURLString rangeOfString:@"hq.mp4"].location != NSNotFound || [recording.remoteMediaURLString rangeOfString:@"m3u8"].location != NSNotFound || [recording.remoteMediaURLString rangeOfString:@"video.mp4"].location != NSNotFound;
+    if (hqSynced) {
+        [recording setHqFileUploadStateValue:OWFileUploadStateCompleted];
+        NSLog(@"HQ already uploaded, setting as completed for %@", recording);
+    }
+    if (lowQualitySynced || hqSynced) {
+        for (OWRecordingSegment *segment in recording.segments) {
+            [segment setUploadStateValue:OWFileUploadStateCompleted];
+        }
+        NSLog(@"LQ and/or HQ uploaded, setting segments as completed for %@", recording);
+    }
+    [localContext MR_saveToPersistentStoreAndWait];
+    return hqSynced;
+}
+
 // This is the worst function of all time
 - (void) uploadFailedFileURLs:(NSArray*)failedFileURLs forRecording:(NSManagedObjectID*)recordingObjectID {
     OWLocalMediaObject *localObject = [OWLocalMediaController localMediaObjectForObjectID:recordingObjectID];
+    
+    if ([localObject isKindOfClass:[OWLocalRecording class]]) {
+        if ([self checkForUploadedSegments:(OWLocalRecording*)localObject]) {
+            NSLog(@"HQ already synced, skipping %@", localObject);
+            return;
+        }
+    }
     
     Class objectClass = [localObject class];
     NSString *uuid = localObject.uuid;
     
     [[OWAccountAPIClient sharedClient] getObjectWithUUID:uuid objectClass:objectClass success:^(NSManagedObjectID *objectID) {
-        [[OWCaptureAPIClient sharedClient] finishedRecording:recordingObjectID callback:^(BOOL success) {
-            NSLog(@"[Sync] Simulated Finished Recording for %@, success: %d", uuid, success);
-            for (NSURL *url in failedFileURLs) {
-                [[OWCaptureAPIClient sharedClient] uploadFileURL:url recording:recordingObjectID priority:NSOperationQueuePriorityVeryLow retryCount:kOWCaptureAPIClientDefaultRetryCount];
-            }
-        }];
+        OWLocalMediaObject *mediaObject = [OWLocalMediaController localMediaObjectForObjectID:objectID];
+        if (!mediaObject.remoteMediaURLString) {
+            [[OWCaptureAPIClient sharedClient] finishedRecording:recordingObjectID callback:^(BOOL success) {
+                NSLog(@"[Sync] Simulated Finished Recording for %@, success: %d", uuid, success);
+                for (NSURL *url in failedFileURLs) {
+                    [[OWCaptureAPIClient sharedClient] uploadFileURL:url recording:recordingObjectID priority:NSOperationQueuePriorityVeryLow retryCount:kOWCaptureAPIClientDefaultRetryCount];
+                }
+            }];
+        } else if ([mediaObject isKindOfClass:[OWLocalRecording class]]) {
+            [self checkForUploadedSegments:(OWLocalRecording*)mediaObject];
+        }
     } failure:^(NSString *reason) {
         NSLog(@"[Sync] Recording %@ not found in Django: %@", uuid, reason);
         [[OWCaptureAPIClient sharedClient] startedRecording:recordingObjectID callback:^(BOOL success) {

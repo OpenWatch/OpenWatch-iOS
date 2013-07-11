@@ -139,6 +139,8 @@
 		D94F8F78178E0F6F00235371 /* openwatch-eye@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D94F8F77178E0F6F00235371 /* openwatch-eye@2x.png */; };
 		D94F8F7B178E11A500235371 /* globe.png in Resources */ = {isa = PBXBuildFile; fileRef = D94F8F79178E11A500235371 /* globe.png */; };
 		D94F8F7C178E11A500235371 /* globe@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D94F8F7A178E11A500235371 /* globe@2x.png */; };
+		D94F8F7F178E2C2700235371 /* 280-clapboard.png in Resources */ = {isa = PBXBuildFile; fileRef = D94F8F7D178E2C2700235371 /* 280-clapboard.png */; };
+		D94F8F80178E2C2700235371 /* 280-clapboard@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D94F8F7E178E2C2700235371 /* 280-clapboard@2x.png */; };
 		D954667817823DCA00499FD5 /* libfacebook_ios_sdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D954666E17822BAB00499FD5 /* libfacebook_ios_sdk.a */; };
 		D954667B17823DE800499FD5 /* FacebookSDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D954667917823DE800499FD5 /* FacebookSDKResources.bundle */; };
 		D954667C17823DE800499FD5 /* FBUserSettingsViewResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D954667A17823DE800499FD5 /* FBUserSettingsViewResources.bundle */; };
@@ -929,6 +931,8 @@
 		D94F8F77178E0F6F00235371 /* openwatch-eye@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "openwatch-eye@2x.png"; sourceTree = "<group>"; };
 		D94F8F79178E11A500235371 /* globe.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = globe.png; sourceTree = "<group>"; };
 		D94F8F7A178E11A500235371 /* globe@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "globe@2x.png"; sourceTree = "<group>"; };
+		D94F8F7D178E2C2700235371 /* 280-clapboard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "280-clapboard.png"; sourceTree = "<group>"; };
+		D94F8F7E178E2C2700235371 /* 280-clapboard@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "280-clapboard@2x.png"; sourceTree = "<group>"; };
 		D954666517822BAA00499FD5 /* facebook-ios-sdk.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "facebook-ios-sdk.xcodeproj"; path = "facebook-ios-sdk/src/facebook-ios-sdk.xcodeproj"; sourceTree = "<group>"; };
 		D954667917823DE800499FD5 /* FacebookSDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = FacebookSDKResources.bundle; path = "facebook-ios-sdk/src/FacebookSDKResources.bundle"; sourceTree = "<group>"; };
 		D954667A17823DE800499FD5 /* FBUserSettingsViewResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = FBUserSettingsViewResources.bundle; path = "facebook-ios-sdk/src/FBUserSettingsViewResources.bundle"; sourceTree = "<group>"; };
@@ -2206,6 +2210,8 @@
 		D9DFADF716547DE7003C515C /* Media */ = {
 			isa = PBXGroup;
 			children = (
+				D94F8F7D178E2C2700235371 /* 280-clapboard.png */,
+				D94F8F7E178E2C2700235371 /* 280-clapboard@2x.png */,
 				D94F8F79178E11A500235371 /* globe.png */,
 				D94F8F7A178E11A500235371 /* globe@2x.png */,
 				D94F8F77178E0F6F00235371 /* openwatch-eye@2x.png */,
@@ -2754,6 +2760,8 @@
 				D94F8F78178E0F6F00235371 /* openwatch-eye@2x.png in Resources */,
 				D94F8F7B178E11A500235371 /* globe.png in Resources */,
 				D94F8F7C178E11A500235371 /* globe@2x.png in Resources */,
+				D94F8F7F178E2C2700235371 /* 280-clapboard.png in Resources */,
+				D94F8F80178E2C2700235371 /* 280-clapboard@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

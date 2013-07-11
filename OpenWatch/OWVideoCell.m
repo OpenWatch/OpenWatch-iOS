@@ -21,6 +21,7 @@
     CGFloat height = [OWPreviewView heightForWidth:width];
     CGRect frame = CGRectMake(0, 0, width, height);
     self.videoPreview = [[OWVideoPreview alloc] initWithFrame:frame];
+    self.videoPreview.clipsToBounds = YES;
     [self.contentView addSubview:videoPreview];
     self.previewView = videoPreview;
 }
