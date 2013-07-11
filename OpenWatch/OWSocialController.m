@@ -133,7 +133,7 @@
                  if (accounts.count == 1) {
                      account = [accounts objectAtIndex:0];
                      self.twitterAccount = account;
-                     [OWSettingsController sharedInstance].account.twitterAccountIdentifier = account.identifier;
+                     [OWSettingsController sharedInstance].account.twitterAccountIdentifier = twitterAccount.identifier;
                      if (callbackBlock) {
                          callbackBlock(account, nil);
                      }
@@ -141,7 +141,7 @@
                      OWTwitterAccountViewController *twitterAccountController = [[OWTwitterAccountViewController alloc] initWithAccounts:accounts callbackBlock:^(ACAccount *selectedAccount, NSError *error) {
                          if (selectedAccount) {
                              self.twitterAccount = selectedAccount;
-                             [OWSettingsController sharedInstance].account.twitterAccountIdentifier = account.identifier;
+                             [OWSettingsController sharedInstance].account.twitterAccountIdentifier = twitterAccount.identifier;
                          }
                          if (callbackBlock) {
                              callbackBlock(selectedAccount, error);

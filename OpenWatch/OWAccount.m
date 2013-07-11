@@ -114,7 +114,7 @@
     [self setKeychainValue:publicUploadToken forKey:kPublicUploadTokenKey];
 }
 
-- (ACAccount*) twitterAccount {
+- (NSString*) twitterAccountIdentifier {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     return [defaults objectForKey:kTwitterAccountKey];
 }
