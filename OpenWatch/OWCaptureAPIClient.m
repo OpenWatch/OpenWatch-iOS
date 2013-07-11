@@ -58,8 +58,14 @@
 
 - (BOOL) checkForUploadedSegments:(OWLocalRecording*)recording {
     NSManagedObjectContext *localContext = [NSManagedObjectContext MR_contextForCurrentThread];
+    if (!recording.remoteMediaURLString) {
+        return NO;
+    }
     BOOL lowQualitySynced = [recording.remoteMediaURLString rangeOfString:@"full.mp4"].location != NSNotFound;
-    BOOL hqSynced = [recording.remoteMediaURLString rangeOfString:@"hq.mp4"].location != NSNotFound || [recording.remoteMediaURLString rangeOfString:@"m3u8"].location != NSNotFound || [recording.remoteMediaURLString rangeOfString:@"video.mp4"].location != NSNotFound;
+    BOOL hqFileSynced = [recording.remoteMediaURLString rangeOfString:@"hq.mp4"].location != NSNotFound;
+    BOOL cdnMP4Synced = [recording.remoteMediaURLString rangeOfString:@"video.mp4"].location != NSNotFound;
+    BOOL hlsSynced = [recording.remoteMediaURLString rangeOfString:@"m3u8"].location != NSNotFound;
+    BOOL hqSynced =  hqFileSynced || cdnMP4Synced || hlsSynced;
     if (hqSynced) {
         [recording setHqFileUploadStateValue:OWFileUploadStateCompleted];
         NSLog(@"HQ already uploaded, setting as completed for %@", recording);
