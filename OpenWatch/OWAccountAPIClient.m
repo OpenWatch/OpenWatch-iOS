@@ -223,7 +223,7 @@
             NSString *reason = [responseObject objectForKey:@"reason"];
             NSNumber *code = [responseObject objectForKey:@"code"];
             if (success) {
-                NSLog(@"success!");
+                NSLog(@"success updating account photo!");
             } else {
                 NSLog(@"Failed to update account photo: %@ %@", code, reason);
                 if (code.integerValue == 428) {
@@ -287,7 +287,7 @@
             NSString *reason = [responseObject objectForKey:@"reason"];
             NSNumber *code = [responseObject objectForKey:@"code"];
             if (success) {
-                NSLog(@"success!");
+                NSLog(@"success updating account details!");
             } else {
                 NSLog(@"Failed to update account details: %@ %@", code, reason);
                 if (code.integerValue == 428) {

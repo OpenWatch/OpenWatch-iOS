@@ -308,7 +308,7 @@
     [context MR_saveToPersistentStoreAndWait];
     [[OWAccountAPIClient sharedClient] updateUserFacebookAccount];
     
-    if (!self.userView.image) {
+    if (!self.user.thumbnailURLString) {
         [self importUserAvatarFromFacebook];
     }
 }

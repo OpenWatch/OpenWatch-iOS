@@ -145,7 +145,6 @@ static NSString *editableCellIdentifier = @"EditableCellIdentifier";
     self.socialTableView.frame = self.view.bounds;
     [TestFlight passCheckpoint:EDIT_METADATA_CHECKPOINT];
     [self checkRecording];
-    [titleTextView becomeFirstResponder];
     if (showingAfterCapture) {
         [self.navigationItem setHidesBackButton:YES];
     }
@@ -250,6 +249,11 @@ static NSString *editableCellIdentifier = @"EditableCellIdentifier";
 
 - (void) textViewDidBeginEditing:(UITextView *)textView {
     [self.keyboardControls setActiveField:textView];
+}
+
+- (void) viewDidLoad {
+    [super viewDidLoad];
+    [titleTextView becomeFirstResponder];
 }
 
 - (void)didReceiveMemoryWarning
