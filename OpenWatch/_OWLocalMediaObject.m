@@ -6,6 +6,7 @@
 const struct OWLocalMediaObjectAttributes OWLocalMediaObjectAttributes = {
 	.endLatitude = @"endLatitude",
 	.endLongitude = @"endLongitude",
+	.public = @"public",
 	.remoteMediaURLString = @"remoteMediaURLString",
 	.uploaded = @"uploaded",
 	.uuid = @"uuid",
@@ -50,6 +51,11 @@ const struct OWLocalMediaObjectFetchedProperties OWLocalMediaObjectFetchedProper
 	}
 	if ([key isEqualToString:@"endLongitudeValue"]) {
 		NSSet *affectingKey = [NSSet setWithObject:@"endLongitude"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
+	if ([key isEqualToString:@"publicValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"public"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
 		return keyPaths;
 	}
@@ -111,6 +117,32 @@ const struct OWLocalMediaObjectFetchedProperties OWLocalMediaObjectFetchedProper
 
 - (void)setPrimitiveEndLongitudeValue:(double)value_ {
 	[self setPrimitiveEndLongitude:[NSNumber numberWithDouble:value_]];
+}
+
+
+
+
+
+@dynamic public;
+
+
+
+- (BOOL)publicValue {
+	NSNumber *result = [self public];
+	return [result boolValue];
+}
+
+- (void)setPublicValue:(BOOL)value_ {
+	[self setPublic:[NSNumber numberWithBool:value_]];
+}
+
+- (BOOL)primitivePublicValue {
+	NSNumber *result = [self primitivePublic];
+	return [result boolValue];
+}
+
+- (void)setPrimitivePublicValue:(BOOL)value_ {
+	[self setPrimitivePublic:[NSNumber numberWithBool:value_]];
 }
 
 

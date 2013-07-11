@@ -12,6 +12,8 @@
 #import "OWSettingsController.h"
 #import "OWLocationController.h"
 
+#define kPublicKey @"public"
+
 @implementation OWLocalMediaObject
 
 + (CLLocation*) locationWithLatitude:(double)latitude longitude:(double)longitude {
@@ -46,6 +48,11 @@
     if (mediaURLString) {
         self.remoteMediaURLString = mediaURLString;
     }
+    
+    NSNumber *public = [metadataDictionary objectForKey:kPublicKey];
+    if (public) {
+        self.public = public;
+    }
 }
 
 - (NSMutableDictionary*) metadataDictionary {
@@ -56,6 +63,9 @@
     if ([OWLocationController locationIsValid:self.endLocation]) {
         [newMetadataDictionary setObject:self.endLatitude forKey:kLatitudeEndKey];
         [newMetadataDictionary setObject:self.endLongitude forKey:kLongitudeEndKey];
+    }
+    if (self.public) {
+        [newMetadataDictionary setObject:self.public forKey:kPublicKey];
     }
     return newMetadataDictionary;
 }

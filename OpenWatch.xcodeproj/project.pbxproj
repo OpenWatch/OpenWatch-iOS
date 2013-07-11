@@ -2922,7 +2922,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "cd OpenWatch\nmogenerator --template-var arc=true -m \"Model.xcdatamodeld/Model 2.xcdatamodel/\"";
+			shellScript = "cd OpenWatch\nmogenerator --template-var arc=true -m \"Model.xcdatamodeld/Model 3.xcdatamodel/\"";
 		};
 /* End PBXShellScriptBuildPhase section */
 

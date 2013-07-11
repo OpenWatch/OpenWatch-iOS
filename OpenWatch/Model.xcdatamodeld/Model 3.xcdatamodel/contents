@@ -12,6 +12,7 @@
     <entity name="OWLocalMediaObject" representedClassName="OWLocalMediaObject" parentEntity="OWMediaObject" syncable="YES">
         <attribute name="endLatitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="endLongitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="public" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="remoteMediaURLString" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="uploaded" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="uuid" optional="YES" attributeType="String" syncable="YES"/>
@@ -93,7 +94,7 @@
     <elements>
         <element name="OWAudio" positionX="160" positionY="192" width="128" height="45"/>
         <element name="OWInvestigation" positionX="439" positionY="504" width="128" height="135"/>
-        <element name="OWLocalMediaObject" positionX="160" positionY="192" width="128" height="120"/>
+        <element name="OWLocalMediaObject" positionX="160" positionY="192" width="128" height="135"/>
         <element name="OWLocalRecording" positionX="378" positionY="117" width="128" height="73"/>
         <element name="OWManagedRecording" positionX="484" positionY="243" width="128" height="120"/>
         <element name="OWMediaObject" positionX="36" positionY="-39" width="128" height="180"/>
