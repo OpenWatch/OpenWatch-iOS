@@ -75,7 +75,6 @@
         }
         NSLog(@"[Sync] LQ and/or HQ uploaded, setting segments as completed for %@ because %@", recording.uuid, recording.remoteMediaURLString);
     }
-    [localContext MR_saveToPersistentStoreAndWait];
     return hqSynced;
 }
 
