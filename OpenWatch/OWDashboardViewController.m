@@ -35,6 +35,7 @@
 #import "PKRevealController.h"
 #import "OWTag.h"
 #import "OWTagDashboardItem.h"
+#import "OWProfileDashboardItem.h"
 
 #define kActionBarHeight 70.0f
 
@@ -61,13 +62,19 @@
     OWDashboardItem *settings = [[OWDashboardItem alloc] initWithTitle:SETTINGS_STRING image:[UIImage imageNamed:@"19-gear.png"] target:self selector:@selector(settingsButtonPressed:)];
     
     OWBadgedDashboardItem *missions = [[OWBadgedDashboardItem alloc] initWithTitle:MISSIONS_STRING image:[UIImage imageNamed:@"108-badge.png"] target:self selector:@selector(missionsButtonPressed:)];
-    NSArray *missionsArray = @[missions];
     
-    NSArray *middleItems = @[topStories, topVideos, local, globalFeed, yourMedia];
-    NSArray *bottonItems = @[feedback, settings];
-    NSArray *dashboardItems = @[missionsArray, middleItems, bottonItems];
+    OWUser *user = [OWSettingsController sharedInstance].account.user;
+    OWProfileDashboardItem *profileItem = [[OWProfileDashboardItem alloc] initWithUser:user target:self selector:@selector(profileButtonPressed:)];
+    
+    NSArray *middleItems = @[topStories, missions, topVideos, local, globalFeed, yourMedia];
+    NSArray *topItems = @[profileItem, feedback, settings];
+    NSArray *dashboardItems = @[topItems, middleItems];
     self.staticDashboardItems = dashboardItems;
     dashboardView.dashboardItems = dashboardItems;
+}
+
+- (void) profileButtonPressed:(id)sender {
+    
 }
 
 - (id)init

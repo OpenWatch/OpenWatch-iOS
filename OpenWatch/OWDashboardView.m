@@ -10,6 +10,8 @@
 #import "OWDashboardItem.h"
 #import "OWDashboardTableViewCell.h"
 #import "OWBadgedDashboardItem.h"
+#import "OWProfileDashboardItem.h"
+#import "OWProfileDashboardCell.h"
 
 @implementation OWDashboardView
 @synthesize dashboardItems, dashboardTableView;
@@ -30,6 +32,7 @@
         [self addSubview:dashboardTableView];
         [dashboardTableView registerClass:[OWDashboardItem cellClass] forCellReuseIdentifier:[OWDashboardItem cellIdentifier]];
         [dashboardTableView registerClass:[OWBadgedDashboardItem cellClass] forCellReuseIdentifier:[OWBadgedDashboardItem cellIdentifier]];
+        [dashboardTableView registerClass:[OWProfileDashboardItem cellClass] forCellReuseIdentifier:[OWProfileDashboardItem cellIdentifier]];
     }
     return self;
 }

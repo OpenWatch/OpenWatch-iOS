@@ -100,6 +100,8 @@
 		D93936CB1741A5620070E164 /* onboarding_1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D93936C71741A5620070E164 /* onboarding_1@2x.png */; };
 		D93936D61741CC520070E164 /* NSData+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = D93936D51741CC520070E164 /* NSData+Hex.m */; };
 		D9397BC1165D95940093B3C8 /* OWLocationController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9397BC0165D95940093B3C8 /* OWLocationController.m */; };
+		D93AEBF6178F7CD4005BDBEA /* OWProfileDashboardItem.m in Sources */ = {isa = PBXBuildFile; fileRef = D93AEBF5178F7CD4005BDBEA /* OWProfileDashboardItem.m */; };
+		D93AEBF9178F7DB2005BDBEA /* OWProfileDashboardCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D93AEBF8178F7DB2005BDBEA /* OWProfileDashboardCell.m */; };
 		D94499E116B0D19600A2225A /* OWPastelessTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = D94499E016B0D19600A2225A /* OWPastelessTextField.m */; };
 		D945D2FF173C6B2700D806BD /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D945D2FE173C6B2600D806BD /* AudioToolbox.framework */; };
 		D945D301173C6B2A00D806BD /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D945D300173C6B2A00D806BD /* Accelerate.framework */; };
@@ -884,6 +886,10 @@
 		D93936D51741CC520070E164 /* NSData+Hex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Hex.m"; sourceTree = "<group>"; };
 		D9397BBF165D95940093B3C8 /* OWLocationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWLocationController.h; sourceTree = "<group>"; };
 		D9397BC0165D95940093B3C8 /* OWLocationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWLocationController.m; sourceTree = "<group>"; };
+		D93AEBF4178F7CD4005BDBEA /* OWProfileDashboardItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWProfileDashboardItem.h; sourceTree = "<group>"; };
+		D93AEBF5178F7CD4005BDBEA /* OWProfileDashboardItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWProfileDashboardItem.m; sourceTree = "<group>"; };
+		D93AEBF7178F7DB2005BDBEA /* OWProfileDashboardCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWProfileDashboardCell.h; sourceTree = "<group>"; };
+		D93AEBF8178F7DB2005BDBEA /* OWProfileDashboardCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWProfileDashboardCell.m; sourceTree = "<group>"; };
 		D94499DF16B0D19600A2225A /* OWPastelessTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWPastelessTextField.h; sourceTree = "<group>"; };
 		D94499E016B0D19600A2225A /* OWPastelessTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWPastelessTextField.m; sourceTree = "<group>"; };
 		D945D2FE173C6B2600D806BD /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
@@ -2160,6 +2166,8 @@
 		D9D8676B17347492008C8CE6 /* Dashboard */ = {
 			isa = PBXGroup;
 			children = (
+				D93AEBF7178F7DB2005BDBEA /* OWProfileDashboardCell.h */,
+				D93AEBF8178F7DB2005BDBEA /* OWProfileDashboardCell.m */,
 				D9C791161774F05C0031D56A /* OWMissionBadgeView.h */,
 				D9C791171774F05C0031D56A /* OWMissionBadgeView.m */,
 				D9C10AA217568DF800C98EC3 /* OWBadgedDashboardItem.h */,
@@ -2173,6 +2181,8 @@
 				D9D8673B17346C89008C8CE6 /* OWDashboardView.h */,
 				D9D8673C17346C89008C8CE6 /* OWDashboardView.m */,
 				D9D8676517346D02008C8CE6 /* OWDashboardItem.h */,
+				D93AEBF4178F7CD4005BDBEA /* OWProfileDashboardItem.h */,
+				D93AEBF5178F7CD4005BDBEA /* OWProfileDashboardItem.m */,
 				D9D8676617346D02008C8CE6 /* OWDashboardItem.m */,
 			);
 			name = Dashboard;
@@ -3096,6 +3106,8 @@
 				D94972CE178789F000DC5FF5 /* OWSocialController.m in Sources */,
 				D95F3970178B5E9E00B7FC32 /* OWSocialTableItem.m in Sources */,
 				D95F3975178B6CFE00B7FC32 /* OWEditableMediaCell.m in Sources */,
+				D93AEBF6178F7CD4005BDBEA /* OWProfileDashboardItem.m in Sources */,
+				D93AEBF9178F7DB2005BDBEA /* OWProfileDashboardCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
