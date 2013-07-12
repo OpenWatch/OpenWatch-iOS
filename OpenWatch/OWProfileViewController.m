@@ -85,6 +85,7 @@
         UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:SAVE_STRING style:UIBarButtonItemStyleDone target:self action:@selector(saveButtonPressed:)];
         doneButton.tintColor = [OWUtilities doneButtonColor];
         self.navigationItem.rightBarButtonItem = doneButton;
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelButtonPressed:)];
         
         self.facebookLoginView = [[FBLoginView alloc] initWithReadPermissions:@[@"basic_info"]];
         self.linkTwitterButton = [[BButton alloc] initWithFrame:CGRectZero type:BButtonTypeTwitter icon:nil fontSize:17.0f];
@@ -110,6 +111,10 @@
         [self.scrollView addSubview:linkTwitterButton];
     }
     return self;
+}
+
+- (void) cancelButtonPressed:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void) linkTwitterPressed:(id)sender {
@@ -176,7 +181,8 @@
     [[OWAccountAPIClient sharedClient] updateUserPhoto:self.updatedProfilePhoto];
     [[OWAccountAPIClient sharedClient] updateUserProfile];
     
-    [self.navigationController popViewControllerAnimated:YES];
+    //[self.navigationController popViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void) viewWillAppear:(BOOL)animated {

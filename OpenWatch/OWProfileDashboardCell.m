@@ -16,7 +16,7 @@
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
-        self.userView = [[OWUserView alloc] initWithFrame:CGRectMake(2, 2, 250, 43)];
+        self.userView = [[OWUserView alloc] initWithFrame:CGRectMake(5, 5, 250, 40)];
         [self.contentView addSubview:userView];
     }
     return self;

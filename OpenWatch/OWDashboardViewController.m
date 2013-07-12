@@ -36,6 +36,7 @@
 #import "OWTag.h"
 #import "OWTagDashboardItem.h"
 #import "OWProfileDashboardItem.h"
+#import "OWProfileViewController.h"
 
 #define kActionBarHeight 70.0f
 
@@ -74,7 +75,10 @@
 }
 
 - (void) profileButtonPressed:(id)sender {
-    
+    OWProfileViewController *profile = [[OWProfileViewController alloc] init];
+    profile.user = [OWSettingsController sharedInstance].account.user;
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:profile];
+    [self presentViewController:nav animated:YES completion:nil];
 }
 
 - (id)init
