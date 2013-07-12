@@ -254,7 +254,7 @@
     if (twitter) {
         [self updateAccountWithDetails:@{@"twitter": twitter}];
     } else {
-        [self updateAccountWithDetails:@{@"twitter": @(NO)}];
+        [self updateAccountWithDetails:@{@"twitter": @""}];
     }
 }
 
@@ -265,7 +265,7 @@
     if (facebook) {
         [self updateAccountWithDetails:@{@"facebook": facebook}];
     } else {
-        [self updateAccountWithDetails:@{@"facebook": @(NO)}];
+        [self updateAccountWithDetails:@{@"facebook": @""}];
     }
 }
 

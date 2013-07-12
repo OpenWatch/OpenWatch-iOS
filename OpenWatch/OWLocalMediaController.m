@@ -113,12 +113,21 @@
                     //NSUInteger completed = recording.completedFileCount;
                     //NSUInteger total = recording.totalFileCount;
                     //NSLog(@"Progress for %@ %@: %d / %d, hq(%d), failed(%d), remoteMediaURL: %@", recording.title, recording.uuid, completed, total, recording.isHighQualityFileUploaded, failedURLs.count, recording.remoteMediaURLString);
+                    
                     if (failedURLs.count > 0) {
                         for (NSURL *failedURL in failedURLs) {
                             NSLog(@"Failed URL: %@", failedURL.absoluteString);
                         }
-                        NSLog(@"Unsubmitted data found for recording: %@", recording.localRecordingPath);
+                        NSLog(@"Unsubmitted data found for recording: %@", recording.uuid);
                         [[OWCaptureAPIClient sharedClient] uploadFailedFileURLs:failedURLs forRecording:recording.objectID];
+                    }
+                    if (!recording.remoteMediaURLString.length) {
+                        NSManagedObjectContext *localContext = [NSManagedObjectContext MR_contextForCurrentThread];
+                        NSLog(@"Remote recording not found for %@ : %@", recording.uuid, recording.remoteMediaURLString);
+                        [recording setHqFileUploadStateValue:OWFileUploadStateFailed];
+                        [localContext MR_saveToPersistentStoreAndWait];
+                        [[OWCaptureAPIClient sharedClient] uploadFailedFileURLs:@[recording.highQualityURL] forRecording:recording.objectID];
+
                     }
                 } else if ([mediaObject isKindOfClass:[OWPhoto class]]) {
                     OWPhoto *photo = (OWPhoto*)mediaObject;
@@ -137,7 +146,11 @@
         return nil;
     }
     NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
-    OWLocalMediaObject *mediaObject = (OWLocalMediaObject*)[context existingObjectWithID:objectID error:nil];
+    NSError *error = nil;
+    OWLocalMediaObject *mediaObject = (OWLocalMediaObject*)[context existingObjectWithID:objectID error:&error];
+    if (error) {
+        NSLog(@"Error fetching object: %@", error.userInfo);
+    }
     return mediaObject;
 }
 

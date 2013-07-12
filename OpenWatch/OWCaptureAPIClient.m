@@ -57,8 +57,7 @@
 
 
 - (BOOL) checkForUploadedSegments:(OWLocalRecording*)recording {
-    NSManagedObjectContext *localContext = [NSManagedObjectContext MR_contextForCurrentThread];
-    if (!recording.remoteMediaURLString) {
+    if (!recording.remoteMediaURLString.length) {
         return NO;
     }
     BOOL lowQualitySynced = [recording.remoteMediaURLString rangeOfString:@"full.mp4"].location != NSNotFound;
@@ -68,13 +67,13 @@
     BOOL hqSynced =  hqFileSynced || cdnMP4Synced || hlsSynced;
     if (hqSynced) {
         [recording setHqFileUploadStateValue:OWFileUploadStateCompleted];
-        NSLog(@"HQ already uploaded, setting as completed for %@", recording);
+        NSLog(@"[Sync] HQ already uploaded, setting as completed for %@ because %@", recording.uuid, recording.remoteMediaURLString);
     }
     if (lowQualitySynced || hqSynced) {
         for (OWRecordingSegment *segment in recording.segments) {
             [segment setUploadStateValue:OWFileUploadStateCompleted];
         }
-        NSLog(@"LQ and/or HQ uploaded, setting segments as completed for %@", recording);
+        NSLog(@"[Sync] LQ and/or HQ uploaded, setting segments as completed for %@ because %@", recording.uuid, recording.remoteMediaURLString);
     }
     [localContext MR_saveToPersistentStoreAndWait];
     return hqSynced;
@@ -86,8 +85,7 @@
     
     if ([localObject isKindOfClass:[OWLocalRecording class]]) {
         if ([self checkForUploadedSegments:(OWLocalRecording*)localObject]) {
-            NSLog(@"HQ already synced, skipping %@", localObject);
-            return;
+            NSLog(@"[Sync] HQ already synced, but trying again %@", localObject.uuid);
         }
     }
     
@@ -96,16 +94,19 @@
     
     [[OWAccountAPIClient sharedClient] getObjectWithUUID:uuid objectClass:objectClass success:^(NSManagedObjectID *objectID) {
         OWLocalMediaObject *mediaObject = [OWLocalMediaController localMediaObjectForObjectID:objectID];
-        if (!mediaObject.remoteMediaURLString) {
+        NSLog(@"mediaURL: %@", mediaObject.remoteMediaURLString);
+        if ([mediaObject isKindOfClass:[OWLocalRecording class]]) {
+            [self checkForUploadedSegments:(OWLocalRecording*)mediaObject];
+        }
+        if (!mediaObject.remoteMediaURLString.length) {
             [[OWCaptureAPIClient sharedClient] finishedRecording:recordingObjectID callback:^(BOOL success) {
                 NSLog(@"[Sync] Simulated Finished Recording for %@, success: %d", uuid, success);
                 for (NSURL *url in failedFileURLs) {
                     [[OWCaptureAPIClient sharedClient] uploadFileURL:url recording:recordingObjectID priority:NSOperationQueuePriorityVeryLow retryCount:kOWCaptureAPIClientDefaultRetryCount];
                 }
             }];
-        } else if ([mediaObject isKindOfClass:[OWLocalRecording class]]) {
-            [self checkForUploadedSegments:(OWLocalRecording*)mediaObject];
         }
+
     } failure:^(NSString *reason) {
         NSLog(@"[Sync] Recording %@ not found in Django: %@", uuid, reason);
         [[OWCaptureAPIClient sharedClient] startedRecording:recordingObjectID callback:^(BOOL success) {
@@ -136,8 +137,7 @@
     OWFileUploadState uploadState = [recording uploadStateForFileAtURL:url];
     
     if (uploadState == OWFileUploadStateCompleted) {
-        NSLog(@"File already uploaded, skipping: %@", url.absoluteString);
-        return;
+        NSLog(@"File already marked as uploaded,  but trying again anyway: %@", url.absoluteString);
     }
     
     
