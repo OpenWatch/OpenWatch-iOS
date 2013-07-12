@@ -58,4 +58,17 @@
     return [NSURL URLWithString:self.thumbnailURLString];
 }
 
+- (NSString*) displayName {
+    if (self.firstName && self.lastName) {
+        return [NSString stringWithFormat:@"%@ %@", self.firstName, self.lastName];
+    }
+    if (self.firstName) {
+        return self.firstName;
+    }
+    if (self.lastName) {
+        return self.lastName;
+    }
+    return self.username;
+}
+
 @end

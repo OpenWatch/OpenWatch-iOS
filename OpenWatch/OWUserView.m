@@ -61,7 +61,7 @@
 - (void) setUser:(OWUser *)newUser {
     user = newUser;
     self.profileImageView.user = user;
-    self.usernameLabel.text = user.username;
+    self.usernameLabel.text = [user displayName];
     [self layoutViews];
 }
 

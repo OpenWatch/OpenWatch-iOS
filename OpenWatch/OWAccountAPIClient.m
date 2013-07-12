@@ -411,7 +411,7 @@
         NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
         OWLocalMediaObject *localMediaObject = (OWLocalMediaObject*)[context existingObjectWithID:mediaObjectID error:nil];
         
-        NSLog(@"POST response: %@", [responseObject description]);
+        NSLog(@"POST response for %@ : %@ // %@", operation.request.URL.absoluteString, parameters, [responseObject description]);
         if ([responseObject isKindOfClass:[NSDictionary class]] && [[responseObject objectForKey:@"success"] boolValue]) {
             NSDictionary *object = [responseObject objectForKey:@"object"];
             [localMediaObject loadMetadataFromDictionary:object];
@@ -465,7 +465,7 @@
         [self getObjectWithUUID:mediaObject.uuid objectClass:[mediaObject class] success:^(NSManagedObjectID *objectID) {
             [self postPath:[self pathForClass:objectClass uuid:UUID] parameters:parameters success:successBlock failure:failureBlock];
         } failure:^(NSString *reason) {
-            [self postPath:[self pathForClass:objectClass] parameters:parameters success:successBlock failure:failureBlock];
+            [self postPath:[self pathForClass:objectClass uuid:UUID] parameters:parameters success:successBlock failure:failureBlock];
         } retryCount:kOWAccountAPIClientDefaultRetryCount];
     } else {
         path = [self pathForClass:objectClass uuid:UUID];

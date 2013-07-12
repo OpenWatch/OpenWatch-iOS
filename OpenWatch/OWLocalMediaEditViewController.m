@@ -56,14 +56,17 @@ static NSString *editableCellIdentifier = @"EditableCellIdentifier";
     self.openwatchSwitch = [[UISwitch alloc] init];
     OWSocialTableItem *openWatchItem = [[OWSocialTableItem alloc] initWithSwitch:openwatchSwitch image:[UIImage imageNamed:@"openwatch-eye.png"] text:POST_TO_OPENWATCH_STRING];
     [openwatchSwitch addTarget:self action:@selector(togglePostToOpenwatchSwitch:) forControlEvents:UIControlEventValueChanged];
-    openwatchSwitch.on = YES;
     
     self.socialItems = @[openWatchItem, facebookItem, twitterItem];
 }
 
 
 - (void) togglePostToOpenwatchSwitch:(id)sender {
-    if (openwatchSwitch.on) {
+    [self setSocialSwitchState:openwatchSwitch.on];
+}
+
+- (void) setSocialSwitchState:(BOOL)state {
+    if (state) {
         self.twitterSwitch.enabled = YES;
         self.facebookSwitch.enabled = YES;
     } else {
@@ -152,13 +155,19 @@ static NSString *editableCellIdentifier = @"EditableCellIdentifier";
 
 
 - (void) refreshFields {
+    OWLocalMediaObject *mediaObject = [OWLocalMediaController localMediaObjectForObjectID:objectID];
     if (self.titleTextView.text.length == 0) {
-        OWLocalMediaObject *mediaObject = [OWLocalMediaController localMediaObjectForObjectID:objectID];
         NSString *title = mediaObject.title;
         if (title) {
             self.titleTextView.text = title;
         }
     }
+    if (mediaObject.public) {
+        self.openwatchSwitch.on = mediaObject.publicValue;
+    } else {
+        self.openwatchSwitch.on = YES;
+    }
+    [self setSocialSwitchState:self.openwatchSwitch.on];
     self.previewView.objectID = objectID;
 }
 
@@ -202,6 +211,7 @@ static NSString *editableCellIdentifier = @"EditableCellIdentifier";
     NSString *trimmedText = [finalTitleString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
 
     mediaObject.title = trimmedText;
+    mediaObject.public = @(self.openwatchSwitch.on);
     [context MR_saveToPersistentStoreAndWait];    
         
     [[OWAccountAPIClient sharedClient] postObjectWithUUID:mediaObject.uuid objectClass:[mediaObject class] success:^{

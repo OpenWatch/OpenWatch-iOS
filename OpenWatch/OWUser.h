@@ -15,5 +15,6 @@
 @interface OWUser : _OWUser
 
 - (NSURL*) thumbnailURL;
+- (NSString*) displayName;
 
 @end
