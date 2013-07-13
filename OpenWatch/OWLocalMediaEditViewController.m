@@ -151,6 +151,9 @@ static NSString *editableCellIdentifier = @"EditableCellIdentifier";
     if (showingAfterCapture) {
         [self.navigationItem setHidesBackButton:YES];
     }
+    if (titleTextView.text.length == 0) {
+        [titleTextView becomeFirstResponder];
+    }
 }
 
 
@@ -259,11 +262,6 @@ static NSString *editableCellIdentifier = @"EditableCellIdentifier";
 
 - (void) textViewDidBeginEditing:(UITextView *)textView {
     [self.keyboardControls setActiveField:textView];
-}
-
-- (void) viewDidLoad {
-    [super viewDidLoad];
-    [titleTextView becomeFirstResponder];
 }
 
 - (void)didReceiveMemoryWarning

@@ -18,7 +18,7 @@
 @end
 
 @implementation OWCaptureViewController
-@synthesize videoPreviewView, captureVideoPreviewLayer, videoProcessor, recordButton, recordingIndicator, timerView, delegate, uploadStatusLabel;
+@synthesize videoPreviewView, captureVideoPreviewLayer, videoProcessor, fullscreenRecordButton, recordingIndicator, timerView, delegate, uploadStatusLabel, finishButton, startRecordingLabel;
 
 - (id) init {
     if (self = [super init]) {
@@ -27,7 +27,7 @@
         [self.videoProcessor setupAndStartCaptureSession];
         self.videoPreviewView = [[UIView alloc] init];
         self.title = STREAMING_STRING;
-        [self setupRecordButton];
+        [self setupFinishButton];
         self.recordingIndicator = [[OWRecordingActivityIndicatorView alloc] init];
         self.timerView = [[OWTimerView alloc] init];
         self.uploadStatusLabel = [[UILabel alloc] init];
@@ -35,18 +35,34 @@
         NSString *streaming = [NSString stringWithFormat:@"%@...", STREAMING_STRING];
         self.uploadStatusLabel.text = streaming;
         self.uploadStatusLabel.textAlignment = NSTextAlignmentRight;
+        
+        self.fullscreenRecordButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [fullscreenRecordButton addTarget:self action:@selector(startRecordingPressed:) forControlEvents:UIControlEventTouchUpInside];
+        
+        self.startRecordingLabel = [[UILabel alloc] init];
+        self.startRecordingLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:30.0f];
+        self.startRecordingLabel.numberOfLines = 0;
+        self.startRecordingLabel.textColor = [UIColor redColor];
+        self.startRecordingLabel.textAlignment = NSTextAlignmentCenter;
+        self.startRecordingLabel.text = TOUCH_ANYWHERE_TO_START_STRING;
+        self.startRecordingLabel.backgroundColor = [UIColor clearColor];
     }
     return self;
 }
 
-- (void) setupRecordButton {
-    self.recordButton = [[BButton alloc] initWithFrame:CGRectZero type:BButtonTypeDanger];
-    self.recordButton.layer.opacity = 0.7;
-    //recordButton.transform = CGAffineTransformMakeRotation(M_PI / 2);
-    [recordButton setTitle:RECORD_STRING forState:UIControlStateNormal];
-    self.recordButton.tintColor = [OWUtilities doneButtonColor];
-    [self.recordButton addTarget:self action:@selector(recordButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    //self.recordButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin;
+- (void) startRecordingPressed:(id)sender {
+    [self.fullscreenRecordButton removeFromSuperview];
+    [self.startRecordingLabel removeFromSuperview];
+    [self.view addSubview:uploadStatusLabel];
+    [videoProcessor startRecording];
+    [self.finishButton setTitle:STOP_STRING forState:UIControlStateNormal];
+}
+
+- (void) setupFinishButton {
+    self.finishButton = [[BButton alloc] initWithFrame:CGRectZero type:BButtonTypeDanger];
+    self.finishButton.layer.opacity = 0.7;
+    [finishButton setTitle:CANCEL_STRING forState:UIControlStateNormal];
+    [self.finishButton addTarget:self action:@selector(finishButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void) loadView {
@@ -54,17 +70,17 @@
     self.videoPreviewView.frame = self.view.bounds;
     self.videoPreviewView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin;
     [self.view addSubview:videoPreviewView];
-    [self.view addSubview:recordButton];
+    [self.view addSubview:startRecordingLabel];
+    [self.view addSubview:fullscreenRecordButton];
+    [self.view addSubview:finishButton];
     [self.view addSubview:recordingIndicator];
     [self.view addSubview:timerView];
-    [self.view addSubview:uploadStatusLabel];
 }
 
-- (void) recordButtonPressed:(id)sender {
-    // Wait for the recording to start/stop before re-enabling the record button.
+- (void) finishButtonPressed:(id)sender {
     if (![videoProcessor isRecording]) {
-        [[self recordButton] setEnabled:NO];
-        [videoProcessor startRecording];
+        [self.delegate captureViewControllerDidCancel:self];
+        [self dismissViewControllerAnimated:YES completion:nil];
     } else {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:STOP_RECORDING_STRING message:nil delegate:self cancelButtonTitle:NO_STRING otherButtonTitles:YES_STRING, nil];
         [alert show];
@@ -115,7 +131,9 @@
     
     self.uploadStatusLabel.frame = CGRectMake(frameWidth - labelWidth - padding, padding, labelWidth, labelHeight);
     self.recordingIndicator.frame = CGRectMake(padding, padding, 35, 35);
-    self.recordButton.frame = CGRectMake(frameWidth - buttonWidth - padding, frameHeight - buttonHeight - padding, buttonWidth, buttonHeight);
+    self.finishButton.frame = CGRectMake(frameWidth - buttonWidth - padding, frameHeight - buttonHeight - padding, buttonWidth, buttonHeight);
+    self.fullscreenRecordButton.frame = self.view.bounds;
+    self.startRecordingLabel.frame = self.view.bounds;
 
     self.timerView.frame = CGRectMake([OWUtilities rightOfView:recordingIndicator], padding, 100, 35);
     [captureVideoPreviewLayer setFrame:self.view.bounds];
@@ -123,7 +141,6 @@
 
 - (void) viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [self recordButtonPressed:nil];
     [TestFlight passCheckpoint:RECORDING_STARTED_CHECKPOINT];
 }
 
@@ -138,8 +155,8 @@
 - (void)recordingWillStart
 {
 	dispatch_async(dispatch_get_main_queue(), ^{
-		[[self recordButton] setEnabled:NO];
-		[[self recordButton] setTitle:STOP_STRING forState:UIControlStateNormal];
+		[[self finishButton] setEnabled:NO];
+		[[self finishButton] setTitle:STOP_STRING forState:UIControlStateNormal];
         
 		// Disable the idle timer while we are recording
 		[UIApplication sharedApplication].idleTimerDisabled = YES;
@@ -153,7 +170,7 @@
 - (void)recordingDidStart
 {
 	dispatch_async(dispatch_get_main_queue(), ^{
-		[[self recordButton] setEnabled:YES];
+		[[self finishButton] setEnabled:YES];
         [self.timerView startTimer];
         [self.recordingIndicator startAnimating];
 	});
@@ -164,15 +181,13 @@
 	dispatch_async(dispatch_get_main_queue(), ^{
 		// Disable until saving to the camera roll is complete
         [[OWLocationController sharedInstance] stop];
-		[[self recordButton] setTitle:RECORD_STRING forState:UIControlStateNormal];
-		[[self recordButton] setEnabled:NO];
+		[[self finishButton] setEnabled:NO];
 	});
 }
 
 - (void)recordingDidStop
 {
 	dispatch_async(dispatch_get_main_queue(), ^{
-		[[self recordButton] setEnabled:YES];
         [self.timerView stopTimer];
         [self.recordingIndicator stopAnimating];
 		
@@ -227,7 +242,7 @@
 - (void) alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
     if (buttonIndex != alertView.cancelButtonIndex) {
         if ( [videoProcessor isRecording] ) {
-            [[self recordButton] setEnabled:NO];
+            [[self finishButton] setEnabled:NO];
             [videoProcessor stopRecording];
         }
     }

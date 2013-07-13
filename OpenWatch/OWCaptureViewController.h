@@ -29,7 +29,10 @@
 @property (nonatomic, strong) OWRecordingActivityIndicatorView *recordingIndicator;
 @property (nonatomic, strong) UILabel *uploadStatusLabel;
 
-@property (nonatomic, strong) BButton *recordButton;
+@property (nonatomic, strong) UILabel *startRecordingLabel;
+@property (nonatomic, strong) UIButton *fullscreenRecordButton;
+@property (nonatomic, strong) BButton *finishButton;
+
 @property (nonatomic, strong) OWVideoProcessor *videoProcessor;
 @property (nonatomic, strong) UIView *videoPreviewView;
 @property (nonatomic, strong) AVCaptureVideoPreviewLayer *captureVideoPreviewLayer;

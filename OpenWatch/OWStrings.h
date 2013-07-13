@@ -6,6 +6,9 @@
 //  Copyright (c) 2012 OpenWatch FPC. All rights reserved.
 //
 
+
+#define TOUCH_ANYWHERE_TO_START_STRING NSLocalizedString(@"Touch Anywhere to Start Recording", @"title for area to start recording")
+
 #define GLOBAL_FEED_STRING NSLocalizedString(@"Global Feed", @"title for feed containing all recordings from aroudn the world")
 #define TOP_VIDEOS_STRING NSLocalizedString(@"Top Videos", @"title for feed with top featured videos")
 
