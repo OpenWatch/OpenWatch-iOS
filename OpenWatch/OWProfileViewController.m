@@ -251,6 +251,7 @@
 
 - (void) choosePhotoButtonPressed:(id)sender {
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:CHOOSE_PHOTO_STRING delegate:self cancelButtonTitle:CANCEL_STRING destructiveButtonTitle:nil otherButtonTitles:TAKE_PICTURE_STRING, CHOOSE_FROM_CAMERA_ROLL_STRING, nil];
+    actionSheet.tag = USER_PHOTO_ACTIONSHEET_TAG;
     [actionSheet showInView:self.view];
 }
 

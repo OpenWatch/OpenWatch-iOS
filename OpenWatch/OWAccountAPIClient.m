@@ -217,7 +217,7 @@
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
     
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"Updated account details: %@", operation.responseString);
+        NSLog(@"Updated account details for photo: %@", operation.responseString);
         if ([responseObject isKindOfClass:[NSDictionary class]]) {
             BOOL success = [[responseObject objectForKey:@"success"] boolValue];
             NSString *reason = [responseObject objectForKey:@"reason"];
@@ -287,6 +287,10 @@
             NSString *reason = [responseObject objectForKey:@"reason"];
             NSNumber *code = [responseObject objectForKey:@"code"];
             if (success) {
+                NSDictionary *metadataDictionary = [responseObject objectForKey:@"object"];
+                OWAccount *account = [OWSettingsController sharedInstance].account;
+                OWUser *user = account.user;
+                [user loadMetadataFromDictionary:metadataDictionary];
                 NSLog(@"success updating account details!");
             } else {
                 NSLog(@"Failed to update account details: %@ %@", code, reason);
