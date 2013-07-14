@@ -16,7 +16,4 @@
 #import <SystemConfiguration/SystemConfiguration.h>
 #define MR_ENABLE_ACTIVE_RECORD_LOGGING 0
 #import "CoreData+MagicalRecord.h"
-#import "TestFlight.h"
-#import "OWCheckpoints.h"
-//#define NSLog(__FORMAT__, ...) TFLog((@"%s [Line %d] " __FORMAT__), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
 #endif

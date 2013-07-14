@@ -220,7 +220,6 @@
         } else {
             [[OWAccountAPIClient sharedClient] signupWithAccount:account success:^{
                 [self loginSuccess];
-                [TestFlight passCheckpoint:NEW_ACCOUNT_CHECKPOINT];
             } failure:^(NSString *reason) {
                 [self loginFailure:reason];
             }];
@@ -241,7 +240,6 @@
     [self hideHUD];
     [OW_APP_DELEGATE.dashboardViewController.navigationController popToRootViewControllerAnimated:YES];
     [self dismissViewControllerAnimated:YES completion:nil];
-    [TestFlight passCheckpoint:LOGIN_CHECKPOINT];
 }
 
 - (void)logoutButtonPressed:(id)sender {

@@ -43,7 +43,6 @@
 
 - (void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [TestFlight passCheckpoint:VIEW_LOCAL_RECORDINGS];
     [self reloadTableViewDataSource];
 }
 

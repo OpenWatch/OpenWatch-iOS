@@ -87,7 +87,6 @@
 - (void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.dashboardView.frame = self.view.bounds;
-    [TestFlight passCheckpoint:VIEW_SETTINGS_CHECKPOINT];
 }
 
 @end

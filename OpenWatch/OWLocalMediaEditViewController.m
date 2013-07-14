@@ -146,7 +146,6 @@ static NSString *editableCellIdentifier = @"EditableCellIdentifier";
 - (void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.socialTableView.frame = self.view.bounds;
-    [TestFlight passCheckpoint:EDIT_METADATA_CHECKPOINT];
     [self checkRecording];
     if (showingAfterCapture) {
         [self.navigationItem setHidesBackButton:YES];

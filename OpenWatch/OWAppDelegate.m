@@ -8,7 +8,6 @@
 
 #import "OWAppDelegate.h"
 #import "OWUtilities.h"
-#import "TestFlight.h"
 #import "OWAPIKeys.h"
 #import "OWFancyLoginViewController.h"
 #import "OWSettingsController.h"
@@ -17,21 +16,15 @@
 #import "OWMissionViewController.h"
 #import "OWMission.h"
 #import "PKRevealController.h"
+#import "Crittercism.h"
 
 @implementation OWAppDelegate
 @synthesize locationController, dashboardViewController, backgroundTask, backgroundTimer, allowRotation, creationController, revealController, feedViewController, navigationController;
 
-- (NSString*) testflightAppToken {
-    return OPENWATCH_TESTFLIGHT_APP_TOKEN;
-}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-//#ifndef DEBUG
-    //[Crittercism enableWithAppID:CRITTERCISM_APP_ID];
-    //[TestFlight setDeviceIdentifier:[[UIDevice currentDevice] uniqueIdentifier]];
-    [TestFlight takeOff:[self testflightAppToken]];
-//#endif
+    [Crittercism enableWithAppID:CRITTERCISM_APP_ID];
     [MagicalRecord setupAutoMigratingCoreDataStack];
 
     self.allowRotation = NO;

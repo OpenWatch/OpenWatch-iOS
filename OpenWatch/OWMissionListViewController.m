@@ -54,7 +54,6 @@
         [OWUtilities applyShadowToView:headerView];
     }
     
-    [TestFlight passCheckpoint:@"Missions"];
     [self reloadTableViewDataSource];
 }
 

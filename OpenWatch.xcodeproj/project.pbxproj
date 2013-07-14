@@ -249,7 +249,6 @@
 		D9C7911B1774F4F00031D56A /* 285-facetime-red.png in Resources */ = {isa = PBXBuildFile; fileRef = D9C791191774F4F00031D56A /* 285-facetime-red.png */; };
 		D9C7911C1774F4F00031D56A /* 285-facetime-red@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9C7911A1774F4F00031D56A /* 285-facetime-red@2x.png */; };
 		D9C8A58016B9A1D2004F9E05 /* OWLocalRecordingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C8A57F16B9A1D2004F9E05 /* OWLocalRecordingTableViewCell.m */; };
-		D9CEED151682718600B236B5 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D9CEED101682718600B236B5 /* libTestFlight.a */; };
 		D9CEED19168271C700B236B5 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D9CEED18168271C700B236B5 /* libz.dylib */; };
 		D9D2E14F1652D7B80000E7C5 /* OWInLineTextEditTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D2E14E1652D7B80000E7C5 /* OWInLineTextEditTableViewCell.m */; };
 		D9D2E16A1652EA8B0000E7C5 /* SSKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D2E1581652EA8A0000E7C5 /* SSKeychain.m */; };
@@ -810,7 +809,7 @@
 		D909C2FF1742CEA4005930A7 /* uv_x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = uv_x.png; sourceTree = "<group>"; };
 		D909C3001742CEA4005930A7 /* uv_x@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "uv_x@2x.png"; sourceTree = "<group>"; };
 		D909C3011742CEA4005930A7 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/UserVoice.strings"; sourceTree = "<group>"; };
-		D9109AC41790D02700A5B589 /* Model 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Model 3.xcdatamodel"; sourceTree = "<group>"; };
+		D9109AC41790D02700A5B589 /* Model 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 3.xcdatamodel"; sourceTree = "<group>"; };
 		D91ABFFF1733003100823179 /* OWDashboardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWDashboardViewController.h; sourceTree = "<group>"; };
 		D91AC0001733003100823179 /* OWDashboardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWDashboardViewController.m; sourceTree = "<group>"; };
 		D91AC02C1733021800823179 /* 66-microphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "66-microphone.png"; sourceTree = "<group>"; };
@@ -1116,7 +1115,6 @@
 		D9CEED101682718600B236B5 /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
 		D9CEED131682718600B236B5 /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
 		D9CEED18168271C700B236B5 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
-		D9CEED1A1682734600B236B5 /* OWCheckpoints.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OWCheckpoints.h; sourceTree = "<group>"; };
 		D9D2E14D1652D7B80000E7C5 /* OWInLineTextEditTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWInLineTextEditTableViewCell.h; sourceTree = "<group>"; };
 		D9D2E14E1652D7B80000E7C5 /* OWInLineTextEditTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWInLineTextEditTableViewCell.m; sourceTree = "<group>"; };
 		D9D2E1571652EA8A0000E7C5 /* SSKeychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSKeychain.h; sourceTree = "<group>"; };
@@ -1399,7 +1397,6 @@
 				D99741761651D42F0034ABB0 /* UIKit.framework in Frameworks */,
 				D99741781651D42F0034ABB0 /* Foundation.framework in Frameworks */,
 				D997417A1651D42F0034ABB0 /* CoreGraphics.framework in Frameworks */,
-				D9CEED151682718600B236B5 /* libTestFlight.a in Frameworks */,
 				D9AD11C41779313200DB5705 /* libCrittercism.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1785,7 +1782,6 @@
 				D99741851651D42F0034ABB0 /* OWAppDelegate.m */,
 				D93936D81741CCAE0070E164 /* Utilities */,
 				D9CEED0D16826AB400B236B5 /* OWAPIKeys.h */,
-				D9CEED1A1682734600B236B5 /* OWCheckpoints.h */,
 				D995A383175418B50004F65B /* OWConstants.h */,
 				D997417C1651D42F0034ABB0 /* Supporting Files */,
 			);

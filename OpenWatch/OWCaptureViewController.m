@@ -148,10 +148,6 @@
     [captureVideoPreviewLayer setFrame:self.view.bounds];
 }
 
-- (void) viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    [TestFlight passCheckpoint:RECORDING_STARTED_CHECKPOINT];
-}
 
 - (void)didReceiveMemoryWarning
 {

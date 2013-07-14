@@ -74,7 +74,6 @@
         self.objectIDs = [NSMutableArray array];
         [self.tableView reloadData];
     }
-    [TestFlight passCheckpoint:VIEW_FEED_CHECKPOINT(feedName)];
     selectedFeedString = feedName;
     self.displayName = displayName;
     feedType = type;
@@ -148,7 +147,6 @@
 
 - (void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [TestFlight passCheckpoint:WATCH_CHECKPOINT];
     [self populateInitialFeed];
     
     CGFloat navigationBarHeightHack = 0.0f;

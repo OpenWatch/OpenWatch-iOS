@@ -101,7 +101,6 @@
 
 - (void) receivedAccountPermissionsErrorNotification:(NSNotification*)notification {
     NSLog(@"%@ received", kAccountPermissionsError);
-    [TestFlight passCheckpoint:kAccountPermissionsError];
     [OW_APP_DELEGATE.navigationController popToRootViewControllerAnimated:YES];
     OWLoginViewController *loginViewController = [[OWLoginViewController alloc] init];
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:loginViewController];

@@ -12,7 +12,6 @@
 #import "OWSettingsController.h"
 #import "OWAccountAPIClient.h"
 #import "OWAppDelegate.h"
-#import "OWCheckpoints.h"
 #import "BButton.h"
 #import "OWConstants.h"
 #import "OWStrings.h"
@@ -110,7 +109,6 @@
 
 - (void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [TestFlight passCheckpoint:FANCY_LOGIN_CHECKPOINT];
 
     self.scrollView.frame = self.view.bounds;
     self.scrollView.contentSize = self.view.bounds.size;
