@@ -151,9 +151,6 @@ static NSString *editableCellIdentifier = @"EditableCellIdentifier";
     if (showingAfterCapture) {
         [self.navigationItem setHidesBackButton:YES];
     }
-    if (titleTextView.text.length == 0) {
-        [titleTextView becomeFirstResponder];
-    }
 }
 
 
@@ -241,6 +238,11 @@ static NSString *editableCellIdentifier = @"EditableCellIdentifier";
     
     [self.view endEditing:YES];
     
+    if (self.openwatchSwitch.on) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:AWESOME_STRING message:YOUR_VIDEO_IS_LIVE_STRING delegate:nil cancelButtonTitle:COOL_STRING otherButtonTitles:nil];
+        [alert show];
+    }
+
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -262,6 +264,19 @@ static NSString *editableCellIdentifier = @"EditableCellIdentifier";
 
 - (void) textViewDidBeginEditing:(UITextView *)textView {
     [self.keyboardControls setActiveField:textView];
+}
+
+- (void) viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    [self.previewView.moviePlayer stop];
+}
+
+- (void) viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    if (titleTextView.text.length == 0) {
+        [titleTextView becomeFirstResponder];
+    }
+    [self.previewView.moviePlayer play];
 }
 
 - (void)didReceiveMemoryWarning

@@ -39,15 +39,24 @@
         self.fullscreenRecordButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [fullscreenRecordButton addTarget:self action:@selector(startRecordingPressed:) forControlEvents:UIControlEventTouchUpInside];
         
-        self.startRecordingLabel = [[UILabel alloc] init];
-        self.startRecordingLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:30.0f];
-        self.startRecordingLabel.numberOfLines = 0;
-        self.startRecordingLabel.textColor = [UIColor redColor];
-        self.startRecordingLabel.textAlignment = NSTextAlignmentCenter;
-        self.startRecordingLabel.text = TOUCH_ANYWHERE_TO_START_STRING;
-        self.startRecordingLabel.backgroundColor = [UIColor clearColor];
+        [self setupStartRecordingLabel];
     }
     return self;
+}
+
+- (void) setupStartRecordingLabel {
+    self.startRecordingLabel = [[UILabel alloc] init];
+    self.startRecordingLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:30.0f];
+    self.startRecordingLabel.numberOfLines = 0;
+    self.startRecordingLabel.textColor = [UIColor whiteColor];
+    self.startRecordingLabel.textAlignment = NSTextAlignmentCenter;
+    self.startRecordingLabel.text = TOUCH_ANYWHERE_TO_START_STRING;
+    self.startRecordingLabel.backgroundColor = [UIColor clearColor];
+    self.startRecordingLabel.layer.shadowRadius = 2.5;
+    self.startRecordingLabel.layer.masksToBounds = NO;
+    self.startRecordingLabel.layer.shadowOpacity = 0.7;
+    self.startRecordingLabel.layer.shouldRasterize = YES;
+    self.startRecordingLabel.layer.shadowOffset = CGSizeMake(0, 0);
 }
 
 - (void) startRecordingPressed:(id)sender {

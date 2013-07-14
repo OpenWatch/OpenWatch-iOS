@@ -6,8 +6,10 @@
 //  Copyright (c) 2012 OpenWatch FPC. All rights reserved.
 //
 
+#define AWESOME_STRING NSLocalizedString(@"Awesome!", @"title for alert that is awesome")
+#define YOUR_VIDEO_IS_LIVE_STRING NSLocalizedString(@"Your video is now live on OpenWatch.", @"text for alert when you post a video to openwatch")
 
-#define TOUCH_ANYWHERE_TO_START_STRING NSLocalizedString(@"Touch Anywhere to Start Recording", @"title for area to start recording")
+#define TOUCH_ANYWHERE_TO_START_STRING NSLocalizedString(@"Touch Anywhere to Start Broadcasting", @"title for area to start recording")
 
 #define GLOBAL_FEED_STRING NSLocalizedString(@"Global Feed", @"title for feed containing all recordings from aroudn the world")
 #define TOP_VIDEOS_STRING NSLocalizedString(@"Top Videos", @"title for feed with top featured videos")

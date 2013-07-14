@@ -17,6 +17,7 @@
 
 - (void) captureViewController:(OWCaptureViewController *)captureViewController didFinishRecording:(OWLocalRecording *)recording {
     self.editController.objectID = recording.objectID;
+    //UIAlertView *alert =
     [captureViewController dismissViewControllerAnimated:YES completion:^{
         
     }];
