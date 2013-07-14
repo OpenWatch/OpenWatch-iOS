@@ -234,7 +234,6 @@
     [self refreshMapParameters];
     
     [[OWAccountAPIClient sharedClient] getObjectWithUUID:mediaObject.uuid objectClass:[mediaObject class] success:^(NSManagedObjectID *objectID) {
-        OWLocalMediaObject *newMediaObject = [OWLocalMediaController localMediaObjectForObjectID:self.mediaObjectID];
         self.previewView.objectID = objectID;
         [self refreshMapParameters];
         [self refreshFields];
