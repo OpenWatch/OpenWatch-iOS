@@ -95,7 +95,10 @@
         OWLocalMediaObject *mediaObject = [OWLocalMediaController localMediaObjectForObjectID:objectID];
         NSLog(@"mediaURL: %@", mediaObject.remoteMediaURLString);
         if ([mediaObject isKindOfClass:[OWLocalRecording class]]) {
-            [self checkForUploadedSegments:(OWLocalRecording*)mediaObject];
+            OWLocalRecording *localRecording = (OWLocalRecording*)mediaObject;
+            if(![self checkForUploadedSegments:localRecording]) {
+                [[OWCaptureAPIClient sharedClient] uploadFileURL:[localRecording highQualityURL] recording:localObject.objectID priority:NSOperationQueuePriorityVeryLow retryCount:kOWCaptureAPIClientDefaultRetryCount];
+            }
         }
         if (!mediaObject.remoteMediaURLString.length) {
             [[OWCaptureAPIClient sharedClient] finishedRecording:recordingObjectID callback:^(BOOL success) {
