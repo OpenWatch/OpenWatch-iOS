@@ -23,6 +23,8 @@
 #import "PKRevealController.h"
 #import "OWAppDelegate.h"
 #import "OWSettingsController.h"
+#import "OWConstants.h"
+#import "OWLoginViewController.h"
 
 @interface OWFeedViewController ()
 @end
@@ -38,8 +40,23 @@
     self = [super init];
     if (self) {
         self.objectIDs = [NSMutableArray array];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedAccountPermissionsErrorNotification:) name:kAccountPermissionsError object:nil];
+
     }
     return self;
+}
+
+- (void) receivedAccountPermissionsErrorNotification:(NSNotification*)notification {
+    NSLog(@"%@ received", kAccountPermissionsError);
+    [OW_APP_DELEGATE.navigationController popToRootViewControllerAnimated:YES];
+    [self.revealController showViewController:self.revealController.frontViewController];
+    OWLoginViewController *loginViewController = [[OWLoginViewController alloc] init];
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:loginViewController];
+    loginViewController.showCancelButton = NO;
+    [OW_APP_DELEGATE.navigationController presentViewController:navController animated:YES completion:^{
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:WHOOPS_STRING message:SESSION_EXPIRED_STRING delegate:nil cancelButtonTitle:OK_STRING otherButtonTitles:nil];
+        [alert show];
+    }];
 }
 
 - (void) locationUpdated:(CLLocation *)location {

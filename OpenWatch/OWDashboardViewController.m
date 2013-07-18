@@ -89,7 +89,6 @@
 
         [self setupStaticDashboardItems];
         
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedAccountPermissionsErrorNotification:) name:kAccountPermissionsError object:nil];        
         [self prefetchNewMissions];
     }
     return self;
@@ -98,19 +97,6 @@
 - (void) prefetchNewMissions {
     [[OWAccountAPIClient sharedClient] fetchMediaObjectsForFeedType:kOWFeedTypeMissions feedName:nil page:1 success:nil failure:nil];
 }
-
-- (void) receivedAccountPermissionsErrorNotification:(NSNotification*)notification {
-    NSLog(@"%@ received", kAccountPermissionsError);
-    [OW_APP_DELEGATE.navigationController popToRootViewControllerAnimated:YES];
-    OWLoginViewController *loginViewController = [[OWLoginViewController alloc] init];
-    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:loginViewController];
-    loginViewController.showCancelButton = NO;
-    [self presentViewController:navController animated:YES completion:^{
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:WHOOPS_STRING message:SESSION_EXPIRED_STRING delegate:nil cancelButtonTitle:OK_STRING otherButtonTitles:nil];
-        [alert show];
-    }];
-}
-
 
 - (void) feedbackButtonPressed:(id)sender {
     UVConfig *config = [UVConfig configWithSite:@"openwatch.uservoice.com"

@@ -115,7 +115,7 @@
 
 + (NSString*) captureBaseURLString {
     return @"https://capture.openwatch.net/";
-    //return @"https://capture-staging.openwatch.net/";
+    //return @"https://capture2.openwatch.net/";
 }
 
 + (CGFloat) bottomOfView:(UIView *)view {
