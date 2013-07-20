@@ -55,9 +55,6 @@
 [submodule "Submodules/PKRevealController"]
 	path = Submodules/PKRevealController
 	url = https://github.com/pkluz/PKRevealController.git
-[submodule "Submodules/Crittercism"]
-	path = Submodules/Crittercism
-	url = git@github.com:OpenWatch/Crittercism-SDK.git
 [submodule "Submodules/facebook-ios-sdk"]
 	path = Submodules/facebook-ios-sdk
 	url = https://github.com/facebook/facebook-ios-sdk.git

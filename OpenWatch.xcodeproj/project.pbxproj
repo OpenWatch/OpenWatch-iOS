@@ -204,7 +204,6 @@
 		D99741A11651DB0B0034ABB0 /* OWSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D99741A01651DB0B0034ABB0 /* OWSettingsViewController.m */; };
 		D9A6D9D51731D03400C1488A /* BSKeyboardControls.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A6D9D11731D03400C1488A /* BSKeyboardControls.m */; };
 		D9A6D9D61731D03400C1488A /* BSKeyboardControls.strings in Resources */ = {isa = PBXBuildFile; fileRef = D9A6D9D21731D03400C1488A /* BSKeyboardControls.strings */; };
-		D9AD11C41779313200DB5705 /* libCrittercism.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D9AD11C21779313200DB5705 /* libCrittercism.a */; };
 		D9B4E80A17440B20006B3793 /* gh@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9B4E80817440B20006B3793 /* gh@2x.png */; };
 		D9B4E80D17441759006B3793 /* cc@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9B4E80C17441759006B3793 /* cc@2x.png */; };
 		D9B4E81317442E16006B3793 /* icon-iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = D9B4E81217442E16006B3793 /* icon-iphone.png */; };
@@ -1397,7 +1396,6 @@
 				D99741761651D42F0034ABB0 /* UIKit.framework in Frameworks */,
 				D99741781651D42F0034ABB0 /* Foundation.framework in Frameworks */,
 				D997417A1651D42F0034ABB0 /* CoreGraphics.framework in Frameworks */,
-				D9AD11C41779313200DB5705 /* libCrittercism.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

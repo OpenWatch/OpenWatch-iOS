@@ -16,7 +16,6 @@
 #import "OWMissionViewController.h"
 #import "OWMission.h"
 #import "PKRevealController.h"
-#import "Crittercism.h"
 
 @implementation OWAppDelegate
 @synthesize locationController, dashboardViewController, backgroundTask, backgroundTimer, allowRotation, creationController, revealController, feedViewController, navigationController;
@@ -24,7 +23,6 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    [Crittercism enableWithAppID:CRITTERCISM_APP_ID];
     [MagicalRecord setupAutoMigratingCoreDataStack];
 
     self.allowRotation = NO;
