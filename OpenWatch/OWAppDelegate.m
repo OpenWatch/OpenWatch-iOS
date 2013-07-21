@@ -16,6 +16,7 @@
 #import "OWMissionViewController.h"
 #import "OWMission.h"
 #import "PKRevealController.h"
+#import <BugSense-iOS/BugSenseController.h>
 
 @implementation OWAppDelegate
 @synthesize locationController, dashboardViewController, backgroundTask, backgroundTimer, allowRotation, creationController, revealController, feedViewController, navigationController;
@@ -23,6 +24,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [BugSenseController sharedControllerWithBugSenseAPIKey:BUGSENSE_API_KEY];
+    
     [MagicalRecord setupAutoMigratingCoreDataStack];
 
     self.allowRotation = NO;

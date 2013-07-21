@@ -179,6 +179,7 @@
 		D9892475175574C700F52B9C /* 108-badge.png in Resources */ = {isa = PBXBuildFile; fileRef = D9892473175574C700F52B9C /* 108-badge.png */; };
 		D9892476175574C700F52B9C /* 108-badge@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9892474175574C700F52B9C /* 108-badge@2x.png */; };
 		D9892479175578E500F52B9C /* _OWMission.m in Sources */ = {isa = PBXBuildFile; fileRef = D9892478175578E500F52B9C /* _OWMission.m */; };
+		D989C647179B5C0000441EFA /* BugSense-iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D989C646179B5C0000441EFA /* BugSense-iOS.framework */; };
 		D98F4884173DC02D00BBE80E /* OWCharacterCountdownView.m in Sources */ = {isa = PBXBuildFile; fileRef = D98F4883173DC02D00BBE80E /* OWCharacterCountdownView.m */; };
 		D98FCB4116A4AA570071DF6B /* _OWLocalRecording.m in Sources */ = {isa = PBXBuildFile; fileRef = D98FCB3216A4AA570071DF6B /* _OWLocalRecording.m */; };
 		D98FCB4216A4AA570071DF6B /* _OWManagedRecording.m in Sources */ = {isa = PBXBuildFile; fileRef = D98FCB3416A4AA570071DF6B /* _OWManagedRecording.m */; };
@@ -992,6 +993,7 @@
 		D9892474175574C700F52B9C /* 108-badge@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "108-badge@2x.png"; sourceTree = "<group>"; };
 		D9892477175578E500F52B9C /* _OWMission.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _OWMission.h; sourceTree = "<group>"; };
 		D9892478175578E500F52B9C /* _OWMission.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _OWMission.m; sourceTree = "<group>"; };
+		D989C646179B5C0000441EFA /* BugSense-iOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "BugSense-iOS.framework"; path = "BugSense-iOS/BugSense-iOS.framework"; sourceTree = "<group>"; };
 		D98F4882173DC02D00BBE80E /* OWCharacterCountdownView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWCharacterCountdownView.h; sourceTree = "<group>"; };
 		D98F4883173DC02D00BBE80E /* OWCharacterCountdownView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWCharacterCountdownView.m; sourceTree = "<group>"; };
 		D98FCB3116A4AA570071DF6B /* _OWLocalRecording.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _OWLocalRecording.h; sourceTree = "<group>"; };
@@ -1396,6 +1398,7 @@
 				D99741761651D42F0034ABB0 /* UIKit.framework in Frameworks */,
 				D99741781651D42F0034ABB0 /* Foundation.framework in Frameworks */,
 				D997417A1651D42F0034ABB0 /* CoreGraphics.framework in Frameworks */,
+				D989C647179B5C0000441EFA /* BugSense-iOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1889,6 +1892,7 @@
 		D9D2E1501652EA8A0000E7C5 /* Submodules */ = {
 			isa = PBXGroup;
 			children = (
+				D989C646179B5C0000441EFA /* BugSense-iOS.framework */,
 				D9D5E6871784EC60004AE5F6 /* SSToolkit */,
 				D9D5E6831784E07A004AE5F6 /* SLGlowingTextField */,
 				D954667D17823DEC00499FD5 /* Facebook */,
@@ -3449,6 +3453,10 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Submodules/BugSense-iOS\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "OpenWatch/OpenWatch-Prefix.pch";
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Submodules\"/**";
@@ -3477,6 +3485,10 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Submodules/BugSense-iOS\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "OpenWatch/OpenWatch-Prefix.pch";
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Submodules\"/**";

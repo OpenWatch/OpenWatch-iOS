@@ -64,3 +64,6 @@
 [submodule "Submodules/SSToolkit"]
 	path = Submodules/SSToolkit
 	url = https://github.com/soffes/sstoolkit.git
+[submodule "Submodules/BugSense-iOS"]
+	path = Submodules/BugSense-iOS
+	url = git@github.com:OpenWatch/BugSense-iOS.git

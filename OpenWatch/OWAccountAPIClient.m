@@ -28,6 +28,7 @@
 #import "NSData+Hex.h"
 #import "OWBadgedDashboardItem.h"
 #import "OWMission.h"
+#import <BugSense-iOS/BugSenseController.h>
 
 #define kRecordingsKey @"recordings/"
 
@@ -289,6 +290,7 @@
             if (success) {
                 NSDictionary *metadataDictionary = [responseObject objectForKey:@"object"];
                 OWAccount *account = [OWSettingsController sharedInstance].account;
+                [BugSenseController setUserIdentifier:account.email];
                 OWUser *user = account.user;
                 [user loadMetadataFromDictionary:metadataDictionary];
                 NSLog(@"success updating account details!");
