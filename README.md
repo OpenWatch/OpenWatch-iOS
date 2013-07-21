@@ -49,6 +49,7 @@ Create `./OpenWatch/OWAPIKeys.h` with the following content:
 		#define TESTFLIGHT_APP_TOKEN @"your_testflight_token"
 		#define USERVOICE_API_KEY @"your_uservoice_api_key"
 		#define USERVOICE_API_SECRET @"your_uservoice_api_secret"
+        #define BUGSENSE_API_KEY @"your_bugsense_api_key"
 
 Running
 ----------------------
