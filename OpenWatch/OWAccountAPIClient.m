@@ -338,8 +338,8 @@
         prefix = @"v/";
     } else if ([class isEqual:[OWAudio class]]) {
         prefix = @"a/";
-    } else {
-        return nil;
+    } else if ([class isEqual:[OWMission class]]){
+        prefix = @"mission/";
     }
     return prefix;
 }
@@ -693,8 +693,12 @@
 }
 
 - (NSString*) pathForMediaObject:(OWMediaObject*)mediaObject {
-    NSString *path = [self pathForClass:[mediaObject class]];
-    return [NSString stringWithFormat:@"%@/%d/", path, mediaObject.serverIDValue];
+    return [self pathForServerID:mediaObject.serverIDValue objectClass:[mediaObject class]];
+}
+
+- (NSString*) pathForServerID:(NSUInteger)serverID objectClass:(Class)objectClass {
+    NSString *path = [self pathForClass:objectClass];
+    return [NSString stringWithFormat:@"%@%d/", path, serverID];
 }
 
 - (void) reportMediaObject:(OWMediaObject*)mediaObject {
@@ -704,6 +708,34 @@
         NSLog(@"Reported! %@", operation.responseString);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error reporting object: %@", error.userInfo);
+    }];
+}
+
+- (void) getObjectWithServerID:(NSUInteger)serverID objectClass:(Class)objectClass success:(void (^)(NSManagedObjectID *objectID))success failure:(void (^)(NSString *reason))failure retryCount:(NSUInteger)retryCount {
+    NSString *path = [self pathForServerID:serverID objectClass:objectClass];
+    
+    NSLog(@"[Django] GET (%d): %@", retryCount, path);
+    
+    if (retryCount <= 0) {
+        NSLog(@"Total failure trying to GET object: %@", path);
+        if (failure) {
+            failure(@"Total failure trying to GET object");
+        }
+        return;
+    }
+    
+    [self getPath:path parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        OWMediaObject *mediaObject = [self mediaObjectForShortMetadataDictionary:responseObject];
+        if (success && mediaObject) {
+            success(mediaObject.objectID);
+        }
+        if (!mediaObject) {
+            NSLog(@"[Django] Media object not found from response: %@", responseObject);
+            [self getObjectWithServerID:serverID objectClass:objectClass success:success failure:failure retryCount:retryCount - 1];
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"[Django]: %@", error.userInfo);
+        [self getObjectWithServerID:serverID objectClass:objectClass success:success failure:failure retryCount:retryCount - 1];
     }];
 }
 

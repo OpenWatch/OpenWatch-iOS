@@ -16,6 +16,7 @@
 #import "OWMissionViewController.h"
 #import "OWMission.h"
 #import "PKRevealController.h"
+#import "OWStrings.h"
 #import <BugSense-iOS/BugSenseController.h>
 
 @implementation OWAppDelegate
@@ -144,6 +145,8 @@
         [application endBackgroundTask:self.backgroundTask];
         self.backgroundTask = UIBackgroundTaskInvalid;
     }
+    
+    application.applicationIconBadgeNumber = 0;
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
@@ -187,19 +190,36 @@
 - (void) application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
     NSLog(@"Received local notification: %@", notification.userInfo);
     
-    OWMissionListViewController *missionList = [[OWMissionListViewController alloc] init];
-    OWMissionViewController *missionView = [[OWMissionViewController alloc] init];
-    OWMission *mission = [OWMission MR_findFirstByAttribute:@"serverID" withValue:@(4)];
+}
+
+- (void) application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+    NSLog(@"Received remote notification: %@", userInfo);
+  
+    NSDictionary *data = [userInfo objectForKey:@"data"];
+    NSDictionary *aps = [userInfo objectForKey:@"aps"];
+    NSString *alert = [aps objectForKey:@"alert"];
+    NSNumber *missionID = [data objectForKey:@"m"];
     
-    
-    missionView.mediaObjectID = mission.objectID;
-    [self.navigationController setViewControllers:@[dashboardViewController, missionList, missionView]];
+    if (alert) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NEW_MISSION_AVAILABLE_STRING message:alert delegate:nil cancelButtonTitle:OK_STRING otherButtonTitles: nil];
+        [alertView show];
+    }
+
+    if (missionID) {
+        OWMissionListViewController *missionList = [[OWMissionListViewController alloc] init];
+        OWMissionViewController *missionView = [[OWMissionViewController alloc] init];
+        
+        [[OWAccountAPIClient sharedClient] getObjectWithServerID:missionID.intValue objectClass:[OWMission class] success:^(NSManagedObjectID *objectID) {
+            missionView.mediaObjectID = objectID;
+            [self.navigationController setViewControllers:@[dashboardViewController, missionList, missionView]];
+        } failure:nil retryCount:5];
+    }
 }
 
 - (void) timerUpdate:(NSTimer*)timer {
-
+    return;
     UIApplication *application = [UIApplication sharedApplication];
-    /*
+    
     UILocalNotification *localNotif = [[UILocalNotification alloc] init];
     if (localNotif) {
         localNotif.alertBody = @"You have been selected for a special mission.";
@@ -207,7 +227,6 @@
         localNotif.soundName = UILocalNotificationDefaultSoundName;
         [application presentLocalNotificationNow:localNotif];
     }
-    */
     
     //NSLog(@"Timer update, background time left: %f", application.backgroundTimeRemaining);
     

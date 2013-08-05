@@ -6,6 +6,7 @@
 //  Copyright (c) 2012 OpenWatch FPC. All rights reserved.
 //
 
+#define NEW_MISSION_AVAILABLE_STRING NSLocalizedString(@"New Mission Available", @"title for alert box")
 #define AWESOME_STRING NSLocalizedString(@"Awesome!", @"title for alert that is awesome")
 #define YOUR_VIDEO_IS_LIVE_STRING NSLocalizedString(@"Your video is now live on OpenWatch.", @"text for alert when you post a video to openwatch")
 
