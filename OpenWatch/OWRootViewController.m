@@ -17,13 +17,14 @@
 @end
 
 @implementation OWRootViewController
-@synthesize badgeView;
+@synthesize badgeView, showBackButton;
 
 - (id)init
 {
     self = [super init];
     if (self) {
         self.view.backgroundColor = [OWUtilities stoneBackgroundPattern];
+        self.showBackButton = NO;
         [self setupNavBar];
     }
     return self;
@@ -44,7 +45,11 @@
     [button addSubview:badgeView];
     UIBarButtonItem* leftItem = [[UIBarButtonItem alloc] initWithCustomView:button];
     
-    self.navigationItem.leftBarButtonItem = leftItem;
+    if (!showBackButton) {
+        self.navigationItem.leftBarButtonItem = leftItem;
+    } else {
+        self.navigationItem.leftBarButtonItem = self.navigationItem.backBarButtonItem;
+    }
     self.navigationItem.rightBarButtonItem = [OWUtilities barItemWithImage:[UIImage imageNamed:@"285-facetime-red.png"] target:self action:@selector(startRecording:)];
     
     UIImageView *imageView = [[UIImageView alloc] initWithImage:[self logoImage]];
@@ -65,6 +70,12 @@
     }
 }
 
+- (void) setShowBackButton:(BOOL)newShowBackButton {
+    showBackButton = newShowBackButton;
+    if (showBackButton) {
+        self.navigationItem.leftBarButtonItem = self.navigationItem.backBarButtonItem;
+    }
+}
 
 
 - (void) startRecording:(id)sender {

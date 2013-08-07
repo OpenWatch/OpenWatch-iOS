@@ -6,6 +6,9 @@
 //  Copyright (c) 2012 OpenWatch FPC. All rights reserved.
 //
 
+#define VIEW_MEDIA_STRING NSLocalizedString(@"View Media", @"title for button to view media")
+#define LEAVE_STRING NSLocalizedString(@"Leave Mission", @"title for button to leave mission")
+#define JOIN_STRING NSLocalizedString(@"Join Mission", @"title for button to join a mission")
 #define NEW_MISSION_AVAILABLE_STRING NSLocalizedString(@"New Mission Available", @"title for alert box")
 #define AWESOME_STRING NSLocalizedString(@"Awesome!", @"title for alert that is awesome")
 #define YOUR_VIDEO_IS_LIVE_STRING NSLocalizedString(@"Your video is now live on OpenWatch.", @"text for alert when you post a video to openwatch")

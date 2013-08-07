@@ -12,6 +12,7 @@
 @interface OWRootViewController : UIViewController
 
 @property (nonatomic, strong) OWMissionBadgeView *badgeView;
+@property (nonatomic) BOOL showBackButton;
 
 - (UIImage*) logoImage;
 - (void) setupNavBar;

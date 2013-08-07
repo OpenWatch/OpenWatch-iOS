@@ -63,7 +63,9 @@
     self.lastLocation = location;
     [[OWLocationController sharedInstance] stop];
     
-    [self fetchObjectsForLocation:self.lastLocation page:self.currentPage];
+    if ([self isOnLocalFeed]) {
+        [self fetchObjectsForLocation:self.lastLocation page:self.currentPage];
+    }
 }
 
 - (void) fetchObjectsForLocation:(CLLocation*)location page:(NSUInteger)page {
@@ -83,6 +85,10 @@
     }];
 }
 
+- (BOOL) isOnLocalFeed {
+    return ([[self.selectedFeedString lowercaseString] isEqualToString:@"local"]);
+}
+
 - (void) didSelectFeedWithName:(NSString *)feedName displayName:(NSString*)displayName type:(OWFeedType)type pageNumber:(NSUInteger)pageNumber {
     if (pageNumber <= kFirstPage) {
         self.currentPage = kFirstPage;
@@ -100,7 +106,7 @@
         self.title = displayName;
     }
     
-    if ([[feedName lowercaseString] isEqualToString:@"local"]) {
+    if ([self isOnLocalFeed]) {
         [self fetchObjectsForLocation:self.lastLocation page:pageNumber];
         return;
     }

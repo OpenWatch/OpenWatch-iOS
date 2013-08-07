@@ -10,6 +10,7 @@
 #import "OWMission.h"
 #import "OWDashboardView.h"
 #import "OWBannerView.h"
+#import "BButton.h"
 
 @interface OWMissionViewController : OWMediaObjectViewController
 
@@ -22,6 +23,9 @@
 @property (nonatomic, strong) UILabel *blurbLabel;
 @property (nonatomic, strong) OWBannerView *bannerView;
 
-@property (nonatomic, strong) OWDashboardView *dashboardView;
+@property (nonatomic, strong) BButton *joinButton;
+@property (nonatomic, strong) BButton *leaveButton;
+@property (nonatomic, strong) BButton *mapButton;
+@property (nonatomic, strong) BButton *mediaButton;
 
 @end

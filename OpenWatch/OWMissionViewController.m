@@ -21,8 +21,9 @@
 @end
 
 @implementation OWMissionViewController
-@synthesize mission, scrollView, imageView, titleLabel, blurbLabel, dashboardView;
-@synthesize imageContainerView, bannerView;
+@synthesize mission, scrollView, imageView, titleLabel, blurbLabel;
+@synthesize imageContainerView, bannerView, joinButton;
+@synthesize mapButton, mediaButton;
 
 - (id)init
 {
@@ -41,23 +42,31 @@
         self.imageView.clipsToBounds = YES;
         self.scrollView = [[UIScrollView alloc] init];
         
-        self.dashboardView = [[OWDashboardView alloc] initWithFrame:CGRectZero];
-        self.dashboardView.dashboardTableView.scrollEnabled = NO;
+        self.joinButton = [[BButton alloc] initWithFrame:CGRectZero type:BButtonTypeSuccess];
+        [joinButton addTarget:self action:@selector(joinButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+        [joinButton setTitle:JOIN_STRING forState:UIControlStateNormal];
+        
+        self.mapButton = [[BButton alloc] initWithFrame:CGRectZero type:BButtonTypeDefault];
+        [self.mapButton addTarget:self action:@selector(viewOnMap:) forControlEvents:UIControlEventTouchUpInside];
+        [self.mapButton setTitle:VIEW_ON_MAP_STRING forState:UIControlStateNormal];
+        [self.mapButton addAwesomeIcon:FAIconMapMarker beforeTitle:YES];
+        
+        self.mediaButton = [[BButton alloc] initWithFrame:CGRectZero type:BButtonTypeDefault];
+        [self.mediaButton addTarget:self action:@selector(mediaButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+        [self.mediaButton setTitle:VIEW_MEDIA_STRING forState:UIControlStateNormal];
+        [self.mediaButton addAwesomeIcon:FAIconCamera beforeTitle:YES];
+        
         self.imageContainerView = [[UIView alloc] init];
         imageContainerView.clipsToBounds = NO;
         imageContainerView.layer.masksToBounds = NO;
         [self.imageContainerView addSubview:imageView];
         [self.view addSubview:scrollView];
+        [self.scrollView addSubview:joinButton];
+        [self.scrollView addSubview:mapButton];
+        [self.scrollView addSubview:mediaButton];
         [self.scrollView addSubview:titleLabel];
         [self.scrollView addSubview:blurbLabel];
         [self.scrollView addSubview:imageContainerView];
-        [self.scrollView addSubview:dashboardView];
-        
-        OWDashboardItem *videoItem = [[OWDashboardItem alloc] initWithTitle:BROADCAST_VIDEO_STRING image:[UIImage imageNamed:@"285-facetime.png"] target:self selector:@selector(recordButtonPressed:)];
-        
-        NSArray *mediaItems = @[videoItem];
-        self.dashboardView.dashboardItems = @[mediaItems];
-
     }
     return self;
 }
@@ -69,9 +78,17 @@
     [self.navigationController pushViewController:mapView animated:YES];
 }
 
-- (void) recordButtonPressed:(id)sender {
-    OW_APP_DELEGATE.creationController.primaryTag = self.mission.primaryTag;
-    [OW_APP_DELEGATE.creationController recordVideoFromViewController:self];
+- (void) joinButtonPressed:(id)sender {
+    NSLog(@"Joining mission...");
+    [self.joinButton setType:BButtonTypeDanger];
+    [self.joinButton setTitle:LEAVE_STRING forState:UIControlStateNormal];
+}
+
+- (void) mediaButtonPressed:(id)sender {
+    OWFeedViewController *feedView = [[OWFeedViewController alloc] init];
+    feedView.showBackButton = YES;
+    [feedView didSelectFeedWithName:self.mission.primaryTag displayName:self.mission.primaryTag type:kOWFeedTypeTag];
+    [self.navigationController pushViewController:feedView animated:YES];
 }
 
 - (void)viewDidLoad
@@ -103,14 +120,24 @@
     
     CGRect titleLabelFrame = [OWUtilities constrainedFrameForLabel:titleLabel width:paddedWidth origin:CGPointMake(padding, [OWUtilities bottomOfView:imageView] + padding)];
     self.titleLabel.frame = titleLabelFrame;
-        
-    CGRect blurbLabelFrame = [OWUtilities constrainedFrameForLabel:blurbLabel width:paddedWidth origin:CGPointMake(padding, [OWUtilities bottomOfView:titleLabel] + padding)];
+    
+    CGRect joinButtonFrame = CGRectMake(padding, [OWUtilities bottomOfView:titleLabel] + padding, paddedWidth, 45);
+    self.joinButton.frame = joinButtonFrame;
+    
+    CGFloat buttonWidth = (paddedWidth - padding) / 2;
+    CGFloat buttonHeight = 30.0;
+    CGFloat buttonsYOrigin = [OWUtilities bottomOfView:joinButton] + padding;
+    CGRect mapButtonFrame = CGRectMake(padding, buttonsYOrigin, buttonWidth, buttonHeight);
+    self.mapButton.frame = mapButtonFrame;
+    CGRect mediaButtonFrame = CGRectMake([OWUtilities rightOfView:mapButton] + padding, buttonsYOrigin, buttonWidth, buttonHeight);
+    self.mediaButton.frame = mediaButtonFrame;
+    
+    CGRect blurbLabelFrame = [OWUtilities constrainedFrameForLabel:blurbLabel width:paddedWidth origin:CGPointMake(padding, [OWUtilities bottomOfView:mapButton] + padding)];
     self.blurbLabel.frame = blurbLabelFrame;
     
-    self.dashboardView.frame = CGRectMake(0, [OWUtilities bottomOfView:blurbLabel] + padding, frameWidth, self.dashboardView.dashboardTableView.contentSize.height);
         
     self.scrollView.frame = self.view.bounds;
-    self.scrollView.contentSize = CGSizeMake(self.view.frame.size.width, [OWUtilities bottomOfView:dashboardView]);
+    self.scrollView.contentSize = CGSizeMake(self.view.frame.size.width, [OWUtilities bottomOfView:blurbLabel] + padding);
 }
 
 
@@ -166,21 +193,21 @@
     if (mission.usdValue > 0) {
         bannerImage = [UIImage imageNamed:@"side_banner_green.png"];
         text = [NSString stringWithFormat:@"$%.02f", mission.usdValue];
-    } else {
+    } else if (mission.karmaValue > 0) {
         bannerImage = [UIImage imageNamed:@"side_banner_purple.png"];
         text = [NSString stringWithFormat:@"%d Karma", (int)mission.karmaValue];
     }
-
-    self.bannerView = [[OWBannerView alloc] initWithFrame:CGRectZero bannerImage:bannerImage labelText:text];
-    [self.scrollView addSubview:bannerView];
+    if (bannerImage) {
+        self.bannerView = [[OWBannerView alloc] initWithFrame:CGRectZero bannerImage:bannerImage labelText:text];
+        [self.scrollView addSubview:bannerView];
+    }
     
     if (mission.coordinate.latitude != 0.0f && mission.coordinate.longitude != 0.0f) {
-        OWDashboardItem *viewOnMap = [[OWDashboardItem alloc] initWithTitle:VIEW_ON_MAP_STRING image:[UIImage imageNamed:@"193-location-arrow.png"] target:self selector:@selector(viewOnMap:)];
-        
-        NSArray *mapArray = @[viewOnMap];
-        NSMutableArray *dashboardItems = [NSMutableArray arrayWithArray:self.dashboardView.dashboardItems];
-        [dashboardItems insertObject:mapArray atIndex:0];
-        self.dashboardView.dashboardItems = dashboardItems;
+        self.mapButton.userInteractionEnabled = YES;
+        self.mapButton.alpha = 1.0;
+    } else {
+        self.mapButton.userInteractionEnabled = NO;
+        self.mapButton.alpha = 0.5;
     }
 }
 
