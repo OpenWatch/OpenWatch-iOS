@@ -212,7 +212,10 @@
         [[OWAccountAPIClient sharedClient] getObjectWithServerID:missionID.intValue objectClass:[OWMission class] success:^(NSManagedObjectID *objectID) {
             missionView.mediaObjectID = objectID;
             [self.navigationController setViewControllers:@[dashboardViewController, missionList, missionView]];
-        } failure:nil retryCount:5];
+            NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
+            OWMission *mission = (OWMission*)[context existingObjectWithID:objectID error:nil];
+            [[OWAccountAPIClient sharedClient] postAction:@"viewed_push" forMission:mission success:nil failure:nil retryCount:kOWAccountAPIClientDefaultRetryCount];
+        } failure:nil retryCount:kOWAccountAPIClientDefaultRetryCount];
     }
 }
 

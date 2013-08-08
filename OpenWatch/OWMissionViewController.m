@@ -15,6 +15,8 @@
 #import "OWStrings.h"
 #import "OWMapAnnotation.h"
 #import "OWMapViewController.h"
+#import "OWSettingsController.h"
+#import "OWAccountAPIClient.h"
 
 @interface OWMissionViewController ()
 
@@ -79,9 +81,26 @@
 }
 
 - (void) joinButtonPressed:(id)sender {
-    NSLog(@"Joining mission...");
-    [self.joinButton setType:BButtonTypeDanger];
-    [self.joinButton setTitle:LEAVE_STRING forState:UIControlStateNormal];
+    if (!self.mission.joinedValue) {
+        self.mission.joined = @YES;
+        [[OWAccountAPIClient sharedClient] postAction:@"joined" forMission:mission success:nil failure:nil retryCount:kOWAccountAPIClientDefaultRetryCount];
+    } else {
+        [[OWAccountAPIClient sharedClient] postAction:@"left" forMission:mission success:nil failure:nil retryCount:kOWAccountAPIClientDefaultRetryCount];
+        self.mission.joined = @NO;
+    }
+    NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
+    [context MR_saveToPersistentStoreAndWait];
+    [self refreshJoinButtonState];
+}
+
+- (void) refreshJoinButtonState {
+    if (self.mission.joinedValue) {
+        [self.joinButton setType:BButtonTypeDanger];
+        [self.joinButton setTitle:LEAVE_STRING forState:UIControlStateNormal];
+    } else {
+        [self.joinButton setType:BButtonTypeSuccess];
+        [self.joinButton setTitle:JOIN_STRING forState:UIControlStateNormal];
+    }
 }
 
 - (void) mediaButtonPressed:(id)sender {
@@ -101,6 +120,7 @@
 - (void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self refreshFrames];
+    [[OWAccountAPIClient sharedClient] postAction:@"viewed_mission" forMission:mission success:nil failure:nil retryCount:kOWAccountAPIClientDefaultRetryCount];
 }
 
 - (void) refreshFrames {
@@ -209,6 +229,7 @@
         self.mapButton.userInteractionEnabled = NO;
         self.mapButton.alpha = 0.5;
     }
+    [self refreshJoinButtonState];
 }
 
 @end

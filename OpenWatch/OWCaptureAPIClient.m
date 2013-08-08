@@ -118,8 +118,8 @@
                 [[OWCaptureAPIClient sharedClient] updateMetadataForRecording:recordingObjectID callback:^(BOOL success) {
                     NSLog(@"[Sync] Simulated Update Metadata for %@, success: %d", uuid, success);
 
-                    [[OWAccountAPIClient sharedClient] postObjectWithUUID:uuid objectClass:objectClass success:^{
-                        NSLog(@"[Sync] Success Django Metadata for %@", uuid);
+                    [[OWAccountAPIClient sharedClient] postObjectWithUUID:uuid objectClass:objectClass success:^(NSManagedObjectID *objectID) {
+                            NSLog(@"[Sync] Success Django Metadata for %@", uuid);
                     } failure:^(NSString *reason) {
                         NSLog(@"[Sync] Failed Django Metadata for %@: %@", uuid, reason);
                     } retryCount:kOWAccountAPIClientDefaultRetryCount];

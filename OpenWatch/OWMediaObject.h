@@ -5,7 +5,7 @@
 #define kTagsKey @"tags"
 #define kUserKey @"user"
 #define kIDKey @"id"
-#define kUsernameKey @"username"
+#define kDisplayNameKey @"username"
 #define kFirstPostedKey @"first_posted"
 
 @interface OWMediaObject : _OWMediaObject {}

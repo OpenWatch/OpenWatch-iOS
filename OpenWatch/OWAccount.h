@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "OWUser.h"
 #import <Accounts/Accounts.h>
+#import "OWMission.h"
 
 @interface OWAccount : NSObject
 

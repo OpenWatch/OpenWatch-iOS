@@ -11,6 +11,8 @@
 #import "OWConstants.h"
 #import "OWMissionBadgeView.h"
 
+#define kJoinedKey @"joined"
+
 @implementation OWMission
 
 + (Class) cellClass {
@@ -31,6 +33,14 @@
 
 - (NSURL*) mediaURL {
     return [NSURL URLWithString:self.mediaURLString];
+}
+
+- (NSMutableDictionary*) metadataDictionary {
+    NSMutableDictionary *metadataDictionary = [super metadataDictionary];
+    if (self.joined) {
+        [metadataDictionary setObject:self.joined forKey:kJoinedKey];
+    }
+    return metadataDictionary;
 }
 
 - (void) loadMetadataFromDictionary:(NSDictionary *)metadataDictionary {

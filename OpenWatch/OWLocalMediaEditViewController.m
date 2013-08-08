@@ -213,7 +213,7 @@ static NSString *editableCellIdentifier = @"EditableCellIdentifier";
     mediaObject.public = @(self.openwatchSwitch.on);
     [context MR_saveToPersistentStoreAndWait];    
         
-    [[OWAccountAPIClient sharedClient] postObjectWithUUID:mediaObject.uuid objectClass:[mediaObject class] success:^{
+    [[OWAccountAPIClient sharedClient] postObjectWithUUID:mediaObject.uuid objectClass:[mediaObject class] success:^(NSManagedObjectID *objectID) {
         ACAccount *twitterAccount = [OWSocialController sharedInstance].twitterAccount;
         if (self.twitterSwitch.on && twitterAccount) {
             [[OWSocialController sharedInstance] updateTwitterStatusFromMediaObject:mediaObject forAccount:twitterAccount callbackBlock:^(NSDictionary *responseData, NSError *error) {

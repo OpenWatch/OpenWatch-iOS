@@ -10,6 +10,7 @@
 #import "SSKeychain.h"
 #import "FacebookSDK.h"
 #import "OWSocialController.h"
+#import "OWMission.h"
 
 #define kServiceName @"net.OpenWatch.OpenWatch"
 #define kAccountIDKey @"kAccountIDKey"

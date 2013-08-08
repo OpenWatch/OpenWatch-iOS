@@ -8,7 +8,9 @@ extern const struct OWMissionAttributes {
 	__unsafe_unretained NSString *active;
 	__unsafe_unretained NSString *body;
 	__unsafe_unretained NSString *completed;
+	__unsafe_unretained NSString *expirationDate;
 	__unsafe_unretained NSString *featured;
+	__unsafe_unretained NSString *joined;
 	__unsafe_unretained NSString *karma;
 	__unsafe_unretained NSString *latitude;
 	__unsafe_unretained NSString *longitude;
@@ -23,6 +25,8 @@ extern const struct OWMissionRelationships {
 
 extern const struct OWMissionFetchedProperties {
 } OWMissionFetchedProperties;
+
+
 
 
 
@@ -88,6 +92,16 @@ extern const struct OWMissionFetchedProperties {
 
 
 
+@property (nonatomic, strong) NSDate* expirationDate;
+
+
+
+//- (BOOL)validateExpirationDate:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
 @property (nonatomic, strong) NSNumber* featured;
 
 
@@ -97,6 +111,20 @@ extern const struct OWMissionFetchedProperties {
 - (void)setFeaturedValue:(BOOL)value_;
 
 //- (BOOL)validateFeatured:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
+@property (nonatomic, strong) NSNumber* joined;
+
+
+
+@property BOOL joinedValue;
+- (BOOL)joinedValue;
+- (void)setJoinedValue:(BOOL)value_;
+
+//- (BOOL)validateJoined:(id*)value_ error:(NSError**)error_;
 
 
 
@@ -226,11 +254,26 @@ extern const struct OWMissionFetchedProperties {
 
 
 
+- (NSDate*)primitiveExpirationDate;
+- (void)setPrimitiveExpirationDate:(NSDate*)value;
+
+
+
+
 - (NSNumber*)primitiveFeatured;
 - (void)setPrimitiveFeatured:(NSNumber*)value;
 
 - (BOOL)primitiveFeaturedValue;
 - (void)setPrimitiveFeaturedValue:(BOOL)value_;
+
+
+
+
+- (NSNumber*)primitiveJoined;
+- (void)setPrimitiveJoined:(NSNumber*)value;
+
+- (BOOL)primitiveJoinedValue;
+- (void)setPrimitiveJoinedValue:(BOOL)value_;
 
 
 

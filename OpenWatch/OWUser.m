@@ -19,7 +19,7 @@
 
 - (void) loadMetadataFromDictionary:(NSDictionary*)metadataDictionary {
     [super loadMetadataFromDictionary:metadataDictionary];
-    NSString *username = [metadataDictionary objectForKey:kUsernameKey];
+    NSString *username = [metadataDictionary objectForKey:kDisplayNameKey];
     NSString *thumbnail = [metadataDictionary objectForKey:kThumbnailKey];
     self.firstName = [metadataDictionary objectForKey:kFirstNameKey];
     self.lastName = [metadataDictionary objectForKey:kLastNameKey];
@@ -32,7 +32,7 @@
 - (NSMutableDictionary*) metadataDictionary {
     NSMutableDictionary *newMetadataDictionary = [super metadataDictionary];
     if (self.username) {
-        [newMetadataDictionary setObject:self.username forKey:kUsernameKey];
+        [newMetadataDictionary setObject:self.username forKey:kDisplayNameKey];
     }
     if (self.firstName) {
         [newMetadataDictionary setObject:self.firstName forKey:kFirstNameKey];

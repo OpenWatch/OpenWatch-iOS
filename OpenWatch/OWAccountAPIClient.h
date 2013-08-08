@@ -37,10 +37,13 @@
 - (void) updateUserTwitterAccount;
 - (void) updateUserFacebookAccount;
 
+- (void) postAction:(NSString*)action forMission:(OWMission*)mission success:(void (^)(void))successBlock failure:(void (^)(NSError *error))failureBlock retryCount:(NSUInteger)retryCount;
+
 - (void) reportMediaObject:(OWMediaObject*)mediaObject;
-- (void) postObjectWithUUID:(NSString*)UUID objectClass:(Class)objectClass success:(void (^)(void))success failure:(void (^)(NSString *reason))failure retryCount:(NSUInteger)retryCount;
+- (void) postObjectWithUUID:(NSString*)UUID objectClass:(Class)objectClass success:(void (^)(NSManagedObjectID *objectID))success failure:(void (^)(NSString *reason))failure retryCount:(NSUInteger)retryCount;
 - (void) getObjectWithUUID:(NSString*)UUID objectClass:(Class)objectClass success:(void (^)(NSManagedObjectID *objectID))success failure:(void (^)(NSString *reason))failure retryCount:(NSUInteger)retryCount;
 - (void) getObjectWithObjectID:(NSManagedObjectID *)objectID success:(void (^)(NSManagedObjectID *objectID))success failure:(void (^)(NSString *reason))failure  retryCount:(NSUInteger)retryCount;
+- (void) postObjectWithObjectID:(NSManagedObjectID *)objectID success:(void (^)(NSManagedObjectID *objectID))success failure:(void (^)(NSString *reason))failure  retryCount:(NSUInteger)retryCount;
 - (void) getObjectWithServerID:(NSUInteger)serverID objectClass:(Class)objectClass success:(void (^)(NSManagedObjectID *objectID))success failure:(void (^)(NSString *reason))failure retryCount:(NSUInteger)retryCount;
 
 - (void) fetchMediaObjectsForFeedType:(OWFeedType)feedType feedName:(NSString*)feedName page:(NSUInteger)page success:(void (^)(NSArray *mediaObjectIDs, NSUInteger totalPages))success failure:(void (^)(NSString *reason))failure;

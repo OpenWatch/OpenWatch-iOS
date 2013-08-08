@@ -7,7 +7,9 @@ const struct OWMissionAttributes OWMissionAttributes = {
 	.active = @"active",
 	.body = @"body",
 	.completed = @"completed",
+	.expirationDate = @"expirationDate",
 	.featured = @"featured",
+	.joined = @"joined",
 	.karma = @"karma",
 	.latitude = @"latitude",
 	.longitude = @"longitude",
@@ -61,6 +63,11 @@ const struct OWMissionFetchedProperties OWMissionFetchedProperties = {
 	}
 	if ([key isEqualToString:@"featuredValue"]) {
 		NSSet *affectingKey = [NSSet setWithObject:@"featured"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
+	if ([key isEqualToString:@"joinedValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"joined"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
 		return keyPaths;
 	}
@@ -155,6 +162,13 @@ const struct OWMissionFetchedProperties OWMissionFetchedProperties = {
 
 
 
+@dynamic expirationDate;
+
+
+
+
+
+
 @dynamic featured;
 
 
@@ -175,6 +189,32 @@ const struct OWMissionFetchedProperties OWMissionFetchedProperties = {
 
 - (void)setPrimitiveFeaturedValue:(BOOL)value_ {
 	[self setPrimitiveFeatured:[NSNumber numberWithBool:value_]];
+}
+
+
+
+
+
+@dynamic joined;
+
+
+
+- (BOOL)joinedValue {
+	NSNumber *result = [self joined];
+	return [result boolValue];
+}
+
+- (void)setJoinedValue:(BOOL)value_ {
+	[self setJoined:[NSNumber numberWithBool:value_]];
+}
+
+- (BOOL)primitiveJoinedValue {
+	NSNumber *result = [self primitiveJoined];
+	return [result boolValue];
+}
+
+- (void)setPrimitiveJoinedValue:(BOOL)value_ {
+	[self setPrimitiveJoined:[NSNumber numberWithBool:value_]];
 }
 
 

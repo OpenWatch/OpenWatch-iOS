@@ -993,6 +993,7 @@
 		D9892474175574C700F52B9C /* 108-badge@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "108-badge@2x.png"; sourceTree = "<group>"; };
 		D9892477175578E500F52B9C /* _OWMission.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _OWMission.h; sourceTree = "<group>"; };
 		D9892478175578E500F52B9C /* _OWMission.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _OWMission.m; sourceTree = "<group>"; };
+		D9899B1D17B2F6380058E740 /* Model 4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Model 4.xcdatamodel"; sourceTree = "<group>"; };
 		D989C646179B5C0000441EFA /* BugSense-iOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "BugSense-iOS.framework"; path = "BugSense-iOS/BugSense-iOS.framework"; sourceTree = "<group>"; };
 		D98F4882173DC02D00BBE80E /* OWCharacterCountdownView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWCharacterCountdownView.h; sourceTree = "<group>"; };
 		D98F4883173DC02D00BBE80E /* OWCharacterCountdownView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWCharacterCountdownView.m; sourceTree = "<group>"; };
@@ -2930,7 +2931,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "cd OpenWatch\nmogenerator --template-var arc=true -m \"Model.xcdatamodeld/Model 3.xcdatamodel/\"";
+			shellScript = "cd OpenWatch\nmogenerator --template-var arc=true -m \"Model.xcdatamodeld/Model 4.xcdatamodel/\"";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -3616,10 +3617,11 @@
 			isa = XCVersionGroup;
 			children = (
 				D9109AC41790D02700A5B589 /* Model 3.xcdatamodel */,
+				D9899B1D17B2F6380058E740 /* Model 4.xcdatamodel */,
 				D9D5BDB61753DDC4001770FC /* Model 2.xcdatamodel */,
 				D9EB4C5A166D338B0019F8B6 /* Model.xcdatamodel */,
 			);
-			currentVersion = D9109AC41790D02700A5B589 /* Model 3.xcdatamodel */;
+			currentVersion = D9899B1D17B2F6380058E740 /* Model 4.xcdatamodel */;
 			path = Model.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

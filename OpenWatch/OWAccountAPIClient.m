@@ -385,13 +385,11 @@
     }];
 }
 
-- (void) postObjectWithUUID:(NSString*)UUID objectClass:(Class)objectClass success:(void (^)(void))success failure:(void (^)(NSString *reason))failure retryCount:(NSUInteger)retryCount {
-    
-    
-    OWLocalMediaObject *mediaObject = [objectClass localMediaObjectWithUUID:UUID];
-    NSManagedObjectID *mediaObjectID = mediaObject.objectID;
+- (void) postObjectWithObjectID:(NSManagedObjectID *)objectID success:(void (^)(NSManagedObjectID *objectID))success failure:(void (^)(NSString *reason))failure  retryCount:(NSUInteger)retryCount {
+    NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
+    OWMediaObject *mediaObject = (OWMediaObject*)[context existingObjectWithID:objectID error:nil];
     if (!mediaObject) {
-        NSLog(@"Object %@ (%@) not found!", UUID, NSStringFromClass(objectClass));
+        NSLog(@"Object %@ not found!", objectID);
         return;
     }
     
@@ -406,77 +404,90 @@
         }
         return;
     }
-
+    
     
     void (^failureBlock)(AFHTTPRequestOperation*, NSError*) = ^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"failed to POST recording: %@ %@", operation.responseString, error.userInfo);
-        [self postObjectWithUUID:UUID objectClass:objectClass success:success failure:failure retryCount:retryCount - 1];
+        [self postObjectWithObjectID:objectID success:success failure:failure retryCount:retryCount - 1];
     };
-
+    
     void (^successBlock)(AFHTTPRequestOperation*, id) = ^(AFHTTPRequestOperation *operation, id responseObject) {
         NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
-        OWLocalMediaObject *localMediaObject = (OWLocalMediaObject*)[context existingObjectWithID:mediaObjectID error:nil];
+        OWMediaObject *mediaObject = (OWMediaObject*)[context existingObjectWithID:objectID error:nil];
         
-        NSLog(@"POST response for %@ : %@ // %@", operation.request.URL.absoluteString, parameters, [responseObject description]);
-        if ([responseObject isKindOfClass:[NSDictionary class]] && [[responseObject objectForKey:@"success"] boolValue]) {
-            NSDictionary *object = [responseObject objectForKey:@"object"];
-            [localMediaObject loadMetadataFromDictionary:object];
-            if (success) {
-                success();
+        if ([mediaObject isKindOfClass:[OWLocalMediaObject class]]) {
+            OWLocalMediaObject *localMediaObject = (OWLocalMediaObject*)mediaObject;
+            NSLog(@"POST response for %@ : %@ // %@", operation.request.URL.absoluteString, parameters, [responseObject description]);
+            if ([responseObject isKindOfClass:[NSDictionary class]] && [[responseObject objectForKey:@"success"] boolValue]) {
+                NSDictionary *object = [responseObject objectForKey:@"object"];
+                [localMediaObject loadMetadataFromDictionary:object];
+                if (success) {
+                    success(objectID);
+                }
+            }
+            if (localMediaObject.uploadedValue == NO && ([localMediaObject isKindOfClass:[OWPhoto class]] || [localMediaObject isKindOfClass:[OWAudio class]])) {
+                NSString *postPath = [self pathForClass:[localMediaObject class] uuid:localMediaObject.uuid];
+                NSURLRequest *request = [self multipartFormRequestWithMethod:@"POST" path:postPath parameters:nil constructingBodyWithBlock: ^(id <AFMultipartFormData> formData) {
+                    NSError *error = nil;
+                    [formData appendPartWithFileURL:localMediaObject.localMediaURL name:@"file_data" error:&error];
+                    
+                    if (error) {
+                        NSLog(@"Error appending part file URL %@: %@%@", localMediaObject.localMediaURL, [error localizedDescription], [error userInfo]);
+                    }
+                    
+                }];
+                AFJSONRequestOperation *operation = [[AFJSONRequestOperation alloc] initWithRequest:request];
+                localMediaObject.uploaded = @(YES);
+                [context MR_saveToPersistentStoreAndWait];
+                
+                [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+                    NSManagedObjectContext *localContext = [NSManagedObjectContext MR_contextForCurrentThread];
+                    OWLocalMediaObject *successMediaObject = (OWLocalMediaObject*)[localContext existingObjectWithID:objectID error:nil];
+                    BOOL successValue = NO;
+                    NSLog(@"media POST response: %@", operation.responseString);
+                    if ([responseObject isKindOfClass:[NSDictionary class]] && [[responseObject objectForKey:@"success"] boolValue]) {
+                        successMediaObject.uploaded = @(YES);
+                        successValue = YES;
+                        [localContext MR_saveToPersistentStoreAndWait];
+                        [[NSNotificationCenter defaultCenter] postNotificationName:kOWCaptureAPIClientBandwidthNotification object:nil];
+                        if (success) {
+                            success(objectID);
+                        }
+                    }
+                    if (!successValue) {
+                        NSLog(@"Success is not true!");
+                        [self postObjectWithObjectID:objectID success:success failure:failure retryCount:retryCount - 1];
+                    }
+                } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                    NSLog(@"Failed to upload photo: %@", error.userInfo);
+                    [self postObjectWithObjectID:objectID success:success failure:failure retryCount:retryCount - 1];
+                }];
+                [self enqueueHTTPRequestOperation:operation];
             }
         }
-        if (localMediaObject.uploadedValue == NO && ([localMediaObject isKindOfClass:[OWPhoto class]] || [localMediaObject isKindOfClass:[OWAudio class]])) {
-            NSString *postPath = [self pathForClass:objectClass uuid:UUID];
-            NSURLRequest *request = [self multipartFormRequestWithMethod:@"POST" path:postPath parameters:nil constructingBodyWithBlock: ^(id <AFMultipartFormData> formData) {
-                NSError *error = nil;
-                [formData appendPartWithFileURL:localMediaObject.localMediaURL name:@"file_data" error:&error];
-                
-                if (error) {
-                    NSLog(@"Error appending part file URL %@: %@%@", localMediaObject.localMediaURL, [error localizedDescription], [error userInfo]);
-                }
-                
-            }];
-            AFJSONRequestOperation *operation = [[AFJSONRequestOperation alloc] initWithRequest:request];
-            localMediaObject.uploaded = @(YES);
-            [context MR_saveToPersistentStoreAndWait];
-            
-            [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-                NSManagedObjectContext *localContext = [NSManagedObjectContext MR_contextForCurrentThread];
-                OWLocalMediaObject *successMediaObject = (OWLocalMediaObject*)[localContext existingObjectWithID:mediaObjectID error:nil];
-                BOOL successValue = NO;
-                NSLog(@"media POST response: %@", operation.responseString);
-                if ([responseObject isKindOfClass:[NSDictionary class]] && [[responseObject objectForKey:@"success"] boolValue]) {
-                    successMediaObject.uploaded = @(YES);
-                    successValue = YES;
-                    [localContext MR_saveToPersistentStoreAndWait];
-                    [[NSNotificationCenter defaultCenter] postNotificationName:kOWCaptureAPIClientBandwidthNotification object:nil];
-                    if (success) {
-                        success();
-                    }
-                }
-                if (!successValue) {
-                    NSLog(@"Success is not true!");
-                    [self postObjectWithUUID:UUID objectClass:objectClass success:success failure:failure retryCount:retryCount - 1];
-                }
-            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                NSLog(@"Failed to upload photo: %@", error.userInfo);
-                [self postObjectWithUUID:UUID objectClass:objectClass success:success failure:failure retryCount:retryCount - 1];
-            }];
-            [self enqueueHTTPRequestOperation:operation];
-        }
+        
+        
     };
     
     NSString *path = nil;
     if (mediaObject.serverID.intValue == 0) {
-        [self getObjectWithUUID:mediaObject.uuid objectClass:[mediaObject class] success:^(NSManagedObjectID *objectID) {
-            [self postPath:[self pathForClass:objectClass uuid:UUID] parameters:parameters success:successBlock failure:failureBlock];
-        } failure:^(NSString *reason) {
-            [self postPath:[self pathForClass:objectClass uuid:UUID] parameters:parameters success:successBlock failure:failureBlock];
-        } retryCount:kOWAccountAPIClientDefaultRetryCount];
+        if ([mediaObject isKindOfClass:[OWLocalMediaObject class]]) {
+            OWLocalMediaObject *localMediaObject = (OWLocalMediaObject*)mediaObject;
+            [self getObjectWithUUID:localMediaObject.uuid objectClass:[localMediaObject class] success:^(NSManagedObjectID *objectID) {
+                [self postPath:[self pathForClass:[localMediaObject class] uuid:localMediaObject.uuid] parameters:parameters success:successBlock failure:failureBlock];
+            } failure:^(NSString *reason) {
+                [self postPath:[self pathForClass:[localMediaObject class] uuid:localMediaObject.uuid] parameters:parameters success:successBlock failure:failureBlock];
+            } retryCount:kOWAccountAPIClientDefaultRetryCount];
+        }
     } else {
-        path = [self pathForClass:objectClass uuid:UUID];
+        path = [self pathForMediaObject:mediaObject];
         [self postPath:path parameters:parameters success:successBlock failure:failureBlock];
     }
+}
+
+- (void) postObjectWithUUID:(NSString*)UUID objectClass:(Class)objectClass success:(void (^)(NSManagedObjectID *objectID))success failure:(void (^)(NSString *reason))failure retryCount:(NSUInteger)retryCount {
+    OWLocalMediaObject *mediaObject = [objectClass localMediaObjectWithUUID:UUID];
+    [self postObjectWithObjectID:mediaObject.objectID success:success failure:failure retryCount:retryCount];
 }
 
 - (NSString*) pathForUserRecordingsOnPage:(NSUInteger)page {
@@ -708,6 +719,25 @@
         NSLog(@"Reported! %@", operation.responseString);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error reporting object: %@", error.userInfo);
+    }];
+}
+
+- (void) postAction:(NSString*)action forMission:(OWMission*)mission success:(void (^)(void))successBlock failure:(void (^)(NSError *error))failureBlock retryCount:(NSUInteger)retryCount {
+    NSString *path = [self pathForMediaObject:mission];
+    [self postPath:path parameters:@{@"action": action} success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"mission action response: %@", responseObject);
+        if (successBlock) {
+            successBlock();
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if (retryCount <= 0) {
+            NSLog(@"Total failure trying to POST mission action: %@ / %@, %@", path, action, error.userInfo);
+            if (failureBlock) {
+                failureBlock(error);
+            }
+            return;
+        }
+        [self postAction:action forMission:mission success:successBlock failure:failureBlock retryCount:retryCount - 1];
     }];
 }
 
