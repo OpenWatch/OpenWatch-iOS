@@ -18,6 +18,7 @@
 #import "PKRevealController.h"
 #import "OWStrings.h"
 #import <BugSense-iOS/BugSenseController.h>
+#import "OWMissionSelectorViewController.h"
 
 @implementation OWAppDelegate
 @synthesize locationController, dashboardViewController, backgroundTask, backgroundTimer, allowRotation, creationController, revealController, feedViewController, navigationController;
@@ -25,8 +26,10 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+#ifndef DEBUG
     [BugSenseController sharedControllerWithBugSenseAPIKey:BUGSENSE_API_KEY];
-    
+#endif
+
     [MagicalRecord setupAutoMigratingCoreDataStack];
 
     self.allowRotation = NO;
@@ -69,8 +72,14 @@
     
     self.window.rootViewController = revealController;
     
-    // for testing views directly
-    //self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[[OWLocalMediaEditViewController alloc] init]];
+    //for testing views directly
+    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[[OWMissionSelectorViewController alloc] initWithCallbackBlock:^(OWMission *selectedMission, NSError *error) {
+        if (error) {
+            NSLog(@"error selecting mission: %@", error);
+        } else {
+            NSLog(@"selected mission: %@", selectedMission);
+        }
+    }]];
     
     self.creationController = [[[self mediaCreationClass] alloc] init];
     [self.window makeKeyAndVisible];

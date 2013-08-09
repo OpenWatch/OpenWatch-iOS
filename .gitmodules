@@ -67,3 +67,6 @@
 [submodule "Submodules/BugSense-iOS"]
 	path = Submodules/BugSense-iOS
 	url = git@github.com:OpenWatch/BugSense-iOS.git
+[submodule "Submodules/ODRefreshControl"]
+	path = Submodules/ODRefreshControl
+	url = https://github.com/Sephiroth87/ODRefreshControl.git

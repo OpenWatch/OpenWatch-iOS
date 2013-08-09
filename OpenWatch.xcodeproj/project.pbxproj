@@ -55,6 +55,7 @@
 		D91AC0371733021800823179 /* 86-camera@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D91AC02F1733021800823179 /* 86-camera@2x.png */; };
 		D91AC03A1733021800823179 /* 279-videocamera.png in Resources */ = {isa = PBXBuildFile; fileRef = D91AC0321733021800823179 /* 279-videocamera.png */; };
 		D91AC03B1733021800823179 /* 279-videocamera@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D91AC0331733021800823179 /* 279-videocamera@2x.png */; };
+		D91B7B0817B449F900C2D182 /* ODRefreshControl.m in Sources */ = {isa = PBXBuildFile; fileRef = D91B7B0717B449F900C2D182 /* ODRefreshControl.m */; };
 		D922B1E017727C6A0072BE0E /* TTTAddressFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = D922B1D317727C6A0072BE0E /* TTTAddressFormatter.m */; };
 		D922B1E117727C6A0072BE0E /* TTTArrayFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = D922B1D517727C6A0072BE0E /* TTTArrayFormatter.m */; };
 		D922B1E217727C6A0072BE0E /* TTTLocationFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = D922B1D717727C6A0072BE0E /* TTTLocationFormatter.m */; };
@@ -179,6 +180,7 @@
 		D9892475175574C700F52B9C /* 108-badge.png in Resources */ = {isa = PBXBuildFile; fileRef = D9892473175574C700F52B9C /* 108-badge.png */; };
 		D9892476175574C700F52B9C /* 108-badge@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9892474175574C700F52B9C /* 108-badge@2x.png */; };
 		D9892479175578E500F52B9C /* _OWMission.m in Sources */ = {isa = PBXBuildFile; fileRef = D9892478175578E500F52B9C /* _OWMission.m */; };
+		D9899B2717B4348F0058E740 /* OWMissionSelectorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9899B2617B4348F0058E740 /* OWMissionSelectorViewController.m */; };
 		D989C647179B5C0000441EFA /* BugSense-iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D989C646179B5C0000441EFA /* BugSense-iOS.framework */; };
 		D98F4884173DC02D00BBE80E /* OWCharacterCountdownView.m in Sources */ = {isa = PBXBuildFile; fileRef = D98F4883173DC02D00BBE80E /* OWCharacterCountdownView.m */; };
 		D98FCB4116A4AA570071DF6B /* _OWLocalRecording.m in Sources */ = {isa = PBXBuildFile; fileRef = D98FCB3216A4AA570071DF6B /* _OWLocalRecording.m */; };
@@ -820,6 +822,8 @@
 		D91AC0311733021800823179 /* 275-broadcast@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "275-broadcast@2x.png"; sourceTree = "<group>"; };
 		D91AC0321733021800823179 /* 279-videocamera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "279-videocamera.png"; sourceTree = "<group>"; };
 		D91AC0331733021800823179 /* 279-videocamera@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "279-videocamera@2x.png"; sourceTree = "<group>"; };
+		D91B7B0617B449F900C2D182 /* ODRefreshControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ODRefreshControl.h; sourceTree = "<group>"; };
+		D91B7B0717B449F900C2D182 /* ODRefreshControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ODRefreshControl.m; sourceTree = "<group>"; };
 		D922B1D217727C6A0072BE0E /* TTTAddressFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTAddressFormatter.h; sourceTree = "<group>"; };
 		D922B1D317727C6A0072BE0E /* TTTAddressFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTAddressFormatter.m; sourceTree = "<group>"; };
 		D922B1D417727C6A0072BE0E /* TTTArrayFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTArrayFormatter.h; sourceTree = "<group>"; };
@@ -993,7 +997,9 @@
 		D9892474175574C700F52B9C /* 108-badge@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "108-badge@2x.png"; sourceTree = "<group>"; };
 		D9892477175578E500F52B9C /* _OWMission.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _OWMission.h; sourceTree = "<group>"; };
 		D9892478175578E500F52B9C /* _OWMission.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _OWMission.m; sourceTree = "<group>"; };
-		D9899B1D17B2F6380058E740 /* Model 4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Model 4.xcdatamodel"; sourceTree = "<group>"; };
+		D9899B1D17B2F6380058E740 /* Model 4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 4.xcdatamodel"; sourceTree = "<group>"; };
+		D9899B2517B4348E0058E740 /* OWMissionSelectorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWMissionSelectorViewController.h; sourceTree = "<group>"; };
+		D9899B2617B4348F0058E740 /* OWMissionSelectorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWMissionSelectorViewController.m; sourceTree = "<group>"; };
 		D989C646179B5C0000441EFA /* BugSense-iOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "BugSense-iOS.framework"; path = "BugSense-iOS/BugSense-iOS.framework"; sourceTree = "<group>"; };
 		D98F4882173DC02D00BBE80E /* OWCharacterCountdownView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWCharacterCountdownView.h; sourceTree = "<group>"; };
 		D98F4883173DC02D00BBE80E /* OWCharacterCountdownView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWCharacterCountdownView.m; sourceTree = "<group>"; };
@@ -1517,6 +1523,16 @@
 			path = "UserVoice-SDK/Resources";
 			sourceTree = "<group>";
 		};
+		D91B7B0517B449F900C2D182 /* ODRefreshControl */ = {
+			isa = PBXGroup;
+			children = (
+				D91B7B0617B449F900C2D182 /* ODRefreshControl.h */,
+				D91B7B0717B449F900C2D182 /* ODRefreshControl.m */,
+			);
+			name = ODRefreshControl;
+			path = ODRefreshControl/ODRefreshControl;
+			sourceTree = "<group>";
+		};
 		D922B1D117727C6A0072BE0E /* FormatterKit */ = {
 			isa = PBXGroup;
 			children = (
@@ -1893,6 +1909,7 @@
 		D9D2E1501652EA8A0000E7C5 /* Submodules */ = {
 			isa = PBXGroup;
 			children = (
+				D91B7B0517B449F900C2D182 /* ODRefreshControl */,
 				D989C646179B5C0000441EFA /* BugSense-iOS.framework */,
 				D9D5E6871784EC60004AE5F6 /* SSToolkit */,
 				D9D5E6831784E07A004AE5F6 /* SLGlowingTextField */,
@@ -2024,6 +2041,8 @@
 		D9D2E21D16532B220000E7C5 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				D9899B2517B4348E0058E740 /* OWMissionSelectorViewController.h */,
+				D9899B2617B4348F0058E740 /* OWMissionSelectorViewController.m */,
 				D94972C31787605400DC5FF5 /* OWTwitterAccountViewController.h */,
 				D94972C41787605400DC5FF5 /* OWTwitterAccountViewController.m */,
 				D9C7910D1774D75B0031D56A /* OWRootViewController.h */,
@@ -3107,6 +3126,8 @@
 				D95F3975178B6CFE00B7FC32 /* OWEditableMediaCell.m in Sources */,
 				D93AEBF6178F7CD4005BDBEA /* OWProfileDashboardItem.m in Sources */,
 				D93AEBF9178F7DB2005BDBEA /* OWProfileDashboardCell.m in Sources */,
+				D9899B2717B4348F0058E740 /* OWMissionSelectorViewController.m in Sources */,
+				D91B7B0817B449F900C2D182 /* ODRefreshControl.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

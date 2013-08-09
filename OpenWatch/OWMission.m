@@ -10,6 +10,7 @@
 #import "OWMissionTableViewCell.h"
 #import "OWConstants.h"
 #import "OWMissionBadgeView.h"
+#import "OWUtilities.h"
 
 #define kJoinedKey @"joined"
 
@@ -81,6 +82,12 @@
     NSNumber *longitude = [metadataDictionary objectForKey:@"end_lon"];
     if (longitude) {
         self.longitude = longitude;
+    }
+    
+    NSString *expirationDateString = [metadataDictionary objectForKey:@"expires"];
+    if (expirationDateString) {
+        NSDateFormatter *dateFormatter = [OWUtilities utcDateFormatter];
+        self.expirationDate = [dateFormatter dateFromString:expirationDateString];
     }
 }
 
