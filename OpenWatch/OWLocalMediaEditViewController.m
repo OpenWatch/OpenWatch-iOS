@@ -23,6 +23,8 @@
 #import "OWSocialTableItem.h"
 #import "OWEditableMediaCell.h"
 #import "FacebookSDK.h"
+#import "OWSelectionTableItem.h"
+#import "OWMissionSelectorViewController.h"
 
 #define TAGS_ROW 0
 #define PADDING 10.0f
@@ -52,12 +54,15 @@ static NSString *editableCellIdentifier = @"EditableCellIdentifier";
     [self.twitterSwitch addTarget:self action:@selector(toggleTwitterSwitch:) forControlEvents:UIControlEventValueChanged];
 
     OWSocialTableItem *twitterItem = [[OWSocialTableItem alloc] initWithSwitch:twitterSwitch image:[UIImage imageNamed:@"twitter.png"] text:POST_TO_TWITTER_STRING];
+    
+    OWSelectionTableItem *missionSelectionItem = [[OWSelectionTableItem alloc] initWithText:@"Attach to Mission" image:[UIImage imageNamed:@"108-badge.png"] target:self selector:@selector(selectMission:)];
 
     self.openwatchSwitch = [[UISwitch alloc] init];
     OWSocialTableItem *openWatchItem = [[OWSocialTableItem alloc] initWithSwitch:openwatchSwitch image:[UIImage imageNamed:@"openwatch-eye.png"] text:POST_TO_OPENWATCH_STRING];
     [openwatchSwitch addTarget:self action:@selector(togglePostToOpenwatchSwitch:) forControlEvents:UIControlEventValueChanged];
     
-    self.socialItems = @[openWatchItem, facebookItem, twitterItem];
+    self.openwatchItems = @[openWatchItem, missionSelectionItem];
+    self.socialItems = @[facebookItem, twitterItem];
 }
 
 
@@ -107,7 +112,6 @@ static NSString *editableCellIdentifier = @"EditableCellIdentifier";
 
 - (void) setupSocialTable {
     self.socialTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
-    self.socialTableView.allowsSelection = NO;
     self.socialTableView.dataSource = self;
     self.socialTableView.delegate = self;
     self.socialTableView.backgroundColor = [UIColor clearColor];
@@ -294,15 +298,17 @@ static NSString *editableCellIdentifier = @"EditableCellIdentifier";
 }
 
 - (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView {
-    return 3;
+    return 4;
 }
 
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section == 0) {
         return 1;
     } else if (section == 1) {
-        return self.socialItems.count;
+        return self.openwatchItems.count;
     } else if (section == 2) {
+        return self.socialItems.count;
+    } else if (section == 3) {
         return 1;
     }
     return 0;
@@ -316,6 +322,31 @@ static NSString *editableCellIdentifier = @"EditableCellIdentifier";
     }
 }
 
+
+- (BOOL) tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
+    if ([indexPath isEqual:[NSIndexPath indexPathForRow:1 inSection:1]]) {
+        return YES;
+    }
+    return NO;
+}
+
+- (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if ([indexPath isEqual:[NSIndexPath indexPathForRow:1 inSection:1]]) {
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+        [self showMissionSelector];
+    }
+}
+
+- (void) showMissionSelector {
+    OWMissionSelectorViewController *selector = [[OWMissionSelectorViewController alloc] initWithCallbackBlock:^(OWMission *selectedMission, NSError *error) {
+        if (selectedMission) {
+            NSLog(@"selected: %@", selectedMission.title);
+        }
+    }];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:selector];
+    [self presentViewController:nav animated:YES completion:nil];
+}
+
 - (UITableViewCell*) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = nil;
     if (indexPath.section == 0) {
@@ -324,12 +355,26 @@ static NSString *editableCellIdentifier = @"EditableCellIdentifier";
         editableCell.textView = titleTextView;
         editableCell.previewView = previewView;
     } else if (indexPath.section == 1) {
+        OWTableItem *tableItem = [self.openwatchItems objectAtIndex:indexPath.row];
+        cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
+        cell.textLabel.text = tableItem.text;
+        cell.imageView.image = tableItem.image;
+        if ([tableItem isKindOfClass:[OWSocialTableItem class]]) {
+            OWSocialTableItem *socialItem = (OWSocialTableItem*)tableItem;
+            cell.accessoryView = socialItem.socialSwitch;
+            cell.accessoryType = UITableViewCellAccessoryNone;
+        } else if ([tableItem isKindOfClass:[OWSelectionTableItem class]]) {
+            cell.accessoryView = nil;
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        }
+    } else if (indexPath.section == 2) {
         OWSocialTableItem *socialItem = [self.socialItems objectAtIndex:indexPath.row];
         cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
         cell.textLabel.text = socialItem.text;
         cell.imageView.image = socialItem.image;
         cell.accessoryView = socialItem.socialSwitch;
-    } else if (indexPath.section == 2) {
+        cell.accessoryType = UITableViewCellAccessoryNone;
+    } else if (indexPath.section == 3) {
         cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
         [cell.contentView addSubview:doneButton];
         self.doneButton.frame = cell.contentView.bounds;

@@ -10,8 +10,14 @@
 #import "OWMission.h"
 #import "OWAccountAPIClient.h"
 #import "ODRefreshControl.h"
+#import "UIImageView+AFNetworking.h"
+#import "OWUtilities.h"
+#import "OWMissionSelectionCell.h"
+#import "OWStrings.h"
 
 static NSString *cellIdentifier = @"CellIdentifier";
+static NSString *missionCellIdentifier = @"MissionCellIdentifier";
+
 
 @interface OWMissionSelectorViewController ()
 
@@ -25,50 +31,46 @@ static NSString *cellIdentifier = @"CellIdentifier";
     self = [super init];
     if (self) {
         self.callbackBlock = newCallbackBlock;
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"expirationDate >= %@ && joined == YES", [NSDate date]];
-        self.missionsFRC = [OWMission MR_fetchAllSortedBy:OWMediaObjectAttributes.title ascending:YES withPredicate:predicate groupBy:nil delegate:self];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"expirationDate >= %@", [NSDate date]];
+        self.missionsFRC = [OWMission MR_fetchAllSortedBy:OWMissionAttributes.joined ascending:NO withPredicate:predicate groupBy:nil delegate:self];
         self.missionsTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
         self.missionsTableView.delegate = self;
         self.missionsTableView.dataSource = self;
         [self.missionsTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:cellIdentifier];
+        [self.missionsTableView registerClass:[OWMissionSelectionCell class] forCellReuseIdentifier:missionCellIdentifier];
         
         ODRefreshControl *refreshControl = [[ODRefreshControl alloc] initInScrollView:self.missionsTableView];
         [refreshControl addTarget:self action:@selector(refreshMissions:) forControlEvents:UIControlEventValueChanged];
         
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(doneButtonPressed:)];
-        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Reset" style:UIBarButtonItemStylePlain target:self action:@selector(reset)];
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelButtonPressed:)];
+        self.title = CHOOSE_MISSION_STRING;
     }
     return self;
 }
 
-- (void) reset {
-    NSArray *missions = [OWMission MR_findAll];
-    [missions enumerateObjectsUsingBlock:^(OWMission *mission, NSUInteger index, BOOL *stop) {
-        NSLog(@"updating mission %@: %d", mission.title, mission.joinedValue);
-        mission.joined = @YES;
-        NSLog(@"updated mission %@: %d", mission.title, mission.joinedValue);
-    }];
-    [[NSManagedObjectContext MR_contextForCurrentThread] MR_saveToPersistentStoreWithCompletion:^(BOOL success, NSError *error) {
-        if (error) {
-            NSLog(@"error saving");
-        }
-    }];
+- (void) cancelButtonPressed:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void) doneButtonPressed:(id)sender {
-    self.selectedMission.joined = @(!self.selectedMission.joinedValue);
-    [[NSManagedObjectContext MR_contextForCurrentThread] MR_saveToPersistentStoreAndWait];
+    callbackBlock(self.selectedMission, nil);
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void) refreshMissions:(ODRefreshControl*)refreshControl
 {
     [[OWAccountAPIClient sharedClient] fetchMediaObjectsForFeedType:kOWFeedTypeMissions feedName:nil page:1 success:^(NSArray *mediaObjectIDs, NSUInteger totalPages) {
-        NSLog(@"count: %d, totalPages: %d", mediaObjectIDs.count, totalPages);
-        [refreshControl endRefreshing];
+        [self finishRefreshMissions:refreshControl];
     } failure:^(NSString *reason) {
-        NSLog(@"failed to fetch missions");
-        [refreshControl endRefreshing];
+        [self finishRefreshMissions:refreshControl];
     }];
+}
+
+- (void) finishRefreshMissions:(ODRefreshControl*)refreshControl {
+    [refreshControl endRefreshing];
+    self.selectedMission = nil;
+    [missionsTableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:YES scrollPosition:UITableViewScrollPositionTop];
 }
 
 - (void)viewDidLoad
@@ -80,13 +82,16 @@ static NSString *cellIdentifier = @"CellIdentifier";
 - (void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.missionsTableView.frame = self.view.bounds;
-    /*
     [[OWAccountAPIClient sharedClient] fetchMediaObjectsForFeedType:kOWFeedTypeMissions feedName:nil page:1 success:^(NSArray *mediaObjectIDs, NSUInteger totalPages) {
         NSLog(@"count: %d, totalPages: %d", mediaObjectIDs.count, totalPages);
     } failure:^(NSString *reason) {
         NSLog(@"failed to fetch missions");
     }];
-     */
+}
+
+- (void) viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [missionsTableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:YES scrollPosition:UITableViewScrollPositionTop];
 }
 
 - (void)didReceiveMemoryWarning
@@ -96,103 +101,86 @@ static NSString *cellIdentifier = @"CellIdentifier";
 }
 
 - (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView {
-    return [[missionsFRC sections] count];
+    return 2;
 }
 
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [[missionsFRC sections][section]numberOfObjects];
+    if (section == 0) {
+        return 1;
+    } else if (section == 1) {
+        return [[missionsFRC sections][0]numberOfObjects];
+    }
+    return 0;
+}
+
+- (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section == 0) {
+        return 45.0f;
+    } else if (indexPath.section == 1) {
+        return 100.0f;
+    }
+    return 0;
 }
 
 - (UITableViewCell*) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
-    OWMission *mission = [missionsFRC objectAtIndexPath:indexPath];
-    cell.textLabel.text = mission.title;
-    if (mission.joinedValue) {
-        cell.accessoryType = UITableViewCellAccessoryCheckmark;
-    } else {
-        cell.accessoryType = UITableViewCellAccessoryNone;
+    UITableViewCell *cell = nil;
+    if (indexPath.section == 0) {
+        cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
+        cell.textLabel.text = @"No Mission";
+    } else if (indexPath.section == 1) {
+        cell = [tableView dequeueReusableCellWithIdentifier:missionCellIdentifier forIndexPath:indexPath];
+        NSIndexPath *fakePath = [NSIndexPath indexPathForRow:indexPath.row inSection:0];
+        OWMission *mission = [missionsFRC objectAtIndexPath:fakePath];
+        OWMissionSelectionCell *missionCell = (OWMissionSelectionCell*)cell;
+        missionCell.mission = mission;
     }
     return cell;
 }
 
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
-    NSLog(@"will change content");
     [missionsTableView beginUpdates];
 }
 
-- (void) controller:(NSFetchedResultsController *)controller didChangeSection:(id<NSFetchedResultsSectionInfo>)sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type {
-    switch(type) {
-        case NSFetchedResultsChangeInsert:
-        {
-            [missionsTableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationNone];
-            NSLog(@"insert section: %d", sectionIndex);
-        }
-            break;
-        case NSFetchedResultsChangeUpdate:
-        {
-            [missionsTableView reloadSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationNone];
-            NSLog(@"update section: %d", sectionIndex);
-        }
-            break;
-        case NSFetchedResultsChangeDelete:
-        {
-            [missionsTableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationNone];
-            NSLog(@"delete section: %d", sectionIndex);
-        }
-            break;
-        case NSFetchedResultsChangeMove:
-        {
-            NSLog(@"move section?? %d", sectionIndex);
-        }
-            break;
-    }
-}
-
 - (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject
-       atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type
-      newIndexPath:(NSIndexPath *)newIndexPath {
+       atIndexPath:(NSIndexPath *)_indexPath forChangeType:(NSFetchedResultsChangeType)type
+      newIndexPath:(NSIndexPath *)_newIndexPath {
+    NSIndexPath * indexPath = [NSIndexPath indexPathForRow:_indexPath.row inSection:1];
+    NSIndexPath * newIndexPath = [NSIndexPath indexPathForRow:_newIndexPath.row inSection:1];
     switch(type) {
         case NSFetchedResultsChangeInsert:
         {
             [missionsTableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationNone];
-            NSLog(@"insert row %@", newIndexPath);
         }
             break;
         case NSFetchedResultsChangeUpdate:
         {
             [missionsTableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
-            NSLog(@"update row %@", indexPath);
-
         }
             break;
         case NSFetchedResultsChangeDelete:
         {
             [missionsTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
-            NSLog(@"delete row %@", indexPath);
-
         }
             break;
         case NSFetchedResultsChangeMove:
         {
             [missionsTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
-            if (newIndexPath) {
-                [missionsTableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationNone];
-            }
-            NSLog(@"move row from %@ to %@", indexPath, newIndexPath);
+            [missionsTableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationNone];
         }
             break;
     }
 }
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    //[tableView deselectRowAtIndexPath:indexPath animated:YES];
-    self.selectedMission = [missionsFRC objectAtIndexPath:indexPath];
+    if (indexPath.section == 1) {
+        self.selectedMission = [missionsFRC objectAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row inSection:0]];
+    } else {
+        self.selectedMission = nil;
+    }
 }
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
-    NSLog(@"did change content");
     [missionsTableView endUpdates];
-
 }
 
 

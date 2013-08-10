@@ -25,6 +25,7 @@
 
 @property (nonatomic, strong) UITableView *socialTableView;
 @property (nonatomic, strong) NSArray *socialItems;
+@property (nonatomic, strong) NSArray *openwatchItems;
 @property (nonatomic, strong) UISwitch *facebookSwitch;
 @property (nonatomic, strong) UISwitch *twitterSwitch;
 @property (nonatomic, strong) UISwitch *openwatchSwitch;

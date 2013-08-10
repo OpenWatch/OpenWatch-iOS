@@ -12,10 +12,8 @@
 @synthesize socialSwitch, image, text;
 
 - (id) initWithSwitch:(UISwitch*)newSocialSwitch image:(UIImage*)newImage text:(NSString*)newText {
-    if (self = [super init]) {
+    if (self = [super initWithText:newText image:newImage]) {
         self.socialSwitch = newSocialSwitch;
-        self.image = newImage;
-        self.text = newText;
     }
     return self;
 }

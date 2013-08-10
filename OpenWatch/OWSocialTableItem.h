@@ -7,12 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "OWTableItem.h"
 
-@interface OWSocialTableItem : NSObject
+@interface OWSocialTableItem : OWTableItem
 
 @property (nonatomic, strong) UISwitch *socialSwitch;
-@property (nonatomic, strong) UIImage *image;
-@property (nonatomic, strong) NSString *text;
 
 - (id) initWithSwitch:(UISwitch*)newSocialSwitch image:(UIImage*)newImage text:(NSString*)newText;
 

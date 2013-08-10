@@ -693,6 +693,9 @@
 		D9EB4C78166D5F600019F8B6 /* OWRecordingSegment.m in Sources */ = {isa = PBXBuildFile; fileRef = D9EB4C77166D5F600019F8B6 /* OWRecordingSegment.m */; };
 		D9EB4C7F166D67920019F8B6 /* OWUser.m in Sources */ = {isa = PBXBuildFile; fileRef = D9EB4C7E166D67920019F8B6 /* OWUser.m */; };
 		D9ECBF39175FD81400A34DFE /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D9ECBF37175FD81400A34DFE /* Localizable.strings */; };
+		D9F3867D17B5A4B000E70798 /* OWMissionSelectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D9F3867C17B5A4B000E70798 /* OWMissionSelectionCell.m */; };
+		D9F3868217B5BBCF00E70798 /* OWTableItem.m in Sources */ = {isa = PBXBuildFile; fileRef = D9F3868117B5BBCF00E70798 /* OWTableItem.m */; };
+		D9F3868517B5BC7600E70798 /* OWSelectionTableItem.m in Sources */ = {isa = PBXBuildFile; fileRef = D9F3868417B5BC7500E70798 /* OWSelectionTableItem.m */; };
 		D9FA646517447D91000051B7 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = D9FA646417447D91000051B7 /* Default.png */; };
 		D9FA646717447DA5000051B7 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9FA646617447DA5000051B7 /* Default@2x.png */; };
 		D9FA646917447DAA000051B7 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9FA646817447DAA000051B7 /* Default-568h@2x.png */; };
@@ -1357,6 +1360,12 @@
 		D9ECBF3A175FF82600A34DFE /* tr */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D9ECC1B9175FFD8400A34DFE /* OccupyGezi-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "OccupyGezi-Info.plist"; path = "OccupyGezi/OccupyGezi-Info.plist"; sourceTree = "<group>"; };
 		D9ECC1BB176001CD00A34DFE /* tr */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		D9F3867B17B5A4B000E70798 /* OWMissionSelectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWMissionSelectionCell.h; sourceTree = "<group>"; };
+		D9F3867C17B5A4B000E70798 /* OWMissionSelectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWMissionSelectionCell.m; sourceTree = "<group>"; };
+		D9F3868017B5BBCF00E70798 /* OWTableItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWTableItem.h; sourceTree = "<group>"; };
+		D9F3868117B5BBCF00E70798 /* OWTableItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWTableItem.m; sourceTree = "<group>"; };
+		D9F3868317B5BC7500E70798 /* OWSelectionTableItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWSelectionTableItem.h; sourceTree = "<group>"; };
+		D9F3868417B5BC7500E70798 /* OWSelectionTableItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWSelectionTableItem.m; sourceTree = "<group>"; };
 		D9FA646417447D91000051B7 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = ../Default.png; sourceTree = "<group>"; };
 		D9FA646617447DA5000051B7 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x.png"; path = "../Default@2x.png"; sourceTree = "<group>"; };
 		D9FA646817447DAA000051B7 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "../Default-568h@2x.png"; sourceTree = "<group>"; };
@@ -1656,6 +1665,8 @@
 		D97EAAA3167911B900A1B038 /* Custom Views */ = {
 			isa = PBXGroup;
 			children = (
+				D9F3867B17B5A4B000E70798 /* OWMissionSelectionCell.h */,
+				D9F3867C17B5A4B000E70798 /* OWMissionSelectionCell.m */,
 				D9D5E67B1784B4EE004AE5F6 /* OWUserProfileView.h */,
 				D9D5E67C1784B4EE004AE5F6 /* OWUserProfileView.m */,
 				D93101C9176FE138008939C3 /* OWVideoPreview.h */,
@@ -1883,6 +1894,10 @@
 		D9C8A59E16B9A1E0004F9E05 /* Table Cells */ = {
 			isa = PBXGroup;
 			children = (
+				D9F3868317B5BC7500E70798 /* OWSelectionTableItem.h */,
+				D9F3868417B5BC7500E70798 /* OWSelectionTableItem.m */,
+				D9F3868017B5BBCF00E70798 /* OWTableItem.h */,
+				D9F3868117B5BBCF00E70798 /* OWTableItem.m */,
 				D9C8A57E16B9A1D2004F9E05 /* OWLocalRecordingTableViewCell.h */,
 				D9C8A57F16B9A1D2004F9E05 /* OWLocalRecordingTableViewCell.m */,
 				D98924701755733F00F52B9C /* OWMissionTableViewCell.h */,
@@ -3128,6 +3143,9 @@
 				D93AEBF9178F7DB2005BDBEA /* OWProfileDashboardCell.m in Sources */,
 				D9899B2717B4348F0058E740 /* OWMissionSelectorViewController.m in Sources */,
 				D91B7B0817B449F900C2D182 /* ODRefreshControl.m in Sources */,
+				D9F3867D17B5A4B000E70798 /* OWMissionSelectionCell.m in Sources */,
+				D9F3868217B5BBCF00E70798 /* OWTableItem.m in Sources */,
+				D9F3868517B5BC7600E70798 /* OWSelectionTableItem.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

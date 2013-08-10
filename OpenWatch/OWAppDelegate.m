@@ -73,13 +73,7 @@
     self.window.rootViewController = revealController;
     
     //for testing views directly
-    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[[OWMissionSelectorViewController alloc] initWithCallbackBlock:^(OWMission *selectedMission, NSError *error) {
-        if (error) {
-            NSLog(@"error selecting mission: %@", error);
-        } else {
-            NSLog(@"selected mission: %@", selectedMission);
-        }
-    }]];
+    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[[OWLocalMediaEditViewController alloc] init]];
     
     self.creationController = [[[self mediaCreationClass] alloc] init];
     [self.window makeKeyAndVisible];

@@ -6,6 +6,10 @@
 //  Copyright (c) 2012 OpenWatch FPC. All rights reserved.
 //
 
+#define JOINED_STRING NSLocalizedString(@"Joined", @"for when youve already joined")
+#define CHOOSE_MISSION_STRING NSLocalizedString(@"Choose Mission", @"choose a mission for your media")
+#define NO_MISSION_STRING NSLocalizedString(@"No Mission", @"when you select no mission")
+#define EXPIRES_STRING NSLocalizedString(@"Expires", @"when something expires")
 #define VIEW_MEDIA_STRING NSLocalizedString(@"View Media", @"title for button to view media")
 #define LEAVE_STRING NSLocalizedString(@"Leave Mission", @"title for button to leave mission")
 #define JOIN_STRING NSLocalizedString(@"Join Mission", @"title for button to join a mission")
