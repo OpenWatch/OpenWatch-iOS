@@ -24,6 +24,7 @@
 @property (nonatomic) BOOL secretAgentEnabled;
 @property (nonatomic) BOOL hasCompletedOnboarding;
 @property (nonatomic) BOOL missionsDescriptionDismissed;
+@property (nonatomic, strong) OWMission *lastSelectedMission;
 
 - (OWUser*) user;
 

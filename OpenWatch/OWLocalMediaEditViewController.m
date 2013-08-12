@@ -55,14 +55,14 @@ static NSString *editableCellIdentifier = @"EditableCellIdentifier";
 
     OWSocialTableItem *twitterItem = [[OWSocialTableItem alloc] initWithSwitch:twitterSwitch image:[UIImage imageNamed:@"twitter.png"] text:POST_TO_TWITTER_STRING];
     
-    self.missionSelectionItem = [[OWSelectionTableItem alloc] initWithText:ATTACH_TO_MISSION_STRING image:[UIImage imageNamed:@"108-badge.png"] target:self selector:@selector(selectMission:)];
+    self.missionSelectionItem = [[OWSelectionTableItem alloc] initWithText:ATTACH_TO_MISSION_STRING image:[UIImage imageNamed:@"108-badge.png"] target:self selector:@selector(showMissionSelector:)];
 
     self.openwatchSwitch = [[UISwitch alloc] init];
     OWSocialTableItem *openWatchItem = [[OWSocialTableItem alloc] initWithSwitch:openwatchSwitch image:[UIImage imageNamed:@"openwatch-eye.png"] text:POST_TO_OPENWATCH_STRING];
     [openwatchSwitch addTarget:self action:@selector(togglePostToOpenwatchSwitch:) forControlEvents:UIControlEventValueChanged];
     
-    self.openwatchItems = @[openWatchItem, missionSelectionItem];
-    self.socialItems = @[facebookItem, twitterItem];
+    self.openwatchItems = @[missionSelectionItem];
+    self.socialItems = @[openWatchItem, facebookItem, twitterItem];
 }
 
 
@@ -150,12 +150,42 @@ static NSString *editableCellIdentifier = @"EditableCellIdentifier";
 - (void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.socialTableView.frame = self.view.bounds;
+    
+    
     [self checkRecording];
     if (showingAfterCapture) {
         [self.navigationItem setHidesBackButton:YES];
+        [self selectMission:[OWSettingsController sharedInstance].account.lastSelectedMission];
     }
 }
 
+- (void) selectMission:(OWMission*)newSelectedMission {
+    [OWSettingsController sharedInstance].account.lastSelectedMission = newSelectedMission;
+    if (selectedMission) {
+        NSString *oldMissionTag = [NSString stringWithFormat:@"#%@", selectedMission.primaryTag];
+        if (self.titleTextView.text.length > 0) {
+            self.titleTextView.text = [self.titleTextView.text stringByReplacingOccurrencesOfString:oldMissionTag withString:@""];
+        }
+    }
+    if (newSelectedMission) {
+        NSString *newMissionTag = [NSString stringWithFormat:@"#%@", newSelectedMission.primaryTag];
+        NSString *newText = @"";
+        NSString *space = @"";
+        if (self.titleTextView.text) {
+            newText = self.titleTextView.text;
+        }
+        if (self.titleTextView.text.length > 0) {
+            space = @" ";
+        }
+        newText = [newText stringByAppendingFormat:@"%@%@", space, newMissionTag];
+        self.titleTextView.text = newText;
+        self.missionSelectionItem.text = newSelectedMission.title;
+    } else {
+        self.missionSelectionItem.text = ATTACH_TO_MISSION_STRING;
+    }
+    [self.socialTableView reloadRowsAtIndexPaths:@[[self indexPathForMissionSelector]] withRowAnimation:UITableViewRowAnimationNone];
+    self.selectedMission = newSelectedMission;
+}
 
 - (void) refreshFields {
     OWLocalMediaObject *mediaObject = [OWLocalMediaController localMediaObjectForObjectID:objectID];
@@ -172,6 +202,11 @@ static NSString *editableCellIdentifier = @"EditableCellIdentifier";
     }
     [self setSocialSwitchState:self.openwatchSwitch.on];
     self.previewView.objectID = objectID;
+    if (self.selectedMission) {
+        missionSelectionItem.text = self.selectedMission.title;
+    } else {
+        missionSelectionItem.text = NO_MISSION_STRING;
+    }
 }
 
 - (void) setPrimaryTag:(NSString *)newPrimaryTag {
@@ -322,47 +357,34 @@ static NSString *editableCellIdentifier = @"EditableCellIdentifier";
     }
 }
 
+- (NSIndexPath*) indexPathForMissionSelector {
+    return [NSIndexPath indexPathForRow:0 inSection:1];
+}
 
 - (BOOL) tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
-    if ([indexPath isEqual:[NSIndexPath indexPathForRow:1 inSection:1]]) {
+    if ([indexPath isEqual:[self indexPathForMissionSelector]]) {
         return YES;
     }
     return NO;
 }
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if ([indexPath isEqual:[NSIndexPath indexPathForRow:1 inSection:1]]) {
-        [tableView deselectRowAtIndexPath:indexPath animated:YES];
-        [self showMissionSelector];
+    if (indexPath.section == 1) {
+        OWSelectionTableItem *tableItem = [self.openwatchItems objectAtIndex:indexPath.row];
+        if (tableItem.target) {
+            NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:[[tableItem.target class] instanceMethodSignatureForSelector:tableItem.selector]];
+            invocation.target = tableItem.target;
+            invocation.selector = tableItem.selector;
+            [invocation setArgument:&tableItem atIndex:2];
+            [invocation invoke];
+        }
     }
 }
 
-- (void) showMissionSelector {
+
+- (void) showMissionSelector:(id)sender {
     OWMissionSelectorViewController *selector = [[OWMissionSelectorViewController alloc] initWithCallbackBlock:^(OWMission *newSelectedMission, NSError *error) {
-        if (selectedMission) {
-            NSString *oldMissionTag = [NSString stringWithFormat:@"#%@", selectedMission.primaryTag];
-            if (self.titleTextView.text.length > 0) {
-                self.titleTextView.text = [self.titleTextView.text stringByReplacingOccurrencesOfString:oldMissionTag withString:@""];
-            }
-        }
-        if (newSelectedMission) {
-            NSString *newMissionTag = [NSString stringWithFormat:@"#%@", newSelectedMission.primaryTag];
-            NSString *newText = @"";
-            NSString *space = @"";
-            if (self.titleTextView.text) {
-                newText = self.titleTextView.text;
-            }
-            if (self.titleTextView.text.length > 0) {
-                space = @" ";
-            }
-            newText = [newText stringByAppendingFormat:@"%@%@", space, newMissionTag];
-            self.titleTextView.text = newText;
-            self.missionSelectionItem.text = newSelectedMission.title;
-        } else {
-            self.missionSelectionItem.text = ATTACH_TO_MISSION_STRING;
-        }
-        [self.socialTableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:1 inSection:1]] withRowAnimation:UITableViewRowAnimationNone];
-        self.selectedMission = newSelectedMission;
+        [self selectMission:newSelectedMission];
     }];
     selector.selectedMission = self.selectedMission;
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:selector];
@@ -377,18 +399,12 @@ static NSString *editableCellIdentifier = @"EditableCellIdentifier";
         editableCell.textView = titleTextView;
         editableCell.previewView = previewView;
     } else if (indexPath.section == 1) {
-        OWTableItem *tableItem = [self.openwatchItems objectAtIndex:indexPath.row];
+        OWSocialTableItem *tableItem = [self.openwatchItems objectAtIndex:indexPath.row];
         cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
         cell.textLabel.text = tableItem.text;
         cell.imageView.image = tableItem.image;
-        if ([tableItem isKindOfClass:[OWSocialTableItem class]]) {
-            OWSocialTableItem *socialItem = (OWSocialTableItem*)tableItem;
-            cell.accessoryView = socialItem.socialSwitch;
-            cell.accessoryType = UITableViewCellAccessoryNone;
-        } else if ([tableItem isKindOfClass:[OWSelectionTableItem class]]) {
-            cell.accessoryView = nil;
-            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        }
+        cell.accessoryView = nil;
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     } else if (indexPath.section == 2) {
         OWSocialTableItem *socialItem = [self.socialItems objectAtIndex:indexPath.row];
         cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];

@@ -23,6 +23,7 @@
 #define kSecretAgentEnabledKey @"kSecretAgentEnabledKey"
 #define kMissionsDescriptionDismissedKey @"kMissionsDescriptionDismissedKey"
 #define kTwitterAccountKey @"kTwitterAccountKey"
+#define kLastSelectedMissionKey @"kLastSelectedMissionKey"
 
 @implementation OWAccount
 
@@ -51,6 +52,19 @@
 
 - (void) setEmail:(NSString *)email {
     [self setPreferencesValue:email forKey:kEmailKey];
+}
+
+- (void) setLastSelectedMission:(OWMission *)newLastSelectedMission {
+    [self setPreferencesValue:newLastSelectedMission.serverID forKey:kLastSelectedMissionKey];
+}
+
+- (OWMission*) lastSelectedMission {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSNumber *missionServerID = [defaults objectForKey:kLastSelectedMissionKey];
+    if (!missionServerID) {
+        return nil;
+    }
+    return [OWMission MR_findFirstByAttribute:OWServerObjectAttributes.serverID withValue:missionServerID];
 }
 
 - (NSString*) username {

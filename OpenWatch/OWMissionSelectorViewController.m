@@ -122,6 +122,7 @@ static NSString *missionCellIdentifier = @"MissionCellIdentifier";
     if (indexPath.section == 0) {
         cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
         cell.textLabel.text = NO_MISSION_STRING;
+        cell.textLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:18.0];
         if (!selectedMission) {
             cell.accessoryType = UITableViewCellAccessoryCheckmark;
         } else {
