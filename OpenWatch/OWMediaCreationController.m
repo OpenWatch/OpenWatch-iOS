@@ -10,6 +10,7 @@
 #import "OWPhoto.h"
 #import "OWAppDelegate.h"
 #import "OWAccountAPIClient.h"
+#import <AssetsLibrary/AssetsLibrary.h>
 
 @implementation OWMediaCreationController
 @synthesize editController, presentingViewController;
@@ -17,28 +18,23 @@
 
 - (void) captureViewController:(OWCaptureViewController *)captureViewController didFinishRecording:(OWLocalRecording *)recording {
     self.editController.objectID = recording.objectID;
-    NSString *videoPath = recording.localMediaPath;
+    NSURL *videoURL = recording.localMediaURL;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-        if(UIVideoAtPathIsCompatibleWithSavedPhotosAlbum(videoPath)) {
-            UISaveVideoAtPathToSavedPhotosAlbum(videoPath,
-                                                self,
-                                                @selector(video:didFinishSavingWithError:contextInfo:),
-                                                nil);
+        if ([ALAssetsLibrary authorizationStatus]) {
+            ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+            if([library videoAtPathIsCompatibleWithSavedPhotosAlbum:videoURL]) {
+                [library writeVideoAtPathToSavedPhotosAlbum:videoURL completionBlock:^(NSURL *assetURL, NSError *error) {
+                    if (!error) {
+                        NSLog(@"Finished saving video to camera roll: %@", assetURL);
+                    } else {
+                        NSLog(@"Error saving video to camera roll: %@", error.userInfo);
+                    }
+                }];
+            }
         }
     });
     
-    
-    [captureViewController dismissViewControllerAnimated:YES completion:^{
-        
-    }];
-}
-
-- (void)video:(NSString *)videoPath didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo {
-    if (!error) {
-        NSLog(@"Finished saving video to camera roll: %@", videoPath);
-    } else {
-        NSLog(@"Error saving video to camera roll: %@", error.userInfo);
-    }
+    [captureViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void) captureViewControllerDidCancel:(OWCaptureViewController *)captureViewController{
