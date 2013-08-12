@@ -42,7 +42,9 @@ static NSString *missionCellIdentifier = @"MissionCellIdentifier";
         ODRefreshControl *refreshControl = [[ODRefreshControl alloc] initInScrollView:self.missionsTableView];
         [refreshControl addTarget:self action:@selector(refreshMissions:) forControlEvents:UIControlEventValueChanged];
         
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(doneButtonPressed:)];
+        UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(doneButtonPressed:)];
+        doneButton.tintColor = [OWUtilities doneButtonColor];
+        self.navigationItem.rightBarButtonItem = doneButton;
         self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelButtonPressed:)];
         self.title = CHOOSE_MISSION_STRING;
     }
@@ -69,8 +71,6 @@ static NSString *missionCellIdentifier = @"MissionCellIdentifier";
 
 - (void) finishRefreshMissions:(ODRefreshControl*)refreshControl {
     [refreshControl endRefreshing];
-    self.selectedMission = nil;
-    [missionsTableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:YES scrollPosition:UITableViewScrollPositionTop];
 }
 
 - (void)viewDidLoad
@@ -87,11 +87,6 @@ static NSString *missionCellIdentifier = @"MissionCellIdentifier";
     } failure:^(NSString *reason) {
         NSLog(@"failed to fetch missions");
     }];
-}
-
-- (void) viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    [missionsTableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:YES scrollPosition:UITableViewScrollPositionTop];
 }
 
 - (void)didReceiveMemoryWarning
@@ -126,14 +121,25 @@ static NSString *missionCellIdentifier = @"MissionCellIdentifier";
     UITableViewCell *cell = nil;
     if (indexPath.section == 0) {
         cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
-        cell.textLabel.text = @"No Mission";
+        cell.textLabel.text = NO_MISSION_STRING;
+        if (!selectedMission) {
+            cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        } else {
+            cell.accessoryType = UITableViewCellAccessoryNone;
+        }
     } else if (indexPath.section == 1) {
         cell = [tableView dequeueReusableCellWithIdentifier:missionCellIdentifier forIndexPath:indexPath];
         NSIndexPath *fakePath = [NSIndexPath indexPathForRow:indexPath.row inSection:0];
         OWMission *mission = [missionsFRC objectAtIndexPath:fakePath];
         OWMissionSelectionCell *missionCell = (OWMissionSelectionCell*)cell;
         missionCell.mission = mission;
+        if ([mission.objectID isEqual:selectedMission.objectID]) {
+            missionCell.accessoryType = UITableViewCellAccessoryCheckmark;
+        } else {
+            missionCell.accessoryType = UITableViewCellAccessoryNone;
+        }
     }
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
 
@@ -172,11 +178,27 @@ static NSString *missionCellIdentifier = @"MissionCellIdentifier";
 }
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSMutableArray *indexPaths = [NSMutableArray arrayWithCapacity:3];
+    if (self.selectedMission) {
+        NSIndexPath *oldIndex = [missionsFRC indexPathForObject:self.selectedMission];
+        oldIndex = [NSIndexPath indexPathForRow:oldIndex.row inSection:1];
+        if (![oldIndex isEqual:indexPath]) {
+            [indexPaths addObject:oldIndex];
+        }
+    } else {
+        NSIndexPath *rootIndex = [NSIndexPath indexPathForRow:0 inSection:0];
+        if (![rootIndex isEqual:indexPath]) {
+            [indexPaths addObject:rootIndex];
+        }
+    }
     if (indexPath.section == 1) {
         self.selectedMission = [missionsFRC objectAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row inSection:0]];
     } else {
         self.selectedMission = nil;
     }
+    [indexPaths addObject:indexPath];
+    [tableView reloadRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {

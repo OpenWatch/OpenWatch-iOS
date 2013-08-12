@@ -26,7 +26,7 @@
         CGFloat thumbnailSize = [OWMissionSelectionCell cellHeight] - PADDING * 2;
         self.thumbnailImageView = [[UIImageView alloc] initWithFrame:CGRectMake(PADDING, PADDING, thumbnailSize, thumbnailSize)];
         CGFloat xLabelOrigin = [OWUtilities rightOfView:thumbnailImageView] + PADDING;
-        CGFloat titleLabelWidth = 190.0f;
+        CGFloat titleLabelWidth = 180.0f;
         self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(xLabelOrigin, PADDING, titleLabelWidth, 60)];
         self.titleLabel.numberOfLines = 2;
         CGFloat smallLabelHeight = 17.0f;

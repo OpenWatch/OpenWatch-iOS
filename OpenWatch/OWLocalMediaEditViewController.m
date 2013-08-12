@@ -364,6 +364,7 @@ static NSString *editableCellIdentifier = @"EditableCellIdentifier";
         [self.socialTableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:1 inSection:1]] withRowAnimation:UITableViewRowAnimationNone];
         self.selectedMission = newSelectedMission;
     }];
+    selector.selectedMission = self.selectedMission;
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:selector];
     [self presentViewController:nav animated:YES completion:nil];
 }
