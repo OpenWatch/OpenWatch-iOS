@@ -116,13 +116,9 @@ extern const struct OWMissionFetchedProperties {
 
 
 
-@property (nonatomic, strong) NSNumber* joined;
+@property (nonatomic, strong) NSDate* joined;
 
 
-
-@property BOOL joinedValue;
-- (BOOL)joinedValue;
-- (void)setJoinedValue:(BOOL)value_;
 
 //- (BOOL)validateJoined:(id*)value_ error:(NSError**)error_;
 
@@ -269,11 +265,8 @@ extern const struct OWMissionFetchedProperties {
 
 
 
-- (NSNumber*)primitiveJoined;
-- (void)setPrimitiveJoined:(NSNumber*)value;
-
-- (BOOL)primitiveJoinedValue;
-- (void)setPrimitiveJoinedValue:(BOOL)value_;
+- (NSDate*)primitiveJoined;
+- (void)setPrimitiveJoined:(NSDate*)value;
 
 
 

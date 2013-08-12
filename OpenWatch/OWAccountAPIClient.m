@@ -613,7 +613,6 @@
             mediaObject = [OWMission MR_createEntity];
             OWMission *mission = (OWMission*)mediaObject;
             mission.viewed = @NO;
-            mission.joined = @NO;
         }
     } else {
         return nil;

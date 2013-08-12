@@ -78,7 +78,7 @@
     TTTTimeIntervalFormatter *timeFormatter = [OWUtilities timeIntervalFormatter];
     self.expirationLabel.text = [NSString stringWithFormat:@"%@ %@", EXPIRES_STRING, [timeFormatter stringForTimeIntervalFromDate:[NSDate date] toDate:mission.expirationDate]];
     [self.thumbnailImageView setImageWithURL:mission.thumbnailURL placeholderImage:[mission placeholderThumbnailImage]];
-    if (mission.joinedValue) {
+    if (mission.joined) {
         self.joinedLabel.text = JOINED_STRING;
     } else {
         self.joinedLabel.text = nil;

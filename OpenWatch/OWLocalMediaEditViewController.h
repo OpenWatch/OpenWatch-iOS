@@ -15,7 +15,7 @@
 #import "BButton.h"
 #import <Accounts/Accounts.h>
 
-@class OWLocalMediaEditViewController;
+@class OWLocalMediaEditViewController, OWMission, OWSelectionTableItem;
 
 @interface OWLocalMediaEditViewController : UIViewController <UITextViewDelegate, UIGestureRecognizerDelegate, BSKeyboardControlsDelegate, UITableViewDataSource, UITableViewDelegate>
 
@@ -36,5 +36,8 @@
 @property (nonatomic) BOOL showingAfterCapture;
 @property (nonatomic, strong) NSString *primaryTag;
 @property (nonatomic, strong) BSKeyboardControls *keyboardControls;
+
+@property (nonatomic, strong) OWMission *selectedMission;
+@property (nonatomic, strong) OWSelectionTableItem *missionSelectionItem;
 
 @end

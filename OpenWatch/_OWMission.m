@@ -66,11 +66,6 @@ const struct OWMissionFetchedProperties OWMissionFetchedProperties = {
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
 		return keyPaths;
 	}
-	if ([key isEqualToString:@"joinedValue"]) {
-		NSSet *affectingKey = [NSSet setWithObject:@"joined"];
-		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
-		return keyPaths;
-	}
 	if ([key isEqualToString:@"karmaValue"]) {
 		NSSet *affectingKey = [NSSet setWithObject:@"karma"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
@@ -197,25 +192,6 @@ const struct OWMissionFetchedProperties OWMissionFetchedProperties = {
 
 @dynamic joined;
 
-
-
-- (BOOL)joinedValue {
-	NSNumber *result = [self joined];
-	return [result boolValue];
-}
-
-- (void)setJoinedValue:(BOOL)value_ {
-	[self setJoined:[NSNumber numberWithBool:value_]];
-}
-
-- (BOOL)primitiveJoinedValue {
-	NSNumber *result = [self primitiveJoined];
-	return [result boolValue];
-}
-
-- (void)setPrimitiveJoinedValue:(BOOL)value_ {
-	[self setPrimitiveJoined:[NSNumber numberWithBool:value_]];
-}
 
 
 

@@ -81,12 +81,12 @@
 }
 
 - (void) joinButtonPressed:(id)sender {
-    if (!self.mission.joinedValue) {
-        self.mission.joined = @YES;
+    if (!self.mission.joined) {
+        self.mission.joined = [NSDate date];
         [[OWAccountAPIClient sharedClient] postAction:@"joined" forMission:mission success:nil failure:nil retryCount:kOWAccountAPIClientDefaultRetryCount];
     } else {
         [[OWAccountAPIClient sharedClient] postAction:@"left" forMission:mission success:nil failure:nil retryCount:kOWAccountAPIClientDefaultRetryCount];
-        self.mission.joined = @NO;
+        self.mission.joined = nil;
     }
     NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
     [context MR_saveToPersistentStoreAndWait];
@@ -94,7 +94,7 @@
 }
 
 - (void) refreshJoinButtonState {
-    if (self.mission.joinedValue) {
+    if (self.mission.joined) {
         [self.joinButton setType:BButtonTypeDanger];
         [self.joinButton setTitle:LEAVE_STRING forState:UIControlStateNormal];
     } else {
