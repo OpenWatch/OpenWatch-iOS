@@ -17,10 +17,28 @@
 
 - (void) captureViewController:(OWCaptureViewController *)captureViewController didFinishRecording:(OWLocalRecording *)recording {
     self.editController.objectID = recording.objectID;
-    //UIAlertView *alert =
+    NSString *videoPath = recording.localMediaPath;
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+        if(UIVideoAtPathIsCompatibleWithSavedPhotosAlbum(videoPath)) {
+            UISaveVideoAtPathToSavedPhotosAlbum(videoPath,
+                                                self,
+                                                @selector(video:didFinishSavingWithError:contextInfo:),
+                                                nil);
+        }
+    });
+    
+    
     [captureViewController dismissViewControllerAnimated:YES completion:^{
         
     }];
+}
+
+- (void)video:(NSString *)videoPath didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo {
+    if (!error) {
+        NSLog(@"Finished saving video to camera roll: %@", videoPath);
+    } else {
+        NSLog(@"Error saving video to camera roll: %@", error.userInfo);
+    }
 }
 
 - (void) captureViewControllerDidCancel:(OWCaptureViewController *)captureViewController{

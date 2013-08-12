@@ -73,7 +73,7 @@
     self.window.rootViewController = revealController;
     
     //for testing views directly
-    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[[OWLocalMediaEditViewController alloc] init]];
+    //self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[[OWLocalMediaEditViewController alloc] init]];
     
     self.creationController = [[[self mediaCreationClass] alloc] init];
     [self.window makeKeyAndVisible];
