@@ -11,5 +11,7 @@
 @interface OWMediaObjectViewController : UIViewController
 
 @property (nonatomic, strong) NSManagedObjectID *mediaObjectID;
+@property (nonatomic, strong) UIBarButtonItem *shareButton;
+@property (nonatomic, strong) UIBarButtonItem *recordButton;
 
 @end

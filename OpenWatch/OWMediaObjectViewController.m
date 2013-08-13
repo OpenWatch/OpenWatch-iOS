@@ -13,19 +13,22 @@
 #import "OWMediaObject.h"
 #import "OWSocialController.h"
 #import <MediaPlayer/MediaPlayer.h>
+#import "OWAppDelegate.h"
 
 @interface OWMediaObjectViewController ()
 
 @end
 
 @implementation OWMediaObjectViewController
-@synthesize mediaObjectID;
+@synthesize mediaObjectID, shareButton, recordButton;
 
 - (id)init
 {
     self = [super init];
     if (self) {
-        [self setupSharing];
+        self.shareButton = [OWUtilities barItemWithImage:[UIImage imageNamed:@"212-action2.png"] target:self action:@selector(shareButtonPressed:)];
+        self.recordButton = [OWUtilities barItemWithImage:[UIImage imageNamed:@"285-facetime-red.png"] target:self action:@selector(startRecording:)];
+        self.navigationItem.rightBarButtonItems = @[recordButton, shareButton];
     }
     return self;
 }
@@ -43,12 +46,6 @@
     [[OWAccountAPIClient sharedClient] hitMediaObject:self.mediaObjectID hitType:kHitTypeClick];
 }
 
-- (void) setupSharing {
-    UIBarButtonItem *shareButton = [[UIBarButtonItem alloc] initWithTitle:SHARE_STRING style:UIBarButtonItemStyleBordered target:self action:@selector(shareButtonPressed:)];
-    shareButton.tintColor = [OWUtilities doneButtonColor];
-    self.navigationItem.rightBarButtonItem = shareButton;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -64,6 +61,11 @@
 - (void) setMediaObjectID:(NSManagedObjectID *)newMediaObjectID {
     mediaObjectID = newMediaObjectID;
     [[OWAccountAPIClient sharedClient] hitMediaObject:mediaObjectID hitType:kHitTypeView];
+}
+
+- (void) startRecording:(id)sender {
+    OW_APP_DELEGATE.creationController.primaryTag = nil;
+    [OW_APP_DELEGATE.creationController recordVideoFromViewController:self];
 }
 
 @end
