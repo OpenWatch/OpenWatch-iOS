@@ -29,6 +29,8 @@
 + (NSDateFormatter*) utcDateFormatter;
 + (NSDateFormatter*) humanizedDateFormatter;
 + (TTTTimeIntervalFormatter*) timeIntervalFormatter;
++ (TTTTimeIntervalFormatter*) timeLeftIntervalFormatter;
+
 + (NSString*) apiBaseURLString;
 + (NSString*) captureBaseURLString;
 + (NSString*) websiteBaseURLString;

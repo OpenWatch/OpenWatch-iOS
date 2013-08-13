@@ -8,6 +8,7 @@
 
 #import "OWUtilities.h"
 #import <QuartzCore/QuartzCore.h>
+#import "OWStrings.h"
 
 @implementation OWUtilities
 
@@ -75,6 +76,16 @@
     return timeFormatter;
 }
 
++ (TTTTimeIntervalFormatter*) timeLeftIntervalFormatter {
+    static TTTTimeIntervalFormatter *timeLeftFormatter = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        timeLeftFormatter = [[TTTTimeIntervalFormatter alloc] init];
+        timeLeftFormatter.futureDeicticExpression = LEFT_STRING;
+    });
+    return timeLeftFormatter;
+}
+
 + (void) styleLabel:(UILabel*) label {
     label.textColor = [UIColor darkTextColor];
     label.shadowColor = [UIColor lightGrayColor];
@@ -114,8 +125,8 @@
 }
 
 + (NSString*) captureBaseURLString {
-    return @"https://capture.openwatch.net/";
-    //return @"https://capture2.openwatch.net/";
+    //return @"https://capture.openwatch.net/";
+    return @"https://capture-staging.openwatch.net/";
 }
 
 + (CGFloat) bottomOfView:(UIView *)view {

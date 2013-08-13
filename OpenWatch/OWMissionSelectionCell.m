@@ -10,6 +10,7 @@
 #import "OWUtilities.h"
 #import "UIImageView+AFNetworking.h"
 #import "OWStrings.h"
+#import <QuartzCore/QuartzCore.h>
 #define PADDING 10.0f
 
 @implementation OWMissionSelectionCell
@@ -25,6 +26,10 @@
     if (self) {
         CGFloat thumbnailSize = [OWMissionSelectionCell cellHeight] - PADDING * 2;
         self.thumbnailImageView = [[UIImageView alloc] initWithFrame:CGRectMake(PADDING, PADDING, thumbnailSize, thumbnailSize)];
+        self.thumbnailImageView.layer.cornerRadius = 10;
+        self.thumbnailImageView.layer.shouldRasterize = YES;
+        self.thumbnailImageView.layer.rasterizationScale = [[UIScreen mainScreen] scale];
+        self.thumbnailImageView.clipsToBounds = YES;
         CGFloat xLabelOrigin = [OWUtilities rightOfView:thumbnailImageView] + PADDING;
         CGFloat titleLabelWidth = 180.0f;
         self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(xLabelOrigin, PADDING, titleLabelWidth, 60)];
@@ -75,7 +80,7 @@
     mission = newMission;
     
     self.titleLabel.text = mission.title;
-    TTTTimeIntervalFormatter *timeFormatter = [OWUtilities timeIntervalFormatter];
+    TTTTimeIntervalFormatter *timeFormatter = [OWUtilities timeLeftIntervalFormatter];
     self.expirationLabel.text = [NSString stringWithFormat:@"%@ %@", EXPIRES_STRING, [timeFormatter stringForTimeIntervalFromDate:[NSDate date] toDate:mission.expirationDate]];
     [self.thumbnailImageView setImageWithURL:mission.thumbnailURL placeholderImage:[mission placeholderThumbnailImage]];
     if (mission.joined) {

@@ -36,6 +36,8 @@ static NSString *missionCellIdentifier = @"MissionCellIdentifier";
         self.missionsTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
         self.missionsTableView.delegate = self;
         self.missionsTableView.dataSource = self;
+        self.missionsTableView.backgroundColor = [OWUtilities stoneBackgroundPattern];
+        self.missionsTableView.backgroundView = nil;
         [self.missionsTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:cellIdentifier];
         [self.missionsTableView registerClass:[OWMissionSelectionCell class] forCellReuseIdentifier:missionCellIdentifier];
         

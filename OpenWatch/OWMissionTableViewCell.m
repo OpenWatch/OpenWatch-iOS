@@ -18,9 +18,7 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {        
         self.bannerView = [[OWBannerView alloc] initWithFrame:CGRectZero bannerImage:[UIImage imageNamed:@"side_banner_green.png"] labelText:nil];
-        
-        [self.contentView addSubview:bannerView];
-        
+                
         [self.userView removeFromSuperview];
         self.userView = nil;
     }
@@ -51,9 +49,9 @@
     OWMission *mission = (OWMission*)[context existingObjectWithID:newMediaObjectID error:nil];
 
     if (mission.viewedValue) {
-        self.titleLabel.font = [UIFont systemFontOfSize:17.0f];
+        self.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:17.0f];
     } else {
-        self.titleLabel.font = [UIFont boldSystemFontOfSize:17.0f];
+        self.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:17.0f];
     }
     
     UIImage *bannerImage = nil;
@@ -61,15 +59,24 @@
     if (mission.usdValue > 0) {
         bannerImage = [UIImage imageNamed:@"side_banner_green.png"];
         text = [NSString stringWithFormat:@"$%.02f", mission.usdValue];
-    } else {
+    } else if (mission.karmaValue > 0) {
         bannerImage = [UIImage imageNamed:@"side_banner_purple.png"];
         text = [NSString stringWithFormat:@"%d Karma", (int)mission.karmaValue];
+    }
+    if (bannerImage) {
+        [self.contentView addSubview:bannerView];
+    } else {
+        [bannerView removeFromSuperview];
     }
     
     self.bannerView.textLabel.text = text;
     self.bannerView.imageView.image = bannerImage;
 
     self.titleLabel.text = mission.title;
+    
+    TTTTimeIntervalFormatter *timeFormatter = [OWUtilities timeLeftIntervalFormatter];
+    NSString *expirationString = [timeFormatter stringForTimeIntervalFromDate:[NSDate date] toDate:mission.expirationDate];
+    self.dateLabel.text = expirationString;
     [self refreshFrames];
 }
 

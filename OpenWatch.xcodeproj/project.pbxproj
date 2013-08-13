@@ -215,6 +215,7 @@
 		D9B6402A1763FD430028CFFB /* ticks.png in Resources */ = {isa = PBXBuildFile; fileRef = D9B640281763FD430028CFFB /* ticks.png */; };
 		D9B6402C1763FD430028CFFB /* ticks@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9B640291763FD430028CFFB /* ticks@2x.png */; };
 		D9B6404217652A2B0028CFFB /* OWMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9B6404117652A2B0028CFFB /* OWMapViewController.m */; };
+		D9BD738717B9C0F3009B6445 /* OWLocalMediaObjectListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9BD738617B9C0F2009B6445 /* OWLocalMediaObjectListViewController.m */; };
 		D9BECF0016B20E01009046E1 /* navbar.png in Resources */ = {isa = PBXBuildFile; fileRef = D9BECEFE16B20E01009046E1 /* navbar.png */; };
 		D9BECF0116B20E01009046E1 /* navbar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9BECEFF16B20E01009046E1 /* navbar@2x.png */; };
 		D9BECF9816B22B06009046E1 /* UINavigationBar+DropShadow.m in Sources */ = {isa = PBXBuildFile; fileRef = D9BECF9716B22B06009046E1 /* UINavigationBar+DropShadow.m */; };
@@ -262,7 +263,6 @@
 		D9D2E194165326A20000E7C5 /* OWAppleEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D2E191165326A10000E7C5 /* OWAppleEncoder.m */; };
 		D9D2E195165326A20000E7C5 /* OWCaptureAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D2E193165326A20000E7C5 /* OWCaptureAPIClient.m */; };
 		D9D2E19F165326BC0000E7C5 /* OWRecordingController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D2E199165326BB0000E7C5 /* OWRecordingController.m */; };
-		D9D2E1A0165326BC0000E7C5 /* OWLocalMediaObjectListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D2E19B165326BB0000E7C5 /* OWLocalMediaObjectListViewController.m */; };
 		D9D2E1A1165326BC0000E7C5 /* OWSegmentingAppleEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D2E19D165326BC0000E7C5 /* OWSegmentingAppleEncoder.m */; };
 		D9D2E1B6165328BB0000E7C5 /* AFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D2E1A4165328BB0000E7C5 /* AFHTTPClient.m */; };
 		D9D2E1B7165328BB0000E7C5 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D2E1A6165328BB0000E7C5 /* AFHTTPRequestOperation.m */; };
@@ -292,7 +292,6 @@
 		D9D33E3E177B8AC0005FEC1F /* OWAppleEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D2E191165326A10000E7C5 /* OWAppleEncoder.m */; };
 		D9D33E3F177B8AC0005FEC1F /* OWCaptureAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D2E193165326A20000E7C5 /* OWCaptureAPIClient.m */; };
 		D9D33E40177B8AC0005FEC1F /* OWRecordingController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D2E199165326BB0000E7C5 /* OWRecordingController.m */; };
-		D9D33E41177B8AC0005FEC1F /* OWLocalMediaObjectListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D2E19B165326BB0000E7C5 /* OWLocalMediaObjectListViewController.m */; };
 		D9D33E42177B8AC0005FEC1F /* OWSegmentingAppleEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D2E19D165326BC0000E7C5 /* OWSegmentingAppleEncoder.m */; };
 		D9D33E43177B8AC0005FEC1F /* AFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D2E1A4165328BB0000E7C5 /* AFHTTPClient.m */; };
 		D9D33E44177B8AC0005FEC1F /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D2E1A6165328BB0000E7C5 /* AFHTTPRequestOperation.m */; };
@@ -1068,6 +1067,8 @@
 		D9B640291763FD430028CFFB /* ticks@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ticks@2x.png"; sourceTree = "<group>"; };
 		D9B6404017652A2A0028CFFB /* OWMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWMapViewController.h; sourceTree = "<group>"; };
 		D9B6404117652A2B0028CFFB /* OWMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWMapViewController.m; sourceTree = "<group>"; };
+		D9BD738517B9C0F2009B6445 /* OWLocalMediaObjectListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWLocalMediaObjectListViewController.h; sourceTree = "<group>"; };
+		D9BD738617B9C0F2009B6445 /* OWLocalMediaObjectListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWLocalMediaObjectListViewController.m; sourceTree = "<group>"; };
 		D9BECEFE16B20E01009046E1 /* navbar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navbar.png; sourceTree = "<group>"; };
 		D9BECEFF16B20E01009046E1 /* navbar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navbar@2x.png"; sourceTree = "<group>"; };
 		D9BECF9616B22B06009046E1 /* UINavigationBar+DropShadow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationBar+DropShadow.h"; sourceTree = "<group>"; };
@@ -1145,8 +1146,6 @@
 		D9D2E193165326A20000E7C5 /* OWCaptureAPIClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWCaptureAPIClient.m; sourceTree = "<group>"; };
 		D9D2E198165326BB0000E7C5 /* OWRecordingController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWRecordingController.h; sourceTree = "<group>"; };
 		D9D2E199165326BB0000E7C5 /* OWRecordingController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWRecordingController.m; sourceTree = "<group>"; };
-		D9D2E19A165326BB0000E7C5 /* OWLocalMediaObjectListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWLocalMediaObjectListViewController.h; sourceTree = "<group>"; };
-		D9D2E19B165326BB0000E7C5 /* OWLocalMediaObjectListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWLocalMediaObjectListViewController.m; sourceTree = "<group>"; };
 		D9D2E19C165326BC0000E7C5 /* OWSegmentingAppleEncoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWSegmentingAppleEncoder.h; sourceTree = "<group>"; };
 		D9D2E19D165326BC0000E7C5 /* OWSegmentingAppleEncoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWSegmentingAppleEncoder.m; sourceTree = "<group>"; };
 		D9D2E1A3165328BB0000E7C5 /* AFHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPClient.h; sourceTree = "<group>"; };
@@ -1855,12 +1854,12 @@
 		D9BECEF116B1D3AC009046E1 /* Paginated Tables */ = {
 			isa = PBXGroup;
 			children = (
+				D9BD738517B9C0F2009B6445 /* OWLocalMediaObjectListViewController.h */,
+				D9BD738617B9C0F2009B6445 /* OWLocalMediaObjectListViewController.m */,
 				D92B6A7C16AF5209006605E1 /* OWPaginatedTableViewController.h */,
 				D92B6A7D16AF5209006605E1 /* OWPaginatedTableViewController.m */,
 				D967691217556BDE0082FAC5 /* OWMissionListViewController.h */,
 				D967691317556BDE0082FAC5 /* OWMissionListViewController.m */,
-				D9D2E19A165326BB0000E7C5 /* OWLocalMediaObjectListViewController.h */,
-				D9D2E19B165326BB0000E7C5 /* OWLocalMediaObjectListViewController.m */,
 				D9D7870B1677EDB0006EE6A2 /* OWFeedViewController.h */,
 				D9D7870C1677EDB0006EE6A2 /* OWFeedViewController.m */,
 			);
@@ -2987,7 +2986,6 @@
 				D9D2E194165326A20000E7C5 /* OWAppleEncoder.m in Sources */,
 				D9D2E195165326A20000E7C5 /* OWCaptureAPIClient.m in Sources */,
 				D9D2E19F165326BC0000E7C5 /* OWRecordingController.m in Sources */,
-				D9D2E1A0165326BC0000E7C5 /* OWLocalMediaObjectListViewController.m in Sources */,
 				D9D2E1A1165326BC0000E7C5 /* OWSegmentingAppleEncoder.m in Sources */,
 				D9D2E1B6165328BB0000E7C5 /* AFHTTPClient.m in Sources */,
 				D9D2E1B7165328BB0000E7C5 /* AFHTTPRequestOperation.m in Sources */,
@@ -3146,6 +3144,7 @@
 				D9F3867D17B5A4B000E70798 /* OWMissionSelectionCell.m in Sources */,
 				D9F3868217B5BBCF00E70798 /* OWTableItem.m in Sources */,
 				D9F3868517B5BC7600E70798 /* OWSelectionTableItem.m in Sources */,
+				D9BD738717B9C0F3009B6445 /* OWLocalMediaObjectListViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3165,7 +3164,6 @@
 				D9D33E3E177B8AC0005FEC1F /* OWAppleEncoder.m in Sources */,
 				D9D33E3F177B8AC0005FEC1F /* OWCaptureAPIClient.m in Sources */,
 				D9D33E40177B8AC0005FEC1F /* OWRecordingController.m in Sources */,
-				D9D33E41177B8AC0005FEC1F /* OWLocalMediaObjectListViewController.m in Sources */,
 				D9D33E42177B8AC0005FEC1F /* OWSegmentingAppleEncoder.m in Sources */,
 				D9D33E43177B8AC0005FEC1F /* AFHTTPClient.m in Sources */,
 				D9D33E44177B8AC0005FEC1F /* AFHTTPRequestOperation.m in Sources */,
