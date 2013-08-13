@@ -9,9 +9,11 @@
 #import "OWMediaObjectTableViewCell.h"
 #import "OWThumbnailCell.h"
 #import "OWBannerView.h"
+#import "OWMissionStatsView.h"
 
 @interface OWMissionTableViewCell : OWThumbnailCell
 
 @property (nonatomic, strong) OWBannerView *bannerView;
+@property (nonatomic, strong) OWMissionStatsView *statsView;
 
 @end

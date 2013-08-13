@@ -12,6 +12,8 @@
 #import "OWBannerView.h"
 #import "BButton.h"
 
+@class OWMissionStatsView;
+
 @interface OWMissionViewController : OWMediaObjectViewController
 
 @property (nonatomic, strong) OWMission *mission;
@@ -23,6 +25,7 @@
 @property (nonatomic, strong) UILabel *blurbLabel;
 @property (nonatomic, strong) OWBannerView *bannerView;
 @property (nonatomic, strong) UILabel *timeLeftLabel;
+@property (nonatomic, strong) OWMissionStatsView *statsView;
 
 @property (nonatomic, strong) BButton *joinButton;
 @property (nonatomic, strong) BButton *leaveButton;

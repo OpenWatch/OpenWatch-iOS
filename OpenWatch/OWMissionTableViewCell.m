@@ -11,7 +11,7 @@
 #import "OWUtilities.h"
 
 @implementation OWMissionTableViewCell
-@synthesize bannerView;
+@synthesize bannerView, statsView;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -21,6 +21,9 @@
                 
         [self.userView removeFromSuperview];
         self.userView = nil;
+        
+        self.statsView = [[OWMissionStatsView alloc] initWithFrame:CGRectZero];
+        [self.contentView addSubview:statsView];
     }
     return self;
 }
@@ -40,6 +43,10 @@
     CGFloat bannerHeight = bannerView.imageView.image.size.height;
     CGFloat padding = 10.0f;
     self.bannerView.frame = CGRectMake(width - bannerView.imageView.image.size.width, height - bannerHeight - padding, bannerView.imageView.image.size.width, bannerHeight);
+    
+    CGFloat statsViewHeight = 25;
+    CGFloat statsViewWidth = 170;
+    self.statsView.frame = CGRectMake(padding, height - statsViewHeight - padding, statsViewWidth, statsViewHeight);
 }
 
 
@@ -78,6 +85,7 @@
     NSString *expirationString = [timeFormatter stringForTimeIntervalFromDate:[NSDate date] toDate:mission.expirationDate];
     self.dateLabel.text = expirationString;
     [self refreshFrames];
+    self.statsView.mission = mission;
 }
 
 @end

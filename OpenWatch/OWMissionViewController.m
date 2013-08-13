@@ -17,6 +17,7 @@
 #import "OWMapViewController.h"
 #import "OWSettingsController.h"
 #import "OWAccountAPIClient.h"
+#import "OWMissionStatsView.h"
 
 @interface OWMissionViewController ()
 
@@ -26,6 +27,7 @@
 @synthesize mission, scrollView, imageView, titleLabel, blurbLabel;
 @synthesize imageContainerView, bannerView, joinButton;
 @synthesize mapButton, mediaButton, timeLeftLabel;
+@synthesize statsView;
 
 - (id)init
 {
@@ -50,6 +52,8 @@
         imageView.layer.shouldRasterize = YES;
         imageView.layer.rasterizationScale = [[UIScreen mainScreen] scale];
         self.scrollView = [[UIScrollView alloc] init];
+        
+        self.statsView = [[OWMissionStatsView alloc] init];
         
         self.joinButton = [[BButton alloc] initWithFrame:CGRectZero type:BButtonTypeSuccess];
         
@@ -80,6 +84,7 @@
         [self.scrollView addSubview:blurbLabel];
         [self.scrollView addSubview:imageContainerView];
         [self.scrollView addSubview:timeLeftLabel];
+        [self.scrollView addSubview:statsView];
     }
     return self;
 }
@@ -141,13 +146,16 @@
     CGFloat frameWidth = self.view.frame.size.width;
     CGFloat paddedWidth = frameWidth - padding * 2;
     
-    
     self.imageView.frame = CGRectMake(0, 0, frameWidth, 200);
     self.imageContainerView.frame = self.imageView.frame;
     
     CGFloat bannerHeight = bannerView.imageView.image.size.height;
     
     self.bannerView.frame = CGRectMake(frameWidth, self.imageContainerView.frame.size.height - bannerHeight - padding, bannerView.imageView.image.size.width, bannerHeight);
+    
+    CGFloat statsViewHeight = 25;
+    CGFloat statsViewWidth = 170;
+    self.statsView.frame = CGRectMake(padding, self.imageContainerView.frame.size.height - statsViewHeight - padding, statsViewWidth, statsViewHeight);
     
     [OWUtilities applyShadowToView:imageContainerView];
     
@@ -248,6 +256,7 @@
         self.mapButton.alpha = 0.5;
     }
     [self refreshJoinButtonState];
+    self.statsView.mission = mission;
 }
 
 @end

@@ -162,6 +162,9 @@
 		D964E5C51733547C00ECF972 /* OWOnboardingView.m in Sources */ = {isa = PBXBuildFile; fileRef = D964E5C41733547C00ECF972 /* OWOnboardingView.m */; };
 		D96677EA16810B2A006F1815 /* OWTallyView.m in Sources */ = {isa = PBXBuildFile; fileRef = D96677E916810B2A006F1815 /* OWTallyView.m */; };
 		D967691417556BDE0082FAC5 /* OWMissionListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D967691317556BDE0082FAC5 /* OWMissionListViewController.m */; };
+		D96C912C17BABA3A0066DFE5 /* OWMissionStatsView.m in Sources */ = {isa = PBXBuildFile; fileRef = D96C912B17BABA3A0066DFE5 /* OWMissionStatsView.m */; };
+		D96C913117BABB510066DFE5 /* 112-group.png in Resources */ = {isa = PBXBuildFile; fileRef = D96C912F17BABB440066DFE5 /* 112-group.png */; };
+		D96C913217BABB510066DFE5 /* 112-group@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D96C913017BABB4A0066DFE5 /* 112-group@2x.png */; };
 		D96D4EDE1739C0CC00FE17E2 /* OWPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = D96D4EDD1739C0CC00FE17E2 /* OWPhoto.m */; };
 		D96FA7AB1656F15B00309F08 /* OWAccountAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = D96FA7AA1656F15B00309F08 /* OWAccountAPIClient.m */; };
 		D97EAAA1167911B100A1B038 /* OWMediaObjectTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D97EAAA0167911B100A1B038 /* OWMediaObjectTableViewCell.m */; };
@@ -975,6 +978,10 @@
 		D96677E916810B2A006F1815 /* OWTallyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWTallyView.m; sourceTree = "<group>"; };
 		D967691217556BDE0082FAC5 /* OWMissionListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWMissionListViewController.h; sourceTree = "<group>"; };
 		D967691317556BDE0082FAC5 /* OWMissionListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWMissionListViewController.m; sourceTree = "<group>"; };
+		D96C912A17BABA3A0066DFE5 /* OWMissionStatsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWMissionStatsView.h; sourceTree = "<group>"; };
+		D96C912B17BABA3A0066DFE5 /* OWMissionStatsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWMissionStatsView.m; sourceTree = "<group>"; };
+		D96C912F17BABB440066DFE5 /* 112-group.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "112-group.png"; sourceTree = "<group>"; };
+		D96C913017BABB4A0066DFE5 /* 112-group@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "112-group@2x.png"; sourceTree = "<group>"; };
 		D96D4EDC1739C0CC00FE17E2 /* OWPhoto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWPhoto.h; sourceTree = "<group>"; };
 		D96D4EDD1739C0CC00FE17E2 /* OWPhoto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWPhoto.m; sourceTree = "<group>"; };
 		D96FA7A91656F15B00309F08 /* OWAccountAPIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWAccountAPIClient.h; sourceTree = "<group>"; };
@@ -1664,6 +1671,8 @@
 		D97EAAA3167911B900A1B038 /* Custom Views */ = {
 			isa = PBXGroup;
 			children = (
+				D96C912A17BABA3A0066DFE5 /* OWMissionStatsView.h */,
+				D96C912B17BABA3A0066DFE5 /* OWMissionStatsView.m */,
 				D9F3867B17B5A4B000E70798 /* OWMissionSelectionCell.h */,
 				D9F3867C17B5A4B000E70798 /* OWMissionSelectionCell.m */,
 				D9D5E67B1784B4EE004AE5F6 /* OWUserProfileView.h */,
@@ -2252,6 +2261,8 @@
 		D9DFADF716547DE7003C515C /* Media */ = {
 			isa = PBXGroup;
 			children = (
+				D96C912F17BABB440066DFE5 /* 112-group.png */,
+				D96C913017BABB4A0066DFE5 /* 112-group@2x.png */,
 				D94F8F7D178E2C2700235371 /* 280-clapboard.png */,
 				D94F8F7E178E2C2700235371 /* 280-clapboard@2x.png */,
 				D94F8F79178E11A500235371 /* globe.png */,
@@ -2804,6 +2815,8 @@
 				D94F8F7C178E11A500235371 /* globe@2x.png in Resources */,
 				D94F8F7F178E2C2700235371 /* 280-clapboard.png in Resources */,
 				D94F8F80178E2C2700235371 /* 280-clapboard@2x.png in Resources */,
+				D96C913117BABB510066DFE5 /* 112-group.png in Resources */,
+				D96C913217BABB510066DFE5 /* 112-group@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3145,6 +3158,7 @@
 				D9F3868217B5BBCF00E70798 /* OWTableItem.m in Sources */,
 				D9F3868517B5BC7600E70798 /* OWSelectionTableItem.m in Sources */,
 				D9BD738717B9C0F3009B6445 /* OWLocalMediaObjectListViewController.m in Sources */,
+				D96C912C17BABA3A0066DFE5 /* OWMissionStatsView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

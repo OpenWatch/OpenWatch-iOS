@@ -31,6 +31,7 @@
     view.layer.shadowOffset = CGSizeMake(0,1);
     CGRect shadowPath = CGRectMake(view.layer.bounds.origin.x, view.layer.bounds.size.height - 6, view.layer.bounds.size.width, 4);
     view.layer.shadowPath = [UIBezierPath bezierPathWithRect:shadowPath].CGPath;
+    view.layer.rasterizationScale = [[UIScreen mainScreen] scale];
     view.layer.shouldRasterize = YES;
 }
 
