@@ -6,6 +6,7 @@
 
 extern const struct OWMissionAttributes {
 	__unsafe_unretained NSString *active;
+	__unsafe_unretained NSString *agents;
 	__unsafe_unretained NSString *body;
 	__unsafe_unretained NSString *completed;
 	__unsafe_unretained NSString *expirationDate;
@@ -16,6 +17,7 @@ extern const struct OWMissionAttributes {
 	__unsafe_unretained NSString *longitude;
 	__unsafe_unretained NSString *mediaURLString;
 	__unsafe_unretained NSString *primaryTag;
+	__unsafe_unretained NSString *submissions;
 	__unsafe_unretained NSString *usd;
 	__unsafe_unretained NSString *viewed;
 } OWMissionAttributes;
@@ -25,6 +27,8 @@ extern const struct OWMissionRelationships {
 
 extern const struct OWMissionFetchedProperties {
 } OWMissionFetchedProperties;
+
+
 
 
 
@@ -63,6 +67,20 @@ extern const struct OWMissionFetchedProperties {
 - (void)setActiveValue:(BOOL)value_;
 
 //- (BOOL)validateActive:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
+@property (nonatomic, strong) NSNumber* agents;
+
+
+
+@property int32_t agentsValue;
+- (int32_t)agentsValue;
+- (void)setAgentsValue:(int32_t)value_;
+
+//- (BOOL)validateAgents:(id*)value_ error:(NSError**)error_;
 
 
 
@@ -188,6 +206,20 @@ extern const struct OWMissionFetchedProperties {
 
 
 
+@property (nonatomic, strong) NSNumber* submissions;
+
+
+
+@property int32_t submissionsValue;
+- (int32_t)submissionsValue;
+- (void)setSubmissionsValue:(int32_t)value_;
+
+//- (BOOL)validateSubmissions:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
 @property (nonatomic, strong) NSNumber* usd;
 
 
@@ -231,6 +263,15 @@ extern const struct OWMissionFetchedProperties {
 
 - (BOOL)primitiveActiveValue;
 - (void)setPrimitiveActiveValue:(BOOL)value_;
+
+
+
+
+- (NSNumber*)primitiveAgents;
+- (void)setPrimitiveAgents:(NSNumber*)value;
+
+- (int32_t)primitiveAgentsValue;
+- (void)setPrimitiveAgentsValue:(int32_t)value_;
 
 
 
@@ -306,6 +347,15 @@ extern const struct OWMissionFetchedProperties {
 
 - (NSString*)primitivePrimaryTag;
 - (void)setPrimitivePrimaryTag:(NSString*)value;
+
+
+
+
+- (NSNumber*)primitiveSubmissions;
+- (void)setPrimitiveSubmissions:(NSNumber*)value;
+
+- (int32_t)primitiveSubmissionsValue;
+- (void)setPrimitiveSubmissionsValue:(int32_t)value_;
 
 
 

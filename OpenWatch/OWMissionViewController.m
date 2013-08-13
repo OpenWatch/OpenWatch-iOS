@@ -25,7 +25,7 @@
 @implementation OWMissionViewController
 @synthesize mission, scrollView, imageView, titleLabel, blurbLabel;
 @synthesize imageContainerView, bannerView, joinButton;
-@synthesize mapButton, mediaButton;
+@synthesize mapButton, mediaButton, timeLeftLabel;
 
 - (id)init
 {
@@ -34,17 +34,25 @@
         self.titleLabel = [[UILabel alloc] init];
         self.titleLabel.backgroundColor = [UIColor clearColor];
         self.titleLabel.numberOfLines = 0;
-        self.titleLabel.font = [UIFont fontWithName:@"Palatino-Bold" size:23.0f];
+        self.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:23.0f];
         self.blurbLabel = [[UILabel alloc] init];
-        self.blurbLabel.font = [UIFont fontWithName:@"Palatino-Roman" size:20.0f];
+        self.blurbLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:20.0f];
         self.blurbLabel.backgroundColor = [UIColor clearColor];
         self.blurbLabel.numberOfLines = 0;
+        self.timeLeftLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        self.timeLeftLabel.backgroundColor = [UIColor clearColor];
+        self.timeLeftLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:15.0f];
+        self.timeLeftLabel.textColor = [UIColor lightGrayColor];
+        
         self.imageView = [[UIImageView alloc] init];
         self.imageView.contentMode = UIViewContentModeScaleAspectFill;
         self.imageView.clipsToBounds = YES;
+        imageView.layer.shouldRasterize = YES;
+        imageView.layer.rasterizationScale = [[UIScreen mainScreen] scale];
         self.scrollView = [[UIScrollView alloc] init];
         
         self.joinButton = [[BButton alloc] initWithFrame:CGRectZero type:BButtonTypeSuccess];
+        
         [joinButton addTarget:self action:@selector(joinButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         [joinButton setTitle:JOIN_STRING forState:UIControlStateNormal];
         
@@ -61,6 +69,8 @@
         self.imageContainerView = [[UIView alloc] init];
         imageContainerView.clipsToBounds = NO;
         imageContainerView.layer.masksToBounds = NO;
+        imageContainerView.layer.shouldRasterize = YES;
+        imageContainerView.layer.rasterizationScale = [[UIScreen mainScreen] scale];
         [self.imageContainerView addSubview:imageView];
         [self.view addSubview:scrollView];
         [self.scrollView addSubview:joinButton];
@@ -69,6 +79,7 @@
         [self.scrollView addSubview:titleLabel];
         [self.scrollView addSubview:blurbLabel];
         [self.scrollView addSubview:imageContainerView];
+        [self.scrollView addSubview:timeLeftLabel];
     }
     return self;
 }
@@ -143,7 +154,9 @@
     CGRect titleLabelFrame = [OWUtilities constrainedFrameForLabel:titleLabel width:paddedWidth origin:CGPointMake(padding, [OWUtilities bottomOfView:imageView] + padding)];
     self.titleLabel.frame = titleLabelFrame;
     
-    CGRect joinButtonFrame = CGRectMake(padding, [OWUtilities bottomOfView:titleLabel] + padding, paddedWidth, 45);
+    self.timeLeftLabel.frame = CGRectMake(padding, [OWUtilities bottomOfView:titleLabel] + padding/2, paddedWidth, 17);
+
+    CGRect joinButtonFrame = CGRectMake(padding, [OWUtilities bottomOfView:timeLeftLabel] + padding, paddedWidth, 45);
     self.joinButton.frame = joinButtonFrame;
     
     CGFloat buttonWidth = (paddedWidth - padding) / 2;
@@ -194,6 +207,9 @@
     self.titleLabel.text = mission.title;
     self.blurbLabel.text = mission.body;
     NSURLRequest *request = [NSURLRequest requestWithURL:mission.mediaURL];
+    
+    TTTTimeIntervalFormatter *timeLeftFormatter = [OWUtilities timeLeftIntervalFormatter];
+    self.timeLeftLabel.text = [timeLeftFormatter stringForTimeIntervalFromDate:[NSDate date] toDate:mission.expirationDate];
     
     __weak UIImageView *weakImageView = self.imageView;
     [MBProgressHUD showHUDAddedTo:self.imageView animated:YES];

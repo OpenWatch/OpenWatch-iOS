@@ -22,6 +22,7 @@
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UILabel *blurbLabel;
 @property (nonatomic, strong) OWBannerView *bannerView;
+@property (nonatomic, strong) UILabel *timeLeftLabel;
 
 @property (nonatomic, strong) BButton *joinButton;
 @property (nonatomic, strong) BButton *leaveButton;

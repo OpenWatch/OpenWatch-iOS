@@ -89,6 +89,15 @@
         NSDateFormatter *dateFormatter = [OWUtilities utcDateFormatter];
         self.expirationDate = [dateFormatter dateFromString:expirationDateString];
     }
+    
+    NSNumber *agents = [metadataDictionary objectForKey:@"agents"];
+    if (agents) {
+        self.agents = agents;
+    }
+    NSNumber *submissions = [metadataDictionary objectForKey:@"submissions"];
+    if (submissions) {
+        self.submissions = submissions;
+    }
 }
 
 + (void) updateUnreadCount {

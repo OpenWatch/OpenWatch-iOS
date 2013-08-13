@@ -41,6 +41,7 @@
     </entity>
     <entity name="OWMission" representedClassName="OWMission" parentEntity="OWMediaObject" syncable="YES">
         <attribute name="active" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="agents" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="body" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="completed" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="expirationDate" optional="YES" attributeType="Date" syncable="YES"/>
@@ -51,6 +52,7 @@
         <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="mediaURLString" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="primaryTag" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="submissions" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="usd" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="viewed" optional="YES" attributeType="Boolean" syncable="YES"/>
     </entity>
@@ -100,7 +102,7 @@
         <element name="OWLocalRecording" positionX="378" positionY="117" width="128" height="73"/>
         <element name="OWManagedRecording" positionX="484" positionY="243" width="128" height="120"/>
         <element name="OWMediaObject" positionX="36" positionY="-39" width="128" height="180"/>
-        <element name="OWMission" positionX="160" positionY="192" width="128" height="240"/>
+        <element name="OWMission" positionX="160" positionY="192" width="128" height="270"/>
         <element name="OWPhoto" positionX="160" positionY="192" width="128" height="45"/>
         <element name="OWRecordingSegment" positionX="99" positionY="234" width="128" height="103"/>
         <element name="OWServerObject" positionX="-117" positionY="99" width="128" height="60"/>

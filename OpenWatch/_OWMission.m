@@ -5,6 +5,7 @@
 
 const struct OWMissionAttributes OWMissionAttributes = {
 	.active = @"active",
+	.agents = @"agents",
 	.body = @"body",
 	.completed = @"completed",
 	.expirationDate = @"expirationDate",
@@ -15,6 +16,7 @@ const struct OWMissionAttributes OWMissionAttributes = {
 	.longitude = @"longitude",
 	.mediaURLString = @"mediaURLString",
 	.primaryTag = @"primaryTag",
+	.submissions = @"submissions",
 	.usd = @"usd",
 	.viewed = @"viewed",
 };
@@ -56,6 +58,11 @@ const struct OWMissionFetchedProperties OWMissionFetchedProperties = {
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
 		return keyPaths;
 	}
+	if ([key isEqualToString:@"agentsValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"agents"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
 	if ([key isEqualToString:@"completedValue"]) {
 		NSSet *affectingKey = [NSSet setWithObject:@"completed"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
@@ -78,6 +85,11 @@ const struct OWMissionFetchedProperties OWMissionFetchedProperties = {
 	}
 	if ([key isEqualToString:@"longitudeValue"]) {
 		NSSet *affectingKey = [NSSet setWithObject:@"longitude"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
+	if ([key isEqualToString:@"submissionsValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"submissions"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
 		return keyPaths;
 	}
@@ -118,6 +130,32 @@ const struct OWMissionFetchedProperties OWMissionFetchedProperties = {
 
 - (void)setPrimitiveActiveValue:(BOOL)value_ {
 	[self setPrimitiveActive:[NSNumber numberWithBool:value_]];
+}
+
+
+
+
+
+@dynamic agents;
+
+
+
+- (int32_t)agentsValue {
+	NSNumber *result = [self agents];
+	return [result intValue];
+}
+
+- (void)setAgentsValue:(int32_t)value_ {
+	[self setAgents:[NSNumber numberWithInt:value_]];
+}
+
+- (int32_t)primitiveAgentsValue {
+	NSNumber *result = [self primitiveAgents];
+	return [result intValue];
+}
+
+- (void)setPrimitiveAgentsValue:(int32_t)value_ {
+	[self setPrimitiveAgents:[NSNumber numberWithInt:value_]];
 }
 
 
@@ -284,6 +322,32 @@ const struct OWMissionFetchedProperties OWMissionFetchedProperties = {
 
 @dynamic primaryTag;
 
+
+
+
+
+
+@dynamic submissions;
+
+
+
+- (int32_t)submissionsValue {
+	NSNumber *result = [self submissions];
+	return [result intValue];
+}
+
+- (void)setSubmissionsValue:(int32_t)value_ {
+	[self setSubmissions:[NSNumber numberWithInt:value_]];
+}
+
+- (int32_t)primitiveSubmissionsValue {
+	NSNumber *result = [self primitiveSubmissions];
+	return [result intValue];
+}
+
+- (void)setPrimitiveSubmissionsValue:(int32_t)value_ {
+	[self setPrimitiveSubmissions:[NSNumber numberWithInt:value_]];
+}
 
 
 
