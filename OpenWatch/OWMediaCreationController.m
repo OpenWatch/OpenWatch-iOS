@@ -14,7 +14,6 @@
 
 @implementation OWMediaCreationController
 @synthesize editController, presentingViewController;
-@synthesize primaryTag;
 
 - (void) captureViewController:(OWCaptureViewController *)captureViewController didFinishRecording:(OWLocalRecording *)recording {
     self.editController.objectID = recording.objectID;
@@ -52,7 +51,6 @@
 
 - (void) pushEditView {
     self.editController = [[OWLocalMediaEditViewController alloc] init];
-    self.editController.primaryTag = self.primaryTag;
     self.editController.showingAfterCapture = YES;
     [presentingViewController.navigationController pushViewController:editController animated:YES];
 }

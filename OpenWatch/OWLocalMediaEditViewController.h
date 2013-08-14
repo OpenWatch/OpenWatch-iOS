@@ -34,7 +34,6 @@
 
 @property (nonatomic, strong) NSManagedObjectID *objectID;
 @property (nonatomic) BOOL showingAfterCapture;
-@property (nonatomic, strong) NSString *primaryTag;
 @property (nonatomic, strong) BSKeyboardControls *keyboardControls;
 
 @property (nonatomic, strong) OWMission *selectedMission;

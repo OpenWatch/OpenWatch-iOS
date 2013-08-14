@@ -17,8 +17,6 @@
 
 @property (nonatomic, strong) OWLocalMediaEditViewController *editController;
 
-@property (nonatomic, copy) NSString *primaryTag;
-
 - (void) recordVideoFromViewController:(UIViewController*)viewController;
 
 @end

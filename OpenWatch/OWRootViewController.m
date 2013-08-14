@@ -79,7 +79,6 @@
 
 
 - (void) startRecording:(id)sender {
-    OW_APP_DELEGATE.creationController.primaryTag = nil;
     [OW_APP_DELEGATE.creationController recordVideoFromViewController:self];
 }
 

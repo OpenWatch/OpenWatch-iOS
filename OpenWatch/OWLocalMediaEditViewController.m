@@ -38,7 +38,7 @@ static NSString *editableCellIdentifier = @"EditableCellIdentifier";
 @end
 
 @implementation OWLocalMediaEditViewController
-@synthesize titleTextView, doneButton, objectID, showingAfterCapture, primaryTag, keyboardControls, socialTableView, facebookSwitch, twitterSwitch, openwatchSwitch, previewView, selectedMission, missionSelectionItem;
+@synthesize titleTextView, doneButton, objectID, showingAfterCapture, keyboardControls, socialTableView, facebookSwitch, twitterSwitch, openwatchSwitch, previewView, selectedMission, missionSelectionItem;
 
 - (void) dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -209,11 +209,6 @@ static NSString *editableCellIdentifier = @"EditableCellIdentifier";
     }
 }
 
-- (void) setPrimaryTag:(NSString *)newPrimaryTag {
-    primaryTag = newPrimaryTag;
-}
-
-
 -(void)setupFields {
     self.titleTextView = [[SSTextView alloc] init];
     self.titleTextView.delegate = self;
@@ -231,10 +226,9 @@ static NSString *editableCellIdentifier = @"EditableCellIdentifier";
     
     NSMutableString *finalTitleString = [[NSMutableString alloc] init];
     NSString *initialTitleString = self.titleTextView.text;
-    int tagLength = primaryTag.length;
     
     // define the range you're interested in
-    NSRange stringRange = {0, MIN([initialTitleString length], 254-tagLength)};
+    NSRange stringRange = {0, MIN([initialTitleString length], 254)};
     
     // adjust the range to include dependent chars
     stringRange = [initialTitleString rangeOfComposedCharacterSequencesForRange:stringRange];
@@ -242,9 +236,6 @@ static NSString *editableCellIdentifier = @"EditableCellIdentifier";
     // Now you can create the short string
     NSString *shortString = [initialTitleString substringWithRange:stringRange];
     [finalTitleString appendString:shortString];
-    if (primaryTag) {
-        [finalTitleString appendFormat:@" #%@", primaryTag];
-    }
     
     NSString *trimmedText = [finalTitleString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
 
