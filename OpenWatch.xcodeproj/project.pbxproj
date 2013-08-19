@@ -3544,7 +3544,7 @@
 		D99741911651D42F0034ABB0 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Chris Ballinger (XGV4GB4HMH)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Richard Jones";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -3566,7 +3566,7 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "967126A7-AD33-40F8-B5E6-7C3913E89231";
+				PROVISIONING_PROFILE = "F5207259-80A5-42B0-B616-ABEB17C6DD01";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				RUN_CLANG_STATIC_ANALYZER = NO;
 				TARGETED_DEVICE_FAMILY = 1;
