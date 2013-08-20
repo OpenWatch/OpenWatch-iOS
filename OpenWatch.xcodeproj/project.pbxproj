@@ -700,6 +700,13 @@
 		D9F3867D17B5A4B000E70798 /* OWMissionSelectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D9F3867C17B5A4B000E70798 /* OWMissionSelectionCell.m */; };
 		D9F3868217B5BBCF00E70798 /* OWTableItem.m in Sources */ = {isa = PBXBuildFile; fileRef = D9F3868117B5BBCF00E70798 /* OWTableItem.m */; };
 		D9F3868517B5BC7600E70798 /* OWSelectionTableItem.m in Sources */ = {isa = PBXBuildFile; fileRef = D9F3868417B5BC7500E70798 /* OWSelectionTableItem.m */; };
+		D9FA16C017C3E8C600BEEBD3 /* MPCJSONDataSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = D9FA16B317C3E8C600BEEBD3 /* MPCJSONDataSerializer.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		D9FA16C117C3E8C600BEEBD3 /* MPCJSONSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = D9FA16B517C3E8C600BEEBD3 /* MPCJSONSerializer.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		D9FA16C217C3E8C600BEEBD3 /* MPCSerializedJSONData.m in Sources */ = {isa = PBXBuildFile; fileRef = D9FA16B717C3E8C600BEEBD3 /* MPCSerializedJSONData.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		D9FA16C317C3E8C600BEEBD3 /* NSData+MPBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = D9FA16BA17C3E8C600BEEBD3 /* NSData+MPBase64.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		D9FA16C417C3E8C600BEEBD3 /* ODIN.m in Sources */ = {isa = PBXBuildFile; fileRef = D9FA16BD17C3E8C600BEEBD3 /* ODIN.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		D9FA16C517C3E8C600BEEBD3 /* Mixpanel.m in Sources */ = {isa = PBXBuildFile; fileRef = D9FA16BF17C3E8C600BEEBD3 /* Mixpanel.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		D9FA16C917C3E91200BEEBD3 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9FA16C817C3E91200BEEBD3 /* CoreTelephony.framework */; };
 		D9FA646517447D91000051B7 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = D9FA646417447D91000051B7 /* Default.png */; };
 		D9FA646717447DA5000051B7 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9FA646617447DA5000051B7 /* Default@2x.png */; };
 		D9FA646917447DAA000051B7 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9FA646817447DAA000051B7 /* Default-568h@2x.png */; };
@@ -1376,6 +1383,19 @@
 		D9F3868117B5BBCF00E70798 /* OWTableItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWTableItem.m; sourceTree = "<group>"; };
 		D9F3868317B5BC7500E70798 /* OWSelectionTableItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWSelectionTableItem.h; sourceTree = "<group>"; };
 		D9F3868417B5BC7500E70798 /* OWSelectionTableItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWSelectionTableItem.m; sourceTree = "<group>"; };
+		D9FA16B217C3E8C600BEEBD3 /* MPCJSONDataSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPCJSONDataSerializer.h; sourceTree = "<group>"; };
+		D9FA16B317C3E8C600BEEBD3 /* MPCJSONDataSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPCJSONDataSerializer.m; sourceTree = "<group>"; };
+		D9FA16B417C3E8C600BEEBD3 /* MPCJSONSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPCJSONSerializer.h; sourceTree = "<group>"; };
+		D9FA16B517C3E8C600BEEBD3 /* MPCJSONSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPCJSONSerializer.m; sourceTree = "<group>"; };
+		D9FA16B617C3E8C600BEEBD3 /* MPCSerializedJSONData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPCSerializedJSONData.h; sourceTree = "<group>"; };
+		D9FA16B717C3E8C600BEEBD3 /* MPCSerializedJSONData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPCSerializedJSONData.m; sourceTree = "<group>"; };
+		D9FA16B917C3E8C600BEEBD3 /* NSData+MPBase64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+MPBase64.h"; sourceTree = "<group>"; };
+		D9FA16BA17C3E8C600BEEBD3 /* NSData+MPBase64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+MPBase64.m"; sourceTree = "<group>"; };
+		D9FA16BC17C3E8C600BEEBD3 /* ODIN.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ODIN.h; sourceTree = "<group>"; };
+		D9FA16BD17C3E8C600BEEBD3 /* ODIN.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ODIN.m; sourceTree = "<group>"; };
+		D9FA16BE17C3E8C600BEEBD3 /* Mixpanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mixpanel.h; sourceTree = "<group>"; };
+		D9FA16BF17C3E8C600BEEBD3 /* Mixpanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Mixpanel.m; sourceTree = "<group>"; };
+		D9FA16C817C3E91200BEEBD3 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		D9FA646417447D91000051B7 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = ../Default.png; sourceTree = "<group>"; };
 		D9FA646617447DA5000051B7 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x.png"; path = "../Default@2x.png"; sourceTree = "<group>"; };
 		D9FA646817447DAA000051B7 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "../Default-568h@2x.png"; sourceTree = "<group>"; };
@@ -1394,6 +1414,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D9FA16C917C3E91200BEEBD3 /* CoreTelephony.framework in Frameworks */,
 				D954667817823DCA00499FD5 /* libfacebook_ios_sdk.a in Frameworks */,
 				D909C2E71742C68D005930A7 /* libUserVoice.a in Frameworks */,
 				D9D2E209165329000000E7C5 /* MobileCoreServices.framework in Frameworks */,
@@ -1754,6 +1775,7 @@
 		D99741661651D42E0034ABB0 = {
 			isa = PBXGroup;
 			children = (
+				D9FA16C817C3E91200BEEBD3 /* CoreTelephony.framework */,
 				D9DFADF716547DE7003C515C /* Media */,
 				D997417B1651D42F0034ABB0 /* OpenWatch */,
 				D9D2E1501652EA8A0000E7C5 /* Submodules */,
@@ -1936,6 +1958,7 @@
 		D9D2E1501652EA8A0000E7C5 /* Submodules */ = {
 			isa = PBXGroup;
 			children = (
+				D9FA16AF17C3E8C600BEEBD3 /* Mixpanel */,
 				D91B7B0517B449F900C2D182 /* ODRefreshControl */,
 				D989C646179B5C0000441EFA /* BugSense-iOS.framework */,
 				D9D5E6871784EC60004AE5F6 /* SSToolkit */,
@@ -2531,6 +2554,58 @@
 				D9EB4C71166D5F080019F8B6 /* OWLocalRecording.m */,
 			);
 			name = "Core Data";
+			sourceTree = "<group>";
+		};
+		D9FA16AF17C3E8C600BEEBD3 /* Mixpanel */ = {
+			isa = PBXGroup;
+			children = (
+				D9FA16B017C3E8C600BEEBD3 /* Library */,
+				D9FA16BE17C3E8C600BEEBD3 /* Mixpanel.h */,
+				D9FA16BF17C3E8C600BEEBD3 /* Mixpanel.m */,
+			);
+			name = Mixpanel;
+			path = Mixpanel/Mixpanel;
+			sourceTree = "<group>";
+		};
+		D9FA16B017C3E8C600BEEBD3 /* Library */ = {
+			isa = PBXGroup;
+			children = (
+				D9FA16B117C3E8C600BEEBD3 /* JSON */,
+				D9FA16B817C3E8C600BEEBD3 /* NSData_Base64 */,
+				D9FA16BB17C3E8C600BEEBD3 /* ODIN */,
+			);
+			path = Library;
+			sourceTree = "<group>";
+		};
+		D9FA16B117C3E8C600BEEBD3 /* JSON */ = {
+			isa = PBXGroup;
+			children = (
+				D9FA16B217C3E8C600BEEBD3 /* MPCJSONDataSerializer.h */,
+				D9FA16B317C3E8C600BEEBD3 /* MPCJSONDataSerializer.m */,
+				D9FA16B417C3E8C600BEEBD3 /* MPCJSONSerializer.h */,
+				D9FA16B517C3E8C600BEEBD3 /* MPCJSONSerializer.m */,
+				D9FA16B617C3E8C600BEEBD3 /* MPCSerializedJSONData.h */,
+				D9FA16B717C3E8C600BEEBD3 /* MPCSerializedJSONData.m */,
+			);
+			path = JSON;
+			sourceTree = "<group>";
+		};
+		D9FA16B817C3E8C600BEEBD3 /* NSData_Base64 */ = {
+			isa = PBXGroup;
+			children = (
+				D9FA16B917C3E8C600BEEBD3 /* NSData+MPBase64.h */,
+				D9FA16BA17C3E8C600BEEBD3 /* NSData+MPBase64.m */,
+			);
+			path = NSData_Base64;
+			sourceTree = "<group>";
+		};
+		D9FA16BB17C3E8C600BEEBD3 /* ODIN */ = {
+			isa = PBXGroup;
+			children = (
+				D9FA16BC17C3E8C600BEEBD3 /* ODIN.h */,
+				D9FA16BD17C3E8C600BEEBD3 /* ODIN.m */,
+			);
+			path = ODIN;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -3167,6 +3242,12 @@
 				D9F3868517B5BC7600E70798 /* OWSelectionTableItem.m in Sources */,
 				D9BD738717B9C0F3009B6445 /* OWLocalMediaObjectListViewController.m in Sources */,
 				D96C912C17BABA3A0066DFE5 /* OWMissionStatsView.m in Sources */,
+				D9FA16C017C3E8C600BEEBD3 /* MPCJSONDataSerializer.m in Sources */,
+				D9FA16C117C3E8C600BEEBD3 /* MPCJSONSerializer.m in Sources */,
+				D9FA16C217C3E8C600BEEBD3 /* MPCSerializedJSONData.m in Sources */,
+				D9FA16C317C3E8C600BEEBD3 /* NSData+MPBase64.m in Sources */,
+				D9FA16C417C3E8C600BEEBD3 /* ODIN.m in Sources */,
+				D9FA16C517C3E8C600BEEBD3 /* Mixpanel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

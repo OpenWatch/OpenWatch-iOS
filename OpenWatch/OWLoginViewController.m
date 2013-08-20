@@ -52,6 +52,7 @@
 
 - (void) forgotPassword:(id)sender {
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:kPasswordResetURL] forceOpenInSafari:YES];
+    [[Mixpanel sharedInstance] track:@"Forgot Password"];
 }
 
 - (void) viewDidLoad
@@ -98,6 +99,9 @@
 
 - (void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    
+    [[Mixpanel sharedInstance] track:@"Viewing Old Login Screen"];
+    
     self.scrollView.frame = self.view.bounds;
     self.scrollView.contentSize = self.view.bounds.size;
     
@@ -232,6 +236,7 @@
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:ERROR_STRING message:USER_PASS_WRONG_STRING delegate:nil cancelButtonTitle:OK_STRING otherButtonTitles:nil];
     [alert show];
     [self hideHUD];
+    [[Mixpanel sharedInstance] track:@"Login Failure"];
 }
 
 - (void) loginSuccess {
@@ -240,6 +245,8 @@
     [self hideHUD];
     [OW_APP_DELEGATE.dashboardViewController.navigationController popToRootViewControllerAnimated:YES];
     [self dismissViewControllerAnimated:YES completion:nil];
+    [[Mixpanel sharedInstance] track:@"Login Success"];
+
 }
 
 - (void)logoutButtonPressed:(id)sender {
@@ -247,6 +254,8 @@
     [self refreshLoginButtons];
     self.emailTextField.text = @"";
     self.passwordTextField.text = @"";
+    
+    [[Mixpanel sharedInstance] track:@"Logout"];
 }
 
 

@@ -19,6 +19,7 @@
 #import "OWStrings.h"
 #import <BugSense-iOS/BugSenseController.h>
 #import "OWMissionSelectorViewController.h"
+#import "Mixpanel.h"
 
 @implementation OWAppDelegate
 @synthesize locationController, dashboardViewController, backgroundTask, backgroundTimer, allowRotation, creationController, revealController, feedViewController, navigationController;
@@ -29,6 +30,8 @@
 #ifndef DEBUG
     [BugSenseController sharedControllerWithBugSenseAPIKey:BUGSENSE_API_KEY];
 #endif
+  
+    [Mixpanel sharedInstanceWithToken:MIXPANEL_TOKEN];
 
     [MagicalRecord setupAutoMigratingCoreDataStack];
 

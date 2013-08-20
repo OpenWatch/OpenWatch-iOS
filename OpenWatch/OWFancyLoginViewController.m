@@ -56,6 +56,7 @@
 }
 
 - (void) forgotPassword:(id)sender {
+    [[Mixpanel sharedInstance] track:@"Forgot Password"];
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:kPasswordResetURL] forceOpenInSafari:YES];
 }
 
@@ -109,6 +110,8 @@
 
 - (void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    
+    [[Mixpanel sharedInstance] track:@"Viewing Login Screen"];
 
     self.scrollView.frame = self.view.bounds;
     self.scrollView.contentSize = self.view.bounds.size;
@@ -219,6 +222,7 @@
     if (processingLogin) {
         return;
     }
+    [[Mixpanel sharedInstance] track:@"Login Attempt"];
     OWSettingsController *settingsController = [OWSettingsController sharedInstance];
     OWAccount *account = settingsController.account;
     [account clearAccountData];
@@ -240,10 +244,13 @@
         [[OWAccountAPIClient sharedClient] loginWithAccount:account success:^{
             [self setProcessingLogin:NO];
             [self showHomeScreen];
+            [[Mixpanel sharedInstance] track:@"Login Success - Existing Account"];
         } failure:^(NSString *reason) {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LOGIN_ERROR_STRING message:CHECK_CREDENTIALS_STRING delegate:nil cancelButtonTitle:OK_STRING otherButtonTitles:nil];
             [alert show];
             [self setProcessingLogin:NO];
+            [[Mixpanel sharedInstance] track:@"Login Failed - Bad Password"];
+
         }];
     } else {
         [[OWAccountAPIClient sharedClient] checkEmailAvailability:email callback:^(BOOL available) {
@@ -252,9 +259,13 @@
                     [self setProcessingLogin:NO];
                     if (success) {
                         [self showHomeScreen];
+                        [[Mixpanel sharedInstance] track:@"Login Success - New Account"];
+                    } else {
+                        [[Mixpanel sharedInstance] track:@"Login Failed"];
                     }
                 }];
             } else {
+                [[Mixpanel sharedInstance] track:@"Login Process - Pre-exisiting Account"];
                 [self showPasswordField];
                 [self setProcessingLogin:NO];
             }

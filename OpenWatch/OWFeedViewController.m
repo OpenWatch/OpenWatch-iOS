@@ -97,6 +97,13 @@
         self.objectIDs = [NSMutableArray array];
         [self.tableView reloadData];
     }
+    
+    NSMutableDictionary *properties = [NSMutableDictionary dictionaryWithCapacity:2];
+    if (feedName) {
+        [properties setObject:feedName forKey:@"feed_name"];
+    }
+    [[Mixpanel sharedInstance] track:@"Selected Feed" properties:properties];
+    
     selectedFeedString = feedName;
     self.displayName = displayName;
     feedType = type;
@@ -234,6 +241,7 @@
 
 
 - (void) onboardingViewDidComplete:(OWOnboardingView *)ow {
+    [[Mixpanel sharedInstance] track:@"Onboarding Complete"];
     OW_APP_DELEGATE.revealController.recognizesPanningOnFrontView = YES;
     [self setupNavBar];
     OWAccount *account = [OWSettingsController sharedInstance].account;

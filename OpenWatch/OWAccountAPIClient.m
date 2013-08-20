@@ -29,6 +29,7 @@
 #import "OWBadgedDashboardItem.h"
 #import "OWMission.h"
 #import <BugSense-iOS/BugSenseController.h>
+#import "Mixpanel.h"
 
 #define kRecordingsKey @"recordings/"
 
@@ -291,6 +292,7 @@
                 NSDictionary *metadataDictionary = [responseObject objectForKey:@"object"];
                 OWAccount *account = [OWSettingsController sharedInstance].account;
                 [BugSenseController setUserIdentifier:account.email];
+                [[Mixpanel sharedInstance] identify:account.email];
                 OWUser *user = account.user;
                 [user loadMetadataFromDictionary:metadataDictionary];
                 NSLog(@"success updating account details!");
