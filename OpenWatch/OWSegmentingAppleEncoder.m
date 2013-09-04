@@ -93,17 +93,18 @@
             @try {
                 [tempAudioEncoder markAsFinished];
                 [tempVideoEncoder markAsFinished];
+                [tempAssetWriter finishWritingWithCompletionHandler:^{
+                    if (tempAssetWriter.status == AVAssetWriterStatusFailed) {
+                        [self showError:tempAssetWriter.error];
+                    } else {
+                        [self uploadLocalURL:tempAssetWriter.outputURL];
+                    }
+                }];
             }
             @catch (NSException *exception) {
                 NSLog(@"Caught exception: %@", [exception description]);
+                [BugSenseController logException:exception withExtraData:nil];
             }
-            [tempAssetWriter finishWritingWithCompletionHandler:^{
-                if (tempAssetWriter.status == AVAssetWriterStatusFailed) {
-                    [self showError:tempAssetWriter.error];
-                } else {
-                    [self uploadLocalURL:tempAssetWriter.outputURL];
-                }
-            }];
         }
         self.segmentCount++;
         if (self.readyToRecordAudio && self.readyToRecordVideo) {

@@ -17,9 +17,7 @@
 #import "OWMission.h"
 #import "PKRevealController.h"
 #import "OWStrings.h"
-#import <BugSense-iOS/BugSenseController.h>
 #import "OWMissionSelectorViewController.h"
-#import "Mixpanel.h"
 
 @implementation OWAppDelegate
 @synthesize locationController, dashboardViewController, backgroundTask, backgroundTimer, allowRotation, creationController, revealController, feedViewController, navigationController;
