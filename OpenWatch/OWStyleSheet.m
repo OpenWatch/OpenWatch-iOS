@@ -23,5 +23,14 @@
     return [OWUtilities navigationBarColor];
 }
 
+- (UIColor *)navigationBarTextColor {
+    return [UIColor darkTextColor];
+}
+
+- (UIColor *)navigationBarTextShadowColor {
+    return [UIColor whiteColor];
+}
+
+
 
 @end

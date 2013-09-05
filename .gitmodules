@@ -30,7 +30,7 @@
 	url = git@github.com:OpenWatch/DWTagList.git
 [submodule "Submodules/BSKeyboardControls"]
 	path = Submodules/BSKeyboardControls
-	url = https://github.com/OpenWatch/BSKeyboardControls.git
+	url = https://github.com/simonbs/BSKeyboardControls.git
 [submodule "Submodules/TheAmazingAudioEngine"]
 	path = Submodules/TheAmazingAudioEngine
 	url = https://github.com/TheAmazingAudioEngine/TheAmazingAudioEngine.git
