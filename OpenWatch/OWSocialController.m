@@ -76,7 +76,10 @@
 
 - (void) profileForTwitterAccount:(ACAccount*)account callbackBlock:(void (^)(NSDictionary *profile, NSError *error))callbackBlock {
     NSURL *requestURL = [NSURL URLWithString:@"https://api.twitter.com/1.1/users/show.json"];
-    
+    if (!account) {
+        callbackBlock(nil, [NSError errorWithDomain:@"net.openwatch.OpenWatch" code:1414 userInfo:@{NSLocalizedDescriptionKey: @"No account found"}]);
+        return;
+    }
     SLRequest *getRequest = [SLRequest requestForServiceType:SLServiceTypeTwitter requestMethod:SLRequestMethodGET URL:requestURL parameters:@{@"screen_name": account.username}];
     getRequest.account = account;
     

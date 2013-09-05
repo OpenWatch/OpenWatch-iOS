@@ -1775,7 +1775,6 @@
 		D99741661651D42E0034ABB0 = {
 			isa = PBXGroup;
 			children = (
-				D9FA16C817C3E91200BEEBD3 /* CoreTelephony.framework */,
 				D9DFADF716547DE7003C515C /* Media */,
 				D997417B1651D42F0034ABB0 /* OpenWatch */,
 				D9D2E1501652EA8A0000E7C5 /* Submodules */,
@@ -1797,6 +1796,7 @@
 		D99741741651D42F0034ABB0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D9FA16C817C3E91200BEEBD3 /* CoreTelephony.framework */,
 				D93936C01741991A0070E164 /* ImageIO.framework */,
 				D93936BE174199140070E164 /* libxml2.dylib */,
 				D9E42C5F17417DB800CA524F /* CoreText.framework */,
