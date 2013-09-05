@@ -18,22 +18,14 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {        
         self.bannerView = [[OWBannerView alloc] initWithFrame:CGRectZero bannerImage:[UIImage imageNamed:@"side_banner_green.png"] labelText:nil];
-                
-        [self.userView removeFromSuperview];
-        self.userView = nil;
-        
         self.statsView = [[OWMissionStatsView alloc] initWithFrame:CGRectZero];
         [self.contentView addSubview:statsView];
     }
     return self;
 }
 
-+ (CGFloat) contentXOffset {
-    return 10.0f;
-}
-
-+ (CGFloat) titleLabelYOffset {
-    return 0.0f;
++ (UIFont*) titleLabelFont {
+    return [UIFont fontWithName:@"HelveticaNeue-Light" size:20.0f];
 }
 
 - (void) refreshFrames {
@@ -54,12 +46,7 @@
     [super setMediaObjectID:newMediaObjectID];
     NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
     OWMission *mission = (OWMission*)[context existingObjectWithID:newMediaObjectID error:nil];
-
-    if (mission.viewedValue) {
-        self.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:17.0f];
-    } else {
-        self.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:17.0f];
-    }
+    self.userView.user = mission.user;
     
     UIImage *bannerImage = nil;
     NSString *text = nil;

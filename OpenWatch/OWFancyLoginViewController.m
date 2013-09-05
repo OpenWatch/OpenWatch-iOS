@@ -265,7 +265,7 @@
                     }
                 }];
             } else {
-                [[Mixpanel sharedInstance] track:@"Login Process - Pre-exisiting Account"];
+                [[Mixpanel sharedInstance] track:@"Login Progess - Pre-exisiting Account"];
                 [self showPasswordField];
                 [self setProcessingLogin:NO];
             }

@@ -67,7 +67,7 @@
     OWUser *user = [OWSettingsController sharedInstance].account.user;
     OWProfileDashboardItem *profileItem = [[OWProfileDashboardItem alloc] initWithUser:user target:self selector:@selector(profileButtonPressed:)];
     
-    NSArray *middleItems = @[topStories, missions, topVideos, local, globalFeed, yourMedia];
+    NSArray *middleItems = @[missions, topStories, topVideos, local, globalFeed, yourMedia];
     NSArray *topItems = @[profileItem, feedback, settings];
     NSArray *dashboardItems = @[topItems, middleItems];
     self.staticDashboardItems = dashboardItems;

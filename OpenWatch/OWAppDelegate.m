@@ -58,7 +58,8 @@
     self.navigationController = [[UINavigationController alloc] init];
     BOOL loggedIn = NO;
     if ([account isLoggedIn]) {
-        navigationController.viewControllers = @[feedViewController];
+        OWMissionListViewController *missionList = [[OWMissionListViewController alloc] init];
+        navigationController.viewControllers = @[missionList];
         loggedIn = YES;
     } else {
         OWFancyLoginViewController *fancy = [[[self loginControllerClass] alloc] init];
@@ -202,7 +203,10 @@
     NSDictionary *data = [userInfo objectForKey:@"data"];
     NSDictionary *aps = [userInfo objectForKey:@"aps"];
     NSString *alert = [aps objectForKey:@"alert"];
-    NSNumber *missionID = [data objectForKey:@"m"];
+    NSNumber *missionID = nil;
+    if (data && ![data isEqual:[NSNull null]]) {
+        missionID = [data objectForKey:@"m"];
+    }
     
     if (alert) {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NEW_MISSION_AVAILABLE_STRING message:alert delegate:nil cancelButtonTitle:OK_STRING otherButtonTitles: nil];
@@ -219,6 +223,7 @@
             NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
             OWMission *mission = (OWMission*)[context existingObjectWithID:objectID error:nil];
             [[OWAccountAPIClient sharedClient] postAction:@"viewed_push" forMission:mission success:nil failure:nil retryCount:kOWAccountAPIClientDefaultRetryCount];
+            [[Mixpanel sharedInstance] track:@"Viewed Push for Mission" properties:@{@"mission_id": mission.serverID}];
         } failure:nil retryCount:kOWAccountAPIClientDefaultRetryCount];
     }
 }

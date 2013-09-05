@@ -291,9 +291,11 @@
             if (success) {
                 NSDictionary *metadataDictionary = [responseObject objectForKey:@"object"];
                 OWAccount *account = [OWSettingsController sharedInstance].account;
-                [BugSenseController setUserIdentifier:account.email];
-                [[Mixpanel sharedInstance] identify:account.email];
                 OWUser *user = account.user;
+                NSString *serverIDString = user.serverID.description;
+                [BugSenseController setUserIdentifier:serverIDString];
+                [[Mixpanel sharedInstance] identify:serverIDString];
+                [[Mixpanel sharedInstance].people set:@"$username" to:account.username];
                 [user loadMetadataFromDictionary:metadataDictionary];
                 NSLog(@"success updating account details!");
             } else {

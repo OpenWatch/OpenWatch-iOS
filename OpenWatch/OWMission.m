@@ -36,6 +36,11 @@
     return [NSURL URLWithString:self.mediaURLString];
 }
 
+// Hack for improving the low resolution thumbnails
+- (NSURL*) thumbnailURL {
+    return [NSURL URLWithString:self.mediaURLString];
+}
+
 - (NSMutableDictionary*) metadataDictionary {
     NSMutableDictionary *metadataDictionary = [super metadataDictionary];
     if (self.joined) {

@@ -100,9 +100,11 @@
     if (!self.mission.joined) {
         self.mission.joined = [NSDate date];
         [[OWAccountAPIClient sharedClient] postAction:@"joined" forMission:mission success:nil failure:nil retryCount:kOWAccountAPIClientDefaultRetryCount];
+        [[Mixpanel sharedInstance] track:@"Joined Mission" properties:@{@"mission_id": mission.serverID}];
         [OWSettingsController sharedInstance].account.lastSelectedMission = mission;
     } else {
         [[OWAccountAPIClient sharedClient] postAction:@"left" forMission:mission success:nil failure:nil retryCount:kOWAccountAPIClientDefaultRetryCount];
+        [[Mixpanel sharedInstance] track:@"Left Mission" properties:@{@"mission_id": mission.serverID}];
         self.mission.joined = nil;
         [OWSettingsController sharedInstance].account.lastSelectedMission = nil;
     }
@@ -139,6 +141,7 @@
     [super viewWillAppear:animated];
     [self refreshFrames];
     [[OWAccountAPIClient sharedClient] postAction:@"viewed_mission" forMission:mission success:nil failure:nil retryCount:kOWAccountAPIClientDefaultRetryCount];
+    [[Mixpanel sharedInstance] track:@"Viewed Mission" properties:@{@"mission_id": mission.serverID}];
 }
 
 - (void) refreshFrames {

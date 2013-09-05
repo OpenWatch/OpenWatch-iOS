@@ -65,6 +65,7 @@
     [self.view addSubview:uploadStatusLabel];
     [videoProcessor startRecording];
     [self.finishButton setTitle:STOP_STRING forState:UIControlStateNormal];
+    [[Mixpanel sharedInstance] track:@"Start Recording"];
 }
 
 - (void) setupFinishButton {
@@ -146,6 +147,7 @@
 
     self.timerView.frame = CGRectMake([OWUtilities rightOfView:recordingIndicator], padding, 100, 35);
     [captureVideoPreviewLayer setFrame:self.view.bounds];
+    [[Mixpanel sharedInstance] track:@"Showing Capture Screen"];
 }
 
 
@@ -206,6 +208,7 @@
         
         if (self.delegate && [self.delegate respondsToSelector:@selector(captureViewController:didFinishRecording:)]) {
             OWLocalRecording *recording = (OWLocalRecording*)[OWLocalMediaController localMediaObjectForObjectID:videoProcessor.recordingID];
+            [[Mixpanel sharedInstance] track:@"Finished Recording" properties:@{@"recording_uuid": recording.uuid}];
             [self.delegate captureViewController:self didFinishRecording:recording];
         }
 	});

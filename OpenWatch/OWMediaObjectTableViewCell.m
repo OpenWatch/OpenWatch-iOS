@@ -170,7 +170,7 @@
     self.titleLabel = [[STTweetLabel alloc] initWithFrame:CGRectZero];
     self.titleLabel.numberOfLines = 0;
     self.titleLabel.backgroundColor = [UIColor clearColor];
-    self.titleLabel.font = [OWMediaObjectTableViewCell titleLabelFont];
+    self.titleLabel.font = [[self class] titleLabelFont];
     self.titleLabel.colorHashtag = [UIColor redColor];
     self.titleLabel.verticalAlignment = STVerticalAlignmentMiddle;
     [self.contentView addSubview:titleLabel];

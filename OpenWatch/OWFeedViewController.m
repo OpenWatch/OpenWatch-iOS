@@ -241,7 +241,7 @@
 
 
 - (void) onboardingViewDidComplete:(OWOnboardingView *)ow {
-    [[Mixpanel sharedInstance] track:@"Onboarding Complete"];
+    [[Mixpanel sharedInstance] track:@"Onboarding Complete" properties:@{@"agent": @(onboardingView.agentSwitch.on)}];
     OW_APP_DELEGATE.revealController.recognizesPanningOnFrontView = YES;
     [self setupNavBar];
     OWAccount *account = [OWSettingsController sharedInstance].account;

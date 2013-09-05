@@ -241,7 +241,9 @@ static NSString *editableCellIdentifier = @"EditableCellIdentifier";
 
     mediaObject.title = trimmedText;
     mediaObject.public = @(self.openwatchSwitch.on);
-    [context MR_saveToPersistentStoreAndWait];    
+    [context MR_saveToPersistentStoreAndWait];
+    
+    [[Mixpanel sharedInstance] track:@"Post Video" properties:@{@"recording_uuid": mediaObject.uuid, @"ow": @(self.openwatchSwitch.on), @"twitter": @(self.twitterSwitch.on), @"facebook": @(self.facebookSwitch.on)}];
         
     [[OWAccountAPIClient sharedClient] postObjectWithUUID:mediaObject.uuid objectClass:[mediaObject class] success:^(NSManagedObjectID *objectID) {
         ACAccount *twitterAccount = [OWSocialController sharedInstance].twitterAccount;
