@@ -42,7 +42,7 @@
 	url = https://github.com/mattlawer/BButton.git
 [submodule "Submodules/UserVoice-SDK"]
 	path = Submodules/UserVoice-SDK
-	url = git@github.com:OpenWatch/uservoice-iphone-sdk.git
+	url = https://github.com/uservoice/uservoice-ios-sdk.git
 [submodule "Submodules/JSBadgeView"]
 	path = Submodules/JSBadgeView
 	url = git@github.com:OpenWatch/JSBadgeView.git

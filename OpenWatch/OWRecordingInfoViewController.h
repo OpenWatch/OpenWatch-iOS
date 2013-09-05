@@ -16,7 +16,7 @@
 #import "DWTagList.h"
 #import "OWPreviewView.h"
 
-@interface OWRecordingInfoViewController : OWMediaObjectViewController <UITableViewDataSource, UITableViewDelegate, MKMapViewDelegate, UIScrollViewDelegate, DWTagListDelegate>
+@interface OWRecordingInfoViewController : OWMediaObjectViewController <MKMapViewDelegate, UIScrollViewDelegate, DWTagListDelegate>
 
 @property (nonatomic) CLLocationCoordinate2D centerCoordinate;
 @property (nonatomic, strong) MKMapView *mapView;

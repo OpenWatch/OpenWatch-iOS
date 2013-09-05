@@ -3604,11 +3604,7 @@
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Submodules\"/**";
 				INFOPLIST_FILE = "OpenWatch/OpenWatch-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/Submodules/TestFlight\"",
-					"\"$(SRCROOT)/Submodules/Crittercism\"",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = (
 					"-all_load",
 					"-ObjC",
@@ -3637,11 +3633,7 @@
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Submodules\"/**";
 				INFOPLIST_FILE = "OpenWatch/OpenWatch-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/Submodules/TestFlight\"",
-					"\"$(SRCROOT)/Submodules/Crittercism\"",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = (
 					"-all_load",
 					"-ObjC",
