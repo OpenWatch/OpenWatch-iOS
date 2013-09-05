@@ -97,17 +97,21 @@
 }
 
 - (void) joinButtonPressed:(id)sender {
+    int peopleCount = self.statsView.peopleCountLabel.text.intValue;
     if (!self.mission.joined) {
         self.mission.joined = [NSDate date];
         [[OWAccountAPIClient sharedClient] postAction:@"joined" forMission:mission success:nil failure:nil retryCount:kOWAccountAPIClientDefaultRetryCount];
         [[Mixpanel sharedInstance] track:@"Joined Mission" properties:@{@"mission_id": mission.serverID}];
         [OWSettingsController sharedInstance].account.lastSelectedMission = mission;
+        peopleCount++;
     } else {
         [[OWAccountAPIClient sharedClient] postAction:@"left" forMission:mission success:nil failure:nil retryCount:kOWAccountAPIClientDefaultRetryCount];
         [[Mixpanel sharedInstance] track:@"Left Mission" properties:@{@"mission_id": mission.serverID}];
         self.mission.joined = nil;
         [OWSettingsController sharedInstance].account.lastSelectedMission = nil;
+        peopleCount--;
     }
+    self.statsView.peopleCountLabel.text = @(peopleCount).description;
     NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
     [context MR_saveToPersistentStoreAndWait];
     [self refreshJoinButtonState];

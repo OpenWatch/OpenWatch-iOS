@@ -47,6 +47,7 @@
 }
 
 - (void) receivedAccountPermissionsErrorNotification:(NSNotification*)notification {
+    [[Mixpanel sharedInstance] track:@"Account Permissions Error"];
     NSLog(@"%@ received", kAccountPermissionsError);
     [OW_APP_DELEGATE.navigationController popToRootViewControllerAnimated:YES];
     [self.revealController showViewController:self.revealController.frontViewController];

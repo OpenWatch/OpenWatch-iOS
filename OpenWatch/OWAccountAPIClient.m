@@ -99,36 +99,6 @@
     return self;
 }
 
-- (NSMutableURLRequest*) requestWithMethod:(NSString*)method path:(NSString *)path parameters:(NSDictionary *)parameters {
-    NSDictionary *newParameters = nil;
-    if ([method isEqualToString:@"POST"]) { // Make sure to REALLY send that csrf token
-        NSMutableDictionary *mutableParameters = [NSMutableDictionary dictionaryWithDictionary:parameters];
-        
-        NSArray* cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:[NSURL URLWithString:[OWUtilities apiBaseURLString]]];
-        
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name == %@", @"csrftoken"];
-        NSArray *filteredCookies = [cookies filteredArrayUsingPredicate:predicate];
-        
-        if (filteredCookies.count > 0) {
-            NSHTTPCookie *csrfCookie = [filteredCookies objectAtIndex:0];
-            [mutableParameters setObject:csrfCookie.value forKey:@"csrf_token"];
-            [mutableParameters setObject:csrfCookie.value forKey:@"csrfmiddlewaretoken"];
-            
-            [self setDefaultHeader:@"X-CSRFToken" value:csrfCookie.value];
-        }
-        newParameters = mutableParameters;
-    } else {
-        newParameters = parameters;
-    }
-
-    
-    NSMutableURLRequest *request = [super requestWithMethod:method path:path parameters:newParameters];
-    request.HTTPShouldHandleCookies = YES;
-    
-    return request;
-}
-
-
 - (void) checkEmailAvailability:(NSString*)email callback:(void (^)(BOOL available))callback {
     if (!email) {
         NSLog(@"Email is nil!");

@@ -106,7 +106,8 @@
 }
 
 + (void) updateUnreadCount {
-    NSArray *unreadMissions = [OWMission MR_findByAttribute:OWMissionAttributes.viewed withValue:@(NO)];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"viewed == 0 && expirationDate >= %@", [NSDate date]];
+    NSArray *unreadMissions = [OWMission MR_findAllWithPredicate:predicate];
     NSString *badgeText = @"";
     if (unreadMissions.count > 0) {
         badgeText = [NSString stringWithFormat:@"%d", unreadMissions.count];

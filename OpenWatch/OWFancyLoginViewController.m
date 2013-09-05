@@ -16,6 +16,7 @@
 #import "OWConstants.h"
 #import "OWStrings.h"
 #import "OWFeedViewController.h"
+#import "OWMissionListViewController.h"
 
 #define kOffsetWithPassword 208
 #define kOffset 145
@@ -274,8 +275,8 @@
 }
 
 - (void) showHomeScreen {
-    OWFeedViewController *feedView = OW_APP_DELEGATE.feedViewController;
-    [self.navigationController setViewControllers:@[feedView] animated:YES];
+    OWMissionListViewController *missionList = [[OWMissionListViewController alloc] init];
+    [self.navigationController setViewControllers:@[missionList] animated:YES];
 }
 
 - (void)didReceiveMemoryWarning
