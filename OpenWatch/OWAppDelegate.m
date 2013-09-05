@@ -77,6 +77,13 @@
     //for testing views directly
     //self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[[OWLocalMediaEditViewController alloc] init]];
     
+    NSDictionary *remoteNotification = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
+    if (remoteNotification) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 2 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+            [self application:application didReceiveRemoteNotification:remoteNotification];
+        });
+    }
+    
     self.creationController = [[[self mediaCreationClass] alloc] init];
     [self.window makeKeyAndVisible];
     return YES;
