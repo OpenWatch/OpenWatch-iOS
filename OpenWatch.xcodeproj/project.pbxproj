@@ -145,7 +145,6 @@
 		D94F8F7F178E2C2700235371 /* 280-clapboard.png in Resources */ = {isa = PBXBuildFile; fileRef = D94F8F7D178E2C2700235371 /* 280-clapboard.png */; };
 		D94F8F80178E2C2700235371 /* 280-clapboard@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D94F8F7E178E2C2700235371 /* 280-clapboard@2x.png */; };
 		D954667817823DCA00499FD5 /* libfacebook_ios_sdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D954666E17822BAB00499FD5 /* libfacebook_ios_sdk.a */; };
-		D954667B17823DE800499FD5 /* FacebookSDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D954667917823DE800499FD5 /* FacebookSDKResources.bundle */; };
 		D954667C17823DE800499FD5 /* FBUserSettingsViewResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D954667A17823DE800499FD5 /* FBUserSettingsViewResources.bundle */; };
 		D954668517824FF500499FD5 /* 208-facebook.png in Resources */ = {isa = PBXBuildFile; fileRef = D954668317824FF500499FD5 /* 208-facebook.png */; };
 		D954668617824FF500499FD5 /* 208-facebook@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D954668417824FF500499FD5 /* 208-facebook@2x.png */; };
@@ -1194,7 +1193,6 @@
 		D9D2E214165329410000E7C5 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		D9D2E21616532A6A0000E7C5 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		D9D33F81177B8AC0005FEC1F /* OccupyGezi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OccupyGezi.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		D9D33F82177B8AC0005FEC1F /* OpenWatch copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "OpenWatch copy-Info.plist"; path = "/Users/chrisbal/Documents/OpenWatch/OpenWatch-iOS/OpenWatch copy-Info.plist"; sourceTree = "<absolute>"; };
 		D9D33F83177B919A005FEC1F /* OWGeziLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OWGeziLoginViewController.h; path = OccupyGezi/OWGeziLoginViewController.h; sourceTree = "<group>"; };
 		D9D33F84177B919A005FEC1F /* OWGeziLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OWGeziLoginViewController.m; path = OccupyGezi/OWGeziLoginViewController.m; sourceTree = "<group>"; };
 		D9D33F87177B9273005FEC1F /* OWGeziAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OWGeziAppDelegate.h; path = OccupyGezi/OWGeziAppDelegate.h; sourceTree = "<group>"; };
@@ -1780,7 +1778,6 @@
 				D9D2E1501652EA8A0000E7C5 /* Submodules */,
 				D99741741651D42F0034ABB0 /* Frameworks */,
 				D99741721651D42F0034ABB0 /* Products */,
-				D9D33F82177B8AC0005FEC1F /* OpenWatch copy-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -2883,7 +2880,6 @@
 				D9C467381773E186006711D1 /* play_button_nocircle@2x.png in Resources */,
 				D9C7911B1774F4F00031D56A /* 285-facetime-red.png in Resources */,
 				D9C7911C1774F4F00031D56A /* 285-facetime-red@2x.png in Resources */,
-				D954667B17823DE800499FD5 /* FacebookSDKResources.bundle in Resources */,
 				D954667C17823DE800499FD5 /* FBUserSettingsViewResources.bundle in Resources */,
 				D954668517824FF500499FD5 /* 208-facebook.png in Resources */,
 				D954668617824FF500499FD5 /* 208-facebook@2x.png in Resources */,
