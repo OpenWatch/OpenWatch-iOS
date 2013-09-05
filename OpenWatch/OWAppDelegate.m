@@ -230,7 +230,7 @@
             NSManagedObjectContext *context = [NSManagedObjectContext MR_contextForCurrentThread];
             OWMission *mission = (OWMission*)[context existingObjectWithID:objectID error:nil];
             [[OWAccountAPIClient sharedClient] postAction:@"viewed_push" forMission:mission success:nil failure:nil retryCount:kOWAccountAPIClientDefaultRetryCount];
-            [[Mixpanel sharedInstance] track:@"Viewed Push for Mission" properties:@{@"mission_id": mission.serverID}];
+            [[Mixpanel sharedInstance] track:@"Received Push for Mission" properties:@{@"mission_id": mission.serverID}];
         } failure:nil retryCount:kOWAccountAPIClientDefaultRetryCount];
     }
 }
