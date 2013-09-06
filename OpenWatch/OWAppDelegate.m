@@ -18,6 +18,7 @@
 #import "PKRevealController.h"
 #import "OWStrings.h"
 #import "OWMissionSelectorViewController.h"
+#import "OWConstants.h"
 
 @implementation OWAppDelegate
 @synthesize locationController, dashboardViewController, backgroundTask, backgroundTimer, allowRotation, creationController, revealController, feedViewController, navigationController;
@@ -34,7 +35,7 @@
 
     [MagicalRecord setupAutoMigratingCoreDataStack];
     [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookieAcceptPolicy:NSHTTPCookieAcceptPolicyAlways];
-
+    [OWUtilities restoreCookiesFromPersistentStore];
 
     self.allowRotation = NO;
     self.forceLandscapeRight = NO;
@@ -166,6 +167,7 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    [OWUtilities saveCookiesToPersistentStore];
     [MagicalRecord cleanUp];
 }
 

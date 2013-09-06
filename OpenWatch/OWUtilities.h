@@ -44,4 +44,7 @@
 
 + (UIBarButtonItem*)barItemWithImage:(UIImage*)image target:(id)target action:(SEL)action;
 
++ (void) saveCookiesToPersistentStore;
++ (void) restoreCookiesFromPersistentStore;
+
 @end

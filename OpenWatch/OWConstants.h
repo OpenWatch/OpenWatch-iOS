@@ -9,3 +9,4 @@
 #define kPasswordResetURL @"https://openwatch.net/accounts/password/reset/"
 
 #define kAccountPermissionsError @"kAccountPermissionsError"
+#define kPersistentCookieStorageKey @"kPersistentCookieStorageKey"

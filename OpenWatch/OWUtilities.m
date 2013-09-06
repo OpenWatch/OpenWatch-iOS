@@ -9,6 +9,7 @@
 #import "OWUtilities.h"
 #import <QuartzCore/QuartzCore.h>
 #import "OWStrings.h"
+#import "OWConstants.h"
 
 @implementation OWUtilities
 
@@ -206,6 +207,37 @@
     
     UIBarButtonItem* item = [[UIBarButtonItem alloc] initWithCustomView:button];
     return item;
+}
+
++ (void) saveCookiesToPersistentStore {
+    NSArray *cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookies];
+    NSMutableArray *serializedCookies = [NSMutableArray arrayWithCapacity:cookies.count];
+    for (NSHTTPCookie *cookie in cookies) {
+        [serializedCookies addObject:cookie.properties];
+    }
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    if (serializedCookies.count > 0) {
+        [defaults setObject:serializedCookies forKey:kPersistentCookieStorageKey];
+    } else {
+        [defaults removeObjectForKey:kPersistentCookieStorageKey];
+    }
+    BOOL saved = [defaults synchronize];
+    if (!saved) {
+        NSLog(@"Error saving cookies to persistent storage!");
+    }
+}
++ (void) restoreCookiesFromPersistentStore {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSArray *cookies = [defaults objectForKey:kPersistentCookieStorageKey];
+    if (!cookies || cookies.count == 0) {
+        NSLog(@"No cookies to restore");
+        return;
+    }
+    NSHTTPCookieStorage *cookieStorage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+    for (NSDictionary *cookieData in cookies) {
+        NSHTTPCookie *cookie = [NSHTTPCookie cookieWithProperties:cookieData];
+        [cookieStorage setCookie:cookie];
+    }
 }
 
 @end
