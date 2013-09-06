@@ -37,6 +37,7 @@
 }
 
 - (void) captureViewControllerDidCancel:(OWCaptureViewController *)captureViewController{
+    [captureViewController dismissViewControllerAnimated:YES completion:nil];
     [presentingViewController.navigationController popToRootViewControllerAnimated:NO];
 }
 

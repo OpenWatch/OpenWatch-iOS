@@ -8,9 +8,14 @@
 
 #import "OWPaginatedTableViewController.h"
 #import "OWTooltipView.h"
+#import "OWOnboardingView.h"
+#import "OWLocationController.h"
 
-@interface OWMissionListViewController : OWPaginatedTableViewController <OWTooltipViewDelegate>
+@interface OWMissionListViewController : OWPaginatedTableViewController <OWTooltipViewDelegate, OWOnboardingViewDelegate, OWLocationControllerDelegate>
 
 @property (nonatomic, strong) OWTooltipView *headerView;
+
+@property (nonatomic, strong) OWOnboardingView *onboardingView;
+
 
 @end

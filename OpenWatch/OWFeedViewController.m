@@ -33,31 +33,14 @@
 @synthesize feedType;
 @synthesize selectedFeedString;
 @synthesize lastLocation;
-@synthesize onboardingView;
 
 - (id)init
 {
     self = [super init];
     if (self) {
         self.objectIDs = [NSMutableArray array];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedAccountPermissionsErrorNotification:) name:kAccountPermissionsError object:nil];
-
     }
     return self;
-}
-
-- (void) receivedAccountPermissionsErrorNotification:(NSNotification*)notification {
-    [[Mixpanel sharedInstance] track:@"Account Permissions Error"];
-    NSLog(@"%@ received", kAccountPermissionsError);
-    [OW_APP_DELEGATE.navigationController popToRootViewControllerAnimated:YES];
-    [self.revealController showViewController:self.revealController.frontViewController];
-    OWLoginViewController *loginViewController = [[OWLoginViewController alloc] init];
-    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:loginViewController];
-    loginViewController.showCancelButton = NO;
-    [OW_APP_DELEGATE.navigationController presentViewController:navController animated:YES completion:^{
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:WHOOPS_STRING message:SESSION_EXPIRED_STRING delegate:nil cancelButtonTitle:OK_STRING otherButtonTitles:nil];
-        [alert show];
-    }];
 }
 
 - (void) locationUpdated:(CLLocation *)location {
@@ -158,12 +141,6 @@
     [self didSelectFeedWithName:selectedFeedString displayName:self.displayName type:feedType pageNumber:1];
 }
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    [self updateUserAccountInformation];
-}
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -179,25 +156,6 @@
 - (void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self populateInitialFeed];
-    
-    CGFloat navigationBarHeightHack = 0.0f;
-    
-    if (self.navigationController.navigationBarHidden) {
-        navigationBarHeightHack = self.navigationController.navigationBar.frame.size.height;
-    }
-    
-    [self.navigationController setNavigationBarHidden:NO animated:animated];
-    
-    OWAccount *account = [OWSettingsController sharedInstance].account;
-    
-    if (!account.hasCompletedOnboarding && !self.onboardingView) {
-        CGRect frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - navigationBarHeightHack);
-        self.onboardingView = [[OWOnboardingView alloc] initWithFrame:frame];
-        self.onboardingView.delegate = self;
-        self.navigationItem.rightBarButtonItem = nil;
-        self.navigationItem.leftBarButtonItem = nil;
-        [self.view addSubview:onboardingView];
-    }
 }
 
 - (void) viewWillDisappear:(BOOL)animated {
@@ -241,34 +199,5 @@
 }
 
 
-- (void) onboardingViewDidComplete:(OWOnboardingView *)ow {
-    [[Mixpanel sharedInstance] track:@"Onboarding Complete" properties:@{@"agent": @(onboardingView.agentSwitch.on)}];
-    OW_APP_DELEGATE.revealController.recognizesPanningOnFrontView = YES;
-    [self setupNavBar];
-    OWAccount *account = [OWSettingsController sharedInstance].account;
-    account.hasCompletedOnboarding = YES;
-    account.secretAgentEnabled = onboardingView.agentSwitch.on;
-    [self updateUserAccountInformation];
-    [UIView animateWithDuration:2.0 animations:^{
-        self.onboardingView.layer.opacity = 0.0f;
-    } completion:^(BOOL finished) {
-        [self.onboardingView removeFromSuperview];
-        self.onboardingView = nil;
-    }];
-}
-
-- (void) updateUserAccountInformation {
-    OWAccount *account = [OWSettingsController sharedInstance].account;
-    if (!account.isLoggedIn) {
-        return;
-    }
-    [[OWAccountAPIClient sharedClient] updateUserSecretAgentStatus:account.secretAgentEnabled];
-    if (!account.secretAgentEnabled) {
-        return;
-    }
-    [[OWLocationController sharedInstance] startWithDelegate:self];
-    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:
-     (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
-}
 
 @end

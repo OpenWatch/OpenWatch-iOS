@@ -205,7 +205,6 @@
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Failed to update account photo: %@", error.userInfo);
-        
     }];
     [operation start];
 }

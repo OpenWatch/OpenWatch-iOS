@@ -21,7 +21,6 @@
 #import "OWFeedViewController.h"
 #import "OWDashboardItem.h"
 #import "OWPhoto.h"
-#import "OWLocationController.h"
 #import "OWLocalMediaEditViewController.h"
 #import "OWAppDelegate.h"
 #import "OWSocialController.h"
@@ -179,15 +178,6 @@
     self.dashboardView.frame = CGRectMake(0, 0, minWidth, self.view.frame.size.height);
     
     [self refreshTagList];
-}
-
-- (void) locationUpdated:(CLLocation *)location {
-    OWLocationController *locationController = [OWLocationController sharedInstance];
-    [locationController stop];
-    OWAccount *account = [OWSettingsController sharedInstance].account;
-    if (account.secretAgentEnabled) {
-        [[OWAccountAPIClient sharedClient] updateUserLocation:location];
-    }
 }
 
 - (void) refreshTagList {

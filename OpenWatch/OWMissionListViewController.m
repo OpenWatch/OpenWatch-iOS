@@ -14,6 +14,8 @@
 #import "OWStrings.h"
 #import "OWSettingsController.h"
 #import "OWUtilities.h"
+#import "OWAppDelegate.h"
+#import "PKRevealController.h"
 
 @interface OWMissionListViewController ()
 
@@ -21,6 +23,7 @@
 
 @implementation OWMissionListViewController
 @synthesize headerView;
+@synthesize onboardingView;
 
 - (id)init
 {
@@ -39,6 +42,10 @@
     return self;
 }
 
+- (void) viewDidLoad {
+    [super viewDidLoad];
+    [self updateUserAccountInformation];
+}
 
 - (void) tooltipViewDidDismiss:(OWTooltipView *)tooltipView {
     self.headerView = nil;
@@ -55,6 +62,24 @@
     }
     
     [self reloadTableViewDataSource];
+    
+    CGFloat navigationBarHeightHack = 0.0f;
+    
+    if (self.navigationController.navigationBarHidden) {
+        navigationBarHeightHack = self.navigationController.navigationBar.frame.size.height;
+    }
+    
+    [self.navigationController setNavigationBarHidden:NO animated:animated];
+    OWAccount *account = [OWSettingsController sharedInstance].account;
+    
+    if (!account.hasCompletedOnboarding && !self.onboardingView) {
+        CGRect frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - navigationBarHeightHack);
+        self.onboardingView = [[OWOnboardingView alloc] initWithFrame:frame];
+        self.onboardingView.delegate = self;
+        self.navigationItem.rightBarButtonItem = nil;
+        self.navigationItem.leftBarButtonItem = nil;
+        [self.view addSubview:onboardingView];
+    }
 }
 
 - (void) reloadTableViewDataSource {
@@ -134,6 +159,45 @@
 
 - (void) fetchObjectsForPageNumber:(NSUInteger)pageNumber {
     [self didSelectFeedWithPageNumber:pageNumber];
+}
+
+- (void) onboardingViewDidComplete:(OWOnboardingView *)ow {
+    [[Mixpanel sharedInstance] track:@"Onboarding Complete" properties:@{@"agent": @(onboardingView.agentSwitch.on)}];
+    OW_APP_DELEGATE.revealController.recognizesPanningOnFrontView = YES;
+    [self setupNavBar];
+    OWAccount *account = [OWSettingsController sharedInstance].account;
+    account.hasCompletedOnboarding = YES;
+    account.secretAgentEnabled = onboardingView.agentSwitch.on;
+    [self updateUserAccountInformation];
+    [UIView animateWithDuration:2.0 animations:^{
+        self.onboardingView.layer.opacity = 0.0f;
+    } completion:^(BOOL finished) {
+        [self.onboardingView removeFromSuperview];
+        self.onboardingView = nil;
+    }];
+}
+
+- (void) locationUpdated:(CLLocation *)location {
+    OWLocationController *locationController = [OWLocationController sharedInstance];
+    [locationController stop];
+    OWAccount *account = [OWSettingsController sharedInstance].account;
+    if (account.secretAgentEnabled) {
+        [[OWAccountAPIClient sharedClient] updateUserLocation:location];
+    }
+}
+
+- (void) updateUserAccountInformation {
+    OWAccount *account = [OWSettingsController sharedInstance].account;
+    if (!account.isLoggedIn) {
+        return;
+    }
+    [[OWAccountAPIClient sharedClient] updateUserSecretAgentStatus:account.secretAgentEnabled];
+    if (!account.secretAgentEnabled) {
+        return;
+    }
+    [[OWLocationController sharedInstance] startWithDelegate:self];
+    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:
+     (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
 }
 
 @end

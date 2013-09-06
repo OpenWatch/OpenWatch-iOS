@@ -33,5 +33,6 @@
 @property (nonatomic, strong) UINavigationController *navigationController;
 
 @property (nonatomic) BOOL allowRotation;
+@property (nonatomic) BOOL forceLandscapeRight;
 
 @end

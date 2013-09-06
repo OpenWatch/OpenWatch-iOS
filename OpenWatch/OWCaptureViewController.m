@@ -89,8 +89,8 @@
 
 - (void) finishButtonPressed:(id)sender {
     if (![videoProcessor isRecording]) {
+        OW_APP_DELEGATE.forceLandscapeRight = NO;
         [self.delegate captureViewControllerDidCancel:self];
-        [self dismissViewControllerAnimated:YES completion:nil];
     } else {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:STOP_RECORDING_STRING message:nil delegate:self cancelButtonTitle:NO_STRING otherButtonTitles:YES_STRING, nil];
         [alert show];
@@ -128,7 +128,8 @@
 }
 
 - (void) viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];    
+    [super viewWillAppear:animated];
+    OW_APP_DELEGATE.forceLandscapeRight = YES;
 	self.videoPreviewView.frame = self.view.bounds;
     CGFloat buttonWidth = 100.0f;
     CGFloat buttonHeight = 45.0f;
@@ -186,6 +187,7 @@
 - (void)recordingWillStop
 {
 	dispatch_async(dispatch_get_main_queue(), ^{
+        OW_APP_DELEGATE.forceLandscapeRight = NO;
 		// Disable until saving to the camera roll is complete
         [[OWLocationController sharedInstance] stop];
 		[[self finishButton] setEnabled:NO];

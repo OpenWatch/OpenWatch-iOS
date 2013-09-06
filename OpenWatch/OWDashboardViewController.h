@@ -11,11 +11,10 @@
 #import "OWDashboardView.h"
 #import "OWAudioRecordingViewController.h"
 #import "OWCaptureViewController.h"
-#import "OWLocationController.h"
 #import "OWMediaCreationController.h"
 #import "OWFeedViewController.h"
 
-@interface OWDashboardViewController : UIViewController < OWDashboardViewDelegate, OWLocationControllerDelegate>
+@interface OWDashboardViewController : UIViewController < OWDashboardViewDelegate>
 
 @property (nonatomic, strong) OWDashboardView *dashboardView;
 

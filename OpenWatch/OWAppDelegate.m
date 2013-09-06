@@ -21,6 +21,7 @@
 
 @implementation OWAppDelegate
 @synthesize locationController, dashboardViewController, backgroundTask, backgroundTimer, allowRotation, creationController, revealController, feedViewController, navigationController;
+@synthesize forceLandscapeRight;
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -36,6 +37,7 @@
 
 
     self.allowRotation = NO;
+    self.forceLandscapeRight = NO;
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     self.window.backgroundColor = [OWUtilities stoneBackgroundPattern];
@@ -272,9 +274,13 @@
 
 -(NSUInteger)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window
 {
+    if (self.forceLandscapeRight) {
+        return UIInterfaceOrientationMaskLandscapeRight;
+    }
     if (self.allowRotation) {
         return UIInterfaceOrientationMaskPortrait | UIInterfaceOrientationMaskLandscapeLeft | UIInterfaceOrientationMaskLandscapeRight;
     }
+
     return UIInterfaceOrientationMaskPortrait;
 }
 
