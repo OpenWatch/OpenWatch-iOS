@@ -1,0 +1,9 @@
+[main]
+host = https://www.transifex.com
+
+[openwatch.localizablestrings]
+source_file = OpenWatch/en.lproj/Localizable.strings
+source_lang = en
+trans.pl = OpenWatch/pl.lproj/Localizable.strings
+trans.tr_TR = OpenWatch/tr.lproj/Localizable.strings
+
