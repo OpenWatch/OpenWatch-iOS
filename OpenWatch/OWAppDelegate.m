@@ -63,7 +63,7 @@
     self.navigationController = [[UINavigationController alloc] init];
     BOOL loggedIn = NO;
     if ([account isLoggedIn]) {
-        OWMissionListViewController *missionList = [[OWMissionListViewController alloc] init];
+        OWMissionListViewController *missionList = [[[self missionListClass] alloc] init];
         navigationController.viewControllers = @[missionList];
         loggedIn = YES;
     } else {
@@ -89,9 +89,15 @@
         });
     }
     
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    
     self.creationController = [[[self mediaCreationClass] alloc] init];
     [self.window makeKeyAndVisible];
     return YES;
+}
+
+- (Class) missionListClass {
+    return [OWMissionListViewController class];
 }
 
 - (Class) mediaCreationClass {

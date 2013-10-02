@@ -482,13 +482,11 @@
     return prefix;
 }
 
-
 - (void) fetchMediaObjectsForFeedType:(OWFeedType)feedType feedName:(NSString*)feedName page:(NSUInteger)page success:(void (^)(NSArray *mediaObjectIDs, NSUInteger totalPages))success failure:(void (^)(NSString *reason))failure {
-    NSString *path = [self pathForFeedType:feedType];
-    if (!path) {
-        failure(@"Path is nil!");
-        return;
-    }
+    [self fetchMediaObjectsForFeedType:feedType feedName:feedName page:page additionalParameters:nil success:success failure:failure];
+}
+
+- (void) fetchMediaObjectsForFeedType:(OWFeedType)feedType feedName:(NSString*)feedName page:(NSUInteger)page additionalParameters:(NSDictionary*)additionalParameters success:(void (^)(NSArray *mediaObjectIDs, NSUInteger totalPages))success failure:(void (^)(NSString *reason))failure {
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     [parameters setObject:@(page) forKey:@"page"];
     NSString *keyName = @"type";
@@ -498,6 +496,19 @@
     if (feedName) {
         [parameters setObject:feedName forKey:keyName];
     }
+    if (additionalParameters) {
+        [parameters setValuesForKeysWithDictionary:additionalParameters];
+    }
+    [self fetchMediaObjectsForFeedType:feedType parameters:parameters success:success failure:failure];
+}
+
+- (void) fetchMediaObjectsForFeedType:(OWFeedType)feedType parameters:(NSDictionary *)parameters success:(void (^)(NSArray *, NSUInteger))success failure:(void (^)(NSString *))failure {
+    NSString *path = [self pathForFeedType:feedType];
+    if (!path) {
+        failure(@"Path is nil!");
+        return;
+    }
+
     [self getPath:path parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSArray *mediaObjects = [self objectIDsFromMediaObjectsMetadataArray:[responseObject objectForKey:kObjectsKey]];
         NSDictionary *meta = [responseObject objectForKey:kMetaKey];

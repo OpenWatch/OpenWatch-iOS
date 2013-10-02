@@ -48,8 +48,6 @@
 		D909C30E1742CEA4005930A7 /* uv_vote_chicklet_empty@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D909C2FE1742CEA4005930A7 /* uv_vote_chicklet_empty@2x.png */; };
 		D909C30F1742CEA4005930A7 /* uv_x.png in Resources */ = {isa = PBXBuildFile; fileRef = D909C2FF1742CEA4005930A7 /* uv_x.png */; };
 		D909C3101742CEA4005930A7 /* uv_x@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D909C3001742CEA4005930A7 /* uv_x@2x.png */; };
-		D90F533717F60D51000617E5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D99741811651D42F0034ABB0 /* main.m */; };
-		D90F533817F60D51000617E5 /* OWAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D99741851651D42F0034ABB0 /* OWAppDelegate.m */; };
 		D90F533917F60D51000617E5 /* OWLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D997419C1651D8520034ABB0 /* OWLoginViewController.m */; };
 		D90F533A17F60D51000617E5 /* OWSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D99741A01651DB0B0034ABB0 /* OWSettingsViewController.m */; };
 		D90F533B17F60D51000617E5 /* OWInLineTextEditTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D2E14E1652D7B80000E7C5 /* OWInLineTextEditTableViewCell.m */; };
@@ -1079,6 +1077,10 @@
 		D9FAE6031763F47900CEBEBF /* UIBlackCloseButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9FAE5FE1763F47900CEBEBF /* UIBlackCloseButton@2x.png */; };
 		D9FAE6051763F47900CEBEBF /* UIBlackCloseButtonPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = D9FAE5FF1763F47900CEBEBF /* UIBlackCloseButtonPressed.png */; };
 		D9FAE6071763F47900CEBEBF /* UIBlackCloseButtonPressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9FAE6001763F47900CEBEBF /* UIBlackCloseButtonPressed@2x.png */; };
+		D9FC994D17FCB18C00AACC4C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D9FC994A17FCB18C00AACC4C /* main.m */; };
+		D9FC994E17FCB18C00AACC4C /* OWAvamAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D9FC994C17FCB18C00AACC4C /* OWAvamAppDelegate.m */; };
+		D9FC994F17FCB1A000AACC4C /* OWAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D99741851651D42F0034ABB0 /* OWAppDelegate.m */; };
+		D9FC995217FCB39400AACC4C /* OWAvamMissionListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9FC995117FCB39400AACC4C /* OWAvamMissionListViewController.m */; };
 		D9FF1A34173B03AF0076D214 /* OWPreviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9FF1A33173B03AF0076D214 /* OWPreviewView.m */; };
 /* End PBXBuildFile section */
 
@@ -1806,6 +1808,11 @@
 		D9FAE5FE1763F47900CEBEBF /* UIBlackCloseButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UIBlackCloseButton@2x.png"; sourceTree = "<group>"; };
 		D9FAE5FF1763F47900CEBEBF /* UIBlackCloseButtonPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UIBlackCloseButtonPressed.png; sourceTree = "<group>"; };
 		D9FAE6001763F47900CEBEBF /* UIBlackCloseButtonPressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UIBlackCloseButtonPressed@2x.png"; sourceTree = "<group>"; };
+		D9FC994A17FCB18C00AACC4C /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Avam/main.m; sourceTree = "<group>"; };
+		D9FC994B17FCB18C00AACC4C /* OWAvamAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OWAvamAppDelegate.h; path = Avam/OWAvamAppDelegate.h; sourceTree = "<group>"; };
+		D9FC994C17FCB18C00AACC4C /* OWAvamAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OWAvamAppDelegate.m; path = Avam/OWAvamAppDelegate.m; sourceTree = "<group>"; };
+		D9FC995017FCB39400AACC4C /* OWAvamMissionListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OWAvamMissionListViewController.h; path = Avam/OWAvamMissionListViewController.h; sourceTree = "<group>"; };
+		D9FC995117FCB39400AACC4C /* OWAvamMissionListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OWAvamMissionListViewController.m; path = Avam/OWAvamMissionListViewController.m; sourceTree = "<group>"; };
 		D9FF1A32173B03AF0076D214 /* OWPreviewView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWPreviewView.h; sourceTree = "<group>"; };
 		D9FF1A33173B03AF0076D214 /* OWPreviewView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWPreviewView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -2295,6 +2302,7 @@
 		D997417B1651D42F0034ABB0 /* OpenWatch */ = {
 			isa = PBXGroup;
 			children = (
+				D9FC994617FCB12100AACC4C /* Avam */,
 				D9D33F86177B91A0005FEC1F /* OccupyGezi */,
 				D98FCB4916A4AA5B0071DF6B /* Generated */,
 				D9D2E21816532A870000E7C5 /* Data Model */,
@@ -2316,13 +2324,13 @@
 		D997417C1651D42F0034ABB0 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				D99741811651D42F0034ABB0 /* main.m */,
 				D90F54A917F60D51000617E5 /* Avam-Info.plist */,
 				D9ECBF37175FD81400A34DFE /* Localizable.strings */,
 				D997417D1651D42F0034ABB0 /* OpenWatch-Info.plist */,
 				D9ECC1B9175FFD8400A34DFE /* OccupyGezi-Info.plist */,
 				D997417E1651D42F0034ABB0 /* InfoPlist.strings */,
 				D99741A21651DBC50034ABB0 /* OWStrings.h */,
-				D99741811651D42F0034ABB0 /* main.m */,
 				D99741831651D42F0034ABB0 /* OpenWatch-Prefix.pch */,
 			);
 			name = "Supporting Files";
@@ -3072,6 +3080,18 @@
 			path = ODIN;
 			sourceTree = "<group>";
 		};
+		D9FC994617FCB12100AACC4C /* Avam */ = {
+			isa = PBXGroup;
+			children = (
+				D9FC994A17FCB18C00AACC4C /* main.m */,
+				D9FC994B17FCB18C00AACC4C /* OWAvamAppDelegate.h */,
+				D9FC994C17FCB18C00AACC4C /* OWAvamAppDelegate.m */,
+				D9FC995017FCB39400AACC4C /* OWAvamMissionListViewController.h */,
+				D9FC995117FCB39400AACC4C /* OWAvamMissionListViewController.m */,
+			);
+			name = Avam;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -3143,6 +3163,11 @@
 				CLASSPREFIX = OW;
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = "The OpenWatch Corporation, Inc.";
+				TargetAttributes = {
+					D90F532F17F60D51000617E5 = {
+						DevelopmentTeam = 95RDN7KR2N;
+					};
+				};
 			};
 			buildConfigurationList = D997416B1651D42E0034ABB0 /* Build configuration list for PBXProject "OpenWatch" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -3714,8 +3739,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D90F533717F60D51000617E5 /* main.m in Sources */,
-				D90F533817F60D51000617E5 /* OWAppDelegate.m in Sources */,
 				D90F533917F60D51000617E5 /* OWLoginViewController.m in Sources */,
 				D90F533A17F60D51000617E5 /* OWSettingsViewController.m in Sources */,
 				D90F533B17F60D51000617E5 /* OWInLineTextEditTableViewCell.m in Sources */,
@@ -3724,6 +3747,7 @@
 				D90F533E17F60D51000617E5 /* OWAccount.m in Sources */,
 				D90F533F17F60D51000617E5 /* OWCaptureViewController.m in Sources */,
 				D90F534017F60D51000617E5 /* OWVideoProcessor.m in Sources */,
+				D9FC994F17FCB1A000AACC4C /* OWAppDelegate.m in Sources */,
 				D90F534117F60D51000617E5 /* OWAppleEncoder.m in Sources */,
 				D90F534217F60D51000617E5 /* OWCaptureAPIClient.m in Sources */,
 				D90F534317F60D51000617E5 /* OWRecordingController.m in Sources */,
@@ -3784,6 +3808,8 @@
 				D90F537A17F60D51000617E5 /* OWFeedViewController.m in Sources */,
 				D90F537B17F60D51000617E5 /* OWMediaObjectTableViewCell.m in Sources */,
 				D90F537C17F60D51000617E5 /* OWLocalMediaEditViewController.m in Sources */,
+				D9FC994E17FCB18C00AACC4C /* OWAvamAppDelegate.m in Sources */,
+				D9FC994D17FCB18C00AACC4C /* main.m in Sources */,
 				D90F537D17F60D51000617E5 /* OWTallyView.m in Sources */,
 				D90F537E17F60D51000617E5 /* _OWLocalRecording.m in Sources */,
 				D90F537F17F60D51000617E5 /* _OWManagedRecording.m in Sources */,
@@ -3849,6 +3875,7 @@
 				D90F53BB17F60D51000617E5 /* OWBadgedDashboardTableViewCell.m in Sources */,
 				D90F53BC17F60D51000617E5 /* OWMissionViewController.m in Sources */,
 				D90F53BD17F60D51000617E5 /* OWMediaCreationController.m in Sources */,
+				D9FC995217FCB39400AACC4C /* OWAvamMissionListViewController.m in Sources */,
 				D90F53BE17F60D51000617E5 /* OWUserView.m in Sources */,
 				D90F53BF17F60D51000617E5 /* OWBannerView.m in Sources */,
 				D90F53C017F60D51000617E5 /* OWProfileViewController.m in Sources */,
@@ -4373,7 +4400,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
-				CODE_SIGN_IDENTITY = "iPhone Developer: Chris Ballinger (XGV4GB4HMH)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Chris Ballinger (XGV4GB4HMH)";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -4391,8 +4418,8 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = Avam;
-				PROVISIONING_PROFILE = "967126A7-AD33-40F8-B5E6-7C3913E89231";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "967126A7-AD33-40F8-B5E6-7C3913E89231";
+				PROVISIONING_PROFILE = "D5FC4F01-538B-40A7-B832-C279DC305245";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "D5FC4F01-538B-40A7-B832-C279DC305245";
 				RUN_CLANG_STATIC_ANALYZER = NO;
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
@@ -4421,8 +4448,8 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = Avam;
-				PROVISIONING_PROFILE = "F5207259-80A5-42B0-B616-ABEB17C6DD01";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				PROVISIONING_PROFILE = "942F6781-45AF-467A-B76E-A287C685577F";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "942F6781-45AF-467A-B76E-A287C685577F";
 				RUN_CLANG_STATIC_ANALYZER = NO;
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
