@@ -15,4 +15,8 @@
     return [OWAvamMissionListViewController class];
 }
 
+- (void) setupFontManager {
+    self.fontManager = [[OWFontManager alloc] initWithDefaultFontFamily:@"OpenSans"];
+}
+
 @end

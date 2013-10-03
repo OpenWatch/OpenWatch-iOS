@@ -45,8 +45,9 @@
 }
 
 - (void) setupStartRecordingLabel {
+    OWFontManager *fontManager = OW_APP_DELEGATE.fontManager;
     self.startRecordingLabel = [[UILabel alloc] init];
-    self.startRecordingLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:30.0f];
+    self.startRecordingLabel.font = [fontManager boldFontWithSize:30.0f];
     self.startRecordingLabel.numberOfLines = 0;
     self.startRecordingLabel.textColor = [UIColor whiteColor];
     self.startRecordingLabel.textAlignment = NSTextAlignmentCenter;

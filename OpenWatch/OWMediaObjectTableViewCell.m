@@ -20,6 +20,7 @@
 #import "OWInvestigation.h"
 #import "OWPreviewView.h"
 #import "TTTTimeIntervalFormatter.h"
+#import "OWAppDelegate.h"
 
 #define PADDING 5.0f
 #define USER_HEIGHT 50.0f
@@ -47,7 +48,7 @@
     self.locationLabel = [[UILabel alloc] init];
     self.locationLabel.backgroundColor = [UIColor clearColor];
     self.locationLabel.textAlignment = NSTextAlignmentRight;
-    self.locationLabel.font =  [UIFont fontWithName:@"HelveticaNeue-Light" size:17.0f];
+    self.locationLabel.font = [OW_APP_DELEGATE.fontManager fontWithWeight:@"Light" size:17.0f];
     self.locationLabel.textColor = [UIColor lightGrayColor];
     [self.contentView addSubview:locationLabel];
 }
@@ -56,7 +57,7 @@
 - (void) setupDateLabel {
     self.dateLabel = [[UILabel alloc] init];
     self.dateLabel.backgroundColor = [UIColor clearColor];
-    self.dateLabel.font =  [UIFont fontWithName:@"HelveticaNeue-Light" size:17.0f];
+    self.dateLabel.font = [OW_APP_DELEGATE.fontManager fontWithWeight:@"Light" size:17.0f];
     self.dateLabel.textColor = [UIColor lightGrayColor];
     [self.contentView addSubview:dateLabel];
     
@@ -90,7 +91,7 @@
 }
 
 + (UIFont*) titleLabelFont {
-    return [UIFont fontWithName:@"HelveticaNeue-Medium" size:20.0f];
+    return [OW_APP_DELEGATE.fontManager fontWithSize:17.0f];
 }
 
 + (CGFloat) paddedWidth {

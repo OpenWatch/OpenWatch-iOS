@@ -22,7 +22,7 @@
 
 @implementation OWAppDelegate
 @synthesize locationController, dashboardViewController, backgroundTask, backgroundTimer, allowRotation, creationController, revealController, feedViewController, navigationController;
-@synthesize forceLandscapeRight;
+@synthesize forceLandscapeRight, fontManager;
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -89,11 +89,17 @@
         });
     }
     
+    [self setupFontManager];
+    
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     
     self.creationController = [[[self mediaCreationClass] alloc] init];
     [self.window makeKeyAndVisible];
     return YES;
+}
+
+- (void) setupFontManager {
+    self.fontManager = [[OWFontManager alloc] initWithDefaultFontFamily:@"HelveticaNeue"];
 }
 
 - (Class) missionListClass {

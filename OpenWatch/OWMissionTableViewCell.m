@@ -9,6 +9,7 @@
 #import "OWMissionTableViewCell.h"
 #import "OWMission.h"
 #import "OWUtilities.h"
+#import "OWAppDelegate.h"
 
 @implementation OWMissionTableViewCell
 @synthesize bannerView, statsView;
@@ -25,7 +26,7 @@
 }
 
 + (UIFont*) titleLabelFont {
-    return [UIFont fontWithName:@"HelveticaNeue-Light" size:20.0f];
+    return [OW_APP_DELEGATE.fontManager fontWithWeight:@"Light" size:20.0f];
 }
 
 - (void) refreshFrames {

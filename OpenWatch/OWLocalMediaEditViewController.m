@@ -215,7 +215,7 @@ static NSString *editableCellIdentifier = @"EditableCellIdentifier";
     self.titleTextView.keyboardType = UIKeyboardTypeTwitter;
     self.titleTextView.placeholder = WHAT_HAPPENED_LABEL_STRING;
     self.titleTextView.backgroundColor = [UIColor clearColor];
-    self.titleTextView.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:20.0f];
+    self.titleTextView.font = [OW_APP_DELEGATE.fontManager fontWithWeight:@"Light" size:20.0f];
     
     self.previewView = [[OWPreviewView alloc] init];
 }

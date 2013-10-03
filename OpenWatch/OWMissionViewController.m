@@ -36,14 +36,14 @@
         self.titleLabel = [[UILabel alloc] init];
         self.titleLabel.backgroundColor = [UIColor clearColor];
         self.titleLabel.numberOfLines = 0;
-        self.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:23.0f];
+        self.titleLabel.font = [OW_APP_DELEGATE.fontManager fontWithWeight:@"Light" size:23.0f];
         self.blurbLabel = [[UILabel alloc] init];
-        self.blurbLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:20.0f];
+        self.blurbLabel.font = [OW_APP_DELEGATE.fontManager fontWithWeight:@"Light" size:20.0f];
         self.blurbLabel.backgroundColor = [UIColor clearColor];
         self.blurbLabel.numberOfLines = 0;
         self.timeLeftLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         self.timeLeftLabel.backgroundColor = [UIColor clearColor];
-        self.timeLeftLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:15.0f];
+        self.timeLeftLabel.font = [OW_APP_DELEGATE.fontManager fontWithWeight:@"Light" size:15.0f];
         self.timeLeftLabel.textColor = [UIColor lightGrayColor];
         
         self.imageView = [[UIImageView alloc] init];

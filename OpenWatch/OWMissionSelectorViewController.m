@@ -14,6 +14,7 @@
 #import "OWUtilities.h"
 #import "OWMissionSelectionCell.h"
 #import "OWStrings.h"
+#import "OWAppDelegate.h"
 
 static NSString *cellIdentifier = @"CellIdentifier";
 static NSString *missionCellIdentifier = @"MissionCellIdentifier";
@@ -124,7 +125,7 @@ static NSString *missionCellIdentifier = @"MissionCellIdentifier";
     if (indexPath.section == 0) {
         cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
         cell.textLabel.text = NO_MISSION_STRING;
-        cell.textLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:18.0];
+        cell.textLabel.font = [OW_APP_DELEGATE.fontManager fontWithWeight:@"Light" size:18.0f];;
         if (!selectedMission) {
             cell.accessoryType = UITableViewCellAccessoryCheckmark;
         } else {

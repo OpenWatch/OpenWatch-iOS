@@ -9,6 +9,7 @@
 #import "OWMissionStatsView.h"
 #import "OWUtilities.h"
 #import <QuartzCore/QuartzCore.h>
+#import "OWAppDelegate.h"
 
 @implementation OWMissionStatsView
 @synthesize peopleCountLabel, peopleImageView, mediaCountLabel, mediaImageView, mission;
@@ -27,7 +28,7 @@
         NSArray *labels = @[mediaCountLabel, peopleCountLabel];
         for (UILabel *label in labels) {
             label.backgroundColor = [UIColor clearColor];
-            label.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:23.0f];
+            label.font = [OW_APP_DELEGATE.fontManager fontWithWeight:@"Light" size:23.0f];
             label.textAlignment = NSTextAlignmentCenter;
         }
         

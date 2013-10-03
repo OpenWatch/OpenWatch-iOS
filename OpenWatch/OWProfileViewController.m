@@ -14,6 +14,7 @@
 #import "OWStrings.h"
 #import "AFNetworking.h"
 #import "OWSocialController.h"
+#import "OWAppDelegate.h"
 
 #define USER_PHOTO_ACTIONSHEET_TAG 1
 #define TWITTER_DISCONNECT_ACTIONSHEET_TAG 2
@@ -36,7 +37,7 @@
         [self.view addSubview:scrollView];
         
         self.userView = [[OWUserProfileView alloc] initWithFrame:CGRectZero];
-        UIFont *editableFont = [UIFont fontWithName:@"HelveticaNeue-Light" size:20.0f];
+        UIFont *editableFont = [OW_APP_DELEGATE.fontManager fontWithWeight:@"Light" size:20.0f];
         self.firstNameField = [[SLGlowingTextField alloc] init];
         self.firstNameField.delegate = self;
         self.firstNameField.placeholder = FIRST_NAME_STRING;
@@ -69,7 +70,7 @@
         
         for (UILabel *label in labels) {
             label.backgroundColor = [UIColor clearColor];
-            label.font = [UIFont fontWithName:@"HelveticaNeue-Medium" size:10.0f];
+            label.font = [OW_APP_DELEGATE.fontManager fontWithSize:10.0f];
             label.textColor = [UIColor lightGrayColor];
             [self.scrollView addSubview:label];
         }

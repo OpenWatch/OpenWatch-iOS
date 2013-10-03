@@ -12,9 +12,9 @@
 #import "OWDashboardViewController.h"
 #import "OWMediaCreationController.h"
 #import "OWFeedViewController.h"
+#import "OWFontManager.h"
 
 @class PKRevealController;
-
 
 #define OW_APP_DELEGATE ((OWAppDelegate*)[UIApplication sharedApplication].delegate)
 
@@ -31,6 +31,7 @@
 @property (nonatomic, strong) OWDashboardViewController *dashboardViewController;
 @property (nonatomic, strong) OWMediaCreationController *creationController;
 @property (nonatomic, strong) UINavigationController *navigationController;
+@property (nonatomic, strong) OWFontManager *fontManager;
 
 @property (nonatomic) BOOL allowRotation;
 @property (nonatomic) BOOL forceLandscapeRight;

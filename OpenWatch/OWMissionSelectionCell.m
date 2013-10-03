@@ -11,6 +11,7 @@
 #import "UIImageView+AFNetworking.h"
 #import "OWStrings.h"
 #import <QuartzCore/QuartzCore.h>
+#import "OWAppDelegate.h"
 #define PADDING 10.0f
 
 @implementation OWMissionSelectionCell
@@ -44,11 +45,11 @@
             label.backgroundColor = [UIColor clearColor];
         }
         [self setDefaultLabelColors];
-        UIFont *smallFont = [UIFont fontWithName:@"HelveticaNeue-Light" size:13.0];
+        UIFont *smallFont = [OW_APP_DELEGATE.fontManager fontWithWeight:@"Light" size:13.0f];
         joinedLabel.textAlignment = NSTextAlignmentRight;
         joinedLabel.font = smallFont;
         expirationLabel.font = smallFont;
-        titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:18.0];
+        titleLabel.font = [OW_APP_DELEGATE.fontManager fontWithWeight:@"Light" size:18.0f];
         
         [self.contentView addSubview:thumbnailImageView];
         [self.contentView addSubview:titleLabel];
