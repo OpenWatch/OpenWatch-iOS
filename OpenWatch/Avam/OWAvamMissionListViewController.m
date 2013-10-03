@@ -8,6 +8,7 @@
 
 #import "OWAvamMissionListViewController.h"
 #import "OWAccountAPIClient.h"
+#import "OWAvamOnboardingView.h"
 
 @implementation OWAvamMissionListViewController
 
@@ -28,6 +29,10 @@
     } failure:^(NSString *reason) {
         [self doneLoadingTableViewData];
     }];
+}
+
+- (Class) onboardingViewClass {
+    return [OWAvamOnboardingView class];
 }
 
 @end

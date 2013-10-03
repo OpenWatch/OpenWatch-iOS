@@ -126,10 +126,6 @@
     //return @"https://staging.openwatch.net/";
 }
 
-+ (UIFont*) fontWithFamily:(NSString *)fontFamily weight:(NSString *)weight size:(CGFloat)size {
-    
-}
-
 + (NSString*) captureBaseURLString {
     return @"https://capture.openwatch.net/";
     //return @"https://capture-staging.openwatch.net/";

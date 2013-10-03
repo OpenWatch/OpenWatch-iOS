@@ -292,12 +292,8 @@
 		D90F542F17F60D51000617E5 /* grayArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D92B6A7016AF4FD3006605E1 /* grayArrow@2x.png */; };
 		D90F543017F60D51000617E5 /* whiteArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = D92B6A7116AF4FD3006605E1 /* whiteArrow.png */; };
 		D90F543117F60D51000617E5 /* whiteArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D92B6A7216AF4FD3006605E1 /* whiteArrow@2x.png */; };
-		D90F543217F60D51000617E5 /* navbar.png in Resources */ = {isa = PBXBuildFile; fileRef = D9BECEFE16B20E01009046E1 /* navbar.png */; };
-		D90F543317F60D51000617E5 /* navbar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9BECEFF16B20E01009046E1 /* navbar@2x.png */; };
 		D90F543417F60D51000617E5 /* 275-broadcast.png in Resources */ = {isa = PBXBuildFile; fileRef = D955371416B32E3C00753C15 /* 275-broadcast.png */; };
 		D90F543517F60D51000617E5 /* 275-broadcast@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D955371516B32E3C00753C15 /* 275-broadcast@2x.png */; };
-		D90F543617F60D51000617E5 /* stone.png in Resources */ = {isa = PBXBuildFile; fileRef = D980EC8316B854E600ADD398 /* stone.png */; };
-		D90F543717F60D51000617E5 /* stone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D980EC8416B854E600ADD398 /* stone@2x.png */; };
 		D90F543817F60D51000617E5 /* giant-eye-red@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D980EC8916B86BDD00ADD398 /* giant-eye-red@2x.png */; };
 		D90F543917F60D51000617E5 /* play_button_dark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D980EC8F16B877C400ADD398 /* play_button_dark@2x.png */; };
 		D90F543A17F60D51000617E5 /* giant-eye-red.png in Resources */ = {isa = PBXBuildFile; fileRef = D980EC9116B87A4100ADD398 /* giant-eye-red.png */; };
@@ -520,6 +516,11 @@
 		D959ED8117FDFD45000B0A5C /* OpenSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D959ED7C17FDFD45000B0A5C /* OpenSans-Light.ttf */; };
 		D959ED8217FDFD45000B0A5C /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D959ED7D17FDFD45000B0A5C /* OpenSans-Regular.ttf */; };
 		D959ED8317FDFD45000B0A5C /* OpenSans-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D959ED7E17FDFD45000B0A5C /* OpenSans-Semibold.ttf */; };
+		D959ED8817FE02C7000B0A5C /* navbar.png in Resources */ = {isa = PBXBuildFile; fileRef = D959ED8417FE02C7000B0A5C /* navbar.png */; };
+		D959ED8917FE02C7000B0A5C /* navbar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D959ED8517FE02C7000B0A5C /* navbar@2x.png */; };
+		D959ED8A17FE02C7000B0A5C /* stone.png in Resources */ = {isa = PBXBuildFile; fileRef = D959ED8617FE02C7000B0A5C /* stone.png */; };
+		D959ED8B17FE02C7000B0A5C /* stone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D959ED8717FE02C7000B0A5C /* stone@2x.png */; };
+		D959ED8E17FE07B1000B0A5C /* OWAvamOnboardingView.m in Sources */ = {isa = PBXBuildFile; fileRef = D959ED8D17FE07B1000B0A5C /* OWAvamOnboardingView.m */; };
 		D95F3970178B5E9E00B7FC32 /* OWSocialTableItem.m in Sources */ = {isa = PBXBuildFile; fileRef = D95F396F178B5E9E00B7FC32 /* OWSocialTableItem.m */; };
 		D95F3975178B6CFE00B7FC32 /* OWEditableMediaCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D95F3974178B6CFD00B7FC32 /* OWEditableMediaCell.m */; };
 		D963C8281739C157008999F7 /* _OWPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = D963C8271739C157008999F7 /* _OWPhoto.m */; };
@@ -1389,6 +1390,12 @@
 		D959ED7C17FDFD45000B0A5C /* OpenSans-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Light.ttf"; sourceTree = "<group>"; };
 		D959ED7D17FDFD45000B0A5C /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Regular.ttf"; sourceTree = "<group>"; };
 		D959ED7E17FDFD45000B0A5C /* OpenSans-Semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Semibold.ttf"; sourceTree = "<group>"; };
+		D959ED8417FE02C7000B0A5C /* navbar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navbar.png; sourceTree = "<group>"; };
+		D959ED8517FE02C7000B0A5C /* navbar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navbar@2x.png"; sourceTree = "<group>"; };
+		D959ED8617FE02C7000B0A5C /* stone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stone.png; sourceTree = "<group>"; };
+		D959ED8717FE02C7000B0A5C /* stone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "stone@2x.png"; sourceTree = "<group>"; };
+		D959ED8C17FE07B1000B0A5C /* OWAvamOnboardingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OWAvamOnboardingView.h; path = Avam/OWAvamOnboardingView.h; sourceTree = "<group>"; };
+		D959ED8D17FE07B1000B0A5C /* OWAvamOnboardingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OWAvamOnboardingView.m; path = Avam/OWAvamOnboardingView.m; sourceTree = "<group>"; };
 		D95F396E178B5E9E00B7FC32 /* OWSocialTableItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWSocialTableItem.h; sourceTree = "<group>"; };
 		D95F396F178B5E9E00B7FC32 /* OWSocialTableItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWSocialTableItem.m; sourceTree = "<group>"; };
 		D95F3973178B6CFD00B7FC32 /* OWEditableMediaCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWEditableMediaCell.h; sourceTree = "<group>"; };
@@ -2119,6 +2126,10 @@
 		D933A60917F61E3D00600617 /* Avam */ = {
 			isa = PBXGroup;
 			children = (
+				D959ED8417FE02C7000B0A5C /* navbar.png */,
+				D959ED8517FE02C7000B0A5C /* navbar@2x.png */,
+				D959ED8617FE02C7000B0A5C /* stone.png */,
+				D959ED8717FE02C7000B0A5C /* stone@2x.png */,
 				D959ED7917FDFD45000B0A5C /* Open_Sans */,
 				D959ED6417FDE731000B0A5C /* background1.jpg */,
 				D959ED6517FDE731000B0A5C /* background2.jpg */,
@@ -3134,6 +3145,8 @@
 			isa = PBXGroup;
 			children = (
 				D9FC994A17FCB18C00AACC4C /* main.m */,
+				D959ED8C17FE07B1000B0A5C /* OWAvamOnboardingView.h */,
+				D959ED8D17FE07B1000B0A5C /* OWAvamOnboardingView.m */,
 				D9FC994B17FCB18C00AACC4C /* OWAvamAppDelegate.h */,
 				D9FC994C17FCB18C00AACC4C /* OWAvamAppDelegate.m */,
 				D9FC995017FCB39400AACC4C /* OWAvamMissionListViewController.h */,
@@ -3334,6 +3347,7 @@
 				D90F542317F60D51000617E5 /* thumbnail_placeholder.png in Resources */,
 				D90F542417F60D51000617E5 /* thumbnail_placeholder@2x.png in Resources */,
 				D90F542517F60D51000617E5 /* BrowserViewController.xib in Resources */,
+				D959ED8B17FE02C7000B0A5C /* stone@2x.png in Resources */,
 				D90F542617F60D51000617E5 /* left.png in Resources */,
 				D90F542717F60D51000617E5 /* left@2x.png in Resources */,
 				D90F542817F60D51000617E5 /* right.png in Resources */,
@@ -3346,12 +3360,8 @@
 				D90F542F17F60D51000617E5 /* grayArrow@2x.png in Resources */,
 				D90F543017F60D51000617E5 /* whiteArrow.png in Resources */,
 				D90F543117F60D51000617E5 /* whiteArrow@2x.png in Resources */,
-				D90F543217F60D51000617E5 /* navbar.png in Resources */,
-				D90F543317F60D51000617E5 /* navbar@2x.png in Resources */,
 				D90F543417F60D51000617E5 /* 275-broadcast.png in Resources */,
 				D90F543517F60D51000617E5 /* 275-broadcast@2x.png in Resources */,
-				D90F543617F60D51000617E5 /* stone.png in Resources */,
-				D90F543717F60D51000617E5 /* stone@2x.png in Resources */,
 				D90F543817F60D51000617E5 /* giant-eye-red@2x.png in Resources */,
 				D90F543917F60D51000617E5 /* play_button_dark@2x.png in Resources */,
 				D90F543A17F60D51000617E5 /* giant-eye-red.png in Resources */,
@@ -3361,6 +3371,7 @@
 				D90F544217F60D51000617E5 /* 66-microphone@2x.png in Resources */,
 				D90F544317F60D51000617E5 /* 86-camera.png in Resources */,
 				D90F544417F60D51000617E5 /* 86-camera@2x.png in Resources */,
+				D959ED8817FE02C7000B0A5C /* navbar.png in Resources */,
 				D90F544517F60D51000617E5 /* 279-videocamera.png in Resources */,
 				D959ED6617FDE731000B0A5C /* background1.jpg in Resources */,
 				D90F544617F60D51000617E5 /* 279-videocamera@2x.png in Resources */,
@@ -3424,6 +3435,7 @@
 				D90F548017F60D51000617E5 /* 108-badge@2x.png in Resources */,
 				D90F548117F60D51000617E5 /* side_banner_purple@2x.png in Resources */,
 				D933A61D17F61E3D00600617 /* onboarding_1@2x.png in Resources */,
+				D959ED8917FE02C7000B0A5C /* navbar@2x.png in Resources */,
 				D90F548217F60D51000617E5 /* side_banner_green@2x.png in Resources */,
 				D90F548417F60D51000617E5 /* UIBlackCloseButton.png in Resources */,
 				D933A62017F61E3D00600617 /* onboarding_4a@2x.png in Resources */,
@@ -3431,6 +3443,7 @@
 				D90F548617F60D51000617E5 /* UIBlackCloseButtonPressed.png in Resources */,
 				D90F548717F60D51000617E5 /* UIBlackCloseButtonPressed@2x.png in Resources */,
 				D90F548817F60D51000617E5 /* ticks.png in Resources */,
+				D959ED8A17FE02C7000B0A5C /* stone.png in Resources */,
 				D90F548917F60D51000617E5 /* ticks@2x.png in Resources */,
 				D90F548A17F60D51000617E5 /* play-button@2x.png in Resources */,
 				D90F548B17F60D51000617E5 /* dots@2x.png in Resources */,
@@ -3930,6 +3943,7 @@
 				D90F53BB17F60D51000617E5 /* OWBadgedDashboardTableViewCell.m in Sources */,
 				D90F53BC17F60D51000617E5 /* OWMissionViewController.m in Sources */,
 				D90F53BD17F60D51000617E5 /* OWMediaCreationController.m in Sources */,
+				D959ED8E17FE07B1000B0A5C /* OWAvamOnboardingView.m in Sources */,
 				D9FC995217FCB39400AACC4C /* OWAvamMissionListViewController.m in Sources */,
 				D90F53BE17F60D51000617E5 /* OWUserView.m in Sources */,
 				D90F53BF17F60D51000617E5 /* OWBannerView.m in Sources */,

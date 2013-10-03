@@ -74,12 +74,16 @@
     
     if (!account.hasCompletedOnboarding && !self.onboardingView) {
         CGRect frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - navigationBarHeightHack);
-        self.onboardingView = [[OWOnboardingView alloc] initWithFrame:frame];
+        self.onboardingView = [[[self onboardingViewClass] alloc] initWithFrame:frame];
         self.onboardingView.delegate = self;
         self.navigationItem.rightBarButtonItem = nil;
         self.navigationItem.leftBarButtonItem = nil;
         [self.view addSubview:onboardingView];
     }
+}
+
+- (Class) onboardingViewClass {
+    return [OWOnboardingView class];
 }
 
 - (void) reloadTableViewDataSource {

@@ -26,16 +26,23 @@
         
         self.images = @[[UIImage imageNamed:@"onboarding_1.png"], [UIImage imageNamed:@"onboarding_2.png"], [UIImage imageNamed:@"onboarding_3.png"], [UIImage imageNamed:@"onboarding_4b.png"]];
         
-        self.continueButton = [[BButton alloc] initWithFrame:CGRectZero type:BButtonTypeSuccess];
-        self.continueButton.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
-        NSString *continueString = [NSString stringWithFormat:@"%@ →", CONTINUE_STRING];
-        [continueButton setTitle:continueString forState:UIControlStateNormal];
-        [self.continueButton addTarget:self action:@selector(continueButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-        [self refreshContinueButtonFrame];
-        [self addSubview:continueButton];
+        [self setupContinueButton];
     }
-
     return self;
+}
+
+- (BButtonType) continueButtonType {
+    return BButtonTypeSuccess;
+}
+
+- (void) setupContinueButton {
+    self.continueButton = [[BButton alloc] initWithFrame:CGRectZero type:[self continueButtonType]];
+    self.continueButton.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
+    NSString *continueString = [NSString stringWithFormat:@"%@ →", CONTINUE_STRING];
+    [continueButton setTitle:continueString forState:UIControlStateNormal];
+    [self.continueButton addTarget:self action:@selector(continueButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [self refreshContinueButtonFrame];
+    [self addSubview:continueButton];
 }
 
 - (void) toggleSecretAgentMode:(id)sender {
