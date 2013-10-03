@@ -340,7 +340,6 @@
 		D90F546C17F60D51000617E5 /* uv_x@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D909C3001742CEA4005930A7 /* uv_x@2x.png */; };
 		D90F546D17F60D51000617E5 /* gh@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9B4E80817440B20006B3793 /* gh@2x.png */; };
 		D90F546E17F60D51000617E5 /* cc@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9B4E80C17441759006B3793 /* cc@2x.png */; };
-		D90F547217F60D51000617E5 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9FA646617447DA5000051B7 /* Default@2x.png */; };
 		D90F547417F60D51000617E5 /* 29-heart.png in Resources */ = {isa = PBXBuildFile; fileRef = D94B838117457BFB008A1142 /* 29-heart.png */; };
 		D90F547517F60D51000617E5 /* 29-heart@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D94B838217457BFB008A1142 /* 29-heart@2x.png */; };
 		D90F547617F60D51000617E5 /* 193-location-arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = D94B838617457D50008A1142 /* 193-location-arrow.png */; };
@@ -3417,7 +3416,6 @@
 				D90F546D17F60D51000617E5 /* gh@2x.png in Resources */,
 				D90F546E17F60D51000617E5 /* cc@2x.png in Resources */,
 				D933A61B17F61E3D00600617 /* icon-iphone.png in Resources */,
-				D90F547217F60D51000617E5 /* Default@2x.png in Resources */,
 				D90F547417F60D51000617E5 /* 29-heart.png in Resources */,
 				D90F547517F60D51000617E5 /* 29-heart@2x.png in Resources */,
 				D959ED6D17FDE82C000B0A5C /* Localizable.strings in Resources */,
@@ -4490,7 +4488,7 @@
 		D90F54A617F60D51000617E5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				ARCHS = "$(ARCHS_STANDARD)";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Chris Ballinger (XGV4GB4HMH)";
 				COPY_PHASE_STRIP = NO;
@@ -4509,8 +4507,8 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = Avam;
-				PROVISIONING_PROFILE = "D5FC4F01-538B-40A7-B832-C279DC305245";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "D5FC4F01-538B-40A7-B832-C279DC305245";
+				PROVISIONING_PROFILE = "D8595533-95A7-4909-99AD-F6C37EC84147";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "D8595533-95A7-4909-99AD-F6C37EC84147";
 				RUN_CLANG_STATIC_ANALYZER = NO;
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
@@ -4520,7 +4518,7 @@
 		D90F54A717F60D51000617E5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				ARCHS = "$(ARCHS_STANDARD)";
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Richard Jones";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = NO;
@@ -4539,8 +4537,8 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = Avam;
-				PROVISIONING_PROFILE = "942F6781-45AF-467A-B76E-A287C685577F";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "942F6781-45AF-467A-B76E-A287C685577F";
+				PROVISIONING_PROFILE = "AEDCA8C4-A95F-4185-B1F6-9477CBF41504";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "AEDCA8C4-A95F-4185-B1F6-9477CBF41504";
 				RUN_CLANG_STATIC_ANALYZER = NO;
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
